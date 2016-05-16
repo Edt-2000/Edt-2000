@@ -7,6 +7,8 @@
 #define Right_Y A2
 #define Right_Z A1
 
+#define LED 13
+
 // Define value variables
 int Left_X_Val = 0;
 int Left_Y_Val = 0;
@@ -16,13 +18,15 @@ int Right_X_Val = 0;
 int Right_Y_Val = 0;
 int Right_Z_Val = 0;
 
-String divider = ",";
+String divider = " ";
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
+  pinMode(LED, OUTPUT);
 }
 
 void loop() {
+  digitalWrite(LED, HIGH);
   // Read the values of each pin with a delay to give the analog converter time to recover in between
   Left_X_Val = analogRead(Left_X);
   delay(1);
@@ -36,6 +40,7 @@ void loop() {
   delay(1);
   Right_Z_Val = analogRead(Right_Z);
   delay(1);
+  digitalWrite(LED, LOW);
   // Print to a line seperated by divider
   Serial.println(Left_X_Val + divider + Left_Y_Val + divider + Left_Z_Val + divider + Right_X_Val + divider + Right_Y_Val + divider + Right_Z_Val);
 }
