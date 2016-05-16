@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 34.0, 79.0, 1446.0, 963.0 ],
+		"rect" : [ 34.0, 79.0, 971.0, 765.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -44,7 +44,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 442.0, 16.5, 30.0, 30.0 ],
+					"patching_rect" : [ 67.0, 55.5, 30.0, 30.0 ],
 					"style" : ""
 				}
 
@@ -56,7 +56,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 661.0, 562.5, 30.0, 30.0 ],
+					"patching_rect" : [ 310.0, 604.5, 30.0, 30.0 ],
 					"style" : ""
 				}
 
@@ -68,7 +68,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 611.0, 562.5, 30.0, 30.0 ],
+					"patching_rect" : [ 261.399994, 604.5, 30.0, 30.0 ],
 					"style" : ""
 				}
 
@@ -80,7 +80,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 565.0, 562.5, 30.0, 30.0 ],
+					"patching_rect" : [ 212.800003, 604.5, 30.0, 30.0 ],
 					"style" : ""
 				}
 
@@ -92,7 +92,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 509.0, 562.5, 30.0, 30.0 ],
+					"patching_rect" : [ 164.199997, 604.5, 30.0, 30.0 ],
 					"style" : ""
 				}
 
@@ -104,7 +104,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 467.5, 562.5, 30.0, 30.0 ],
+					"patching_rect" : [ 115.599998, 604.5, 30.0, 30.0 ],
 					"style" : ""
 				}
 
@@ -116,7 +116,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 418.0, 562.5, 30.0, 30.0 ],
+					"patching_rect" : [ 67.0, 604.5, 30.0, 30.0 ],
 					"style" : ""
 				}
 
@@ -128,7 +128,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 6,
 					"outlettype" : [ "int", "int", "int", "int", "int", "int" ],
-					"patching_rect" : [ 449.5, 474.0, 109.0, 22.0 ],
+					"patching_rect" : [ 67.0, 513.0, 109.0, 22.0 ],
 					"style" : "",
 					"text" : "unpack 0 0 0 0 0 0"
 				}
@@ -141,7 +141,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 446.0, 410.0, 73.0, 22.0 ],
+					"patching_rect" : [ 67.0, 449.0, 73.0, 22.0 ],
 					"style" : "",
 					"text" : "fromsymbol"
 				}
@@ -154,7 +154,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
-					"patching_rect" : [ 446.0, 340.0, 40.0, 22.0 ],
+					"patching_rect" : [ 67.0, 379.0, 40.0, 22.0 ],
 					"style" : "",
 					"text" : "itoa"
 				}
@@ -167,7 +167,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 446.0, 284.0, 83.0, 22.0 ],
+					"patching_rect" : [ 67.0, 323.0, 83.0, 22.0 ],
 					"style" : "",
 					"text" : "zl group 1000"
 				}
@@ -180,7 +180,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "" ],
-					"patching_rect" : [ 446.0, 224.0, 59.0, 22.0 ],
+					"patching_rect" : [ 67.0, 263.0, 59.0, 22.0 ],
 					"style" : "",
 					"text" : "sel 13 10"
 				}
@@ -194,7 +194,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 442.0, 75.0, 24.0, 24.0 ],
+					"patching_rect" : [ 67.0, 114.0, 24.0, 24.0 ],
 					"style" : ""
 				}
 
@@ -206,7 +206,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 442.0, 121.0, 58.0, 22.0 ],
+					"patching_rect" : [ 67.0, 160.0, 58.0, 22.0 ],
 					"style" : "",
 					"text" : "metro 10"
 				}
@@ -219,7 +219,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "" ],
-					"patching_rect" : [ 442.0, 165.0, 184.0, 22.0 ],
+					"patching_rect" : [ 67.0, 204.0, 184.0, 22.0 ],
 					"style" : "",
 					"text" : "serial usbserial-A800cFWe 9600"
 				}
