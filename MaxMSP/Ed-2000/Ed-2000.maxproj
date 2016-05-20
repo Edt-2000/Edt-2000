@@ -2,7 +2,7 @@
 	"name" : "Ed-2000",
 	"version" : 1,
 	"creationdate" : -748823651,
-	"modificationdate" : -748733231,
+	"modificationdate" : -748696095,
 	"viewrect" : [ 332.0, 209.0, 1335.0, 640.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -17,6 +17,11 @@
 			}
 ,
 			"Test 1.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
+			}
+,
+			"NunChuck.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}
