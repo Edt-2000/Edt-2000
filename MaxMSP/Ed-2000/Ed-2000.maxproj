@@ -2,7 +2,7 @@
 	"name" : "Ed-2000",
 	"version" : 1,
 	"creationdate" : -748823651,
-	"modificationdate" : -748696095,
+	"modificationdate" : -748259107,
 	"viewrect" : [ 332.0, 209.0, 1335.0, 640.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -10,18 +10,28 @@
 	"autolocalize" : 0,
 	"contents" : 	{
 		"patchers" : 		{
-			"Input Basic.maxpat" : 			{
+			"Ed-2000.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1,
 				"toplevel" : 1
 			}
 ,
-			"Test 1.maxpat" : 			{
+			"Ed-Chuck.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}
 ,
-			"NunChuck.maxpat" : 			{
+			"MidiTheremin.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
+			}
+,
+			"NotePlayer.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
+			}
+,
+			"Test 1.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}

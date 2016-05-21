@@ -21,25 +21,19 @@ int Right_Z_Val = 0;
 String divider = " ";
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(57600);
   pinMode(LED, OUTPUT);
 }
 
 void loop() {
   digitalWrite(LED, HIGH);
-  // Read the values of each pin with a delay to give the analog converter time to recover in between
+  // Read the values of each pin
   Left_X_Val = analogRead(Left_X);
-  delay(1);
   Left_Y_Val = analogRead(Left_Y);
-  delay(1);
   Left_Z_Val = analogRead(Left_Z);
-  delay(1);
   Right_X_Val = analogRead(Right_X);
-  delay(1);
   Right_Y_Val = analogRead(Right_Y);
-  delay(1);
   Right_Z_Val = analogRead(Right_Z);
-  delay(1);
   digitalWrite(LED, LOW);
   // Print to a line seperated by divider
   Serial.println(Left_X_Val + divider + Left_Y_Val + divider + Left_Z_Val + divider + Right_X_Val + divider + Right_Y_Val + divider + Right_Z_Val);
