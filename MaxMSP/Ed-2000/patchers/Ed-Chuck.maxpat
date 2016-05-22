@@ -223,7 +223,7 @@
 					"outlettype" : [ "int", "" ],
 					"patching_rect" : [ 67.0, 204.0, 172.0, 22.0 ],
 					"style" : "",
-					"text" : "serial usbmodem14131 57600"
+					"text" : "serial usbmodem14141 57600"
 				}
 
 			}
