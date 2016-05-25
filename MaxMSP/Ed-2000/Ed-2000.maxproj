@@ -2,7 +2,7 @@
 	"name" : "Ed-2000",
 	"version" : 1,
 	"creationdate" : -748823651,
-	"modificationdate" : -748259107,
+	"modificationdate" : -747996333,
 	"viewrect" : [ 332.0, 209.0, 1335.0, 640.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -32,6 +32,11 @@
 			}
 ,
 			"Test 1.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
+			}
+,
+			"Ed-2000 Switch Board.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}
