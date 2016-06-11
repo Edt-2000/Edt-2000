@@ -1,35 +1,39 @@
-#include <Wire.h>
-#include "nunchuck_funcs.h"
+#include "Wire.h"
+#include "wiichuck.h"
 
-int loop_cnt = 0;
+//constants
+#define readDelay 50 
 
-byte accx, accy, zbut, cbut, joyx, joyy;
-#define LED 13;
+//controllers
+WiiChuck chuck;
 
-String divider = " ";
-
+//globals
+unsigned long previous_read_time = 0;
+int sweepIncrement = 10;
+boolean autonomous = false;
 
 void setup()
 {
-	Serial.begin(57600);
-	nunchuck_setpowerpins();
-	nunchuck_init(); // send the initilization handshake
+	Wire.begin();
+	Serial.begin(9600);
+	previous_read_time = millis();
 }
 
 void loop()
 {
-	nunchuck_get_data();
+	if (!chuck.inSync)
+	{
+		chuck.init();
+	}
 
-	joyx = nunchuck_joyx();
-	joyy = nunchuck_joyy();
-	zbut = nunchuck_zbutton();
-	cbut = nunchuck_cbutton();
-	Serial.println(
-		int((byte)joyx) + divider +
-		int((byte)joyy) + divider +
-		int((byte)zbut) + divider +
-		int((byte)cbut)
-		);
+	if (chuck.inSync && (millis() - previous_read_time > readDelay))
+	{
+		previous_read_time = millis();
+		if (chuck.readData())
+		{
 
-	delay(1);
+			Serial.println(chuck.btn_z);
+		}
+	}
 }
+
