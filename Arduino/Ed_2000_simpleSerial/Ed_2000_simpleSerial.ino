@@ -1,11 +1,11 @@
 // Define analog pins
-#define Left_X A3
-#define Left_Y A4
-#define Left_Z A5
+#define Left_X A2
+#define Left_Y A0
+#define Left_Z A1
 
-#define Right_X A0
-#define Right_Y A2
-#define Right_Z A1
+#define Right_X A5
+#define Right_Y A3
+#define Right_Z A4
 
 #define LED 13
 
@@ -18,10 +18,11 @@ int Right_X_Val = 0;
 int Right_Y_Val = 0;
 int Right_Z_Val = 0;
 
-String divider = " ";
+String divider = "-";
+String endPoint = ":";
 
 void setup() {
-  Serial.begin(57600);
+  Serial.begin(1000000);
   pinMode(LED, OUTPUT);
 }
 
@@ -36,5 +37,18 @@ void loop() {
   Right_Z_Val = analogRead(Right_Z);
   digitalWrite(LED, LOW);
   // Print to a line seperated by divider
-  Serial.println(Left_X_Val + divider + Left_Y_Val + divider + Left_Z_Val + divider + Right_X_Val + divider + Right_Y_Val + divider + Right_Z_Val);
+  Serial.print(
+    Left_X_Val + 
+    divider + 
+    Left_Y_Val + 
+    divider + 
+    Left_Z_Val + 
+    divider + 
+    Right_X_Val + 
+    divider + 
+    Right_Y_Val + 
+    divider + 
+    Right_Z_Val + 
+    endPoint
+    );
 }

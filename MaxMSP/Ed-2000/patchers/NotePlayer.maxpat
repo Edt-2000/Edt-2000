@@ -56,9 +56,9 @@
 					"numinlets" : 10,
 					"numoutlets" : 10,
 					"outlettype" : [ "bang", "bang", "bang", "bang", "bang", "bang", "bang", "bang", "bang", "" ],
-					"patching_rect" : [ 154.0, 581.0, 139.0, 22.0 ],
+					"patching_rect" : [ 154.0, 581.0, 146.0, 22.0 ],
 					"style" : "",
-					"text" : "select <0 0 1 2 3 4 5 6 7"
+					"text" : "select <0 0 1 2 3 4 5 6 <7"
 				}
 
 			}
@@ -172,21 +172,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 154.0, 28.0, 24.0, 24.0 ],
+					"patching_rect" : [ 45.0, 66.0, 24.0, 24.0 ],
 					"style" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-8",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 154.0, 80.0, 51.0, 22.0 ],
-					"style" : "",
-					"text" : "metro 5"
 				}
 
 			}
@@ -437,9 +424,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 45.0, 128.0, 164.5, 22.0 ],
+					"patching_rect" : [ 45.0, 128.0, 89.0, 22.0 ],
 					"style" : "",
-					"text" : "Ed-2000"
+					"text" : "Edt-2000-OSC"
 				}
 
 			}
@@ -473,7 +460,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
+					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-13", 0 ]
@@ -770,15 +757,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-8", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-5", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -797,10 +775,14 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "Ed-2000.maxpat",
+				"name" : "Edt-2000-OSC.maxpat",
 				"bootpath" : "~/Dropbox/Arduino/Ed-2000/MaxMSP/Ed-2000/patchers",
 				"type" : "JSON",
 				"implicit" : 1
+			}
+, 			{
+				"name" : "OSC-route.mxo",
+				"type" : "iLaX"
 			}
  ],
 		"autosave" : 0

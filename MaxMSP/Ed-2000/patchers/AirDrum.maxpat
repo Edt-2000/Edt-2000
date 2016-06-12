@@ -975,21 +975,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 24.0, 21.0, 24.0, 24.0 ],
+					"patching_rect" : [ 24.0, 56.0, 24.0, 24.0 ],
 					"style" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-12",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 24.0, 65.0, 51.0, 22.0 ],
-					"style" : "",
-					"text" : "metro 1"
 				}
 
 			}
@@ -1060,9 +1047,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 24.0, 114.0, 128.5, 22.0 ],
+					"patching_rect" : [ 24.0, 114.0, 89.0, 22.0 ],
 					"style" : "",
-					"text" : "Ed-2000"
+					"text" : "Edt-2000-OSC"
 				}
 
 			}
@@ -1172,15 +1159,6 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-113", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-12", 0 ]
 				}
 
 			}
@@ -1915,7 +1893,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
+					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-9", 0 ]
@@ -1924,10 +1902,14 @@
 			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "Ed-2000.maxpat",
+				"name" : "Edt-2000-OSC.maxpat",
 				"bootpath" : "~/Dropbox/Arduino/Ed-2000/MaxMSP/Ed-2000/patchers",
 				"type" : "JSON",
 				"implicit" : 1
+			}
+, 			{
+				"name" : "OSC-route.mxo",
+				"type" : "iLaX"
 			}
  ],
 		"autosave" : 0

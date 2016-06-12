@@ -2,7 +2,7 @@
 	"name" : "Ed-2000",
 	"version" : 1,
 	"creationdate" : -748823651,
-	"modificationdate" : -746447048,
+	"modificationdate" : -746393505,
 	"viewrect" : [ 166.0, 203.0, 1335.0, 640.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -10,10 +10,14 @@
 	"autolocalize" : 0,
 	"contents" : 	{
 		"patchers" : 		{
+			"Edt-2000-OSC.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
+			}
+,
 			"Ed-2000.maxpat" : 			{
 				"kind" : "patcher",
-				"local" : 1,
-				"toplevel" : 1
+				"local" : 1
 			}
 ,
 			"Ed-Chuck.maxpat" : 			{
@@ -55,6 +59,15 @@
 				"kind" : "patcher",
 				"local" : 1
 			}
+,
+			"sendToExt.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
+			}
+
+		}
+,
+		"externals" : 		{
 
 		}
 
