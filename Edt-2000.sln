@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ed_2000_simpleMidi", "Arduino\Ed_2000_simpleMidi\Ed_2000_simpleMidi.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ed_2000_simpleSerial", "Arduino\Ed_2000_simpleSerial\Ed_2000_simpleSerial.vcxproj", "{B17DC9DC-49E6-4509-AF07-2345162D9C2F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ed_2000_WiiChuck", "Arduino\Ed_2000_WiiChuck\Ed_2000_WiiChuck.vcxproj", "{6DCA3982-1DC1-4B4A-95FD-2F80D263D3A9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ed_2000_WiiChuckSerial", "Arduino\Ed_2000_WiiChuckSerial\Ed_2000_WiiChuckSerial.vcxproj", "{521FEEB5-DE7C-4A30-83A6-F0ED953C41B6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_2000_WiirelessChuckSerial", "Arduino\Edt_2000_WiirelessChuckSerial\Edt_2000_WiirelessChuckSerial.vcxproj", "{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x64.ActiveCfg = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.Build.0 = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x64.ActiveCfg = Release|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.ActiveCfg = Release|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.Build.0 = Release|Win32
+		{B17DC9DC-49E6-4509-AF07-2345162D9C2F}.Debug|x64.ActiveCfg = Debug|Win32
+		{B17DC9DC-49E6-4509-AF07-2345162D9C2F}.Debug|x86.ActiveCfg = Debug|Win32
+		{B17DC9DC-49E6-4509-AF07-2345162D9C2F}.Debug|x86.Build.0 = Debug|Win32
+		{B17DC9DC-49E6-4509-AF07-2345162D9C2F}.Release|x64.ActiveCfg = Release|Win32
+		{B17DC9DC-49E6-4509-AF07-2345162D9C2F}.Release|x86.ActiveCfg = Release|Win32
+		{B17DC9DC-49E6-4509-AF07-2345162D9C2F}.Release|x86.Build.0 = Release|Win32
+		{6DCA3982-1DC1-4B4A-95FD-2F80D263D3A9}.Debug|x64.ActiveCfg = Debug|Win32
+		{6DCA3982-1DC1-4B4A-95FD-2F80D263D3A9}.Debug|x86.ActiveCfg = Debug|Win32
+		{6DCA3982-1DC1-4B4A-95FD-2F80D263D3A9}.Debug|x86.Build.0 = Debug|Win32
+		{6DCA3982-1DC1-4B4A-95FD-2F80D263D3A9}.Release|x64.ActiveCfg = Release|Win32
+		{6DCA3982-1DC1-4B4A-95FD-2F80D263D3A9}.Release|x86.ActiveCfg = Release|Win32
+		{6DCA3982-1DC1-4B4A-95FD-2F80D263D3A9}.Release|x86.Build.0 = Release|Win32
+		{521FEEB5-DE7C-4A30-83A6-F0ED953C41B6}.Debug|x64.ActiveCfg = Debug|Win32
+		{521FEEB5-DE7C-4A30-83A6-F0ED953C41B6}.Debug|x86.ActiveCfg = Debug|Win32
+		{521FEEB5-DE7C-4A30-83A6-F0ED953C41B6}.Debug|x86.Build.0 = Debug|Win32
+		{521FEEB5-DE7C-4A30-83A6-F0ED953C41B6}.Release|x64.ActiveCfg = Release|Win32
+		{521FEEB5-DE7C-4A30-83A6-F0ED953C41B6}.Release|x86.ActiveCfg = Release|Win32
+		{521FEEB5-DE7C-4A30-83A6-F0ED953C41B6}.Release|x86.Build.0 = Release|Win32
+		{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}.Debug|x64.ActiveCfg = Debug|Win32
+		{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}.Debug|x86.ActiveCfg = Debug|Win32
+		{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}.Debug|x86.Build.0 = Debug|Win32
+		{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}.Release|x64.ActiveCfg = Release|Win32
+		{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}.Release|x86.ActiveCfg = Release|Win32
+		{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,9 +1,7 @@
 #
 
 .vs/*
-*.vcxproj
 *.filters
-*.sln
 **/__vm
 *.buildinfo
 *.elf
