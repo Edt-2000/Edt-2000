@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ed_2000_simpleMidi", "Arduino\Ed_2000_simpleMidi\Ed_2000_simpleMidi.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ed_2000_WiiChuckSerial", "Arduino\Ed_2000_WiiChuckSerial\Ed_2000_WiiChuckSerial.vcxproj", "{521FEEB5-DE7C-4A30-83A6-F0ED953C41B6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_2000_WiirelessChuckSerial", "Arduino\Edt_2000_WiirelessChuckSerial\Edt_2000_WiirelessChuckSerial.vcxproj", "{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_2000_OSC_Test1", "Arduino\Edt_2000_OSC_Test1\Edt_2000_OSC_Test1.vcxproj", "{FEB2D760-5711-42AD-993F-D6512FEE4216}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,12 @@ Global
 		{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}.Release|x64.ActiveCfg = Release|Win32
 		{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}.Release|x86.ActiveCfg = Release|Win32
 		{B938A7D8-20DE-43BE-9921-E9B5AF66FEF8}.Release|x86.Build.0 = Release|Win32
+		{FEB2D760-5711-42AD-993F-D6512FEE4216}.Debug|x64.ActiveCfg = Debug|Win32
+		{FEB2D760-5711-42AD-993F-D6512FEE4216}.Debug|x86.ActiveCfg = Debug|Win32
+		{FEB2D760-5711-42AD-993F-D6512FEE4216}.Debug|x86.Build.0 = Debug|Win32
+		{FEB2D760-5711-42AD-993F-D6512FEE4216}.Release|x64.ActiveCfg = Release|Win32
+		{FEB2D760-5711-42AD-993F-D6512FEE4216}.Release|x86.ActiveCfg = Release|Win32
+		{FEB2D760-5711-42AD-993F-D6512FEE4216}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
