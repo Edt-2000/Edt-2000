@@ -16,6 +16,9 @@ int greenLEDPin = 6;
 int localButtonPin = 8;
 bool localButton = false;
 
+long start;
+long stop;
+
 EthernetUDP Udp;
 
 void setup() {
@@ -50,6 +53,8 @@ void loop() {
 
 		digitalWrite(redLEDPin, !localButton);
 
+		start = micros();
+
 		OSCMessage msgOUT("/Button/1");
 
 		msgOUT.add<int>(!localButton);
@@ -66,12 +71,8 @@ void OSCMsgReceive() {
 	int size;
 	if ((size = Udp.parsePacket())>0) {
 		while (size--) {
-			Serial.write(Udp.peek());
-
 			msgIN.fill(Udp.read());
-
 		}
-		Serial.println();
 
 		if (!msgIN.hasError()) {
 			msgIN.route("/Button/1", toggleOnOff);
@@ -82,5 +83,11 @@ void OSCMsgReceive() {
 void toggleOnOff(OSCMessage &msg, int addrOffset) {
 	int state = msg.getInt(0);
 	digitalWrite(greenLEDPin, state);
+
+	stop = micros();
+
+	Serial.print("Message exchange took: ");
+	Serial.print(stop - start);
+	Serial.println(" us");
 }
 
