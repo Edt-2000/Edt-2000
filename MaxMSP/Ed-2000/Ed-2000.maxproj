@@ -2,7 +2,7 @@
 	"name" : "Ed-2000",
 	"version" : 1,
 	"creationdate" : -748823651,
-	"modificationdate" : -746393505,
+	"modificationdate" : -746379893,
 	"viewrect" : [ 166.0, 203.0, 1335.0, 640.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -61,6 +61,11 @@
 			}
 ,
 			"sendToExt.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
+			}
+,
+			"OSC-Keys-test.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}
