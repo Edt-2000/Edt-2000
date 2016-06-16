@@ -18,15 +18,16 @@ byte mac[] = {
 
 int serverPort = 8000; //TouchOSC (incoming port)
 int destPort = 9000;    //TouchOSC (outgoing port)
-int ledPin = 8;       //pin 13 on Arduino Uno. Pin 6 on a Teensy++2
+int ledPin = 9;       //pin 13 on Arduino Uno. Pin 6 on a Teensy++2
 int ledState = LOW;
+int ledIntensity = 0;
 
 //Create UDP message object
 EthernetUDP Udp;
 
 void setup() {
 	pinMode(ledPin, OUTPUT);
-	digitalWrite(ledPin, LOW);
+	analogWrite(ledPin, ledIntensity);
 
 	Serial.begin(9600); //9600 for a "normal" Arduino board (Uno for example). 115200 for a Teensy ++2 
 	Serial.println("OSC test");
@@ -71,7 +72,7 @@ void OSCMsgReceive() {
 
 		if (!msgIN.hasError()) {
 			msgIN.route("/ToggleButton1", toggleOnOff);
-			msgIN.route("/Fader/Value", funcValue);
+			msgIN.route("/SliderH2", funcValue);
 		}
 	}
 }
@@ -80,7 +81,12 @@ void toggleOnOff(OSCMessage &msg, int addrOffset) {
 	ledState = msg.getInt(0);
 	OSCMessage msgOUT("/ToggleButton1");
 
-	digitalWrite(ledPin, ledState);
+	if (ledState) {
+		analogWrite(ledPin, ledIntensity);
+	}
+	else {
+		analogWrite(ledPin, 0);
+	}
 
 	msgOUT.add(ledState);
 	if (ledState) {
@@ -90,11 +96,6 @@ void toggleOnOff(OSCMessage &msg, int addrOffset) {
 		Serial.println("LED off");
 	}
 
-	//ledState = !ledState;		 // toggle the state from HIGH to LOW to HIGH to LOW ...
-
-								 //send osc message back to controll object in TouchOSC
-								 //Local feedback is turned off in the TouchOSC interface.
-								 //The button is turned on in TouchOSC interface whe the conrol receives this message.
 	Udp.beginPacket(Udp.remoteIP(), destPort);
 	msgOUT.send(Udp); // send the bytes
 	Udp.endPacket(); // mark the end of the OSC Packet
@@ -103,13 +104,20 @@ void toggleOnOff(OSCMessage &msg, int addrOffset) {
 
 void funcValue(OSCMessage &msg, int addrOffset) {
 
-	int value = msg.getFloat(0);
-	OSCMessage msgOUT("/Fader/Value");
+	ledIntensity = msg.getInt(0) * 2;
+	OSCMessage msgOUT("/SliderH2");
+
+	if (ledState) {
+		analogWrite(ledPin, ledIntensity);
+	}
+	else {
+		analogWrite(ledPin, 0);
+	}
 
 	Serial.print("Value = : ");
-	Serial.println(value);
+	Serial.println(ledIntensity);
 
-	msgOUT.add(value);
+	msgOUT.add(ledIntensity);
 
 	Udp.beginPacket(Udp.remoteIP(), destPort);
 	msgOUT.send(Udp); // send the bytes
