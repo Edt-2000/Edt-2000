@@ -12,3 +12,7 @@ Edwin
 * Arduino's that fit into the Edt housing
 * Wireless modules to create Edt-Light Suits!
 * EL Wire to test with
+
+Thomas
+
+* Arduino with Ethernet (http://www.arduino.org/products/boards/arduino-leonardo-eth, webshop: https://www.antratek.nl/arduino-ethernet)
