@@ -1,7 +1,7 @@
 # Ed-2000
 Arduino &amp; GameTrak based expressive midi controller
 
-## Wishlist [http://www.floris.cc](Floris.cc)
+## Wishlist [Floris.cc](http://www.floris.cc)
 
 Edwin
 
