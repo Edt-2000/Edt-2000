@@ -22,9 +22,9 @@ Thomas
 ### Edt-Trak
 
 ```
-URL                                                 Data type   Range       Description
-/Trak[0-9]+/{x,y,z}/{left,right}                    f           0 - 256     XYZ sensor
-/Trak[0-9]+/footpedal                               f           0 - 1       Footpedal
-/Trak[0-9]+/chuk[0-9]+/{x,y}                        f           0 - 256     Nunchuk XY joystick
-/Trak[0-9]+/chuk[0-9]+/{c,z}                        f           0 - 1       Nunchuck C and Z buttons
+URL                                           Data types  Range       Description
+/Trak[0-9]+/{left,right}                      f,f,f       0 - 256     XYZ sensor
+/Trak[0-9]+/footpedal                         f           0 - 1       Footpedal
+/Trak[0-9]+/chuk[0-9]+                        f,f         0 - 256     Nunchuk XY joystick
+/Trak[0-9]+/chuk[0-9]+                        f,f         0 - 1       Nunchuck C and Z buttons
 ```
