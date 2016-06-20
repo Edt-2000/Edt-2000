@@ -22,8 +22,8 @@ Thomas
 
 ```
 URL                                                 Data type   Range       Description
-/Trak[0-9]+/{x,y,z}/{left,right}                    i           0 - 256     XYZ sensor
-/Trak[0-9]+/footpedal                               b           0 - 1       Footpedal
-/Trak[0-9]+/chuk[0-9]+/{x,y}                        i           0 - 256     Nunchuk XY joystick
-/Trak[0-9]+/chuk[0-9]+/{c,z}                        b           0 - 1       Nunchuck C and Z buttons
+/Trak[0-9]+/{x,y,z}/{left,right}                    f           0 - 256     XYZ sensor
+/Trak[0-9]+/footpedal                               f           0 - 1       Footpedal
+/Trak[0-9]+/chuk[0-9]+/{x,y}                        f           0 - 256     Nunchuk XY joystick
+/Trak[0-9]+/chuk[0-9]+/{c,z}                        f           0 - 1       Nunchuck C and Z buttons
 ```
