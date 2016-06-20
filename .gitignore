@@ -6,5 +6,5 @@
 *.buildinfo
 *.elf
 *.hex
-CSharp/Edt_2000_OCS_Mirror/obj/
-CSharp/Edt_2000_OCS_Mirror/bin/
+**/obj/*
+**/bin/*
