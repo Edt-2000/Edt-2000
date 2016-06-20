@@ -1,11 +1,11 @@
 # Edt-2000
 
 ```
-Gametrack           Footpedal
-  |                   |
-  | 6 x analog        | 1 x digital
-  |                   |
-Arduino + Ethernet ---|
+Gametrak                     Footpedal
+  |                              |
+  | 6 x analog                   | 1 x digital
+  |                              |
+Arduino + Ethernet: "Edt-Trak"---|
   |
   | OSC over Ethernet
   |
