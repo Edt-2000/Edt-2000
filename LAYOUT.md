@@ -11,7 +11,7 @@ Arduino + Ethernet: "Edt-Trak"---|
   |
   |
   | 
-  |-------------- Arduino + Ethernet
+"Edt-Cetera" mainframe OSC broadcaster + logging
   |                  |
   |                  |
   |               EL wire + Neopixels
