@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edt_Broadcaster_v1", "CShar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpOSC", "CSharp\libraries\SharpOSC-master\SharpOSC\SharpOSC.csproj", "{9B922B0B-5595-4E05-8270-F63FAAA6C299}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_2000_PlatformIOTest", "Arduino\Edt_2000_PlatformIOTest\platformio.vcxproj", "{0FA9C3A8-452B-41EF-A418-9102B170F49F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_Trak_v2", "Arduino\Edt_Trak_v2\Edt_Trak_v2.vcxproj", "{46ADCAAC-A212-4F48-9140-F567C56DB885}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -179,6 +183,30 @@ Global
 		{9B922B0B-5595-4E05-8270-F63FAAA6C299}.Release|x64.ActiveCfg = Release|Any CPU
 		{9B922B0B-5595-4E05-8270-F63FAAA6C299}.Release|x64.Build.0 = Release|Any CPU
 		{9B922B0B-5595-4E05-8270-F63FAAA6C299}.Release|x86.ActiveCfg = Release|Any CPU
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Debug|x64.ActiveCfg = Debug|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Debug|x86.ActiveCfg = Debug|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Debug|x86.Build.0 = Debug|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Release|Any CPU.ActiveCfg = Release|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Release|x64.ActiveCfg = Release|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Release|x86.ActiveCfg = Release|Win32
+		{0FA9C3A8-452B-41EF-A418-9102B170F49F}.Release|x86.Build.0 = Release|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Debug|x64.ActiveCfg = Debug|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Debug|x86.ActiveCfg = Debug|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Debug|x86.Build.0 = Debug|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|Any CPU.ActiveCfg = Release|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|x64.ActiveCfg = Release|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|x86.ActiveCfg = Release|Win32
+		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

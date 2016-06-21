@@ -8,3 +8,5 @@
 *.hex
 **/obj/*
 **/bin/*
+*.log
+*.yml
