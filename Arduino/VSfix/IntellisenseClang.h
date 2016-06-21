@@ -8,5 +8,4 @@
 #define __inline__
 #define __builtin_constant_p
 #define _Bool bool
-#undef __cplusplus
 #endif
