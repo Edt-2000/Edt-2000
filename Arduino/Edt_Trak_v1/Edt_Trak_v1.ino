@@ -18,7 +18,6 @@ IPAddress ipBroadcaster = { 192, 168, 0, 101 };
 
 char * oscPrefix = "/Trak1/";
 char * oscGameTrakName[] = { "left", "right" };
-char * oscGameTrakDimensions[] = { "X","Y","Z" };
 
 int portLocal = 8000;
 int portBroadcaster = 9000;
@@ -65,25 +64,25 @@ void loop() {
 	time.loop();
 
 	//if (time.t100ms) {
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
-				char url[48];
 
-				strcpy(url, oscPrefix);
-				strcat(url, oscGameTrakName[i]);
-				strcat(url, "/");
-				strcat(url, oscGameTrakDimensions[j]);
 
-				OSCMessage message = OSCMessage(url);
+	for (int i = 0; i < 2; i++) {
+		char url[48];
 
-				message.add<float>((float)analogRead(gameTrakPinConfig[i][j]));
+		strcpy(url, oscPrefix);
+		strcat(url, oscGameTrakName[i]);
 
-				udp.beginPacket(ipBroadcaster, portBroadcaster);
-				message.send(udp);
-				udp.endPacket();
+		OSCMessage message = OSCMessage(url);
 
-				message.empty();
-			}
+		for (int j = 0; j < 3; j++) {
+			message.add<float>((float)analogRead(gameTrakPinConfig[i][j]));
 		}
+
+		udp.beginPacket(ipBroadcaster, portBroadcaster);
+		message.send(udp);
+		message.empty();
+		udp.endPacket();
+	}
+
 	//}
 }
