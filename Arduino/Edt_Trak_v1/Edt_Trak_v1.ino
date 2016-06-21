@@ -75,7 +75,7 @@ void loop() {
 		OSCMessage message = OSCMessage(url);
 
 		for (int j = 0; j < 3; j++) {
-			message.add<float>((float)analogRead(gameTrakPinConfig[i][j]));
+			message.add<float>((float)analogRead(gameTrakPinConfig[i][j] / 1023.0));
 		}
 
 		udp.beginPacket(ipBroadcaster, portBroadcaster);
