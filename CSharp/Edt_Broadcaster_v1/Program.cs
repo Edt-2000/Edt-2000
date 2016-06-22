@@ -1,5 +1,7 @@
 ﻿/*
  * Edt Broadcaster v1
+ * 
+ * This broadcaster is used for monitoring and relaying. Multicast should be enabled on all nodes sending UDP messages, making the relaying functionality superfluous.
  */
 using System;
 using System.Collections.Generic;
@@ -14,10 +16,17 @@ namespace Edt_Broadcaster_v1
 	class Program
 	{
 		static DateTime previous;
-		static int messagesPerSecond = 0;
+		
+		static string[] broadcastList = { "192.168.0.120", "192.168.0.108" };
+		static List<UDPSender> broadcastSenders = new List<UDPSender>();
 
 		static void Main(string[] args)
 		{
+			foreach(string ip in broadcastList)
+			{
+				broadcastSenders.Add(new UDPSender(ip, 8000));
+			}
+
 			while (true)
 			{
 				previous = DateTime.Now;
@@ -27,22 +36,21 @@ namespace Edt_Broadcaster_v1
 				{
 					var messageReceived = (OscMessage)packet;
 
-					//Console.WriteLine(messageReceived.Address + " - "  + string.Join(",",messageReceived.Arguments));
+					Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - "  + messageReceived.OriginEP.Port + " - "  + string.Join(",",messageReceived.Arguments));
 
-					messagesPerSecond++;
-
-					if(DateTime.Now.Subtract(previous).TotalSeconds >= 1)
+					foreach(UDPSender sender in broadcastSenders)
 					{
-						previous = DateTime.Now;
+						if(sender.Address != messageReceived.OriginEP.Address.ToString())
+						{
+							Console.WriteLine("Sending to " + sender.Address);
 
-						Console.WriteLine("Messages per second: " + messagesPerSecond + ". Time per message: " + (1000.0 / messagesPerSecond) + " ms.");
-
-						messagesPerSecond = 0;
+							sender.Send(messageReceived);
+						}
 					}
 				};
 
 				var listener = new UDPListener(9000, callback);
-
+				
 				Console.WriteLine("Press enter to stop");
 				Console.ReadLine();
 				listener.Close();
