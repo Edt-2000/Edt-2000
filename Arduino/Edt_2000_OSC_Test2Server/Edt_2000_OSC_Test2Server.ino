@@ -5,7 +5,8 @@
 
 byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 
-IPAddress mirror = { 192, 168, 0, 100 };
+IPAddress mirror = { 192, 168, 0, 101 };
+IPAddress ip = { 192, 168, 0, 120 };
 
 int serverPort = 8000;
 int destPort = 9000;
@@ -13,11 +14,13 @@ int destPort = 9000;
 int redLEDPin = 5;
 int greenLEDPin = 6;
 
-int localButtonPin = 8;
+int localButtonPin = A5;
 bool localButton = false;
 
 long start;
 long stop;
+
+int messages = 0;
 
 EthernetUDP Udp;
 
@@ -30,39 +33,39 @@ void setup() {
 	Serial.begin(9600);
 	Serial.println("OSC test");
 
-	if (Ethernet.begin(mac) == 0) {
-		Serial.println("Failed to configure Ethernet using DHCP");
-		while (true);
-	}
-	
-	Serial.print("Arduino IP address: ");
-	for (byte thisByte = 0; thisByte < 4; thisByte++) {
-		Serial.print(Ethernet.localIP()[thisByte], DEC);
-		Serial.print(".");
-	}
-	Serial.println();
+	Serial.println("Ethernet starting..");
+	Ethernet.begin(mac, ip);
+	Serial.println("Ethernet started.");
 
+	Serial.println("Udp starting..");
 	Udp.begin(serverPort);
+	Serial.println("Udp started.");
 }
 
 void loop() {
-	OSCMsgReceive();
+	//OSCMsgReceive();
 
 	if (localButton != digitalRead(localButtonPin)) {
+		Serial.print("Button event ");
+		Serial.println(++messages);
+
 		localButton = !localButton;
 
-		digitalWrite(redLEDPin, !localButton);
+		digitalWrite(redLEDPin, localButton);
+
+		Serial.println("Button event send");
 
 		start = micros();
 
 		OSCMessage msgOUT("/Button/1");
 
-		msgOUT.add<int>(!localButton);
+		msgOUT.add<int>(localButton);
 
 		Udp.beginPacket(mirror, destPort);
 		msgOUT.send(Udp);
 		Udp.endPacket();
 		msgOUT.empty();
+		Serial.println("Button event sent");
 	}
 }
 
