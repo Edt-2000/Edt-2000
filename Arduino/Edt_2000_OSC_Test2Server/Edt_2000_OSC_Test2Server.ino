@@ -43,7 +43,7 @@ void setup() {
 }
 
 void loop() {
-	//OSCMsgReceive();
+	OSCMsgReceive();
 
 	if (localButton != digitalRead(localButtonPin)) {
 		Serial.print("Button event ");
@@ -76,6 +76,8 @@ void OSCMsgReceive() {
 		while (size--) {
 			msgIN.fill(Udp.read());
 		}
+
+		Serial.println("Message received");
 
 		if (!msgIN.hasError()) {
 			msgIN.route("/Button/1", toggleOnOff);
