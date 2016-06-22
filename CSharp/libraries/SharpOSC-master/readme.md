@@ -1,6 +1,10 @@
 SharpOSC - OSC Library for .NET 3.5
 ===================================
 
+Edits
+-----
+
+* OSCBundle / -Packet / -Message now support OriginEP (IPEndPoint) parameter indicating origin of the message.
 
 SharpOSC is a small library designed to make interacting with Open Sound Control easy (OSC). It provides the following features:
 
@@ -47,14 +51,14 @@ Supported Types
 License
 -------
 
-SharpOSC is licensed under the MIT license. 
+SharpOSC is licensed under the MIT license.
 
 See License.txt
 
 Using The Library
 -----------------
 
-To use the library add a reference to SharpOSC.dll in your .NET project. SharpOSC should now be available to use in your code under that namespace "SharpOSC". 
+To use the library add a reference to SharpOSC.dll in your .NET project. SharpOSC should now be available to use in your code under that namespace "SharpOSC".
 
 Example: Sending a message
 --------------------------
