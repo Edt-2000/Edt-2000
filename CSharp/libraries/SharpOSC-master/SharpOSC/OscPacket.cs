@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 namespace SharpOSC
 {
 	public abstract class OscPacket
 	{
-		public static OscPacket GetPacket(byte[] OscData)
+		public static OscPacket GetPacket(byte[] OscData, IPEndPoint originEP)
 		{
 			if (OscData[0] == '#')
-				return parseBundle(OscData);
+				return parseBundle(OscData, originEP);
 			else
-				return parseMessage(OscData);
+				return parseMessage(OscData, originEP);
 		}
 
 		public abstract byte[] GetBytes();
@@ -24,7 +25,7 @@ namespace SharpOSC
 		/// </summary>
 		/// <param name="msg"></param>
 		/// <returns>Message containing various arguments and an address</returns>
-		private static OscMessage parseMessage(byte[] msg)
+		private static OscMessage parseMessage(byte[] msg, IPEndPoint originEP)
 		{
 			int index = 0;
 
@@ -164,7 +165,7 @@ namespace SharpOSC
 					index++;
 			}
 
-			return new OscMessage(address, arguments.ToArray());
+			return new OscMessage(address, originEP, arguments.ToArray());
 		}
 
 		/// <summary>
@@ -172,7 +173,7 @@ namespace SharpOSC
 		/// </summary>
 		/// <param name="bundle"></param>
 		/// <returns>Bundle containing elements and a timetag</returns>
-		private static OscBundle parseBundle(byte[] bundle)
+		private static OscBundle parseBundle(byte[] bundle, IPEndPoint originEP)
 		{
 			UInt64 timetag;
 			List<OscMessage> messages = new List<OscMessage>();
@@ -194,7 +195,7 @@ namespace SharpOSC
 				index += 4;
 
 				byte[] messageBytes = bundle.SubArray(index, size);
-				var message = parseMessage(messageBytes);
+				var message = parseMessage(messageBytes, originEP);
 
 				messages.Add(message);
 
@@ -203,7 +204,7 @@ namespace SharpOSC
 					index++;
 			}
 
-			OscBundle output = new OscBundle(timetag, messages.ToArray());
+			OscBundle output = new OscBundle(timetag, originEP, messages.ToArray());
 			return output;
 		}
 

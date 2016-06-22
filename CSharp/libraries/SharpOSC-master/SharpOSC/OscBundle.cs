@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 namespace SharpOSC
@@ -8,6 +9,7 @@ namespace SharpOSC
 	public class OscBundle : OscPacket
 	{
 		Timetag _timetag;
+		public IPEndPoint OriginEP;
 
 		public UInt64 Timetag
 		{
@@ -23,9 +25,11 @@ namespace SharpOSC
 
 		public List<OscMessage> Messages;
 
-		public OscBundle(UInt64 timetag, params OscMessage[] args)
+		public OscBundle(UInt64 timetag, IPEndPoint originEP, params OscMessage[] args)
 		{
 			_timetag = new Timetag(timetag);
+			this.OriginEP = originEP;
+
 			Messages = new List<OscMessage>();
 			Messages.AddRange(args);
 		}

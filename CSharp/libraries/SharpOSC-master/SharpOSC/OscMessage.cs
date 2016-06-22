@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 namespace SharpOSC
@@ -9,10 +10,13 @@ namespace SharpOSC
 	{
 		public string Address;
 		public List<object> Arguments;
+		public IPEndPoint OriginEP;
 
-		public OscMessage(string address, params object[] args)
+		public OscMessage(string address, IPEndPoint originEP, params object[] args)
 		{
 			this.Address = address;
+			this.OriginEP = originEP;
+
 			Arguments = new List<object>();
 			Arguments.AddRange(args);
 		}

@@ -72,9 +72,11 @@ namespace SharpOSC
 			Monitor.Enter(callbackLock);
 			Byte[] bytes = null;
 
+			IPEndPoint remoteEP = null;
+
 			try
 			{
-				bytes = receivingUdpClient.EndReceive(result, ref RemoteIpEndPoint);
+				bytes = receivingUdpClient.EndReceive(result, ref remoteEP);
 			}
 			catch (ObjectDisposedException e)
 			{ 
@@ -93,7 +95,7 @@ namespace SharpOSC
 					OscPacket packet = null;
 					try
 					{
-						packet = OscPacket.GetPacket(bytes);
+						packet = OscPacket.GetPacket(bytes, remoteEP);
 					}
 					catch (Exception e)
 					{
@@ -149,7 +151,7 @@ namespace SharpOSC
 				if (queue.Count() > 0)
 				{
 					byte[] bytes = queue.Dequeue();
-					var packet = OscPacket.GetPacket(bytes);
+					var packet = OscPacket.GetPacket(bytes, null);
 					return packet;
 				}
 				else
