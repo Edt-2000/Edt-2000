@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_2000_PlatformIOTest", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_Trak_v2", "Arduino\Edt_Trak_v2\Edt_Trak_v2.vcxproj", "{46ADCAAC-A212-4F48-9140-F567C56DB885}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_2000_ESP8266Test", "Arduino\Edt_2000_ESP8266Test\Edt_2000_ESP8266Test.vcxproj", "{08F50A45-B862-4E06-BEEE-4283780615F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -207,6 +209,18 @@ Global
 		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|x64.ActiveCfg = Release|Win32
 		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|x86.ActiveCfg = Release|Win32
 		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|x86.Build.0 = Release|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Debug|x64.ActiveCfg = Debug|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Debug|x86.ActiveCfg = Debug|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Debug|x86.Build.0 = Debug|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Release|Any CPU.ActiveCfg = Release|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Release|x64.ActiveCfg = Release|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Release|x86.ActiveCfg = Release|Win32
+		{08F50A45-B862-4E06-BEEE-4283780615F8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
