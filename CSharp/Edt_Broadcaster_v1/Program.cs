@@ -17,7 +17,7 @@ namespace Edt_Broadcaster_v1
 	{
 		static DateTime previous;
 		
-		static string[] broadcastList = { "192.168.0.120", "192.168.0.108" };
+		static string[] broadcastList = { "192.168.0.120", "192.168.0.100" };
 		static List<UDPSender> broadcastSenders = new List<UDPSender>();
 
 		static void Main(string[] args)
