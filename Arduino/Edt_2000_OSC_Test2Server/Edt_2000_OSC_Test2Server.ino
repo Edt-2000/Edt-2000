@@ -1,4 +1,3 @@
-#include <SPI.h>
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 #include <OSCBundle.h>
@@ -25,13 +24,16 @@ int messages = 0;
 EthernetUDP Udp;
 
 void setup() {
+
+	Serial.begin(9600);
+	while (!Serial);
+	Serial.println("OSC test");
+	
 	pinMode(localButtonPin, INPUT_PULLUP);
 
 	pinMode(redLEDPin, OUTPUT);
 	pinMode(greenLEDPin, OUTPUT);
 
-	Serial.begin(9600);
-	Serial.println("OSC test");
 
 	Serial.println("Ethernet starting..");
 	Ethernet.begin(mac, ip);
@@ -95,4 +97,3 @@ void toggleOnOff(OSCMessage &msg, int addrOffset) {
 	Serial.print(stop - start);
 	Serial.println(" us");
 }
-
