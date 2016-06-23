@@ -14,7 +14,7 @@ Edt-Trak
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ipLocal = { 192, 168, 0, 117 };
-IPAddress ipBroadcaster = { 192, 168, 0, 101 };
+IPAddress ipBroadcaster = { 192, 168, 0, 100 };
 
 char * oscPrefix = "/Trak1/";
 char * oscGameTrakName[] = { "left", "right" };

@@ -12,19 +12,24 @@ Using PlatformIO
 #include "OSCBundle.h"
 #include "Time.h"
 #include "Memory.h"
+#include "Status.h"
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ipLocal = { 192, 168, 0, 117 };
+IPAddress ipLocal = { 192, 168, 0, 120 };
 IPAddress ipBroadcaster = { 192, 168, 0, 101 };
 
-char * oscPrefix = "/Trak1/";
-char * oscGameTrakName[] = { "left", "right" };
+String oscPrefix = "/Trak1/";
+String oscGameTrakName[] = { "left", "right" };
+
+bool hasSerial = false;
 
 int portLocal = 8000;
 int portBroadcaster = 9000;
 
-EthernetUDP udp;
-Time time;
+EthernetUDP Udp;
+
+EdtStatus Status;
+EdtTime Time;
 
 // AI: LEFT { X, Y, Z } RIGHT { X, Y, Z }
 int gameTrakPinConfig[2][3] = { { 0,0,0 },{ 0,0,0 } };
@@ -32,58 +37,73 @@ int gameTrakPinConfig[2][3] = { { 0,0,0 },{ 0,0,0 } };
 int foodPedalPinConfig = 7;
 
 void setup() {
-	time.begin();
-
-	pinMode(foodPedalPinConfig, INPUT_PULLUP);
-
-	Serial.begin(9600);
-
-	// wait to have serial
-	while (!Serial);
-
-	Serial.print("Edt-Trak ");
-	Serial.println(VERSION);
-
-	Serial.println("Starting Ethernet..");
-	if (Ethernet.begin(mac) == 0) {
-		Serial.println("Failed starting ethernet..");
-	}
-
-	Serial.print("IP: ");
-	for (byte thisByte = 0; thisByte < 4; thisByte++) {
-		Serial.print(Ethernet.localIP()[thisByte], DEC);
-		Serial.print(".");
-	}
-	Serial.println();
-
-	Serial.println("Starting UDP..");
-	udp.begin(portLocal);
+	Status.begin(13, LOW);
 }
 
-
 void loop() {
-	time.loop();
+	Status.loop();
 
-	//if (time.t100ms) {
+	if (Status.isBegin()) {
+		Time.begin();
+		pinMode(foodPedalPinConfig, INPUT_PULLUP);
 
+		Serial.begin(9600);
 
-	for (int i = 0; i < 2; i++) {
-		char url[48];
+		if (Serial) {
+			hasSerial = true;
+		}
+		
+		Serial.print("Edt-Trak ");
+		Serial.println(VERSION);
 
-		strcpy(url, oscPrefix);
-		strcat(url, oscGameTrakName[i]);
-
-		OSCMessage message = OSCMessage(url);
-
-		for (int j = 0; j < 3; j++) {
-			message.add<float>((float)analogRead(gameTrakPinConfig[i][j] / 1023.0));
+		Serial.println("Starting Ethernet..");
+		if (Ethernet.begin(mac) == 0) {
+			Serial.println("Failed starting ethernet..");
 		}
 
-		udp.beginPacket(ipBroadcaster, portBroadcaster);
-		message.send(udp);
-		message.empty();
-		udp.endPacket();
-	}
+		Serial.print("IP: ");
+		for (byte thisByte = 0; thisByte < 4; thisByte++) {
+			Serial.print(Ethernet.localIP()[thisByte], DEC);
+			Serial.print(".");
+		}
+		Serial.println();
 
-	//}
+		Serial.println("Starting UDP..");
+		Udp.begin(portLocal);
+		Serial.println("Started UDP.");
+
+		Status.ready();
+	}
+	else {
+		while (Status.isRun()) {
+			Time.loop();
+
+			for (int i = 0; i < 2; i++) {
+				char url[48];
+
+				strcpy(url, oscPrefix.c_str());
+				strcat(url, oscGameTrakName[i].c_str());
+
+				OSCMessage message = OSCMessage(url);
+
+				for (int j = 0; j < 3; j++) {
+					message.add<float>((float)analogRead(gameTrakPinConfig[i][j] / 1023.0));
+				}
+
+				Udp.beginPacket(ipBroadcaster, portBroadcaster);
+				message.send(Udp);
+				message.empty();
+				Udp.endPacket();
+			}
+
+			// restart when Serial has been detected
+			if (!hasSerial && Serial) {
+				Status.restart();
+			}
+			// unset hasSerial
+			if (hasSerial && !Serial) {
+				hasSerial = false;
+			}
+		}
+	}
 }
