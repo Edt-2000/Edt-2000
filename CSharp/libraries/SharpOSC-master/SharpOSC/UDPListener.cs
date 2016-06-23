@@ -119,7 +119,7 @@ namespace SharpOSC
 			{
 				// Setup next async event
 				AsyncCallback callBack = new AsyncCallback(ReceiveCallback);
-				receivingUdpClient.BeginReceive(callBack, null);
+				receivingUdpClient.BeginReceive(callBack, remoteEP);
 			}
 			Monitor.Exit(callbackLock);
 		}
