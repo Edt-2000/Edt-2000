@@ -28,3 +28,11 @@ URL                                           Data types  Range           Descri
 /Trak[0-9]+/chuk[0-9]+                        f,f         0.0 - 1.0       Nunchuk XY joystick
 /Trak[0-9]+/chuk[0-9]+                        f,f         0.0 | 1.0       Nunchuck C and Z buttons
 ```
+
+## License
+
+Details about the licensing can be found in the LICENSE file. 
+
+* Please use this code for your own DIY projects
+* When you make interesting changes and additions; send us a message and/or make a Pull Request
+* Send us a link to your blog if you have one, we would love others to use our work to create cool live performances
