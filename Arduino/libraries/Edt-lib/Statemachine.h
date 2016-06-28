@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-class EdtStatus {
+class EdtStatemachine {
 public:
 	void begin() {
 		begin(13, LOW);
@@ -82,4 +82,4 @@ private:
 	bool _onState;
 
 	bool _currentState;
-};
+} Statemachine;

@@ -12,7 +12,7 @@ Using PlatformIO
 #include "SPI.h"
 #include "WiFiUdp.h"
 #include "OSCBundle.h"
-#include "Status.h"
+#include "Statemachine.h"
 #include "Time.h"
 
 // defines WifiName and WifiPassword
@@ -28,7 +28,6 @@ int portBroadcaster = 9000;
 
 WiFiUDP Udp;
 
-EdtStatus Status;
 EdtTime Time;
 
 // DI: button
@@ -37,7 +36,7 @@ int testButtonPinConfig = 12;
 int ledPinConfig = 5;
 
 void setup() {
-	Status.begin(5, HIGH);
+	Statemachine.begin(5, HIGH);
 }
 
 void toggleOnOff(OSCMessage &msg, int addrOffset) {
@@ -79,9 +78,9 @@ void OSCMsgReceive() {
 }
 
 void loop() {
-	Status.loop();
+	Statemachine.loop();
 
-	if (Status.isBegin()) {
+	if (Statemachine.isBegin()) {
 		Time.begin();
 		pinMode(testButtonPinConfig, INPUT);
 		pinMode(ledPinConfig, OUTPUT);
@@ -90,7 +89,7 @@ void loop() {
 
 		// really wait for this
 		while (!Serial) {
-			Status.loop();
+			Statemachine.loop();
 		}
 
 		// Set WiFi mode to station
@@ -101,7 +100,7 @@ void loop() {
 			// really wait for this
 			delay(10);
 
-			Status.loop();
+			Statemachine.loop();
 		}
 
 		Serial.print("IP: ");
@@ -115,16 +114,16 @@ void loop() {
 		Udp.begin(portLocal);
 		Serial.println("Udp started.");
 
-		Status.ready();
+		Statemachine.ready();
 	}
 	else {
-		while (Status.isRun()) {
+		while (Statemachine.isRun()) {
 			Time.loop();
 
 			OSCMsgReceive();
 
 			if (!Serial) {
-				Status.restart();
+				Statemachine.restart();
 			}
 		}
 	}

@@ -12,7 +12,7 @@ Using PlatformIO
 #include "OSCBundle.h"
 #include "Time.h"
 #include "Memory.h"
-#include "Status.h"
+#include "Statemachine.h"
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ipLocal = { 192, 168, 0, 120 };
@@ -28,7 +28,6 @@ int portBroadcaster = 9000;
 
 EthernetUDP Udp;
 
-EdtStatus Status;
 EdtTime Time;
 
 // AI: LEFT { X, Y, Z } RIGHT { X, Y, Z }
@@ -37,13 +36,13 @@ int gameTrakPinConfig[2][3] = { { 0,0,0 },{ 0,0,0 } };
 int foodPedalPinConfig = 7;
 
 void setup() {
-	Status.begin(13, LOW);
+	Statemachine.begin(13, LOW);
 }
 
 void loop() {
-	Status.loop();
+	Statemachine.loop();
 
-	if (Status.isBegin()) {
+	if (Statemachine.isBegin()) {
 		Time.begin();
 		pinMode(foodPedalPinConfig, INPUT_PULLUP);
 
@@ -72,10 +71,10 @@ void loop() {
 		Udp.begin(portLocal);
 		Serial.println("Started UDP.");
 
-		Status.ready();
+		Statemachine.ready();
 	}
 	else {
-		while (Status.isRun()) {
+		while (Statemachine.isRun()) {
 			Time.loop();
 
 			for (int i = 0; i < 2; i++) {
@@ -98,7 +97,7 @@ void loop() {
 
 			// restart when Serial has been detected
 			if (!hasSerial && Serial) {
-				Status.restart();
+				Statemachine.restart();
 			}
 			// unset hasSerial
 			if (hasSerial && !Serial) {
