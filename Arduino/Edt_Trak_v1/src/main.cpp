@@ -15,7 +15,7 @@ Using PlatformIO
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ipLocal = { 192, 168, 0, 120 };
-IPAddress ipBroadcaster = { 192, 168, 0, 101 };
+IPAddress ipBroadcaster = { 192, 168, 0, 103 };
 
 String oscPrefix = "/Trak1/";
 String oscGameTrakName[] = { "left", "right" };
@@ -53,9 +53,8 @@ void loop() {
 		Serial.println(VERSION);
 
 		Serial.println("Starting Ethernet..");
-		if (Ethernet.begin(mac) == 0) {
-			Serial.println("Failed starting ethernet..");
-		}
+		Ethernet.begin(mac, ipLocal);
+		Serial.println("Started Ethernet.");
 
 		Serial.print("IP: ");
 		for (byte thisByte = 0; thisByte < 4; thisByte++) {
