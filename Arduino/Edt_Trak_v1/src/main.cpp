@@ -11,7 +11,6 @@ Using PlatformIO
 #include "EthernetUdp.h"
 #include "OSCBundle.h"
 #include "Time.h"
-#include "Memory.h"
 #include "Statemachine.h"
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -27,8 +26,6 @@ int portLocal = 8000;
 int portBroadcaster = 9000;
 
 EthernetUDP Udp;
-
-EdtTime Time;
 
 // AI: LEFT { X, Y, Z } RIGHT { X, Y, Z }
 int gameTrakPinConfig[2][3] = { { 0,0,0 },{ 0,0,0 } };

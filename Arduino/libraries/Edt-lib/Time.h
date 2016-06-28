@@ -7,7 +7,6 @@ public:
 	bool t100ms;
 	bool t1000ms;
 
-	int diff100ms = 100;
 
 	void begin() {
 		t10ms = false;
@@ -15,7 +14,7 @@ public:
 		t1000ms = false;
 
 		_previous = 0;
-		_t100ms = 0;
+		_diff100ms = 0;
 		_t1000ms = 0;
 	};
 
@@ -27,12 +26,11 @@ public:
 		t10ms = (now - _previous >= 10U);
 
 		if (t10ms) {
-			diff100ms += now - _previous;
+			_diff100ms += now - _previous;
 
 			// use 97 ms to counter bit of delay
-			if (diff100ms >= 97) {
-				_t100ms = 0;
-				diff100ms = 0;
+			if (_diff100ms >= 97) {
+				_diff100ms = 0;
 				t100ms = true;
 
 				if (++_t1000ms >= 10) {
@@ -46,6 +44,6 @@ public:
 	};
 private:
 	long _previous;
-	int _t100ms;
+	int _diff100ms;
 	int _t1000ms;
-};
+} Time;

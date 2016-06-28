@@ -28,8 +28,6 @@ int portBroadcaster = 9000;
 
 WiFiUDP Udp;
 
-EdtTime Time;
-
 // DI: button
 int testButtonPinConfig = 12;
 // DO: led
