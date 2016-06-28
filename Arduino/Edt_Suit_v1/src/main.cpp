@@ -11,7 +11,7 @@ Using PlatformIO
 #include "Arduino.h"
 #include "SPI.h"
 #include "WiFiUdp.h"
-#include "OSCBundle.h"
+#include "OSC.h"
 #include "Statemachine.h"
 #include "Time.h"
 
@@ -33,9 +33,6 @@ int testButtonPinConfig = 12;
 // DO: led
 int ledPinConfig = 5;
 
-void setup() {
-	Statemachine.begin(5, HIGH);
-}
 
 void toggleOnOff(OSCMessage &msg, int addrOffset) {
 	int state = msg.getInt(0);
@@ -59,7 +56,7 @@ void handleTrakMessage(OSCMessage &msg, int addrOffset) {
 	float state = msg.getFloat(0);
 	analogWrite(ledPinConfig, (int)state);
 }
-
+/*
 void OSCMsgReceive() {
 	OSCMessage msgIN;
 	int size;
@@ -69,10 +66,19 @@ void OSCMsgReceive() {
 		}
 
 		if (!msgIN.hasError()) {
-			msgIN.route("/Trak1/left", handleTrakMessage);
+			msgIN.route(, );
 			//msgIN.route("/Button/1", toggleOnOff);
 		}
 	}
+}
+*/
+
+
+void setup() {
+	Statemachine.begin(5, HIGH);
+
+	OSC.bindUDP(&Udp);
+	OSC.addRoute("/Trak1/left", handleTrakMessage);
 }
 
 void loop() {
@@ -84,9 +90,11 @@ void loop() {
 		pinMode(ledPinConfig, OUTPUT);
 
 		Serial.begin(9600);
-
-		// really wait for this
 		while (!Serial) {
+			// really wait for this
+			delay(10);
+
+			// keep updating status
 			Statemachine.loop();
 		}
 
@@ -98,6 +106,7 @@ void loop() {
 			// really wait for this
 			delay(10);
 
+			// keep updating status
 			Statemachine.loop();
 		}
 
@@ -117,8 +126,7 @@ void loop() {
 	else {
 		while (Statemachine.isRun()) {
 			Time.loop();
-
-			OSCMsgReceive();
+			OSC.loop();
 
 			if (!Serial) {
 				Statemachine.restart();

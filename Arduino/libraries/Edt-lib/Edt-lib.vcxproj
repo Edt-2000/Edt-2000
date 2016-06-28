@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory.h" />
+    <ClInclude Include="OSC.h" />
     <ClInclude Include="Statemachine.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
