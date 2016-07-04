@@ -26,7 +26,7 @@ namespace SharpOSC
 		Queue<byte[]> queue;
 		ManualResetEvent ClosingEvent;
 
-		public UDPListener(int port)
+		public UDPListener(int port, IPAddress multicastIP)
 		{
 			Port = port;
 			queue = new Queue<byte[]>();
@@ -38,8 +38,25 @@ namespace SharpOSC
 			{
 				try
 				{
-					receivingUdpClient = new UdpClient(port);
-					break;
+                    if (multicastIP != IPAddress.None)
+                    {
+						IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
+
+						receivingUdpClient = new UdpClient();
+						receivingUdpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+						receivingUdpClient.Client.Bind(localEndPoint);
+						receivingUdpClient.JoinMulticastGroup(multicastIP);
+						receivingUdpClient.MulticastLoopback = true;
+
+                        //receivingUdpClient.JoinMulticastGroup(multicastIP);
+
+                        break;
+                    }
+                    else
+                    {
+                        receivingUdpClient = new UdpClient(port);
+                        break;
+                    }
 				}
 				catch (Exception)
 				{
@@ -52,22 +69,33 @@ namespace SharpOSC
 			}
 			RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
-			// setup first async event
-			AsyncCallback callBack = new AsyncCallback(ReceiveCallback);
+            // setup first async event
+            AsyncCallback callBack = new AsyncCallback(ReceiveCallback);
+
 			receivingUdpClient.BeginReceive(callBack, null);
 		}
 
-		public UDPListener(int port, HandleOscPacket callback) : this(port)
+        public UDPListener(int port, HandleOscPacket callback) : this(port, IPAddress.None)
 		{
 			this.OscPacketCallback = callback;
 		}
 
-		public UDPListener(int port, HandleBytePacket callback) : this(port)
+        public UDPListener(int port, IPAddress multicastIP, HandleOscPacket callback) : this(port, multicastIP)
+        {
+            this.OscPacketCallback = callback;
+        }
+
+        public UDPListener(int port, HandleBytePacket callback) : this(port, IPAddress.None)
 		{
 			this.BytePacketCallback = callback;
 		}
 
-		void ReceiveCallback(IAsyncResult result)
+        public UDPListener(int port, IPAddress multicastIP, HandleBytePacket callback) : this(port, multicastIP)
+        {
+            this.BytePacketCallback = callback;
+        }
+
+        void ReceiveCallback(IAsyncResult result)
 		{
 			Monitor.Enter(callbackLock);
 			Byte[] bytes = null;
