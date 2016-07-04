@@ -48,9 +48,17 @@ public:
 			}
 		}
 	}
+
+	void send(OSCMessage message) {
+		_udpHandle->beginPacket(_udpHandle->remoteIP(), _udpHandle->remotePort());
+
+		message.send(*_udpHandle);
+		_udpHandle->endPacket();
+		message.empty();
+	}
 private:
 	UDP * _udpHandle;
-
+	
 	EdtOSCRoute * _oscRoutes;
 	int _routes = 0;
 
