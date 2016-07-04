@@ -7,7 +7,6 @@ public:
 	bool t100ms;
 	bool t1000ms;
 
-
 	void begin() {
 		t10ms = false;
 		t100ms = false;
