@@ -14,8 +14,9 @@ Using PlatformIO
 #include "Statemachine.h"
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ipLocal = { 192, 168, 0, 120 };
-IPAddress ipBroadcaster = { 192, 168, 0, 103 };
+IPAddress ipLocal(192, 168, 0, 120);
+IPAddress ipBroadcaster(192, 168, 0, 103);
+IPAddress ipMulticast(239, 255, 255, 250);
 
 String oscPrefix = "/Trak1/";
 String oscGameTrakName[] = { "left", "right" };
@@ -24,6 +25,7 @@ bool hasSerial = false;
 
 int portLocal = 8000;
 int portBroadcaster = 9000;
+uint16_t portMulticast = 12345;
 
 EthernetUDP Udp;
 
@@ -64,7 +66,7 @@ void loop() {
 		Serial.println();
 
 		Serial.println("Starting UDP..");
-		Udp.begin(portLocal);
+		Udp.beginMulticast(ipMulticast, portMulticast);
 		Serial.println("Started UDP.");
 
 		Statemachine.ready();

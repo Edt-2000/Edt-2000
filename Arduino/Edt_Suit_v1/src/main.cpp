@@ -18,13 +18,15 @@ Using PlatformIO
 // defines WifiName and WifiPassword
 #include "WifiConfig.h"
 
-IPAddress ipLocal = { 192, 168, 0, 121 };
-IPAddress ipBroadcaster = { 192, 168, 0, 101 };
+IPAddress ipLocal(192, 168, 0, 121 );
+IPAddress ipInterface(0, 0, 0, 0);
+IPAddress ipMulticast(239, 255, 255, 250);
 
 //String oscPrefix = "/Suit1/";
 
 int portLocal = 8000;
 int portBroadcaster = 9000;
+int portMulticast = 12345;
 
 WiFiUDP Udp;
 
@@ -32,8 +34,7 @@ WiFiUDP Udp;
 int testButtonPinConfig = 12;
 // DO: led
 int ledPinConfig = 5;
-
-
+/*
 void toggleOnOff(OSCMessage &msg, int addrOffset) {
 	int state = msg.getInt(0);
 	// on ESP led is inverted
@@ -51,28 +52,14 @@ void toggleOnOff(OSCMessage &msg, int addrOffset) {
 	msgOUT.empty();
 	Serial.println("Button event sent");
 }
-
+*/
 void handleTrakMessage(OSCMessage &msg, int addrOffset) {
 	float state = msg.getFloat(0);
 	analogWrite(ledPinConfig, (int)state);
-}
-/*
-void OSCMsgReceive() {
-	OSCMessage msgIN;
-	int size;
-	if ((size = Udp.parsePacket())>0) {
-		while (size--) {
-			msgIN.fill(Udp.read());
-		}
 
-		if (!msgIN.hasError()) {
-			msgIN.route(, );
-			//msgIN.route("/Button/1", toggleOnOff);
-		}
-	}
+	Serial.print("Received: ");
+	Serial.println(state);
 }
-*/
-
 
 void setup() {
 	Statemachine.begin(5, HIGH);
@@ -118,7 +105,7 @@ void loop() {
 		Serial.println();
 
 		Serial.println("Udp starting..");
-		Udp.begin(portLocal);
+		Udp.beginMulticast(ipInterface, ipMulticast, portMulticast);
 		Serial.println("Udp started.");
 
 		Statemachine.ready();
