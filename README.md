@@ -16,6 +16,11 @@ Thomas
 * ~~Arduino Leonardo with Ethernet (http://www.arduino.org/products/boards/arduino-leonardo-eth, webshop: https://www.antratek.nl/arduino-ethernet)~~
 * ~~Sparkfun Thing (https://www.antratek.nl/sparkfun-esp8266-thing)~~
 
+## Wishlist overig
+
+Thomas
+
+* Switch (fixed IP per mac-address)
 
 ## OSC naming conventions
 
