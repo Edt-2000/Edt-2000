@@ -56,7 +56,7 @@ public:
 		}
 		else if (_state == 2) {
 			// increase blink rate with each loop
-			if (millis() - _previous > (1000 / _readyLoops)) {
+			if (millis() - _previous > (unsigned int)(1000 / _readyLoops)) {
 				_currentState = !_currentState;
 
 				_previous = millis();
