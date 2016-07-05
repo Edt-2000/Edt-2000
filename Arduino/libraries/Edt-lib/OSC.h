@@ -2,7 +2,7 @@
 #include <Udp.h>
 
 struct EdtOSCRoute {
-	char * pattern;
+	const char * pattern;
 	void(*callback)(OSCMessage &, int);
 };
 
@@ -17,9 +17,9 @@ public:
 		_udpHandle = udp;
 	}
 
-	void addRoute(char * pattern, void(*callback)(OSCMessage &, int)) {
+	void addRoute(const char * pattern, void(*callback)(OSCMessage &, int)) {
 		EdtOSCRoute * old = new EdtOSCRoute[_routes];
-
+		
 		for (int i = 0; i < _routes; i++) {
 			old[i] = _oscRoutes[i];
 		}
