@@ -3,12 +3,16 @@
 class EdtTime
 {
 public:
-	bool t10ms;
+	// tweakable ticks for when to do certain stuff
+	bool tOSC;
+	bool tVISUAL;
+
+	// absolute ticks for when to do time sensitive stuff
 	bool t100ms;
 	bool t1000ms;
 
 	void begin() {
-		t10ms = false;
+		tOSC = false;
 		t100ms = false;
 		t1000ms = false;
 
@@ -18,13 +22,16 @@ public:
 	};
 
 	void loop() {
-		long now = ::millis();
+		unsigned long now = ::millis();
 
 		t1000ms = false;
 		t100ms = false;
-		t10ms = (now - _previous >= 10U);
 
-		if (t10ms) {
+		// visual tick is always behind the osc tick
+		tVISUAL = tOSC;
+		tOSC = (now - _previous >= 25UL);
+
+		if (tOSC) {
 			_diff100ms += now - _previous;
 
 			// use 97 ms to counter bit of delay
@@ -42,7 +49,7 @@ public:
 		}
 	};
 private:
-	long _previous;
+	unsigned long _previous;
 	int _diff100ms;
 	int _t1000ms;
 } Time;
