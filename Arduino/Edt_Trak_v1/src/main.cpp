@@ -3,7 +3,9 @@ Edt-Trak
 
 Using PlatformIO
 */
-#define VERSION "v2"
+#define VERSION "v1"
+
+#include "Definitions.h"
 
 #include "Arduino.h"
 #include "SPI.h"
@@ -14,18 +16,11 @@ Using PlatformIO
 #include "Statemachine.h"
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ipLocal(192, 168, 0, 120);
 IPAddress ipBroadcaster(192, 168, 0, 103);
-IPAddress ipMulticast(239, 255, 255, 250);
-
-String oscPrefix = "/Trak1/";
-String oscGameTrakName[] = { "left", "right" };
 
 bool hasSerial = false;
 
-int portLocal = 8000;
 int portBroadcaster = 9000;
-uint16_t portMulticast = 12345;
 
 EthernetUDP Udp;
 
@@ -33,6 +28,8 @@ EthernetUDP Udp;
 int gameTrakPinConfig[2][3] = { { 0,0,0 },{ 0,0,0 } };
 // DI: PEDAL
 int foodPedalPinConfig = 7;
+
+long messages = 0L;
 
 void setup() {
 	Statemachine.begin(13, LOW);
@@ -50,12 +47,12 @@ void loop() {
 		if (Serial) {
 			hasSerial = true;
 		}
-		
+
 		Serial.print("Edt-Trak ");
 		Serial.println(VERSION);
 
 		Serial.println("Starting Ethernet..");
-		Ethernet.begin(mac, ipLocal);
+		Ethernet.begin(mac, IP_TRAK);
 		Serial.println("Started Ethernet.");
 
 		Serial.print("IP: ");
@@ -66,7 +63,7 @@ void loop() {
 		Serial.println();
 
 		Serial.println("Starting UDP..");
-		Udp.beginMulticast(ipMulticast, portMulticast);
+		Udp.beginMulticast(IP_MULTICAST, PORT_MULTICAST);
 		Serial.println("Started UDP.");
 
 		Statemachine.ready();
@@ -75,19 +72,19 @@ void loop() {
 		while (Statemachine.isRun()) {
 			Time.loop();
 
-			for (int i = 0; i < 2; i++) {
-				char url[48];
+			if (Time.tOSC) {
+				OSCMessage message = OSCMessage(OSC_TRAK);
 
-				strcpy(url, oscPrefix.c_str());
-				strcat(url, oscGameTrakName[i].c_str());
+				for (int i = 0; i < 2; i++) {
 
-				OSCMessage message = OSCMessage(url);
-
-				for (int j = 0; j < 3; j++) {
-					message.add<float>((float)analogRead(gameTrakPinConfig[i][j] / 1023.0));
+					for (int j = 0; j < 3; j++) {
+						message.add<float>((float)analogRead(gameTrakPinConfig[i][j] / 1023.0));
+					}
 				}
 
-				Udp.beginPacket(ipBroadcaster, portBroadcaster);
+				message.add<long>(++messages);
+
+				Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
 				message.send(Udp);
 				message.empty();
 				Udp.endPacket();

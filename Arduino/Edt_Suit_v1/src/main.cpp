@@ -8,6 +8,8 @@ Using PlatformIO
 // include as first to avoid intellisense issues in visual studio
 #include "ESP8266WiFi.h"
 
+#include "Definitions.h"
+
 #include "Arduino.h"
 #include "SPI.h"
 #include "WiFiUdp.h"
@@ -17,16 +19,6 @@ Using PlatformIO
 
 // defines WifiName and WifiPassword
 #include "WifiConfig.h"
-
-IPAddress ipLocal(192, 168, 0, 121 );
-IPAddress ipInterface(0, 0, 0, 0);
-IPAddress ipMulticast(239, 255, 255, 250);
-
-//String oscPrefix = "/Suit1/";
-
-int portLocal = 8000;
-int portBroadcaster = 9000;
-int portMulticast = 12345;
 
 WiFiUDP Udp;
 
@@ -65,7 +57,7 @@ void setup() {
 	Statemachine.begin(5, HIGH);
 
 	OSC.bindUDP(&Udp);
-	OSC.addRoute("/Trak1/left", handleTrakMessage);
+	OSC.addRoute(OSC_TRAK, handleTrakMessage);
 }
 
 void loop() {
@@ -105,7 +97,7 @@ void loop() {
 		Serial.println();
 
 		Serial.println("Udp starting..");
-		Udp.beginMulticast(ipInterface, ipMulticast, portMulticast);
+		Udp.beginMulticast(IP_INTERFACE, IP_MULTICAST, PORT_MULTICAST);
 		Serial.println("Udp started.");
 
 		Statemachine.ready();
