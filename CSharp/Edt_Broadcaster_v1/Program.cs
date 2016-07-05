@@ -18,6 +18,7 @@ namespace Edt_Broadcaster_v1
 	{
 		static DateTime previous;
 		static int messages;
+		static int messageSeen;
 		
 		//static string[] broadcastList = { "192.168.0.120", "192.168.0.121" };
 		//static List<UDPSender> broadcastSenders = new List<UDPSender>();
@@ -34,6 +35,7 @@ namespace Edt_Broadcaster_v1
 			{
 				previous = DateTime.Now;
 				messages = 0;
+				messageSeen = 0;
 
 				// The cabllback function
 				HandleOscPacket callback = delegate (OscPacket packet)
@@ -48,10 +50,17 @@ namespace Edt_Broadcaster_v1
 
 						Console.WriteLine(messages + " per second. " + (1000.0 / Math.Max(1,messages)) + " ms per message.");
 
-						Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
-
 						messages = 0;
 					}
+
+					if(messageSeen + 1 != (int) messageReceived.Arguments.Last())
+					{
+						Console.WriteLine("Message missed!");
+					}
+
+					messageSeen = (int)messageReceived.Arguments.Last();
+
+					Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
 
 					//Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - "  + messageReceived.OriginEP.Port + " - "  + string.Join(",",messageReceived.Arguments));
 
