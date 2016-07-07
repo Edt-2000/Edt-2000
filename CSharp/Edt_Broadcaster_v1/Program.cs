@@ -60,7 +60,7 @@ namespace Edt_Broadcaster_v1
 
 					messageSeen = (int)messageReceived.Arguments.Last();
 
-					Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
+					//Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
 
 					//Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - "  + messageReceived.OriginEP.Port + " - "  + string.Join(",",messageReceived.Arguments));
 

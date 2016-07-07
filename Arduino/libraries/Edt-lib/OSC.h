@@ -49,6 +49,10 @@ public:
 		}
 	}
 
+	OSCMessage createMessage(const char * address) {
+		return OSCMessage(address);
+	}
+
 	void send(OSCMessage message) {
 		_udpHandle->beginPacket(_udpHandle->remoteIP(), _udpHandle->remotePort());
 

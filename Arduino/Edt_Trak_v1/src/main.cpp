@@ -11,7 +11,7 @@ Using PlatformIO
 #include "SPI.h"
 #include "Ethernet.h"
 #include "EthernetUdp.h"
-#include "OSCBundle.h"
+#include "OSC.h"
 #include "Time.h"
 #include "Statemachine.h"
 
@@ -40,7 +40,12 @@ void loop() {
 
 	if (Statemachine.isBegin()) {
 		Time.begin();
+
+		// Trak code
+
 		pinMode(foodPedalPinConfig, INPUT_PULLUP);
+
+		// /Trak code
 
 		Serial.begin(9600);
 
@@ -71,24 +76,24 @@ void loop() {
 	else {
 		while (Statemachine.isRun()) {
 			Time.loop();
+			OSC.loop();
+
+			// Trak code
 
 			if (Time.tOSC) {
-				OSCMessage message = OSCMessage(OSC_TRAK);
+				OSCMessage message = OSC.createMessage(OSC_TRAK);
 
 				for (int i = 0; i < 2; i++) {
-
 					for (int j = 0; j < 3; j++) {
 						message.add<float>((float)analogRead(gameTrakPinConfig[i][j] / 1023.0));
 					}
 				}
-
 				message.add<long>(++messages);
 
-				Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
-				message.send(Udp);
-				message.empty();
-				Udp.endPacket();
+				OSC.send(message);
 			}
+
+			// /Trak code
 
 			// restart when Serial has been detected
 			if (!hasSerial && Serial) {

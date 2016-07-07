@@ -22,29 +22,13 @@ Using PlatformIO
 
 WiFiUDP Udp;
 
+bool hasSerial = false;
+
 // DI: button
 int testButtonPinConfig = 12;
 // DO: led
 int ledPinConfig = 5;
-/*
-void toggleOnOff(OSCMessage &msg, int addrOffset) {
-	int state = msg.getInt(0);
-	// on ESP led is inverted
-	digitalWrite(ledPinConfig, !state);
 
-	Serial.println("Button event send");
-
-	OSCMessage msgOUT("/Button/1");
-
-	msgOUT.add<int>(state);
-
-	Udp.beginPacket(ipBroadcaster, portBroadcaster);
-	msgOUT.send(Udp);
-	Udp.endPacket();
-	msgOUT.empty();
-	Serial.println("Button event sent");
-}
-*/
 void handleTrakMessage(OSCMessage &msg, int addrOffset) {
 	float state = msg.getFloat(0);
 	analogWrite(ledPinConfig, (int)state);
@@ -65,16 +49,18 @@ void loop() {
 
 	if (Statemachine.isBegin()) {
 		Time.begin();
+
+		// Suit code
+
 		pinMode(testButtonPinConfig, INPUT);
 		pinMode(ledPinConfig, OUTPUT);
 
-		Serial.begin(9600);
-		while (!Serial) {
-			// really wait for this
-			delay(10);
+		// /Suit code
 
-			// keep updating status
-			Statemachine.loop();
+		Serial.begin(9600);
+		
+		if (Serial) {
+			hasSerial = true;
 		}
 
 		// Set WiFi mode to station
@@ -107,8 +93,17 @@ void loop() {
 			Time.loop();
 			OSC.loop();
 
-			if (!Serial) {
+			// Suit code
+
+			// /Suit code
+
+			// restart when Serial has been detected
+			if (!hasSerial && Serial) {
 				Statemachine.restart();
+			}
+			// unset hasSerial
+			if (hasSerial && !Serial) {
+				hasSerial = false;
 			}
 		}
 	}
