@@ -18,3 +18,14 @@ New Line
 ````
 - 8 x TRIAC for DMX dimpack € 17,00
 ````
+
+## Thomas
+
+Antratek
+````
+- 2 SparkFun ESP8266 Thing             € 31,90
+- Arduino Leonardo ETH                 € 39,95
+- SparkFun ESP8266 Thing - Dev Board   € 15,95
+- BAT-LIPO6600MAH                      € 11,95
+- Voltage-Level Translator             € 3,95
+````
