@@ -8,19 +8,15 @@ Using PlatformIO
 #include "Definitions.h"
 
 #include "Arduino.h"
-#include "SPI.h"
 #include "Ethernet.h"
 #include "EthernetUdp.h"
 #include "OSC.h"
 #include "Time.h"
 #include "Statemachine.h"
-
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ipBroadcaster(192, 168, 0, 103);
+#include "Preset.h"
+#include "Chuk.h"
 
 bool hasSerial = false;
-
-int portBroadcaster = 9000;
 
 EthernetUDP Udp;
 
@@ -33,6 +29,14 @@ long messages = 0L;
 
 void setup() {
 	Statemachine.begin(13, LOW);
+
+	OSC.bindUDP(&Udp);
+
+	// Trak code
+
+
+
+	// /Trak code
 }
 
 void loop() {
@@ -41,15 +45,9 @@ void loop() {
 	if (Statemachine.isBegin()) {
 		Time.begin();
 
-		// Trak code
-
-		pinMode(foodPedalPinConfig, INPUT_PULLUP);
-
-		// /Trak code
-
 		Serial.begin(9600);
 
-		if (Serial) {
+		while (!Serial) {
 			hasSerial = true;
 		}
 
@@ -57,7 +55,7 @@ void loop() {
 		Serial.println(VERSION);
 
 		Serial.println("Starting Ethernet..");
-		Ethernet.begin(mac, IP_TRAK);
+		Ethernet.begin(MAC_TRAK, IP_TRAK);
 		Serial.println("Started Ethernet.");
 
 		Serial.print("IP: ");
@@ -68,20 +66,28 @@ void loop() {
 		Serial.println();
 
 		Serial.println("Starting UDP..");
-		Udp.beginMulticast(IP_MULTICAST, PORT_MULTICAST);
+		Udp.begin(PORT_MULTICAST);
 		Serial.println("Started UDP.");
+		
+		Serial.println("Starting code..");
+		// Trak code
+
+
+		// /Trak code
+		Serial.println("Started code.");
 
 		Statemachine.ready();
 	}
 	else {
 		while (Statemachine.isRun()) {
 			Time.loop();
-			OSC.loop();
 
 			// Trak code
 
 			if (Time.tOSC) {
-				OSCMessage message = OSC.createMessage(OSC_TRAK);
+				Serial.println("Loop");
+
+				OSCMessage message = OSCMessage(OSC_TRAK);
 
 				for (int i = 0; i < 2; i++) {
 					for (int j = 0; j < 3; j++) {
@@ -90,11 +96,15 @@ void loop() {
 				}
 				message.add<long>(++messages);
 
-				OSC.send(message);
+				Udp.beginPacket(IP_MULTICAST, PORT_MULTICAST);
+
+				message.send(Udp);
+				Udp.endPacket();
+				message.empty();
 			}
 
 			// /Trak code
-
+			
 			// restart when Serial has been detected
 			if (!hasSerial && Serial) {
 				Statemachine.restart();
