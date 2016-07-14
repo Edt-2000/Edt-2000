@@ -14,29 +14,16 @@ Using PlatformIO
 #include "Time.h"
 #include "Statemachine.h"
 #include "Preset.h"
-#include "Chuk.h"
+#include "Trak.h"
 
 bool hasSerial = false;
 
 EthernetUDP Udp;
 
-// AI: LEFT { X, Y, Z } RIGHT { X, Y, Z }
-int gameTrakPinConfig[2][3] = { { 0,0,0 },{ 0,0,0 } };
-// DI: PEDAL
-int foodPedalPinConfig = 7;
-
-long messages = 0L;
+EdtTrak Trak = EdtTrak(0, 0, 0, 0, 0, 0);
 
 void setup() {
 	Statemachine.begin(13, LOW);
-
-	OSC.bindUDP(&Udp);
-
-	// Trak code
-
-
-
-	// /Trak code
 }
 
 void loop() {
@@ -47,10 +34,7 @@ void loop() {
 
 		Serial.begin(9600);
 
-		while (!Serial) {
-			hasSerial = true;
-		}
-
+		// Trak code
 		Serial.print("Edt-Trak ");
 		Serial.println(VERSION);
 
@@ -70,49 +54,19 @@ void loop() {
 		Serial.println("Started UDP.");
 		
 		Serial.println("Starting code..");
-		// Trak code
 
+		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		OSC.addSource(&Trak);
 
-		// /Trak code
 		Serial.println("Started code.");
+		// /Trak code
 
 		Statemachine.ready();
 	}
 	else {
 		while (Statemachine.isRun()) {
 			Time.loop();
-
-			// Trak code
-
-			if (Time.tOSC) {
-				Serial.println("Loop");
-
-				OSCMessage message = OSCMessage(OSC_TRAK);
-
-				for (int i = 0; i < 2; i++) {
-					for (int j = 0; j < 3; j++) {
-						message.add<float>((float)analogRead(gameTrakPinConfig[i][j] / 1023.0));
-					}
-				}
-				message.add<long>(++messages);
-
-				Udp.beginPacket(IP_BROADCAST, PORT_BROADCAST);
-
-				message.send(Udp);
-				Udp.endPacket();
-				message.empty();
-			}
-
-			// /Trak code
-			
-			// restart when Serial has been detected
-			if (!hasSerial && Serial) {
-				Statemachine.restart();
-			}
-			// unset hasSerial
-			if (hasSerial && !Serial) {
-				hasSerial = false;
-			}
+			OSC.loop();
 		}
 	}
 }

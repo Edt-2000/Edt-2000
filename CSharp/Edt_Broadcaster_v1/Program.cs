@@ -52,15 +52,18 @@ namespace Edt_Broadcaster_v1
 
 						messages = 0;
 					}
+					*/
+					
+					
+					messageSeen = (int)messageReceived.Arguments.Last();
 
-					if(messageSeen + 1 != (int) messageReceived.Arguments.Last())
+					if (messageSeen != messages)
 					{
-						Console.WriteLine("Message missed!");
+						Console.WriteLine("################## Message missed! #######################");
+						messages = messageSeen;
 					}
 
-					messageSeen = (int)messageReceived.Arguments.Last();*/
-
-					Console.WriteLine(messages + " - " + messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
+					Console.WriteLine(messages + " - " + messageSeen + " - "  + messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
 
 					//Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - "  + messageReceived.OriginEP.Port + " - "  + string.Join(",",messageReceived.Arguments));
 
