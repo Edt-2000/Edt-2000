@@ -53,8 +53,14 @@ public:
 	};
 
 	// normalization to -1.0 to 1.0 float (TouchOSC only supports floats)
-	float joyX() { return (float)_joyX; }; // return max(-1.0, min(1.0, ((_joyX / 128.0) - 1.0) / 0.70)); };
-	float joyY() { return (float)_joyY; }; // max(-1.0, min(1.0, ((_joyY / 128.0) - 1.0) / 0.70)); };
+	float joyX() {
+		float x = ((((float)_joyX) / 128.0) - 1.0) / 0.70;
+		return max(-1.0, min(1.0, x));
+	};
+	float joyY() {
+		float y = ((((float)_joyY) / 128.0) - 1.0) / 0.70;
+		return max(-1.0, min(1.0, y));
+	};
 	float buttonC() { return (float)!_buttonC; };
 	float buttonZ() { return (float)!_buttonZ; };
 
