@@ -1,3 +1,7 @@
+#pragma once
+
+#include <Definitions.h>
+#include <Time.h>
 #include <OSCMessage.h>
 #include <Udp.h>
 
