@@ -33,6 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt-lib", "Arduino\librarie
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_Trak_v1", "Arduino\Edt_Trak_v1\Edt_Trak_v1.vcxproj", "{46ADCAAC-A212-4F48-9140-F567C56DB885}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Edt_2000_WiiChuckClass", "Arduino\Edt_2000_WiiChuckClass\Edt_2000_WiiChuckClass.vcxproj", "{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -237,6 +239,18 @@ Global
 		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|x64.ActiveCfg = Release|Win32
 		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|x86.ActiveCfg = Release|Win32
 		{46ADCAAC-A212-4F48-9140-F567C56DB885}.Release|x86.Build.0 = Release|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Debug|x64.ActiveCfg = Debug|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Debug|x86.ActiveCfg = Debug|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Debug|x86.Build.0 = Debug|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Release|Any CPU.ActiveCfg = Release|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Release|x64.ActiveCfg = Release|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Release|x86.ActiveCfg = Release|Win32
+		{7D4A2004-D4D2-4D82-9966-A1A7D8CEAF8A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
