@@ -66,7 +66,7 @@ void loop() {
 		Serial.println();
 
 		Serial.println("Starting UDP..");
-		Udp.begin(PORT_MULTICAST);
+		Udp.begin(PORT_BROADCAST);
 		Serial.println("Started UDP.");
 		
 		Serial.println("Starting code..");
@@ -96,7 +96,7 @@ void loop() {
 				}
 				message.add<long>(++messages);
 
-				Udp.beginPacket(IP_MULTICAST, PORT_MULTICAST);
+				Udp.beginPacket(IP_BROADCAST, PORT_BROADCAST);
 
 				message.send(Udp);
 				Udp.endPacket();
