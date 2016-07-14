@@ -77,8 +77,10 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Chuk.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="OSC.h" />
+    <ClInclude Include="Preset.h" />
     <ClInclude Include="Statemachine.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
