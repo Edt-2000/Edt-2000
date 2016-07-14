@@ -28,10 +28,10 @@ Thomas
 
 ```
 URL                                           Data types  Range           Description
-/Trak[0-9]+/{left,right}                      f,f,f       0.0 - 1.0       XYZ sensor
+/Trak[0-9]+                               2x  f,f,f       0.0 - 1.0       XYZ sensor
 /Trak[0-9]+/footpedal                         f           0.0 | 1.0       Footpedal
-/Trak[0-9]+/chuk[0-9]+                        f,f         0.0 - 1.0       Nunchuk XY joystick
-/Trak[0-9]+/chuk[0-9]+                        f,f         0.0 | 1.0       Nunchuck C and Z buttons
+/Suit[0-9]+                                   f,f         -1.0 - 1.0      Nunchuk XY joystick (0.0 is center)
+/Suit[0-9]+                                   f,f         0.0 | 1.0       Nunchuk CZ buttons
 ```
 
 ## License
