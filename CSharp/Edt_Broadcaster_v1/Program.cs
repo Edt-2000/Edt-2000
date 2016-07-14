@@ -43,7 +43,7 @@ namespace Edt_Broadcaster_v1
 					var messageReceived = (OscMessage)packet;
 
 					messages++;
-
+					/*
 					if(DateTime.Now.Subtract(previous).TotalMilliseconds > 1000)
 					{
 						previous = DateTime.Now;
@@ -58,9 +58,9 @@ namespace Edt_Broadcaster_v1
 						Console.WriteLine("Message missed!");
 					}
 
-					messageSeen = (int)messageReceived.Arguments.Last();
+					messageSeen = (int)messageReceived.Arguments.Last();*/
 
-					//Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
+					Console.WriteLine(messages + " - " + messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
 
 					//Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - "  + messageReceived.OriginEP.Port + " - "  + string.Join(",",messageReceived.Arguments));
 
@@ -75,9 +75,9 @@ namespace Edt_Broadcaster_v1
 					}*/
 				};
 
-				var listener = new UDPListener(12345, IPAddress.Parse("239.255.255.250"), callback);
-                
-				
+				//var listener = new UDPListener(12345, IPAddress.Parse("192.168.0.255"), callback);
+				var listener = new UDPListener(12345, callback);
+
 				Console.WriteLine("Press enter to stop");
 				Console.ReadLine();
 				listener.Close();
