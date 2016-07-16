@@ -99,17 +99,11 @@ public:
 	}
 
 	void send(OSCMessage message) {
-		//Serial.println("1");
 		_udpHandle->beginPacket(_remoteIP, _remotePort);
-		//Serial.println("2");
 
-		//Serial.println("3");
 		message.send(*_udpHandle);
-		//Serial.println("4");
 		_udpHandle->endPacket();
-		//Serial.println("5");
 		message.empty();
-		//Serial.println("6");
 	}
 private:
 	UDP * _udpHandle;
