@@ -10,11 +10,7 @@ public:
 	virtual OSCMessage generateMessage() = 0;
 };
 
-class EdtOSCObject {
-public:
-	virtual const char * OSCPattern() = 0;
-	virtual void OSCCallback(OSCMessage &msg, int addrOffset) = 0;
-};
+class EdtOSCObject : public OSCMessageHandler {};
 
 class EdtOSC
 {
@@ -97,8 +93,7 @@ public:
 			}
 
 			for (i = 0; i < _objects; i++) {
-				// TODO: fix callback
-				//msgIN.route(_oscObjects[i]->OSCPattern(), _oscObjects[i]->OSCCallback);
+				msgIN.route(_oscObjects[i]);
 			}
 		}
 	}

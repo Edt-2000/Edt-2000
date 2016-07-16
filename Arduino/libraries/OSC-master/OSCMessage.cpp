@@ -324,6 +324,17 @@ bool OSCMessage::route(const char * pattern, void (*callback)(OSCMessage &, int)
 	}
 }
 
+bool OSCMessage::route(OSCMessageHandler * messageHandler, int initial_offset){
+	int match_offset = match(messageHandler->OSCPattern(), initial_offset);
+	if (match_offset>0) {
+		messageHandler->OSCCallback(*this, match_offset + initial_offset);
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 /*=============================================================================
     ADDRESS
  =============================================================================*/

@@ -106,7 +106,7 @@ private:
 	};
 };
 
-class EdtOSCChuk : public EdtOSCRoutingObject
+class EdtOSCChuk : public EdtOSCObject
 {
 public:
 	EdtOSCChuckData data = EdtOSCChuckData();
@@ -149,6 +149,31 @@ public:
 		requestData();
 	}
 
+	OSCMessage generateMessage() {
+		loop();
+
+		OSCMessage message = new OSCMessage(_oscAddress);
+
+		message
+			.add<float>(data.buttonC())
+			.add<float>(data.buttonZ())
+			.add<float>(data.joyX())
+			.add<float>(data.joyX());
+
+		return message;
+	}
+
+private:
+	int _i2cAddress;
+	const char * _oscAddress;
+	bool _requested;
+
+	void requestData() {
+		Wire.beginTransmission(_i2cAddress);
+		Wire.write((uint8_t)0x00);
+		Wire.endTransmission();
+	}
+
 	void loop() {
 		int bytesReceived = 0;
 
@@ -163,31 +188,6 @@ public:
 		}
 
 		requestData();
-	}
-
-	OSCMessage * OSCSendMessage() {
-		message = new OSCMessage(_oscAddress);
-
-		message
-			->add<float>(data.buttonC())
-			.add<float>(data.buttonZ())
-			.add<float>(data.joyX())
-			.add<float>(data.joyX());
-
-		return message;
-	}
-
-	OSCMessage * message;
-
-private:
-	int _i2cAddress;
-	const char * _oscAddress;
-	bool _requested;
-
-	void requestData() {
-		Wire.beginTransmission(_i2cAddress);
-		Wire.write((uint8_t)0x00);
-		Wire.endTransmission();
 	}
 
 	inline char _decodeByte(char x)

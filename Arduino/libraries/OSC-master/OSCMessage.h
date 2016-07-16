@@ -29,6 +29,14 @@
 #include "OSCData.h"
 #include <Print.h>
 
+class OSCMessage;
+
+class OSCMessageHandler
+{
+public:
+	virtual const char * OSCPattern() = 0;
+	virtual void OSCCallback(OSCMessage &msg, int addrOffset) = 0;
+};
 
 class OSCMessage
 {
@@ -295,7 +303,7 @@ public:
 	//the address match offset is sent as an argument to the callback
 	//also room for an option address offset to allow for multiple nested routes
 	bool route(const char * pattern, void (*callback)(OSCMessage &, int), int = 0);
-	
+	bool route(OSCMessageHandler * messageHandler, int = 0);
 
 
 /*=============================================================================

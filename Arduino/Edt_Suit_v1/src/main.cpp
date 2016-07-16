@@ -11,37 +11,25 @@ Using PlatformIO
 #include "Definitions.h"
 
 #include "Arduino.h"
-#include "SPI.h"
 #include "WiFiUdp.h"
 #include "OSC.h"
-#include "Statemachine.h"
 #include "Time.h"
+#include "Statemachine.h"
+#include "Preset.h"
+
+#include "Chuk.h"
+#include "Trak.h"
 
 // defines WifiName and WifiPassword
 #include "WifiConfig.h"
 
 WiFiUDP Udp;
 
-bool hasSerial = false;
-
-// DI: button
-int testButtonPinConfig = 12;
-// DO: led
-int ledPinConfig = 5;
-
-void handleTrakMessage(OSCMessage &msg, int addrOffset) {
-	float state = msg.getFloat(0);
-	analogWrite(ledPinConfig, (int)state);
-
-	Serial.print("Received: ");
-	Serial.println(state);
-}
+EdtOSCTrak Trak = EdtOSCTrak(OSC_TRAK);
+//EdtI2CChuk Chuk = EdtI2CChuk(0x52, OSC_SUIT_CHUK);
 
 void setup() {
 	Statemachine.begin(5, HIGH);
-
-	OSC.bindUDP(&Udp);
-	OSC.addRoute(OSC_TRAK, handleTrakMessage);
 }
 
 void loop() {
@@ -50,17 +38,16 @@ void loop() {
 	if (Statemachine.isBegin()) {
 		Time.begin();
 
+		Serial.begin(9600);
 		// Suit code
 
-		pinMode(testButtonPinConfig, INPUT);
-		pinMode(ledPinConfig, OUTPUT);
+		int i = 0;
+		while (++i < 500) {
+			// add some delay
+			delay(10);
 
-		// /Suit code
-
-		Serial.begin(9600);
-		
-		if (Serial) {
-			hasSerial = true;
+			// keep updating status
+			Statemachine.loop();
 		}
 
 		// Set WiFi mode to station
@@ -82,9 +69,17 @@ void loop() {
 		}
 		Serial.println();
 
-		Serial.println("Udp starting..");
-		Udp.beginMulticast(IP_INTERFACE, IP_MULTICAST, PORT_MULTICAST);
-		Serial.println("Udp started.");
+		Serial.println("Starting UDP..");
+		Udp.begin(PORT_BROADCAST);
+		Serial.println("Started UDP.");
+
+		Serial.println("Starting code..");
+
+		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		OSC.addObject(&Trak);
+
+		// /Suit code
+		Serial.println("Started code.");
 
 		Statemachine.ready();
 	}
@@ -93,18 +88,9 @@ void loop() {
 			Time.loop();
 			OSC.loop();
 
-			// Suit code
+			Serial.println(Trak.data.leftX);
 
-			// /Suit code
-
-			// restart when Serial has been detected
-			if (!hasSerial && Serial) {
-				Statemachine.restart();
-			}
-			// unset hasSerial
-			if (hasSerial && !Serial) {
-				hasSerial = false;
-			}
+			yield();
 		}
 	}
 }
