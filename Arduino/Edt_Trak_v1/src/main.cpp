@@ -16,11 +16,9 @@ Using PlatformIO
 #include "Preset.h"
 #include "Trak.h"
 
-bool hasSerial = false;
-
 EthernetUDP Udp;
 
-EdtTrak Trak = EdtTrak(0, 0, 0, 0, 0, 0);
+EdtAITrak Trak = EdtAITrak(0, 0, 0, 0, 0, 0, OSC_TRAK);
 
 void setup() {
 	Statemachine.begin(13, LOW);

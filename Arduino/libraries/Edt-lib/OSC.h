@@ -15,7 +15,7 @@ public:
 	virtual OSCMessage generateMessage() = 0;
 };
 
-class EdtOSCRoutingObject {
+class EdtOSCObject {
 public:
 	virtual const char * OSCPattern() = 0;
 	virtual void OSCCallback(OSCMessage &msg, int addrOffset) = 0;
