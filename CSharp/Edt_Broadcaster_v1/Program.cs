@@ -43,39 +43,43 @@ namespace Edt_Broadcaster_v1
 					var messageReceived = (OscMessage)packet;
 
 					messages++;
-					/*
-					if(DateTime.Now.Subtract(previous).TotalMilliseconds > 1000)
+
+					if (messageReceived.Address.StartsWith("/Suit"))
 					{
-						previous = DateTime.Now;
-
-						Console.WriteLine(messages + " per second. " + (1000.0 / Math.Max(1,messages)) + " ms per message.");
-
-						messages = 0;
-					}
-					*/
-					
-					
-					messageSeen = (int)messageReceived.Arguments.Last();
-
-					if (messageSeen != messages)
-					{
-						Console.WriteLine("################## Message missed! #######################");
-						messages = messageSeen;
-					}
-
-					Console.WriteLine(messages + " - " + messageSeen + " - "  + messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
-
-					//Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - "  + messageReceived.OriginEP.Port + " - "  + string.Join(",",messageReceived.Arguments));
-
-					/*foreach(UDPSender sender in broadcastSenders)
-					{
-						if(sender.Address != messageReceived.OriginEP.Address.ToString())
+						/*
+						if(DateTime.Now.Subtract(previous).TotalMilliseconds > 1000)
 						{
-							Console.WriteLine("Sending to " + sender.Address);
+							previous = DateTime.Now;
 
-							sender.Send(messageReceived);
+							Console.WriteLine(messages + " per second. " + (1000.0 / Math.Max(1,messages)) + " ms per message.");
+
+							messages = 0;
 						}
-					}*/
+						*/
+
+
+						/*messageSeen = (int)messageReceived.Arguments.Last();
+
+						if (messageSeen != messages)
+						{
+							Console.WriteLine("################## Message missed! #######################");
+							messages = messageSeen;
+						}
+						*/
+						Console.WriteLine(messages + " - " + messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
+
+						//Console.WriteLine(messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - "  + messageReceived.OriginEP.Port + " - "  + string.Join(",",messageReceived.Arguments));
+
+						/*foreach(UDPSender sender in broadcastSenders)
+						{
+							if(sender.Address != messageReceived.OriginEP.Address.ToString())
+							{
+								Console.WriteLine("Sending to " + sender.Address);
+
+								sender.Send(messageReceived);
+							}
+						}*/
+					}
 				};
 
 				//var listener = new UDPListener(12345, IPAddress.Parse("192.168.0.255"), callback);
