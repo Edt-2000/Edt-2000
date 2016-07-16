@@ -84,6 +84,8 @@
     <ClInclude Include="Statemachine.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Trak.h" />
+    <ClInclude Include="WifiConfig.example.h" />
+    <ClInclude Include="WifiConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Definitions.h" />
