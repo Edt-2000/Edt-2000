@@ -1,15 +1,6 @@
 import netP5.*;
 import oscP5.*;
 
-/**
- * Simple Read
- * 
- * Read data from the serial port and change the color of a rectangle
- * when a switch connected to a Wiring or Arduino board is pressed and released.
- * This example works with the Wiring / Arduino program that follows below.
- */
-
-
 import processing.serial.*;
 
 Serial myPort;  // Create object from Serial class
@@ -22,9 +13,10 @@ void setup()
 {
   size(200, 200);
   myRemoteLocation = new NetAddress("127.0.0.1", 8000);
+  //myRemoteLocation = new NetAddress("10.0.0.30", 12345);
   oscP5 = new OscP5(this, 12000);
   
-  myPort = new Serial(this, "/dev/cu.usbmodem14141", 1000000);
+  myPort = new Serial(this, "/dev/cu.usbmodem141111", 1000000);
   myPort.bufferUntil(':');
 }
 
@@ -51,7 +43,7 @@ void serialEvent (Serial myPort) {
   }
   
   // Send to Max
-  OscMessage myMessage = new OscMessage("/edt");
+  OscMessage myMessage = new OscMessage("/Trak");
   myMessage.add(values);
   oscP5.send(myMessage, myRemoteLocation); 
 }

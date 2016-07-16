@@ -198,7 +198,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 53.0, 849.0, 71.0, 22.0 ],
 					"style" : "",
-					"text" : "noteout a 5"
+					"text" : "noteout b 5"
 				}
 
 			}
