@@ -154,7 +154,7 @@ public:
 	OSCMessage generateMessage() {
 		loop();
 
-		OSCMessage message = new OSCMessage(_oscAddress);
+		OSCMessage message = OSCMessage(_oscAddress);
 
 		message
 			.add<float>(data.buttonC())
