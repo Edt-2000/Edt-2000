@@ -26,7 +26,7 @@ Using PlatformIO
 WiFiUDP Udp;
 
 EdtOSCTrak Trak = EdtOSCTrak(OSC_TRAK);
-//EdtI2CChuk Chuk = EdtI2CChuk(0x52, OSC_SUIT_CHUK);
+EdtI2CChuk Chuk = EdtI2CChuk(0x52, OSC_SUIT_CHUK);
 
 void setup() {
 	Statemachine.begin(5, HIGH);
@@ -39,8 +39,8 @@ void loop() {
 		Time.begin();
 
 		Serial.begin(9600);
-		// Suit code
 
+		// Suit code
 		int i = 0;
 		while (++i < 500) {
 			// add some delay
@@ -75,8 +75,11 @@ void loop() {
 
 		Serial.println("Starting code..");
 
-		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		OSC.bindUDP(&Udp, IPAddress(10,0,0,10), PORT_BROADCAST);
 		OSC.addObject(&Trak);
+		OSC.addSource(&Chuk);
+
+		Chuk.begin();
 
 		// /Suit code
 		Serial.println("Started code.");
@@ -88,8 +91,13 @@ void loop() {
 			Time.loop();
 			OSC.loop();
 
-			Serial.println(Trak.data.leftX);
+			if (Time.t100ms) {
+				Serial.print(Trak.data.leftX);
+				Serial.print(" ");
+				Serial.println(Chuk.data.buttonC());
+			}
 
+			// yield to the mighty ESP8266 code 
 			yield();
 		}
 	}

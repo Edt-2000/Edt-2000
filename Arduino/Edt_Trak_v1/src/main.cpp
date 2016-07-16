@@ -14,11 +14,14 @@ Using PlatformIO
 #include "Time.h"
 #include "Statemachine.h"
 #include "Preset.h"
+
 #include "Trak.h"
+#include "Chuk.h"
 
 EthernetUDP Udp;
 
 EdtAITrak Trak = EdtAITrak(0, 0, 0, 0, 0, 0, OSC_TRAK);
+EdtOSCChuk Chuk = EdtOSCChuk(OSC_SUIT_CHUK);
 
 void setup() {
 	Statemachine.begin(13, LOW);
@@ -53,8 +56,9 @@ void loop() {
 		
 		Serial.println("Starting code..");
 
-		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		OSC.bindUDP(&Udp, IPAddress(10,0,0,20), PORT_BROADCAST);
 		OSC.addSource(&Trak);
+		OSC.addObject(&Chuk);
 
 		Serial.println("Started code.");
 		// /Trak code
@@ -66,7 +70,11 @@ void loop() {
 			Time.loop();
 			OSC.loop();
 
-			Serial.println("loop");
+			if (Time.t100ms) {
+				Serial.print(Trak.data.leftX);
+				Serial.print(" ");
+				Serial.println(Chuk.data.buttonC());
+			}
 		}
 	}
 }

@@ -24,10 +24,10 @@ public:
 		reset();
 	}
 
-	inline float joyX() { return _joyX; };
-	inline float joyY() { return _joyY; };
-	inline float buttonC() { return _buttonC; };
-	inline float buttonZ() { return _buttonZ; };
+	float joyX() { return _joyX; };
+	float joyY() { return _joyY; };
+	float buttonC() { return _buttonC; };
+	float buttonZ() { return _buttonZ; };
 
 	void reset() {
 		_buttonC = 0.0;
@@ -37,10 +37,12 @@ public:
 	}
 
 private:
-	float _buttonC;
-	float _buttonZ;
-	float _joyX;
-	float _joyY;
+	struct {
+		float _buttonC;
+		float _buttonZ;
+		float _joyX;
+		float _joyY;
+	};
 };
 
 union EdtI2CChukData
@@ -111,7 +113,7 @@ class EdtOSCChuk : public EdtOSCObject
 public:
 	EdtOSCChuckData data = EdtOSCChuckData();
 
-	EdtOSCChuk(char * pattern) {
+	EdtOSCChuk(const char * pattern) {
 		_pattern = pattern;
 	}
 
@@ -158,7 +160,7 @@ public:
 			.add<float>(data.buttonC())
 			.add<float>(data.buttonZ())
 			.add<float>(data.joyX())
-			.add<float>(data.joyX());
+			.add<float>(data.joyY());
 
 		return message;
 	}
