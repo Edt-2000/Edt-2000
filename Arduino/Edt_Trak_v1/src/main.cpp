@@ -37,7 +37,7 @@ void loop() {
 		Serial.println(VERSION);
 
 		Serial.println("Starting Ethernet..");
-		Ethernet.begin(MAC_TRAK, IP_TRAK);
+		Ethernet.begin(MAC_TRAK);
 		Serial.println("Started Ethernet.");
 
 		Serial.print("IP: ");
@@ -65,6 +65,8 @@ void loop() {
 		while (Statemachine.isRun()) {
 			Time.loop();
 			OSC.loop();
+
+			Serial.println("loop");
 		}
 	}
 }
