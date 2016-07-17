@@ -1,6 +1,8 @@
 # Ed-2000
 Arduino &amp; GameTrak based expressive midi controller
 
+>This is our playground for all our code and experiments, we are in the progress of making separate git repositories for released code. Have a look at the [Edt-2000 organisation](https://github.com/Edt-2000) for all the repositories.
+
 ## Wishlist [Floris.cc](http://www.floris.cc)
 
 Edwin
