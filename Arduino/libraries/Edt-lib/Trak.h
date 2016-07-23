@@ -77,7 +77,7 @@ public:
 		OSCMessage message = OSCMessage(_oscAddress);
 
 		for (int i = 0; i < 6; i++) {
-			//data.buffer[i] = (float)analogRead(_config.buffer[i]) / 1023.0;
+			data.buffer[i] = (float)analogRead(_config.buffer[i]) / 1023.0;
 			message.add<float>(data.buffer[i]);
 		}
 
