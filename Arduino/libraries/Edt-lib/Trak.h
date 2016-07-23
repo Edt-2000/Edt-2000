@@ -73,12 +73,12 @@ public:
 		_oscAddress = oscAddress;
 	};
 
-	OSCMessage generateMessage() {
-		OSCMessage message = OSCMessage(_oscAddress);
+	OSCMessage * generateMessage() {
+		OSCMessage * message = new OSCMessage(_oscAddress);
 
 		for (int i = 0; i < 6; i++) {
 			data.buffer[i] = (float)analogRead(_config.buffer[i]) / 1023.0;
-			message.add<float>(data.buffer[i]);
+			message->add<float>(data.buffer[i]);
 		}
 
 		return message;

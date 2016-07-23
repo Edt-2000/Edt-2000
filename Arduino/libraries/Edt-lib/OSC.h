@@ -7,7 +7,7 @@
 
 class EdtOSCSourceObject {
 public:
-	virtual OSCMessage generateMessage() = 0;
+	virtual OSCMessage * generateMessage() = 0;
 };
 
 class EdtOSCObject : public OSCMessageHandler {};
@@ -99,14 +99,16 @@ public:
 		}
 	}
 
-	void send(OSCMessage message) {
+	void send(OSCMessage * message) {
 		_udpHandle->beginPacket(_remoteIP, _remotePort);
 
-		message.add<int>(++_messages);
+		message->add<int>(++_messages);
 
-		message.send(*_udpHandle);
+		message->send(*_udpHandle);
 		_udpHandle->endPacket();
-		message.empty();
+		message->empty();
+
+		free(message);
 	}
 private:
 	UDP * _udpHandle;
