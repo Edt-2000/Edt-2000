@@ -77,11 +77,12 @@ public:
 	void loop() {
 		int i;
 
-		if (Time.tOSC) {
-			for(i = 0; i < _sources; i++) {
-				send(_oscSources[i]->generateMessage());
-			}
+		//if (Time.tOSC) {
+		for(i = 0; i < _sources; i++) {
+			send(_oscSources[i]->generateMessage());
 		}
+		//}
+
 
 		int size;
 
@@ -101,6 +102,8 @@ public:
 	void send(OSCMessage message) {
 		_udpHandle->beginPacket(_remoteIP, _remotePort);
 
+		message.add<int>(++_messages);
+
 		message.send(*_udpHandle);
 		_udpHandle->endPacket();
 		message.empty();
@@ -116,4 +119,5 @@ private:
 
 	int _objects = 0;
 	int _sources = 0;
+	int _messages = 0;
 } OSC;

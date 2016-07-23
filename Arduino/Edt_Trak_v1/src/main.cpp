@@ -4,6 +4,7 @@ Edt-Trak
 Using PlatformIO
 */
 #define VERSION "v1"
+#define DEBUG
 
 #include "Definitions.h"
 
@@ -16,12 +17,10 @@ Using PlatformIO
 #include "Preset.h"
 
 #include "Trak.h"
-#include "Chuk.h"
 
 EthernetUDP Udp;
 
 EdtAITrak Trak = EdtAITrak(0, 0, 0, 0, 0, 0, OSC_TRAK);
-EdtOSCChuk Chuk = EdtOSCChuk(OSC_SUIT_CHUK);
 
 void setup() {
 	Statemachine.begin(13, LOW);
@@ -33,6 +32,7 @@ void loop() {
 	if (Statemachine.isBegin()) {
 		Time.begin();
 
+#ifdef DEBUG
 		Serial.begin(9600);
 
 		// Trak code
@@ -40,7 +40,9 @@ void loop() {
 		Serial.println(VERSION);
 
 		Serial.println("Starting Ethernet..");
+#endif
 		Ethernet.begin(MAC_TRAK);
+#ifdef DEBUG
 		Serial.println("Started Ethernet.");
 
 		Serial.print("IP: ");
@@ -51,16 +53,22 @@ void loop() {
 		Serial.println();
 
 		Serial.println("Starting UDP..");
+#endif
 		Udp.begin(PORT_BROADCAST);
+#ifdef DEBUG
 		Serial.println("Started UDP.");
 		
 		Serial.println("Starting code..");
+#endif
 
-		OSC.bindUDP(&Udp, IPAddress(10,0,0,20), PORT_BROADCAST);
+		OSC.bindUDP(&Udp, IPAddress(10, 0, 0, 200), PORT_BROADCAST);
+		//OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addSource(&Trak);
-		OSC.addObject(&Chuk);
-
+		
+		
+#ifdef DEBUG
 		Serial.println("Started code.");
+#endif
 		// /Trak code
 
 		Statemachine.ready();
@@ -69,12 +77,6 @@ void loop() {
 		while (Statemachine.isRun()) {
 			Time.loop();
 			OSC.loop();
-
-			if (Time.t100ms) {
-				Serial.print(Trak.data.leftX);
-				Serial.print(" ");
-				Serial.println(Chuk.data.buttonC());
-			}
 		}
 	}
 }
