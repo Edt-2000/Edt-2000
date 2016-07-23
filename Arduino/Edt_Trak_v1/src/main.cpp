@@ -12,7 +12,7 @@ Using PlatformIO
 #include "Ethernet.h"
 #include "EthernetUdp.h"
 #include "OSC.h"
-#include "Time.h"
+//#include "Time.h"
 #include "Statemachine.h"
 #include "Preset.h"
 
@@ -30,7 +30,7 @@ void loop() {
 	Statemachine.loop();
 
 	if (Statemachine.isBegin()) {
-		Time.begin();
+		//Time.begin();
 
 #ifdef DEBUG
 		Serial.begin(9600);
@@ -61,10 +61,9 @@ void loop() {
 		Serial.println("Starting code..");
 #endif
 
-		OSC.bindUDP(&Udp, IPAddress(10, 0, 0, 200), PORT_BROADCAST);
-		//OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		//OSC.bindUDP(&Udp, IPAddress(10, 0, 0, 200), PORT_BROADCAST);
+		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addSource(&Trak);
-		
 		
 #ifdef DEBUG
 		Serial.println("Started code.");
@@ -75,7 +74,7 @@ void loop() {
 	}
 	else {
 		while (Statemachine.isRun()) {
-			Time.loop();
+			//Time.loop();
 			OSC.loop();
 		}
 	}
