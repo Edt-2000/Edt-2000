@@ -83,7 +83,7 @@ public:
 		}
 		//}
 
-
+		/*
 		int size;
 
 		if ((size = _udpHandle->parsePacket())>0) {
@@ -96,7 +96,9 @@ public:
 			for (i = 0; i < _objects; i++) {
 				msgIN.route(_oscObjects[i]);
 			}
-		}
+		}*/
+
+		_udpHandle->flush();
 	}
 
 	void send(OSCMessage * message) {
