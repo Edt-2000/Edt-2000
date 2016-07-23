@@ -108,7 +108,7 @@ public:
 		_udpHandle->endPacket();
 		message->empty();
 
-		free(message);
+		delete message;
 	}
 private:
 	UDP * _udpHandle;
