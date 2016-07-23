@@ -21,6 +21,14 @@ namespace SharpOSC
 			Arguments.AddRange(args);
 		}
 
+		public OscMessage(string address, params object[] args)
+		{
+			this.Address = address;
+
+			Arguments = new List<object>();
+			Arguments.AddRange(args);
+		}
+
 		public override byte[] GetBytes()
 		{
 			List<byte[]> parts = new List<byte[]>();
