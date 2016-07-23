@@ -39,6 +39,7 @@
 
 #include <Udp.h>
 
+#define BETTERFLUSH
 #define UDP_TX_PACKET_MAX_SIZE 24
 
 class EthernetUDP : public UDP {
