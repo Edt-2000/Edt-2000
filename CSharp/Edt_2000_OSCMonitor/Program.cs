@@ -36,7 +36,7 @@ namespace Edt_2000_OSCMonitor
 
 					if(DateTime.Now.Subtract(previous).TotalMilliseconds > 1000)
 					{
-						Console.WriteLine("Messages received: " + (messages - messagesProcessed) + ".");
+						Console.WriteLine($"Messages received: {messages - messagesProcessed} [{messagesProcessed}-{messages}].");
 
 						previous = DateTime.Now;
 						messagesProcessed = messages;
