@@ -27,6 +27,7 @@
 #define OSCMESSAGE_h
 
 #define PAULSSUGGESTION
+#define SEND2_0
 
 #include "OSCData.h"
 #include <Print.h>

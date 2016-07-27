@@ -431,6 +431,63 @@ OSCErrorCode OSCMessage::getError(){
     SENDING
  =============================================================================*/
 
+#ifdef SEND2_0
+// this method assumes the message contains only floats and integers and puts the entire message on the stack prior to sending
+// a message with 7 floats and ints will be 48 bytes big, so not that big.
+OSCMessage& OSCMessage::send(Print &p) {
+	//don't send a message with errors
+	if (hasError()) {
+		return *this;
+	}
+
+	uint8_t nullChar = '\0';
+	int addressLength = strlen(address) + 1;
+	int addressPadding = padSize(addressLength);
+	int typePadding = padSize(dataCount + 1);
+	if (typePadding == 0) {
+		typePadding = 4;
+	}
+
+	int bufferPosition = 0;
+	int bufferSize = addressLength + addressPadding + 1 + dataCount + typePadding + (dataCount * 4); // assuming every data is 4 bytes
+
+	// put the complete message on the stack
+	uint8_t buffer[bufferSize];
+
+	memcpy(buffer, address, addressLength);
+	bufferPosition = addressLength;
+
+	while (addressPadding--) {
+		buffer[bufferPosition++] = nullChar;
+	}
+
+	buffer[bufferPosition++] = ',';
+	
+	for (int i = 0; i < dataCount; i++) {
+		buffer[bufferPosition++] = getType(i);
+	}
+
+	while (typePadding--) {
+		buffer[bufferPosition++] = nullChar;
+	}
+
+	// intentionally assuming only floats or integers are transmitted (length = 4)
+	for (int i = 0; i < dataCount; i++) {
+		OSCData * datum = getOSCData(i);
+
+		uint32_t f = BigEndian(datum->data.i);
+		uint8_t * ptr = (uint8_t *)&f;
+
+		memcpy(buffer + bufferPosition, ptr, 4);
+
+		bufferPosition += 4;
+	}
+
+	p.write(buffer, bufferSize);
+
+	return *this;
+}
+#else
 OSCMessage& OSCMessage::send(Print &p){
     //don't send a message with errors
     if (hasError()){
@@ -507,6 +564,7 @@ OSCMessage& OSCMessage::send(Print &p){
     }
     return *this;
 }
+#endif
 
 /*=============================================================================
     FILLING
