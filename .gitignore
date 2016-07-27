@@ -11,3 +11,7 @@
 *.log
 *.yml
 **/WifiConfig.h
+*.vcxproj
+*.csproj
+App.config
+AssemblyInfo.cs
