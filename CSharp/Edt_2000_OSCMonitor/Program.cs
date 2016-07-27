@@ -24,7 +24,7 @@ namespace Edt_2000_OSCMonitor
 
 				messages++;
 
-				if (messageReceived.Address.StartsWith("/"))
+				if (messageReceived != null && messageReceived.Address.StartsWith("/"))
 				{
 					messageSeen = (int)messageReceived.Arguments.Last();
 
