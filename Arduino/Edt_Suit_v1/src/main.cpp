@@ -75,7 +75,8 @@ void loop() {
 
 		Serial.println("Starting code..");
 
-		OSC.bindUDP(&Udp, IPAddress(10,0,0,10), PORT_BROADCAST);
+		//OSC.bindUDP(&Udp, IPAddress(10, 0, 0, 10), PORT_BROADCAST);
+		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addObject(&Trak);
 		OSC.addSource(&Chuk);
 
