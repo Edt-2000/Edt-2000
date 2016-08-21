@@ -69,10 +69,6 @@ public:
 		_udpHandle->endPacket();
 		message->empty();
 	}
-
-	bool inError() {
-		return _error;
-	}
 private:
 	UDP * _udpHandle;
 	
@@ -84,5 +80,4 @@ private:
 
 	int _objects = 0;
 	int _sources = 0;
-	int _messages = 0;
-} OSC;
+};
