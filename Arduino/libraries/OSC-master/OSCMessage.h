@@ -26,13 +26,18 @@
 #ifndef OSCMESSAGE_h
 #define OSCMESSAGE_h
 
-#define PAULSSUGGESTION
-#define SEND2_0
-
-#include "OSCData.h"
+#include <Arduino.h>
 #include <Print.h>
 
 class OSCMessage;
+
+union OSCData {
+	int32_t i; //int
+	float f; //float
+	OSCData(float datum) {
+		f = datum;
+	}
+};
 
 class OSCMessageHandler
 {
@@ -49,7 +54,6 @@ private:
     //friends
 	friend class OSCBundle;
 
-
 /*=============================================================================
 	PRIVATE VARIABLES
 =============================================================================*/
@@ -58,13 +62,14 @@ private:
 	char * address;
 
 	//the data
-	OSCData ** data;
+	OSCData * data;
+	//OSCData ** data;
 
 	//the number of OSCData in the data array
 	int dataCount;
 
-	//error codes for potential runtime problems
-	OSCErrorCode error;
+	// the number of OSCData reserved
+	int reservedCount;
     
 /*=============================================================================
     DECODING INCOMING BYTES
@@ -106,14 +111,7 @@ private:
 
 	//compares the OSCData's type char to a test char
 	bool testType(int position, char type);
-
-	//returns the number of bytes to pad to make it 4-bit aligned
-    //	int padSize(int bytes);
-    
 public:
-
-	//returns the OSCData at that position
-	OSCData * getOSCData(int);
 
 /*=============================================================================
 	CONSTRUCTORS / DESTRUCTOR
@@ -140,106 +138,36 @@ public:
 	SETTING  DATA
 =============================================================================*/
 
-	//returns the OSCMessage so that multiple 'add's can be strung together
-	template <typename T> 
-	OSCMessage& add(T datum){
-		//make a piece of data
-		OSCData * d = new OSCData(datum);
-		//check if it has any errors
-		if (d->error == ALLOCFAILED){
-			error = ALLOCFAILED;
+	//reserves a predefined amount of data so multiple add calls won't cause multile reallocations of the data
+	//retuns whether it is a success or failure
+	bool reserve(int count) {
+		reservedCount += count;
+
+		OSCData * dataMem = (OSCData *)realloc(data, sizeof(OSCData) * (reservedCount));
+		if (dataMem == NULL) {
+			return false;
 		} else {
-			//resize the data array
-			OSCData ** dataMem = (OSCData **) realloc(data, sizeof(OSCData *) * (dataCount + 1));
-			if (dataMem == NULL){
-				error = ALLOCFAILED;
-			} else {
-				data = dataMem;
-				//add data to the end of the array
-				data[dataCount] = d;
-				//increment the data size
-				dataCount++;
-			}
+			data = dataMem;
+			return true;
 		}
-		return *this;
 	}
-    
-    //blob specific add
-    OSCMessage& add(uint8_t * blob, int length){
-		//make a piece of data
-		OSCData * d = new OSCData(blob, length);
-		//check if it has any errors
-		if (d->error == ALLOCFAILED){
-			error = ALLOCFAILED;
+
+	//returns the OSCMessage so that multiple 'add's can be strung together
+	//reserve the amount of items that will be added using reserve() for better performance
+	OSCMessage& add(float datum){
+		if (dataCount < reservedCount) {
+			//add data to the end of the array
+			data[dataCount++] = datum;
 		} else {
-			//resize the data array
-			OSCData ** dataMem = (OSCData **) realloc(data, sizeof(OSCData *) * (dataCount + 1));
-			if (dataMem == NULL){
-				error = ALLOCFAILED;
-			} else {
-				data = dataMem;
+			// reserving new memory every add-call is expensive.
+			if (reserve(1)) {
 				//add data to the end of the array
-				data[dataCount] = d;
-				//increment the data size
-				dataCount++;
+				data[dataCount++] = datum;
 			}
 		}
 		return *this;
 	}
 
-	//sets the data at a position
-	template <typename T> 
-	OSCMessage& set(int position, T datum){
-		if (position < dataCount){
-			//replace the OSCData with a new one
-			OSCData * oldDatum = getOSCData(position);
-			//destroy the old one
-			delete oldDatum;
-			//make a new one
-			OSCData * newDatum = new OSCData(datum);
-			//test if there was an error
-			if (newDatum->error == ALLOCFAILED){
-				error = ALLOCFAILED;
-			} else {
-				//otherwise, put it in the data array
-				data[position] = newDatum;
-			}
-		} else if (position == (dataCount)){
-			//add the data to the end
-			add(datum);
-		} else {
-			//else out of bounds error
-			error = INDEX_OUT_OF_BOUNDS;
-		}
-		return *this;
-	}
-    
-    //blob specific setter
-    OSCMessage& set(int position, uint8_t * blob, int length){
-        if (position < dataCount){
-			//replace the OSCData with a new one
-			OSCData * oldDatum = getOSCData(position);
-			//destroy the old one
-			delete oldDatum;
-			//make a new one
-			OSCData * newDatum = new OSCData(blob, length);
-			//test if there was an error
-			if (newDatum->error == ALLOCFAILED){
-				error = ALLOCFAILED;
-			} else {
-				//otherwise, put it in the data array
-				data[position] = newDatum;
-			}
-		} else if (position == (dataCount)){
-			//add the data to the end
-			add(blob, length);
-		} else {
-			//else out of bounds error
-			error = INDEX_OUT_OF_BOUNDS;
-		}
-		return *this;
-    }
-    
     OSCMessage& setAddress(const char *);
 
 /*=============================================================================
@@ -248,30 +176,11 @@ public:
 	getters take a position as an argument
 =============================================================================*/
 
-	int32_t getInt(int);
-    osctime_t getTime(int);
-
 	float getFloat(int);
-	double getDouble(int);
-    bool getBoolean(int);
 
-	//return the copied string's length
-	int getString(int, char *, int);
-	//returns the number of unsigned int8's copied into the buffer
-	int getBlob(int, uint8_t *, int);
-
-	//returns the number of bytes of the data at that position
-	int getDataLength(int);
-
-	//returns the type at the position
-	char getType(int);
-
-	//put the address in the buffer
 	int getAddress(char * buffer, int offset = 0);
 	int getAddress(char * buffer, int offset, int len);
-	
-	// TODO: int getAddressLength(int offset = 0);
-	
+		
 
 /*=============================================================================
 	TESTING DATA
@@ -279,14 +188,7 @@ public:
 	testers take a position as an argument
 =============================================================================*/
 
-	bool isInt(int);
-	bool isFloat(int);
-	bool isBlob(int);
-	bool isChar(int);
-	bool isString(int);
-	bool isDouble(int);
-    bool isBoolean(int);
-    bool isTime(int);
+	bool isFloat(int) { return true; }
 		
 /*=============================================================================
 	PATTERN MATCHING
@@ -329,15 +231,6 @@ public:
     //fill the message from a byte stream
     OSCMessage& fill(uint8_t);
     OSCMessage& fill(uint8_t *, int);
-		
-/*=============================================================================
-	ERROR
-=============================================================================*/
-
-	bool hasError();
-
-	OSCErrorCode getError();
-
 };
 
 #endif
