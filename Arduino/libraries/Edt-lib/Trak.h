@@ -70,20 +70,19 @@ public:
 		_config.rightY = rightY;
 		_config.rightZ = rightZ;
 
-		_oscAddress = oscAddress;
+		message.setAddress(oscAddress);
+		message.reserve(6);
 	};
 
 	OSCMessage * generateMessage() {
-		OSCMessage * message = new OSCMessage(_oscAddress);
-
 		for (int i = 0; i < 6; i++) {
 			data.buffer[i] = (float)analogRead(_config.buffer[i]) / 1023.0;
-			message->add<float>(data.buffer[i]);
+			message.add(data.buffer[i]);
 		}
-
-		return message;
+	
+		return &message;
 	};
 private:
-	const char * _oscAddress;
+	OSCMessage message = OSCMessage();
 	EdtAITrakConfig _config = EdtAITrakConfig();
 };
