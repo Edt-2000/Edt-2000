@@ -29,16 +29,17 @@ Thomas
 ### Edt-Trak
 
 ```
-URL                                           Data types  Range           Description
-/Trak[0-9]+                               2x  f,f,f       0.0 - 1.0       XYZ sensor
-/Trak[0-9]+/footpedal                         f           0.0 | 1.0       Footpedal
-/Suit[0-9]+                                   f,f         -1.0 - 1.0      Nunchuk XY joystick (0.0 is center)
-/Suit[0-9]+                                   f,f         0.0 | 1.0       Nunchuk CZ buttons
+URL                                         Data types  Range           Description
+/Tk[0-9]+                                   f,f,f       0.0 - 1.0       XYZ sensor left
+                                            f,f,f       0.0 - 1.0       XYZ sensor right
+                                            f           0.0 | 1.0       Footpedal
+/St[0-9]+                                   f,f         -1.0 - 1.0      Nunchuk XY joystick (0.0 is center)
+                                            f,f         0.0 | 1.0       Nunchuk CZ buttons
 ```
 
 ## License
 
-Details about the licensing can be found in the LICENSE file. 
+Details about the licensing can be found in the LICENSE file.
 
 * Please use this code for your own DIY projects
 * When you make interesting changes and additions; send us a message and/or make a Pull Request
