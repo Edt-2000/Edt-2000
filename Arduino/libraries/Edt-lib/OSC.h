@@ -15,8 +15,11 @@ class EdtOSCObject : public OSCMessageHandler {};
 class EdtOSC
 {
 public:
-	EdtOSC() {
-	};
+	EdtOSC() {}
+	EdtOSC(int sources, int objects) {
+		_oscObjects = new EdtOSCObject*[objects];
+		_oscSources = new EdtOSCSourceObject*[sources];
+	}
 
 	void bindUDP(UDP * udp, IPAddress remoteIP, int remotePort) {
 		_udpHandle = udp;
@@ -25,92 +28,50 @@ public:
 	}
 
 	void addSource(EdtOSCSourceObject * source) {
-		if (_sources > 0) {
-			EdtOSCSourceObject ** old = new EdtOSCSourceObject*[_sources];
-
-			for (int i = 0; i < _sources; i++) {
-				old[i] = _oscSources[i];
-			}
-
-			// kill the old array
-			delete _oscSources;
-
-			_oscSources = new EdtOSCSourceObject*[_sources + 1];
-			
-			for (int i = 0; i < _sources; i++) {
-				_oscSources[i] = old[i];
-			}
-		}
-		else
-		{
-			_oscSources = new EdtOSCSourceObject*[_sources + 1];
-		}
-
 		_oscSources[_sources++] = source;
 	}
 
 	void addObject(EdtOSCObject * object) {
-		if (_objects > 0) {
-			EdtOSCObject ** old = new EdtOSCObject*[_sources];
-
-			for (int i = 0; i < _objects; i++) {
-				old[i] = _oscObjects[i];
-			}
-
-			// kill the old array
-			delete _oscSources;
-
-			_oscObjects = new EdtOSCObject*[_objects + 1];
-
-			for (int i = 0; i < _objects; i++) {
-				_oscObjects[i] = old[i];
-			}
-		}
-		else
-		{
-			_oscObjects = new EdtOSCObject*[_objects + 1];
-		}
-
 		_oscObjects[_objects++] = object;
 	}
 
 	void loop() {
 		int i;
-
-		//if (Time.tOSC) {
-		for(i = 0; i < _sources; i++) {
-			send(_oscSources[i]->generateMessage());
-		}
-		//}
-
-		/*
 		int size;
 
-		if ((size = _udpHandle->parsePacket())>0) {
-			OSCMessage msgIN = OSCMessage();
+		for(i = 0; i < _sources; ++i) {
+			send(_oscSources[i]->generateMessage());
+		}
+		
+		if (_objects > 0) {
+			if ((size = _udpHandle->parsePacket()) > 0) {
+				OSCMessage msgIN = OSCMessage();
 
-			while (size--) {
-				msgIN.fill(_udpHandle->read());
+				do {
+					msgIN.fill(_udpHandle->read());
+				} while (--size >= 0);
+
+				i = 0;
+				do {
+					msgIN.route(_oscObjects[i]);
+				} while (++i < _objects);
 			}
-
-			for (i = 0; i < _objects; i++) {
-				msgIN.route(_oscObjects[i]);
-			}
-		}*/
-
-		_udpHandle->flush();
+		}
+		else {
+			_udpHandle->flush();
+		}
 	}
 
 	void send(OSCMessage * message) {
 		_udpHandle->beginPacket(_remoteIP, _remotePort);
 
-		message->add<int>(++_messages);
-
 		message->send(*_udpHandle);
 		_udpHandle->endPacket();
 		message->empty();
+	}
 
-		delete message;
+	bool inError() {
+		return _error;
 	}
 private:
 	UDP * _udpHandle;
