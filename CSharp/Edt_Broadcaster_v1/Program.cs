@@ -44,7 +44,7 @@ namespace Edt_Broadcaster_v1
 
 					messages++;
 
-					if (messageReceived.Address.StartsWith("/Suit"))
+					if (messageReceived.Address.StartsWith("/"))
 					{
 						/*
 						if(DateTime.Now.Subtract(previous).TotalMilliseconds > 1000)

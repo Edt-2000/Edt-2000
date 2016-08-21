@@ -4,7 +4,7 @@ Edt-Trak
 Using PlatformIO
 */
 #define VERSION "v1"
-#define DEBUG
+//#define DEBUG
 
 #include "Definitions.h"
 
@@ -12,13 +12,12 @@ Using PlatformIO
 #include "Ethernet.h"
 #include "EthernetUdp.h"
 #include "OSC.h"
-//#include "Time.h"
 #include "Statemachine.h"
 #include "Preset.h"
-
 #include "Trak.h"
 
 EthernetUDP Udp;
+EdtOSC OSC;
 
 EdtAITrak Trak = EdtAITrak(0, 0, 0, 0, 0, 0, OSC_TRAK);
 
@@ -44,7 +43,7 @@ void loop() {
 		//Time.begin();
 
 #ifdef DEBUG
-		Serial.begin(9600);
+		Serial.begin(345600);
 
 		// Trak code
 		Serial.print("Edt-Trak ");
@@ -72,6 +71,7 @@ void loop() {
 		Serial.println("Starting code..");
 #endif
 
+		OSC = EdtOSC(1, 0);
 		//OSC.bindUDP(&Udp, IPAddress(10, 0, 0, 200), PORT_BROADCAST);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addSource(&Trak);

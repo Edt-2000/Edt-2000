@@ -15,7 +15,6 @@ namespace Edt_2000_OSCMonitor
 			DateTime previous = DateTime.Now;
 			int messages = 0;
 			int messagesProcessed = 0;
-			int messageSeen = 0;
 
 			// The cabllback function
 			HandleOscPacket callback = delegate (OscPacket packet)
@@ -26,14 +25,6 @@ namespace Edt_2000_OSCMonitor
 
 				if (messageReceived != null && messageReceived.Address.StartsWith("/"))
 				{
-					messageSeen = (int)messageReceived.Arguments.Last();
-
-					if (messageSeen != messages)
-					{
-						Console.WriteLine("################## Message missed! #######################");
-						messages = messageSeen;
-					}
-
 					if(DateTime.Now.Subtract(previous).TotalMilliseconds > 1000)
 					{
 						Console.WriteLine($"Messages received: {messages - messagesProcessed} [{messagesProcessed}-{messages}].");
