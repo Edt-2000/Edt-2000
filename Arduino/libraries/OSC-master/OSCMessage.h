@@ -26,7 +26,6 @@
 #ifndef OSCMESSAGE_h
 #define OSCMESSAGE_h
 
-#include <Arduino.h>
 #include <Print.h>
 
 class OSCMessage;

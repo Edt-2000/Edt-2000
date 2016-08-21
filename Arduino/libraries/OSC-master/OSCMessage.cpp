@@ -25,9 +25,7 @@
 
 #include "OSCMessage.h"
 #include "OSCMatch.h"
-#include "OSCTiming.h"
 
-extern osctime_t zerotime;
 /*=============================================================================
 	CONSTRUCTORS / DESTRUCTOR
 =============================================================================*/
