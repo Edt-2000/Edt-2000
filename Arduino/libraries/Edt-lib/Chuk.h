@@ -57,11 +57,21 @@ public:
 	// normalization to -1.0 to 1.0 float (TouchOSC only supports floats)
 	float joyX() {
 		float x = ((((float)_joyX) / 128.0) - 1.0) / 0.70;
-		return max(-1.0, min(1.0, x));
+		if (x < 0.05 && x > -0.05) {
+			return 0.0;
+		}
+		else {
+			return max(-1.0, min(1.0, x));
+		}
 	};
 	float joyY() {
 		float y = ((((float)_joyY) / 128.0) - 1.0) / 0.70;
-		return max(-1.0, min(1.0, y));
+		if (y < 0.05 && y > -0.05) {
+			return 0.0;
+		}
+		else {
+			return max(-1.0, min(1.0, y));
+		}
 	};
 	float buttonC() { return (float)!_buttonC; };
 	float buttonZ() { return (float)!_buttonZ; };
@@ -134,6 +144,7 @@ class EdtI2CChuk : public EdtOSCSourceObject
 {
 public:
 	EdtI2CChukData data = EdtI2CChukData();
+	EdtI2CChukData newData = EdtI2CChukData();
 
 	EdtI2CChuk(int i2cAddress, const char * oscAddress) {
 		_i2cAddress = i2cAddress;
@@ -148,27 +159,29 @@ public:
 		Wire.write((uint8_t)0x00);
 		Wire.endTransmission();
 
+		_message.setAddress(_oscAddress);
+		_message.reserve(4);
+
 		requestData();
 	}
 
-	OSCMessage generateMessage() {
+	OSCMessage * generateMessage() {
 		loop();
 
-		OSCMessage message = OSCMessage(_oscAddress);
+		_message
+			.add(data.buttonC())
+			.add(data.buttonZ())
+			.add(data.joyX())
+			.add(data.joyY());
 
-		message
-			.add<float>(data.buttonC())
-			.add<float>(data.buttonZ())
-			.add<float>(data.joyX())
-			.add<float>(data.joyY());
-
-		return message;
+		return &_message;
 	}
 
 private:
 	int _i2cAddress;
 	const char * _oscAddress;
 	bool _requested;
+	OSCMessage _message;
 
 	void requestData() {
 		Wire.beginTransmission(_i2cAddress);
@@ -182,11 +195,11 @@ private:
 		// Read 6 bytes from the nunchuck and check 6 bytes were received
 		Wire.requestFrom(_i2cAddress, 6);
 		while (Wire.available()) {
-			data.buffer[bytesReceived++] = _decodeByte(Wire.read());
+			newData.buffer[bytesReceived++] = _decodeByte(Wire.read());
 		}
 
-		if (bytesReceived < 5) {
-			data.reset();
+		if (bytesReceived == 6) {
+			memcpy(&data, &newData, 6);
 		}
 
 		requestData();
