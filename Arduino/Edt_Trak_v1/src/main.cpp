@@ -19,7 +19,7 @@ Using PlatformIO
 EthernetUDP Udp;
 EdtOSC OSC;
 
-EdtAITrak Trak = EdtAITrak(0, 0, 0, 0, 0, 0, OSC_TRAK);
+EdtAITrak Trak = EdtAITrak(2, 1, 0, 5, 4, 3, OSC_TRAK);
 
 // Define various ADC prescaler
 // http://www.microsmart.co.za/technical/2014/03/01/advanced-arduino-adc/
@@ -72,7 +72,6 @@ void loop() {
 #endif
 
 		OSC = EdtOSC(1, 0);
-		//OSC.bindUDP(&Udp, IPAddress(10, 0, 0, 200), PORT_BROADCAST);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addSource(&Trak);
 		
