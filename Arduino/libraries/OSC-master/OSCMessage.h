@@ -27,6 +27,7 @@
 #define OSCMESSAGE_h
 
 #include <Print.h>
+#include <Arduino.h>
 
 class OSCMessage;
 
@@ -99,7 +100,6 @@ private:
     //decoding function
     void decode(uint8_t);
     void decodeAddress();
-    void decodeType(uint8_t);
     void decodeData(uint8_t);
 
 /*=============================================================================
@@ -118,8 +118,7 @@ public:
 	
 	//new constructor needs an address
 	OSCMessage (const char * _address);
-    //no address
-    //placeholder since it's invalide OSC
+    //no address, can be set with setAddress
 	OSCMessage();
     
 	//can optionally accept all of the data after the address
