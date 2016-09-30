@@ -23,6 +23,20 @@ public:
 		_t1000ms = 0;
 	};
 
+	void startTiming(int slot) {
+		_timings[slot] = micros();
+	}
+
+	void addTimeEvent(int slot, const char * description) {
+		Serial.print(micros() - _timings[slot]);
+		Serial.print(": ");
+		Serial.print(slot);
+		Serial.print(": ");
+		Serial.println(description);
+
+		_timings[slot] = micros();
+	}
+
 	void loop() {
 		unsigned long now = ::millis();
 
@@ -54,4 +68,6 @@ private:
 	unsigned long _previous;
 	int _diff100ms;
 	int _t1000ms;
+
+	unsigned long _timings[4];
 } Time;
