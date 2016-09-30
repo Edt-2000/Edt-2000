@@ -2,8 +2,8 @@
 Edt-2000 Test Ping
 */
 
-#define STARTIO 5
-#define FINISHIO 6
+#define STARTIO 3
+#define FINISHIO 4
 
 #define SYS 0
 #define STEP 1
@@ -35,6 +35,17 @@ class OSCMessageReader : public EdtOSCObject
 
 	void OSCCallback(OSCMessage &msg, int addrOffset) {
 		Time.addTimeEvent(FULL, "OSC Message received.");
+		Serial.print(msg.getFloat(0));
+		Serial.print(" ");
+		Serial.print(msg.getFloat(1));
+		Serial.print(" ");
+		Serial.print(msg.getFloat(2));
+		Serial.print(" ");
+		Serial.print(msg.getFloat(3));
+		Serial.print(" ");
+		Serial.print(msg.getFloat(4));
+		Serial.print(" ");
+		Serial.println(msg.getFloat(5));
 
 		state = states::writeFinish;
 	}
@@ -106,6 +117,9 @@ void loop() {
 				Time.addTimeEvent(FULL, "Writing start signal.");
 				digitalWrite(STARTIO, HIGH);
 				state = states::awaitMessage;
+				break;
+
+			case states::awaitMessage:
 				break;
 
 			case states::writeFinish:

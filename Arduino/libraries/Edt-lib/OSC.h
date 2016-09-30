@@ -44,9 +44,10 @@ public:
 		}
 
 		if (_objects > 0) {
-			handleTime = micros();
-
 			if ((size = _udpHandle->parsePacket()) > 0) {
+				Serial.print("Data received: ");
+				Serial.println(size);
+
 				OSCMessage msgIN = OSCMessage();
 
 				// size exceeds current buffer. resize buffer to fit incoming message
@@ -73,18 +74,9 @@ public:
 			}
 		}
 		else {
-			handleTime = micros();
-
-			//Serial.println("No data received.");
-
 			_udpHandle->flush();
 
 		}
-		//Serial.print("Handling: ");
-		//Serial.print(micros() - handleTime);
-		//Serial.print(" Loop time: ");
-		//Serial.println(micros() - loopTime);
-		loopTime = micros();
 	}
 
 	void send(OSCMessage * message) {
@@ -109,7 +101,4 @@ private:
 
 	int _objects = 0;
 	int _sources = 0;
-
-	long loopTime = micros();
-	long handleTime;
 };

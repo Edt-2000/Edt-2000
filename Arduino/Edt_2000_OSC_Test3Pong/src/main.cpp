@@ -3,8 +3,8 @@ Edt-2000 Test Ping
 */
 #define DEBUG
 
-#define STARTIO 5
-#define FINISHIO 6
+#define STARTIO 3
+#define FINISHIO 4
 
 #define SYS 0
 #define STEP 1
@@ -32,13 +32,19 @@ class OSCMessageWriter : public EdtOSCSourceObject
 {
 public:
 	OSCMessageWriter() {
-		message.reserve(1);
+		message.reserve(6);
 		message.setAddress("/M");
 	}
 	OSCMessage * generateMessage() {
 		if (enabled) {
 
-			message.add(++messages);
+			message
+				.add(++messages)
+				.add(messages + 2)
+				.add(messages + 3)
+				.add(messages + 4)
+				.add(messages + 5)
+				.add(messages + 6);
 
 			enabled = false;
 
