@@ -8,6 +8,7 @@ class OSCMessage
 {
 public:
 	OSCMessage();
+	~OSCMessage();
 
 	void setAddress(const char * address);
 

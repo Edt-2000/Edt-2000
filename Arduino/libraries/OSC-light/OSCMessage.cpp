@@ -8,6 +8,13 @@ OSCMessage::OSCMessage() {
 	_isBigEndian = _determineIsBigEndian();
 }
 
+OSCMessage::~OSCMessage() {
+	free(_address);
+	if (_reservedCount > 0) {
+		delete[] _data;
+	}
+}
+
 void OSCMessage::setAddress(const char * address) {
 	free(_address);
 
