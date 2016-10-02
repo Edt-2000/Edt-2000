@@ -4,6 +4,8 @@
 // TODO: use own implementation of OSCMatch
 OSCMessage::OSCMessage() {
 	_address = NULL;
+
+	_isBigEndian = _determineIsBigEndian();
 }
 
 void OSCMessage::setAddress(const char * address) {
@@ -71,13 +73,25 @@ void OSCMessage::send(Print * p) {
 		buffer[bufferPosition++] = nullChar;
 	}
 
-	for (int i = 0; i < _dataCount; ++i) {
-		uint32_t f = _bigEndian(_data[i].data.i);
-		uint8_t * ptr = (uint8_t *)&f;
+	if (_isBigEndian) {
+		for (int i = 0; i < _dataCount; ++i) {
+			uint32_t f = _data[i].data.i;
+			uint8_t * ptr = (uint8_t *)&f;
 
-		memcpy(buffer + bufferPosition, ptr, 4);
+			memcpy(buffer + bufferPosition, ptr, 4);
 
-		bufferPosition += 4;
+			bufferPosition += 4;
+		}
+	}
+	else {
+		for (int i = 0; i < _dataCount; ++i) {
+			uint32_t f = _makeBigEndian(_data[i].data.i);
+			uint8_t * ptr = (uint8_t *)&f;
+
+			memcpy(buffer + bufferPosition, ptr, 4);
+
+			bufferPosition += 4;
+		}
 	}
 
 	p->write(buffer, bufferSize);

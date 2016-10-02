@@ -44,23 +44,28 @@ private:
 	OSCData * _data;
 	int _reservedCount = 0;
 	int _dataCount = 0;
+	bool _isBigEndian = false;
 
 	bool _isMatch(const char *);
 
 	template<typename T>
-	static inline T _bigEndian(const T& x)
+	inline static T _makeBigEndian(const T& x)
 	{
-		const int one = 1;
-		const char sig = *(char*)&one;
-		if (sig == 0) return x; // for big endian machine just return the input
-		T ret;
+		T result;
 		int size = sizeof(T);
 		char* src = (char*)&x + sizeof(T) - 1;
-		char* dst = (char*)&ret;
+		char* dst = (char*)&result;
 		while (size-- > 0) {
 			*dst++ = *src--;
 		}
-		return ret;
+		return result;
+	}
+
+	bool _determineIsBigEndian() {
+		const int one = 1;
+		const char sig = *(char*)&one;
+
+		return (sig == 0);
 	}
 
 	static inline int _padSize(int bytes) { return (4 - (bytes & 03)) & 3; }
