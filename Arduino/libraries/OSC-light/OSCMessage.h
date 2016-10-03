@@ -38,14 +38,16 @@ public:
 
 	// Evaluates wheter the given pattern is a valid route for the message.
 	bool route(const char * pattern) {
-		
+		return _matchHelper.isMatch(_address, pattern);
 	}
 
 	// Sends the data using the given Print object.
 	void send(Print * print);
 
 	// Fills the data with the given data buffer.
-	void fill(const char * data, int dataLength);
+	void fill(const char * data, int dataLength) {
+
+	}
 private:
 	char * _address;
 
