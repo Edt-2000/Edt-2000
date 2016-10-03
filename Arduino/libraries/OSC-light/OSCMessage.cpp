@@ -1,7 +1,6 @@
 #include "OSCMessage.h"
 #include "OSCMatch.h"
 
-// TODO: use own implementation of OSCMatch
 OSCMessage::OSCMessage() {
 	_address = NULL;
 
@@ -35,10 +34,6 @@ void OSCMessage::empty() {
 		_data[i].empty();
 	}
 	_dataCount = 0;
-}
-
-bool OSCMessage::route(const char * pattern) {
-	return _isMatch(pattern);
 }
 
 void OSCMessage::send(Print * p) {
@@ -109,24 +104,4 @@ void OSCMessage::send(Print * p) {
 void OSCMessage::fill(const char * data, int dataLength)
 {
 
-}
-
-bool OSCMessage::_isMatch(const char * pattern) {
-	int pattern_offset;
-	int address_offset;
-	int ret = osc_match(_address, pattern, &pattern_offset, &address_offset);
-
-	return ret == 3;
-	/*
-	char * next = (char *)(_address + pattern_offset);
-	if (ret == 3) {
-		return pattern_offset;
-	}
-	else if (pattern_offset > 0 && *next == '/') {
-		return pattern_offset;
-	}
-	else {
-		return 0;
-	}
-	*/
 }

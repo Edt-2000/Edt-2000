@@ -1,78 +1,151 @@
-/*
- Written by John MacCallum, The Center for New Music and Audio Technologies,
- University of California, Berkeley.  Copyright (c) 2009, The Regents of
- the University of California (Regents).
- Permission to use, copy, modify, distribute, and distribute modified versions
- of this software and its documentation without fee and without a signed
- licensing agreement, is hereby granted, provided that the above copyright
- notice, this paragraph and the following two paragraphs appear in all copies,
- modifications, and distributions.
- 
- IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
- SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING
- OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF REGENTS HAS
- BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- 
- REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- PURPOSE. THE SOFTWARE AND ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED
- HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
- MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
- */
+#pragma once
 
-#ifndef __OSC_MATCH_H__
-#define __OSC_MATCH_H__
+//
+//	Matching algorithm for OSC messages.
+//
+//	Supported pattens:
+//
+//	Pattern						Matches addresses
+//
+//	/Unit1						/Unit1
+//
+//	/Unit2/Preset				/Unit2/Preset
+//
+//	/Unit3/Action/Something		/Unit3/Action/Something
+//
+//	/Unit_/Preset				/Unit1/Preset
+//								/Unit2/Preset
+//								/Unit3/Preset
+//
+//	/*							/Unit1
+//								/Unit2
+//								/Unit3
+//								/Other
+//
+//	/*/Preset					/Unit1/Preset
+//								/Unit2/Preset
+//								/Unit3/Preset
+//
+//	/*/Preset/a					/Unit1/Preset/a
+//								/Unit2/Preset/a
+//								/Unit3/Preset/a
+//
+//	/*/Preset/*					/Unit1/Preset/a
+//								/Unit1/Preset/b
+//								/Unit2/Preset/a
+//								/Unit2/Preset/b
+//								/Unit3/Preset/a
+//								/Unit3/Preset/b
+//
+//	Algorithm
+//
+//	1. Full match
+//	2. Contains double slash, * or _?
+//		1. Validate most left section, strip part and restart
+//		2. Go until pattern is empty.
+//
+//
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-	
-	/**
-	 * Switch this off to disable matching against a pattern with 2 stars
-	 */
-    //#define OSC_MATCH_ENABLE_2STARS		1
-	/**
-	 * Switch this off to disable matching against a pattern with more than 2 stars which will
-	 * be done recursively.
-	 */
-    //#define OSC_MATCH_ENABLE_NSTARS		1
-	
-	/**
-	 * Return code for osc_match() that indicates that the entire address was successfully matched
-	 */
-#define OSC_MATCH_ADDRESS_COMPLETE	1
-	
-	/**
-	 * Return code for osc_match() that indicates that the entire pattern was successfully matched
-	 */
-#define OSC_MATCH_PATTERN_COMPLETE	2
-	/*
-	 typedef struct _osc_callback {
-	 const char* address;			// Address
-	 struct _osc_callback *child;		// RAM
-	 struct _osc_callback *sibling;		// RAM
-	 struct _osc_callback *parent;		// RAM
-	 int callback;				// ROM
-	 } osc_callback;
-	 */
-	
-	/**
-	 * Match a pattern against an address.  In the case of a partial match, pattern_offset
-	 * and address_offset will contain the number of bytes into their respective strings
-	 * where the match failed.
-	 *
-	 * @param pattern The pattern to match
-	 * @param address The address to match
-	 * @param pattern_offset The number of bytes into the pattern that were matched successfully
-	 * @param address_offset The number of bytes into the address that were matched successfully
-	 * @return 0 if the match failed altogether, or an or'd combination of OSC_MATCH_ADDRESS_COMPLETE and
-	 * OSC_MATCH_PATTERN_COMPLETE.
-	 */
-	int osc_match(const char *pattern, const char *address, int *pattern_offset, int *address_offset);
-	
-#ifdef __cplusplus
-}
-#endif
+#include <string>
 
-#endif // __OSC_MATCH_H__
+#define OSCdevider "/"
+#define OSCwildcardFullMatch "*"
+#define OSCwildcardSingleMatch "_"
+
+class OSCMatch
+{
+public:
+
+	bool isMatch(const char * address, const char * pattern, int addressOffset = 0, int patternOffset = 0) {
+		bool result = false;
+
+		char * _pattern = new char[strlen(pattern) - patternOffset];
+		char * _address = new char[strlen(address) - addressOffset];
+
+		strcpy(_pattern, pattern + patternOffset);
+		strcpy(_address, address + addressOffset);
+
+		if (strcmp(address, pattern) == 0) {
+			result = true;
+		}
+		else {
+			char * patternPart;
+			char * addressPart;
+
+			addressPart = strtok(_address, OSCdevider);
+			patternPart = strtok(_pattern, OSCdevider);
+
+			if (patternPart != NULL && _address != NULL) {
+				printf("%s %s \n", patternPart, addressPart);
+				printf("%d %d - ", strlen(address), strlen(addressPart) + 2);
+				printf("%d %d\n", strlen(pattern), strlen(patternPart) + 2);
+
+				bool continueMatching = false;
+
+				// address pattern compare
+				// full match
+				if (strcmp(addressPart, patternPart) == 0) {
+					continueMatching = true;
+				}
+				// asterisk
+				else if (strcmp(patternPart, OSCwildcardFullMatch) == 0) {
+					continueMatching = true;
+				}
+				// wildcard character
+				else if (strcspn(patternPart, OSCwildcardSingleMatch) < strlen(patternPart)) {
+					continueMatching = isWildcardMatch(addressPart, patternPart);
+				}
+
+				if (continueMatching) {
+					bool patternCanContinue = (strlen(pattern) > patternOffset + strlen(patternPart) + 1);
+					bool addressCanContinue = (strlen(address) > addressOffset + strlen(addressPart) + 1);
+
+					if (addressCanContinue && patternCanContinue) {
+						result = isMatch(address, pattern, addressOffset + strlen(addressPart) + 1, patternOffset + strlen(patternPart) + 1);
+					}
+					else {
+						result = (!addressCanContinue && !patternCanContinue);
+					}
+				}
+			}
+
+			// TODO: leaky leaky
+			//delete[] patternPart;
+			//delete[] addressPart;
+
+			//delete[] _pattern;
+			//delete[] _address;
+		}
+
+		return result;
+	}
+
+	inline bool isWildcardMatch(const char * address, const char * pattern) {
+		int patternLength = strlen(pattern);
+
+		if (patternLength > _replacedAddressBufferLength) {
+			delete[] _replacedAddressBuffer;
+
+			_replacedAddressBuffer = new char[patternLength];
+			_replacedAddressBufferLength = patternLength;
+		}
+
+		strcpy(_replacedAddressBuffer, address);
+
+		int i = 0;
+		
+		// crawling throught the pattern might not be the fastest way of doing this
+		for (i = 0; i < patternLength; ++i) {
+			if (strncmp(pattern + i,OSCwildcardSingleMatch, 1) == 0) {
+				strncpy(_replacedAddressBuffer + i, OSCwildcardSingleMatch, 1);
+			}
+		}
+
+		return strncmp(_replacedAddressBuffer, pattern, patternLength) == 0;
+	}
+private:
+	char * _replacedAddressBuffer = new char[16];
+	int _replacedAddressBufferLength = 16;
+};
+
 

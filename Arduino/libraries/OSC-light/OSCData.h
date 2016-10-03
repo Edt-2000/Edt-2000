@@ -26,11 +26,11 @@ public:
 	}
 
 	// getters
-	void get(float output) {
-		output = data.f;
+	void get(float * output) {
+		*output = data.f;
 	}
-	void get(int output) {
-		output = data.i;
+	void get(int * output) {
+		*output = data.i;
 	}
 
 	// setters
