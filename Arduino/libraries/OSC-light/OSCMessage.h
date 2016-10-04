@@ -1,8 +1,18 @@
 #pragma once
 
+#ifdef _MSC_VER
+#include "../../../CPlusPlus/OSC-light.Test/Print.h"
+#else
 #include <Print.h>
+#endif
 
 #include "OSCData.h"
+#include "OSCMatch.h"
+
+// helper variables for deserializing OSC data
+// TODO: change these to non-global
+static char * _dataBuffer = new char[16];
+static int _bufferLength = 16;
 
 class OSCMessage
 {
@@ -14,7 +24,13 @@ public:
 	void setAddress(const char * address);
 
 	// Reserves the specified amount of OSCData elements to avoid multiple reallocations of the buffer.
+	// Deletes the current OSCDatas and creates new ones. Use before add<T>()!
 	void reserve(int count);
+
+	// Reserves the specified amount of OSCData elements to avoid multiple reallocations of the buffer.
+	// Deletes the current OSCDatas and creates new ones, only when current reserved count is smaller than given count. Use before add<T>()!
+	void reserveAtLeast(int count);
+
 	// Removes all data from the OSCData buffer.
 	void empty();
 
@@ -45,10 +61,10 @@ public:
 	void send(Print * print);
 
 	// Fills the data with the given data buffer.
-	void fill(const char * data, int dataLength) {
-
-	}
+	static void fill(OSCMessage * message, const char * data, int dataLength);
 private:
+	friend OSCMessage;
+
 	char * _address;
 
 	OSCData * _data;
@@ -56,27 +72,6 @@ private:
 
 	int _reservedCount = 0;
 	int _dataCount = 0;
-	bool _isBigEndian = false;
-
-	template<typename T>
-	inline static T _makeBigEndian(const T& x)
-	{
-		T result;
-		int size = sizeof(T);
-		char* src = (char*)&x + sizeof(T) - 1;
-		char* dst = (char*)&result;
-		while (size-- > 0) {
-			*dst++ = *src--;
-		}
-		return result;
-	}
-
-	bool _determineIsBigEndian() {
-		const int one = 1;
-		const char sig = *(char*)&one;
-
-		return (sig == 0);
-	}
 
 	static inline int _padSize(int bytes) { return (4 - (bytes & 03)) & 3; }
 };

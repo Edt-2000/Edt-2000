@@ -58,63 +58,63 @@ public:
 
 	bool isMatch(const char * address, const char * pattern, int addressOffset = 0, int patternOffset = 0) {
 		bool result = false;
-
-		char * _pattern = new char[strlen(pattern) - patternOffset];
-		char * _address = new char[strlen(address) - addressOffset];
-
-		strcpy(_pattern, pattern + patternOffset);
-		strcpy(_address, address + addressOffset);
-
+		
 		if (strcmp(address, pattern) == 0) {
 			result = true;
 		}
 		else {
+			int addressLength = strlen(address);
+
+			if (addressLength > _bufferLength) {
+				delete[] _patternBuffer;
+				delete[] _addressBuffer;
+
+				_patternBuffer = new char[addressLength];
+				_addressBuffer = new char[addressLength];
+
+				_bufferLength = addressLength;
+			}
+
+			strcpy(_patternBuffer, pattern + patternOffset);
+			strcpy(_addressBuffer, address + addressOffset);
+
 			char * patternPart;
 			char * addressPart;
 
-			addressPart = strtok(_address, OSCdevider);
-			patternPart = strtok(_pattern, OSCdevider);
+			if (_addressBuffer != NULL) {
+				patternPart = strtok(_patternBuffer, OSCdevider);
+				addressPart = strtok(_addressBuffer, OSCdevider);
 
-			if (patternPart != NULL && _address != NULL) {
-				printf("%s %s \n", patternPart, addressPart);
-				printf("%d %d - ", strlen(address), strlen(addressPart) + 2);
-				printf("%d %d\n", strlen(pattern), strlen(patternPart) + 2);
+				if (patternPart != NULL) {
+					bool continueMatching = false;
 
-				bool continueMatching = false;
-
-				// address pattern compare
-				// full match
-				if (strcmp(addressPart, patternPart) == 0) {
-					continueMatching = true;
-				}
-				// asterisk
-				else if (strcmp(patternPart, OSCwildcardFullMatch) == 0) {
-					continueMatching = true;
-				}
-				// wildcard character
-				else if (strcspn(patternPart, OSCwildcardSingleMatch) < strlen(patternPart)) {
-					continueMatching = isWildcardMatch(addressPart, patternPart);
-				}
-
-				if (continueMatching) {
-					bool patternCanContinue = (strlen(pattern) > patternOffset + strlen(patternPart) + 1);
-					bool addressCanContinue = (strlen(address) > addressOffset + strlen(addressPart) + 1);
-
-					if (addressCanContinue && patternCanContinue) {
-						result = isMatch(address, pattern, addressOffset + strlen(addressPart) + 1, patternOffset + strlen(patternPart) + 1);
+					// address pattern compare
+					// full match
+					if (strcmp(addressPart, patternPart) == 0) {
+						continueMatching = true;
 					}
-					else {
-						result = (!addressCanContinue && !patternCanContinue);
+					// asterisk
+					else if (strcmp(patternPart, OSCwildcardFullMatch) == 0) {
+						continueMatching = true;
+					}
+					// wildcard character
+					else if (strcspn(patternPart, OSCwildcardSingleMatch) < strlen(patternPart)) {
+						continueMatching = isWildcardMatch(addressPart, patternPart);
+					}
+
+					if (continueMatching) {
+						bool patternCanContinue = (strlen(pattern) > patternOffset + strlen(patternPart) + 1);
+						bool addressCanContinue = (strlen(address) > addressOffset + strlen(addressPart) + 1);
+
+						if (addressCanContinue && patternCanContinue) {
+							result = isMatch(address, pattern, addressOffset + strlen(addressPart) + 1, patternOffset + strlen(patternPart) + 1);
+						}
+						else {
+							result = (!addressCanContinue && !patternCanContinue);
+						}
 					}
 				}
 			}
-
-			// TODO: leaky leaky
-			//delete[] patternPart;
-			//delete[] addressPart;
-
-			//delete[] _pattern;
-			//delete[] _address;
 		}
 
 		return result;
@@ -144,8 +144,12 @@ public:
 		return strncmp(_replacedAddressBuffer, pattern, patternLength) == 0;
 	}
 private:
-	char * _replacedAddressBuffer = new char[16];
-	int _replacedAddressBufferLength = 16;
+	char * _replacedAddressBuffer = new char[4];
+	int _replacedAddressBufferLength = 4;
+
+	char * _patternBuffer = new char[4];
+	char * _addressBuffer = new char[4];
+	int _bufferLength = 4;
 };
 
 

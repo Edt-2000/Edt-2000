@@ -3,8 +3,6 @@
 
 OSCMessage::OSCMessage() {
 	_address = NULL;
-
-	_isBigEndian = _determineIsBigEndian();
 }
 
 OSCMessage::~OSCMessage() {
@@ -24,9 +22,17 @@ void OSCMessage::setAddress(const char * address) {
 }
 
 void OSCMessage::reserve(int count) {
+	if (_reservedCount > 0) {
+		delete[] _data;
+	}	
 	_reservedCount += count;
-	OSCData * dataMemory = (OSCData *)realloc(_data, sizeof(OSCData) * (_reservedCount));
-	_data = dataMemory;
+	_data = new OSCData[_reservedCount];
+}
+
+void OSCMessage::reserveAtLeast(int count) {
+	if (_reservedCount < count) {
+		reserve(count - -_reservedCount);
+	}
 }
 
 void OSCMessage::empty() {
@@ -75,33 +81,65 @@ void OSCMessage::send(Print * p) {
 		buffer[bufferPosition++] = nullChar;
 	}
 
-	if (_isBigEndian) {
-		for (int i = 0; i < _dataCount; ++i) {
-			uint32_t f = _data[i].data.i;
-			uint8_t * ptr = (uint8_t *)&f;
-
-			memcpy(buffer + bufferPosition, ptr, 4);
-
-			bufferPosition += 4;
-		}
+	for (int i = 0; i < _dataCount; ++i) {
+		_data[i].outputOSCData(buffer + bufferPosition);
+		
+		bufferPosition += 4;
 	}
-	else {
-		for (int i = 0; i < _dataCount; ++i) {
-			uint32_t f = _makeBigEndian(_data[i].data.i);
-			uint8_t * ptr = (uint8_t *)&f;
-
-			memcpy(buffer + bufferPosition, ptr, 4);
-
-			bufferPosition += 4;
-		}
-	}
-
+	
 	p->write(buffer, bufferSize);
 
 	delete[] buffer;
 }
 
-void OSCMessage::fill(const char * data, int dataLength)
+void OSCMessage::fill(OSCMessage * message, const char * data, int dataLength)
 {
+	// make sure it is empty
+	message->empty();
 
+	if (dataLength > _bufferLength) {
+		delete[] _dataBuffer;
+
+		_dataBuffer = new char[dataLength];
+		_bufferLength = dataLength;
+	}
+
+	int addressLength = 0;
+	int typeStart = 0;
+	int typeLength = 0;
+	int dataCount = 0;
+	int dataStart = 0;
+	char dataType;
+	
+	// address
+	strcpy(_dataBuffer, data);
+	addressLength = strlen(_dataBuffer) + 1;
+
+	message->setAddress(_dataBuffer);
+
+	// types
+	typeStart = addressLength + _padSize(addressLength);
+	strcpy(_dataBuffer, data + typeStart);
+	dataCount = strlen(_dataBuffer) - 1;
+
+	message->reserveAtLeast(dataCount);
+
+	// type values
+	typeLength = strlen(_dataBuffer) + 1;
+	dataStart = typeStart + typeLength + _padSize(typeLength);
+
+	for (int i = 0; i < dataCount; i++) {
+		message->_data[i].inputOSCData(data + dataStart + (4 * i));
+		
+		switch (_dataBuffer[i + 1]) {
+		case 'i':
+			message->_data[i].type = OSCDataType::i;
+			break;
+		case 'f':
+			message->_data[i].type = OSCDataType::f;
+			break;
+		}
+
+		message->_dataCount++;
+	}
 }
