@@ -14,7 +14,7 @@ public:
 		short i;
 #else
 		int32_t i;
-#endif;
+#endif
 		unsigned char b[4];
 	} data;
 
@@ -38,7 +38,7 @@ public:
 	short getInt() {
 #else
 	int getInt() {
-#endif;
+#endif
 		return data.i;
 	}
 
@@ -85,7 +85,7 @@ public:
 	}
 
 private:
-	static bool _isBigEndian() {
+	static inline bool _isBigEndian() {
 		const int one = 1;
 		const char sig = *(char*)&one;
 

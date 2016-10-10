@@ -52,7 +52,6 @@ void OSCMessage::send(Print * p) {
 	}
 
 	int bufferPosition = 0;
-
 	int bufferSize = addressLength + addressPadding + 1 + _dataCount + typePadding + (_dataCount * 4);
 
 	char * buffer = new char[bufferSize];
@@ -92,13 +91,15 @@ void OSCMessage::send(Print * p) {
 	delete[] buffer;
 }
 
-void OSCMessage::fill(OSCMessage * message, const char * data, int dataLength)
+void OSCMessage::fill(const char * data, int dataLength)
 {
 	// make sure it is empty
-	message->empty();
+	empty();
 
 	if (dataLength > _bufferLength) {
-		delete[] _dataBuffer;
+		if (_bufferLength > 0) {
+			delete[] _dataBuffer;
+		}
 
 		_bufferLength = dataLength + 4;
 
@@ -116,31 +117,31 @@ void OSCMessage::fill(OSCMessage * message, const char * data, int dataLength)
 	strcpy(_dataBuffer, data);
 	addressLength = strlen(_dataBuffer) + 1;
 
-	message->setAddress(_dataBuffer);
+	setAddress(_dataBuffer);
 
 	// types
 	typeStart = addressLength + _padSize(addressLength);
 	strcpy(_dataBuffer, data + typeStart);
 	dataCount = strlen(_dataBuffer) - 1;
 
-	message->reserveAtLeast(dataCount);
+	reserveAtLeast(dataCount);
 
 	// type values
 	typeLength = strlen(_dataBuffer) + 1;
 	dataStart = typeStart + typeLength + _padSize(typeLength);
 
-	for (int i = 0; i < dataCount; i++) {
-		message->_data[i].inputOSCData(data + dataStart + (4 * i));
+	for (int i = 0; i < dataCount; ++i) {
+		_data[i].inputOSCData(data + dataStart + (4 * i));
 		
 		switch (_dataBuffer[i + 1]) {
 		case 'i':
-			message->_data[i].type = OSCDataType::i;
+			_data[i].type = OSCDataType::i;
 			break;
 		case 'f':
-			message->_data[i].type = OSCDataType::f;
+			_data[i].type = OSCDataType::f;
 			break;
 		}
 
-		message->_dataCount++;
+		++_dataCount;
 	}
 }

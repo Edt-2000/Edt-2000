@@ -9,10 +9,8 @@
 #include "OSCData.h"
 #include "OSCMatch.h"
 
-// helper variables for deserializing OSC data
-// TODO: change these to non-global
-static char * _dataBuffer = new char[16];
-static int _bufferLength = 16;
+// static helpers
+static OSCMatch _matchHelper = OSCMatch();
 
 class OSCMessage
 {
@@ -34,23 +32,25 @@ public:
 	// Removes all data from the OSCData buffer.
 	void empty();
 
-	// Gets the value at the given data position and writes it in the reference.
+	// Gets the value at the given data position.
 	float getFloat(int position) {
 		if (position < _dataCount) {
 			return _data[position].data.f;
 		}
 
-		return NULL;
+		return 0.0;
 	}
+	// Gets the value at the given data position.
 	int getInt(int position) {
 		if (position < _dataCount) {
 			return _data[position].data.i;
 		}
 
-		return NULL;
+		return 0;
 	}
 
-	// Sets the value in a new data position. To improve performance, this new position should be reserved first.
+	// Sets the value in a new data position. 
+	// To improve performance, this new position should be reserved first.
 	template <typename T>
 	void add(T datum) {
 		if (_dataCount >= _reservedCount) {
@@ -69,17 +69,18 @@ public:
 	void send(Print * print);
 
 	// Fills the data with the given data buffer.
-	static void fill(OSCMessage * message, const char * data, int dataLength);
+	// To improve performance, do not destroy instances of OSCMessage but use fill() multiple times.
+	void fill(const char * data, int dataLength);
 private:
-	friend OSCMessage;
-
 	char * _address;
 
 	OSCData * _data;
-	OSCMatch _matchHelper = OSCMatch();
 
 	int _reservedCount = 0;
 	int _dataCount = 0;
 
+	char * _dataBuffer;
+	int _bufferLength = 0;
+	
 	static inline int _padSize(int bytes) { return (4 - (bytes & 03)) & 3; }
 };

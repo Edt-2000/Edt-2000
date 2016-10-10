@@ -46,7 +46,7 @@
 //
 //
 
-#include <string>
+#include <string.h>
 
 #define OSCdevider "/"
 #define OSCwildcardFullMatch "*"
