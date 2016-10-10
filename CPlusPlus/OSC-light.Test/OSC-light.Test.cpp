@@ -20,7 +20,7 @@ int main()
 
 	int repeats = 0;
 
-	while (repeats++ < 1) {
+	while (repeats++ < 1000) {
 
 		message.setAddress("/Some/Message/Address123");
 
@@ -62,7 +62,8 @@ int main()
 		tests[i++] = message.route("/Some/Message/*");
 		tests[i++] = message.route("/Some/Message/Address___");
 
-		message.reserve(16);
+		message.empty();
+		message.reserveAtLeast(16);
 		message.add<int>(127);
 		message.add<float>(2.3);
 		message.add<float>(3.4);
@@ -81,7 +82,7 @@ int main()
 		message.add<float>(-10.0001);
 
 		message.send(&print);
-		OSCMessage::fill(&newMessage, print.buffer, print.bufferSize);
+		newMessage.fill(print.buffer, print.bufferSize);
 		
 		int m = 0;
 
@@ -94,10 +95,10 @@ int main()
 		
 		for(j = 0; j < i; j++) {
 			if (tests[j]) {
-				printf("%i test succeeded.\r\n", j);
+				printf("%2i test succeeded.\r\n", j);
 			}
 			else {
-				printf("%i test failed.\r\n", i);
+				printf("%2i test failed.\r\n", i);
 			}
 		}
 	}
