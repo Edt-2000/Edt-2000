@@ -5,20 +5,26 @@
 #include <OSCMessage.h>
 #include <Udp.h>
 
-class EdtOSCSourceObject {
+class IOSCMessageProducer
+{
 public:
 	virtual OSCMessage * generateMessage() = 0;
 };
 
-class EdtOSCObject : public OSCMessageHandler {};
+class IOSCMessageConsumer
+{
+public:
+	virtual const char * address() = 0;
+	virtual void callback(OSCMessage *) = 0;
+};
 
 class EdtOSC
 {
 public:
 	EdtOSC() {}
 	EdtOSC(int sources, int objects) {
-		_oscObjects = new EdtOSCObject*[objects];
-		_oscSources = new EdtOSCSourceObject*[sources];
+		_oscProducers = new IOSCMessageProducer*[objects];
+		_oscConsumers = new IOSCMessageConsumer*[sources];
 	}
 
 	void bindUDP(UDP * udp, IPAddress remoteIP, int remotePort) {
@@ -27,78 +33,74 @@ public:
 		_remotePort = remotePort;
 	}
 
-	void addSource(EdtOSCSourceObject * source) {
-		_oscSources[_sources++] = source;
+	void addProducer(IOSCMessageProducer * source) {
+		_oscProducers[_producers++] = source;
 	}
 
-	void addObject(EdtOSCObject * object) {
-		_oscObjects[_objects++] = object;
+	void addConsumer(IOSCMessageConsumer * object) {
+		_oscConsumers[_consumers++] = object;
 	}
 
 	void loop() {
 		int i;
 		int size;
 
-		for (i = 0; i < _sources; ++i) {
-			send(_oscSources[i]->generateMessage());
+		for (i = 0; i < _producers; ++i) {
+			send(_oscProducers[i]->generateMessage());
 		}
 
-		if (_objects > 0) {
+		if (_consumers > 0) {
 			if ((size = _udpHandle->parsePacket()) > 0) {
-				Serial.print("Data received: ");
-				Serial.println(size);
-
-				OSCMessage msgIN = OSCMessage();
-
 				// size exceeds current buffer. resize buffer to fit incoming message
 				if (size > _udpBufferSize) {
 					delete[] _udpBuffer;
 
 					_udpBufferSize = size;
-					_udpBuffer = new unsigned char[_udpBufferSize];
-
+					_udpBuffer = new char[_udpBufferSize];
 				}
 
 				// write udp data to buffer
 				_udpHandle->read(_udpBuffer, size);
 
-				// feed message udp data via buffer
-				msgIN.fill((uint8_t*)_udpBuffer, size);
+				// feed udp data via buffer
+				// reuse the same message everytime to save repetitive memory allocations
+				_messageIN.fill(_udpBuffer, size);
 
 				i = 0;
 				do {
-					msgIN.route(_oscObjects[i]);
-				} while (++i < _objects);
+					if (_messageIN.route(_oscConsumers[i]->address())) {
+						_oscConsumers[i]->callback(&_messageIN);
+					}
+				} while (++i < _consumers);
 
 				_udpHandle->flush();
 			}
 		}
 		else {
 			_udpHandle->flush();
-
 		}
 	}
 
 	void send(OSCMessage * message) {
-		if (message) {
-			_udpHandle->beginPacket(_remoteIP, _remotePort);
-			message->send(*_udpHandle);
-			_udpHandle->endPacket();
-			message->empty();
-		}
+		_udpHandle->beginPacket(_remoteIP, _remotePort);
+		message->send(_udpHandle);
+		_udpHandle->endPacket();
+		message->empty();
 	}
 private:
 	UDP * _udpHandle;
 
-	unsigned char * _udpBuffer = new unsigned char[16];
+	char * _udpBuffer = new char[16];
 	int _udpBufferSize = 16;
 
-	EdtOSCObject ** _oscObjects;
-	EdtOSCSourceObject ** _oscSources;
+	OSCMessage _messageIN = OSCMessage();
+
+	IOSCMessageProducer ** _oscProducers;
+	IOSCMessageConsumer ** _oscConsumers;
 
 	IPAddress _remoteIP;
 	int _remotePort;
 
-	int _objects = 0;
-	int _sources = 0;
+	int _producers = 0;
+	int _consumers = 0;
 };
