@@ -10,7 +10,12 @@ public:
 
 	union data {
 		float f;
+#ifdef _MSC_VER
+		short i;
+#else
 		int32_t i;
+#endif;
+		unsigned char b[4];
 	} data;
 
 	OSCData() {
@@ -26,11 +31,15 @@ public:
 	}
 
 	// getters
-	void get(float * output) {
-		*output = data.f;
+	float getFloat() {
+		return data.f;
 	}
-	void get(int * output) {
-		*output = data.i;
+#ifdef _MSC_VER
+	short getInt() {
+#else
+	int getInt() {
+#endif;
+		return data.i;
 	}
 
 	// setters
@@ -43,5 +52,43 @@ public:
 		type = OSCDataType::i;
 
 		data.i = datum;
+	}
+
+	void outputOSCData(char * output) {
+		int chr = 0;
+
+		if (_isBigEndian()) {
+			for (int i = 0; i < 4; ++i) {
+				output[chr++] = data.b[i];
+			}
+		} else {
+			for (int i = 3; i >= 0; --i) {
+				output[chr++] = data.b[i];
+			}
+		}
+		
+	}
+
+	void inputOSCData(const char * input) {
+		int chr = 0;
+
+		if (_isBigEndian()) {
+			for (int i = 0; i < 4; ++i) {
+				data.b[chr++] = input[i];
+			}
+		}
+		else {
+			for (int i = 3; i >= 0; --i) {
+				data.b[chr++] = input[i];
+			}
+		}
+	}
+
+private:
+	static bool _isBigEndian() {
+		const int one = 1;
+		const char sig = *(char*)&one;
+
+		return (sig == 0);
 	}
 };

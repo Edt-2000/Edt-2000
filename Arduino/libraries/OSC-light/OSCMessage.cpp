@@ -31,7 +31,7 @@ void OSCMessage::reserve(int count) {
 
 void OSCMessage::reserveAtLeast(int count) {
 	if (_reservedCount < count) {
-		reserve(count - -_reservedCount);
+		reserve(count - _reservedCount);
 	}
 }
 
@@ -100,8 +100,9 @@ void OSCMessage::fill(OSCMessage * message, const char * data, int dataLength)
 	if (dataLength > _bufferLength) {
 		delete[] _dataBuffer;
 
+		_bufferLength = dataLength + 4;
+
 		_dataBuffer = new char[dataLength];
-		_bufferLength = dataLength;
 	}
 
 	int addressLength = 0;

@@ -63,16 +63,16 @@ public:
 			result = true;
 		}
 		else {
-			int addressLength = strlen(address);
+			int addressLength = strlen(address) + 1;
 
 			if (addressLength > _bufferLength) {
 				delete[] _patternBuffer;
 				delete[] _addressBuffer;
 
-				_patternBuffer = new char[addressLength];
-				_addressBuffer = new char[addressLength];
+				_bufferLength = addressLength + 4;
 
-				_bufferLength = addressLength;
+				_patternBuffer = new char[_bufferLength];
+				_addressBuffer = new char[_bufferLength];
 			}
 
 			strcpy(_patternBuffer, pattern + patternOffset);
@@ -121,13 +121,14 @@ public:
 	}
 
 	inline bool isWildcardMatch(const char * address, const char * pattern) {
-		int patternLength = strlen(pattern);
+		int patternLength = strlen(pattern) + 1;
 
 		if (patternLength > _replacedAddressBufferLength) {
 			delete[] _replacedAddressBuffer;
 
+			_replacedAddressBufferLength = patternLength + 4;
+
 			_replacedAddressBuffer = new char[patternLength];
-			_replacedAddressBufferLength = patternLength;
 		}
 
 		strcpy(_replacedAddressBuffer, address);

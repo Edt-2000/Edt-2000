@@ -35,11 +35,19 @@ public:
 	void empty();
 
 	// Gets the value at the given data position and writes it in the reference.
-	template <typename T>
-	void get(int position, T * datum) {
+	float getFloat(int position) {
 		if (position < _dataCount) {
-			_data[position].get(&datum);
+			return _data[position].data.f;
 		}
+
+		return NULL;
+	}
+	int getInt(int position) {
+		if (position < _dataCount) {
+			return _data[position].data.i;
+		}
+
+		return NULL;
 	}
 
 	// Sets the value in a new data position. To improve performance, this new position should be reserved first.
