@@ -12,6 +12,10 @@
 *.yml
 **/WifiConfig.h
 *.vcxproj
+*.vcxproj.user
+*.sln
 *.csproj
 App.config
 AssemblyInfo.cs
+*.user
+Debug/
