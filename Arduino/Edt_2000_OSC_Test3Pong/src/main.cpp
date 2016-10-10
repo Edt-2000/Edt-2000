@@ -28,38 +28,37 @@ EdtOSC OSC;
 enum class states { init, waitingForStart, waitingForFinish, waitingForReset };
 states state = states::init;
 
-class OSCMessageWriter : public EdtOSCSourceObject
+class OSCMessageWriter : public IOSCMessageProducer
 {
 public:
 	OSCMessageWriter() {
-		message.reserve(6);
-		message.setAddress("/M");
+		_message.reserve(6);
+		_message.setAddress("/M");
 	}
 	OSCMessage * generateMessage() {
-		if (enabled) {
+		if (_enabled) {
 
-			message
-				.add(++messages)
-				.add(messages + 2)
-				.add(messages + 3)
-				.add(messages + 4)
-				.add(messages + 5)
-				.add(messages + 6);
+			_message.add<int>(++_messages);
+			_message.add<int>(_messages + 2);
+			_message.add<int>(_messages + 3);
+			_message.add<int>(_messages + 4);
+			_message.add<int>(_messages + 5);
+			_message.add<int>(_messages + 6);
 
-			enabled = false;
+			_enabled = false;
 
-			return &message;
+			return &_message;
 		}
 
 		return nullptr;
 	}
 	void enable() {
-		enabled = true;
+		_enabled = true;
 	}
 private:
-	OSCMessage message = OSCMessage();
-	float messages = 0;
-	bool enabled = false;
+	OSCMessage _message = OSCMessage();
+	float _messages = 0;
+	bool _enabled = false;
 } OSCWriter;
 
 void setup() {
@@ -106,7 +105,7 @@ void loop() {
 
 		OSC = EdtOSC(1, 0);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
-		OSC.addSource(&OSCWriter);
+		OSC.addProducer(&OSCWriter);
 
 		Time.addTimeEvent(SYS, "Started code.");
 		// /Pong code

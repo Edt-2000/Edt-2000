@@ -15,6 +15,7 @@ Edt-2000 Test Ping
 #include "Ethernet.h"
 #include "EthernetUdp.h"
 #include "OSC.h"
+#include "OSCMessage.h"
 #include "Statemachine.h"
 #include "Preset.h"
 #include "Trak.h"
@@ -27,25 +28,25 @@ EdtOSC OSC;
 enum class states { init, writeStart, awaitMessage, writeFinish, reset };
 states state = states::init;
 
-class OSCMessageReader : public EdtOSCObject
+class OSCMessageReader : public IOSCMessageConsumer
 {
-	const char * OSCPattern() {
+	const char * address() {
 		return "/M";
 	}
 
-	void OSCCallback(OSCMessage &msg, int addrOffset) {
+	void callback(OSCMessage * msg) {
 		Time.addTimeEvent(FULL, "OSC Message received.");
-		Serial.print(msg.getFloat(0));
+		Serial.print(msg->getFloat(0));
 		Serial.print(" ");
-		Serial.print(msg.getFloat(1));
+		Serial.print(msg->getFloat(1));
 		Serial.print(" ");
-		Serial.print(msg.getFloat(2));
+		Serial.print(msg->getFloat(2));
 		Serial.print(" ");
-		Serial.print(msg.getFloat(3));
+		Serial.print(msg->getFloat(3));
 		Serial.print(" ");
-		Serial.print(msg.getFloat(4));
+		Serial.print(msg->getFloat(4));
 		Serial.print(" ");
-		Serial.println(msg.getFloat(5));
+		Serial.println(msg->getFloat(5));
 
 		state = states::writeFinish;
 	}
@@ -95,7 +96,7 @@ void loop() {
 
 		OSC = EdtOSC(0, 1);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
-		OSC.addObject(&OSCReader);
+		OSC.addConsumer(&OSCReader);
 
 		Time.addTimeEvent(SYS, "Started code.");
 		// /Ping code
