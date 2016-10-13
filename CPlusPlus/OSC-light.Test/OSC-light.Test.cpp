@@ -22,10 +22,10 @@ int main()
 
 	while (repeats++ < 1000) {
 
-		message.setAddress("/Some/Message/Address123");
+		message.setAddress("/M");
 
-		bool tests[50];
-		for (int i = 0; i < 50; ++i) {
+		bool tests[100];
+		for (int i = 0; i < 100; ++i) {
 			tests[i] = false;
 		}
 
@@ -57,10 +57,13 @@ int main()
 		tests[i++] = !tester.isMatch("/Unit1/Preset/a/b/d", "/Unit1/*/a/*/c");
 		tests[i++] = tester.isMatch("/Unit1/Preset/a/c/a", "/*/*/a/*/*");
 
-		tests[i++] = message.route("/Some/Message/Address123");
-		tests[i++] = message.route("/Some/*/Address123");
-		tests[i++] = message.route("/Some/Message/*");
-		tests[i++] = message.route("/Some/Message/Address___");
+		tests[i++] = message.isValidRoute("/M");
+		message.setAddress("/New/Address");
+		tests[i++] = !message.isValidRoute("/M");
+		tests[i++] = message.isValidRoute("/New/Address");
+		message.setAddress("/M");
+		tests[i++] = message.isValidRoute("/M");
+		tests[i++] = !message.isValidRoute("/New/Address");
 
 		message.empty();
 		message.reserveAtLeast(16);
@@ -82,7 +85,9 @@ int main()
 		message.add<float>(-10.0001);
 
 		message.send(&print);
-		newMessage.fill(print.buffer, print.bufferSize);
+		newMessage.reserveForProcess(print.bufferSize);
+		newMessage.processBuffer = print.buffer;
+		newMessage.process();
 		
 		int m = 0;
 
@@ -93,13 +98,20 @@ int main()
 			tests[i++] = md == nmd;
 		}
 		
+		bool failed = false;
 		for(j = 0; j < i; j++) {
 			if (tests[j]) {
 				printf("%2i test succeeded.\r\n", j);
 			}
 			else {
-				printf("%2i test failed.\r\n", i);
+				printf("%2i test failed.\r\n", j);
+				failed = true;
 			}
+		}
+
+		// stop leak test after first failure of complete test
+		if (failed) {
+			break;
 		}
 	}
 
