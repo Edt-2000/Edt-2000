@@ -4,7 +4,7 @@ Edt-Trak
 Using PlatformIO
 */
 #define VERSION "v1"
-//#define DEBUG
+#define DEBUG
 
 #include "Definitions.h"
 
@@ -20,6 +20,7 @@ EthernetUDP Udp;
 EdtOSC OSC;
 
 EdtAITrak Trak = EdtAITrak(2, 1, 0, 5, 4, 3, OSC_TRAK);
+EdtOSCTrak softTrak = EdtOSCTrak(OSC_TRAK);
 
 // Define various ADC prescaler
 // http://www.microsmart.co.za/technical/2014/03/01/advanced-arduino-adc/
@@ -71,9 +72,10 @@ void loop() {
 		Serial.println("Starting code..");
 #endif
 
-		OSC = EdtOSC(1, 0);
+		OSC = EdtOSC(1, 1);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
-		OSC.addSource(&Trak);
+		OSC.addProducer(&Trak);
+		OSC.addConsumer(&softTrak);
 		
 #ifdef DEBUG
 		Serial.println("Started code.");
@@ -84,8 +86,20 @@ void loop() {
 	}
 	else {
 		while (Statemachine.isRun()) {
-			//Time.loop();
 			OSC.loop();
+
+			Serial.print(softTrak.data.leftX);
+			Serial.print(" ");
+			Serial.print(softTrak.data.leftY);
+			Serial.print(" ");
+			Serial.print(softTrak.data.leftZ);
+			Serial.print(" ");
+			Serial.print(softTrak.data.rightX);
+			Serial.print(" ");
+			Serial.print(softTrak.data.rightY);
+			Serial.print(" ");
+			Serial.print(softTrak.data.rightZ);
+			Serial.println(".");
 		}
 	}
 }
