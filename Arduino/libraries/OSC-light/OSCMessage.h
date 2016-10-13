@@ -61,7 +61,7 @@ public:
 	}
 
 	// Evaluates wheter the given pattern is a valid route for the message.
-	bool route(const char * pattern) {
+	bool isValidRoute(const char * pattern) {
 		return _matchHelper.isMatch(_address, pattern);
 	}
 
@@ -70,7 +70,25 @@ public:
 
 	// Fills the data with the given data buffer.
 	// To improve performance, do not destroy instances of OSCMessage but use fill() multiple times.
-	void fill(const char * data, int dataLength);
+	void process();
+
+	// Reserves the amount of data for use in the fill() method.
+	void reserveForProcess(int dataLength) {
+		if (dataLength > _bufferLength) {
+			if (_bufferLength > 0) {
+				delete[] processBuffer;
+				delete[] _subBuffer;
+			}
+
+			_bufferLength = dataLength + 4;
+
+			processBuffer = new char[dataLength];
+			_subBuffer = new char[dataLength];
+		}
+	}
+
+	// Process buffer for writing raw UDP data
+	char * processBuffer;
 private:
 	char * _address;
 
@@ -79,8 +97,8 @@ private:
 	int _reservedCount = 0;
 	int _dataCount = 0;
 
-	char * _dataBuffer;
+	char * _subBuffer;
 	int _bufferLength = 0;
-	
+
 	static inline int _padSize(int bytes) { return (4 - (bytes & 03)) & 3; }
 };

@@ -6,19 +6,18 @@ OSCMessage::OSCMessage() {
 }
 
 OSCMessage::~OSCMessage() {
-	free(_address);
 	if (_reservedCount > 0) {
 		delete[] _data;
 	}
 }
 
 void OSCMessage::setAddress(const char * address) {
-	free(_address);
+	if (_address != nullptr) {
+		delete[] _address;
+	}
 
-	char * addressMemory = (char *)malloc((strlen(address) + 1) * sizeof(char));
-
-	strcpy(addressMemory, address);
-	_address = addressMemory;
+	_address = new char[strlen(address) + 1];
+	strcpy(_address, address);
 }
 
 void OSCMessage::reserve(int count) {
@@ -56,7 +55,7 @@ void OSCMessage::send(Print * p) {
 
 	char * buffer = new char[bufferSize];
 
-	memcpy(buffer, _address, addressLength);
+	strcpy(buffer, _address);
 	bufferPosition = addressLength;
 
 	while (addressPadding--) {
@@ -91,20 +90,10 @@ void OSCMessage::send(Print * p) {
 	delete[] buffer;
 }
 
-void OSCMessage::fill(const char * data, int dataLength)
+void OSCMessage::process()
 {
-	// make sure it is empty
+	// make sure the message is empty
 	empty();
-
-	if (dataLength > _bufferLength) {
-		if (_bufferLength > 0) {
-			delete[] _dataBuffer;
-		}
-
-		_bufferLength = dataLength + 4;
-
-		_dataBuffer = new char[dataLength];
-	}
 
 	int addressLength = 0;
 	int typeStart = 0;
@@ -114,26 +103,26 @@ void OSCMessage::fill(const char * data, int dataLength)
 	char dataType;
 	
 	// address
-	strcpy(_dataBuffer, data);
-	addressLength = strlen(_dataBuffer) + 1;
+	strcpy(_subBuffer, processBuffer);
+	addressLength = strlen(_subBuffer) + 1;
 
-	setAddress(_dataBuffer);
+	setAddress(_subBuffer);
 
 	// types
 	typeStart = addressLength + _padSize(addressLength);
-	strcpy(_dataBuffer, data + typeStart);
-	dataCount = strlen(_dataBuffer) - 1;
+	strcpy(_subBuffer, processBuffer + typeStart);
+	dataCount = strlen(_subBuffer) - 1;
 
 	reserveAtLeast(dataCount);
 
 	// type values
-	typeLength = strlen(_dataBuffer) + 1;
+	typeLength = strlen(_subBuffer) + 1;
 	dataStart = typeStart + typeLength + _padSize(typeLength);
 
 	for (int i = 0; i < dataCount; ++i) {
-		_data[i].inputOSCData(data + dataStart + (4 * i));
+		_data[i].inputOSCData(processBuffer + dataStart + (4 * i));
 		
-		switch (_dataBuffer[i + 1]) {
+		switch (_subBuffer[i + 1]) {
 		case 'i':
 			_data[i].type = OSCDataType::i;
 			break;
