@@ -2,8 +2,8 @@
 Edt-2000 Test Ping
 */
 
-#define STARTIO 3
-#define FINISHIO 4
+#define STARTIO 5
+#define FINISHIO 6
 
 #define SYS 0
 #define STEP 1
@@ -35,18 +35,17 @@ class OSCMessageReader : public IOSCMessageConsumer
 	}
 
 	void callback(OSCMessage * msg) {
-		Time.addTimeEvent(FULL, "OSC Message received.");
-		Serial.print(msg->getFloat(0));
+		/*Serial.print(msg->getInt(0));
 		Serial.print(" ");
-		Serial.print(msg->getFloat(1));
+		Serial.print(msg->getInt(1));
 		Serial.print(" ");
-		Serial.print(msg->getFloat(2));
+		Serial.print(msg->getInt(2));
 		Serial.print(" ");
-		Serial.print(msg->getFloat(3));
+		Serial.print(msg->getInt(3));
 		Serial.print(" ");
-		Serial.print(msg->getFloat(4));
+		Serial.print(msg->getInt(4));
 		Serial.print(" ");
-		Serial.println(msg->getFloat(5));
+		Serial.println(msg->getInt(5));*/
 
 		state = states::writeFinish;
 	}
@@ -94,7 +93,7 @@ void loop() {
 		Time.addTimeEvent(SYS, "Started UDP.");
 		Time.addTimeEvent(SYS, "Starting code..");
 
-		OSC = EdtOSC(0, 1);
+		OSC = EdtOSC(1, 0);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addConsumer(&OSCReader);
 
@@ -124,8 +123,8 @@ void loop() {
 				break;
 
 			case states::writeFinish:
-				Time.addTimeEvent(FULL, "Writing finish signal.");
 				digitalWrite(FINISHIO, HIGH);
+				Time.addTimeEvent(FULL, "Writing finish signal.");
 				state = states::reset;
 				break;
 

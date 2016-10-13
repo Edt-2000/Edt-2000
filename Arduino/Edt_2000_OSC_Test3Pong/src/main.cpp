@@ -1,10 +1,9 @@
 /*
-Edt-2000 Test Ping
+Edt-2000 Test Pong
 */
-#define DEBUG
 
-#define STARTIO 3
-#define FINISHIO 4
+#define STARTIO 5
+#define FINISHIO 6
 
 #define SYS 0
 #define STEP 1
@@ -36,29 +35,18 @@ public:
 		_message.setAddress("/M");
 	}
 	OSCMessage * generateMessage() {
-		if (_enabled) {
+		_message.add<int>(++_messages);
+		_message.add<int>(_messages + 1);
+		_message.add<int>(_messages + 2);
+		_message.add<int>(_messages + 3);
+		_message.add<int>(_messages + 4);
+		_message.add<int>(_messages + 5);
 
-			_message.add<int>(++_messages);
-			_message.add<int>(_messages + 2);
-			_message.add<int>(_messages + 3);
-			_message.add<int>(_messages + 4);
-			_message.add<int>(_messages + 5);
-			_message.add<int>(_messages + 6);
-
-			_enabled = false;
-
-			return &_message;
-		}
-
-		return nullptr;
-	}
-	void enable() {
-		_enabled = true;
+		return &_message;
 	}
 private:
 	OSCMessage _message = OSCMessage();
-	float _messages = 0;
-	bool _enabled = false;
+	int _messages = 0;
 } OSCWriter;
 
 void setup() {
@@ -81,7 +69,7 @@ void loop() {
 		Serial.begin(9600);
 
 		// Pong code
-		Time.addTimeEvent(SYS, "Edt-Trak Ping");
+		Time.addTimeEvent(SYS, "Edt-Trak Pong");
 
 		Time.addTimeEvent(SYS, "Starting Ethernet..");
 
@@ -103,7 +91,7 @@ void loop() {
 		Time.addTimeEvent(SYS, "Started UDP.");
 		Time.addTimeEvent(SYS, "Starting code..");
 
-		OSC = EdtOSC(1, 0);
+		OSC = EdtOSC(0, 1);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addProducer(&OSCWriter);
 
@@ -115,7 +103,7 @@ void loop() {
 	else {
 		while (Statemachine.isRun()) {
 			Time.loop();
-			OSC.loop();
+			//OSC.loop();
 
 			switch (state) {
 			case states::init:
@@ -127,7 +115,7 @@ void loop() {
 				if (digitalRead(STARTIO) == HIGH) {
 					Time.addTimeEvent(FULL, "Received start.");
 					state = states::waitingForFinish;
-					OSCWriter.enable();
+					OSC.loop();
 				}
 				break;
 
