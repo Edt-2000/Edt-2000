@@ -8,4 +8,4 @@ Based upon [the OSC library from Yotam Mann](https://github.com/CNMAT/OSC):
 
 # OSC for Arduino light
 
-This library is totally untested, unfinished and undocumented.
+This library is not fully tested yet, and probably not finished. But it is fast.
