@@ -6,6 +6,7 @@
 
 #define IP_INTERFACE IPAddress(0, 0, 0, 0)
 #define IP_BROADCAST IPAddress(10, 0, 0, 255)
+#define IP_TRAK IPAddress(10, 0, 0, 12)
 
 byte MAC_TRAK[] = { 0x00, 0x00, 0x12, 0x34, 0x56, 0xA0 };
 byte MAC_PING[] = { 0x00, 0x00, 0x12, 0x34, 0x56, 0xB0 };

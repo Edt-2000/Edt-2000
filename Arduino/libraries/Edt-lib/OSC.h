@@ -5,6 +5,8 @@
 #include <OSCMessage.h>
 #include <Udp.h>
 
+#include <Arduino.h>
+
 class IOSCMessageProducer
 {
 public:
@@ -33,6 +35,11 @@ public:
 		_remotePort = remotePort;
 	}
 
+	void consumeExclusivelyFrom(IPAddress remoteIP) {
+		_exclusiveIP = remoteIP;
+		_hasExclusiveIP = true;
+	}
+
 	void addConsumer(IOSCMessageConsumer * consumer) {
 		_oscConsumers[_consumers++] = consumer;
 	}
@@ -41,27 +48,34 @@ public:
 		_oscProducers[_producers++] = producer;
 	}
 
-	void loop() {
+	void loop(bool send = true) {
 		int i;
 		int size;
 
 		// first get all the messages out
-		while(i < _producers) {
-			OSCMessage * message = _oscProducers[i]->generateMessage();
+		if (send) {
+			while (i < _producers) {
+				OSCMessage * message = _oscProducers[i]->generateMessage();
 
-			if (message != nullptr) {
-				_udpHandle->beginPacket(_remoteIP, _remotePort);
-				message->send(_udpHandle);
-				_udpHandle->endPacket();
-				message->empty();
+				if (message != nullptr) {
+					_udpHandle->beginPacket(_remoteIP, _remotePort);
+					message->send(_udpHandle);
+					_udpHandle->endPacket();
+					message->empty();
+				}
+
+				++i;
 			}
-
-			++i;
 		}
 
 		// then process all the messages in
 		if (_consumers > 0) {
 			if ((size = _udpHandle->parsePacket()) > 0) {
+
+				// ignore messages which are not from a specific IP
+				if (_hasExclusiveIP && _exclusiveIP != _udpHandle->remoteIP()) {
+					return;
+				}
 
 				// make sure buffer is big enough
 				_messageIN.reserveForProcess(size);
@@ -88,6 +102,8 @@ public:
 	}
 private:
 	UDP * _udpHandle;
+	IPAddress _exclusiveIP;
+	bool _hasExclusiveIP = false;
 
 	OSCMessage _messageIN = OSCMessage();
 

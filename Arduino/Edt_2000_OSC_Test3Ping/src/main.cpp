@@ -95,6 +95,7 @@ void loop() {
 
 		OSC = EdtOSC(1, 0);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		OSC.consumeExclusivelyFrom(IP_TRAK);
 		OSC.addConsumer(&OSCReader);
 
 		Time.addTimeEvent(SYS, "Started code.");

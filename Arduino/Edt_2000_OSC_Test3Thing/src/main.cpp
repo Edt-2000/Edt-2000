@@ -6,14 +6,16 @@ Edt-2000 Test Thing
 #define STEP 1
 #define FULL 2
 
-#include "ESP8266WiFi.h"
 #include "Arduino.h"
-#include "WiFiUdp.h"
+#include "ESP8266WiFi.h"
 
-#include "Definitions.h"
+#include "WiFiUdp.h"
 
 #include "OSC.h"
 #include "OSCMessage.h"
+
+#include "Definitions.h"
+
 #include "Statemachine.h"
 #include "Time.h"
 
@@ -21,6 +23,28 @@ Edt-2000 Test Thing
 
 WiFiUDP Udp;
 EdtOSC OSC;
+
+class OSCMessageWriter : public IOSCMessageProducer
+{
+public:
+	OSCMessageWriter() {
+		_message.reserve(6);
+		_message.setAddress("/Q");
+	}
+	OSCMessage * generateMessage() {
+		_message.add<int>(++_messages);
+		_message.add<int>(_messages + 1);
+		_message.add<int>(_messages + 2);
+		_message.add<int>(_messages + 3);
+		_message.add<int>(_messages + 4);
+		_message.add<int>(_messages + 5);
+
+		return &_message;
+	}
+private:
+	OSCMessage _message = OSCMessage();
+	int _messages = 0;
+} OSCWriter;
 
 class OSCMessageReader : public IOSCMessageConsumer
 {
@@ -45,6 +69,7 @@ class OSCMessageReader : public IOSCMessageConsumer
 
 void setup() {
 	Statemachine.begin(13, LOW);
+
 }
 
 void loop() {
@@ -92,9 +117,10 @@ void loop() {
 		Time.addTimeEvent(SYS, "Started UDP.");
 		Time.addTimeEvent(SYS, "Starting code..");
 
-		OSC = EdtOSC(1, 0);
+		OSC = EdtOSC(1, 1);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addConsumer(&OSCReader);
+		OSC.addProducer(&OSCWriter);
 
 		Time.addTimeEvent(SYS, "Started code.");
 		// /Ping code
@@ -104,7 +130,7 @@ void loop() {
 	else {
 		while (Statemachine.isRun()) {
 			Time.loop();
-			OSC.loop();
+			OSC.loop(Time.t100ms);
 		}
 	}
 }
