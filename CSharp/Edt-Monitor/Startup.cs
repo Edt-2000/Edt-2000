@@ -35,7 +35,7 @@ namespace Edt_Monitor
             services.AddMvc();
 			services.AddEntityFrameworkSqlite();
 
-			services.AddDbContext<OscMessageContext>((options) => { });
+			//services.AddDbContext<OscMessageContext>();
 
 			services.AddSingleton<IMessageRepository, OscMessageRepository>();
 			services.AddSingleton<IMessageService, OscMessageService>();
@@ -46,9 +46,11 @@ namespace Edt_Monitor
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            //loggerFactory.AddDebug();
 
             app.UseMvc();
+
+			app.UseStaticFiles();
         }
     }
 }

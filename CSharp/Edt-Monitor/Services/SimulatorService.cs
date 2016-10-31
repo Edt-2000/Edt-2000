@@ -20,7 +20,7 @@ namespace Edt_Monitor.Services
 		private Task _task;
 		private int _progress;
 
-		private CancellationTokenSource _source = new CancellationTokenSource();
+		private CancellationTokenSource _source;
 
 		public bool IsRunning()
 		{
@@ -29,6 +29,7 @@ namespace Edt_Monitor.Services
 
 		public void Prepare(IEnumerable<OscMessage> collection)
 		{
+			_source = new CancellationTokenSource();
 			_buffer = new List<OscMessage>(collection);
 		}
 
@@ -38,26 +39,28 @@ namespace Edt_Monitor.Services
 			{
 				_isRunning = true;
 
-				_task = Task.Run(SendMessage, _source.Token);
+				_task = Task.Run(() => SendMessage(), _source.Token);
 			}
 		}
 
-		private async Task SendMessage()
+		private void SendMessage()
 		{
-			DateTime previousExecution = DateTime.Now;
 			DateTime previousTime = _buffer.First().Time;
+			TimeSpan overshoot = TimeSpan.Zero;
+
+			DateTime start;
+			TimeSpan delta;
+
 			int i = 0;
 			_progress = 0;
 
 			foreach (var message in _buffer)
 			{
-				previousExecution = DateTime.Now;
+				start = DateTime.Now;
+				delta = (message.Time - previousTime);
 
-				TimeSpan delta = (message.Time - previousTime);
-
-				if (delta.TotalMilliseconds > 0)
+				while (DateTime.Now - start < delta - overshoot)
 				{
-					await Task.Delay(delta, _source.Token);
 				}
 
 				previousTime = message.Time;
@@ -65,6 +68,9 @@ namespace Edt_Monitor.Services
 				_sender.Send(message.ToOscMessage());
 
 				_progress = ++i;
+
+				// compensate for overshoot
+				overshoot = TimeSpan.FromMilliseconds((overshoot.TotalMilliseconds + (DateTime.Now - start - delta).TotalMilliseconds) / 2.0);
 			}
 
 			Stop();

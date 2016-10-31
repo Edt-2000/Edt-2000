@@ -18,17 +18,15 @@ namespace Edt_Monitor.Repositories
 		private IMessageService _messageService;
 
 		private Task _moveTask;
-		//private Task _createTask;
-
 		private CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
 
 		private OscMessageContext _db;
 
-		public OscMessageRepository(IMessageService messageService, OscMessageContext dbContext)
+		public OscMessageRepository(IMessageService messageService)
 		{
 			_messageService = messageService;
 
-			_db = dbContext;
+			_db = new OscMessageContext();
 
 			_messageService.Receive((object sender, OscMessage message) =>
 			{
@@ -36,31 +34,12 @@ namespace Edt_Monitor.Repositories
 			});
 
 			_moveTask = PeriodicTask.Run(Move, TimeSpan.FromSeconds(1), _cancelTokenSource.Token);
-
-			//_createTask = PeriodicTask.Run((date) =>
-			//{
-			//	_messageCache.Enqueue(new OscMessage()
-			//	{
-			//		Time = date,
-			//		Address = "/TK",
-			//		OriginIP = "10.0.0.10",
-			//		OriginPort = 1,
-			//		OscData = new List<OscData>() {
-			//			new OscData() { Type = "i", Int = date.Millisecond },
-			//			new OscData() { Type = "i", Int = date.Millisecond },
-			//			new OscData() { Type = "i", Int = date.Millisecond },
-			//			new OscData() { Type = "i", Int = date.Millisecond },
-			//			new OscData() { Type = "i", Int = date.Millisecond },
-			//			new OscData() { Type = "i", Int = date.Millisecond }
-			//		}
-			//	});
-			//}, TimeSpan.FromSeconds(1), _cancelTokenSource.Token);
-
 		}
 		~OscMessageRepository()
 		{
 			_cancelTokenSource.Cancel();
 			_messageService.Dispose();
+			_db.Dispose();
 		}
 
 		public void Add(OscMessage message)
@@ -106,6 +85,8 @@ namespace Edt_Monitor.Repositories
 				}
 
 				currentRun.Stop = message.Time;
+				currentRun.MessageCount++;
+
 				message.Run = currentRun;
 
 				_db.Messages.Add(message);
@@ -156,7 +137,7 @@ namespace Edt_Monitor.Repositories
 		public IEnumerable<MessageRun> Summary()
 		{
 			return from run
-				   in _db.Runs.Include(run => run.Messages)
+				   in _db.Runs
 				   orderby run.Start descending
 				   select run;
 		}

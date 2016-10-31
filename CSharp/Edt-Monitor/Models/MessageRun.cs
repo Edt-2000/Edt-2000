@@ -15,7 +15,7 @@ namespace Edt_Monitor.Models
 		public DateTime Start { get; set; }
 		public DateTime Stop { get; set; }
 
-		public int MessageCount { get { if (Messages != null) { return Messages.Count(); } else { return 0; } } }
+		public int MessageCount { get; set; } = 0;
 		public double AverageMps { get { if (Stop != null && Start != null && MessageCount > 0) { return (Stop - Start).TotalSeconds / MessageCount; } else { return 0; } } }
 
 		[JsonIgnore]

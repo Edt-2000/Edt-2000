@@ -18,10 +18,11 @@
 		"SharpOSCCore": "1.0.0-*",
 		"Microsoft.EntityFrameworkCore": "1.0.1",
 		"Microsoft.EntityFrameworkCore.Sqlite": "1.0.1",
-		"Microsoft.EntityFrameworkCore.Design": {
-			"version": "1.0.1",
-			"type": "build"
-		}
+        "Microsoft.EntityFrameworkCore.Design": {
+            "version": "1.0.1",
+            "type": "build"
+        },
+        "Microsoft.AspNetCore.StaticFiles": "1.0.0"
 	},
 
 	"tools": {

@@ -11,7 +11,7 @@ namespace Edt_Monitor.Models
 		public DbSet<OscMessage> Messages { get; set; }
 		public DbSet<MessageRun> Runs { get; set; }
 
-		public OscMessageContext(DbContextOptions<OscMessageContext> options) : base(options)
+		public OscMessageContext() : base()
 		{
 			Database.EnsureCreated();
 		}
