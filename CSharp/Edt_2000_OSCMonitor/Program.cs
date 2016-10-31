@@ -33,7 +33,7 @@ namespace Edt_2000_OSCMonitor
 						messagesProcessed = messages;
 					}
 
-					Console.WriteLine(messages + " - " + messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
+					//Console.WriteLine(messages + " - " + messageReceived.Address + " - " + messageReceived.OriginEP.Address + " - " + messageReceived.OriginEP.Port + " - " + string.Join(",", messageReceived.Arguments));
 				}
 			};
 				

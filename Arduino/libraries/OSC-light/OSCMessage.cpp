@@ -100,7 +100,6 @@ void OSCMessage::process()
 	int typeLength = 0;
 	int dataCount = 0;
 	int dataStart = 0;
-	char dataType;
 	
 	// address
 	strcpy(_subBuffer, processBuffer);

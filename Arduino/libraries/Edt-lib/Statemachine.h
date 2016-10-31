@@ -4,10 +4,6 @@
 
 class EdtStatemachine {
 public:
-	void begin() {
-		begin(13, LOW);
-	}
-	
 	bool isBegin() {
 		return _state == 1;
 	}
@@ -63,7 +59,7 @@ public:
 
 				_previous = millis();
 
-				// after blinking ready for 3 times, switch to run.
+				// after blinking ready, switch to run.
 				if (++_readyLoops == 16) {
 					_state = 3;
 					_currentState = _offState;

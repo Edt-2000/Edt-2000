@@ -25,11 +25,11 @@ namespace Edt_2000_OSCGenerator
 				{
 					previousMessage = DateTime.Now;
 
-					OscMessage message = new OscMessage("/Trak", 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, ++messages);
+					OscMessage message = new OscMessage("/TK", 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f);
 
 					sender.Send(message);
 
-					Console.WriteLine(messages + ": Message send!");
+					Console.WriteLine(++messages + ": Message send!");
 				}
 
 				Thread.Sleep(1);

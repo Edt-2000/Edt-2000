@@ -15,12 +15,12 @@ union EdtTrakData
 	};
 
 	EdtTrakData() {
-		leftX = 0.0;
-		leftY = 0.0;
-		leftZ = 0.0;
-		rightX = 0.0;
-		rightY = 0.0;
-		rightZ = 0.0;
+		leftX = 0;
+		leftY = 0;
+		leftZ = 0;
+		rightX = 0;
+		rightY = 0;
+		rightZ = 0;
 	}
 };
 

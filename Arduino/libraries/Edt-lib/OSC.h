@@ -52,6 +52,8 @@ public:
 		int i;
 		int size;
 
+		i = 0;
+
 		// first get all the messages out
 		if (send) {
 			while (i < _producers) {

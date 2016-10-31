@@ -13,14 +13,14 @@ Using PlatformIO
 #include "EthernetUdp.h"
 #include "OSC.h"
 #include "Statemachine.h"
-#include "Preset.h"
+#include "Time.h"
+
 #include "Trak.h"
 
 EthernetUDP Udp;
 EdtOSC OSC;
 
 EdtAITrak Trak = EdtAITrak(2, 1, 0, 5, 4, 3, OSC_TRAK);
-EdtOSCTrak softTrak = EdtOSCTrak(OSC_TRAK);
 
 // Define various ADC prescaler
 // http://www.microsmart.co.za/technical/2014/03/01/advanced-arduino-adc/
@@ -41,7 +41,7 @@ void loop() {
 	Statemachine.loop();
 
 	if (Statemachine.isBegin()) {
-		//Time.begin();
+		Time.begin();
 
 #ifdef DEBUG
 		Serial.begin(345600);
@@ -72,10 +72,9 @@ void loop() {
 		Serial.println("Starting code..");
 #endif
 
-		OSC = EdtOSC(1, 1);
+		OSC = EdtOSC(0, 1);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addProducer(&Trak);
-		OSC.addConsumer(&softTrak);
 		
 #ifdef DEBUG
 		Serial.println("Started code.");
@@ -86,20 +85,9 @@ void loop() {
 	}
 	else {
 		while (Statemachine.isRun()) {
-			OSC.loop();
+			Time.loop();
 
-			Serial.print(softTrak.data.leftX);
-			Serial.print(" ");
-			Serial.print(softTrak.data.leftY);
-			Serial.print(" ");
-			Serial.print(softTrak.data.leftZ);
-			Serial.print(" ");
-			Serial.print(softTrak.data.rightX);
-			Serial.print(" ");
-			Serial.print(softTrak.data.rightY);
-			Serial.print(" ");
-			Serial.print(softTrak.data.rightZ);
-			Serial.println(".");
+			OSC.loop(Time.tOSC);
 		}
 	}
 }

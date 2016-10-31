@@ -1,8 +1,8 @@
 #pragma once
 
-#include "OSC.h"
+//#include "OSC.h"
 
-class EdtPreset : public EdtOSCObject
+class EdtPreset// : public EdtOSCObject
 {
 public:
 	EdtPreset(const char * node) {
@@ -24,8 +24,8 @@ public:
 	}
 
 	void OSCCallback(OSCMessage &msg, int addrOffset) {
-		float preset = msg.getFloat(0);
-		_preset = (int)preset;
+		//float preset = msg.getFloat(0);
+		//_preset = (int)preset;
 	}
 	
 private:

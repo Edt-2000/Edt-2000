@@ -8,25 +8,28 @@ Using PlatformIO
 #include "Definitions.h"
 
 #include "Arduino.h"
-#include "Ethernet.h"
-#include "EthernetUdp.h"
-#include "OSC.h"
+//#include "Ethernet.h"
+//#include "EthernetUdp.h"
+//#include "OSC.h"
 #include "Time.h"
 #include "Statemachine.h"
 #include "MIDI.h"
 
-#include "Trak.h"
+//#include "Trak.h"
 //#include "Chuk.h"
 
-EthernetUDP Udp;
+//EthernetUDP Udp;
 
-EdtOSCTrak Trak = EdtOSCTrak(OSC_TRAK);
+//EdtOSCTrak Trak = EdtOSCTrak(OSC_TRAK);
 //EdtOSCChuk Chuk = EdtOSCChuk(OSC_SUIT_CHUK);
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 void setup() {
 	Statemachine.begin(13, LOW);
+
+	pinMode(6, OUTPUT);
+	pinMode(7, OUTPUT);
 }
 
 void loop() {
@@ -42,7 +45,7 @@ void loop() {
 		//Serial.println(VERSION);
 
 		//Serial.println("Starting Ethernet..");
-		Ethernet.begin(MAC_MOSCIDI);
+		//Ethernet.begin(MAC_MOSCIDI);
 		//Serial.println("Started Ethernet.");
 
 		//Serial.print("IP: ");
@@ -53,14 +56,14 @@ void loop() {
 		//Serial.println(".");
 
 		//Serial.println("Starting UDP..");
-		Udp.begin(PORT_BROADCAST);
+		//Udp.begin(PORT_BROADCAST);
 		//Serial.println("Started UDP.");
 
 		//Serial.println("Starting code..");
 
 		//OSC.bindUDP(&Udp, IPAddress(10, 0, 0, 202), PORT_BROADCAST);
-		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
-		OSC.addObject(&Trak);
+		//OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		//OSC.addObject(&Trak);
 		//OSC.addObject(&Chuk);
 
 		//Serial.println("Started code.");
@@ -71,12 +74,21 @@ void loop() {
 		Statemachine.ready();
 	}
 	else {
+		bool s = false;
+
 		while (Statemachine.isRun()) {
 			Time.loop();
-			OSC.loop();
+			//OSC.loop();
+
+			if (Time.t1000ms) {
+				s = !s;
+			}
 
 
-			if (Trak.data.rightX > 0.75) {
+			digitalWrite(6, s);
+			digitalWrite(7, !s);
+
+			if (s) {
 				MIDI.sendNoteOn(36, 127, 1);
 			} else {
 				MIDI.sendNoteOff(36, 127, 1);
