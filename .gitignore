@@ -19,3 +19,7 @@ App.config
 AssemblyInfo.cs
 *.user
 Debug/
+CSharp/packages/
+CSharp/Monitor/Areas/HelpPage/
+packages/Microsoft.Owin.Security.Google.3.0.1/Microsoft.Owin.Security.Google.3.0.1.nupkg
+packages/
