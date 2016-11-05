@@ -5,18 +5,29 @@
 #include <OSCMessage.h>
 #include <Udp.h>
 
-class EdtOSCSourceObject {
+#include <Arduino.h>
+
+class IOSCMessageProducer
+{
 public:
 	virtual OSCMessage * generateMessage() = 0;
 };
 
-class EdtOSCObject : public OSCMessageHandler {};
+class IOSCMessageConsumer
+{
+public:
+	virtual const char * address() = 0;
+	virtual void callback(OSCMessage *) = 0;
+};
 
 class EdtOSC
 {
 public:
-	EdtOSC() {
-	};
+	EdtOSC() {}
+	EdtOSC(int consumers, int producers) {
+		_oscConsumers = new IOSCMessageConsumer*[consumers];
+		_oscProducers = new IOSCMessageProducer*[producers];
+	}
 
 	void bindUDP(UDP * udp, IPAddress remoteIP, int remotePort) {
 		_udpHandle = udp;
@@ -24,104 +35,86 @@ public:
 		_remotePort = remotePort;
 	}
 
-	void addSource(EdtOSCSourceObject * source) {
-		if (_sources > 0) {
-			EdtOSCSourceObject ** old = new EdtOSCSourceObject*[_sources];
-
-			for (int i = 0; i < _sources; i++) {
-				old[i] = _oscSources[i];
-			}
-
-			// kill the old array
-			delete _oscSources;
-
-			_oscSources = new EdtOSCSourceObject*[_sources + 1];
-			
-			for (int i = 0; i < _sources; i++) {
-				_oscSources[i] = old[i];
-			}
-		}
-		else
-		{
-			_oscSources = new EdtOSCSourceObject*[_sources + 1];
-		}
-
-		_oscSources[_sources++] = source;
+	void consumeExclusivelyFrom(IPAddress remoteIP) {
+		_exclusiveIP = remoteIP;
+		_hasExclusiveIP = true;
 	}
 
-	void addObject(EdtOSCObject * object) {
-		if (_objects > 0) {
-			EdtOSCObject ** old = new EdtOSCObject*[_sources];
-
-			for (int i = 0; i < _objects; i++) {
-				old[i] = _oscObjects[i];
-			}
-
-			// kill the old array
-			delete _oscSources;
-
-			_oscObjects = new EdtOSCObject*[_objects + 1];
-
-			for (int i = 0; i < _objects; i++) {
-				_oscObjects[i] = old[i];
-			}
-		}
-		else
-		{
-			_oscObjects = new EdtOSCObject*[_objects + 1];
-		}
-
-		_oscObjects[_objects++] = object;
+	void addConsumer(IOSCMessageConsumer * consumer) {
+		_oscConsumers[_consumers++] = consumer;
 	}
 
-	void loop() {
+	void addProducer(IOSCMessageProducer * producer) {
+		_oscProducers[_producers++] = producer;
+	}
+
+	void loop(bool send = true) {
 		int i;
-
-		//if (Time.tOSC) {
-		for(i = 0; i < _sources; i++) {
-			send(_oscSources[i]->generateMessage());
-		}
-		//}
-
-		/*
 		int size;
 
-		if ((size = _udpHandle->parsePacket())>0) {
-			OSCMessage msgIN = OSCMessage();
+		i = 0;
 
-			while (size--) {
-				msgIN.fill(_udpHandle->read());
+		// first get all the messages out
+		if (send) {
+			while (i < _producers) {
+				OSCMessage * message = _oscProducers[i]->generateMessage();
+
+				if (message != nullptr) {
+					_udpHandle->beginPacket(_remoteIP, _remotePort);
+					message->send(_udpHandle);
+					_udpHandle->endPacket();
+					message->empty();
+				}
+
+				++i;
 			}
+		}
 
-			for (i = 0; i < _objects; i++) {
-				msgIN.route(_oscObjects[i]);
+		// then process all the messages in
+		if (_consumers > 0) {
+			if ((size = _udpHandle->parsePacket()) > 0) {
+
+				// ignore messages which are not from a specific IP
+				if (_hasExclusiveIP && _exclusiveIP != _udpHandle->remoteIP()) {
+					return;
+				}
+
+				// make sure buffer is big enough
+				_messageIN.reserveForProcess(size);
+
+				// write udp data to buffer
+				_udpHandle->read(_messageIN.processBuffer, size);
+
+				// reuse the same message everytime to save repetitive memory allocations
+				_messageIN.process();
+
+				i = 0;
+				do {
+					if (_messageIN.isValidRoute(_oscConsumers[i]->address())) {
+						_oscConsumers[i]->callback(&_messageIN);
+					}
+				} while (++i < _consumers);
+
+				_udpHandle->flush();
 			}
-		}*/
-
-		_udpHandle->flush();
-	}
-
-	void send(OSCMessage * message) {
-		_udpHandle->beginPacket(_remoteIP, _remotePort);
-
-		message->add<int>(++_messages);
-
-		message->send(*_udpHandle);
-		_udpHandle->endPacket();
-		message->empty();
-
-		delete message;
+		}
+		else {
+			_udpHandle->flush();
+		}
 	}
 private:
 	UDP * _udpHandle;
-	
-	EdtOSCObject ** _oscObjects;
-	EdtOSCSourceObject ** _oscSources;
+	IPAddress _exclusiveIP;
+	bool _hasExclusiveIP = false;
+
+	OSCMessage _messageIN = OSCMessage();
+
+	IOSCMessageProducer ** _oscProducers;
+	IOSCMessageConsumer ** _oscConsumers;
 
 	IPAddress _remoteIP;
 	int _remotePort;
 
-	int _objects = 0;
-	int _sources = 0;
-	int _messages = 0;
-} OSC;
+	int _producers = 0;
+	int _consumers = 0;
+};

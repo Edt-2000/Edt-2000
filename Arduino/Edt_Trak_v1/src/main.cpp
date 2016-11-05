@@ -12,15 +12,15 @@ Using PlatformIO
 #include "Ethernet.h"
 #include "EthernetUdp.h"
 #include "OSC.h"
-//#include "Time.h"
 #include "Statemachine.h"
-#include "Preset.h"
+#include "Time.h"
 
 #include "Trak.h"
 
 EthernetUDP Udp;
+EdtOSC OSC;
 
-EdtAITrak Trak = EdtAITrak(0, 0, 0, 0, 0, 0, OSC_TRAK);
+EdtAITrak Trak = EdtAITrak(2, 1, 0, 5, 4, 3, OSC_TRAK);
 
 // Define various ADC prescaler
 // http://www.microsmart.co.za/technical/2014/03/01/advanced-arduino-adc/
@@ -41,10 +41,10 @@ void loop() {
 	Statemachine.loop();
 
 	if (Statemachine.isBegin()) {
-		//Time.begin();
+		Time.begin();
 
 #ifdef DEBUG
-		Serial.begin(9600);
+		Serial.begin(345600);
 
 		// Trak code
 		Serial.print("Edt-Trak ");
@@ -72,9 +72,9 @@ void loop() {
 		Serial.println("Starting code..");
 #endif
 
-		//OSC.bindUDP(&Udp, IPAddress(10, 0, 0, 200), PORT_BROADCAST);
+		OSC = EdtOSC(0, 1);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
-		OSC.addSource(&Trak);
+		OSC.addProducer(&Trak);
 		
 #ifdef DEBUG
 		Serial.println("Started code.");
@@ -85,8 +85,9 @@ void loop() {
 	}
 	else {
 		while (Statemachine.isRun()) {
-			//Time.loop();
-			OSC.loop();
+			Time.loop();
+
+			OSC.loop(Time.tOSC);
 		}
 	}
 }

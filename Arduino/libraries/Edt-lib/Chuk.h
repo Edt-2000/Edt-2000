@@ -11,23 +11,22 @@ http://www.windmeadow.com/node/42
 */
 #pragma once
 
-#include "Arduino.h"
 #include "OSC.h"
 #include "Wire.h"
 
 union EdtOSCChuckData
 {
 public:
-	float buffer[4];
+	int buffer[4];
 
 	EdtOSCChuckData() {
 		reset();
 	}
 
-	float joyX() { return _joyX; };
-	float joyY() { return _joyY; };
-	float buttonC() { return _buttonC; };
-	float buttonZ() { return _buttonZ; };
+	int joyX() { return _joyX; };
+	int joyY() { return _joyY; };
+	int buttonC() { return _buttonC; };
+	int buttonZ() { return _buttonZ; };
 
 	void reset() {
 		_buttonC = 0.0;
@@ -38,10 +37,10 @@ public:
 
 private:
 	struct {
-		float _buttonC;
-		float _buttonZ;
-		float _joyX;
-		float _joyY;
+		int _buttonC;
+		int _buttonZ;
+		int _joyX;
+		int _joyY;
 	};
 };
 
@@ -55,16 +54,26 @@ public:
 	};
 
 	// normalization to -1.0 to 1.0 float (TouchOSC only supports floats)
-	float joyX() {
-		float x = ((((float)_joyX) / 128.0) - 1.0) / 0.70;
-		return max(-1.0, min(1.0, x));
+	int joyX() {
+		float x = _joyX - 128;
+		if (x < 5 && x > -5) {
+			return 0.0;
+		}
+		else {
+			return max(-127, min(127, x));
+		}
 	};
-	float joyY() {
-		float y = ((((float)_joyY) / 128.0) - 1.0) / 0.70;
-		return max(-1.0, min(1.0, y));
+	int joyY() {
+		int y = _joyY - 128;
+		if (y < 5 && y > -5) {
+			return 0.0;
+		}
+		else {
+			return max(-127, min(127, y));
+		}
 	};
-	float buttonC() { return (float)!_buttonC; };
-	float buttonZ() { return (float)!_buttonZ; };
+	int buttonC() { return (int)!_buttonC; };
+	int buttonZ() { return (int)!_buttonZ; };
 
 	// this is not normalized and not calibrated
 	/*float accellX() { return (((float)_accellX * 4.0 / 128.0) + ((float)_lsbAccellX / 128.0)); };
@@ -108,7 +117,7 @@ private:
 	};
 };
 
-class EdtOSCChuk : public EdtOSCObject
+class EdtOSCChuk : public IOSCMessageConsumer
 {
 public:
 	EdtOSCChuckData data = EdtOSCChuckData();
@@ -123,17 +132,18 @@ public:
 
 	void OSCCallback(OSCMessage &msg, int addrOffset) {
 		for (int i = 0; i < 4; i++) {
-			data.buffer[i] = msg.getFloat(i);
+			data.buffer[i] = msg.getInt(i);
 		}
 	}
 private:
 	const char * _pattern;
 };
 
-class EdtI2CChuk : public EdtOSCSourceObject
+class EdtI2CChuk : public IOSCMessageProducer
 {
 public:
 	EdtI2CChukData data = EdtI2CChukData();
+	EdtI2CChukData newData = EdtI2CChukData();
 
 	EdtI2CChuk(int i2cAddress, const char * oscAddress) {
 		_i2cAddress = i2cAddress;
@@ -148,48 +158,49 @@ public:
 		Wire.write((uint8_t)0x00);
 		Wire.endTransmission();
 
-		requestData();
+		_message.setAddress(_oscAddress);
+		_message.reserve(4);
+
+		_requestData();
 	}
 
-	OSCMessage generateMessage() {
-		loop();
+	OSCMessage * generateMessage() {
+		_loop();
 
-		OSCMessage message = OSCMessage(_oscAddress);
+		_message.add<int>(data.buttonC());
+		_message.add<int>(data.buttonZ());
+		_message.add<int>(data.joyX());
+		_message.add<int>(data.joyY());
 
-		message
-			.add<float>(data.buttonC())
-			.add<float>(data.buttonZ())
-			.add<float>(data.joyX())
-			.add<float>(data.joyY());
-
-		return message;
+		return &_message;
 	}
 
 private:
 	int _i2cAddress;
 	const char * _oscAddress;
 	bool _requested;
+	OSCMessage _message = OSCMessage();
 
-	void requestData() {
+	void _requestData() {
 		Wire.beginTransmission(_i2cAddress);
 		Wire.write((uint8_t)0x00);
 		Wire.endTransmission();
 	}
 
-	void loop() {
+	void _loop() {
 		int bytesReceived = 0;
 
 		// Read 6 bytes from the nunchuck and check 6 bytes were received
 		Wire.requestFrom(_i2cAddress, 6);
 		while (Wire.available()) {
-			data.buffer[bytesReceived++] = _decodeByte(Wire.read());
+			newData.buffer[bytesReceived++] = _decodeByte(Wire.read());
 		}
 
-		if (bytesReceived < 5) {
-			data.reset();
+		if (bytesReceived == 6) {
+			memcpy(&data, &newData, 6);
 		}
 
-		requestData();
+		_requestData();
 	}
 
 	inline char _decodeByte(char x)

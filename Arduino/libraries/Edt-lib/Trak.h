@@ -4,23 +4,23 @@
 
 union EdtTrakData
 {
-	float buffer[6];
+	int buffer[6];
 	struct {
-		float leftX;
-		float leftY;
-		float leftZ;
-		float rightX;
-		float rightY;
-		float rightZ;
+		int leftX;
+		int leftY;
+		int leftZ;
+		int rightX;
+		int rightY;
+		int rightZ;
 	};
 
 	EdtTrakData() {
-		leftX = 0.0;
-		leftY = 0.0;
-		leftZ = 0.0;
-		rightX = 0.0;
-		rightY = 0.0;
-		rightZ = 0.0;
+		leftX = 0;
+		leftY = 0;
+		leftZ = 0;
+		rightX = 0;
+		rightY = 0;
+		rightZ = 0;
 	}
 };
 
@@ -37,7 +37,7 @@ union EdtAITrakConfig
 	};
 };
 
-class EdtOSCTrak : public EdtOSCObject {
+class EdtOSCTrak : public IOSCMessageConsumer {
 public:
 	EdtTrakData data = EdtTrakData();
 
@@ -45,20 +45,20 @@ public:
 		_pattern = pattern;
 	}
 
-	const char * OSCPattern() {
+	const char * address() {
 		return _pattern;
 	}
 
-	void OSCCallback(OSCMessage &msg, int addrOffset) {
+	void callback(OSCMessage * msg) {
 		for (int i = 0; i < 6; i++) {
-			data.buffer[i] = msg.getFloat(i);
+			data.buffer[i] = msg->getInt(i);
 		}
 	}
 private:
 	const char * _pattern;
 };
 
-class EdtAITrak : public EdtOSCSourceObject {
+class EdtAITrak : public IOSCMessageProducer {
 public:
 	EdtTrakData data = EdtTrakData();
 
@@ -70,20 +70,19 @@ public:
 		_config.rightY = rightY;
 		_config.rightZ = rightZ;
 
-		_oscAddress = oscAddress;
+		_message.setAddress(oscAddress);
+		_message.reserve(6);
 	};
 
 	OSCMessage * generateMessage() {
-		OSCMessage * message = new OSCMessage(_oscAddress);
-
 		for (int i = 0; i < 6; i++) {
-			data.buffer[i] = (float)analogRead(_config.buffer[i]) / 1023.0;
-			message->add<float>(data.buffer[i]);
+			data.buffer[i] = analogRead(_config.buffer[i]) / 8;
+			_message.add<int>(data.buffer[i]);
 		}
-
-		return message;
+	
+		return &_message;
 	};
 private:
-	const char * _oscAddress;
+	OSCMessage _message = OSCMessage();
 	EdtAITrakConfig _config = EdtAITrakConfig();
 };

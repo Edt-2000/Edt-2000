@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Arduino.h>
-
 class EdtTime
 {
 public:
@@ -23,18 +21,30 @@ public:
 		_t1000ms = 0;
 	};
 
+	// Start time for the given slot.
+	void startTiming(int slot) {
+		_timings[slot] = micros();
+	}
+
+	// Output buffer must be 40 chars long.
+	void addTimeEvent(int slot, const char * description, char * outputBuffer) {
+		sprintf(outputBuffer, "%10lu: %1d: %24s", micros() - _timings[slot], slot, description);
+
+		_timings[slot] = micros();
+	}
+
 	void loop() {
-		unsigned long now = ::millis();
+		_now = ::millis();
 
 		t1000ms = false;
 		t100ms = false;
 
 		// visual tick is always behind the osc tick
 		tVISUAL = tOSC;
-		tOSC = (now - _previous >= 25UL);
+		tOSC = (_now - _previous >= 25UL);
 
 		if (tOSC) {
-			_diff100ms += now - _previous;
+			_diff100ms += _now - _previous;
 
 			// use 97 ms to counter bit of delay
 			if (_diff100ms >= 97) {
@@ -47,11 +57,14 @@ public:
 				}
 			}
 
-			_previous = now;
+			_previous = _now;
 		}
 	};
 private:
+	unsigned long _now;
 	unsigned long _previous;
 	int _diff100ms;
 	int _t1000ms;
+
+	unsigned long _timings[4];
 } Time;

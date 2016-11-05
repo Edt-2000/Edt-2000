@@ -4,6 +4,7 @@ Edt-Suit
 Using PlatformIO
 */
 #define VERSION "v1"
+#define DEBUG
 
 // include as first to avoid intellisense issues in visual studio
 #include "ESP8266WiFi.h"
@@ -13,17 +14,17 @@ Using PlatformIO
 #include "Arduino.h"
 #include "WiFiUdp.h"
 #include "OSC.h"
-#include "Time.h"
 #include "Statemachine.h"
-#include "Preset.h"
+#include "Time.h"
 
-#include "Chuk.h"
 #include "Trak.h"
+#include "Chuk.h"
 
 // defines WifiName and WifiPassword
 #include "WifiConfig.h"
 
 WiFiUDP Udp;
+EdtOSC OSC;
 
 EdtOSCTrak Trak = EdtOSCTrak(OSC_TRAK);
 EdtI2CChuk Chuk = EdtI2CChuk(0x52, OSC_SUIT_CHUK);
@@ -38,7 +39,9 @@ void loop() {
 	if (Statemachine.isBegin()) {
 		Time.begin();
 
+#ifdef DEBUG
 		Serial.begin(9600);
+#endif
 
 		// Suit code
 		int i = 0;
@@ -62,41 +65,51 @@ void loop() {
 			Statemachine.loop();
 		}
 
+#ifdef DEBUG
 		Serial.print("IP: ");
 		for (byte thisByte = 0; thisByte < 4; thisByte++) {
 			Serial.print(WiFi.localIP()[thisByte], DEC);
 			Serial.print(".");
 		}
 		Serial.println();
+#endif
 
+#ifdef DEBUG
 		Serial.println("Starting UDP..");
+#endif
+
 		Udp.begin(PORT_BROADCAST);
+
+#ifdef DEBUG
 		Serial.println("Started UDP.");
 
 		Serial.println("Starting code..");
-
-		//OSC.bindUDP(&Udp, IPAddress(10, 0, 0, 10), PORT_BROADCAST);
+#endif
+		OSC = EdtOSC(1, 1);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
-		OSC.addObject(&Trak);
-		OSC.addSource(&Chuk);
+		OSC.addConsumer(&Trak);
+		OSC.addProducer(&Chuk);
 
 		Chuk.begin();
 
+#ifdef DEBUG
 		// /Suit code
 		Serial.println("Started code.");
+#endif
 
 		Statemachine.ready();
 	}
 	else {
 		while (Statemachine.isRun()) {
 			Time.loop();
-			OSC.loop();
 
+			OSC.loop(Time.tOSC);
+
+#ifdef DEBUG
 			if (Time.t100ms) {
-				Serial.print(Trak.data.leftX);
-				Serial.print(" ");
 				Serial.println(Chuk.data.buttonC());
 			}
+#endif
 
 			// yield to the mighty ESP8266 code 
 			yield();
