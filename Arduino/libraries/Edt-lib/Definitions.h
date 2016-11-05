@@ -18,6 +18,7 @@ byte MAC_MOSCIDI[] = { 0x00, 0x00, 0x12, 0x34, 0x56, 0xA1 };
 
 // instrument / input OSC names
 #define OSC_TRAK "/TK"
+#define OSC_PEDAL "/PD/1"
 #define OSC_MOSCIDI "/MO"
 #define OSC_SUIT "/ST"
 #define OSC_SUIT_CHUK "/ST/CHK"

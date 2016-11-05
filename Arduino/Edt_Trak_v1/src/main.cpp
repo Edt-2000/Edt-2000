@@ -4,7 +4,7 @@ Edt-Trak
 Using PlatformIO
 */
 #define VERSION "v1"
-#define DEBUG
+//#define DEBUG
 
 #include "Definitions.h"
 
@@ -16,11 +16,13 @@ Using PlatformIO
 #include "Time.h"
 
 #include "Trak.h"
+#include "Pedal.h"
 
 EthernetUDP Udp;
 EdtOSC OSC;
 
 EdtAITrak Trak = EdtAITrak(2, 1, 0, 5, 4, 3, OSC_TRAK);
+EdtDIPedal Pedal = EdtDIPedal(5, 6, 7, OSC_PEDAL);
 
 // Define various ADC prescaler
 // http://www.microsmart.co.za/technical/2014/03/01/advanced-arduino-adc/
@@ -72,9 +74,10 @@ void loop() {
 		Serial.println("Starting code..");
 #endif
 
-		OSC = EdtOSC(0, 1);
+		OSC = EdtOSC(0, 2);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		OSC.addProducer(&Trak);
+		OSC.addProducer(&Pedal);
 		
 #ifdef DEBUG
 		Serial.println("Started code.");

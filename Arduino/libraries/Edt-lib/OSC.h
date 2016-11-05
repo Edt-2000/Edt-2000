@@ -10,6 +10,7 @@
 class IOSCMessageProducer
 {
 public:
+	virtual void loop() = 0;
 	virtual OSCMessage * generateMessage() = 0;
 };
 
@@ -54,20 +55,23 @@ public:
 
 		i = 0;
 
-		// first get all the messages out
-		if (send) {
-			while (i < _producers) {
+		// first, loop all producer's loop methods, then get all the messages out
+		while (i < _producers) {
+
+			_oscProducers[i]->loop();
+
+			if (send) {
 				OSCMessage * message = _oscProducers[i]->generateMessage();
 
-				if (message != nullptr) {
+				if (message->isSendableMessage()) {
 					_udpHandle->beginPacket(_remoteIP, _remotePort);
 					message->send(_udpHandle);
 					_udpHandle->endPacket();
-					message->empty();
 				}
 
-				++i;
+				message->empty();
 			}
+			++i;
 		}
 
 		// then process all the messages in

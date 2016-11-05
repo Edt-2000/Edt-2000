@@ -27,10 +27,10 @@ namespace Edt_Monitor.Controllers
 			return Get(0, 10);
 		}
 
-		[HttpGet("cache/{minutes:int}/{seconds:int}")]
-		public IEnumerable<OscMessage> Get(int minutes, int seconds)
+		[HttpGet("cache/{fromTime:long}")]
+		public IEnumerable<OscMessage> Get(long fromTime)
 		{
-			return _messages.FindFromCache(DateTime.Now.Subtract(new TimeSpan(0, minutes, seconds)), DateTime.Now);
+			return _messages.FindFromCache(DateTimeExtensions.FromUnixEpoch(fromTime), DateTime.Now);
 		}
 
 		// Database methods

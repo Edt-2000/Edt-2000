@@ -25,3 +25,5 @@ packages/Microsoft.Owin.Security.Google.3.0.1/Microsoft.Owin.Security.Google.3.0
 packages/
 CSharp/.vs/
 CSharp/Edt-Monitor/project.lock.json
+CSharp/Edt-Monitor/Database/messages.db
+CSharp/Edt-Monitor/wwwroot/amcharts/

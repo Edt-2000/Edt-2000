@@ -60,9 +60,26 @@ public:
 		_data[_dataCount++].set(datum);
 	}
 
+	// Sets the value at the given position.
+	template <typename T>
+	void set(int location, T datum) {
+		if (location < _dataCount) {
+			_data[location].set(datum);
+		}
+	}
+
 	// Evaluates wheter the given pattern is a valid route for the message.
 	bool isValidRoute(const char * pattern) {
 		return _matchHelper.isMatch(_address, pattern);
+	}
+
+	// Boolean to evaluate whether the message should be send.
+	bool isSendableMessage() {
+		return _validData;
+	}
+
+	void setValidData(bool valid) {
+		_validData = valid;
 	}
 
 	// Sends the data using the given Print object.
@@ -93,6 +110,7 @@ private:
 	char * _address;
 
 	OSCData * _data;
+	bool _validData = true;
 
 	int _reservedCount = 0;
 	int _dataCount = 0;

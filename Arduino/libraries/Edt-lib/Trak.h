@@ -21,7 +21,15 @@ union EdtTrakData
 		rightX = 0;
 		rightY = 0;
 		rightZ = 0;
-	}
+	};
+
+	bool lowLeft() {
+		return (leftZ < 5);
+	};
+
+	bool lowRight() {
+		return (rightZ < 5);
+	};
 };
 
 union EdtAITrakConfig
@@ -74,15 +82,37 @@ public:
 		_message.reserve(6);
 	};
 
+	void loop() {}
+
 	OSCMessage * generateMessage() {
 		for (int i = 0; i < 6; i++) {
 			data.buffer[i] = analogRead(_config.buffer[i]) / 8;
 			_message.add<int>(data.buffer[i]);
 		}
-	
+
+		_currentEmpty = data.lowLeft() && data.lowRight();
+
+		if (data.lowLeft()) {
+			_message.set(0, 0);
+			_message.set(1, 0);
+			_message.set(2, 0);
+		}
+		if(data.lowRight()) {
+			_message.set(3, 0);
+			_message.set(4, 0);
+			_message.set(5, 0);
+		}
+
+		_message.setValidData(!(_currentEmpty && _previousEmpty));
+
+		_previousEmpty = _currentEmpty;
+
 		return &_message;
 	};
 private:
 	OSCMessage _message = OSCMessage();
 	EdtAITrakConfig _config = EdtAITrakConfig();
+
+	bool _previousEmpty = false;
+	bool _currentEmpty = false;
 };
