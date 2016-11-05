@@ -2,7 +2,7 @@
 	"name" : "Ed-2000",
 	"version" : 1,
 	"creationdate" : -748823651,
-	"modificationdate" : -743415552,
+	"modificationdate" : -740564336,
 	"viewrect" : [ 166.0, 203.0, 1335.0, 640.0 ],
 	"autoorganize" : 1,
 	"hideprojectwindow" : 0,
@@ -10,16 +10,6 @@
 	"autolocalize" : 0,
 	"contents" : 	{
 		"patchers" : 		{
-			"Edt-2000-OSC.maxpat" : 			{
-				"kind" : "patcher",
-				"local" : 1
-			}
-,
-			"Ed-2000.maxpat" : 			{
-				"kind" : "patcher",
-				"local" : 1
-			}
-,
 			"Ed-Chuck.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
@@ -31,6 +21,11 @@
 			}
 ,
 			"AirDrum.maxpat" : 			{
+				"kind" : "patcher",
+				"local" : 1
+			}
+,
+			"Edt-2000-OSC.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
 			}
@@ -73,6 +68,10 @@
 			"PitchBender.maxpat" : 			{
 				"kind" : "patcher",
 				"local" : 1
+			}
+,
+			"Edt-Trak.maxpat" : 			{
+				"kind" : "patcher"
 			}
 
 		}

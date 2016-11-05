@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 34.0, 79.0, 1612.0, 933.0 ],
+		"rect" : [ 377.0, 79.0, 1434.0, 963.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -37,6 +37,33 @@
 		"style" : "",
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"format" : 6,
+					"id" : "obj-14",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 456.0, 875.0, 50.0, 22.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 24.0, 64.0, 99.0, 22.0 ],
+					"style" : "",
+					"text" : "udpreceive 8000"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-150",
 					"maxclass" : "newobj",
@@ -375,19 +402,6 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-134",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "int", "int", "int" ],
-					"patching_rect" : [ 523.0, 168.0, 79.0, 22.0 ],
-					"style" : "",
-					"text" : "unpack 0 0 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"candycane" : 8,
 					"displayknob" : 2,
 					"id" : "obj-135",
@@ -402,8 +416,8 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 523.0, 520.0, 226.0, 226.0 ],
 					"style" : "",
-					"xplace" : [ 0.017699, 0.49115, 0.986726 ],
-					"yplace" : [ 0.376106, 0.0, 0.367257 ]
+					"xplace" : [ 0.10177, 0.50885, 0.938053 ],
+					"yplace" : [ 0.393805, 0.026549, 0.380531 ]
 				}
 
 			}
@@ -956,32 +970,6 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-10",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "int", "int", "int" ],
-					"patching_rect" : [ 24.0, 168.0, 79.0, 22.0 ],
-					"style" : "",
-					"text" : "unpack 0 0 0"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-9",
-					"maxclass" : "toggle",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "int" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 24.0, 56.0, 24.0, 24.0 ],
-					"style" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"candycane" : 8,
 					"displayknob" : 2,
 					"id" : "obj-22",
@@ -994,10 +982,10 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 24.0, 520.0, 226.0, 226.0 ],
+					"patching_rect" : [ 24.0, 509.0, 226.0, 226.0 ],
 					"style" : "",
-					"xplace" : [ 0.017699, 0.50885, 0.99115 ],
-					"yplace" : [ 0.376106, 0.0, 0.384956 ]
+					"xplace" : [ 0.10177, 0.50885, 0.938053 ],
+					"yplace" : [ 0.362832, 0.0, 0.362832 ]
 				}
 
 			}
@@ -1045,30 +1033,30 @@
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 24.0, 114.0, 89.0, 22.0 ],
+					"numoutlets" : 7,
+					"outlettype" : [ "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 24.0, 114.0, 164.0, 22.0 ],
 					"style" : "",
-					"text" : "Edt-2000-OSC"
+					"text" : "Edt-Trak"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
+					"destination" : [ "obj-132", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-1", 0 ]
+					"source" : [ "obj-1", 5 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-134", 0 ],
+					"destination" : [ "obj-133", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-1", 1 ]
+					"source" : [ "obj-1", 3 ]
 				}
 
 			}
@@ -1077,7 +1065,7 @@
 					"destination" : [ "obj-19", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-10", 0 ]
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
@@ -1086,7 +1074,7 @@
 					"destination" : [ "obj-23", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"source" : [ "obj-10", 2 ]
+					"source" : [ "obj-1", 2 ]
 				}
 
 			}
@@ -1231,6 +1219,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-123", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-123", 1 ]
 				}
 
 			}
@@ -1393,24 +1390,6 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-133", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-132", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-134", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-133", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-134", 0 ]
 				}
 
 			}
@@ -1668,6 +1647,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-27", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -1891,19 +1879,10 @@
 				}
 
 			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-9", 0 ]
-				}
-
-			}
  ],
 		"dependency_cache" : [ 			{
-				"name" : "Edt-2000-OSC.maxpat",
-				"bootpath" : "~/Dropbox/Arduino/Ed-2000/MaxMSP/Ed-2000/patchers",
+				"name" : "Edt-Trak.maxpat",
+				"bootpath" : "~/Dropbox/Arduino/Edt-Trak/MaxMSP",
 				"type" : "JSON",
 				"implicit" : 1
 			}
