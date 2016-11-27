@@ -30,11 +30,9 @@ Thomas
 
 ```
 URL                                         Data types  Range           Description
-/Tk[0-9]+                                   f,f,f       0.0 - 1.0       XYZ sensor left
-                                            f,f,f       0.0 - 1.0       XYZ sensor right
-                                            f           0.0 | 1.0       Footpedal
-/St[0-9]+                                   f,f         -1.0 - 1.0      Nunchuk XY joystick (0.0 is center)
-                                            f,f         0.0 | 1.0       Nunchuk CZ buttons
+/TK                                         i,i,i       0 - 127         XYZ sensor left
+                                            i,i,i       0 - 127         XYZ sensor right
+/PD/1                                       i           0 - 127         1 = button left, 2 = button middle, 3 = button right
 ```
 
 ## License

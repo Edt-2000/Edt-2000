@@ -126,13 +126,13 @@ public:
 		_pattern = pattern;
 	}
 
-	const char * OSCPattern() {
+	const char * address() {
 		return _pattern;
 	}
 
-	void OSCCallback(OSCMessage &msg, int addrOffset) {
+	void callback(OSCMessage * msg) {
 		for (int i = 0; i < 4; i++) {
-			data.buffer[i] = msg.getInt(i);
+			data.buffer[i] = msg->getInt(i);
 		}
 	}
 private:
@@ -164,6 +164,10 @@ public:
 		_requestData();
 	}
 
+	void loop() {
+
+	}
+
 	OSCMessage * generateMessage() {
 		_loop();
 
@@ -178,7 +182,9 @@ public:
 private:
 	int _i2cAddress;
 	const char * _oscAddress;
+
 	bool _requested;
+	
 	OSCMessage _message = OSCMessage();
 
 	void _requestData() {

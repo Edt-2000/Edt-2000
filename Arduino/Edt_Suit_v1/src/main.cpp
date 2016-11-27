@@ -4,7 +4,7 @@ Edt-Suit
 Using PlatformIO
 */
 #define VERSION "v1"
-#define DEBUG
+//#define DEBUG
 
 // include as first to avoid intellisense issues in visual studio
 #include "ESP8266WiFi.h"
@@ -26,7 +26,7 @@ Using PlatformIO
 WiFiUDP Udp;
 EdtOSC OSC;
 
-EdtOSCTrak Trak = EdtOSCTrak(OSC_TRAK);
+//EdtOSCTrak Trak = EdtOSCTrak(OSC_TRAK);
 EdtI2CChuk Chuk = EdtI2CChuk(0x52, OSC_SUIT_CHUK);
 
 void setup() {
@@ -87,7 +87,7 @@ void loop() {
 #endif
 		OSC = EdtOSC(1, 1);
 		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
-		OSC.addConsumer(&Trak);
+		//OSC.addConsumer(&Trak);
 		OSC.addProducer(&Chuk);
 
 		Chuk.begin();
@@ -104,12 +104,6 @@ void loop() {
 			Time.loop();
 
 			OSC.loop(Time.tOSC);
-
-#ifdef DEBUG
-			if (Time.t100ms) {
-				Serial.println(Chuk.data.buttonC());
-			}
-#endif
 
 			// yield to the mighty ESP8266 code 
 			yield();

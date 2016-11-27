@@ -9,7 +9,7 @@ namespace Edt_Monitor
     {
 		public static DateTime FromUnixEpoch(long millisecondsSinceEpoch)
 		{
-			return new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(millisecondsSinceEpoch);
+			return new DateTime(1970, 1, 1, 0, 0, 0).AddHours(1).AddMilliseconds(millisecondsSinceEpoch);
 		}
     }
 }

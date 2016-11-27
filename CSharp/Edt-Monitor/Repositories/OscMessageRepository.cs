@@ -95,16 +95,20 @@ namespace Edt_Monitor.Repositories
 
 			_db.SaveChanges();
 		}
-
+		
 		public IEnumerable<OscMessage> FindFromCache(DateTime fromTime, DateTime toTime)
 		{
+			var list = new List<OscMessage>();
+
 			foreach (var row in _messageCache.ToArray())
 			{
-				if (row.Time >= fromTime && row.Time <= toTime)
+				if (row != null && row.Time >= fromTime && row.Time <= toTime)
 				{
-					yield return row;
+					list.Add(row);
 				}
 			}
+
+			return list;
 		}
 
 		public IEnumerable<OscMessage> FindRunById(long id)

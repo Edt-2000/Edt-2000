@@ -6,6 +6,7 @@ var Monitor = {
 	liveData: [],
 	liveDataTask: null,
 	liveDataTime: 0,
+	liveDataChart: null,
 
 	fillList: function () {
 		$.get("/api/Messages/summary", function (data) {
@@ -44,6 +45,8 @@ var Monitor = {
 				$.get("/api/Messages/cache/" + Monitor.liveDataTime, function (data) {
 					var hasData = false;
 
+					// this code is very leaky leaky
+
 					for (var i in data) {
 						Monitor.liveData.push({
 							'time': data[i].time,
@@ -63,7 +66,7 @@ var Monitor = {
 						Monitor.liveDataTime = (new Date()).getTime();
 					}
 
-					while (Monitor.liveData.length > 300) {
+					while (Monitor.liveData.length > 500) {
 						Monitor.liveData.shift();
 					}
 
@@ -90,61 +93,67 @@ var Monitor = {
 				}
 
 				//Monitor.setGraph(graphData, graphData[100].time);
-				Monitor.setGraph(graphData, graphData[100].time);
+				Monitor.setGraph(graphData);
 			});
 		}
 	},
 
 	setGraph: function (data) {
-		AmCharts.makeChart("graph",
-				{
-					"type": "serial",
-					"categoryField": "time",
-					"sequencedAnimation": false,
-					"color": "#2D2",
-					"autoMargins": true,
-					"categoryAxis": {
-						"labelsEnabled": false,
-						"startOnAxis": true
-					},
-					"graphs": [
-						{
-							"valueField": "value-1"
-						},
-						{
-							"valueField": "value-2"
-						},
-						{
-							"valueField": "value-3"
-						},
-						{
-							"valueField": "value-4"
-						},
-						{
-							"valueField": "value-5"
-						},
-						{
-							"valueField": "value-6"
-						}
-					],
-					/*"guides": [
-						{
-							"category": playLocation,
-							"lineAlpha": 1,
-							"lineColor": "#FFF"
-						}
-					],*/
-					"valueAxes": [
+		if (Monitor.liveDataChart != null) {
+			Monitor.liveDataChart.dataProvider = data;
+			Monitor.liveDataChart.validateData();
+			Monitor.liveDataChart.write("graph");
+		} else {
+			Monitor.liveDataChart = AmCharts.makeChart("graph",
 					{
-						"id": "ValueAxis-1",
-						"gridColor": "#2d2",
-						"gridAlpha": .5,
-						"minimum": 0,
-						"maximum": 128
+						"type": "serial",
+						"categoryField": "time",
+						"sequencedAnimation": false,
+						"color": "#2D2",
+						"autoMargins": true,
+						"categoryAxis": {
+							"labelsEnabled": false,
+							"startOnAxis": true
+						},
+						"graphs": [
+							{
+								"valueField": "value-1"
+							},
+							{
+								"valueField": "value-2"
+							},
+							{
+								"valueField": "value-3"
+							},
+							{
+								"valueField": "value-4"
+							},
+							{
+								"valueField": "value-5"
+							},
+							{
+								"valueField": "value-6"
+							}
+						],
+						/*"guides": [
+							{
+								"category": playLocation,
+								"lineAlpha": 1,
+								"lineColor": "#FFF"
+							}
+						],*/
+						"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"gridColor": "#2d2",
+							"gridAlpha": .5,
+							"minimum": 0,
+							"maximum": 128
+						}
+						],
+						"dataProvider": data
 					}
-					],
-					"dataProvider": data
-				}
-			);
+				);
+		}
 	}
 };

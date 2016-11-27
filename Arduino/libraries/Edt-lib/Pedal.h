@@ -2,6 +2,32 @@
 
 #include "OSC.h"
 
+class EdtOSCPedal : public IOSCMessageConsumer {
+public:
+	bool left = false;
+	bool middle = false;
+	bool right = false;
+
+	EdtOSCPedal(const char * pattern) {
+		_pattern = pattern;
+	}
+
+	const char * address() {
+		return _pattern;
+	}
+
+	void callback(OSCMessage * msg) {
+		int value = msg->getInt(0);
+
+		left = value == 1;
+		middle = value == 2;
+		right = value == 3;
+	}
+
+private:
+	const char * _pattern;
+};
+
 class EdtDIPedal : public IOSCMessageProducer {
 public:
 	EdtDIPedal(int ground, int ring, int tip, const char * oscAddress) {
