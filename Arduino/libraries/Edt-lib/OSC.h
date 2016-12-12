@@ -5,8 +5,6 @@
 #include <OSCMessage.h>
 #include <Udp.h>
 
-#include <Arduino.h>
-
 class IOSCMessageProducer
 {
 public:

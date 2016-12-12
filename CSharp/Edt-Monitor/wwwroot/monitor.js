@@ -147,7 +147,7 @@ var Monitor = {
 							"id": "ValueAxis-1",
 							"gridColor": "#2d2",
 							"gridAlpha": .5,
-							"minimum": 0,
+							"minimum": -128,
 							"maximum": 128
 						}
 						],

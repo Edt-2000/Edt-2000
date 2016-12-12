@@ -18,10 +18,10 @@ namespace Edt_Monitor.Services
 		{
 			_listener = new SharpOSC.UDPListener(12345, (object sender, SharpOSC.OscMessage message) =>
 			{
-				if (message.Address == "/TK")
-				{
+				//if (message.Address == "/TK")
+				//{
 					_messageHandlers(this, message.ToOscMessage());
-				}
+				//}
 			});
 		}
 

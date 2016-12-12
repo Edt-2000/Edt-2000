@@ -134,6 +134,8 @@ public:
 		for (int i = 0; i < 4; i++) {
 			data.buffer[i] = msg->getInt(i);
 		}
+
+		data.buffer[1] = 1;
 	}
 private:
 	const char * _pattern;
@@ -175,6 +177,8 @@ public:
 		_message.add<int>(data.buttonZ());
 		_message.add<int>(data.joyX());
 		_message.add<int>(data.joyY());
+
+		_message.setValidData(true);
 
 		return &_message;
 	}

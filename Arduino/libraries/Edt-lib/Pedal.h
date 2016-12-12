@@ -53,7 +53,7 @@ public:
 			_value |= (digitalRead(_ring) == LOW) ? 2 : 0;
 
 			if (_value > 0) {
-				_disableUntil = millis() + 300;
+				_disableUntil = millis() + 300UL;
 			}
 		}
 	}
@@ -77,5 +77,5 @@ private:
 	int _ground;
 
 	int _value = 0;
-	long _disableUntil = 0;
+	unsigned long _disableUntil = 0;
 };

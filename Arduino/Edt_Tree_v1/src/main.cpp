@@ -4,9 +4,9 @@ Edt-Tree
 Using PlatformIO
 */
 #define VERSION "v1"
-#define DEBUG
-//#define CButton
-#define ZButton
+//#define DEBUG
+#define CButton
+//#define ZButton
 
 // include as first to avoid intellisense issues in visual studio
 #include "ESP8266WiFi.h"
@@ -47,24 +47,29 @@ void loop() {
 
 		// Tree code
 		int i = 0;
-		while (++i < 500) {
+		while (++i < 5) {
 			// add some delay
-			delay(10);
+			delay(1000);
 
 			// keep updating status
 			Statemachine.loop();
 		}
 
 		// Set WiFi mode to station
+		WiFi.disconnect();
 		WiFi.mode(WIFI_STA);
 		WiFi.begin(WifiName, WifiPassword);
 		while (WiFi.status() != WL_CONNECTED)
 		{
 			// really wait for this
-			delay(10);
+			Time.loop();
 
-			// keep updating status
-			Statemachine.loop();
+			if (Time.t100ms) {
+				// keep updating status
+				Statemachine.loop();
+			}
+
+			yield();
 		}
 
 		Udp.begin(PORT_BROADCAST);
