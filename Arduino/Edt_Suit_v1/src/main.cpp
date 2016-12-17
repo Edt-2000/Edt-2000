@@ -13,7 +13,7 @@ Using PlatformIO
 
 #include "Arduino.h"
 #include "WiFiUdp.h"
-#include "OSC.h"
+#include "OSCArduino.h"
 #include "Statemachine.h"
 #include "Time.h"
 
@@ -24,7 +24,7 @@ Using PlatformIO
 #include "WifiConfig.h"
 
 WiFiUDP Udp;
-EdtOSC OSC;
+OSC::Arduino Osc;
 
 //EdtAITrak Trak = EdtAITrak(4,4,4,4,4,4,OSC_TRAK);
 EdtI2CChuk Chuk = EdtI2CChuk(0x52, OSC_SUIT_CHUK);
@@ -90,10 +90,10 @@ void loop() {
 
 		Serial.println("Starting code..");
 #endif
-		OSC = EdtOSC(0, 1);
-		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		Osc = OSC::Arduino(0, 1);
+		Osc.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
 		//OSC.addProducer(&Trak);
-		OSC.addProducer(&Chuk);
+		Osc.addProducer(&Chuk);
 
 		Chuk.begin();
 
@@ -108,7 +108,7 @@ void loop() {
 		while (Statemachine.isRun()) {
 			Time.loop();
 
-			OSC.loop(Time.tOSC);
+			Osc.loop(Time.tOSC);
 
 			//if (Time.t100ms) {
 			//	Serial.println("Jeej");

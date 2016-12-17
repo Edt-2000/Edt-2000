@@ -1,11 +1,11 @@
 #pragma once
-
-#include "OSC.h"
+/*
+#include <OSCArduino.h>
 #include "MIDIStatus.h"
 #include "Arduino.h"
 #include "MIDI.h"
 
-class EdtOSCNote : public IOSCMessageConsumer {
+class EdtOSCNote : public OSC::IMessageConsumer {
 public:
 	EdtOSCNote(const char * pattern, midi::MidiInterface<HardwareSerial> * midi, EdtMIDIStatus * status) {
 		_pattern = pattern;
@@ -17,7 +17,7 @@ public:
 		return _pattern;
 	}
 
-	void callback(OSCMessage * msg) {
+	void callback(OSC::Message * msg) {
 		_status->report();
 
 		_midi->sendNoteOn(msg->getInt(2), msg->getInt(1), msg->getInt(0));
@@ -29,3 +29,4 @@ private:
 	midi::MidiInterface<HardwareSerial> * _midi;
 	EdtMIDIStatus * _status;
 };
+*/

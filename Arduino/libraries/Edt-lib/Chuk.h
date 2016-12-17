@@ -11,8 +11,8 @@ http://www.windmeadow.com/node/42
 */
 #pragma once
 
-#include "OSC.h"
-#include "Wire.h"
+#include <OSCArduino.h>
+#include <Wire.h>
 
 union EdtOSCChuckData
 {
@@ -25,14 +25,14 @@ public:
 
 	int joyX() { return _joyX; };
 	int joyY() { return _joyY; };
-	int buttonC() { return _buttonC; };
-	int buttonZ() { return _buttonZ; };
+	bool buttonC() { return _buttonC == 1; };
+	bool buttonZ() { return _buttonZ == 1; };
 
 	void reset() {
-		_buttonC = 0.0;
-		_buttonZ = 0.0;
-		_joyX = 0.0;
-		_joyY = 0.0;
+		_buttonC = 0;
+		_buttonZ = 0;
+		_joyX = 0;
+		_joyY = 0;
 	}
 
 private:
@@ -53,7 +53,7 @@ public:
 		reset();
 	};
 
-	// normalization to -1.0 to 1.0 float (TouchOSC only supports floats)
+	// normalization to -127 to 127 int
 	int joyX() {
 		float x = _joyX - 128;
 		if (x < 5 && x > -5) {
@@ -72,8 +72,8 @@ public:
 			return max(-127, min(127, y));
 		}
 	};
-	int buttonC() { return (int)!_buttonC; };
-	int buttonZ() { return (int)!_buttonZ; };
+	bool buttonC() { return !_buttonC; };
+	bool buttonZ() { return !_buttonZ; };
 
 	// this is not normalized and not calibrated
 	/*float accellX() { return (((float)_accellX * 4.0 / 128.0) + ((float)_lsbAccellX / 128.0)); };
@@ -82,8 +82,8 @@ public:
 
 	void reset() {
 		// reset to center
-		_joyX = 128.0;
-		_joyY = 128.0;
+		_joyX = 128;
+		_joyY = 128;
 
 		_accellX = 0;
 		_accellY = 0;
@@ -117,7 +117,7 @@ private:
 	};
 };
 
-class EdtOSCChuk : public IOSCMessageConsumer
+class EdtOSCChuk : public OSC::IMessageConsumer
 {
 public:
 	EdtOSCChuckData data = EdtOSCChuckData();
@@ -130,18 +130,16 @@ public:
 		return _pattern;
 	}
 
-	void callback(OSCMessage * msg) {
+	void callback(OSC::Message * msg) {
 		for (int i = 0; i < 4; i++) {
 			data.buffer[i] = msg->getInt(i);
 		}
-
-		data.buffer[1] = 1;
 	}
 private:
 	const char * _pattern;
 };
 
-class EdtI2CChuk : public IOSCMessageProducer
+class EdtI2CChuk : public OSC::IMessageProducer
 {
 public:
 	EdtI2CChukData data = EdtI2CChukData();
@@ -170,7 +168,7 @@ public:
 
 	}
 
-	OSCMessage * generateMessage() {
+	OSC::Message * generateMessage() {
 		_loop();
 
 		_message.add<int>(data.buttonC());
@@ -189,7 +187,7 @@ private:
 
 	bool _requested;
 	
-	OSCMessage _message = OSCMessage();
+	OSC::Message _message = OSC::Message();
 
 	void _requestData() {
 		Wire.beginTransmission(_i2cAddress);

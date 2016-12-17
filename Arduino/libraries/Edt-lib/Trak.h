@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OSC.h"
+#include <OSCArduino.h>
 
 union EdtTrakData
 {
@@ -45,7 +45,7 @@ union EdtAITrakConfig
 	};
 };
 
-class EdtOSCTrak : public IOSCMessageConsumer {
+class EdtOSCTrak : public OSC::IMessageConsumer {
 public:
 	EdtTrakData data = EdtTrakData();
 
@@ -57,7 +57,7 @@ public:
 		return _pattern;
 	}
 
-	void callback(OSCMessage * msg) {
+	void callback(OSC::Message * msg) {
 		for (int i = 0; i < 6; i++) {
 			data.buffer[i] = msg->getInt(i);
 		}
@@ -66,7 +66,7 @@ private:
 	const char * _pattern;
 };
 
-class EdtAITrak : public IOSCMessageProducer {
+class EdtAITrak : public OSC::IMessageProducer {
 public:
 	EdtTrakData data = EdtTrakData();
 
@@ -84,7 +84,7 @@ public:
 
 	void loop() {}
 
-	OSCMessage * generateMessage() {
+	OSC::Message * generateMessage() {
 		for (int i = 0; i < 6; i++) {
 			data.buffer[i] = analogRead(_config.buffer[i]) / 8;
 			_message.add<int>(data.buffer[i]);
@@ -110,7 +110,7 @@ public:
 		return &_message;
 	};
 private:
-	OSCMessage _message = OSCMessage();
+	OSC::Message _message = OSC::Message();
 	EdtAITrakConfig _config = EdtAITrakConfig();
 
 	bool _previousEmpty = false;

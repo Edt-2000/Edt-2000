@@ -1,8 +1,8 @@
 #pragma once
 
-#include "OSC.h"
+#include <OSCArduino.h>
 
-class EdtOSCPedal : public IOSCMessageConsumer {
+class EdtOSCPedal : public OSC::IMessageConsumer{
 public:
 	bool left = false;
 	bool middle = false;
@@ -16,7 +16,7 @@ public:
 		return _pattern;
 	}
 
-	void callback(OSCMessage * msg) {
+	void callback(OSC::Message * msg) {
 		int value = msg->getInt(0);
 
 		left = value == 1;
@@ -28,7 +28,7 @@ private:
 	const char * _pattern;
 };
 
-class EdtDIPedal : public IOSCMessageProducer {
+class EdtDIPedal : public OSC::IMessageProducer {
 public:
 	EdtDIPedal(int ground, int ring, int tip, const char * oscAddress) {
 		_ring = ring;
@@ -58,7 +58,7 @@ public:
 		}
 	}
 
-	OSCMessage * generateMessage() {
+	OSC::Message * generateMessage() {
 		if (_value > 0) {
 			_message.setValidData(true);
 			_message.add<int>(_value);
@@ -71,7 +71,7 @@ public:
 		return &_message;
 	}
 private:
-	OSCMessage _message = OSCMessage();
+	OSC::Message _message = OSC::Message();
 	int _ring;
 	int _tip;
 	int _ground;

@@ -5,8 +5,8 @@ Using PlatformIO
 */
 #define VERSION "v1"
 //#define DEBUG
-#define CButton
-//#define ZButton
+//#define CButton
+#define ZButton
 
 // include as first to avoid intellisense issues in visual studio
 #include "ESP8266WiFi.h"
@@ -15,7 +15,7 @@ Using PlatformIO
 
 #include "Arduino.h"
 #include "WiFiUdp.h"
-#include "OSC.h"
+#include "OSCArduino.h"
 #include "Statemachine.h"
 #include "Time.h"
 
@@ -28,11 +28,11 @@ Using PlatformIO
 #include "WifiConfig.h"
 
 WiFiUDP Udp;
-EdtOSC OSC;
+OSC::Arduino Osc;
 
 EdtLightPWM PWM = EdtLightPWM();
-EdtOSCTrak Trak = EdtOSCTrak(OSC_TRAK);
-EdtOSCPedal Pedal = EdtOSCPedal(OSC_PEDAL);
+//EdtOSCTrak Trak = EdtOSCTrak(OSC_TRAK);
+//EdtOSCPedal Pedal = EdtOSCPedal(OSC_PEDAL);
 EdtOSCChuk Chuk = EdtOSCChuk(OSC_SUIT_CHUK);
 
 void setup() {
@@ -74,11 +74,11 @@ void loop() {
 
 		Udp.begin(PORT_BROADCAST);
 
-		OSC = EdtOSC(3, 0);
-		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
-		OSC.addConsumer(&Trak);
-		OSC.addConsumer(&Pedal);
-		OSC.addConsumer(&Chuk);
+		Osc = OSC::Arduino(1, 0);
+		Osc.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		//Osc.addConsumer(&Trak);
+		//Osc.addConsumer(&Pedal);
+		Osc.addConsumer(&Chuk);
 
 		PWM.start(5);
 
@@ -93,9 +93,8 @@ void loop() {
 
 		while (Statemachine.isRun()) {
 			Time.loop();
-			PWM.loop();
-
-			OSC.loop(Time.tOSC);
+			
+			Osc.loop(Time.tOSC);
 
 #ifdef CButton
 			if (Chuk.data.buttonC()) {
@@ -123,12 +122,16 @@ void loop() {
 				}
 			}
 			else {
+				strobo = false;
 				output = 0;
 			}
 
 			stroboCycle++;
 
-			if (strobo) {
+			if (!Chuk.data.buttonC() && !Chuk.data.buttonZ()) {
+				PWM.set(16);
+			} 
+			else if (strobo) {
 				PWM.set((stroboCycle < stroboLength) ? output : 0);
 			}
 			else {
@@ -138,6 +141,8 @@ void loop() {
 			if (stroboCycle > 2 * stroboLength) {
 				stroboCycle = 0;
 			}
+
+			PWM.loop();
 
 			// yield to the mighty ESP8266 code 
 			yield();

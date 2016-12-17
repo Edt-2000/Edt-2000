@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 #include "OSC.h"
 #include "MIDIStatus.h"
 #include "Arduino.h"
@@ -28,3 +28,4 @@ private:
 	midi::MidiInterface<HardwareSerial> * _midi;
 	EdtMIDIStatus * _status;
 };
+*/
