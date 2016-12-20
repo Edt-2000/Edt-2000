@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Arduino.h>
 #include <OSCArduino.h>
 
 class EdtOSCPedal : public OSC::IMessageConsumer{

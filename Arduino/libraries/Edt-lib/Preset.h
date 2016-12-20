@@ -1,8 +1,9 @@
 #pragma once
 
-//#include "OSC.h"
+#include <Arduino.h>
+#include <OSCArduino.h>
 
-class EdtPreset// : public EdtOSCObject
+class EdtPreset : public OSC::IMessageConsumer
 {
 public:
 	EdtPreset(const char * node) {

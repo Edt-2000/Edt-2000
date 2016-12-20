@@ -2,12 +2,17 @@
 
 #include <Arduino.h>
 
+#define BEGIN 1
+#define INITIAL_DELAY 4
+#define READY 2
+#define RUN 3
+
 class EdtStatemachine {
 public:
 	bool isBegin() {
-		return _state == 1;
+		return _state == BEGIN;
 	}
-	void begin(int statusLED, bool offState) {
+	void setup(int statusLED, bool offState) {
 		_state = 0;
 		_readyLoops = 1;
 
@@ -20,30 +25,45 @@ public:
 
 		_currentState = offState;
 
-		_state = 1;
+		_state = BEGIN;
+	}
+
+	void begin() {
+		_state = INITIAL_DELAY;
+
+		int i = 0;
+		while (++i < 5) {
+			// add some delay
+			delay(1000);
+
+			// keep updating status
+			loop();
+		}
+
+		_state = BEGIN;
 	}
 
 	bool isReady() {
-		return _state == 2;
+		return _state == READY;
 	}
 	void ready() {
 		_currentState = _offState;
 		_previous = 0;
 
-		_state = 2;
+		_state = READY;
 	}
 
 	bool isRun() {
-		return _state == 3;
+		return _state == RUN;
 	}
 
 	void restart() {
-		_state = 1;
+		_state = BEGIN;
 		_readyLoops = 1;
 	}
 
 	void loop() {
-		if (_state == 1) {
+		if (_state == BEGIN) {
 			if (millis() - _previous > 100) {
 				_currentState = !_currentState;
 
@@ -52,7 +72,7 @@ public:
 				digitalWrite(_statusLED, _currentState);
 			}
 		}
-		else if (_state == 2) {
+		else if (_state == READY) {
 			// increase blink rate with each loop
 			if (millis() - _previous > (unsigned int)(1000 / _readyLoops)) {
 				_currentState = !_currentState;
@@ -61,7 +81,7 @@ public:
 
 				// after blinking ready, switch to run.
 				if (++_readyLoops == 16) {
-					_state = 3;
+					_state = RUN;
 					_currentState = _offState;
 				}
 

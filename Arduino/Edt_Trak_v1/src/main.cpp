@@ -4,14 +4,13 @@ Edt-Trak
 Using PlatformIO
 */
 #define VERSION "v1"
-//#define DEBUG
 
 #include "Definitions.h"
 
 #include "Arduino.h"
 #include "Ethernet.h"
 #include "EthernetUdp.h"
-#include "OSC.h"
+#include "OSCArduino.h"
 #include "Statemachine.h"
 #include "Time.h"
 
@@ -19,7 +18,7 @@ Using PlatformIO
 #include "Pedal.h"
 
 EthernetUDP Udp;
-EdtOSC OSC;
+OSC::Arduino Osc;
 
 EdtAITrak Trak = EdtAITrak(2, 1, 0, 5, 4, 3, OSC_TRAK);
 EdtDIPedal Pedal = EdtDIPedal(5, 6, 7, OSC_PEDAL);
@@ -36,53 +35,22 @@ void setup() {
 	ADCSRA &= ~PS_128;
 	ADCSRA |= PS_16;
 
-	Statemachine.begin(13, LOW);
+	Statemachine.setup(13, LOW);
 }
 
 void loop() {
-	Statemachine.loop();
-
 	if (Statemachine.isBegin()) {
 		Time.begin();
+		Statemachine.begin();
 
-#ifdef DEBUG
-		Serial.begin(345600);
-
-		// Trak code
-		Serial.print("Edt-Trak ");
-		Serial.println(VERSION);
-
-		Serial.println("Starting Ethernet..");
-#endif
 		Ethernet.begin(MAC_TRAK);
-#ifdef DEBUG
-		Serial.println("Started Ethernet.");
 
-		Serial.print("IP: ");
-		for (byte thisByte = 0; thisByte < 4; thisByte++) {
-			Serial.print(Ethernet.localIP()[thisByte], DEC);
-			Serial.print(".");
-		}
-		Serial.println();
-
-		Serial.println("Starting UDP..");
-#endif
 		Udp.begin(PORT_BROADCAST);
-#ifdef DEBUG
-		Serial.println("Started UDP.");
-		
-		Serial.println("Starting code..");
-#endif
 
-		OSC = EdtOSC(0, 2);
-		OSC.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
-		OSC.addProducer(&Trak);
-		OSC.addProducer(&Pedal);
-		
-#ifdef DEBUG
-		Serial.println("Started code.");
-#endif
-		// /Trak code
+		Osc = OSC::Arduino(0, 2);
+		Osc.bindUDP(&Udp, IP_BROADCAST, PORT_BROADCAST);
+		Osc.addProducer(&Trak);
+		Osc.addProducer(&Pedal);
 
 		Statemachine.ready();
 	}
@@ -90,7 +58,7 @@ void loop() {
 		while (Statemachine.isRun()) {
 			Time.loop();
 
-			OSC.loop(Time.tOSC);
+			Osc.loop(Time.tOSC);
 		}
 	}
 }
