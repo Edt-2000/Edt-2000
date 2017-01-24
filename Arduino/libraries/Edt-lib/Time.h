@@ -67,4 +67,4 @@ private:
 	int _t1000ms;
 
 	unsigned long _timings[4];
-} Time;
+};

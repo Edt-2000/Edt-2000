@@ -1,5 +1,8 @@
 #pragma once
 
+// this is a shitshow
+// refactor this monstrosity
+
 #include <Arduino.h>
 
 #define BEGIN 1
@@ -51,6 +54,9 @@ public:
 		_previous = 0;
 
 		_state = READY;
+
+		// use loop to go to run
+		loop();
 	}
 
 	bool isRun() {
@@ -63,7 +69,10 @@ public:
 	}
 
 	void loop() {
-		if (_state == BEGIN) {
+		if (_state == RUN) {
+			// do nothing
+		}
+		else if (_state == BEGIN) {
 			if (millis() - _previous > 100) {
 				_currentState = !_currentState;
 
@@ -71,6 +80,10 @@ public:
 
 				digitalWrite(_statusLED, _currentState);
 			}
+		}
+		else if (_state == INITIAL_DELAY) {
+			_currentState = !_currentState;
+			digitalWrite(_statusLED, _currentState);
 		}
 		else if (_state == READY) {
 			// increase blink rate with each loop
@@ -100,4 +113,4 @@ private:
 	bool _onState;
 
 	bool _currentState;
-} Statemachine;
+};

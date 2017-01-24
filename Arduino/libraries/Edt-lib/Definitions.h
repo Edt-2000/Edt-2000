@@ -1,7 +1,8 @@
 #pragma once
 
-#define ENVEDT
+//#define ENVEDT
 //#define ENVTEST
+#define ENVDEV
 
 #include "Arduino.h"
 
@@ -13,6 +14,10 @@
 
 #ifdef ENVTEST
 #define IP_BROADCAST IPAddress(192, 168, 0, 255)
+#endif
+
+#ifdef ENVDEV
+#define IP_BROADCAST IPAddress(192, 168, 137, 255)
 #endif
 
 #define IP_TRAK IPAddress(10, 0, 0, 12)
