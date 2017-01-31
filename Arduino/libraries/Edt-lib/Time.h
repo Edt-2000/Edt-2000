@@ -60,6 +60,10 @@ public:
 			_previous = _now;
 		}
 	};
+
+	unsigned long now() {
+		return _now;
+	}
 private:
 	unsigned long _now;
 	unsigned long _previous;

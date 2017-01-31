@@ -1,116 +1,40 @@
 #pragma once
 
-// this is a shitshow
-// refactor this monstrosity
-
-#include <Arduino.h>
-
-#define BEGIN 1
-#define INITIAL_DELAY 4
-#define READY 2
-#define RUN 3
+enum State {
+	begin = 1,
+	starting = 2,
+	run = 4
+};
 
 class EdtStatemachine {
 public:
-	bool isBegin() {
-		return _state == BEGIN;
-	}
-	void setup(int statusLED, bool offState) {
-		_state = 0;
-		_readyLoops = 1;
+	EdtStatemachine() : _state(State::begin) {};
 
-		_statusLED = statusLED;
-		_offState = offState;
-		_onState = !offState;
-
-		pinMode(_statusLED, OUTPUT);
-		digitalWrite(_statusLED, offState);
-
-		_currentState = offState;
-
-		_state = BEGIN;
+	State current() {
+		return _state;
 	}
 
 	void begin() {
-		_state = INITIAL_DELAY;
+		_state = State::begin;
+	}
 
-		int i = 0;
-		while (++i < 5) {
-			// add some delay
-			delay(1000);
+	void step() {
+		State newState;
 
-			// keep updating status
-			loop();
+		switch (_state) {
+		case State::begin:
+			newState = State::starting;
+			break;
+		case State::starting:
+			newState = State::run;
+			break;
+		default:
+			newState = State::begin;
+			break;
 		}
 
-		_state = BEGIN;
-	}
-
-	bool isReady() {
-		return _state == READY;
-	}
-	void ready() {
-		_currentState = _offState;
-		_previous = 0;
-
-		_state = READY;
-
-		// use loop to go to run
-		loop();
-	}
-
-	bool isRun() {
-		return _state == RUN;
-	}
-
-	void restart() {
-		_state = BEGIN;
-		_readyLoops = 1;
-	}
-
-	void loop() {
-		if (_state == RUN) {
-			// do nothing
-		}
-		else if (_state == BEGIN) {
-			if (millis() - _previous > 100) {
-				_currentState = !_currentState;
-
-				_previous = millis();
-
-				digitalWrite(_statusLED, _currentState);
-			}
-		}
-		else if (_state == INITIAL_DELAY) {
-			_currentState = !_currentState;
-			digitalWrite(_statusLED, _currentState);
-		}
-		else if (_state == READY) {
-			// increase blink rate with each loop
-			if (millis() - _previous > (unsigned int)(1000 / _readyLoops)) {
-				_currentState = !_currentState;
-
-				_previous = millis();
-
-				// after blinking ready, switch to run.
-				if (++_readyLoops == 16) {
-					_state = RUN;
-					_currentState = _offState;
-				}
-
-				digitalWrite(_statusLED, _currentState);
-			}
-		}
-	}
+		_state = newState;
+	};
 private:
-	int _state;
-
-	int _previous;
-	int _readyLoops;
-
-	int _statusLED;
-	bool _offState;
-	bool _onState;
-
-	bool _currentState;
+	State _state;
 };
