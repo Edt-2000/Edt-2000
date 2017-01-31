@@ -20,8 +20,8 @@ public:
 	EdtI2CChuk chuk = EdtI2CChuk(0x52, OSC_SUIT_CHUK);
 	WiFiUDP udp;
 
-	void setupStatemachine() {
-		statemachine.setup(5, HIGH);
+	void setupStatus() {
+		status.setup(5, HIGH);
 	}
 
 	void setupNetwork() {
@@ -42,7 +42,7 @@ public:
 		chuk.begin();
 	}
 
-	void loop() {
+	void applicationLoop() {
 		yield();
 	}
 };

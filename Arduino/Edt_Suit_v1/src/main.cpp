@@ -12,5 +12,5 @@ void setup() {
 }
 
 void loop() {
-	application.run();
+	application.loop();
 }
