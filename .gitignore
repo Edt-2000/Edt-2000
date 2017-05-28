@@ -28,3 +28,5 @@ CSharp/Edt-Monitor/project.lock.json
 CSharp/Edt-Monitor/Database/messages.db
 CSharp/Edt-Monitor/wwwroot/amcharts/
 Arduino/Edt_Tree_v1/.vs/
+Arduino/libraries/FastLED/
+CSharp/Edt_2000_OSCMonitor/.vs/

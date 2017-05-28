@@ -29,7 +29,7 @@ public:
 		WiFi.mode(WIFI_STA);
 		WiFi.begin(WifiName, WifiPassword);
 
-		continueWhen([]()->bool {return WiFi.status() == WL_CONNECTED; });
+		while (!WiFi.status() == WL_CONNECTED) {}
 
 		udp.begin(PORT_BROADCAST);
 	}

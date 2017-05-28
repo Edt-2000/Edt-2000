@@ -1,6 +1,6 @@
 #pragma once
 
-#include <functional>
+//#include <functional>
 
 #include <Arduino.h>
 #include "Udp.h"
@@ -63,11 +63,11 @@ public:
 	OSC::Arduino osc;
 
 protected:
-	void continueWhen(std::function<bool(void)> isOk) {
+	/*void continueWhen(std::function<bool(void)> isOk) {
 		while (!isOk()) {
 			loop();
 		}
-	};
+	};*/
 
 	class Status {
 	public:

@@ -29,7 +29,7 @@ void loop() {
 		Time.begin();
 		Statemachine.begin();
 
-		Ethernet.begin(MAC_TRAK);
+		Ethernet.begin(MAC_DOSMCX);
 
 		Udp.begin(PORT_BROADCAST);
 
