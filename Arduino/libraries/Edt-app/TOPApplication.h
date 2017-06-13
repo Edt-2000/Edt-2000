@@ -12,75 +12,129 @@
 #include "OSCArduino.h"
 #include "Statemachine.h"
 #include "Time.h"
+#include "FastLEDColorScheduler.h"
 
 #include "FastLED.h"
 
+// TOD move to class
 #define COLOR_ORDER BRG
 #define NUM_LEDS 29
 #define DATA_PIN 2   // ORANGE
 #define CLOCK_PIN 3  // GREEN
-CRGB leds[NUM_LEDS];
 
 #define MODE_SOLID 1
+#define MODE_RAINBOW 2
+#define MODE_FADE2BLACK 3
 
-struct Color {
-	int h;
-	int s;
-	int l;
-
-	CHSV chsv() {
-		return CHSV(h, s, l);
-	}
-};
-
+// TODO: move to lib and not app
 class EdtTOP : public OSC::IMessageConsumer
 {
 public:
-	Color color1;
-	Color color2;
-	int mode;
-	int start;
-	int end;
-	
-	EdtTOP(const char * pattern) {
+	struct Color {
+		int h;
+		int s;
+		int l;
+
+		CHSV chsv() {
+			return CHSV(h, s, l);
+		}
+	};
+
+	FastLEDColorScheduler colorScheduler;
+
+	EdtTOP(const char * pattern, const int nrOfLeds) {
 		_pattern = pattern;
 
-		FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(leds, NUM_LEDS);
+		_leds = new CRGB[nrOfLeds];
+
+		FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(_leds, nrOfLeds);
+
+		colorScheduler = FastLEDColorScheduler(_leds, nrOfLeds);
 	}
 
 	const char * address() {
 		return _pattern;
 	}
 
-	void callback(OSC::Message * msg) {
-		mode = msg->getInt(0);
+	bool l = false;
 
-		switch (mode) {
+	void callback(OSC::Message * msg) {
+		_mode = msg->getInt(0);
+
+		digitalWrite(13, l);
+		l = !l;
+
+		switch (_mode) {
 
 		case MODE_SOLID:
 
-			start = msg->getInt(1);
-			end = msg->getInt(2);
 
-			color1.h = msg->getInt(3);
-			color1.s = msg->getInt(4);
-			color1.l = msg->getInt(5);
 
-			fill_solid(&leds[start], end - start, color1.chsv());
+			_start = msg->getInt(1);
+			_end = msg->getInt(2);
+
+			_color1.h = msg->getInt(3);
+			_color1.s = msg->getInt(4);
+			_color1.l = msg->getInt(5);
+
+			_duration = msg->getInt(6);
+
+			if (_color1.l == 0) {
+				colorScheduler.blackout(_start, _end, _duration);
+			}
+			else {
+				colorScheduler.disableBlackout(_start, _end);
+
+				fill_solid(_leds + _start, _end - _start, _color1.chsv());
+			}
+
+			break;
+
+		case MODE_RAINBOW:
+
+			_start = msg->getInt(1);
+			_end = msg->getInt(2);
+
+			_hue = msg->getInt(3);
+			_deltahue = msg->getInt(4);
+			_duration = msg->getInt(5);
+			
+			if (_deltahue == 0) {
+				colorScheduler.blackout(_start, _end, _duration);
+			}
+			else {
+				fill_rainbow(&_leds[_start], _end - _start, _hue, _deltahue);
+			}
 
 			break;
 		}
+	}
+
+	inline void animationLoop() {
+		colorScheduler.loop();
 
 		FastLED.show();
 	}
 private:
 	const char * _pattern;
+
+	CRGB *_leds;
+
+	Color _color1;
+	Color _color2;
+	int _mode;
+	int _start;
+	int _end;
+	int _hue;
+	int _deltahue;
+	int _duration;
+
 };
 
 class TOPApplication : public AbstractApplication
 {
 public:
-	EdtTOP top = EdtTOP(OSC_TOP);
+	EdtTOP top = EdtTOP(OSC_TOP, NUM_LEDS);
 	EthernetUDP udp;
 	int dot = 0;
 
@@ -101,11 +155,9 @@ public:
 	}
 
 	void applicationLoop() {
-		//if (time.tVISUAL) {
-			
-			// clear this led for the next time around the loop
-			//leds[dot] = CRGB::Black;
-		//}
+		if (time.tVISUAL) {
+			top.animationLoop();
+		}
 	}
 };
 
