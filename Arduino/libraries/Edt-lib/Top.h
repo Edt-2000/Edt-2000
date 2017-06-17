@@ -105,6 +105,34 @@ public:
 
 			break;
 
+		case Twinkle:
+
+			colorScheduler.disableBlackout(_start, _end);
+
+			_color1.h = msg->getInt(3);
+			_color1.s = 255;
+			_color1.l = 255;
+			_intensity = (float)(msg->getInt(4));
+
+			_color2.l = 0;
+
+			if (_intensity > 0) {
+
+				for (int i = _start; i < _end; i++) {
+					if (_intensity > random8()) {
+						_leds[i] = _color1.chsv();
+					}
+					else {
+						_leds[i] = _color2.chsv();
+					}
+				}
+			}
+			else {
+				colorScheduler.blackout(_start, _end, 127);
+			}
+
+			break;
+
 		case Strobo:
 			// stobo only has 2 parameters
 			_hue = _start;
@@ -127,6 +155,7 @@ private:
 		RainbowSolid = 3,
 		RainbowPulse = 4,
 		VUMeter = 100,
+		Twinkle = 101,
 		Strobo = 200
 	};
 

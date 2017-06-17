@@ -17,6 +17,7 @@ namespace Edt_OscTest
 			RainbowSolid = 3,
 			RainbowPulse = 4,
 			VUMeter = 100,
+			Twinkle = 101,
 			Strobo = 200
 		}
 
@@ -109,13 +110,29 @@ namespace Edt_OscTest
 					{
 						for (var i = 0.0; i < Math.PI; i += (Math.PI / 100))
 						{
-							udpSender.Send(new OscMessage("/TP", (int)Mode.VUMeter, 0, 29, 14, 0, 128, (int)(Math.Pow(Math.Sin(i),18) * 255)));
+							udpSender.Send(new OscMessage("/TP", (int)Mode.VUMeter, 0, 29, 14, 0, 128, (int)(Math.Pow(Math.Sin(i), 18) * 255)));
 
 							Thread.Sleep(5);
 						}
 					}
 				}
-				
+
+				if (key.Key == ConsoleKey.S)
+				{
+
+					for (var i = 0.0; i < Math.PI; i += (Math.PI / 100))
+					{
+						int r = 0;
+
+						while (r++ < 5)
+						{
+							udpSender.Send(new OscMessage("/TP", (int)Mode.Twinkle, 0, 29, 100, (int)(Math.Pow(Math.Sin(i), 1) * 180)));
+
+							Thread.Sleep(50);
+						}
+					}
+				}
+
 				if (key.Key == ConsoleKey.Spacebar)
 				{
 					strobo = ((strobo + 31) % 255);
