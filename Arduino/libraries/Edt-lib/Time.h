@@ -41,7 +41,7 @@ public:
 
 		// visual tick is always behind the osc tick
 		tVISUAL = tOSC;
-		tOSC = (_now - _previous >= 25UL);
+		tOSC = (_now - _previous >= 12UL);
 
 		if (tOSC) {
 			_diff100ms += _now - _previous;

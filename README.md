@@ -22,8 +22,13 @@ delta h == 0 dims using pulse
 /address 4 [start: int] [end: int] [h start: int] [delta h: int] [duration: int]
 
 ### VU Meter
-/address 4 [start: int] [end: int] [center: int] [h start: int] [h end: int]
+/address 100 [start: int] [end: int] [center: int] [h start: int] [delta h: int] [intensity: int]
 
+### Strobo
+/address 200 [h: int] [fps: int]
+
+h == 0 yields white strobo
+fps == 0 stops strobo
 
 ## License
 
