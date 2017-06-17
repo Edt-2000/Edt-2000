@@ -3,37 +3,27 @@ Arduino &amp; GameTrak based expressive midi controller
 
 >This is our playground for all our code and experiments, we are in the progress of making separate git repositories for released code. Have a look at the [Edt-2000 organisation](https://github.com/Edt-2000) for all the repositories.
 
-## Wishlist [Floris.cc](http://www.floris.cc)
+## OSC lighting commands
 
-Edwin
+### Single color, solid
+/address 1 [start: int] [end: int] [h: int] [s: int] [l: int] [duration (only required with l == 0): int]
 
-* Nunchucky's
-* Lots of Neopixels
-* Arduino's that fit into the Edt housing
-* Wireless modules to create Edt-Light Suits!
-* EL Wire to test with
+l == 0 dims using pulse
 
-Thomas
+### Single color, pulse
+/address 2 [start: int] [end: int] [h: int] [s: int] [l: int] [duration: int]
 
-* ~~Arduino Leonardo with Ethernet (http://www.arduino.org/products/boards/arduino-leonardo-eth, webshop: https://www.antratek.nl/arduino-ethernet)~~
-* ~~Sparkfun Thing (https://www.antratek.nl/sparkfun-esp8266-thing)~~
+### Rainbow color, solid
+/address 3 [start: int] [end: int] [h start: int] [delta h: int] [duration (only required with delta h == 0): int]
 
-## Wishlist overig
+delta h == 0 dims using pulse
 
-Thomas
+### Rainbow color, pulse
+/address 4 [start: int] [end: int] [h start: int] [delta h: int] [duration: int]
 
-* Switch (fixed IP per mac-address)
+### VU Meter
+/address 4 [start: int] [end: int] [center: int] [h start: int] [h end: int]
 
-## OSC naming conventions
-
-### Edt-Trak
-
-```
-URL                                         Data types  Range           Description
-/TK                                         i,i,i       0 - 127         XYZ sensor left
-                                            i,i,i       0 - 127         XYZ sensor right
-/PD/1                                       i           0 - 127         1 = button left, 2 = button middle, 3 = button right
-```
 
 ## License
 
