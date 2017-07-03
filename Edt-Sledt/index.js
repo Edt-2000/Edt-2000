@@ -4,29 +4,18 @@ const types_1 = require("./types");
 // Sockets
 const socket = require('./modules/socket');
 socket.connect();
-// MIDI
-const easymidi = require('easymidi');
-const virtualInput = new easymidi.Input('EDT-SLEDT', true);
-try {
-    const liveInput = new easymidi.Input('TouchOSC Bridge'); // TODO: add right one
-    liveInput.on('cc', handlePresetMidi);
-    console.log('Success!');
-}
-catch (error) {
-    console.info('No LIVE MIDI device available!');
-}
 virtualInput.on('cc', handlePresetMidi);
-function handlePresetMidi(midiMsg) {
-    if (midiMsg.controller in types_1.edtPresets) {
-        console.log('Received preset change!', midiMsg.controller, midiMsg.value);
+/**
+ * Handle a preset change from a MIDI message
+ * @param midiCCMsg
+ */
+function handlePresetMidi(midiCCMsg) {
+    if (midiCCMsg.channel === listenToChannel && midiCCMsg.controller in types_1.edtOutputs) {
+        console.log(`Preset change for ${midiCCMsg.controller} to ${midiCCMsg.value}`);
+        changePreset(midiCCMsg.controller, midiCCMsg.value);
     }
-    console.log('cc', midiMsg.controller, midiMsg.value, midiMsg.channel);
-    // socket.send({
-    //     type: 'cc',
-    //     controller: midiMsg.controller,
-    //     value: midiMsg.value,
-    //     channel: midiMsg.channel
-    // });
+}
+function changePreset(device, preset) {
 }
 virtualInput.on('select', handleSelectMessage);
 virtualInput.on('noteon', handleNoteOnMessage);

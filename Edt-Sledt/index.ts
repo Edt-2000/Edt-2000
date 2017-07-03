@@ -1,35 +1,26 @@
 "use strict";
-import {edtPresets, midiCCMsg} from "./types";
+import {edtOutputs, midiCCMsg} from "./types";
 // Sockets
 const socket = require('./modules/socket');
 socket.connect();
 
-// MIDI
-const easymidi = require('easymidi');
-const virtualInput = new easymidi.Input('EDT-SLEDT', true);
-try {
-    const liveInput = new easymidi.Input('TouchOSC Bridge'); // TODO: add right one
-    liveInput.on('cc', handlePresetMidi);
-
-    console.log('Success!');
-
-} catch(error) {
-    console.info('No LIVE MIDI device available!');
-}
 
 virtualInput.on('cc', handlePresetMidi);
 
-function handlePresetMidi(midiMsg: midiCCMsg): void {
-    if(midiMsg.controller in edtPresets) {
-        console.log('Received preset change!', midiMsg.controller, midiMsg.value);
+
+/**
+ * Handle a preset change from a MIDI message
+ * @param midiCCMsg
+ */
+function handlePresetMidi(midiCCMsg: midiCCMsg): void {
+    if(midiCCMsg.channel === listenToChannel && midiCCMsg.controller in edtOutputs) {
+        console.log(`Preset change for ${midiCCMsg.controller} to ${midiCCMsg.value}`);
+        changePreset(midiCCMsg.controller, midiCCMsg.value);
     }
-    console.log('cc', midiMsg.controller, midiMsg.value, midiMsg.channel);
-    // socket.send({
-    //     type: 'cc',
-    //     controller: midiMsg.controller,
-    //     value: midiMsg.value,
-    //     channel: midiMsg.channel
-    // });
+}
+
+function changePreset(device: edtOutputs, preset: number): void {
+
 }
 
 virtualInput.on('select', handleSelectMessage);
@@ -61,35 +52,7 @@ function handleNoteOffMessage(msg:any) {
 }
 
 
-// const OSC = require('osc-js');
-// const options = {
-//     type: 'udp4',
-//     send: {
-//         host: 'localhost'
-//     }
-// };
-// const osc = new OSC({
-//     plugin: new OSC.DatagramPlugin(options)
-// });
-//
-// osc.on('open', () => {
-//     console.log('START');
-//
-//
-//     input.on('noteon', function (msg) {
-//         console.log('noteon', msg.note, msg.velocity, msg.channel);
-//         osc.send(new OSC.NoteMessage('/ON', msg.note, msg.velocity, msg.channel), {port: 12345});
-//     });
-//
-//     input.on('noteoff', function (msg) {
-//         console.log('noteoff', msg.note, msg.velocity, msg.channel);
-//         osc.send(new OSC.NoteMessage('/OF', msg.note, msg.velocity, msg.channel), {port: 12345});
-//     });
-//
-// });
-//
-// osc.open();
-//
+
 // // /TP 2 [start: int] [end: int] [h: int] [s: int] [l: int] [duration: int]
 
 // //
