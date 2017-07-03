@@ -8,10 +8,13 @@ const easymidi = require('easymidi');
 // --------------------------------
 
 // Init callbacks array object
-interface Callback {
-    [key:string]: (() => void)[]
+interface Callbacks {
+    [key:string]: midiMessageHandler[]
 }
-let callbacks: Callback = {};
+interface midiMessageHandler {
+    (msg:(midiCCMsg|midiProgramMsg)):void
+}
+let callbacks: Callbacks = {};
 callbacks[midiMsgTypes[midiMsgTypes.noteon]] = [];
 callbacks[midiMsgTypes[midiMsgTypes.noteoff]] = [];
 callbacks[midiMsgTypes[midiMsgTypes.control]] = [];
@@ -46,7 +49,7 @@ try {
  * @param midiMsgType
  * @param callback
  */
-function addMidiListener(midiMsgType: midiMsgTypes, callback: any) {
+function addMidiListener(midiMsgType: midiMsgTypes, callback: midiMessageHandler) {
     callbacks[midiMsgTypes[midiMsgType]].push(callback);
     return ():void => {
         let index = callbacks[midiMsgType].indexOf(callback);
@@ -59,10 +62,10 @@ function addMidiListener(midiMsgType: midiMsgTypes, callback: any) {
 /**
  * Retrieve an event handler for a midi message injected by the addMidiListeners functions
  * @param midiMsgType
- * @return {(msg:(midiCCMsg|midiProgramMsg))=>void}
+ * @return {}
  */
 function handleMidiEvents(midiMsgType: midiMsgTypes) {
     return function(msg: midiCCMsg | midiProgramMsg): void {
-        callbacks[midiMsgTypes[midiMsgType]].forEach((callback: any) => { callback(msg) });
+        callbacks[midiMsgTypes[midiMsgType]].forEach((callback: midiMessageHandler) => { callback(msg) });
     }
 }
