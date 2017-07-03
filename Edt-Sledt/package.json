@@ -1,0 +1,19 @@
+{
+  "name": "edt-slet",
+  "version": "1.0.0",
+  "description": "OSC-MIDI-SOCKET ManInTheMiddle",
+  "main": "test.js",
+  "scripts": {
+    "install": "npm rebuild",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Edt-2000",
+  "license": "ISC",
+  "dependencies": {
+    "easymidi": "latest",
+    "express": "^4.15.3",
+    "osc-js": "^1.0.2",
+    "socket.io": "^2.0.3"
+  }
+}
