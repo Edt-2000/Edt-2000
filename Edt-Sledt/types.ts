@@ -1,10 +1,22 @@
 /**
- * Midi CC Messages from easymidi
+ * Midi Messages from easymidi
  */
-export interface midiCCMsg {
+export interface midiChannel {
+    readonly channel: number
+}
+export interface midiCCMsg extends midiChannel {
     readonly controller: number,
     readonly value: number,
-    readonly channel: number
+}
+export interface midiNoteMsg extends midiChannel {
+    readonly note: number,
+    readonly velocity: number
+}
+export interface midiProgramMsg extends midiChannel {
+    readonly number: number
+}
+export interface midiSongMsg extends midiChannel {
+    readonly song: number
 }
 
 /**
@@ -15,27 +27,15 @@ export enum edtOutputs {
     EdtTOP = 21
 }
 
-export interface edtOutputHandler {
-    initialize(ports: MIDIPort[]): void,
+export enum midiMsgTypes {
+    control,
+    select,
+    noteon,
+    noteoff,
+    program
+}
+
+export interface edtOutputImplementation {
+    register(preset: number): void,
     destroy(): void
 }
-
-export interface MIDIPort {
-    on(name: string, virtual?: boolean): any
-}
-
-export const midiMsgTypes: object[] = [
-    {
-        event: "cc"
-    },
-    // "select",
-    // "noteon",
-    // "noteoff",
-    // "program",
-    // "pitch",
-    // "position",
-    // "start",
-    // "continue",
-    // "stop",
-    // "reset"
-];

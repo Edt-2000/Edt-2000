@@ -1,12 +1,15 @@
 "use strict";
-import {edtOutputs, midiCCMsg} from "./types";
+import {edtOutputs, midiCCMsg, midiMsgTypes} from "./types";
+const addMidiListener = require('./midi');
+
 // Sockets
 const socket = require('./modules/socket');
 socket.connect();
 
+// Midi
+const listenToChannel: number = 15;
 
-virtualInput.on('cc', handlePresetMidi);
-
+addMidiListener(midiMsgTypes.control, handlePresetMidi);
 
 /**
  * Handle a preset change from a MIDI message
@@ -23,9 +26,6 @@ function changePreset(device: edtOutputs, preset: number): void {
 
 }
 
-virtualInput.on('select', handleSelectMessage);
-virtualInput.on('noteon', handleNoteOnMessage);
-virtualInput.on('noteoff', handleNoteOffMessage);
 
 function handleSelectMessage(msg:any) {
     console.log('select', msg.song);

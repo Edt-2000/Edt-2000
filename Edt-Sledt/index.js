@@ -1,10 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const types_1 = require("./types");
+const addMidiListener = require('./midi');
 // Sockets
 const socket = require('./modules/socket');
 socket.connect();
-virtualInput.on('cc', handlePresetMidi);
+// Midi
+const listenToChannel = 15;
+addMidiListener(types_1.midiMsgTypes.control, handlePresetMidi);
 /**
  * Handle a preset change from a MIDI message
  * @param midiCCMsg
@@ -17,9 +20,6 @@ function handlePresetMidi(midiCCMsg) {
 }
 function changePreset(device, preset) {
 }
-virtualInput.on('select', handleSelectMessage);
-virtualInput.on('noteon', handleNoteOnMessage);
-virtualInput.on('noteoff', handleNoteOffMessage);
 function handleSelectMessage(msg) {
     console.log('select', msg.song);
 }
