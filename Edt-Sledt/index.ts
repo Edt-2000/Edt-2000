@@ -1,87 +1,61 @@
 "use strict";
-import {edtOutputs, midiCCMsg, midiMsgTypes} from "./types";
-const addMidiListener = require('./midi');
-
-// Sockets
-const socket = require('./modules/socket');
-socket.connect();
+import {edtOutputImplementation, edtOutputs, midiCCMsg, midiMsgTypes} from "./types";
+import {edtVidt} from "./outputs/edt-vid/edt-vidt";
+import {addMidiListener} from './midi';
 
 // Midi
-const listenToChannel: number = 15;
+const presetMsgChannel: number = 15;
 
-addMidiListener(midiMsgTypes.control, handlePresetMidi);
+// Timeout
+import Timer = NodeJS.Timer;
+let callbackTimeout: Timer = setTimeout(() => undefined, 0);
+
+// Implementations
+const edtOutputImplementations: edtOutputImplementation[] = [
+    new edtVidt
+];
+
+/**
+ * Handle preset change messages
+ */
+addMidiListener(midiMsgTypes.cc, handlePresetMidi);
 
 /**
  * Handle a preset change from a MIDI message
  * @param midiCCMsg
  */
 function handlePresetMidi(midiCCMsg: midiCCMsg): void {
-    if(midiCCMsg.channel === listenToChannel && midiCCMsg.controller in edtOutputs) {
-        console.log(`Preset change for ${midiCCMsg.controller} to ${midiCCMsg.value}`);
-        changePreset(midiCCMsg.controller, midiCCMsg.value);
+    if (midiCCMsg.channel === presetMsgChannel && midiCCMsg.controller in edtOutputs) {
+        console.log(`Preset cude for ${edtOutputs[midiCCMsg.controller]} to ${midiCCMsg.value}`);
+        clearTimeout(callbackTimeout);
+        callbackTimeout = setTimeout(function() {
+            changePreset(midiCCMsg.controller, midiCCMsg.value);
+        }, 500);
     }
 }
 
+/**
+ * Change a preset on a particular device.
+ * @param device
+ * @param preset
+ */
 function changePreset(device: edtOutputs, preset: number): void {
-
+    const implementation = edtOutputImplementations.find((output: edtOutputImplementation) => output.edtOutputId === device);
+    if (implementation && implementation.activePreset !== preset) implementation.register(preset);
 }
 
 
-function handleSelectMessage(msg:any) {
-    console.log('select', msg.song);
-}
-
-function handleNoteOnMessage(msg:any) {
-    console.log('noteon', msg);
-    // socket.emit('message', {
-    //     type: 'noteon',
-    //     note: msg.note,
-    //     velocity: msg.velocity,
-    //     channel: msg.channel
-    // });
-}
-
-function handleNoteOffMessage(msg:any) {
-    console.log('noteoff', msg);
-    // socket.emit('message', {
-    //     type: 'noteoff',
-    //     note: msg.note,
-    //     velocity: msg.velocity,
-    //     channel: msg.channel
-    // });
-}
-
-
-
-// // /TP 2 [start: int] [end: int] [h: int] [s: int] [l: int] [duration: int]
-
-// //
-// input.on('program', function (msg) {
-//     console.log('program', msg.number, msg.channel);
+// socket.emit('message', {
+//     type: 'noteon',
+//     note: msg.note,
+//     velocity: msg.velocity,
+//     channel: msg.channel
 // });
-//
-// input.on('pitch', function (msg) {
-//     console.log('pitch', msg.value, msg.channel);
-// });
-//
-// input.on('position', function (msg) {
-//     console.log('position', msg.value);
-// });
-//
 
-//
-// input.on('start', function () {
-//     console.log('start');
+// socket.emit('message', {
+//     type: 'noteoff',
+//     note: msg.note,
+//     velocity: msg.velocity,
+//     channel: msg.channel
 // });
-//
-// input.on('continue', function () {
-//     console.log('continue');
-// });
-//
-// input.on('stop', function () {
-//     console.log('stop');
-// });
-//
-// input.on('reset', function () {
-//     console.log('reset');
-// });
+

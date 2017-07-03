@@ -1,8 +1,4 @@
-module.exports = {
-    addMidiListener: addMidiListener
-};
-
-import {midiCCMsg, midiMsgTypes, midiProgramMsg} from "./types";
+import {midiCCMsg, midiMsgTypes, midiNoteMsg, midiProgramMsg} from "./types";
 const easymidi = require('easymidi');
 
 // --------------------------------
@@ -11,13 +7,13 @@ const easymidi = require('easymidi');
 interface Callbacks {
     [key:string]: midiMessageHandler[]
 }
-interface midiMessageHandler {
-    (msg:(midiCCMsg|midiProgramMsg)):void
+export interface midiMessageHandler {
+    (msg:(midiCCMsg|midiProgramMsg|midiNoteMsg)):void
 }
 let callbacks: Callbacks = {};
 callbacks[midiMsgTypes[midiMsgTypes.noteon]] = [];
 callbacks[midiMsgTypes[midiMsgTypes.noteoff]] = [];
-callbacks[midiMsgTypes[midiMsgTypes.control]] = [];
+callbacks[midiMsgTypes[midiMsgTypes.cc]] = [];
 callbacks[midiMsgTypes[midiMsgTypes.program]] = [];
 callbacks[midiMsgTypes[midiMsgTypes.select]] = [];
 
@@ -29,7 +25,7 @@ const virtualInput = new easymidi.Input('EDT-SLEDT', true);
 
 virtualInput.on(midiMsgTypes[midiMsgTypes.noteon], handleMidiEvents(midiMsgTypes.noteon));
 virtualInput.on(midiMsgTypes[midiMsgTypes.noteoff], handleMidiEvents(midiMsgTypes.noteoff));
-virtualInput.on(midiMsgTypes[midiMsgTypes.control], handleMidiEvents(midiMsgTypes.control));
+virtualInput.on(midiMsgTypes[midiMsgTypes.cc], handleMidiEvents(midiMsgTypes.cc));
 virtualInput.on(midiMsgTypes[midiMsgTypes.program], handleMidiEvents(midiMsgTypes.program));
 virtualInput.on(midiMsgTypes[midiMsgTypes.select], handleMidiEvents(midiMsgTypes.select));
 
@@ -49,8 +45,9 @@ try {
  * @param midiMsgType
  * @param callback
  */
-function addMidiListener(midiMsgType: midiMsgTypes, callback: midiMessageHandler) {
+export function addMidiListener(midiMsgType: midiMsgTypes, callback: midiMessageHandler) {
     callbacks[midiMsgTypes[midiMsgType]].push(callback);
+    console.log('Added listener', callbacks[midiMsgTypes[midiMsgType]]);
     return ():void => {
         let index = callbacks[midiMsgType].indexOf(callback);
         if (index >= 0) {
@@ -66,6 +63,7 @@ function addMidiListener(midiMsgType: midiMsgTypes, callback: midiMessageHandler
  */
 function handleMidiEvents(midiMsgType: midiMsgTypes) {
     return function(msg: midiCCMsg | midiProgramMsg): void {
+        // console.log('Handling MIDI event:', msg, midiMsgTypes[midiMsgType]);
         callbacks[midiMsgTypes[midiMsgType]].forEach((callback: midiMessageHandler) => { callback(msg) });
     }
 }

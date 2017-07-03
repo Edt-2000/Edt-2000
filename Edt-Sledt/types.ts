@@ -28,7 +28,7 @@ export enum edtOutputs {
 }
 
 export enum midiMsgTypes {
-    control,
+    cc,
     select,
     noteon,
     noteoff,
@@ -36,6 +36,10 @@ export enum midiMsgTypes {
 }
 
 export interface edtOutputImplementation {
+    edtOutputId: edtOutputs,
+    activePreset: number,
     register(preset: number): void,
     destroy(): void
 }
+
+// // /TP 2 [start: int] [end: int] [h: int] [s: int] [l: int] [duration: int]

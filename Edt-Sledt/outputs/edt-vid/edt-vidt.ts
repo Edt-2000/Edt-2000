@@ -1,8 +1,18 @@
-import {edtOutputImplementation} from "../../types";
+import {edtOutputImplementation, edtOutputs} from "../../types";
 import {edtVidPresets} from "./presets";
 
-class edtVidt implements edtOutputImplementation {
+export class edtVidt implements edtOutputImplementation {
+    edtOutputId: edtOutputs;
+    activePreset: number;
+
+    constructor() {
+        this.edtOutputId = edtOutputs.EdtVidt;
+        console.log('Edt-Vidt created');
+    }
+
     register(preset: edtVidPresets): void {
+        this.activePreset = preset;
+        console.log(`Changing preset to ${preset}`);
         switch (preset) {
             case edtVidPresets.backgroundColorChanger:
 

@@ -9,7 +9,6 @@ const server = http.createServer(app);
 const io = require('socket.io')(server);
 
 module.exports = {
-    connect: connect,
     send: send,
     getDisplaysConnected: (): number => {
         "use strict";
@@ -22,23 +21,21 @@ module.exports = {
  */
 let activeSockets: any[] = [];
 
-function connect(): void {
-    "use strict";
-    io.on('connection', function (socket: any): void {
-        // Add new display
-        activeSockets.push(socket);
-        console.log('New display connected! #', activeSockets.length);
+"use strict";
+io.on('connection', function (socket: any): void {
+    // Add new display
+    activeSockets.push(socket);
+    console.log('New display connected! #', activeSockets.length);
+    sendIdentify();
+
+    socket.on('disconnect', function (): void {
+        activeSockets.splice(activeSockets.indexOf(socket), 1);
         sendIdentify();
-
-        socket.on('disconnect', function (): void {
-            activeSockets.splice(activeSockets.indexOf(socket), 1);
-            sendIdentify();
-            console.log('Display disconnected! #', activeSockets.length);
-        });
+        console.log('Display disconnected! #', activeSockets.length);
     });
+});
 
-    server.listen(8988);
-}
+server.listen(8988);
 
 /**
  * Send a message to all sockets
