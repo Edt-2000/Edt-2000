@@ -1,5 +1,8 @@
-import {edtOutputImplementation, edtOutputs} from "../../types";
+import {edtOutputImplementation, edtOutputs, midiMsgTypes, midiNoteMsg} from "../../types";
 import {edtVidPresets} from "./presets";
+import {addMidiListener} from "../../midi";
+
+const socket = require('../../modules/socket');
 
 export class edtVidt implements edtOutputImplementation {
     edtOutputId: edtOutputs;
@@ -15,7 +18,10 @@ export class edtVidt implements edtOutputImplementation {
         console.log(`Changing preset to ${preset}`);
         switch (preset) {
             case edtVidPresets.backgroundColorChanger:
-
+                addMidiListener(midiMsgTypes.noteon, (msg:midiNoteMsg) => {
+                    // Todo: add parsing to bg color from note
+                    // socket.send(msg);
+                });
                 break;
             default:
                 break;

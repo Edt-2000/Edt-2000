@@ -26,11 +26,10 @@ addMidiListener(midiMsgTypes.cc, handlePresetMidi);
  */
 function handlePresetMidi(midiCCMsg: midiCCMsg): void {
     if (midiCCMsg.channel === presetMsgChannel && midiCCMsg.controller in edtOutputs) {
-        console.log(`Preset cude for ${edtOutputs[midiCCMsg.controller]} to ${midiCCMsg.value}`);
         clearTimeout(callbackTimeout);
         callbackTimeout = setTimeout(function() {
             changePreset(midiCCMsg.controller, midiCCMsg.value);
-        }, 500);
+        }, 200);
     }
 }
 
