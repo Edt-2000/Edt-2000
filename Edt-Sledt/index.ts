@@ -1,6 +1,6 @@
 "use strict";
 import {edtOutputs} from "./types";
-import {NoteOn} from "./midi";
+import {NoteOff, NoteOn} from "./midi";
 
 // Midi
 const presetMsgChannel: number = 15;
@@ -8,7 +8,13 @@ const presetMsgChannel: number = 15;
 // Listen to PresetChange note messages
 NoteOn.subscribe((msg) => {
     if (msg.channel === presetMsgChannel && msg.octave in edtOutputs) {
-        console.log('Change preset!');
+        console.log('Set preset on!');
+    }
+});
+
+NoteOff.subscribe((msg) => {
+    if (msg.channel === presetMsgChannel && msg.octave in edtOutputs) {
+        console.log('Set preset off!');
     }
 });
 
