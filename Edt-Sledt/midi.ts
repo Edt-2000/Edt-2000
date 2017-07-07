@@ -1,69 +1,51 @@
-import {midiCCMsg, midiMsgTypes, midiNoteMsg, midiProgramMsg} from "./types";
+import {midiCCMsg, midiMsgTypes, midiNoteMsg, midiProgramMsg, midiSongMsg} from "./types";
+import {Observable} from "rxjs/Observable";
+import {noteToNote, noteToOctave} from "./modules/utils";
+import "rxjs/add/observable/from";
+
 const easymidi = require('easymidi');
+const Rx = require('rxjs');
 
-// --------------------------------
-
-// Init callbacks array object
-interface Callbacks {
-    [key:string]: midiMessageHandler[]
-}
-export interface midiMessageHandler {
-    (msg:(midiCCMsg|midiProgramMsg|midiNoteMsg)):void
-}
-let callbacks: Callbacks = {};
-callbacks[midiMsgTypes[midiMsgTypes.noteon]] = [];
-callbacks[midiMsgTypes[midiMsgTypes.noteoff]] = [];
-callbacks[midiMsgTypes[midiMsgTypes.cc]] = [];
-callbacks[midiMsgTypes[midiMsgTypes.program]] = [];
-callbacks[midiMsgTypes[midiMsgTypes.select]] = [];
-
-/**
- * Register all events for the virtual device
- * @type {easymidi.Input}
- */
 const virtualInput = new easymidi.Input('EDT-SLEDT', true);
 
-virtualInput.on(midiMsgTypes[midiMsgTypes.noteon], handleMidiEvents(midiMsgTypes.noteon));
-virtualInput.on(midiMsgTypes[midiMsgTypes.noteoff], handleMidiEvents(midiMsgTypes.noteoff));
-virtualInput.on(midiMsgTypes[midiMsgTypes.cc], handleMidiEvents(midiMsgTypes.cc));
-virtualInput.on(midiMsgTypes[midiMsgTypes.program], handleMidiEvents(midiMsgTypes.program));
-virtualInput.on(midiMsgTypes[midiMsgTypes.select], handleMidiEvents(midiMsgTypes.select));
-
-/**
- * Try connecting to a live device
- */
-try {
-    const liveInput = new easymidi.Input('TouchOSC Bridge'); // TODO: add right one
-    console.log('Connected to LIVE MIDI device!');
-
-} catch(error) {
-    console.info('No LIVE MIDI device available!');
-}
-
-/**
- * Add a listener
- * @param midiMsgType
- * @param callback
- */
-export function addMidiListener(midiMsgType: midiMsgTypes, callback: midiMessageHandler) {
-    callbacks[midiMsgTypes[midiMsgType]].push(callback);
-    console.log('Added listener', callbacks[midiMsgTypes[midiMsgType]]);
-    return ():void => {
-        let index = callbacks[midiMsgType].indexOf(callback);
-        if (index >= 0) {
-            callbacks[midiMsgType].splice(index, 1);
+// Create Observables from the midi stream
+export const NoteOn: Observable<midiNoteMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.noteon)
+    .map((msg): midiNoteMsg => {
+        return {
+            note: msg.note,
+            noteNumber: noteToNote(msg.note),
+            octave: noteToOctave(msg.note),
+            velocity: msg.velocity,
+            channel: msg.channel
         }
-    };
-}
+    });
+export const NoteOff: Observable<midiNoteMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.noteoff)
+    .map((msg: { note: number, velocity: number, channel: number }): midiNoteMsg => {
+        return {
+            note: msg.note,
+            noteNumber: noteToNote(msg.note),
+            octave: noteToOctave(msg.note),
+            velocity: msg.velocity,
+            channel: msg.channel
+        };
+    });
+export const Program: Observable<midiProgramMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.program);
+export const Select: Observable<midiSongMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.select);
+export const CC: Observable<midiCCMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.cc);
 
-/**
- * Retrieve an event handler for a midi message injected by the addMidiListeners functions
- * @param midiMsgType
- * @return {}
- */
-function handleMidiEvents(midiMsgType: midiMsgTypes) {
-    return function(msg: midiCCMsg | midiProgramMsg): void {
-        // console.log('Handling MIDI event:', msg, midiMsgTypes[midiMsgType]);
-        callbacks[midiMsgTypes[midiMsgType]].forEach((callback: midiMessageHandler) => { callback(msg) });
-    }
-}
+// Loggers
+NoteOn.subscribe((msg) => console.log('NoteOn', msg));
+NoteOff.subscribe((msg) => console.log('NoteOff', msg));
+Program.subscribe((msg) => console.log('Program', msg));
+Select.subscribe((msg) => console.log('Select', msg));
+CC.subscribe((msg) => console.log('CC', msg));
+
+// /**
+//  * Try connecting to a live device
+//  */
+// try {
+//     const liveInput = new easymidi.Input('TouchOSC Bridge');
+//     console.log('Connected to LIVE MIDI device!');
+// } catch(error) {
+//     console.info('No LIVE MIDI device available!');
+// }e

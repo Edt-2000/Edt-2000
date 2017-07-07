@@ -8,14 +8,6 @@ const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server);
 
-module.exports = {
-    send: send,
-    getDisplaysConnected: (): number => {
-        "use strict";
-        return activeSockets.length;
-    }
-};
-
 /**
  * Socket management
  */
@@ -41,11 +33,20 @@ server.listen(8988);
  * Send a message to all sockets
  * @param message
  */
-function send(message: any): void {
+export function send(message: any): void {
     activeSockets.forEach(socket => {
         socket.emit('message', message);
     });
 }
+
+/**
+ * Get the amount of displays currently available
+ * @return {number}
+ */
+export function getDisplaysConnected(): number {
+    return activeSockets.length;
+}
+
 
 // --------------------------------
 

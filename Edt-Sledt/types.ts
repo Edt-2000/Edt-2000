@@ -10,6 +10,8 @@ export interface midiCCMsg extends midiChannel {
 }
 export interface midiNoteMsg extends midiChannel {
     readonly note: number,
+    readonly noteNumber: number,
+    readonly octave: number,
     readonly velocity: number
 }
 export interface midiProgramMsg extends midiChannel {
@@ -20,26 +22,20 @@ export interface midiSongMsg extends midiChannel {
 }
 
 /**
- * Edt Preset MIDI CC number mapping
+ * Edt Preset MIDI octave number mapping
  */
 export enum edtOutputs {
-    EdtVidt = 20,
-    EdtTOP = 21
+    EdtVidt = 1,
+    EdtLEDt = 2
 }
 
 export enum midiMsgTypes {
-    cc,
-    select,
-    noteon,
-    noteoff,
-    program
+    cc = "cc",
+    select = "select",
+    noteon = "noteon",
+    noteoff = "noteoff",
+    program = "program"
 }
 
-export interface edtOutputImplementation {
-    edtOutputId: edtOutputs,
-    activePreset: number,
-    register(preset: number): void,
-    destroy(): void
-}
 
 // // /TP 2 [start: int] [end: int] [h: int] [s: int] [l: int] [duration: int]

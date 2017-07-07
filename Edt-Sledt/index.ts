@@ -1,60 +1,30 @@
 "use strict";
-import {edtOutputImplementation, edtOutputs, midiCCMsg, midiMsgTypes} from "./types";
-import {edtVidt} from "./outputs/edt-vid/edt-vidt";
-import {addMidiListener} from './midi';
+import {edtOutputs} from "./types";
+import {NoteOn} from "./midi";
 
 // Midi
 const presetMsgChannel: number = 15;
 
-// Timeout
-import Timer = NodeJS.Timer;
-let callbackTimeout: Timer = setTimeout(() => undefined, 0);
-
-// Implementations
-const edtOutputImplementations: edtOutputImplementation[] = [
-    new edtVidt
-];
-
-/**
- * Handle preset change messages
- */
-addMidiListener(midiMsgTypes.cc, handlePresetMidi);
-
-/**
- * Handle a preset change from a MIDI message
- * @param midiCCMsg
- */
-function handlePresetMidi(midiCCMsg: midiCCMsg): void {
-    if (midiCCMsg.channel === presetMsgChannel && midiCCMsg.controller in edtOutputs) {
-        clearTimeout(callbackTimeout);
-        callbackTimeout = setTimeout(function() {
-            changePreset(midiCCMsg.controller, midiCCMsg.value);
-        }, 200);
+// Listen to PresetChange note messages
+NoteOn.subscribe((msg) => {
+    if (msg.channel === presetMsgChannel && msg.octave in edtOutputs) {
+        console.log('Change preset!');
     }
-}
+});
 
-/**
- * Change a preset on a particular device.
- * @param device
- * @param preset
- */
-function changePreset(device: edtOutputs, preset: number): void {
-    const implementation = edtOutputImplementations.find((output: edtOutputImplementation) => output.edtOutputId === device);
-    if (implementation && implementation.activePreset !== preset) implementation.register(preset);
-}
-
-
-// socket.emit('message', {
-//     type: 'noteon',
-//     note: msg.note,
-//     velocity: msg.velocity,
-//     channel: msg.channel
-// });
-
-// socket.emit('message', {
-//     type: 'noteoff',
-//     note: msg.note,
-//     velocity: msg.velocity,
-//     channel: msg.channel
-// });
-
+//
+// function handleUnsetPreset(presetNote: midiNoteMsg): void {
+//     // console.log('Midi note off:', presetNote);
+//     if (presetNote.channel === presetMsgChannel && noteToOctave(presetNote.note) in edtOutputs) {
+//         unsetPreset(noteToOctave(presetNote.note), noteToNote(presetNote.note));
+//     }
+// }
+//
+// /**
+//  * Set a preset on a particular device.
+//  * @param device
+//  * @param preset
+//  */
+// function setPreset(device: edtOutputs, preset: number): void {
+//
+// }
