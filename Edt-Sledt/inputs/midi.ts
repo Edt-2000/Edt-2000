@@ -1,6 +1,6 @@
-import {midiCCMsg, midiMsgTypes, midiNoteMsg, midiProgramMsg, midiSongMsg} from "./types";
+import {midiCCMsg, midiMsgTypes, midiNoteMsg, midiProgramMsg, midiSongMsg} from "../types";
 import {Observable} from "rxjs/Observable";
-import {noteToNote, noteToOctave} from "./modules/utils";
+import {noteToNote, noteToOctave} from "../modules/utils";
 import "rxjs/add/observable/from";
 
 const easymidi = require('easymidi');

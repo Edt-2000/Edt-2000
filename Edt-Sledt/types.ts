@@ -26,9 +26,12 @@ export interface midiSongMsg extends midiChannel {
  */
 export enum edtOutputs {
     EdtVidt = 1,
-    EdtLEDt = 2
+    // EdtLEDt = 2
 }
 
+/**
+ * Midi Msg types
+ */
 export enum midiMsgTypes {
     cc = "cc",
     select = "select",
@@ -37,5 +40,17 @@ export enum midiMsgTypes {
     program = "program"
 }
 
+export interface edtOutput {
+    presets: edtPresets;
+}
+
+export interface edtPreset {
+    initPreset(velocity:number): void,
+    destroyPreset(): void
+}
+
+export interface edtPresets {
+    [key:string]: edtPreset
+}
 
 // // /TP 2 [start: int] [end: int] [h: int] [s: int] [l: int] [duration: int]
