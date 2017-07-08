@@ -9,16 +9,18 @@ export class preset implements edtOutput {
         this.presetEnum = {};
     }
 
-    public log(): void {
-        console.log('Preset objs', this.presets, this.presetEnum);
-    }
-
     public initPreset(preset, velocity) {
-        if(preset in this.presetEnum) this.presets[this.presetEnum[preset]].initPreset(velocity);
+        if(preset in this.presetEnum) {
+            console.log(`Preset ${this.presetEnum[preset]} activated with velocity ${velocity}!`);
+            this.presets[this.presetEnum[preset]].initPreset(velocity);
+        }
     }
 
     public destroyPreset(preset) {
-        if(preset in this.presetEnum) this.presets[this.presetEnum[preset]].destroyPreset();
+        if(preset in this.presetEnum) {
+            console.log(`Preset ${this.presetEnum[preset]} de-activated!`);
+            this.presets[this.presetEnum[preset]].destroyPreset();
+        }
     }
 
 }

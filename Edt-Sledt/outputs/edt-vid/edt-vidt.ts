@@ -1,7 +1,6 @@
-import {edtOutput, edtPresets} from "../../types";
+import {edtOutput} from "../../types";
 import {backgroundChanger} from "./backgroundChanger";
 import {preset} from "../preset";
-const socket = require('../../modules/socket');
 
 enum edtVidtPresets {
     backgroundChanger = 1
