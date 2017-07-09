@@ -7,16 +7,10 @@ export interface bgColor {
 }
 
 // All types
-
-export enum socketMsgType {
-    drumCycleMsg
-}
-
 export type socketMsgTypes = drumCycleMsg;
 
 // -------------------------------- Message types
 
 export interface drumCycleMsg {
-    type: socketMsgType,
     bgColor: bgColor
 }

@@ -4,15 +4,13 @@ import {Socket} from "ngx-socket-io";
 
 @Injectable()
 export class CommunicationService {
+  private observer;
 
   constructor(private socket: Socket) {
+    this.observer = this.socket.fromEvent('message');
   }
 
   getMessageObserver() {
-    return this.socket.fromEvent('message');
-  }
-
-  getModeChangeObserver() {
-    return this.socket.fromEvent('mode');
+    return this.observer;
   }
 }
