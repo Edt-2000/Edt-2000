@@ -12,14 +12,14 @@ export class preset implements edtOutput {
     public initPreset(preset, velocity) {
         if(preset in this.presetEnum) {
             console.log(`Preset ${this.presetEnum[preset]} activated with velocity ${velocity}!`);
-            this.presets[this.presetEnum[preset]].initPreset(velocity);
+            this.presets[this.presetEnum[preset]].startPreset(velocity);
         }
     }
 
     public destroyPreset(preset) {
         if(preset in this.presetEnum) {
             console.log(`Preset ${this.presetEnum[preset]} de-activated!`);
-            this.presets[this.presetEnum[preset]].destroyPreset();
+            this.presets[this.presetEnum[preset]].stopPreset();
         }
     }
 

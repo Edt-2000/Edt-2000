@@ -1,6 +1,6 @@
 import {midiCCMsg, midiMsgTypes, midiNoteMsg, midiProgramMsg, midiSongMsg} from "../types";
 import {Observable} from "rxjs/Observable";
-import {noteToNote, noteToOctave} from "../modules/utils";
+import {noteToNote, noteToOctave} from "./utils";
 import "rxjs/add/observable/from";
 
 const easymidi = require('easymidi');
@@ -34,11 +34,11 @@ export const Select: Observable<midiSongMsg> = Rx.Observable.fromEvent(virtualIn
 export const CC: Observable<midiCCMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.cc);
 
 // Loggers
-NoteOn.subscribe((msg) => console.log('NoteOn', msg));
-NoteOff.subscribe((msg) => console.log('NoteOff', msg));
-Program.subscribe((msg) => console.log('Program', msg));
-Select.subscribe((msg) => console.log('Select', msg));
-CC.subscribe((msg) => console.log('CC', msg));
+// NoteOn.subscribe((msg) => console.log('NoteOn', msg));
+// NoteOff.subscribe((msg) => console.log('NoteOff', msg));
+// Program.subscribe((msg) => console.log('Program', msg));
+// Select.subscribe((msg) => console.log('Select', msg));
+// CC.subscribe((msg) => console.log('CC', msg));
 
 // /**
 //  * Try connecting to a live device

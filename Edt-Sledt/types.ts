@@ -45,8 +45,8 @@ export interface edtOutput {
 }
 
 export interface edtPreset {
-    initPreset(velocity:number): void,
-    destroyPreset(): void
+    startPreset(velocity: number): void,
+    stopPreset(): void
 }
 
 export interface edtPresets {

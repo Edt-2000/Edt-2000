@@ -1,15 +1,15 @@
 import {edtOutput} from "../../types";
-import {backgroundChanger} from "./backgroundChanger";
+import {bgDrumCycle} from "./bgDrumCycle";
 import {preset} from "../preset";
 
 enum edtVidtPresets {
-    backgroundChanger = 1
+    bgDrumCycle = 1
 }
 
 export class edtVidt extends preset implements edtOutput {
     constructor() {
         super();
-        this.presets[edtVidtPresets[edtVidtPresets.backgroundChanger]] = new backgroundChanger();
+        this.presets[edtVidtPresets[edtVidtPresets.bgDrumCycle]] = new bgDrumCycle();
         this.presetEnum = edtVidtPresets;
     }
 }

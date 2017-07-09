@@ -1,4 +1,5 @@
 "use strict";
+import {socketMsgTypes} from "../../SharedTypes/socket";
 /**
  * Socket Server
  */
@@ -13,7 +14,6 @@ const io = require('socket.io')(server);
  */
 let activeSockets: any[] = [];
 
-"use strict";
 io.on('connection', function (socket: any): void {
     // Add new display
     activeSockets.push(socket);
@@ -33,7 +33,8 @@ server.listen(8988);
  * Send a message to all sockets
  * @param message
  */
-export function send(message: any): void {
+export function sendToVidt(message: socketMsgTypes): void {
+    console.log('Sending socket msg:', message);
     activeSockets.forEach(socket => {
         socket.emit('message', message);
     });
