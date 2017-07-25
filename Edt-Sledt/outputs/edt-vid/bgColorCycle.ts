@@ -12,7 +12,6 @@ import {rescale} from '../../modules/utils';
 export class bgColorCycle implements edtPreset {
     private _hue: number;
 
-    private _channelSubscriber: Subscription;
     private _triggerSubscriber: Subscription;
     private _settingSubscriber: Subscription;
 
@@ -25,11 +24,6 @@ export class bgColorCycle implements edtPreset {
         this._listenToChannel = 0;
         this._listenToNote = 0;
         this._rotationVelocity = 0;
-    }
-
-    startPreset(rotationVelocity: number): void {
-        this._rotationVelocity = rotationVelocity;
-
         /**
          * You can set the note and the rotation velocity by sending the note you want to listen to on channel 15
          * @type {Subscription}
@@ -37,11 +31,15 @@ export class bgColorCycle implements edtPreset {
          */
         this._settingSubscriber = NoteOn.subscribe((msg) => {
             if(msg.channel === adjustmentChannel) {
-                console.log(`Starting to respond to note ${msg.noteNumber} of octave ${msg.octave} on channel ${msg.velocity}.`);
+                console.log(`Setting note ${msg.noteNumber} of octave ${msg.octave} on channel ${msg.velocity} as responsive note.`);
                 this._listenToNote = msg.note;
                 this._listenToChannel = msg.velocity;
             }
         });
+    }
+
+    startPreset(rotationVelocity: number): void {
+        this._rotationVelocity = rotationVelocity;
 
         this._triggerSubscriber = NoteOn.subscribe((msg) => {
             // Is the received note the one we listen to?
@@ -67,7 +65,6 @@ export class bgColorCycle implements edtPreset {
     stopPreset(): void {
         if (typeof this._triggerSubscriber !== 'undefined') this._triggerSubscriber.unsubscribe();
         if (typeof this._settingSubscriber !== 'undefined') this._settingSubscriber.unsubscribe();
-        if (typeof this._channelSubscriber !== 'undefined') this._channelSubscriber.unsubscribe();
     }
 
 }
