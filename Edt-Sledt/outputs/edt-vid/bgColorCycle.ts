@@ -1,5 +1,5 @@
 import {edtPreset} from '../../types';
-import {NoteOn} from '../../modules/midi';
+import {adjustmentChannel, NoteOn} from '../../modules/midi';
 import {Subscription} from 'rxjs/Subscription';
 import {sendToVidt} from '../../modules/socket';
 import {colorMsg} from '../../../SharedTypes/socket';
@@ -36,7 +36,7 @@ export class bgColorCycle implements edtPreset {
          * @private
          */
         this._settingSubscriber = NoteOn.subscribe((msg) => {
-            if(msg.channel === 15) {
+            if(msg.channel === adjustmentChannel) {
                 console.log(`Starting to respond to note ${msg.noteNumber} of octave ${msg.octave} on channel ${msg.velocity}.`);
                 this._listenToNote = msg.note;
                 this._listenToChannel = msg.velocity;
@@ -48,7 +48,7 @@ export class bgColorCycle implements edtPreset {
             if (msg.note === this._listenToNote && msg.channel === this._listenToChannel) {
                 this._hue = (this._hue + rescale(this._rotationVelocity, 127, 0, 360)) % 360;
                 // Send a simple colorMsg to rotate color
-                let socketMsg: colorMsg = {
+                sendToVidt(<colorMsg>{
                     bgColor: {
                         hue: this._hue,
                         saturation: 100,
@@ -59,9 +59,7 @@ export class bgColorCycle implements edtPreset {
                         saturation: 100,
                         brightness: 50
                     }
-                };
-
-                sendToVidt(socketMsg);
+                });
             }
         });
     }

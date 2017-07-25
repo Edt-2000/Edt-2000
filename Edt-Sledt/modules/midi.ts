@@ -13,6 +13,7 @@ interface easyMidiNoteOnMsg { note: number, velocity: number, channel: number }
 
 // Which channel sends presets?
 export const presetMsgChannel: number = 16;
+export const adjustmentChannel: number = 15;
 
 // Create Observables from the midi stream.
 export const NoteOn: Observable<midiNoteMsg> = Observable.fromEvent(virtualInput, midiMsgTypes.noteon)
