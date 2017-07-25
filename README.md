@@ -4,25 +4,7 @@ Edt-2000 Ecosystem main repository with JS and TS based core code. The `Edt` eco
 
 ## Ecosystem and communication rules
 
-The idea is to have a preset for each `Edt-<OUTPUT>`, which can be automated through `MIDI` or overridden with `OSC` for improvisation and testing. For each `Edt-_Device_` a designated preset **MIDI CC** number is available. That way, we can switch presets programmatically from a MIDI track in `Ableton Live`. Upon receiving a PRESET CC message, the `Edt-Sledt` will send the appropriate messages to initialize the `Edt-<OUTPUT>`. After that, it will also route the correct data so the `Edt-<OUTPUT>` can respond.  
 
-```text
-PRESET OUTPUT PRESETS:
-
-20: Edt-Vidt
-21: Edt-TOP
-22: 
-23:
-24:
-25:
-26:
-27:
-28:
-29:
-30:
-31:
-
-```
 
 ### Edt-Sledt
 

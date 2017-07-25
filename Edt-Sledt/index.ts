@@ -1,10 +1,7 @@
 "use strict";
 import {edtOutputs} from "./types";
-import {NoteOff, NoteOn} from "./modules/midi";
+import {NoteOff, NoteOn, presetMsgChannel} from './modules/midi';
 import {destroyPreset, initPreset} from "./modules/presets";
-
-// Midi settings
-const presetMsgChannel: number = 15;
 
 // Listen to PresetChange note messages
 NoteOn.subscribe((msg) => {

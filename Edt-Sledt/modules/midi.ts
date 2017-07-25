@@ -11,7 +11,10 @@ const virtualInput = new easymidi.Input('EDT-SLEDT', true);
 
 interface easyMidiNoteOnMsg { note: number, velocity: number, channel: number }
 
-// Create Observables from the midi stream
+// Which channel sends presets?
+export const presetMsgChannel: number = 16;
+
+// Create Observables from the midi stream.
 export const NoteOn: Observable<midiNoteMsg> = Observable.fromEvent(virtualInput, midiMsgTypes.noteon)
     .map((msg: easyMidiNoteOnMsg): midiNoteMsg => {
         return {
@@ -19,7 +22,7 @@ export const NoteOn: Observable<midiNoteMsg> = Observable.fromEvent(virtualInput
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),
             velocity: msg.velocity,
-            channel: msg.channel
+            channel: msg.channel + 1
         }
     });
 export const NoteOff: Observable<midiNoteMsg> = Observable.fromEvent(virtualInput, midiMsgTypes.noteoff)
@@ -29,7 +32,7 @@ export const NoteOff: Observable<midiNoteMsg> = Observable.fromEvent(virtualInpu
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),
             velocity: msg.velocity,
-            channel: msg.channel
+            channel: msg.channel + 1
         };
     });
 export const Program: Observable<midiProgramMsg> = Observable.fromEvent(virtualInput, midiMsgTypes.program);
