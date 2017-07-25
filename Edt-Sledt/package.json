@@ -11,14 +11,14 @@
   "author": "Edt-2000",
   "license": "ISC",
   "dependencies": {
-    "easymidi": "latest",
+    "easymidi": "0.0.2",
     "express": "^4.15.3",
     "osc-js": "^1.0.2",
     "rxjs": "^5.4.2",
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
-    "@types/node": "^8.0.7",
-    "typescript": "^2.4.1"
+    "@types/node": "^8.0.16",
+    "typescript": "^2.4.2"
   }
 }

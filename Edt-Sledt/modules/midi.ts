@@ -1,16 +1,19 @@
+///<reference path="../node_modules/@types/node/index.d.ts"/>
 import {midiCCMsg, midiMsgTypes, midiNoteMsg, midiProgramMsg, midiSongMsg} from "../types";
-import {Observable} from "rxjs/Observable";
 import {noteToNote, noteToOctave} from "./utils";
-import "rxjs/add/observable/from";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/map';
 
 const easymidi = require('easymidi');
-const Rx = require('rxjs');
 
 const virtualInput = new easymidi.Input('EDT-SLEDT', true);
 
+interface easyMidiNoteOnMsg { note: number, velocity: number, channel: number }
+
 // Create Observables from the midi stream
-export const NoteOn: Observable<midiNoteMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.noteon)
-    .map((msg): midiNoteMsg => {
+export const NoteOn: Observable<midiNoteMsg> = Observable.fromEvent(virtualInput, midiMsgTypes.noteon)
+    .map((msg: easyMidiNoteOnMsg): midiNoteMsg => {
         return {
             note: msg.note,
             noteNumber: noteToNote(msg.note),
@@ -19,8 +22,8 @@ export const NoteOn: Observable<midiNoteMsg> = Rx.Observable.fromEvent(virtualIn
             channel: msg.channel
         }
     });
-export const NoteOff: Observable<midiNoteMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.noteoff)
-    .map((msg: { note: number, velocity: number, channel: number }): midiNoteMsg => {
+export const NoteOff: Observable<midiNoteMsg> = Observable.fromEvent(virtualInput, midiMsgTypes.noteoff)
+    .map((msg: easyMidiNoteOnMsg): midiNoteMsg => {
         return {
             note: msg.note,
             noteNumber: noteToNote(msg.note),
@@ -29,9 +32,9 @@ export const NoteOff: Observable<midiNoteMsg> = Rx.Observable.fromEvent(virtualI
             channel: msg.channel
         };
     });
-export const Program: Observable<midiProgramMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.program);
-export const Select: Observable<midiSongMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.select);
-export const CC: Observable<midiCCMsg> = Rx.Observable.fromEvent(virtualInput, midiMsgTypes.cc);
+export const Program: Observable<midiProgramMsg> = Observable.fromEvent(virtualInput, midiMsgTypes.program);
+export const Select: Observable<midiSongMsg> = Observable.fromEvent(virtualInput, midiMsgTypes.select);
+export const CC: Observable<midiCCMsg> = Observable.fromEvent(virtualInput, midiMsgTypes.cc);
 
 // Loggers
 // NoteOn.subscribe((msg) => console.log('NoteOn', msg));

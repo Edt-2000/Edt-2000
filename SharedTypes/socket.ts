@@ -6,11 +6,30 @@ export interface bgColor {
     readonly brightness: number
 }
 
-// All types
-export type socketMsgTypes = drumCycleMsg;
+export interface color {
+    readonly hue: number,
+    readonly saturation: number,
+    readonly brightness: number
+}
 
-// -------------------------------- Message types
+export enum vidtPresets {
+    LogoIdle = 'LogoIdle',
+    TextDisplay = 'TextDisplay'
+}
 
-export interface drumCycleMsg {
-    bgColor: bgColor
+// SubMessages
+
+export interface preparePresetMsg {
+    readonly preset: vidtPresets
+}
+
+export interface colorMsg {
+    readonly bgColor: bgColor,
+    readonly color: color
+}
+
+// -------------------------------- Specific Messages
+
+export interface centeredText extends colorMsg {
+    readonly textValue
 }

@@ -1,5 +1,4 @@
 "use strict";
-import {socketMsgTypes} from "../../SharedTypes/socket";
 /**
  * Socket Server
  */
@@ -33,7 +32,7 @@ server.listen(8988);
  * Send a message to all sockets
  * @param message
  */
-export function sendToVidt(message: socketMsgTypes): void {
+export function sendToVidt(message: any): void {
     console.log('Sending socket msg:', message);
     activeSockets.forEach(socket => {
         socket.emit('message', message);

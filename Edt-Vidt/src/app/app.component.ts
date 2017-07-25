@@ -1,9 +1,11 @@
-import {Component, Inject, OnInit} from "@angular/core";
-import {CommunicationService} from "./communication.service";
+import {Component, HostBinding, Inject, OnInit} from '@angular/core';
+import {CommunicationService} from './communication.service';
+import {colorMsg, preparePresetMsg} from '../../../SharedTypes/socket';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  styles: [`
+    selector: 'app-root',
+    styles: [`
         :host {
             position: fixed;
             top: 0;
@@ -12,22 +14,28 @@ import {CommunicationService} from "./communication.service";
             height: 100%;
         }
     `],
-  template: `
-        <div style="height: 300px;" [ngStyle]="{'background-color':bgColor}"></div>
-    `
+    template: `<router-outlet></router-outlet>`
 })
 export class AppComponent implements OnInit {
-  bgColor: string;
+    @HostBinding('style.backgroundColor') bgColor = 'white';
+    @HostBinding('style.color') color = 'black';
 
-  constructor(@Inject(CommunicationService) private _communicationService: CommunicationService) {
-  }
+    constructor(
+        @Inject(CommunicationService) private _communicationService: CommunicationService,
+        @Inject(Router) private _router: Router
+    ) {}
 
+    ngOnInit(): void {
+        // Subscribe to any message with colorMsg data
+        this._communicationService.color.subscribe((msg: colorMsg) => {
+            this.bgColor = `hsl(${msg.bgColor.hue}, ${msg.bgColor.saturation}%, ${msg.bgColor.brightness}%)`;
+            this.color = `hsl(${msg.color.hue}, ${msg.color.saturation}%, ${msg.color.brightness}%)`;
+        });
 
-  // @HostBinding('style.backgroundColor') bgColor: string = "hsl(144, 100%, 50%)";
-
-  ngOnInit(): void {
-    this._communicationService.getMessageObserver().subscribe((msg) => {
-      this.bgColor = `hsl(${msg.bgColor.hue}, ${msg.bgColor.saturation}%, ${msg.bgColor.brightness}%)`
-    });
-  };
+        // Subscribe to preset changes and switch to different routes accordingly
+        this._communicationService.preset.subscribe((msg: preparePresetMsg) => {
+            console.log('Switch preset to:', msg.preset);
+            this._router.navigate([msg.preset]);
+        });
+    };
 }
