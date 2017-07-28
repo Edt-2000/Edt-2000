@@ -4,35 +4,43 @@
 export interface midiChannel {
     readonly channel: number
 }
+
+/**
+ * Midi Control message
+ */
 export interface midiCCMsg extends midiChannel {
     readonly controller: number,
     readonly value: number,
 }
+
+/**
+ * Midi note message
+ */
 export interface midiNoteMsg extends midiChannel {
     readonly note: number,
     readonly noteNumber: number,
     readonly octave: number,
     readonly velocity: number
 }
+
+/**
+ * Midi program message
+ */
 export interface midiProgramMsg extends midiChannel {
     readonly number: number
 }
+
+/**
+ * Midi song message
+ */
 export interface midiSongMsg extends midiChannel {
     readonly song: number
 }
 
 /**
- * Edt Preset MIDI octave number mapping
- */
-export enum edtOutputs {
-    EdtVidt = 1,
-    // EdtLEDt = 2
-}
-
-/**
  * Midi Msg types
  */
-export enum midiMsgTypes {
+export enum MidiMsgTypes {
     cc = "cc",
     select = "select",
     noteon = "noteon",

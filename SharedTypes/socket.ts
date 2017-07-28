@@ -12,7 +12,7 @@ export interface color {
     readonly brightness: number
 }
 
-export enum vidtPresets {
+export enum VidtPresets {
     LogoIdle = 'LogoIdle',
     TextDisplay = 'TextDisplay'
 }
@@ -20,7 +20,7 @@ export enum vidtPresets {
 // SubMessages
 
 export interface preparePresetMsg {
-    readonly preset: vidtPresets
+    readonly preset: VidtPresets
 }
 
 export interface colorMsg {

@@ -1,6 +1,6 @@
 import {edtOutput, edtPresets} from "../types";
 
-export class preset implements edtOutput {
+export class Preset implements edtOutput {
     presets: edtPresets;
     presetEnum: {};
 
