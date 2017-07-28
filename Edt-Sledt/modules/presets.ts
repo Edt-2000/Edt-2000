@@ -8,8 +8,8 @@ import {Videos} from '../presets/videos/videos';
  * Edt Preset MIDI octave number mapping
  */
 export enum EdtOutputs {
-    colors = 1,
-    videos = 2
+    colors = 0,
+    videos = 1
 }
 
 type edtOutputsObject = {

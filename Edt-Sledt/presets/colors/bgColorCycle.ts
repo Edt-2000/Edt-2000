@@ -5,10 +5,10 @@ import {sendToVidt} from '../../modules/socket';
 import {colorMsg} from '../../../SharedTypes/socket';
 import {rescale} from '../../modules/utils';
 import 'rxjs/add/operator/filter';
+import {EdtVidtColor} from '../color';
 
 /**
- * The bg color cycle Preset cycles between colors trigger by NoteOn inputs, which can be changed by sending a Note on channel 15
- * The velocity of the Preset is the channel that is being listened to (1-14)
+ * The bg color cycle Preset cycles between colors trigger by filteredNoteOn inputs
  */
 export class BgColorCycle implements edtPreset {
     private _hue: number;
@@ -25,23 +25,25 @@ export class BgColorCycle implements edtPreset {
     startPreset(rotationVelocity: number): void {
         this._rotationVelocity = rotationVelocity;
 
-        this._triggerSubscriber = filteredNoteOn
-            .subscribe(() => {
-                this._hue = (this._hue + rescale(this._rotationVelocity, 127, 0, 360)) % 360;
-                // Send a simple colorMsg to rotate color
-                sendToVidt(<colorMsg>{
-                    bgColor: {
-                        hue: this._hue,
-                        saturation: 100,
-                        brightness: 50
-                    },
-                    color: {
-                        hue: (this._hue + 180) % 360,
-                        saturation: 100,
-                        brightness: 50
-                    }
-                });
-            });
+        this._triggerSubscriber = filteredNoteOn.subscribe(() => {
+            this._hue = (this._hue + rescale(this._rotationVelocity, 127, 0, 360)) % 360;
+            let newColor: colorMsg = {
+                bgColor: {
+                    hue: this._hue,
+                    saturation: 100,
+                    brightness: 50
+                },
+                color: {
+                    hue: (this._hue + 180) % 360,
+                    saturation: 100,
+                    brightness: 50
+                }
+            };
+            // Send a simple colorMsg to rotate color
+            sendToVidt(newColor);
+            // Emit this new color value to other listeners
+            EdtVidtColor.next(newColor);
+        });
     }
 
     stopPreset(): void {

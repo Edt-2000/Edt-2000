@@ -67,7 +67,7 @@ export const CC: Observable<midiCCMsg> = Observable.fromEvent<midiCCMsg>(virtual
     .filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
 // Loggers
-// NoteOn.subscribe((msg) => console.log('NoteOn', msg));
+presetNoteOn.subscribe((msg) => console.log('NoteOn', msg));
 // NoteOff.subscribe((msg) => console.log('NoteOff', msg));
 // Program.subscribe((msg) => console.log('Program', msg));
 // Select.subscribe((msg) => console.log('Select', msg));

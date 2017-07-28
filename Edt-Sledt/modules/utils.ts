@@ -6,7 +6,7 @@
  * @return {number}
  */
 export function noteToOctave(note: number): number {
-    return Math.ceil(note / 12);
+    return Math.floor(note / 12);
 }
 
 /**
