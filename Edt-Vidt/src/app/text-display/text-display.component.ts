@@ -9,11 +9,14 @@ import {centeredText} from '../../../../SharedTypes/socket';
     `,
     styles: [`
         :host {
+            position: fixed;
             display: flex;
+            height: 100%;
+            top: 0;
+            left: 0;
             align-items: center;
             justify-content: center;
             font-size: 30vh;
-            height: 100%;
         }
     `]
 })

@@ -6,7 +6,7 @@ import {CommunicationService} from './communication.service';
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {TextDisplayComponent} from './text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
-import {vidtPresets} from '../../../SharedTypes/socket';
+import {VidtPresets} from '../../../SharedTypes/socket';
 import { LogoIdleComponent } from './logo-idle-component/logo-idle.component';
 
 const config: SocketIoConfig = {
@@ -16,16 +16,16 @@ const config: SocketIoConfig = {
 
 const appRoutes = <Routes>[
     {
-        path: vidtPresets.LogoIdle,
+        path: VidtPresets.LogoIdle,
         component: LogoIdleComponent
     },
     {
-        path: vidtPresets.TextDisplay,
+        path: VidtPresets.TextDisplay,
         component: TextDisplayComponent
     },
     {
         path: '**',
-        redirectTo: vidtPresets.LogoIdle,
+        redirectTo: VidtPresets.LogoIdle,
     }
 ];
 

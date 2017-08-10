@@ -2,30 +2,27 @@ import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/filter'
-import {colorMsg, preparePresetMsg} from '../../../SharedTypes/socket';
+import {colorMsg, preparePresetMsg, targetedMsg} from '../../../SharedTypes/socket';
 
 
 @Injectable()
 export class CommunicationService {
-    private _observable: Observable<any>;
+    private _messageObs: Observable<any>;
 
     public color: Observable<colorMsg>;
-
     public preset: Observable<preparePresetMsg>;
+    public screenId: number;
 
     constructor(private socket: Socket) {
-        this._observable = this.socket.fromEvent('message');
-
-        this.color = this._observable.filter(isColorMsg);
-        this.preset = this._observable.filter(isPreparePresetMsg);
+        // Filter on target screenId's (where 0 is all screens)
+        this._messageObs = this.socket.fromEvent<targetedMsg>('message');
+            // .filter(msg => msg.screenIds && msg.screenIds.has(this.screenId));
+        // Expose observables for various message types
+        this.color = this._messageObs.filter((msg: any): msg is colorMsg => {
+            return !!msg.color && !!msg.bgColor;
+        });
+        this.preset = this._messageObs.filter((msg: any): msg is preparePresetMsg => {
+            return !!msg.preset;
+        });
     }
-}
-
-// TypeGuards to be able to filter messages to different observables.
-function isColorMsg(msg: any): msg is colorMsg {
-    return !!msg.color && !!msg.bgColor;
-}
-
-function isPreparePresetMsg(msg: any): msg is preparePresetMsg {
-    return !!msg.preset;
 }
