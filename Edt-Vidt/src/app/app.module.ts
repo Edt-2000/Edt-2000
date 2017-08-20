@@ -9,6 +9,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {VidtPresets} from '../../../SharedTypes/socket';
 import { LogoIdleComponent } from './logo-idle-component/logo-idle.component';
 import {GlitchTextComponent} from "./glitch-text-component/glitch-text.component";
+import { HackingAnimationComponent } from './hacking-animation/hacking-animation.component';
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',
@@ -25,8 +26,12 @@ const appRoutes = <Routes>[
         component: TextDisplayComponent
     },
     {
+        path: VidtPresets.HackingAnimation,
+        component: HackingAnimationComponent
+    },
+    {
         path: '**',
-        redirectTo: VidtPresets.LogoIdle,
+        redirectTo: VidtPresets.HackingAnimation,
     }
 ];
 
@@ -35,7 +40,8 @@ const appRoutes = <Routes>[
         AppComponent,
         GlitchTextComponent,
         LogoIdleComponent,
-        TextDisplayComponent
+        TextDisplayComponent,
+        HackingAnimationComponent
     ],
     imports: [
         RouterModule.forRoot(
