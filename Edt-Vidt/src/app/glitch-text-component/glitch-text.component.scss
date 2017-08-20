@@ -1,4 +1,5 @@
 @import '../../styles/config/colors';
+@import '../../styles/mixins/keyframe-glitch';
 
 .glitch {
     animation: glitch-skew 4s cubic-bezier(.25, .46, .45, .94) 4s infinite;
@@ -17,6 +18,8 @@
     }
 
     &__color {
+        animation-duration: 300ms;
+        animation-timing-function: cubic-bezier(.25, .46, .45, .94);
         height: 100%;
         left: 0;
         opacity: 0.8;
@@ -26,19 +29,18 @@
         width: 100%;
         z-index: -1;
 
-        &--red {
-            animation: glitch 300ms cubic-bezier(.25, .46, .45, .94) infinite;
-            color: red;
+        &--first {
+            color: $c-red;
         }
 
-        &--blue {
-            animation: glitch 300ms cubic-bezier(.25, .46, .45, .94) infinite reverse;
-            color: blue;
+        &--second {
+            animation-direction: reverse;
+            color: $c-blue;
         }
 
-        &--green {
-            animation: glitch 300ms cubic-bezier(.25, .46, .45, .94) 100ms infinite;
-            color: #00FF0B;
+        &--third {
+            animation-delay: 100ms;
+            color: $c-green;
         }
     }
 
@@ -61,29 +63,50 @@
             animation: glitch-line 1s linear 1s infinite;
         }
     }
-}
 
-@keyframes glitch {
-    0% {
-        transform: translate(0);
-    }
-    20% {
-        transform: translate(-8px, 8px);
-    }
-    40% {
-        transform: translate(-8px, -8px);
-    }
-    60% {
-        transform: translate(8px, 8px);
-    }
-    80% {
-        transform: translate(8px, -8px);
-    }
-    100% {
-        transform: translate(0);
+    &--idle {
+        .glitch__color {
+            animation-name: glitch-idle;
+            animation-iteration-count: infinite;
+        }
     }
 
+    &--level1 {
+        .glitch__color {
+            animation-name: glitch-level1;
+        }
+    }
+
+    &--level2 {
+        .glitch__color {
+            animation-name: glitch-level2;
+        }
+    }
+
+    &--level3 {
+        .glitch__color {
+            animation-name: glitch-level3;
+        }
+    }
+
+    &--level4 {
+        .glitch__color {
+            animation-name: glitch-level4;
+        }
+    }
 }
+
+@include keyframe-glitch(glitch-idle, 8px);
+
+@include keyframe-glitch(glitch-level1, 4px);
+
+@include keyframe-glitch(glitch-level2, 8px);
+
+@include keyframe-glitch(glitch-level3, 16px);
+
+@include keyframe-glitch(glitch-level4, 24px);
+
+
 
 @keyframes glitch-skew {
     0% {
