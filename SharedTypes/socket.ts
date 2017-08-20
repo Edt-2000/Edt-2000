@@ -13,6 +13,7 @@ export interface color {
 }
 
 export enum VidtPresets {
+    HackingAnimation = 'HackingAnimation',
     LogoIdle = 'LogoIdle',
     TextDisplay = 'TextDisplay'
 }
