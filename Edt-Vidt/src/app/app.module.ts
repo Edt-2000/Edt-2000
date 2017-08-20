@@ -7,8 +7,9 @@ import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {TextDisplayComponent} from './presets/text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
 import {VidtPresets} from '../../../SharedTypes/socket';
-import { LogoIdleComponent } from './presets/logo-idle-component/logo-idle.component';
 import {GlitchTextComponent} from "./components/glitch-text-component/glitch-text.component";
+import { LogoIdleComponent } from "./presets/logo-idle-component/logo-idle.component";
+import { HackingAnimationComponent } from "./presets/hacking-animation/hacking-animation.component";
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',
@@ -25,8 +26,12 @@ const appRoutes = <Routes>[
         component: TextDisplayComponent
     },
     {
-        path: `**`,
-        redirectTo: VidtPresets.LogoIdle,
+        path: VidtPresets.HackingAnimation,
+        component: HackingAnimationComponent
+    },
+    {
+        path: '**',
+        redirectTo: VidtPresets.HackingAnimation,
     }
 ];
 
@@ -35,7 +40,8 @@ const appRoutes = <Routes>[
         AppComponent,
         GlitchTextComponent,
         LogoIdleComponent,
-        TextDisplayComponent
+        TextDisplayComponent,
+        HackingAnimationComponent
     ],
     imports: [
         RouterModule.forRoot(
