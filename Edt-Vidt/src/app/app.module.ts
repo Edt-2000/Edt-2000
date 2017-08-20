@@ -8,6 +8,7 @@ import {TextDisplayComponent} from './text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
 import {VidtPresets} from '../../../SharedTypes/socket';
 import { LogoIdleComponent } from './logo-idle-component/logo-idle.component';
+import {GlitchTextComponent} from "./glitch-text-component/glitch-text.component";
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',
@@ -32,8 +33,9 @@ const appRoutes = <Routes>[
 @NgModule({
     declarations: [
         AppComponent,
-        TextDisplayComponent,
-        LogoIdleComponent
+        GlitchTextComponent,
+        LogoIdleComponent,
+        TextDisplayComponent
     ],
     imports: [
         RouterModule.forRoot(
