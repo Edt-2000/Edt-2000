@@ -1,34 +1,20 @@
-const OSC = require('osc-js');
-
-const options = {
-    type: 'udp4',
-    open: {
-        host: 'localhost',
-        port: 12345,
-        exclusive: false
-    },
-    send: {
-        host: '10.0.0.255',
-        port: 12345
-    }
-};
-
-const osc = new OSC({
-    plugin: new OSC.DatagramPlugin(options)
-});
-
-let udpActive: boolean = false;
-
-osc.on('open', () => {
-    udpActive = true;
-});
-
-osc.open({
-    port: 12345
-});
+const osc = require('osc-min');
+const dgram = require('dgram');
+const udp = dgram.createSocket("udp4");
 
 export function sendToOSC(adress: string, params: number[]): void {
-    if(udpActive) osc.send(new OSC.Message(adress, ...params));
+    let buf;
+    buf = osc.toBuffer({
+        address: adress,
+        args: params.map((param) => {
+            return {
+                type: 'integer',
+                value: param
+            }
+        })
+    });
+    return udp.send(buf, 0, buf.length, 12345, "10.0.0.11");
+
 }
 
 // /TP/* 4 0 31 0 127 127

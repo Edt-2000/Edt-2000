@@ -13,7 +13,7 @@
   "dependencies": {
     "easymidi": "0.0.2",
     "express": "^4.15.3",
-    "osc-js": "^1.0.2",
+    "osc-min": "^1.1.1",
     "rxjs": "^5.4.2",
     "socket.io": "^2.0.3"
   },
