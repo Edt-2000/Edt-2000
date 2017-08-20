@@ -1,0 +1,162 @@
+@import '../../styles/config/colors';
+@import '../../styles/mixins/keyframe-glitch';
+
+.glitch {
+    font-family: orbitron, sans-serif;
+    font-size: 8rem;
+    font-weight: 900;
+    line-height: 1;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+
+    &__inner {
+        position: relative;
+        animation: glitch-skew 4s cubic-bezier(.25, .46, .45, .94) 4s infinite;
+        line-height: 1;
+    }
+    &__main {
+        color: #FFF;
+        z-index: 2;
+        transform-origin: center top;
+    }
+
+    &__color {
+        animation-duration: 300ms;
+        animation-timing-function: cubic-bezier(.25, .46, .45, .94);
+        height: 100%;
+        left: 0;
+        opacity: 0.8;
+        position: absolute;
+        top: 0;
+        transform-origin: center center;
+        width: 100%;
+        z-index: -1;
+
+        &--first {
+            color: $c-red;
+        }
+
+        &--second {
+            animation-direction: reverse;
+            color: $c-blue;
+        }
+
+        &--third {
+            animation-delay: 100ms;
+            color: $c-green;
+        }
+    }
+
+    &__line {
+        animation: glitch-line 2s linear infinite;
+        background: $c-black;
+        content: '';
+        height: 1px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+
+        &--first {
+            animation: glitch-line 2s linear infinite;
+        }
+
+        &--second {
+            animation: glitch-line 1s linear 1s infinite;
+        }
+    }
+
+    &--idle {
+        .glitch__color {
+            animation-name: glitch-idle;
+            animation-iteration-count: infinite;
+        }
+    }
+
+    &--level1 {
+        .glitch__color {
+            animation-name: glitch-level1;
+        }
+    }
+
+    &--level2 {
+        .glitch__color {
+            animation-name: glitch-level2;
+        }
+    }
+
+    &--level3 {
+        .glitch__color {
+            animation-name: glitch-level3;
+        }
+    }
+
+    &--level4 {
+        .glitch__color {
+            animation-name: glitch-level4;
+        }
+    }
+
+    &--scale {
+        animation: glitch-grow 1s cubic-bezier(0.7, 0.5, 0.6, 0.9);
+    }
+}
+
+@include keyframe-glitch(glitch-idle, 8px);
+
+@include keyframe-glitch(glitch-level1, 4px);
+
+@include keyframe-glitch(glitch-level2, 8px);
+
+@include keyframe-glitch(glitch-level3, 16px);
+
+@include keyframe-glitch(glitch-level4, 24px);
+
+
+
+@keyframes glitch-skew {
+    0% {
+        transform: skew(0deg, 0deg);
+    }
+    48% {
+        transform: skew(0deg, 0deg);
+        filter: blur(0);
+    }
+    50% {
+        transform: skew(-20deg, 0deg);
+        filter: blur(4px);
+    }
+    52% {
+        transform: skew(20deg, 0deg);
+    }
+    54% {
+        transform: skew(0deg, 0deg);
+        filter: blur(0);
+    }
+    100% {
+        transform: skew(0deg, 0deg);
+    }
+
+}
+
+@keyframes glitch-line {
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: 100%;
+    }
+
+}
+
+@keyframes glitch-grow {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(10);
+    }
+}
