@@ -25,7 +25,7 @@ const appRoutes = <Routes>[
         component: TextDisplayComponent
     },
     {
-        path: '**',
+        path: `**`,
         redirectTo: VidtPresets.LogoIdle,
     }
 ];

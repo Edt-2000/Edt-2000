@@ -48,8 +48,8 @@ const sledtNoteOff: Observable<midiNoteMsg> = Observable
 export const noteOn: Observable<midiNoteMsg> = sledtNoteOn.filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 export const noteOff: Observable<midiNoteMsg> = sledtNoteOff.filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
-export const filteredNoteOn: Observable<midiNoteMsg> = noteOn.filter(msg => msg.note === listenToNote && msg.channel === listenToChannel)
-export const filteredNoteOff: Observable<midiNoteMsg> = noteOff.filter(msg => msg.note === listenToNote && msg.channel === listenToChannel)
+export const filteredNoteOn: Observable<midiNoteMsg> = noteOn.filter(msg => msg.note === listenToNote && msg.channel === listenToChannel);
+export const filteredNoteOff: Observable<midiNoteMsg> = noteOff.filter(msg => msg.note === listenToNote && msg.channel === listenToChannel);
 
 export const presetNoteOn: Observable<midiNoteMsg> = sledtNoteOn.filter((msg) => msg.channel === presetMsgChannel);
 export const presetNoteOff: Observable<midiNoteMsg> = sledtNoteOff.filter((msg) => msg.channel === presetMsgChannel);
@@ -68,6 +68,7 @@ export const CC: Observable<midiCCMsg> = Observable.fromEvent<midiCCMsg>(virtual
 
 // Loggers
 presetNoteOn.subscribe((msg) => console.log('NoteOn', msg));
+filteredNoteOn.subscribe((msg) => console.log('NoteOn', msg));
 // NoteOff.subscribe((msg) => console.log('NoteOff', msg));
 // Program.subscribe((msg) => console.log('Program', msg));
 // Select.subscribe((msg) => console.log('Select', msg));

@@ -13,7 +13,7 @@ export class CommunicationService {
     public preset: Observable<preparePresetMsg>;
 
     constructor(private socket: Socket) {
-        this._messageObs = this.socket.fromEvent<targetedMsg>('message');
+        this._messageObs = this.socket.fromEvent('message');
         // Expose observables for various message types
         this.color = this._messageObs.filter((msg: any): msg is colorMsg => {
             return !!msg.color && !!msg.bgColor;
