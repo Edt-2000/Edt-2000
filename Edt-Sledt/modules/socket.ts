@@ -1,5 +1,4 @@
 "use strict";
-import {connectMsg} from '../../SharedTypes/socket';
 /**
  * Socket Server
  */
@@ -12,18 +11,10 @@ const io = require('socket.io')(server);
 /**
  * Socket management
  */
-let activeSockets: any[] = [];
-
-// TODO: refactor to use 'rooms' for different areas of the Edt-Vidt (left, center, top, bottom, etc). Screens can then be defined to be in multiple rooms.
-
-io.on('connection', function (socket: any): void {
-    // Add new display
-    activeSockets.push(socket);
-    console.log('New display connected! #', activeSockets.length);
-
-    socket.on('disconnect', function (): void {
-        activeSockets.splice(activeSockets.indexOf(socket), 1);
-        console.log('Display disconnected! #', activeSockets.length);
+io.on('connection', function (display: any): void {
+    console.log('Display connected');
+    display.on('disconnect', function (): void {
+        console.log('Display disconnected');
     });
 });
 
@@ -34,8 +25,5 @@ server.listen(8988);
  * @param message
  */
 export function sendToVidt(message: any): void {
-    console.log('Sending socket msg:', message);
-    activeSockets.forEach(socket => {
-        socket.emit('message', message);
-    });
+    io.emit('message', message);
 }

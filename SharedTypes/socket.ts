@@ -13,15 +13,12 @@ export interface color {
 }
 
 export enum VidtPresets {
+    HackingAnimation = 'HackingAnimation',
     LogoIdle = 'LogoIdle',
     TextDisplay = 'TextDisplay'
 }
 
 // SubMessages
-
-export interface connectMsg {
-    readonly screenId: number
-}
 
 export interface preparePresetMsg {
     readonly preset: VidtPresets
@@ -30,10 +27,6 @@ export interface preparePresetMsg {
 export interface colorMsg {
     readonly bgColor: bgColor,
     readonly color: color
-}
-
-export interface targetedMsg {
-    readonly screenIds: Set<number>
 }
 
 // -------------------------------- Specific Messages
