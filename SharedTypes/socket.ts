@@ -28,6 +28,10 @@ export interface colorMsg {
     readonly color: color
 }
 
+export interface intensityMsg {
+    readonly intensity: number
+}
+
 // -------------------------------- Specific Messages
 
 export interface centeredText extends colorMsg {

@@ -2,7 +2,7 @@ import {edtPreset} from '../../types';
 import {filteredNoteOn} from '../../modules/midi';
 import {Subscription} from 'rxjs/Subscription';
 import {sendToVidt} from '../../modules/socket';
-import {colorMsg} from '../../../SharedTypes/socket';
+import {colorMsg, intensityMsg} from '../../../SharedTypes/socket';
 import {rescale} from '../../modules/utils';
 import 'rxjs/add/operator/filter';
 import {EdtVidtColor} from '../color';
@@ -41,6 +41,9 @@ export class BgColorCycle implements edtPreset {
             };
             // Send a simple colorMsg to rotate color
             sendToVidt(newColor);
+            sendToVidt(<intensityMsg>{
+                intensity: rescale(this._rotationVelocity, 127, 1, 4)
+            });
             // Emit this new color value to other listeners
             EdtVidtColor.next(newColor);
         });
