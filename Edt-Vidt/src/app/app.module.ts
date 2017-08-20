@@ -4,11 +4,11 @@ import {AppComponent} from './app.component';
 import {CommunicationService} from './communication.service';
 
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
-import {TextDisplayComponent} from './text-display/text-display.component';
+import {TextDisplayComponent} from './presets/text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
 import {VidtPresets} from '../../../SharedTypes/socket';
-import { LogoIdleComponent } from './logo-idle-component/logo-idle.component';
-import {GlitchTextComponent} from "./glitch-text-component/glitch-text.component";
+import { LogoIdleComponent } from './presets/logo-idle-component/logo-idle.component';
+import {GlitchTextComponent} from "./components/glitch-text-component/glitch-text.component";
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',

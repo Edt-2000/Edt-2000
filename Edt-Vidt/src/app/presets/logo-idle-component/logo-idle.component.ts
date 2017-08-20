@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {glitchModifiers} from '../glitch-text-component/glitch-text.component';
-import {CommunicationService} from '../communication.service';
+import {glitchModifiers} from '../../components/glitch-text-component/glitch-text.component';
+import {CommunicationService} from '../../communication.service';
 
 @Component({
     selector: 'app-logo-idle-component',
