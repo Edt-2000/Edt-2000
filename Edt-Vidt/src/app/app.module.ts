@@ -31,7 +31,7 @@ const appRoutes = <Routes>[
     },
     {
         path: '**',
-        redirectTo: VidtPresets.HackingAnimation,
+        redirectTo: VidtPresets.LogoIdle,
     }
 ];
 

@@ -2,34 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="622f7cd2-48bd-487a-a4c0-1d09f96d9872" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Edt-Sledt/modules/edt-led-utils.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Edt-Sledt/modules/osc.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Edt-Sledt/presets/ambient/ambient.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Edt-Sledt/presets/ambient/glitchLogo.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Edt-Vidt/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/components/glitch-text-component/glitch-text.component.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.ts" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/glitch-text-component/glitch-text.component.ts" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/logo-idle-component/logo-idle.component.ts" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/glitch-text-component/glitch-text.component.html" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/components/glitch-text-component/glitch-text.component.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/glitch-text-component/glitch-text.component.scss" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/components/glitch-text-component/glitch-text.component.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/hacking-animation/hacking-animation.component.html" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/hacking-animation/hacking-animation.component.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/hacking-animation/hacking-animation.component.scss" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/hacking-animation/hacking-animation.component.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/hacking-animation/hacking-animation.component.spec.ts" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/hacking-animation/hacking-animation.component.spec.ts" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/hacking-animation/hacking-animation.component.ts" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/hacking-animation/hacking-animation.component.ts" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/logo-idle-component/logo-idle.component.html" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/logo-idle-component/logo-idle.component.scss" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/text-display/text-display.component.ts" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/text-display/text-display.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Sledt/modules/midi.ts" afterPath="$PROJECT_DIR$/Edt-Sledt/modules/midi.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Sledt/modules/socket.ts" afterPath="$PROJECT_DIR$/Edt-Sledt/modules/socket.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Sledt/package-lock.json" afterPath="$PROJECT_DIR$/Edt-Sledt/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Sledt/package.json" afterPath="$PROJECT_DIR$/Edt-Sledt/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Sledt/presets/colors/edtLEDFollowVidt.ts" afterPath="$PROJECT_DIR$/Edt-Sledt/presets/colors/edtLEDFollowVidt.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Sledt/presets/preset.ts" afterPath="$PROJECT_DIR$/Edt-Sledt/presets/preset.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Vidt/package-lock.json" afterPath="$PROJECT_DIR$/Edt-Vidt/package-lock.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/app.module.ts" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/app.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/communication.service.ts" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/communication.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SharedTypes/socket.ts" afterPath="$PROJECT_DIR$/SharedTypes/socket.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.html" afterPath="$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,8 +18,8 @@
       <file leaf-file-name="glitch-text.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/components/glitch-text-component/glitch-text.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="48" lean-forward="true" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+            <state relative-caret-position="306">
+              <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -53,8 +28,8 @@
       <file leaf-file-name="logo-idle.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="641">
-              <caret line="67" column="10" lean-forward="true" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
+            <state relative-caret-position="317">
+              <caret line="49" column="43" lean-forward="true" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -83,8 +58,8 @@
       <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/app.module.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state relative-caret-position="389">
+              <caret line="33" column="40" lean-forward="false" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
               </folding>
@@ -96,7 +71,17 @@
         <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/components/glitch-text-component/glitch-text.component.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="40" lean-forward="false" selection-start-line="0" selection-start-column="40" selection-end-line="0" selection-end-column="40" />
+              <caret line="0" column="41" lean-forward="true" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logo-idle.component.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -116,17 +101,7 @@
         <entry file="file://$PROJECT_DIR$/SharedTypes/socket.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hacking-animation.component.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/presets/hacking-animation/hacking-animation.component.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+              <caret line="17" column="31" lean-forward="false" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -183,8 +158,8 @@
         <option value="$PROJECT_DIR$/Edt-Vidt/src/app/hacking-animation/hacking-animation.component.ts" />
         <option value="$PROJECT_DIR$/Edt-Vidt/src/assets/data/stevencode.txt" />
         <option value="$PROJECT_DIR$/SharedTypes/socket.ts" />
-        <option value="$PROJECT_DIR$/Edt-Vidt/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.html" />
+        <option value="$PROJECT_DIR$/Edt-Vidt/src/app/app.module.ts" />
       </list>
     </option>
   </component>
@@ -423,12 +398,12 @@
       <workItem from="1503229861793" duration="5500000" />
       <workItem from="1503239705153" duration="3349000" />
       <workItem from="1503244499794" duration="879000" />
-      <workItem from="1503248888170" duration="6372000" />
+      <workItem from="1503248888170" duration="6855000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21539000" />
+    <option name="totallyTimeSpent" value="22022000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="0" />
@@ -485,14 +460,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/styles/mixins/keyframe-glitch.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/glitch-text-component/glitch-text.component.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1764">
@@ -792,7 +759,7 @@
     <entry file="file://$PROJECT_DIR$/SharedTypes/socket.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+          <caret line="17" column="31" lean-forward="false" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -813,18 +780,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/components/glitch-text-component/glitch-text.component.html">
+    <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="40" lean-forward="false" selection-start-line="0" selection-start-column="40" selection-end-line="0" selection-end-column="40" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.html">
+    <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/components/glitch-text-component/glitch-text.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="641">
-          <caret line="67" column="10" lean-forward="true" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
+        <state relative-caret-position="306">
+          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/components/glitch-text-component/glitch-text.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="41" lean-forward="true" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="41" />
           <folding />
         </state>
       </provider>
@@ -837,18 +812,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/components/glitch-text-component/glitch-text.component.ts">
+    <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/presets/logo-idle-component/logo-idle.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="48" lean-forward="true" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+        <state relative-caret-position="317">
+          <caret line="49" column="43" lean-forward="true" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Edt-Vidt/src/app/app.module.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        <state relative-caret-position="389">
+          <caret line="33" column="40" lean-forward="false" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
           </folding>
