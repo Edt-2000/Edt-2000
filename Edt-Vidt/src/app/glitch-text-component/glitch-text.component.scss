@@ -2,7 +2,6 @@
 @import '../../styles/mixins/keyframe-glitch';
 
 .glitch {
-    animation: glitch-skew 4s cubic-bezier(.25, .46, .45, .94) 4s infinite;
     font-family: orbitron, sans-serif;
     font-size: 8rem;
     font-weight: 900;
@@ -10,11 +9,16 @@
     position: relative;
     text-align: center;
     text-transform: uppercase;
-    transform-origin: center top;
 
+    &__inner {
+        position: relative;
+        animation: glitch-skew 4s cubic-bezier(.25, .46, .45, .94) 4s infinite;
+        line-height: 1;
+    }
     &__main {
         color: #FFF;
         z-index: 2;
+        transform-origin: center top;
     }
 
     &__color {
@@ -94,6 +98,10 @@
             animation-name: glitch-level4;
         }
     }
+
+    &--scale {
+        animation: glitch-grow 1s cubic-bezier(0.7, 0.5, 0.6, 0.9);
+    }
 }
 
 @include keyframe-glitch(glitch-idle, 8px);
@@ -142,4 +150,13 @@
         top: 100%;
     }
 
+}
+
+@keyframes glitch-grow {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(10);
+    }
 }
