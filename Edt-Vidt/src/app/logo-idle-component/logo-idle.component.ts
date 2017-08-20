@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {glitchModifiers} from '../glitch-text-component/glitch-text.component';
+import {CommunicationService} from '../communication.service';
 
 @Component({
-  selector: 'app-logo-idle-component',
-  templateUrl: 'logo-idle.component.html',
-  styleUrls: ['logo-idle.component.scss']
+    selector: 'app-logo-idle-component',
+    templateUrl: 'logo-idle.component.html',
+    styleUrls: ['logo-idle.component.scss']
 })
 
 export class LogoIdleComponent implements OnInit {
+    glitchState: glitchModifiers;
 
-  constructor() { }
+    constructor(
+        @Inject(CommunicationService) private _communicationService: CommunicationService
+    ) {}
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+
+    }
 
 }

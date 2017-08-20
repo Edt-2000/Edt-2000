@@ -18,6 +18,7 @@ export class CommunicationService {
         this.color = this._messageObs.filter((msg: any): msg is colorMsg => {
             return !!msg.color && !!msg.bgColor;
         });
+        // Preset msg
         this.preset = this._messageObs.filter((msg: any): msg is preparePresetMsg => {
             return !!msg.preset;
         });
