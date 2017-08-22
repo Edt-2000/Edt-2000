@@ -20,7 +20,7 @@ presetNoteOff
 
 adjustmentNoteOn
     .subscribe((msg) => {
-        console.log(`Setting note ${msg.noteNumber} of octave ${msg.octave} on channel ${msg.velocity} as responsive note.`);
+        console.log(`Setting note ${msg.noteNumber} of octave ${msg.octave} (${msg.note}) on channel ${msg.velocity} as responsive note.`);
         listenToNote = msg.note;
         listenToChannel = msg.velocity;
     });
