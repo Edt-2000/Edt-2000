@@ -25,6 +25,5 @@ server.listen(8988);
  * @param message
  */
 export function sendToVidt(message: any): void {
-    console.log('emitting', message);
     io.emit('message', message);
 }

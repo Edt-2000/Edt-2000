@@ -5,7 +5,7 @@ import {sendToVidt} from '../../modules/socket';
 import {colorMsg, intensityMsg} from '../../../SharedTypes/socket';
 import {rescale} from '../../modules/utils';
 import 'rxjs/add/operator/filter';
-import {EdtVidtColor} from '../color';
+import {EdtColor} from '../color';
 
 /**
  * The bg color cycle Preset cycles between colors trigger by filteredNoteOn inputs
@@ -39,13 +39,8 @@ export class BgColorCycle implements edtPreset {
                     brightness: 50
                 }
             };
-            // Send a simple colorMsg to rotate color
-            sendToVidt(newColor);
-            sendToVidt(<intensityMsg>{
-                intensity: rescale(this._rotationVelocity, 127, 1, 4)
-            });
             // Emit this new color value to other listeners
-            EdtVidtColor.next(newColor);
+            EdtColor.next(newColor);
         });
     }
 

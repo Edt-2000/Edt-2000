@@ -1,3 +1,5 @@
+import {deviceIPs, oscPort} from '../../SharedTypes/config';
+
 const osc = require('osc-min');
 const dgram = require('dgram');
 const udp = dgram.createSocket("udp4");
@@ -13,8 +15,7 @@ export function sendToOSC(adress: string, params: number[]): void {
             }
         })
     });
-    return udp.send(buf, 0, buf.length, 12345, "10.0.0.11");
-
+    return udp.send(buf, 0, buf.length, oscPort, deviceIPs.tweedt);
 }
 
 // /TP/* 4 0 31 0 127 127
