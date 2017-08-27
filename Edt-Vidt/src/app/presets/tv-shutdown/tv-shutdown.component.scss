@@ -1,0 +1,57 @@
+
+.tv {
+    background: #000;
+    height: 100%;
+    &__text {
+        font-family: monospace;
+        color: #FFF;
+        font-size: 22px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+        animation: text-flicker 1s linear 4;
+    }
+
+    &:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #FFF;
+        opacity: 0;
+        animation: tv-shutdown 600ms linear 4s;
+        content: '';
+    }
+}
+
+
+@keyframes text-flicker {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes tv-shutdown {
+    0% {
+        opacity: 1;
+    }
+
+    20% {
+        transform: scale(1, 1);
+    }
+
+    50% {
+        transform: scale(1, 0.005);
+    }
+
+    100% {
+        transform: scale(0,0);
+    }
+}
