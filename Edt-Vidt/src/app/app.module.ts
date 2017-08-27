@@ -10,6 +10,7 @@ import {VidtPresets} from '../../../SharedTypes/socket';
 import {GlitchTextComponent} from "./components/glitch-text-component/glitch-text.component";
 import { LogoIdleComponent } from "./presets/logo-idle-component/logo-idle.component";
 import { HackingAnimationComponent } from "./presets/hacking-animation/hacking-animation.component";
+import { TvShutdownComponent } from './presets/tv-shutdown/tv-shutdown.component';
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',
@@ -28,6 +29,9 @@ const appRoutes = <Routes>[
     {
         path: VidtPresets.HackingAnimation,
         component: HackingAnimationComponent
+    },{
+        path: VidtPresets.TvShutdown,
+        component: TvShutdownComponent
     },
     {
         path: '**',
@@ -41,7 +45,8 @@ const appRoutes = <Routes>[
         GlitchTextComponent,
         LogoIdleComponent,
         TextDisplayComponent,
-        HackingAnimationComponent
+        HackingAnimationComponent,
+        TvShutdownComponent
     ],
     imports: [
         RouterModule.forRoot(
