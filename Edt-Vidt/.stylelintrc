@@ -1,0 +1,7 @@
+{
+  "extends": "stylelint-config-recommended",
+  "rules": {
+    "indentation": 4,
+    "block-no-empty": null
+  }
+}

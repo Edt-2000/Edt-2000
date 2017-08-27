@@ -24,6 +24,7 @@
     "core-js": "^2.4.1",
     "ngx-socket-io": "^1.0.3",
     "rxjs": "^5.4.2",
+    "stylelint-config-recommended": "^1.0.0",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

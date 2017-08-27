@@ -1,0 +1,37 @@
+.video {
+    &__player {
+        min-height: 100vh;
+        min-width: 100vw;
+    }
+
+    &::before,
+    &::after {
+        bottom: 0;
+        content: '';
+        left: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    
+    &:before {
+        //background: repeating-linear-gradient( 90deg, transparent, transparent 2px, transparentize(#000, .6) 2px, transparentize(#000, .6) 4px);
+        //for big screen:
+        background: repeating-linear-gradient( 90deg, transparent, transparent 4px, transparentize(#000, .6) 4px, transparentize(#000, .6) 8px);
+        z-index: 1;
+    }
+    &::after {
+        animation: flickr 200ms infinite;
+        background: transparentize(#000, .8);
+        z-index: 2;
+    }
+}
+
+@keyframes flickr {
+    @for $i from 0 through 20 {
+        #{percentage($i*(1/20))} {
+            opacity: random();
+        }
+    }
+}
