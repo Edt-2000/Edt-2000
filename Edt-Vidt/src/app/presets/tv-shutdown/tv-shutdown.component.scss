@@ -1,32 +1,49 @@
+@import "../../../styles/config/colors";
 
 .tv {
     background: #000;
     height: 100%;
+
     &__text {
-        font-family: monospace;
-        color: #FFF;
-        font-size: 22px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        opacity: 0;
-        transform: translate(-50%, -50%);
         animation: text-flicker 1s linear 4;
+        color: #FFF;
+        font-family: monospace;
+        font-size: 22px;
+        left: 50%;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 
-    &:after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+    &::before {
+        animation: tv-shutdown-circle 200ms linear 4300ms;
         background: #FFF;
-        opacity: 0;
-        animation: tv-shutdown 600ms linear 4s;
+        border-radius: 50%;
+        box-shadow: 0 0 24px 28px #FFF;
         content: '';
+        height: 1px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 1px;
+        z-index: 2;
+    }
+    &:after {
+        animation: tv-shutdown 600ms linear 4s;
+        background: #FFF;
+        bottom: 0;
+        content: '';
+        filter: blur(10px);
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1;
     }
 }
-
 
 @keyframes text-flicker {
     0% {
@@ -52,6 +69,16 @@
     }
 
     100% {
-        transform: scale(0,0);
+        transform: scale(0, 0);
+    }
+}
+
+@keyframes tv-shutdown-circle {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(0);
     }
 }

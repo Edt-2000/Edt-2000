@@ -1,3 +1,5 @@
+@import "../../../styles/config/colors";
+
 .video {
     &__player {
         min-height: 100vh;
@@ -16,14 +18,14 @@
     }
     
     &:before {
-        //background: repeating-linear-gradient( 90deg, transparent, transparent 2px, transparentize(#000, .6) 2px, transparentize(#000, .6) 4px);
+        //background: repeating-linear-gradient( 90deg, transparent, transparent 2px, transparentize($c-black, .6) 2px, transparentize($c-black, .6) 4px);
         //for big screen:
-        background: repeating-linear-gradient( 90deg, transparent, transparent 4px, transparentize(#000, .6) 4px, transparentize(#000, .6) 8px);
+        background: repeating-linear-gradient( 90deg, transparent, transparent 4px, transparentize($c-black, .6) 4px, transparentize($c-black, .6) 8px);
         z-index: 1;
     }
     &::after {
         animation: flickr 200ms infinite;
-        background: transparentize(#000, .8);
+        background: transparentize($c-black, .8);
         z-index: 2;
     }
 }
