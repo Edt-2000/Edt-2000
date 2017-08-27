@@ -13,6 +13,7 @@ import { HackingAnimationComponent } from "./presets/hacking-animation/hacking-a
 import { TvShutdownComponent } from './presets/tv-shutdown/tv-shutdown.component';
 import { VideoTvEffectComponent } from './components/video-tv-effect/video-tv-effect.component';
 import { HackerTvComponent } from './presets/hacker-tv/hacker-tv.component';
+import { BluescreenComponent } from './presets/bluescreen/bluescreen.component';
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',
@@ -38,6 +39,9 @@ const appRoutes = <Routes>[
         path: VidtPresets.HackerTv,
         component: HackerTvComponent
     },{
+        path: VidtPresets.Bluescreen,
+        component: BluescreenComponent
+    },{
         path: '**',
         redirectTo: VidtPresets.LogoIdle,
     }
@@ -52,7 +56,8 @@ const appRoutes = <Routes>[
         HackingAnimationComponent,
         TvShutdownComponent,
         VideoTvEffectComponent,
-        HackerTvComponent
+        HackerTvComponent,
+        BluescreenComponent
     ],
     imports: [
         RouterModule.forRoot(
