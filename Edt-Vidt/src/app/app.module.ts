@@ -11,6 +11,8 @@ import {GlitchTextComponent} from "./components/glitch-text-component/glitch-tex
 import { LogoIdleComponent } from "./presets/logo-idle-component/logo-idle.component";
 import { HackingAnimationComponent } from "./presets/hacking-animation/hacking-animation.component";
 import { TvShutdownComponent } from './presets/tv-shutdown/tv-shutdown.component';
+import { VideoTvEffectComponent } from './components/video-tv-effect/video-tv-effect.component';
+import { HackerTvComponent } from './presets/hacker-tv/hacker-tv.component';
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',
@@ -32,8 +34,10 @@ const appRoutes = <Routes>[
     },{
         path: VidtPresets.TvShutdown,
         component: TvShutdownComponent
-    },
-    {
+    },{
+        path: VidtPresets.HackerTv,
+        component: HackerTvComponent
+    },{
         path: '**',
         redirectTo: VidtPresets.LogoIdle,
     }
@@ -46,7 +50,9 @@ const appRoutes = <Routes>[
         LogoIdleComponent,
         TextDisplayComponent,
         HackingAnimationComponent,
-        TvShutdownComponent
+        TvShutdownComponent,
+        VideoTvEffectComponent,
+        HackerTvComponent
     ],
     imports: [
         RouterModule.forRoot(
