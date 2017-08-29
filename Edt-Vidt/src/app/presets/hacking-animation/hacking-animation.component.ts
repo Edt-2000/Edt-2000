@@ -11,13 +11,13 @@ export class HackingAnimationComponent implements OnInit {
     }
 
     ngOnInit() {
-        var response = fetch(new Request("./assets/data/stevencode.txt"));
+        const response = fetch(new Request("./assets/data/stevencode.txt"));
 
         response.then((value) => {
             value.text().then((textString) => {
-                //const textString: string = );
                 const textArray: string[] = textString.split('');
                 const textElem: Element = this.element.nativeElement.getElementsByClassName('hacking-animation__text')[0];
+                const characterElem = this.element.nativeElement.getElementsByClassName('hacking-animation__character')[0];
                 let count: number = 0;
 
                 setInterval(() => {
@@ -25,12 +25,10 @@ export class HackingAnimationComponent implements OnInit {
                         textElem.appendChild(document.createElement("br"));
                     }
                     else {
-                        var el = document.createElement("span");
-                        el.className = "hacking-animation__character";
-                        el.setAttribute("_ngcontent-c1", "");
-                        el.innerText = textArray[count];
+                        let element = characterElem.cloneNode();
+                        element.innerText = textArray[count];
 
-                        textElem.appendChild(el);
+                        textElem.appendChild(element);
                     }
 
                     count++;
