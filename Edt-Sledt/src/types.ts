@@ -60,5 +60,3 @@ export interface edtPreset {
 export interface edtPresets {
     [key:string]: edtPreset
 }
-
-// // /TP 2 [start: int] [end: int] [h: int] [s: int] [l: int] [duration: int]

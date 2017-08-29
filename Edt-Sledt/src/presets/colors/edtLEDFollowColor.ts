@@ -1,8 +1,8 @@
 'use strict';
 import {edtPreset} from '../../types';
-import {EdtColor} from '../color';
+import {EdtColor} from '../../outputs/shared-subjects';
 import {Subscription} from 'rxjs/Subscription';
-import {EdtLEDFlash} from '../../modules/edt-led-utils';
+import {EdtLEDFlash} from '../../outputs/edt-led';
 
 export class EdtLEDFollowColor implements edtPreset {
     private _vidtColorSubscription: Subscription;
@@ -12,7 +12,7 @@ export class EdtLEDFollowColor implements edtPreset {
     startPreset(velocity: number): void {
         this._vidtColorSubscription = EdtColor.subscribe((msg) => {
             console.log('LED follows color: ', msg);
-            EdtLEDFlash(undefined, 0, 127, 0, msg);
+            EdtLEDFlash(0, 0, 127, 0, msg);
         });
     }
 

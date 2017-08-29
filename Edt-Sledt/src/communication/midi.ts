@@ -1,6 +1,6 @@
-///<reference path="../node_modules/@types/node/index.d.ts"/>
+///<reference path="../../node_modules/@types/node/index.d.ts"/>
 import {midiCCMsg, MidiMsgTypes, midiNoteMsg, midiProgramMsg, midiSongMsg} from '../types';
-import {noteToNote, noteToOctave} from './utils';
+import {noteToNote, noteToOctave} from '../utils';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';

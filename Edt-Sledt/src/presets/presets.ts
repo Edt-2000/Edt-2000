@@ -1,7 +1,8 @@
-import {Colors} from "../presets/colors/colors";
-import {Preset} from "../presets/preset";
+import {Colors} from "./colors/colors";
+import {Preset} from "./preset";
 import {edtOutput} from "../types";
-import {Videos} from '../presets/videos/videos';
+import {Videos} from './videos/videos';
+import {Ambient} from './ambient/ambient';
 
 
 /**
@@ -9,7 +10,8 @@ import {Videos} from '../presets/videos/videos';
  */
 export enum EdtOutputs {
     colors = 0,
-    videos = 1
+    videos = 1,
+    ambient = 2
 }
 
 type edtOutputsObject = {
@@ -20,6 +22,8 @@ type edtOutputsObject = {
 const edtOutputImplementations: edtOutputsObject = {};
 edtOutputImplementations[EdtOutputs[EdtOutputs.colors]] = new Colors();
 edtOutputImplementations[EdtOutputs[EdtOutputs.videos]] = new Videos();
+edtOutputImplementations[EdtOutputs[EdtOutputs.ambient]] = new Ambient();
+
 
 
 /**

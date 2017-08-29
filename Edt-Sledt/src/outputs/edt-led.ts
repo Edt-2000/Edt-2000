@@ -1,19 +1,19 @@
-import {sendToOSC} from './osc';
-import {colorMsg} from '../../SharedTypes/socket';
-import {rescale} from './utils';
+import {sendToEdtOscDevice} from '../communication/osc';
+import {colorMsg} from '../../../SharedTypes/socket';
+import {rescale} from '../utils';
+import {OSCDevices} from '../../../SharedTypes/config';
 
 /**
  *
- * @param {number} adress
+ * @param {number} instance
  * @param {number} start
  * @param {number} end
  * @param duration
  * @param {colorMsg} colorMsg
  * @constructor
  */
-export function EdtLEDFlash(adress: number = 0, start: number, end: number, duration: number, colorMsg: colorMsg) {
-    const LEDAdress: string | number = (adress === 0) ? '*' : adress;
-    sendToOSC('/TP/' + LEDAdress, [
+export function EdtLEDFlash(instance: number = 0, start: number, end: number, duration: number, colorMsg: colorMsg) {
+    sendToEdtOscDevice(OSCDevices.EdtLed, instance, [
         2,
         start,
         end,

@@ -1,11 +1,11 @@
 import {edtPreset} from '../../types';
-import {filteredNoteOn} from '../../modules/midi';
+import {filteredNoteOn} from '../../communication/midi';
 import {Subscription} from 'rxjs/Subscription';
-import {sendToVidt} from '../../modules/socket';
-import {colorMsg, intensityMsg} from '../../../SharedTypes/socket';
-import {rescale} from '../../modules/utils';
+import {sendToVidt} from '../../communication/socket';
+import {colorMsg, intensityMsg} from '../../../../SharedTypes/socket';
+import {rescale} from '../../utils';
 import 'rxjs/add/operator/filter';
-import {EdtColor} from '../color';
+import {EdtColor} from '../../outputs/shared-subjects';
 
 /**
  * The bg color cycle Preset cycles between colors trigger by filteredNoteOn inputs

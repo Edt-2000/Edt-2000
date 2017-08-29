@@ -1,6 +1,6 @@
 import {edtPreset} from '../../types';
 import {Subscription} from 'rxjs/Subscription';
-import {filteredNoteOn} from '../../modules/midi';
+import {filteredNoteOn} from '../../communication/midi';
 import 'rxjs/add/operator/filter';
 
 export class drumVideoTrigger implements edtPreset {
