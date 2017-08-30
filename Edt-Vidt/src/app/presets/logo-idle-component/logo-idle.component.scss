@@ -1,4 +1,5 @@
 @import '../../../styles/config/colors';
+@import '../../../styles/mixins/typography';
 
 .logo-idle {
     align-items: center;
@@ -18,7 +19,7 @@
 
     &__star {
         position: absolute;
-        font-family: "mono45-headline", monospace;
+        font-family: $font-mono;
         z-index: 1;
         color: transparentize(#FFF, 0.3);
 
