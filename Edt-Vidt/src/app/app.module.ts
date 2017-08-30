@@ -12,8 +12,9 @@ import { LogoIdleComponent } from "./presets/logo-idle-component/logo-idle.compo
 import { HackingAnimationComponent } from "./presets/hacking-animation/hacking-animation.component";
 import { TvShutdownComponent } from './presets/tv-shutdown/tv-shutdown.component';
 import { VideoTvEffectComponent } from './components/video-tv-effect/video-tv-effect.component';
-import { HackerTvComponent } from './presets/hacker-tv/hacker-tv.component';
+import { VideoPlayerComponent } from './presets/video-player/video-player.component';
 import { BluescreenComponent } from './presets/bluescreen/bluescreen.component';
+import { VistaComponent } from './presets/vista/vista.component';
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',
@@ -36,11 +37,14 @@ const appRoutes = <Routes>[
         path: VidtPresets.TvShutdown,
         component: TvShutdownComponent
     },{
-        path: VidtPresets.HackerTv,
-        component: HackerTvComponent
+        path: VidtPresets.VideoPlayer,
+        component: VideoPlayerComponent
     },{
         path: VidtPresets.Bluescreen,
         component: BluescreenComponent
+    },{
+        path: VidtPresets.Vista,
+        component: VistaComponent
     },{
         path: '**',
         redirectTo: VidtPresets.LogoIdle,
@@ -56,8 +60,9 @@ const appRoutes = <Routes>[
         HackingAnimationComponent,
         TvShutdownComponent,
         VideoTvEffectComponent,
-        HackerTvComponent,
-        BluescreenComponent
+        VideoPlayerComponent,
+        BluescreenComponent,
+        VistaComponent
     ],
     imports: [
         RouterModule.forRoot(
