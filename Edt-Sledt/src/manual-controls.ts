@@ -31,6 +31,11 @@ export const manualColor: Observable<colorMsg> = hue.combineLatest(saturation, b
             hue: rescale(h, 1, 0, 255),
             brightness: rescale(b, 1, 0, 255),
             saturation: rescale(s, 1, 0, 255)
+        },
+        color: {
+            hue: 0,
+            brightness: 0,
+            saturation: 0
         }
     }
 });

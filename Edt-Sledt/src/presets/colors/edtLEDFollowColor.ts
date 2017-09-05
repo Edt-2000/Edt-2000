@@ -11,7 +11,6 @@ export class EdtLEDFollowColor implements edtPreset {
 
     startPreset(velocity: number): void {
         this._vidtColorSubscription = EdtColor.subscribe((msg) => {
-            console.log('LED follows color: ', msg);
             EdtLEDFlash(0, 0, 127, 0, msg);
         });
     }

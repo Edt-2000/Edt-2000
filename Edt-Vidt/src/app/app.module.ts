@@ -7,13 +7,13 @@ import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {TextDisplayComponent} from './presets/text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
 import {VidtPresets} from '../../../SharedTypes/socket';
-import {GlitchTextComponent} from "./components/glitch-text-component/glitch-text.component";
-import { LogoIdleComponent } from "./presets/logo-idle-component/logo-idle.component";
-import { HackingAnimationComponent } from "./presets/hacking-animation/hacking-animation.component";
-import { TvShutdownComponent } from './presets/tv-shutdown/tv-shutdown.component';
-import { VideoTvEffectComponent } from './components/video-tv-effect/video-tv-effect.component';
-import { HackerTvComponent } from './presets/hacker-tv/hacker-tv.component';
-import { BluescreenComponent } from './presets/bluescreen/bluescreen.component';
+import {GlitchTextComponent} from './components/glitch-text-component/glitch-text.component';
+import {LogoIdleComponent} from './presets/logo-idle-component/logo-idle.component';
+import {HackingAnimationComponent} from './presets/hacking-animation/hacking-animation.component';
+import {TvShutdownComponent} from './presets/tv-shutdown/tv-shutdown.component';
+import {VideoTvEffectComponent} from './components/video-tv-effect/video-tv-effect.component';
+import {HackerTvComponent} from './presets/hacker-tv/hacker-tv.component';
+import {BluescreenComponent} from './presets/bluescreen/bluescreen.component';
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',
@@ -32,16 +32,16 @@ const appRoutes = <Routes>[
     {
         path: VidtPresets.HackingAnimation,
         component: HackingAnimationComponent
-    },{
+    }, {
         path: VidtPresets.TvShutdown,
         component: TvShutdownComponent
-    },{
+    }, {
         path: VidtPresets.HackerTv,
         component: HackerTvComponent
-    },{
+    }, {
         path: VidtPresets.Bluescreen,
         component: BluescreenComponent
-    },{
+    }, {
         path: '**',
         redirectTo: VidtPresets.LogoIdle,
     }

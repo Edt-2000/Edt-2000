@@ -1,11 +1,5 @@
 // -------------------------------- Building blocks
 
-export interface bgColor {
-    readonly hue: number,
-    readonly saturation: number,
-    readonly brightness: number
-}
-
 export interface color {
     readonly hue: number,
     readonly saturation: number,
@@ -15,7 +9,10 @@ export interface color {
 export enum VidtPresets {
     HackingAnimation = 'HackingAnimation',
     LogoIdle = 'LogoIdle',
-    TextDisplay = 'TextDisplay'
+    TextDisplay = 'TextDisplay',
+    TvShutdown = 'TvShutdown',
+    HackerTv = 'HackerTv',
+    Bluescreen = 'Bluescreen'
 }
 
 // SubMessages
@@ -25,7 +22,7 @@ export interface preparePresetMsg {
 }
 
 export interface colorMsg {
-    readonly bgColor: bgColor,
+    readonly bgColor: color,
     readonly color: color
 }
 
