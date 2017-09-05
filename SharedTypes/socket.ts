@@ -12,7 +12,8 @@ export enum VidtPresets {
     TextDisplay = 'TextDisplay',
     TvShutdown = 'TvShutdown',
     HackerTv = 'HackerTv',
-    Bluescreen = 'Bluescreen'
+    Bluescreen = 'Bluescreen',
+    Vista = 'Vista'
 }
 
 // SubMessages

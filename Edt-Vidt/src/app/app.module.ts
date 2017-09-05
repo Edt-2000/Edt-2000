@@ -7,6 +7,7 @@ import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import {TextDisplayComponent} from './presets/text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
 import {VidtPresets} from '../../../SharedTypes/socket';
+
 import {GlitchTextComponent} from './components/glitch-text-component/glitch-text.component';
 import {LogoIdleComponent} from './presets/logo-idle-component/logo-idle.component';
 import {HackingAnimationComponent} from './presets/hacking-animation/hacking-animation.component';
@@ -14,6 +15,8 @@ import {TvShutdownComponent} from './presets/tv-shutdown/tv-shutdown.component';
 import {VideoTvEffectComponent} from './components/video-tv-effect/video-tv-effect.component';
 import {HackerTvComponent} from './presets/hacker-tv/hacker-tv.component';
 import {BluescreenComponent} from './presets/bluescreen/bluescreen.component';
+import {VideoPlayerComponent} from './presets/video-player/video-player.component';
+import {VistaComponent} from './presets/vista/vista.component';
 
 const config: SocketIoConfig = {
     url: '192.168.2.16:8988',
@@ -21,31 +24,38 @@ const config: SocketIoConfig = {
 };
 
 const appRoutes = <Routes>[
-    {
-        path: VidtPresets.LogoIdle,
-        component: LogoIdleComponent
-    },
-    {
-        path: VidtPresets.TextDisplay,
-        component: TextDisplayComponent
-    },
-    {
-        path: VidtPresets.HackingAnimation,
-        component: HackingAnimationComponent
-    }, {
-        path: VidtPresets.TvShutdown,
-        component: TvShutdownComponent
-    }, {
-        path: VidtPresets.HackerTv,
-        component: HackerTvComponent
-    }, {
-        path: VidtPresets.Bluescreen,
-        component: BluescreenComponent
-    }, {
-        path: '**',
-        redirectTo: VidtPresets.LogoIdle,
-    }
-];
+        {
+            path: VidtPresets.LogoIdle,
+            component: LogoIdleComponent
+        },
+        {
+            path: VidtPresets.TextDisplay,
+            component: TextDisplayComponent
+        },
+        {
+            path: VidtPresets.HackingAnimation,
+            component: HackingAnimationComponent
+        }, {
+            path: VidtPresets.TvShutdown,
+            component: TvShutdownComponent
+        }, {
+            path: VidtPresets.HackerTv,
+            component: HackerTvComponent
+        }, {
+            path: VidtPresets.Bluescreen,
+            component: BluescreenComponent
+        }, {
+            path: VidtPresets.Bluescreen,
+            component: BluescreenComponent
+        }, {
+            path: VidtPresets.Vista,
+            component: VistaComponent
+        }, {
+            path: '**',
+            redirectTo: VidtPresets.LogoIdle,
+        }
+    ]
+;
 
 @NgModule({
     declarations: [
@@ -56,8 +66,9 @@ const appRoutes = <Routes>[
         HackingAnimationComponent,
         TvShutdownComponent,
         VideoTvEffectComponent,
-        HackerTvComponent,
-        BluescreenComponent
+        VideoPlayerComponent,
+        BluescreenComponent,
+        VistaComponent
     ],
     imports: [
         RouterModule.forRoot(

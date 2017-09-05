@@ -13,9 +13,11 @@ export class VideoTvEffectComponent implements OnInit {
     }
 
     ngOnInit() {
+        const video = this.element.nativeElement.getElementsByClassName('video__player')[0];
+        video.muted = true;
+
         if(this.glitch) {
             setInterval(() => {
-                const video = this.element.nativeElement.getElementsByClassName('video__player')[0];
                 video.currentTime = Math.random() * video.duration;
             }, 1000);
         }

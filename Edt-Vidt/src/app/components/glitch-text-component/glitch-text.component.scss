@@ -1,8 +1,9 @@
 @import '../../../styles/config/colors';
 @import '../../../styles/mixins/keyframe-glitch';
+@import '../../../styles/mixins/typography';
 
 .glitch {
-    font-family: orbitron, sans-serif;
+    font-family: $font-logo;
     font-size: 8rem;
     font-weight: 900;
     line-height: 1;
