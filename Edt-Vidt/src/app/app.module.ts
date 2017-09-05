@@ -13,7 +13,6 @@ import {LogoIdleComponent} from './presets/logo-idle-component/logo-idle.compone
 import {HackingAnimationComponent} from './presets/hacking-animation/hacking-animation.component';
 import {TvShutdownComponent} from './presets/tv-shutdown/tv-shutdown.component';
 import {VideoTvEffectComponent} from './components/video-tv-effect/video-tv-effect.component';
-import {HackerTvComponent} from './presets/hacker-tv/hacker-tv.component';
 import {BluescreenComponent} from './presets/bluescreen/bluescreen.component';
 import {VideoPlayerComponent} from './presets/video-player/video-player.component';
 import {VistaComponent} from './presets/vista/vista.component';
@@ -38,9 +37,6 @@ const appRoutes = <Routes>[
         }, {
             path: VidtPresets.TvShutdown,
             component: TvShutdownComponent
-        }, {
-            path: VidtPresets.HackerTv,
-            component: HackerTvComponent
         }, {
             path: VidtPresets.Bluescreen,
             component: BluescreenComponent
