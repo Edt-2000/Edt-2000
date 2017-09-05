@@ -22,36 +22,31 @@ const config: SocketIoConfig = {
     options: {}
 };
 
-const appRoutes = <Routes>[
-        {
-            path: VidtPresets.LogoIdle,
-            component: LogoIdleComponent
-        },
-        {
-            path: VidtPresets.TextDisplay,
-            component: TextDisplayComponent
-        },
-        {
-            path: VidtPresets.HackingAnimation,
-            component: HackingAnimationComponent
-        }, {
-            path: VidtPresets.TvShutdown,
-            component: TvShutdownComponent
-        }, {
-            path: VidtPresets.Bluescreen,
-            component: BluescreenComponent
-        }, {
-            path: VidtPresets.Bluescreen,
-            component: BluescreenComponent
-        }, {
-            path: VidtPresets.Vista,
-            component: VistaComponent
-        }, {
-            path: '**',
-            redirectTo: VidtPresets.LogoIdle,
-        }
-    ]
-;
+const appRoutes = <Routes>[{
+    path: VidtPresets.LogoIdle,
+    component: LogoIdleComponent
+}, {
+    path: VidtPresets.TextDisplay,
+    component: TextDisplayComponent
+}, {
+    path: VidtPresets.HackingAnimation,
+    component: HackingAnimationComponent
+}, {
+    path: VidtPresets.TvShutdown,
+    component: TvShutdownComponent
+}, {
+    path: VidtPresets.Bluescreen,
+    component: BluescreenComponent
+}, {
+    path: VidtPresets.Bluescreen,
+    component: BluescreenComponent
+}, {
+    path: VidtPresets.Vista,
+    component: VistaComponent
+}, {
+    path: '**',
+    redirectTo: VidtPresets.LogoIdle,
+}];
 
 @NgModule({
     declarations: [
