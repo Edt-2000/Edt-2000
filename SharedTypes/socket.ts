@@ -22,6 +22,12 @@ export interface preparePresetMsg {
     readonly preset: VidtPresets
 }
 
+export interface changeVideoSrcMsg {
+    readonly video: number,
+    readonly glitchEffect: boolean,
+    readonly lineEffect: boolean
+}
+
 export interface colorMsg {
     readonly bgColor: color,
     readonly color: color

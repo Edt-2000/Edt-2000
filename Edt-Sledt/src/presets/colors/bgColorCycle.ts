@@ -1,8 +1,7 @@
 import {edtPreset} from '../../types';
 import {filteredNoteOn} from '../../communication/midi';
 import {Subscription} from 'rxjs/Subscription';
-import {sendToVidt} from '../../communication/socket';
-import {colorMsg, intensityMsg} from '../../../../SharedTypes/socket';
+import {colorMsg} from '../../../../SharedTypes/socket';
 import {rescale} from '../../utils';
 import 'rxjs/add/operator/filter';
 import {EdtColor} from '../../outputs/shared-subjects';

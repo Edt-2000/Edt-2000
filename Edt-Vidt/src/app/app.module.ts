@@ -38,9 +38,6 @@ const appRoutes = <Routes>[{
     path: VidtPresets.Bluescreen,
     component: BluescreenComponent
 }, {
-    path: VidtPresets.Bluescreen,
-    component: BluescreenComponent
-}, {
     path: VidtPresets.Vista,
     component: VistaComponent
 }, {
