@@ -10,8 +10,8 @@ export class EdtLEDFollowColor implements edtPreset {
     constructor() {}
 
     startPreset(velocity: number): void {
-        this._vidtColorSubscription = EdtColor.subscribe((msg) => {
-            EdtLEDFlash(0, 0, 127, 0, msg);
+        this._vidtColorSubscription = EdtColor.subscribe((colorMsg) => {
+            EdtLEDFlash(0, 0, 127, 0, colorMsg);
         });
     }
 

@@ -12,6 +12,7 @@ export function sendToEdtOscDevice(address: string, instance: number, params: nu
 }
 
 export function sendToOSC(address: string, params: number[]): void {
+    console.log('Send to OSC', address, params);
     let buf;
     buf = osc.toBuffer({
         address: address,
