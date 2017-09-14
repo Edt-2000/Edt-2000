@@ -9,7 +9,10 @@ import {listenToChannel, listenToNote} from '../index';
 
 const easymidi = require('easymidi');
 
+// console.log(new easymidi.getInputs());
 const virtualInput = new easymidi.Input('EDT-SLEDT', true);
+// const virtualInput = new easymidi.Input('Origin25');
+
 
 interface easyMidiNoteMsg {
     channel: number,
@@ -67,9 +70,8 @@ export const CC: Observable<midiCCMsg> = Observable.fromEvent<midiCCMsg>(virtual
     .filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
 // Loggers
-presetNoteOn.subscribe((msg) => console.log('NoteOn', msg));
-filteredNoteOn.subscribe((msg) => console.log('NoteOn', msg));
-// NoteOff.subscribe((msg) => console.log('NoteOff', msg));
+// noteOn.subscribe((msg) => console.log('NoteOn', msg));
+// noteOff.subscribe((msg) => console.log('NoteOff', msg));
 // Program.subscribe((msg) => console.log('Program', msg));
 // Select.subscribe((msg) => console.log('Select', msg));
 // CC.subscribe((msg) => console.log('CC', msg));

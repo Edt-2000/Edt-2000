@@ -18,7 +18,7 @@ import {VideoPlayerComponent} from './presets/video-player/video-player.componen
 import {VistaComponent} from './presets/vista/vista.component';
 
 const config: SocketIoConfig = {
-    url: '192.168.2.16:8988',
+    url: '10.0.0.200:8988',
     options: {}
 };
 

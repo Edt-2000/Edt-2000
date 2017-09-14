@@ -1,10 +1,9 @@
-import {edtPreset, midiCCMsg} from '../../types';
+import {edtPreset} from '../../types';
 import {Subscription} from 'rxjs/Subscription';
-import {CC, filteredNoteOn} from '../../communication/midi';
 import 'rxjs/add/operator/filter';
-import {changeVideoSrcMsg, intensityMsg, preparePresetMsg, VidtPresets} from '../../../../SharedTypes/socket';
+import {preparePresetMsg, VidtPresets} from '../../../../SharedTypes/socket';
 import {sendToVidt} from '../../communication/socket';
-import {EdtColor} from '../../outputs/shared-subjects';
+import 'rxjs/add/operator/withLatestFrom';
 
 export class drumVideoTrigger implements edtPreset {
     private _triggerSubscriber: Subscription;
@@ -14,19 +13,8 @@ export class drumVideoTrigger implements edtPreset {
 
     startPreset(velocity: number): void {
         sendToVidt(<preparePresetMsg>{
-            preset: VidtPresets.HackerTv
+            preset: VidtPresets.HackingAnimation
         });
-
-        filteredNoteOn
-            .withLatestFrom(CC)
-            .subscribe((msgs) => {
-                // msgs[0].color;
-                if (msgs[1].controller === 102) {
-                    sendToVidt(<intensityMsg>{
-                        intensity: msgs[1].value
-                    })
-                }
-            });
 
     }
 

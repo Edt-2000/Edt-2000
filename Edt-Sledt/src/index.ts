@@ -29,27 +29,33 @@ adjustmentNoteOn
         listenToChannel = msg.velocity;
     });
 
+initPreset(EdtOutputs.colors, 1, 127);
 initPreset(EdtOutputs.colors, 10, 127);
-manualColor.subscribe((msg) => {
-    try {
-        EdtColor.next(msg);
-    } catch(e) {
-        console.log('eeee', e);
-    }
-});
+initPreset(EdtOutputs.colors, 11, 127);
+initPreset(EdtOutputs.colors, 12, 127);
 
-OSCInput.subscribe((msg) => {
-    EdtColor.next({
-        color: {
-            hue: 0,
-            saturation: 100,
-            brightness: 50
-        },
-        bgColor: {
-            hue: rescale(msg.values[0], 127, 255, 0),
-            saturation: rescale(msg.values[1], 127, 0, 255),
-            brightness: 50
-        }
-    });
 
-});
+// manualColor.subscribe((msg) => {
+//     try {
+//         EdtColor.next(msg);
+//     } catch(e) {
+//         console.log('eeee', e);
+//     }
+// });
+
+//
+// OSCInput.subscribe((msg) => {
+//     EdtColor.next({
+//         color: {
+//             hue: 0,
+//             saturation: 100,
+//             brightness: 50
+//         },
+//         bgColor: {
+//             hue: rescale(msg.values[0], 127, 255, 0),
+//             saturation: rescale(msg.values[1], 127, 0, 255),
+//             brightness: 50
+//         }
+//     });
+//
+// });
