@@ -12,6 +12,7 @@ export enum VidtPresets {
     TextDisplay = 'TextDisplay',
     TvShutdown = 'TvShutdown',
     HackerTv = 'HackerTv',
+    VideoPlayer = 'VideoPlayer',
     Bluescreen = 'Bluescreen',
     Vista = 'Vista'
 }

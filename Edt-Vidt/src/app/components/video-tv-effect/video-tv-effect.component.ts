@@ -1,4 +1,5 @@
 import {Component, OnInit, ElementRef, Input} from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-video-tv-effect',
@@ -8,6 +9,7 @@ import {Component, OnInit, ElementRef, Input} from '@angular/core';
 export class VideoTvEffectComponent implements OnInit {
     @Input() video: string;
     @Input() glitch: boolean;
+    @Input() effect: boolean;
 
     constructor(private element: ElementRef) {
     }
