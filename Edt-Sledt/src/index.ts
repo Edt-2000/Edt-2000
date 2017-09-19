@@ -10,8 +10,9 @@ export let listenToChannel = 0;
 presetNoteOn
     .subscribe((presetMsg) => {
         if(edtPresets.has(presetMsg.note)) {
-            console.log(`Preset ON: ${presetMsg.note}.`);
-            edtPresets.get(presetMsg.note).startPreset(presetMsg.velocity);
+            let preset = edtPresets.get(presetMsg.note);
+            console.log(`Preset ON: ${preset.constructor.name} (${presetMsg.note})`);
+            preset.startPreset(presetMsg.velocity);
         } else {
             console.log(`Preset ON: ${presetMsg.note} - preset not configured.`);
         }
@@ -19,7 +20,8 @@ presetNoteOn
 presetNoteOff
     .subscribe((presetMsg) => {
         if (edtPresets.has(presetMsg.note)) {
-            console.log(`Preset ON: ${presetMsg.note}.`);
+            let preset = edtPresets.get(presetMsg.note);
+            console.log(`Preset OFF: ${preset.constructor.name} (${presetMsg.note})`);
             edtPresets.get(presetMsg.note).stopPreset();
         }
     });
