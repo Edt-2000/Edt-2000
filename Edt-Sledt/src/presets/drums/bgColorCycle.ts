@@ -5,6 +5,7 @@ import {rescale} from '../../utils';
 import 'rxjs/add/operator/filter';
 import {EdtMainColor} from '../../subjects/colors';
 import {edtPreset} from '../presets';
+import {DrumNotes, DrumTrigger} from '../../subjects/musicTriggers';
 
 /**
  * The bg color cycle Preset cycles between colors trigger by filteredNoteOn inputs
@@ -24,7 +25,9 @@ export class BgColorCycle implements edtPreset {
     startPreset(rotationVelocity: number): void {
         this._rotationVelocity = rotationVelocity;
 
-        this._triggerSubscriber = filteredNoteOn.subscribe(() => {
+        this._triggerSubscriber = DrumTrigger
+            .filter((drumNote) => drumNote === DrumNotes._2) // Snare!
+            .subscribe(() => {
             this._hue = (this._hue + rescale(this._rotationVelocity, 127, 0, 360)) % 360;
             let newColor: colorMsg = {
                 color: {

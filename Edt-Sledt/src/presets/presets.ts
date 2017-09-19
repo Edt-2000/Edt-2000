@@ -1,5 +1,5 @@
 import {GlitchLogo} from './ambient/glitchLogo';
-import {BgColorCycle} from './converters/bgColorCycle';
+import {BgColorCycle} from './drums/bgColorCycle';
 import {EdtLEDFollowColor} from './colors/edtLEDFollowColor';
 import {EdtVidtFollowColor} from './colors/edtVidtFollowColor';
 

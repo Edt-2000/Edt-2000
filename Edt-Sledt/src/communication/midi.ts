@@ -1,4 +1,3 @@
-///<reference path="../../node_modules/@types/node/index.d.ts"/>
 import {midiCCMsg, MidiMsgTypes, midiNoteMsg, midiProgramMsg, midiSongMsg} from '../types';
 import {noteToNote, noteToOctave} from '../utils';
 import {Observable} from 'rxjs/Observable';
@@ -7,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import {listenToChannel, listenToNote} from '../index';
 import {adjustmentChannel, virtualMidiDevice, presetMsgChannel} from '../../../SharedTypes/config';
+import {edtPresets} from '../presets/presets';
 
 const easymidi = require('easymidi');
 
@@ -66,7 +66,7 @@ export const Select: Observable<midiSongMsg> = Observable.fromEvent<midiSongMsg>
 export const CC: Observable<midiCCMsg> = Observable.fromEvent<midiCCMsg>(virtualInput, MidiMsgTypes.cc)
     .filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
-// Loggers
+// Loggers, comment to disable
 // noteOn.subscribe((msg) => console.log('NoteOn', msg));
 // noteOff.subscribe((msg) => console.log('NoteOff', msg));
 // Program.subscribe((msg) => console.log('Program', msg));

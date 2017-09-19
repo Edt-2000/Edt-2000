@@ -1,18 +1,27 @@
 'use strict';
 import {adjustmentNoteOn, presetNoteOff, presetNoteOn} from './communication/midi';
 import {edtPresets} from './presets/presets';
+import {DrumTrigger} from './subjects/musicTriggers';
 
 export let listenToNote = 0;
 export let listenToChannel = 0;
 
 // Listen to PresetChange note messages
 presetNoteOn
-    .subscribe((msg) => {
-        if (edtPresets.has(msg.note)) edtPresets.get(msg.note).startPreset(msg.velocity);
+    .subscribe((presetMsg) => {
+        if(edtPresets.has(presetMsg.note)) {
+            console.log(`Preset ON: ${presetMsg.note}.`);
+            edtPresets.get(presetMsg.note).startPreset(presetMsg.velocity);
+        } else {
+            console.log(`Preset ON: ${presetMsg.note} - preset not configured.`);
+        }
     });
 presetNoteOff
-    .subscribe((msg) => {
-        if (edtPresets.has(msg.note)) edtPresets.get(msg.note).stopPreset();
+    .subscribe((presetMsg) => {
+        if (edtPresets.has(presetMsg.note)) {
+            console.log(`Preset ON: ${presetMsg.note}.`);
+            edtPresets.get(presetMsg.note).stopPreset();
+        }
     });
 
 // Listen to adjustment notes to switch note to listen to with filteredNote
@@ -22,3 +31,5 @@ adjustmentNoteOn
         listenToNote = msg.note;
         listenToChannel = msg.velocity;
     });
+
+// DrumTrigger.subscribe(console.log);
