@@ -8,9 +8,9 @@ export function EdtLEDFlash(instance: number, start: number, end: number, durati
         3,
         start,
         end,
-        rescale(colorMsg.bgColor.hue, 360, 0, 255),
-        rescale(colorMsg.bgColor.saturation, 360, 0, 255),
-        rescale(colorMsg.bgColor.brightness, 360, 0, 255),
+        rescale(colorMsg.color.hue, 360, 0, 255),
+        rescale(colorMsg.color.saturation, 360, 0, 255),
+        rescale(colorMsg.color.brightness, 360, 0, 255),
         duration
     ]);
 }

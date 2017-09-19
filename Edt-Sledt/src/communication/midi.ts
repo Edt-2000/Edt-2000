@@ -6,11 +6,12 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import {listenToChannel, listenToNote} from '../index';
+import {adjustmentChannel, virtualMidiDevice, presetMsgChannel} from '../../../SharedTypes/config';
 
 const easymidi = require('easymidi');
 
 // console.log(new easymidi.getInputs());
-const virtualInput = new easymidi.Input('EDT-SLEDT', true);
+const virtualInput = new easymidi.Input(virtualMidiDevice, true);
 // const virtualInput = new easymidi.Input('Origin25');
 
 
@@ -19,10 +20,6 @@ interface easyMidiNoteMsg {
     note: number,
     velocity: number
 }
-
-// Which channel sends presets?
-const presetMsgChannel: number = 16;
-const adjustmentChannel: number = 15;
 
 // Create Observables from the midi stream.
 const sledtNoteOn: Observable<midiNoteMsg> = Observable

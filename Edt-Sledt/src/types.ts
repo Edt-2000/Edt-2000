@@ -47,16 +47,3 @@ export enum MidiMsgTypes {
     noteoff = "noteoff",
     program = "program"
 }
-
-export interface edtOutput {
-    presets: edtPresets;
-}
-
-export interface edtPreset {
-    startPreset(velocity: number): void,
-    stopPreset(): void
-}
-
-export interface edtPresets {
-    [key:string]: edtPreset
-}

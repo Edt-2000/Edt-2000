@@ -1,9 +1,9 @@
-import {edtPreset} from '../../types';
 import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 import {preparePresetMsg, VidtPresets} from '../../../../SharedTypes/socket';
-import {sendToVidt} from '../../communication/socket';
+import {sendToVidt} from '../../outputs/edt-vidt';
 import 'rxjs/add/operator/withLatestFrom';
+import {edtPreset} from '../presets';
 
 export class drumVideoTrigger implements edtPreset {
     private _triggerSubscriber: Subscription;

@@ -30,7 +30,6 @@ export interface changeVideoSrcMsg {
 }
 
 export interface colorMsg {
-    readonly bgColor: color,
     readonly color: color
 }
 

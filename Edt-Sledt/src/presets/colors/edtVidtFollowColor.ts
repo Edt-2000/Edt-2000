@@ -1,8 +1,8 @@
 'use strict';
-import {edtPreset} from '../../types';
-import {EdtColor} from '../../outputs/shared-subjects';
+import {EdtMainColor} from '../../subjects/colors';
 import {Subscription} from 'rxjs/Subscription';
-import {sendToVidt} from '../../communication/socket';
+import {sendToVidt} from '../../outputs/edt-vidt';
+import {edtPreset} from '../presets';
 
 export class EdtVidtFollowColor implements edtPreset {
     private _vidtColorSubscription: Subscription;
@@ -11,7 +11,7 @@ export class EdtVidtFollowColor implements edtPreset {
 
     startPreset(velocity: number): void {
         // Send the whole colorMsg to the EdtVidt where it will change color accordingly
-        this._vidtColorSubscription = EdtColor.subscribe(sendToVidt);
+        this._vidtColorSubscription = EdtMainColor.subscribe(sendToVidt);
     }
 
     stopPreset(): void {

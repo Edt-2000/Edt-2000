@@ -1,10 +1,10 @@
-import {edtPreset} from '../../types';
 import {filteredNoteOn} from '../../communication/midi';
 import {Subscription} from 'rxjs/Subscription';
 import {colorMsg} from '../../../../SharedTypes/socket';
 import {rescale} from '../../utils';
 import 'rxjs/add/operator/filter';
-import {EdtColor} from '../../outputs/shared-subjects';
+import {EdtMainColor} from '../../subjects/colors';
+import {edtPreset} from '../presets';
 
 /**
  * The bg color cycle Preset cycles between colors trigger by filteredNoteOn inputs
@@ -27,19 +27,14 @@ export class BgColorCycle implements edtPreset {
         this._triggerSubscriber = filteredNoteOn.subscribe(() => {
             this._hue = (this._hue + rescale(this._rotationVelocity, 127, 0, 360)) % 360;
             let newColor: colorMsg = {
-                bgColor: {
-                    hue: this._hue,
-                    saturation: 100,
-                    brightness: 50
-                },
                 color: {
-                    hue: (this._hue + 180) % 360,
+                    hue: this._hue,
                     saturation: 100,
                     brightness: 50
                 }
             };
             // Emit this new color value to other listeners
-            EdtColor.next(newColor);
+            EdtMainColor.next(newColor);
         });
     }
 

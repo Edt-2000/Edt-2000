@@ -1,46 +1,27 @@
-import {Colors} from "./colors/colors";
-import {Preset} from "./preset";
-import {edtOutput} from "../types";
-import {Videos} from './videos/videos';
-import {Ambient} from './ambient/ambient';
-
+import {GlitchLogo} from './ambient/glitchLogo';
+import {BgColorCycle} from './converters/bgColorCycle';
 
 /**
- * Edt Preset MIDI octave number mapping
+ * An Edt-Preset is a `state` that can be active during a performance.
+ * For example, when active it subscribes to MIDI or OSC messages and converts this into a
  */
-export enum EdtOutputs {
-    colors = 0,
-    videos = 1,
-    ambient = 2
+export interface edtPreset {
+    startPreset(velocity: number): void,
+    stopPreset(): void
 }
 
-type edtOutputsObject = {
-    [key: string]: Preset & edtOutput
-}
-
-// Singletons of output implementations
-const edtOutputImplementations: edtOutputsObject = {};
-edtOutputImplementations[EdtOutputs[EdtOutputs.colors]] = new Colors();
-edtOutputImplementations[EdtOutputs[EdtOutputs.videos]] = new Videos();
-edtOutputImplementations[EdtOutputs[EdtOutputs.ambient]] = new Ambient();
-
-
+export const edtPresets = new Map<number, edtPreset>();
 
 /**
- * Set a Preset on a particular device.
- * @param device
- * @param preset
- * @param velocity
+ * Edt Presets
+ *
+ * Maps to MIDI note numbers on channel `presetMsgChannel`
+ *
+ * Keep in mind a logical grouping of presets
  */
-export function initPreset(device: EdtOutputs, preset: number, velocity: number): void {
-    edtOutputImplementations[EdtOutputs[device]].initPreset(preset, velocity);
-}
 
-/**
- * Unset a Preset of a device
- * @param device
- * @param preset
- */
-export function destroyPreset(device: EdtOutputs, preset: number): void {
-    edtOutputImplementations[EdtOutputs[device]].destroyPreset(preset);
-}
+// Ambient effects
+edtPresets.set(0, new GlitchLogo());
+
+// Converters that take input and
+edtPresets.set(10, new BgColorCycle());
