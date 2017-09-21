@@ -1,4 +1,3 @@
-import {filteredNoteOn} from '../../communication/midi';
 import {Subscription} from 'rxjs/Subscription';
 import {colorMsg} from '../../../../SharedTypes/socket';
 import {rescale} from '../../utils';

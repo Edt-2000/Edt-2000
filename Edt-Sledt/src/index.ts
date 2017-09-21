@@ -22,12 +22,4 @@ presetNoteOff
         if(edtPresets.has(presetMsg.note)) edtPresets.get(presetMsg.note).stopPreset();
     });
 
-// Listen to adjustment notes to switch note to listen to with filteredNote
-adjustmentNoteOn
-    .do((msg) => console.log(`Setting note ${msg.noteNumber} of octave ${msg.octave} (${msg.note}) on channel ${msg.velocity} as responsive note.`))
-    .subscribe((msg) => {
-        listenToNote = msg.note;
-        listenToChannel = msg.velocity;
-    });
-
 DrumTrigger.subscribe(console.log);

@@ -3,7 +3,7 @@ import {colorMsg} from '../../../SharedTypes/socket';
 import {rescale} from '../utils';
 import {OSCDevices} from '../../../SharedTypes/config';
 
-export function EdtLEDFlash(instance: number, start: number, end: number, duration: number, colorMsg: colorMsg) {
+export function EdtLEDFlash(instance: number = 0, start: number, end: number, duration: number, colorMsg: colorMsg) {
     sendToEdtOscDevice(OSCDevices.EdtLed, instance, [
         3,
         start,
