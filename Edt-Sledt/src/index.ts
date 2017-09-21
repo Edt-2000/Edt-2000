@@ -1,37 +1,33 @@
 'use strict';
 import {adjustmentNoteOn, presetNoteOff, presetNoteOn} from './communication/midi';
 import {edtPresets} from './presets/presets';
+import 'rxjs/add/operator/do';
 import {DrumTrigger} from './subjects/musicTriggers';
+import {sendToOSC} from './communication/osc';
 
 export let listenToNote = 0;
 export let listenToChannel = 0;
 
 // Listen to PresetChange note messages
 presetNoteOn
+    .do((msg) => console.log(`Activating preset ${msg.note}.`))
+    .do((msg) => sendToOSC(`/PRESET/${msg.note}`, [1])) // PRESET ON OSC
     .subscribe((presetMsg) => {
-        if(edtPresets.has(presetMsg.note)) {
-            let preset = edtPresets.get(presetMsg.note);
-            console.log(`Preset ON: ${preset.constructor.name} (${presetMsg.note})`);
-            preset.startPreset(presetMsg.velocity);
-        } else {
-            console.log(`Preset ON: ${presetMsg.note} - preset not configured.`);
-        }
+        if(edtPresets.has(presetMsg.note)) edtPresets.get(presetMsg.note).startPreset(presetMsg.velocity);
     });
+
 presetNoteOff
+    .do((msg) => sendToOSC(`/PRESET/${msg.note}`, [0])) // PRESET OFF OSC
     .subscribe((presetMsg) => {
-        if (edtPresets.has(presetMsg.note)) {
-            let preset = edtPresets.get(presetMsg.note);
-            console.log(`Preset OFF: ${preset.constructor.name} (${presetMsg.note})`);
-            edtPresets.get(presetMsg.note).stopPreset();
-        }
+        if(edtPresets.has(presetMsg.note)) edtPresets.get(presetMsg.note).stopPreset();
     });
 
 // Listen to adjustment notes to switch note to listen to with filteredNote
 adjustmentNoteOn
+    .do((msg) => console.log(`Setting note ${msg.noteNumber} of octave ${msg.octave} (${msg.note}) on channel ${msg.velocity} as responsive note.`))
     .subscribe((msg) => {
-        console.log(`Setting note ${msg.noteNumber} of octave ${msg.octave} (${msg.note}) on channel ${msg.velocity} as responsive note.`);
         listenToNote = msg.note;
         listenToChannel = msg.velocity;
     });
 
-// DrumTrigger.subscribe(console.log);
+DrumTrigger.subscribe(console.log);
