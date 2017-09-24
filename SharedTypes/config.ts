@@ -7,7 +7,8 @@ export enum OSCDevices {
     EdtOnOff = 'O'
 }
 
-export const oscPort = 12345;
+export const oscInPort = 12345;
+export const oscOutPort = 12346;
 
 // Which channel sends presets?
 export const drumChannel: number = 10;

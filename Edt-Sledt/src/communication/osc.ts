@@ -1,11 +1,11 @@
-import {deviceIPs, oscPort} from '../../../SharedTypes/config';
+import {deviceIPs, oscInPort, oscOutPort} from '../../../SharedTypes/config';
 import {Subject} from 'rxjs/Subject';
 
 const osc = require('osc-min');
 const dgram = require('dgram');
 const sock = dgram.createSocket('udp4', processOscMessage);
 
-sock.bind(12345);
+sock.bind(oscInPort);
 
 export function sendToEdtOscDevice(address: string, instance: number, params: number[]): void {
     sendToOSC(`/${address}/${instance}`, params);
@@ -23,7 +23,7 @@ export function sendToOSC(address: string, params: number[]): void {
             }
         })
     });
-    return sock.send(buf, 0, buf.length, oscPort, deviceIPs.tweedt);
+    return sock.send(buf, 0, buf.length, oscOutPort, deviceIPs.tweedt);
 }
 
 export const OSCInput: Subject<OSCMessage> = new Subject();

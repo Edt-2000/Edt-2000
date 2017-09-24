@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/Observable';
-import {noteOn} from '../communication/midi';
+import {noteOn} from '../inputs/midi';
 import {drumChannel} from '../../../SharedTypes/config';
 
 // The drum notes are mapped by the KORG to the following note numbers
