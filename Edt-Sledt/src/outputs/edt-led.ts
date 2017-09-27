@@ -1,10 +1,10 @@
 import {sendToEdtOscDevice} from '../communication/osc';
 import {colorMsg} from '../../../SharedTypes/socket';
 import {rescale} from '../utils';
-import {OSCDevices} from '../../../SharedTypes/config';
+import {deviceIPs, OSCDevices} from '../../../SharedTypes/config';
 
 export function EdtLEDFlash(instance: number = 0, start: number, end: number, duration: number, colorMsg: colorMsg) {
-    sendToEdtOscDevice(OSCDevices.EdtLed, instance, [
+    sendToEdtOscDevice(deviceIPs.tweedt, OSCDevices.EdtLed, instance, [
         3,
         start,
         end,
@@ -16,7 +16,7 @@ export function EdtLEDFlash(instance: number = 0, start: number, end: number, du
 }
 
 export function EdtOnOff(instance: number = 0, duration: number) {
-    sendToEdtOscDevice(OSCDevices.EdtOnOff, instance, [
+    sendToEdtOscDevice(deviceIPs.tweedt, OSCDevices.EdtOnOff, instance, [
         1,
         255,
         255,

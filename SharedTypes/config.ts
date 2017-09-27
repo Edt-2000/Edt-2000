@@ -1,6 +1,7 @@
-export const deviceIPs = {
-    tweedt: '10.0.0.11'
-};
+export const enum deviceIPs {
+    tweedt = '10.0.0.11',
+    edtpadt = '192.168.2.21'
+}
 
 export enum OSCDevices {
     EdtLed = 'L',
@@ -15,6 +16,7 @@ export const drumChannel: number = 10;
 export const adjustmentChannel: number = 15;
 export const presetMsgChannel: number = 16;
 
-export const virtualMidiDevice: string = 'EDT-SLEDT';
+export const virtualMidiInputDevice: string = 'EDT-SLEDT-IN';
+export const virtualMidiOutputDevice: string = 'EDT-SLEDT-OUT';
 
 // // /TP 2 [start: int] [end: int] [h: int] [s: int] [l: int] [duration: int]

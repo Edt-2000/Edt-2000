@@ -7,11 +7,11 @@ const sock = dgram.createSocket('udp4', processOscMessage);
 
 sock.bind(oscInPort);
 
-export function sendToEdtOscDevice(address: string, instance: number, params: number[]): void {
-    sendToOSC(`/${address}/${instance}`, params);
+export function sendToEdtOscDevice(device: deviceIPs, address: string, instance: number, params: number[]): void {
+    sendToOSC(device, `/${address}/${instance}`, params);
 }
 
-export function sendToOSC(address: string, params: number[]): void {
+export function sendToOSC(device: deviceIPs, address: string, params: number[]): void {
     console.log('Send to OSC', address, params);
     let buf;
     buf = osc.toBuffer({
@@ -23,7 +23,7 @@ export function sendToOSC(address: string, params: number[]): void {
             }
         })
     });
-    return sock.send(buf, 0, buf.length, oscOutPort, deviceIPs.tweedt);
+    return sock.send(buf, 0, buf.length, oscOutPort, device);
 }
 
 export const OSCInput: Subject<OSCMessage> = new Subject();

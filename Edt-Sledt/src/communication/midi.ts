@@ -4,13 +4,14 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
-import {virtualMidiDevice} from '../../../SharedTypes/config';
+import {virtualMidiInputDevice, virtualMidiOutputDevice} from '../../../SharedTypes/config';
 
 const easymidi = require('easymidi');
 
 // console.log(new easymidi.getInputs());
-export const virtualInput = new easymidi.Input(virtualMidiDevice, true);
 // const virtualInput = new easymidi.Input('Origin25');
+export const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
+export const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
 
 
 interface easyMidiNoteMsg {
