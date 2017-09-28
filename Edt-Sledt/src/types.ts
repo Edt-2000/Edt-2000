@@ -47,3 +47,9 @@ export enum MidiMsgTypes {
     noteoff = "noteoff",
     program = "program"
 }
+
+export type PresetMsg = {
+    preset: number,
+    modifier: number,
+    state: boolean
+};

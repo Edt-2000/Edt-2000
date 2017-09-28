@@ -1,13 +1,12 @@
 import {OSCInput} from '../communication/osc';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
-import {virtualOutput} from '../communication/midi';
-import {presetMsgChannel} from '../../../SharedTypes/config';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/share';
+import {PresetMsg} from '../types';
 
 // Filter and send out midi messages with this preset data if subscribed
-export const ManualPresets: Observable<{ preset: number, state: boolean }> = OSCInput
+export const ManualPresets: Observable<PresetMsg> = OSCInput
     .filter((OSCMsg) => (
         OSCMsg.addresses.length === 2 &&
         OSCMsg.addresses[0] === 'Preset' &&
@@ -19,22 +18,7 @@ export const ManualPresets: Observable<{ preset: number, state: boolean }> = OSC
     .map((OSCMsg) => {
         return {
             preset: +OSCMsg.addresses[1],
+            modifier: 127,
             state: !!OSCMsg.values[0]
         }
-    })
-    .do((manualPreset) => {
-        if (manualPreset.state) {
-            virtualOutput.send('noteon', {
-                note: manualPreset.preset,
-                velocity: 127,
-                channel: presetMsgChannel - 1
-            });
-        } else {
-            virtualOutput.send('noteoff', {
-                note: manualPreset.preset,
-                velocity: 0,
-                channel: presetMsgChannel - 1
-            });
-        }
-    })
-    .share();
+    });
