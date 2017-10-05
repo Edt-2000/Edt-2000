@@ -4,7 +4,7 @@ import {rescale} from '../../utils';
 import 'rxjs/add/operator/filter';
 import {EdtMainColor} from '../../subjects/colors';
 import {edtPreset} from '../presets';
-import {DrumNotes, DrumTrigger} from '../../subjects/musicTriggers';
+import {DrumNotes, DrumTrigger} from '../../inputs/musicTriggers';
 
 /**
  * The bg color cycle Preset cycles between colors trigger by filteredNoteOn inputs

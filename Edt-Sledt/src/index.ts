@@ -1,15 +1,15 @@
 'use strict';
-import {presetMidi} from './inputs/midi';
+import {presetMidi$} from './inputs/midi';
 import {edtPresets} from './presets/presets';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/merge';
-import {sendToOSC} from './communication/osc';
-import {ManualPresets} from './inputs/edt-padt';
+import {OSC$, sendToEdtOscDevice, sendToOSC} from './communication/osc';
+import {ManualPresets$} from './inputs/edt-padt';
 import {deviceIPs, presetMsgChannel} from '../../SharedTypes/config';
 import {virtualOutput} from './communication/midi';
 
 // Listen to PresetChange note messages or manual presets
-ManualPresets
+ManualPresets$
     .do((msg) => { // If manual, send out midi notes so we can record
             if (msg.state) {
                 virtualOutput.send('noteon', {
@@ -25,10 +25,10 @@ ManualPresets
                 });
             }
         })
-    .merge(presetMidi) // Also listen to midi preset changes
+    .merge(presetMidi$) // Also listen to midi preset changes
     .filter((msg) => edtPresets.has(msg.preset)) // Only filter the ones we have registered
     .do((msg) => console.log(`Setting preset ${msg.preset} ${msg.state ? 'on' : 'off'}.`))
-    .do((msg) => sendToOSC(deviceIPs.edtpadt, `/Preset/${msg.preset}`, [Number(msg.state)])) // PRESET TO OSC
+    .do((msg) => sendToOSC(deviceIPs.edtpadt, ['Preset', msg.preset.toString()], [Number(msg.state)])) // PRESET TO OSC
     .subscribe((msg) => {
         if (msg.state) {
             edtPresets.get(msg.preset).startPreset(msg.modifier);
@@ -37,3 +37,6 @@ ManualPresets
         }
     });
 
+OSC$.subscribe((msg) => {
+    console.log('OSC:', msg.addresses, msg.values);
+});

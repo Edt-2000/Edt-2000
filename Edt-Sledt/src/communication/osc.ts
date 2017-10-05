@@ -1,5 +1,6 @@
 import {deviceIPs, oscInPort, oscOutPort} from '../../../SharedTypes/config';
 import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
 
 const osc = require('osc-min');
 const dgram = require('dgram');
@@ -7,15 +8,11 @@ const sock = dgram.createSocket('udp4', processOscMessage);
 
 sock.bind(oscInPort);
 
-export function sendToEdtOscDevice(device: deviceIPs, address: string, instance: number, params: number[]): void {
-    sendToOSC(device, `/${address}/${instance}`, params);
-}
+export function sendToEdtOscDevice(device: deviceIPs, address: string, params: number[], instance: number = 0): void {}
 
-export function sendToOSC(device: deviceIPs, address: string, params: number[]): void {
-    console.log('Send to OSC', address, params);
-    let buf;
-    buf = osc.toBuffer({
-        address: address,
+export function sendToOSC(device: deviceIPs, addresses: string[], params: number[] = []): void {
+    let buf = osc.toBuffer({
+        address: addresses.join('/'),
         args: params.map((param) => {
             return {
                 type: 'integer',
@@ -26,19 +23,21 @@ export function sendToOSC(device: deviceIPs, address: string, params: number[]):
     return sock.send(buf, 0, buf.length, oscOutPort, device);
 }
 
-export const OSCInput: Subject<OSCMessage> = new Subject();
+// Use a subject to be able to push new OSC messages
+const OSCSubject: Subject<OSCMessage> = new Subject();
 
-// --------------------------------
+export const OSC$: Observable<OSCMessage> = OSCSubject.asObservable();
 
 export interface OSCMessage {
     addresses: string[],
     values: number[]
 }
 
-OSCInput.subscribe((msg) => {
-    console.log('OSC:', msg.addresses, msg.values);
-});
-
+/**
+ * Convert OSC buffer to an OSC message which is sent to the OSCSubject
+ * @param msg
+ * @param rinfo
+ */
 function processOscMessage(msg, rinfo) {
     try {
         let oscMessage = osc.fromBuffer(msg);
@@ -48,8 +47,8 @@ function processOscMessage(msg, rinfo) {
             addresses.shift();
 
             if (addresses.length > 0) {
-                // Send to OSCInput observable for further processing
-                OSCInput.next({
+                // Send to OSCSubject observable for further processing
+                OSCSubject.next({
                     addresses: addresses,
                     values: oscMessage.args.map((arg) => arg.value)
                 });

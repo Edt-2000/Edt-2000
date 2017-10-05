@@ -1,4 +1,4 @@
-import {OSCInput} from '../communication/osc';
+import {OSC$} from '../communication/osc';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
 import {Observable} from 'rxjs/Observable';
@@ -6,7 +6,7 @@ import 'rxjs/add/operator/share';
 import {PresetMsg} from '../types';
 
 // Filter and send out midi messages with this preset data if subscribed
-export const ManualPresets: Observable<PresetMsg> = OSCInput
+export const ManualPresets$: Observable<PresetMsg> = OSC$
     .filter((OSCMsg) => (
         OSCMsg.addresses.length === 2 &&
         OSCMsg.addresses[0] === 'Preset' &&

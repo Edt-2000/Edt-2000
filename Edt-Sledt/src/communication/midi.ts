@@ -5,6 +5,7 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import {virtualMidiInputDevice, virtualMidiOutputDevice} from '../../../SharedTypes/config';
+import 'rxjs/add/operator/share';
 
 const easymidi = require('easymidi');
 
@@ -21,7 +22,7 @@ interface easyMidiNoteMsg {
 }
 
 // Create Observables from the midi stream.
-export const sledtNoteOn: Observable<midiNoteMsg> = Observable
+export const sledtNoteOn$: Observable<midiNoteMsg> = Observable
     .fromEvent<easyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteon)
     .map((msg): midiNoteMsg => {
         return {
@@ -32,7 +33,7 @@ export const sledtNoteOn: Observable<midiNoteMsg> = Observable
             channel: msg.channel + 1
         }
     });
-export const sledtNoteOff: Observable<midiNoteMsg> = Observable
+export const sledtNoteOff$: Observable<midiNoteMsg> = Observable
     .fromEvent<easyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteoff)
     .map((msg): midiNoteMsg => {
         return {
