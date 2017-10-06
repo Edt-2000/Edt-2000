@@ -26,6 +26,7 @@ export const sledtNoteOn$: Observable<midiNoteMsg> = Observable
     .fromEvent<easyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteon)
     .map((msg): midiNoteMsg => {
         return {
+            noteOn: true,
             note: msg.note,
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),
@@ -37,6 +38,7 @@ export const sledtNoteOff$: Observable<midiNoteMsg> = Observable
     .fromEvent<easyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteoff)
     .map((msg): midiNoteMsg => {
         return {
+            noteOn: false,
             note: msg.note,
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),

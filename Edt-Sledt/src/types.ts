@@ -17,6 +17,7 @@ export interface midiCCMsg extends midiChannel {
  * Midi note message
  */
 export interface midiNoteMsg extends midiChannel {
+    readonly noteOn: boolean,
     readonly note: number,
     readonly noteNumber: number,
     readonly octave: number,

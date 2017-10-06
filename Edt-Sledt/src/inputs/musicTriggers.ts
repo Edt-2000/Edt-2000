@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/Observable';
-import {noteOn} from './midi';
+import {noteOff, noteOn} from './midi';
 import {drumChannel} from '../../../SharedTypes/config';
 
 // The drum notes are mapped by the KORG to the following note numbers
@@ -15,12 +15,15 @@ export enum DrumNotes {
     '_7B' = 51
 }
 
-export const DrumTrigger: Observable<DrumNotes> = noteOn
-    .filter((msg) => msg.channel === drumChannel && msg.note in DrumNotes)
+const DrumTriggerOnOff$ = noteOn.merge(noteOff).filter((msg) => msg.channel === drumChannel && msg.note in DrumNotes);
+
+export const DrumTriggerOn$: Observable<DrumNotes> = DrumTriggerOnOff$
+    .filter((msg) => msg.noteOn)
     .map((msg) => DrumNotes[DrumNotes[msg.note]]);
 
-
-
+export const DrumTriggerOff$: Observable<DrumNotes> = DrumTriggerOnOff$
+    .filter((msg) => !msg.noteOn)
+    .map((msg) => DrumNotes[DrumNotes[msg.note]]);
 
 
 
