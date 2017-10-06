@@ -11,7 +11,7 @@ sock.bind(oscInPort);
 export function sendToOSC(device: deviceIPs, addresses: string[], params: number[] = []): void {
     console.log('Send to OSC', addresses, params);
     let buf = osc.toBuffer({
-        address: addresses.join('/'),
+        address: '/' + addresses.join('/'),
         args: params.map((param) => {
             return {
                 type: 'integer',
