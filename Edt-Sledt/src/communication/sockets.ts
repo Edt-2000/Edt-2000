@@ -1,20 +1,22 @@
-"use strict";
+'use strict';
 /**
  * Socket Server
  */
-const http = require('http');
-const express = require('express');
+import express = require('express');
+import http = require('http');
 const app = express();
 const server = http.createServer(app);
 
-export const io = require('socket.io')(server);
+export import io = require('socket.io');
+// init
+io(server);
 
 /**
  * Socket management
  */
-io.on('connection', function (display: any): void {
+io.on('connection', (display) => {
     console.log('Display connected');
-    display.on('disconnect', function (): void {
+    display.on('disconnect', () => {
         console.log('Display disconnected');
     });
 });

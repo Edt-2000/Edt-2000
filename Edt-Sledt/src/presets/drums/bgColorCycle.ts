@@ -1,47 +1,45 @@
-import {Subscription} from 'rxjs/Subscription';
-import {colorMsg} from '../../../../SharedTypes/socket';
-import {rescale} from '../../utils';
 import 'rxjs/add/operator/filter';
+import {Subscription} from 'rxjs/Subscription';
+import {IColor} from '../../../../SharedTypes/socket';
+import {DrumNotes, drumTriggerOn$} from '../../inputs/musicTriggers';
 import {EdtMainColor} from '../../subjects/colors';
-import {edtPreset} from '../presets';
-import {DrumNotes, DrumTriggerOn$} from '../../inputs/musicTriggers';
+import {rescale} from '../../utils';
+import {IEdtPreset} from '../presets';
 
 /**
- * The bg color cycle Preset cycles between colors trigger by filteredNoteOn inputs
+ * The bg IColor cycle Preset cycles between colors trigger by filteredNoteOn inputs
  */
-export class BgColorCycle implements edtPreset {
-    private _hue: number;
+export class BgColorCycle implements IEdtPreset {
+    private hue: number;
 
-    private _triggerSubscriber: Subscription;
+    private triggerSubscriber: Subscription;
 
-    private _rotationVelocity: number;
+    private rotationVelocity: number;
 
     constructor() {
-        this._hue = 0;
-        this._rotationVelocity = 0;
+        this.hue = 0;
+        this.rotationVelocity = 0;
     }
 
-    startPreset(rotationVelocity: number): void {
-        this._rotationVelocity = rotationVelocity;
+    public startPreset(rotationVelocity: number): void {
+        this.rotationVelocity = rotationVelocity;
 
-        this._triggerSubscriber = DrumTriggerOn$
+        this.triggerSubscriber = drumTriggerOn$
             .filter((drumNote) => drumNote === DrumNotes._2) // Snare!
             .subscribe(() => {
-            this._hue = (this._hue + rescale(this._rotationVelocity, 127, 0, 360)) % 360;
-            let newColor: colorMsg = {
-                color: {
-                    hue: this._hue,
-                    saturation: 100,
-                    brightness: 50
-                }
+            this.hue = (this.hue + rescale(this.rotationVelocity, 127, 0, 360)) % 360;
+            const newColor: IColor = {
+                hue: this.hue,
+                saturation: 100,
+                brightness: 50,
             };
-            // Emit this new color value to other listeners
+            // Emit this new IColor value to other listeners
             EdtMainColor.next(newColor);
         });
     }
 
-    stopPreset(): void {
-        if (typeof this._triggerSubscriber !== 'undefined') this._triggerSubscriber.unsubscribe();
+    public stopPreset(): void {
+        if (typeof this.triggerSubscriber !== 'undefined') this.triggerSubscriber.unsubscribe();
     }
 
 }

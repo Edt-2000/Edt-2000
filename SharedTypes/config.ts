@@ -1,11 +1,11 @@
-export const enum deviceIPs {
+export const enum DeviceIPs {
     tweedt = '10.0.0.11',
-    edtpadt = '192.168.2.21'
+    edtpadt = '192.168.2.21',
 }
 
 export enum OSCDevices {
     EdtLed = 'L',
-    EdtOnOff = 'O'
+    EdtOnOff = 'O',
 }
 
 export const oscInPort = 12345;

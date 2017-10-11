@@ -1,8 +1,8 @@
 'use strict';
 import {Subject} from 'rxjs/Subject';
-import {colorMsg} from '../../../SharedTypes/socket';
+import {IColor} from '../../../SharedTypes/socket';
 
-export const EdtMainColor: Subject<colorMsg> = new Subject();
+export const EdtMainColor: Subject<IColor> = new Subject();
 
 // EdtMainColor.subscribe((msg) => {
 //     console.log('Color change:', msg);

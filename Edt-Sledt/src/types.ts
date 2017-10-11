@@ -1,56 +1,57 @@
 /**
  * Midi Messages from easymidi
  */
-export interface midiChannel {
-    readonly channel: number
+export interface IMidiChannel {
+    readonly channel: number;
 }
 
 /**
  * Midi Control message
  */
-export interface midiCCMsg extends midiChannel {
-    readonly controller: number,
-    readonly value: number,
+export interface IMidiCCMsg extends IMidiChannel {
+    readonly controller: number;
+    readonly value: number;
 }
 
 /**
  * Midi note message
  */
-export interface midiNoteMsg extends midiChannel {
-    readonly noteOn: boolean,
-    readonly note: number,
-    readonly noteNumber: number,
-    readonly octave: number,
-    readonly velocity: number
+export interface IMidiNoteMsg extends IMidiChannel {
+    readonly noteOn: boolean;
+    readonly note: number;
+    readonly noteNumber: number;
+    readonly octave: number;
+    readonly velocity: number;
 }
 
 /**
  * Midi program message
  */
-export interface midiProgramMsg extends midiChannel {
-    readonly number: number
+export interface IMidiProgramMsg extends IMidiChannel {
+    readonly number: number;
 }
 
 /**
  * Midi song message
  */
-export interface midiSongMsg extends midiChannel {
-    readonly song: number
+export interface IMidiSongMsg extends IMidiChannel {
+    readonly song: number;
 }
 
 /**
  * Midi Msg types
  */
 export enum MidiMsgTypes {
-    cc = "cc",
-    select = "select",
-    noteon = "noteon",
-    noteoff = "noteoff",
-    program = "program"
+    cc = 'cc',
+    select = 'select',
+    noteon = 'noteon',
+    noteoff = 'noteoff',
+    program = 'program',
+    clock = 'clock',
 }
 
-export type PresetMsg = {
-    preset: number,
-    modifier: number,
-    state: boolean
-};
+export interface IPresetMsg {
+    preset: number;
+    modifier: number;
+    state: boolean;
+}

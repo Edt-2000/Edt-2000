@@ -1,15 +1,14 @@
 'use strict';
-import {edtPresets, Preset$} from './presets/presets';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/merge';
+import {DeviceIPs} from '../../SharedTypes/config';
 import {OSC$, sendToOSC} from './communication/osc';
-import {deviceIPs} from '../../SharedTypes/config';
-import {DrumNotes, DrumTriggerOff$, DrumTriggerOn$} from './inputs/musicTriggers';
-import {timestamp} from 'rxjs/operator/timestamp';
+import {DrumNotes, drumTriggerOn$} from './inputs/musicTriggers';
+import {edtPresets, preset$} from './presets/presets';
 
-Preset$
+preset$
     .do((msg) => {
-        sendToOSC(deviceIPs.edtpadt, ['Preset', msg.preset.toString()], [Number(msg.state)])
+        sendToOSC(DeviceIPs.edtpadt, ['Preset', msg.preset.toString()], [Number(msg.state)]);
     })
     .subscribe((msg) => {
         if (msg.state) {
@@ -24,9 +23,8 @@ OSC$.subscribe((msg) => {
 });
 
 // This currently overloads the iPad a little, not very useful
-// DrumTriggerOn$.subscribe((note) => {
-//     sendToOSC(deviceIPs.edtpadt, ['DrumTrigger', note.toString()], [1]);
-// });
-
+drumTriggerOn$.subscribe((note) => {
+    sendToOSC(DeviceIPs.edtpadt, ['DrumTrigger', note.toString()], [1]);
+});
 
 edtPresets.get(2).startPreset(DrumNotes._2);

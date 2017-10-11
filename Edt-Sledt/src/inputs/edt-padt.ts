@@ -1,12 +1,12 @@
-import {OSC$} from '../communication/osc';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/share';
-import {PresetMsg} from '../types';
+import {Observable} from 'rxjs/Observable';
+import {OSC$} from '../communication/osc';
+import {IPresetMsg} from '../types';
 
 // Filter and send out midi messages with this preset data if subscribed
-export const ManualPresets$: Observable<PresetMsg> = OSC$
+export const manualPresets$: Observable<IPresetMsg> = OSC$
     .filter((OSCMsg) => (
         OSCMsg.addresses.length === 2 &&
         OSCMsg.addresses[0] === 'Preset' &&
@@ -19,6 +19,6 @@ export const ManualPresets$: Observable<PresetMsg> = OSC$
         return {
             preset: +OSCMsg.addresses[1],
             modifier: 127,
-            state: !!OSCMsg.values[0]
-        }
+            state: !!OSCMsg.values[0],
+        };
     });

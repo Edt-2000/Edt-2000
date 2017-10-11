@@ -1,15 +1,15 @@
+import {IPreparePresetMsg, VidtPresets} from '../../../../SharedTypes/socket';
 import {sendToVidt} from '../../outputs/edt-vidt';
-import {preparePresetMsg, VidtPresets} from '../../../../SharedTypes/socket';
-import {edtPreset} from '../presets';
+import {IEdtPreset} from '../presets';
 
-export class GlitchLogo implements edtPreset {
-    startPreset(): void {
-        sendToVidt(<preparePresetMsg>{
-            preset: VidtPresets.LogoIdle
-        });
+export class GlitchLogo implements IEdtPreset {
+    public startPreset(): void {
+        sendToVidt({
+            preset: VidtPresets.LogoIdle,
+        } as IPreparePresetMsg);
     }
 
-    stopPreset(): void {
+    public stopPreset(): void {
         // TODO: Should this reset the edtVidt?
     }
 

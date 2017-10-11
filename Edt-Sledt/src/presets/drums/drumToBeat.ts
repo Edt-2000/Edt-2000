@@ -1,25 +1,24 @@
-import {edtPreset} from '../presets';
-import {Subscription} from 'rxjs/Subscription';
-import {DrumTriggerOn$} from '../../inputs/musicTriggers';
 import 'rxjs/add/operator/filter';
+import {Subscription} from 'rxjs/Subscription';
+import {drumTriggerOn$} from '../../inputs/musicTriggers';
 import {BeatMain} from '../../subjects/triggers';
+import {IEdtPreset} from '../presets';
 
-export class DrumToBeat implements edtPreset {
-    private _triggerSubscriber: Subscription;
+export class DrumToBeat implements IEdtPreset {
+    private triggerSubscriber: Subscription;
 
-    constructor() {
-    }
-
-    startPreset(listenTo: number): void {
-        this._triggerSubscriber = DrumTriggerOn$
+    public startPreset(listenTo: number): void {
+        this.triggerSubscriber = drumTriggerOn$
             .filter((drumNote) => listenTo === drumNote)
             .subscribe((note) => {
                 BeatMain.next(note);
             });
     }
 
-    stopPreset(): void {
-        if (typeof this._triggerSubscriber !== 'undefined') this._triggerSubscriber.unsubscribe();
+    public stopPreset(): void {
+        if (typeof this.triggerSubscriber !== 'undefined') {
+            this.triggerSubscriber.unsubscribe();
+        }
     }
 
 }
