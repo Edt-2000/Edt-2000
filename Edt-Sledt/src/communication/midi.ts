@@ -6,15 +6,16 @@ import 'rxjs/add/operator/share';
 import {Observable} from 'rxjs/Observable';
 import {
     adjustmentChannel, presetMsgChannel, virtualMidiInputDevice,
-    virtualMidiOutputDevice
+    virtualMidiOutputDevice,
 } from '../../../SharedTypes/config';
-import {IMidiCCMsg, MidiMsgTypes, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg} from '../types';
+import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, MidiMsgTypes} from '../types';
 import {noteToNote, noteToOctave} from '../utils';
+import 'rxjs/add/operator/take';
 
 // console.log(new easymidi.getInputs());
-// const virtualInput = new easymidi.Input('Origin25');
-export const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
 export const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
+const hardwareInput = new easymidi.Input('EDTMID USB MIDI Interface');
+const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
 
 interface IEasyMidiNoteMsg {
     channel: number;
@@ -57,7 +58,10 @@ export const Select$: Observable<IMidiSongMsg> = Observable.fromEvent<IMidiSongM
 export const CC$: Observable<IMidiCCMsg> = Observable.fromEvent<IMidiCCMsg>(virtualInput, MidiMsgTypes.cc)
     .filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
-export const Clock$: Observable<null> = Observable.fromEvent<null>(virtualInput, MidiMsgTypes.clock
+export const Clock$: Observable<null> = Observable.fromEvent<null>(hardwareInput, MidiMsgTypes.clock);
+
+Clock$
+    .subscribe((msg) => console.log(Date.now()));
 
 // /**
 //  * Try connecting to a live device
