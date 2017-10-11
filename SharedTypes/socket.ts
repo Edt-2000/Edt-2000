@@ -37,3 +37,16 @@ export interface IIntensityMsg {
 export interface centeredText extends IColor {
     readonly textValue
 }
+
+export interface ITrackMsg {
+    left: {
+        x: number,
+        y: number,
+        z: number,
+    };
+    right: {
+        x: number,
+        y: number,
+        z: number,
+    };
+}

@@ -2,19 +2,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {OSC$} from '../communication/osc';
-
-interface ITrackMsg {
-    left: {
-        x: number,
-        y: number,
-        z: number,
-    };
-    right: {
-        x: number,
-        y: number,
-        z: number,
-    };
-}
+import {ITrackMsg} from '../../../SharedTypes/socket';
 
 export const edtTrack$: Observable<ITrackMsg> = OSC$
     .filter((OSCMsg) => (
