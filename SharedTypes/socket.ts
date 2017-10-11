@@ -21,19 +21,3 @@ export enum VidtPresets {
 export interface IPreparePresetMsg {
     readonly preset: VidtPresets;
 }
-
-export interface IChangeVideoSrcMsg {
-    readonly video: number,
-    readonly glitchEffect: boolean,
-    readonly lineEffect: boolean
-}
-
-export interface IIntensityMsg {
-    readonly intensity: number
-}
-
-// -------------------------------- Specific Messages
-
-export interface centeredText extends IColor {
-    readonly textValue
-}
