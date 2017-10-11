@@ -3,7 +3,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/merge';
 import {DeviceIPs} from '../../SharedTypes/config';
 import {OSC$, sendToOSC} from './communication/osc';
-import {DrumNotes, drumTriggerOn$} from './inputs/musicTriggers';
+import {DrumNotes} from './inputs/musicTriggers';
 import {edtPresets, preset$} from './presets/presets';
 
 preset$
@@ -22,9 +22,5 @@ OSC$.subscribe((msg) => {
     console.log('OSC:', msg.addresses, msg.values);
 });
 
-// This currently overloads the iPad a little, not very useful
-drumTriggerOn$.subscribe((note) => {
-    sendToOSC(DeviceIPs.edtPad, ['DrumTrigger', note.toString()], [1]);
-});
-
 edtPresets.get(2).startPreset(DrumNotes._2);
+edtPresets.get(13).startPreset(0);

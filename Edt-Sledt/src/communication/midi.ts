@@ -1,16 +1,19 @@
 import easymidi = require('easymidi');
 import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/bufferCount';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
+import 'rxjs/add/operator/take';
 import {Observable} from 'rxjs/Observable';
 import {
-    adjustmentChannel, presetMsgChannel, virtualMidiInputDevice,
+    adjustmentChannel,
+    presetMsgChannel,
+    virtualMidiInputDevice,
     virtualMidiOutputDevice,
 } from '../../../SharedTypes/config';
 import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, MidiMsgTypes} from '../types';
 import {noteToNote, noteToOctave} from '../utils';
-import 'rxjs/add/operator/take';
 
 // console.log(new easymidi.getInputs());
 export const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
@@ -59,9 +62,6 @@ export const CC$: Observable<IMidiCCMsg> = Observable.fromEvent<IMidiCCMsg>(virt
     .filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
 export const Clock$: Observable<null> = Observable.fromEvent<null>(hardwareInput, MidiMsgTypes.clock);
-
-Clock$
-    .subscribe((msg) => console.log(Date.now()));
 
 // /**
 //  * Try connecting to a live device

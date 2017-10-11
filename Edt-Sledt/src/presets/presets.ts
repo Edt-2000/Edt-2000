@@ -3,6 +3,7 @@ import {virtualOutput} from '../communication/midi';
 import {manualPresets$} from '../inputs/edt-padt';
 import {presetMidi$} from '../inputs/midi';
 import {GlitchLogo} from './ambient/glitchLogo';
+import {BeatToFlash} from './colors/beatToFlash';
 import {EdtLEDFollowColor} from './colors/edtLEDFollowColor';
 import {EdtVidtFollowColor} from './colors/edtVidtFollowColor';
 import {BgColorCycle} from './drums/bgColorCycle';
@@ -27,16 +28,17 @@ export const edtPresets = new Map<number, IEdtPreset>();
  * Keep in mind a logical grouping of presets
  */
 
-// Ambient effects
-edtPresets.set(10, new GlitchLogo());
-
 // Converters that take input and convert to 'subjects' like IColor etc
 edtPresets.set(1, new BgColorCycle());
 edtPresets.set(2, new DrumToBeat());
 
+// Ambient effects
+edtPresets.set(10, new GlitchLogo());
+
 // Output controls that take 'subjects' or inputs and send this to an output device
 edtPresets.set(11, new EdtLEDFollowColor());
 edtPresets.set(12, new EdtVidtFollowColor());
+edtPresets.set(13, new BeatToFlash());
 
 /**
  * Expose Preset Observable with combined midi and manual preset listeners

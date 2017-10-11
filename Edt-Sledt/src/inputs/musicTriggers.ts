@@ -1,6 +1,10 @@
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/merge';
 import {Observable} from 'rxjs/Observable';
 import {drumChannel} from '../../../SharedTypes/config';
+import {EdtLEDFlash} from '../outputs/edt-led';
+import {IMidiNoteMsg} from '../types';
 import {noteOff$, noteOn$} from './midi';
 
 // The drum notes are mapped by the KORG to the following note numbers
@@ -17,7 +21,8 @@ export enum DrumNotes {
 }
 
 // Observable with only the drum notes on/off
-const drumTriggerOnOff$ = noteOn$.merge(noteOff$).filter((msg) => msg.channel === drumChannel && msg.note in DrumNotes);
+const drumTriggerOnOff$: Observable<IMidiNoteMsg> = noteOn$.merge(noteOff$)
+    .filter((msg) => msg.channel === drumChannel && msg.note in DrumNotes);
 
 export const drumTriggerOn$: Observable<DrumNotes> = drumTriggerOnOff$
     .filter((msg) => msg.noteOn)

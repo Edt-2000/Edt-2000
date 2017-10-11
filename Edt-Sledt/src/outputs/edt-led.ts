@@ -1,16 +1,26 @@
-import {DeviceIPs, OSCDevices} from '../../../SharedTypes/config';
+import {DeviceIPs, Modii, OSCDevices} from '../../../SharedTypes/config';
 import {IColor} from '../../../SharedTypes/socket';
 import {sendToOSC} from '../communication/osc';
 import {rescale} from '../utils';
 
-export function EdtLEDFlash(instance: number = 0, start: number, end: number, duration: number, colorMsg: IColor) {
-    sendToOSC(DeviceIPs.edtOut, [OSCDevices.EdtLed, instance.toString()], [
-        3,
+/**
+ * Flash LEDS
+ * @param {number} instance
+ * @param {number} start
+ * @param {number} end
+ * @param {number} duration
+ * @param {IColor} colorMsg
+ * @constructor
+ */
+export function EdtLEDFlash(instance: number, start: number, end: number, duration: number, colorMsg: IColor) {
+
+    sendToOSC(DeviceIPs.edtOut, [OSCDevices.EdtLed], [
+        2,
         start,
         end,
-        rescale(colorMsg.hue, 360, 0, 255),
-        rescale(colorMsg.saturation, 360, 0, 255),
-        rescale(colorMsg.brightness, 360, 0, 255),
+        colorMsg.hue,
+        colorMsg.saturation,
+        colorMsg.brightness,
         duration,
     ]);
 }
