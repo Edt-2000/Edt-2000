@@ -3,6 +3,7 @@ import {Socket} from 'ngx-socket-io';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/filter'
 import {IColor, IIntensityMsg, IPreparePresetMsg, ITrackMsg} from '../../../SharedTypes/socket';
+import "rxjs/add/operator/do";
 
 
 @Injectable()
@@ -24,14 +25,15 @@ export class CommunicationService {
 
         // Expose observables for various message types
         this.color = this._messageObs.filter((msg: any): msg is IColor => {
-            return !!msg.color && !!msg.bgColor;
+            return !!msg.color;
         });
         this.intensity = this._messageObs.filter((msg: any): msg is IIntensityMsg => {
             return typeof msg.intensity === 'number';
         });
 
-        this.track = this._messageObs.filter((msg: any): msg is ITrackMsg => {
-            return typeof msg.instance === 'number' && msg.left === 'object' && msg.right === 'object';
+        this.track = this._messageObs
+            .filter((msg: any): msg is ITrackMsg => {
+            return typeof msg.left === 'object' && typeof msg.right === 'object';
         });
 
     }
