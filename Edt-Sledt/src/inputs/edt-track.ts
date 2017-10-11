@@ -1,8 +1,8 @@
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
-import {OSC$} from '../communication/osc';
 import {ITrackMsg} from '../../../SharedTypes/socket';
+import {OSC$} from '../communication/osc';
 
 export const edtTrack$: Observable<ITrackMsg> = OSC$
     .filter((OSCMsg) => (

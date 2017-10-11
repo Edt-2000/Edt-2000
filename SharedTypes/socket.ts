@@ -23,19 +23,19 @@ export interface IPreparePresetMsg {
 }
 
 export interface IChangeVideoSrcMsg {
-    readonly video: number,
-    readonly glitchEffect: boolean,
-    readonly lineEffect: boolean
+    readonly video: number;
+    readonly glitchEffect: boolean;
+    readonly lineEffect: boolean;
 }
 
 export interface IIntensityMsg {
-    readonly intensity: number
+    readonly intensity: number;
 }
 
 // -------------------------------- Specific Messages
 
-export interface centeredText extends IColor {
-    readonly textValue
+export interface ICenteredText extends IColor {
+    readonly textValue;
 }
 
 export interface ITrackMsg {

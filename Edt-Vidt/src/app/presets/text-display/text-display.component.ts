@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CommunicationService} from 'app/communication.service';
-import {centeredText} from '../../../../../SharedTypes/socket';
+import {ICenteredText} from '../../../../../SharedTypes/socket';
 
 @Component({
     selector: 'app-centered-text-display',
@@ -27,7 +27,7 @@ export class TextDisplayComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._communicationService.color.subscribe((msg: centeredText) => {
+        this._communicationService.color.subscribe((msg: ICenteredText) => {
             this.text = msg.textValue;
         });
     }
