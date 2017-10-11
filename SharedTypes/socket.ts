@@ -20,6 +20,7 @@ export enum VidtPresets {
 
 export interface IPreparePresetMsg {
     readonly preset: VidtPresets;
+<<<<<<< HEAD
 }
 
 export interface IChangeVideoSrcMsg {
@@ -36,4 +37,6 @@ export interface IIntensityMsg {
 
 export interface centeredText extends IColor {
     readonly textValue
+=======
+>>>>>>> 64bd0bb6783412094b22be153db1381408e3ef97
 }
