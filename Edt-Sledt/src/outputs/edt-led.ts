@@ -1,33 +1,31 @@
-import {sendToEdtOscDevice} from '../communication/osc';
-import {colorMsg} from '../../../SharedTypes/socket';
+import {DeviceIPs, OSCDevices} from '../../../SharedTypes/config';
+import {IColor} from '../../../SharedTypes/socket';
+import {sendToOSC} from '../communication/osc';
 import {rescale} from '../utils';
-import {OSCDevices} from '../../../SharedTypes/config';
 
-export function EdtLEDFlash(instance: number, start: number, end: number, duration: number, colorMsg: colorMsg) {
-    sendToEdtOscDevice(OSCDevices.EdtLed, instance, [
+export function EdtLEDFlash(instance: number = 0, start: number, end: number, duration: number, colorMsg: IColor) {
+    sendToOSC(DeviceIPs.tweedt, [OSCDevices.EdtLed, instance.toString()], [
         3,
         start,
         end,
-        rescale(colorMsg.bgColor.hue, 360, 0, 255),
-        rescale(colorMsg.bgColor.saturation, 360, 0, 255),
-        rescale(colorMsg.bgColor.brightness, 360, 0, 255),
-        duration
+        rescale(colorMsg.hue, 360, 0, 255),
+        rescale(colorMsg.saturation, 360, 0, 255),
+        rescale(colorMsg.brightness, 360, 0, 255),
+        duration,
     ]);
 }
 
 export function EdtOnOff(instance: number = 0, duration: number) {
-    sendToEdtOscDevice(OSCDevices.EdtOnOff, instance, [
+    sendToOSC(DeviceIPs.tweedt, [OSCDevices.EdtOnOff, instance.toString()], [
         1,
         255,
         255,
         255,
         255,
         255,
-        duration
+        duration,
     ]);
 }
-
-
 
 // /L/0
 // 0 modus

@@ -1,78 +1,63 @@
-///<reference path="../../node_modules/@types/node/index.d.ts"/>
-import {midiCCMsg, MidiMsgTypes, midiNoteMsg, midiProgramMsg, midiSongMsg} from '../types';
-import {noteToNote, noteToOctave} from '../utils';
-import {Observable} from 'rxjs/Observable';
+import easymidi = require('easymidi');
 import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
-import {listenToChannel, listenToNote} from '../index';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/share';
+import {Observable} from 'rxjs/Observable';
+import {
+    adjustmentChannel, presetMsgChannel, virtualMidiInputDevice,
+    virtualMidiOutputDevice
+} from '../../../SharedTypes/config';
+import {IMidiCCMsg, MidiMsgTypes, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg} from '../types';
+import {noteToNote, noteToOctave} from '../utils';
 
-const easymidi = require('easymidi');
+// console.log(new easymidi.getInputs());
+// const virtualInput = new easymidi.Input('Origin25');
+export const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
+export const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
 
-const virtualInput = new easymidi.Input('EDT-SLEDT', true);
-
-interface easyMidiNoteMsg {
-    channel: number,
-    note: number,
-    velocity: number
+interface IEasyMidiNoteMsg {
+    channel: number;
+    note: number;
+    velocity: number;
 }
 
-// Which channel sends presets?
-const presetMsgChannel: number = 16;
-const adjustmentChannel: number = 15;
-
 // Create Observables from the midi stream.
-const sledtNoteOn: Observable<midiNoteMsg> = Observable
-    .fromEvent<easyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteon)
-    .map((msg): midiNoteMsg => {
+export const sledtNoteOn$: Observable<IMidiNoteMsg> = Observable
+    .fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteon)
+    .map((msg): IMidiNoteMsg => {
         return {
+            noteOn: true,
             note: msg.note,
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),
             velocity: msg.velocity,
-            channel: msg.channel + 1
-        }
+            channel: msg.channel + 1,
+        };
     });
-const sledtNoteOff: Observable<midiNoteMsg> = Observable
-    .fromEvent<easyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteoff)
-    .map((msg): midiNoteMsg => {
+export const sledtNoteOff$: Observable<IMidiNoteMsg> = Observable
+    .fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteoff)
+    .map((msg): IMidiNoteMsg => {
         return {
+            noteOn: false,
             note: msg.note,
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),
             velocity: msg.velocity,
-            channel: msg.channel + 1
+            channel: msg.channel + 1,
         };
     });
 
-export const noteOn: Observable<midiNoteMsg> = sledtNoteOn.filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
-export const noteOff: Observable<midiNoteMsg> = sledtNoteOff.filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
-
-export const filteredNoteOn: Observable<midiNoteMsg> = noteOn.filter(msg => msg.note === listenToNote && msg.channel === listenToChannel);
-export const filteredNoteOff: Observable<midiNoteMsg> = noteOff.filter(msg => msg.note === listenToNote && msg.channel === listenToChannel);
-
-export const presetNoteOn: Observable<midiNoteMsg> = sledtNoteOn.filter((msg) => msg.channel === presetMsgChannel);
-export const presetNoteOff: Observable<midiNoteMsg> = sledtNoteOff.filter((msg) => msg.channel === presetMsgChannel);
-
-export const adjustmentNoteOn: Observable<midiNoteMsg> = sledtNoteOn.filter((msg) => msg.channel === adjustmentChannel);
-export const adjustmentNoteOff: Observable<midiNoteMsg> = sledtNoteOff.filter((msg) => msg.channel === adjustmentChannel);
-
-export const Program: Observable<midiProgramMsg> = Observable.fromEvent<midiProgramMsg>(virtualInput, MidiMsgTypes.program)
+export const Program$: Observable<IMidiProgramMsg> = Observable.fromEvent<IMidiProgramMsg>(virtualInput, MidiMsgTypes.program)
     .filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
-export const Select: Observable<midiSongMsg> = Observable.fromEvent<midiSongMsg>(virtualInput, MidiMsgTypes.select)
-    .filter((msg: midiSongMsg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
+export const Select$: Observable<IMidiSongMsg> = Observable.fromEvent<IMidiSongMsg>(virtualInput, MidiMsgTypes.select)
+    .filter((msg: IMidiSongMsg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
-export const CC: Observable<midiCCMsg> = Observable.fromEvent<midiCCMsg>(virtualInput, MidiMsgTypes.cc)
+export const CC$: Observable<IMidiCCMsg> = Observable.fromEvent<IMidiCCMsg>(virtualInput, MidiMsgTypes.cc)
     .filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
-// Loggers
-presetNoteOn.subscribe((msg) => console.log('NoteOn', msg));
-filteredNoteOn.subscribe((msg) => console.log('NoteOn', msg));
-// NoteOff.subscribe((msg) => console.log('NoteOff', msg));
-// Program.subscribe((msg) => console.log('Program', msg));
-// Select.subscribe((msg) => console.log('Select', msg));
-// CC.subscribe((msg) => console.log('CC', msg));
+export const Clock$: Observable<null> = Observable.fromEvent<null>(virtualInput, MidiMsgTypes.clock
 
 // /**
 //  * Try connecting to a live device

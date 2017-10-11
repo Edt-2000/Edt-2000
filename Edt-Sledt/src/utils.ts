@@ -22,10 +22,10 @@ export function noteToNote(note: number): number {
  * Rescale a range
  * @param value
  * @param max
- * @param min_range
- * @param max_range
+ * @param minRange
+ * @param maxRange
  * @return {number}
  */
-export function rescale(value: number, max: number, min_range: number, max_range: number) {
-    return Math.round(((max - value) / (max)) * (max_range - min_range)) + min_range;
+export function rescale(value: number, max: number, minRange: number, maxRange: number) {
+    return Math.round(((max - value) / (max)) * (maxRange - minRange)) + minRange;
 }

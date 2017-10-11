@@ -1,9 +1,9 @@
 // -------------------------------- Building blocks
 
-export interface color {
-    readonly hue: number,
-    readonly saturation: number,
-    readonly brightness: number
+export interface IColor {
+    readonly hue: number;
+    readonly saturation: number;
+    readonly brightness: number;
 }
 
 export enum VidtPresets {
@@ -11,29 +11,29 @@ export enum VidtPresets {
     LogoIdle = 'LogoIdle',
     TextDisplay = 'TextDisplay',
     TvShutdown = 'TvShutdown',
-    HackerTv = 'HackerTv',
     VideoPlayer = 'VideoPlayer',
     Bluescreen = 'Bluescreen',
-    Vista = 'Vista'
+    Vista = 'Vista',
 }
 
 // SubMessages
 
-export interface preparePresetMsg {
-    readonly preset: VidtPresets
+export interface IPreparePresetMsg {
+    readonly preset: VidtPresets;
 }
 
-export interface colorMsg {
-    readonly bgColor: color,
-    readonly color: color
+export interface IChangeVideoSrcMsg {
+    readonly video: number,
+    readonly glitchEffect: boolean,
+    readonly lineEffect: boolean
 }
 
-export interface intensityMsg {
+export interface IIntensityMsg {
     readonly intensity: number
 }
 
 // -------------------------------- Specific Messages
 
-export interface centeredText extends colorMsg {
+export interface centeredText extends IColor {
     readonly textValue
 }

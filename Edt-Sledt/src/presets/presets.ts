@@ -1,46 +1,63 @@
-import {Colors} from "./colors/colors";
-import {Preset} from "./preset";
-import {edtOutput} from "../types";
-import {Videos} from './videos/videos';
-import {Ambient} from './ambient/ambient';
-
-
-/**
- * Edt Preset MIDI octave number mapping
- */
-export enum EdtOutputs {
-    colors = 0,
-    videos = 1,
-    ambient = 2
-}
-
-type edtOutputsObject = {
-    [key: string]: Preset & edtOutput
-}
-
-// Singletons of output implementations
-const edtOutputImplementations: edtOutputsObject = {};
-edtOutputImplementations[EdtOutputs[EdtOutputs.colors]] = new Colors();
-edtOutputImplementations[EdtOutputs[EdtOutputs.videos]] = new Videos();
-edtOutputImplementations[EdtOutputs[EdtOutputs.ambient]] = new Ambient();
-
-
+import {presetMsgChannel} from '../../../SharedTypes/config';
+import {virtualOutput} from '../communication/midi';
+import {manualPresets$} from '../inputs/edt-padt';
+import {presetMidi$} from '../inputs/midi';
+import {GlitchLogo} from './ambient/glitchLogo';
+import {EdtLEDFollowColor} from './colors/edtLEDFollowColor';
+import {EdtVidtFollowColor} from './colors/edtVidtFollowColor';
+import {BgColorCycle} from './drums/bgColorCycle';
+import {DrumToBeat} from './drums/drumToBeat';
 
 /**
- * Set a Preset on a particular device.
- * @param device
- * @param preset
- * @param velocity
+ * An Edt-Preset is a `state` that can be active during a performance.
+ * For example, when active it subscribes to MIDI or OSC messages and converts this into a
  */
-export function initPreset(device: EdtOutputs, preset: number, velocity: number): void {
-    edtOutputImplementations[EdtOutputs[device]].initPreset(preset, velocity);
+export interface IEdtPreset {
+    startPreset(velocity: number): void;
+    stopPreset(): void;
 }
 
+export const edtPresets = new Map<number, IEdtPreset>();
+
 /**
- * Unset a Preset of a device
- * @param device
- * @param preset
+ * Edt Presets
+ *
+ * Maps to MIDI note numbers on channel `presetMsgChannel`
+ *
+ * Keep in mind a logical grouping of presets
  */
-export function destroyPreset(device: EdtOutputs, preset: number): void {
-    edtOutputImplementations[EdtOutputs[device]].destroyPreset(preset);
-}
+
+// Ambient effects
+edtPresets.set(10, new GlitchLogo());
+
+// Converters that take input and convert to 'subjects' like IColor etc
+edtPresets.set(1, new BgColorCycle());
+edtPresets.set(2, new DrumToBeat());
+
+// Output controls that take 'subjects' or inputs and send this to an output device
+edtPresets.set(11, new EdtLEDFollowColor());
+edtPresets.set(12, new EdtVidtFollowColor());
+
+/**
+ * Expose Preset Observable with combined midi and manual preset listeners
+ * @type {Observable<IPresetMsg>}
+ */
+export const preset$ = manualPresets$
+    .do((msg) => { // If manual, send out midi notes so we can record
+        if (msg.state) {
+            virtualOutput.send('noteon', {
+                note: msg.preset,
+                velocity: 127,
+                channel: presetMsgChannel - 1,
+            });
+        } else {
+            virtualOutput.send('noteoff', {
+                note: msg.preset,
+                velocity: 0,
+                channel: presetMsgChannel - 1,
+            });
+        }
+    })
+    .merge(presetMidi$) // Also listen to midi preset changes
+    .filter((msg) => edtPresets.has(msg.preset)) // Only filter the ones we have registered
+    .do((msg) => console.log(`Setting preset ${msg.preset} ${msg.state ? 'on' : 'off'}.`));

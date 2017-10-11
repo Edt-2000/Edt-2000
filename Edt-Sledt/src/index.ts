@@ -1,55 +1,30 @@
 'use strict';
-import {adjustmentNoteOn, presetNoteOff, presetNoteOn} from './communication/midi';
-import {destroyPreset, EdtOutputs, initPreset} from './presets/presets';
-import {manualColor} from './manual-controls';
-import {EdtColor} from './outputs/shared-subjects';
-import {OSCInput} from './communication/osc';
-import {rescale} from './utils';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/merge';
+import {DeviceIPs} from '../../SharedTypes/config';
+import {OSC$, sendToOSC} from './communication/osc';
+import {DrumNotes, drumTriggerOn$} from './inputs/musicTriggers';
+import {edtPresets, preset$} from './presets/presets';
 
-export let listenToNote = 0;
-export let listenToChannel = 0;
-
-// Listen to PresetChange note messages
-presetNoteOn
-    .filter((msg) => msg.octave in EdtOutputs)
+preset$
+    .do((msg) => {
+        sendToOSC(DeviceIPs.edtpadt, ['Preset', msg.preset.toString()], [Number(msg.state)]);
+    })
     .subscribe((msg) => {
-        initPreset(msg.octave, msg.noteNumber, msg.velocity)
-    });
-
-presetNoteOff
-    .filter((msg) => msg.octave in EdtOutputs)
-    .subscribe((msg) => {
-        destroyPreset(msg.octave, msg.noteNumber);
-    });
-
-adjustmentNoteOn
-    .subscribe((msg) => {
-        console.log(`Setting note ${msg.noteNumber} of octave ${msg.octave} (${msg.note}) on channel ${msg.velocity} as responsive note.`);
-        listenToNote = msg.note;
-        listenToChannel = msg.velocity;
-    });
-
-initPreset(EdtOutputs.colors, 10, 127);
-manualColor.subscribe((msg) => {
-    try {
-        EdtColor.next(msg);
-    } catch(e) {
-        console.log('eeee', e);
-    }
-});
-
-OSCInput.subscribe((msg) => {
-    EdtColor.next({
-        color: {
-            hue: 0,
-            saturation: 100,
-            brightness: 50
-        },
-        bgColor: {
-            hue: rescale(msg.values[0], 127, 255, 0),
-            saturation: rescale(msg.values[1], 127, 0, 255),
-            brightness: 50
+        if (msg.state) {
+            edtPresets.get(msg.preset).startPreset(msg.modifier);
+        } else {
+            edtPresets.get(msg.preset).stopPreset();
         }
     });
 
+OSC$.subscribe((msg) => {
+    console.log('OSC:', msg.addresses, msg.values);
 });
+
+// This currently overloads the iPad a little, not very useful
+drumTriggerOn$.subscribe((note) => {
+    sendToOSC(DeviceIPs.edtpadt, ['DrumTrigger', note.toString()], [1]);
+});
+
+edtPresets.get(2).startPreset(DrumNotes._2);
