@@ -4,7 +4,7 @@ import {sendToOSC} from '../communication/osc';
 import {rescale} from '../utils';
 
 export function EdtLEDFlash(instance: number = 0, start: number, end: number, duration: number, colorMsg: IColor) {
-    sendToOSC(DeviceIPs.tweedt, [OSCDevices.EdtLed, instance.toString()], [
+    sendToOSC(DeviceIPs.edtOut, [OSCDevices.EdtLed, instance.toString()], [
         3,
         start,
         end,
@@ -16,7 +16,7 @@ export function EdtLEDFlash(instance: number = 0, start: number, end: number, du
 }
 
 export function EdtOnOff(instance: number = 0, duration: number) {
-    sendToOSC(DeviceIPs.tweedt, [OSCDevices.EdtOnOff, instance.toString()], [
+    sendToOSC(DeviceIPs.edtOut, [OSCDevices.EdtOnOff, instance.toString()], [
         1,
         255,
         255,

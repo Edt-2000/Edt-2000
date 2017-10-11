@@ -7,9 +7,9 @@ import http = require('http');
 const app = express();
 const server = http.createServer(app);
 
-export import io = require('socket.io');
+import socket = require('socket.io');
 // init
-io(server);
+export const io = socket(server);
 
 /**
  * Socket management
