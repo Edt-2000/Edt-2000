@@ -8,7 +8,7 @@ import {edtPresets, preset$} from './presets/presets';
 
 preset$
     .do((msg) => {
-        sendToOSC(DeviceIPs.edtpadt, ['Preset', msg.preset.toString()], [Number(msg.state)]);
+        sendToOSC(DeviceIPs.edtPad, ['Preset', msg.preset.toString()], [Number(msg.state)]);
     })
     .subscribe((msg) => {
         if (msg.state) {
@@ -24,7 +24,7 @@ OSC$.subscribe((msg) => {
 
 // This currently overloads the iPad a little, not very useful
 drumTriggerOn$.subscribe((note) => {
-    sendToOSC(DeviceIPs.edtpadt, ['DrumTrigger', note.toString()], [1]);
+    sendToOSC(DeviceIPs.edtPad, ['DrumTrigger', note.toString()], [1]);
 });
 
 edtPresets.get(2).startPreset(DrumNotes._2);
