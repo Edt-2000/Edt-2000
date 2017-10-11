@@ -2,8 +2,9 @@
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/merge';
 import {DeviceIPs} from '../../SharedTypes/config';
-import {OSC$, sendToOSC} from './communication/osc';
-import {DrumNotes} from './inputs/musicTriggers';
+import {sendToOSC} from './communication/osc';
+import {edtPedal$} from './inputs/edt-pedal';
+import {edtTrack$} from './inputs/edt-track';
 import {edtPresets, preset$} from './presets/presets';
 
 preset$
@@ -18,9 +19,15 @@ preset$
         }
     });
 
-OSC$.subscribe((msg) => {
-    console.log('OSC:', msg.addresses, msg.values);
+// OSC$.subscribe((msg) => {
+//     console.log('OSC:', msg.addresses, msg.values);
+// });
+
+edtPedal$.subscribe((pedal) => {
+    console.log('Pedal!', pedal.instance, pedal.pedal);
 });
 
-edtPresets.get(2).startPreset(DrumNotes._2);
-edtPresets.get(13).startPreset(0);
+edtTrack$.subscribe((trackMsg) => {
+    console.log('Track', trackMsg);
+
+});
