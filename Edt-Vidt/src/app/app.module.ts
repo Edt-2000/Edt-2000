@@ -38,6 +38,12 @@ const appRoutes = <Routes>[{
     path: VidtPresets.Bluescreen,
     component: BluescreenComponent
 }, {
+<<<<<<< HEAD
+    path: VidtPresets.VideoPlayer,
+    component: VideoPlayerComponent
+},{
+=======
+>>>>>>> 64bd0bb6783412094b22be153db1381408e3ef97
     path: VidtPresets.Vista,
     component: VistaComponent
 }, {

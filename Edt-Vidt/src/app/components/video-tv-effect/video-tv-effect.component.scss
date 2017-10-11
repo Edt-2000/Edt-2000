@@ -1,9 +1,19 @@
 @import "../../../styles/config/colors";
 
 .video {
+    position: relative;
+
     &__player {
+        left: 0;
         min-height: 100vh;
         min-width: 100vw;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+
+        &.is-active {
+            z-index: 2;
+        }
     }
 
     &--effect {

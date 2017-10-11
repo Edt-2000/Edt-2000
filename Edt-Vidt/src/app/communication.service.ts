@@ -2,30 +2,30 @@ import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/filter'
-import {colorMsg, intensityMsg, preparePresetMsg} from '../../../SharedTypes/socket';
+import {IColor, IIntensityMsg, IPreparePresetMsg} from '../../../SharedTypes/socket';
 
 
 @Injectable()
 export class CommunicationService {
     private _messageObs: Observable<any>;
 
-    public color: Observable<colorMsg>;
-    public preset: Observable<preparePresetMsg>;
-    public intensity: Observable<intensityMsg>;
+    public color: Observable<IColor>;
+    public preset: Observable<IPreparePresetMsg>;
+    public intensity: Observable<IIntensityMsg>;
 
     constructor(private socket: Socket) {
         this._messageObs = this.socket.fromEvent('message');
 
         // Preset msg
-        this.preset = this._messageObs.filter((msg: any): msg is preparePresetMsg => {
+        this.preset = this._messageObs.filter((msg: any): msg is IPreparePresetMsg => {
             return !!msg.preset;
         });
 
         // Expose observables for various message types
-        this.color = this._messageObs.filter((msg: any): msg is colorMsg => {
+        this.color = this._messageObs.filter((msg: any): msg is IColor => {
             return !!msg.color && !!msg.bgColor;
         });
-        this.intensity = this._messageObs.filter((msg: any): msg is intensityMsg => {
+        this.intensity = this._messageObs.filter((msg: any): msg is IIntensityMsg => {
             return typeof msg.intensity === 'number';
         });
 
