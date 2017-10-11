@@ -1,6 +1,6 @@
 import {Component, HostBinding, Inject, OnInit} from '@angular/core';
 import {CommunicationService} from './communication.service';
-import {colorMsg, preparePresetMsg} from '../../../SharedTypes/socket';
+import {IColor, IPreparePresetMsg} from '../../../SharedTypes/socket';
 import {Router} from '@angular/router';
 
 @Component({
@@ -17,7 +17,6 @@ import {Router} from '@angular/router';
     template: `<router-outlet></router-outlet>`
 })
 export class AppComponent implements OnInit {
-    @HostBinding('style.backgroundColor') bgColor = 'white';
     @HostBinding('style.color') color = 'black';
 
     constructor(
@@ -26,14 +25,13 @@ export class AppComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        // Subscribe to any message with colorMsg data
-        this._communicationService.color.subscribe((msg: colorMsg) => {
-            this.bgColor = `hsl(${msg.bgColor.hue}, ${msg.bgColor.saturation}%, ${msg.bgColor.brightness}%)`;
-            this.color = `hsl(${msg.color.hue}, ${msg.color.saturation}%, ${msg.color.brightness}%)`;
+        // Subscribe to any message with IColor data
+        this._communicationService.color.subscribe((msg: IColor) => {
+            this.color = `hsl(${msg.hue}, ${msg.saturation}%, ${msg.brightness}%)`;
         });
 
         // Subscribe to preset changes and switch to different routes accordingly
-        this._communicationService.preset.subscribe((msg: preparePresetMsg) => {
+        this._communicationService.preset.subscribe((msg: IPreparePresetMsg) => {
             console.log('Switch preset to:', msg.preset);
             this._router.navigate([msg.preset]);
         });
