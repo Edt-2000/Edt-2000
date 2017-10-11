@@ -6,6 +6,6 @@ import {io} from '../communication/sockets';
  * @param message
  */
 export function sendToVidt(message: any): void {
-    console.log('Emitting socket to Edt-Vidt: ', message);
+    // console.log('Emitting socket to Edt-Vidt: ', message);
     io.emit('message', message);
 }
