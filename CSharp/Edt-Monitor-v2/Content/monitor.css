@@ -43,18 +43,18 @@ h1 {
 		}
 
 #graphs {
-	flex: 1 1 auto;
+	flex: 4 4 auto;
 	height: calc(100vh - 160px);
 	margin-left: 10px;
 	border: 1px solid #2f2;
 	display: flex;
-	flex-flow: column wrap;
+	flex-flow: wrap;
 	justify-content: space-between;
 }
 
 	#graphs .graph {
 		background: #111;
-		width: 800px;
-		height: 350px;
+		width: 400px;
+		height: 175px;
 		padding: 10px;
 	}

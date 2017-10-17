@@ -3,7 +3,7 @@
 	graphs: [],
 
 	addGraph: function (id) {
-		$('#graphs').append($('<div>').addClass("graph").append($('<canvas>').attr("width","800px").attr("height","350px").attr("id", id)));
+		$('#graphs').append($('<div>').addClass("graph").append($('<canvas>').attr("width","400px").attr("height","175px").attr("id", id)));
 
 		Monitor.graphs[id] = new SmoothieChart({
 			millisPerPixel : 12,

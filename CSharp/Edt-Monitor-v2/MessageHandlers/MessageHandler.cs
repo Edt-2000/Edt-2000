@@ -34,7 +34,7 @@ namespace Edt_Monitor_v2.MessageHandlers
 				{
 					foreach (var argument in message.Arguments)
 					{
-						OnMessageReceived(this, new KeyValuePair<string, float>(message.Address + '-' + ++i, float.Parse(argument.ToString())));
+						OnMessageReceived(this, new KeyValuePair<string, float>($"param-{++i}", float.Parse(argument.ToString())));
 					}
 				}
 			};
