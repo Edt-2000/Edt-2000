@@ -1,6 +1,6 @@
 @import "../../../styles/config/colors";
 
-.tv {
+.shutdown {
     background: #000;
     height: 100%;
 
@@ -17,7 +17,7 @@
     }
 
     &::before {
-        animation: tv-shutdown-circle 200ms linear 4300ms;
+        animation: shutdown-circle 200ms linear 4300ms;
         background: #FFF;
         border-radius: 50%;
         box-shadow: 0 0 24px 28px #FFF;
@@ -31,10 +31,9 @@
         z-index: 2;
     }
     &:after {
-        animation: tv-shutdown 600ms linear 4s;
+        animation: shutdown 600ms linear 4s;
         background: #FFF;
         bottom: 0;
-        content: '';
         filter: blur(10px);
         left: 0;
         opacity: 0;
@@ -55,7 +54,7 @@
     }
 }
 
-@keyframes tv-shutdown {
+@keyframes shutdown {
     0% {
         opacity: 1;
     }
@@ -73,7 +72,7 @@
     }
 }
 
-@keyframes tv-shutdown-circle {
+@keyframes shutdown-circle {
     0% {
         transform: translate(-50%, -50%) scale(1);
     }
