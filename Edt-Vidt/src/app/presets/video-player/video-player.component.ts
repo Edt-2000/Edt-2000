@@ -31,26 +31,19 @@ export class VideoPlayerComponent implements OnInit {
     }
 
     ngOnInit() {
-        const videos = this.element.nativeElement.getElementsByClassName('video__player');
+        const video = this.element.nativeElement.getElementsByClassName('video__player');
 
+        // todo change video nr with ipad
         this.switchVideo(0);
 
-        // for (const video of videos) {
-        //     video.muted = true; //fix for muted attr bug
-        //     video.play();
-        //
-        //     if(this.glitch) {
-        //         this.interval = setInterval(() => {
-        //             video.currentTime = Math.random() * video.duration;
-        //         }, 1000);
-        //     }
-        //
-        //     // todo: load multiple videos
-        //     // all start paused
-        //     // remove interval from prev video if glitch true
-        //     // new video: check for glitch & effectOverlay (classname) and add/remove
-        // }
+        video.muted = true; //fix for muted attr bug
+        video.play();
 
+        if(this.glitch) {
+            this.interval = setInterval(() => {
+                video.currentTime = Math.random() * video.duration;
+            }, 1000);
+        }
     }
 
     switchVideo(videoIndex: number) {
