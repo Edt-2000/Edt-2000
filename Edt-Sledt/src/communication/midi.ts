@@ -17,7 +17,8 @@ import {noteToNote, noteToOctave} from '../utils';
 
 // console.log(new easymidi.getInputs());
 export const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
-const hardwareInput = new easymidi.Input('EDTMID USB MIDI Interface');
+// TODO: TryCatch or something like that to prevent failing when device is not connected
+// const hardwareInput = new easymidi.Input('EDTMID USB MIDI Interface');
 const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
 
 interface IEasyMidiNoteMsg {
@@ -61,7 +62,7 @@ export const Select$: Observable<IMidiSongMsg> = Observable.fromEvent<IMidiSongM
 export const CC$: Observable<IMidiCCMsg> = Observable.fromEvent<IMidiCCMsg>(virtualInput, MidiMsgTypes.cc)
     .filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
 
-export const Clock$: Observable<null> = Observable.fromEvent<null>(hardwareInput, MidiMsgTypes.clock);
+// export const Clock$: Observable<null> = Observable.fromEvent<null>(hardwareInput, MidiMsgTypes.clock);
 
 // /**
 //  * Try connecting to a live device
