@@ -1,6 +1,6 @@
-import {Component, Input, OnInit, OnDestroy, ElementRef} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {CommunicationService} from "../../communication.service";
-import {ITrackMsg} from "../../../../../SharedTypes/socket";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
     selector: 'app-glitch-text-component',
@@ -9,65 +9,31 @@ import {ITrackMsg} from "../../../../../SharedTypes/socket";
 })
 export class GlitchTextComponent implements OnInit, OnDestroy {
     @Input() glitchText: string;
-    @Input() glitchModifier: glitchModifiers;
-    private amount = 8;
+    public glitchClass = "glitch--idle";
+    private _track$: Subscription;
 
-    constructor(private element: ElementRef, private communicationService: CommunicationService) {
+    constructor(private communicationService: CommunicationService) {
 
     }
 
     ngOnInit() {
-        this.animateColor();
-        this.communicationService.track.subscribe((track) => {
-            this.amount = Math.max(8, track.right.z);
-            this.animateColor();
+        this._track$ = this.communicationService.track.subscribe((track) => {
+            const level = Math.round(this.map(track.right.z, 0, 127, 1, 5));
+            this.glitchClass = `glitch--level${level}`;
         });
     }
 
-    animateColor() {
-        const colorElems = this.element.nativeElement.getElementsByClassName('glitch__color');
-        for (const colorElem of colorElems) {
-            colorElem.animate(
-                [
-                    {
-                        transform: `translate(0)`,
-                    },
-                    {
-                        transform: `translate(-${this.amount}px, ${this.amount}px)`
-                    },
-                    {
-                        transform: `translate(-${this.amount}px, -${this.amount}px)`
-                    },
-                    {
-                        transform: `translate(${this.amount}px, ${this.amount}px)`
-                    },
-                    {
-                        transform: `translate(${this.amount}px, -${this.amount}px)`
-                    },
-                    {
-                        transform: `translate(0)`
-                    }
-                ], {
-                    direction: (colorElem.classList.contains('glitch__color--second')) ? "reverse" : "normal",
-                    duration: 300,
-                    delay: (colorElem.classList.contains('glitch__color--third')) ? 100 : 0,
-                    iterations: Infinity,
-                    easing: "cubic-bezier(.25, .46, .45, .94)"
-                }
-            )
-        }
-
-    }
-
     ngOnDestroy() {
-
+        if (typeof this._track$ !== 'undefined') {
+            this._track$.unsubscribe();
+        }
     }
-}
 
-export enum glitchModifiers {
-    'glitch--idle',
-    'glitch--level1',
-    'glitch--level2',
-    'glitch--level3',
-    'glitch--level4'
+    map(input: number, inputMin: number, inputMax: number, outputMin: number, outputMax: number) {
+        const deltaInput = inputMax - inputMin;
+        const deltaOutput = outputMax - outputMin;
+
+        return ((((input - inputMin) / deltaInput) * deltaOutput) + outputMin);
+    }
+
 }
