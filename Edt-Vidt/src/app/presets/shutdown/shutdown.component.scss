@@ -30,10 +30,12 @@
         width: 1px;
         z-index: 2;
     }
+
     &:after {
         animation: shutdown 600ms linear 4s;
         background: #FFF;
         bottom: 0;
+        content: '';
         filter: blur(10px);
         left: 0;
         opacity: 0;

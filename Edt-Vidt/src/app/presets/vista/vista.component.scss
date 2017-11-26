@@ -1,34 +1,34 @@
 .vista {
-    height: 100%;
     background: #1E477D;
+    height: 100%;
     position: relative;
 
     &::before {
+        animation: grow 4s ease-in-out infinite;
+        background: url('../../../assets/img/vista_bcg.jpg') no-repeat center bottom / cover;
         content: '';
+        height: 100%;
+        left: 50%;
         position: absolute;
         top: 50%;
-        left: 50%;
         transform: translate(-50%, -50%);
-        height: 100%;
         width: 200%;
-        background: url('../../../assets/img/vista_bcg.jpg') no-repeat center bottom / cover;
-        animation: grow 4s ease-in-out infinite;
     }
 
     &__logo {
+        animation: move 6s linear infinite;
+        display: block;
+        left: 50%;
+        max-width: 400px;
+        overflow: hidden;
         position: absolute;
         top: 50%;
-        left: 50%;
         transform: translate(-50%, -50%);
-        display: block;
-        overflow: hidden;
-        max-width: 400px;
-        animation: move 6s linear infinite;
 
         @for $i from 1 through 40 {
             &:nth-child(#{$i}) {
-                clip-path: polygon(($i - 1) * 2.5% 0, $i * 2.5% 0, $i * 2.5% 100%, ($i - 1) * 2.5% 100%);
                 animation-delay: 20ms * $i;
+                clip-path: polygon(($i - 1) * 2.5% 0, $i * 2.5% 0, $i * 2.5% 100%, ($i - 1) * 2.5% 100%);
             }
         }
     }
@@ -47,6 +47,7 @@
         transform: translate(-50%, -50%) skew(0deg)
     }
 }
+
 @keyframes move {
     @for $i from 0 through 4 {
         #{0% + ($i * 5%)} {

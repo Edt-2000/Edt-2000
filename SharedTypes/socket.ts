@@ -15,7 +15,7 @@ export enum VidtPresets {
     HackingAnimation = 'HackingAnimation',
     LogoIdle = 'LogoIdle',
     TextDisplay = 'TextDisplay',
-    TvShutdown = 'TvShutdown',
+    Shutdown = 'Shutdown',
     VideoPlayer = 'VideoPlayer',
     Bluescreen = 'Bluescreen',
     Vista = 'Vista',
