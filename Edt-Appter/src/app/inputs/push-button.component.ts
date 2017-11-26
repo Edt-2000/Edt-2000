@@ -1,18 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-push-button',
   template: `
-    <p>
-      push-button works!
-    </p>
+    <div class="push-button">
+      <div class="push-button__internal"></div>
+    </div>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./push-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PushButtonComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
