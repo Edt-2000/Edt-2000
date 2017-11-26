@@ -25,6 +25,7 @@
     &__color {
         animation-duration: 300ms;
         animation-timing-function: cubic-bezier(.25, .46, .45, .94);
+        animation-iteration-count: infinite;
         height: 100%;
         left: 0;
         opacity: 0.8;
@@ -71,50 +72,63 @@
 
     &--idle {
         .glitch__color {
-            //animation-name: glitch-idle;
-            //animation-iteration-count: infinite;
+            animation-name: glitch-idle;
+        }
+    }
+    @for $i from 1 through 20 {
+        &--level#{$i} {
+            .glitch__color {
+                animation-name: glitch-level#{$i};
+            }
         }
     }
 
-    &--level1 {
-        .glitch__color {
-            animation-name: glitch-level1;
+}
+@for $i from 1 through 20 {
+    $amount: (8 + (($i - 1) * 4)) px;
+    $negAmount: (-1 * (8 + (($i - 1) * 4))) px;
+    @keyframes glitch-level#{$i} {
+        0% {
+            transform: translate(0);
         }
-    }
-
-    &--level2 {
-        .glitch__color {
-            animation-name: glitch-level2;
+        20% {
+            transform: translate($negAmount, $amount);
         }
-    }
-
-    &--level3 {
-        .glitch__color {
-            animation-name: glitch-level3;
+        40% {
+            transform: translate($negAmount, $negAmount);
         }
-    }
-
-    &--level4 {
-        .glitch__color {
-            animation-name: glitch-level4;
+        60% {
+            transform: translate($amount, $amount);
         }
-    }
-
-    &--scale {
-        animation: glitch-grow 1s cubic-bezier(0.7, 0.5, 0.6, 0.9);
+        80% {
+            transform: translate($amount, $negAmount);
+        }
+        100% {
+            transform: translate(0);
+        }
     }
 }
 
-@include keyframe-glitch(glitch-idle, 8px);
-
-@include keyframe-glitch(glitch-level1, 4px);
-
-@include keyframe-glitch(glitch-level2, 8px);
-
-@include keyframe-glitch(glitch-level3, 16px);
-
-@include keyframe-glitch(glitch-level4, 24px);
-
+@keyframes glitch-idle {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-8px, 8px);
+    }
+    40% {
+        transform: translate(-8px, -8px);
+    }
+    60% {
+        transform: translate(8px, 8px);
+    }
+    80% {
+        transform: translate(8px, -8px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
 
 @keyframes glitch-skew {
     0% {
