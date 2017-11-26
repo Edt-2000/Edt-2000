@@ -11,7 +11,7 @@ import {VidtPresets} from '../../../SharedTypes/socket';
 import {GlitchTextComponent} from './components/glitch-text-component/glitch-text.component';
 import {LogoIdleComponent} from './presets/logo-idle-component/logo-idle.component';
 import {HackingAnimationComponent} from './presets/hacking-animation/hacking-animation.component';
-import {TvShutdownComponent} from './presets/tv-shutdown/tv-shutdown.component';
+import {ShutdownComponent} from './presets/shutdown/shutdown.component';
 import {VideoTvEffectComponent} from './components/video-tv-effect/video-tv-effect.component';
 import {BluescreenComponent} from './presets/bluescreen/bluescreen.component';
 import {VideoPlayerComponent} from './presets/video-player/video-player.component';
@@ -29,8 +29,8 @@ const appRoutes = <Routes>[{
     path: VidtPresets.HackingAnimation,
     component: HackingAnimationComponent
 }, {
-    path: VidtPresets.TvShutdown,
-    component: TvShutdownComponent
+    path: VidtPresets.Shutdown,
+    component: ShutdownComponent
 }, {
     path: VidtPresets.Bluescreen,
     component: BluescreenComponent
@@ -52,7 +52,7 @@ const appRoutes = <Routes>[{
         LogoIdleComponent,
         TextDisplayComponent,
         HackingAnimationComponent,
-        TvShutdownComponent,
+        ShutdownComponent,
         VideoTvEffectComponent,
         VideoPlayerComponent,
         BluescreenComponent,

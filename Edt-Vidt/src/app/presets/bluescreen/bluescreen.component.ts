@@ -12,7 +12,7 @@ export class BluescreenComponent implements OnInit {
 
   ngOnInit() {
       document.addEventListener("keydown", () => {
-          this.router.navigateByUrl('/TvShutdown');
+          this.router.navigateByUrl('/Shutdown');
       });
   }
 

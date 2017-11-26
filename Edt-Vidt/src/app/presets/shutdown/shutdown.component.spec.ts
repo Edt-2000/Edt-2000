@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TvShutdownComponent } from './tv-shutdown.component';
+import { ShutdownComponent } from './shutdown.component';
 
-describe('TvShutdownComponent', () => {
-  let component: TvShutdownComponent;
-  let fixture: ComponentFixture<TvShutdownComponent>;
+describe('ShutdownComponent', () => {
+  let component: ShutdownComponent;
+  let fixture: ComponentFixture<ShutdownComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TvShutdownComponent ]
+      declarations: [ ShutdownComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TvShutdownComponent);
+    fixture = TestBed.createComponent(ShutdownComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
