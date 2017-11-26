@@ -26,11 +26,11 @@ export class BgColorCycle implements IEdtPreset {
 
         this.triggerSubscriber = BeatMain
             .subscribe(() => {
-                this.hue = (this.hue + rescale(this.rotationVelocity, 127, 0, 360)) % 360;
+                this.hue = (this.hue + rescale(this.rotationVelocity, 127, 0, 255)) % 255;
                 const newColor: IColor = {
                     hue: this.hue,
-                    saturation: 100,
-                    brightness: 50,
+                    saturation: 255,
+                    brightness: 255,
                 };
                 // Emit this new IColor value to other listeners
                 EdtMainColor.next(newColor);

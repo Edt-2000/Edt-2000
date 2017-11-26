@@ -17,11 +17,17 @@ export enum OSCDevices {
 export enum Modii {
     SingleSolid = 0,
     SinglePulse = 1,
+    SingleSpark = 7,
     RainbowSolid = 2,
     RainbowPulse = 3,
+    RainbowSpark = 8,
     VUMeter = 4,
     Twinkle = 5,
     Strobo = 6,
+    DualSolid = 9,
+    DualPulse = 10,
+    DualSparkle = 11,
+    Kitt = 12,
 }
 
 export const oscInPort = 12345;

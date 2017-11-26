@@ -3,7 +3,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/merge';
 import {Observable} from 'rxjs/Observable';
 import {drumChannel} from '../../../SharedTypes/config';
-import {EdtLEDFlash} from '../outputs/edt-led';
+import {EdtLEDSpark} from '../outputs/edt-led';
 import {IMidiNoteMsg} from '../types';
 import {noteOff$, noteOn$} from './midi';
 

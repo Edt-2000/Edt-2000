@@ -4,10 +4,11 @@ import {manualPresets$} from '../inputs/edt-padt';
 import {presetMidi$} from '../inputs/midi';
 import {GlitchLogo} from './ambient/glitchLogo';
 import {BeatToFlash} from './colors/beatToFlash';
-import {EdtLEDFollowColor} from './colors/edtLEDFollowColor';
+import {EdtLEDColorFlash} from './colors/edtLEDColorFlash';
 import {EdtVidtFollowColor} from './colors/edtVidtFollowColor';
 import {BgColorCycle} from './drums/bgColorCycle';
 import {DrumToBeat} from './drums/drumToBeat';
+import {EdtLEDBeatToRainbow} from './colors/edtLEDBeatToRainbow';
 
 /**
  * An Edt-Preset is a `state` that can be active during a performance.
@@ -36,9 +37,10 @@ edtPresets.set(2, new DrumToBeat());
 edtPresets.set(10, new GlitchLogo());
 
 // Output controls that take 'subjects' or inputs and send this to an output device
-edtPresets.set(11, new EdtLEDFollowColor());
+edtPresets.set(11, new EdtLEDColorFlash());
 edtPresets.set(12, new EdtVidtFollowColor());
 edtPresets.set(13, new BeatToFlash());
+edtPresets.set(14, new EdtLEDBeatToRainbow());
 
 /**
  * Expose Preset Observable with combined midi and manual preset listeners

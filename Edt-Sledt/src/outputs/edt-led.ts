@@ -12,16 +12,27 @@ import {rescale} from '../utils';
  * @param {IColor} colorMsg
  * @constructor
  */
-export function EdtLEDFlash(instance: number, start: number, end: number, duration: number, colorMsg: IColor) {
+export function EdtLEDSpark(instance: number, start: number, end: number, duration: number, colorMsg: IColor) {
 
     sendToOSC(DeviceIPs.edtOut, [OSCDevices.EdtLed], [
-        2,
+        Modii.SingleSpark,
         start,
         end,
         colorMsg.hue,
         colorMsg.saturation,
         colorMsg.brightness,
         duration,
+    ]);
+}
+
+export function EdtLEDRainbow(instance: number, start: number, end: number, colorMsg: IColor, deltaHue: number) {
+
+    sendToOSC(DeviceIPs.edtOut, [OSCDevices.EdtLed], [
+        Modii.RainbowSolid,
+        start,
+        end,
+        colorMsg.hue,
+        deltaHue,
     ]);
 }
 
