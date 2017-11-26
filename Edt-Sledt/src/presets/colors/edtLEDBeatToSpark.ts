@@ -2,7 +2,7 @@ import {EdtLEDSpark} from '../../outputs/edt-led';
 import {BeatMain} from '../../subjects/triggers';
 import {IEdtPreset} from '../presets';
 
-export class BeatToFlash implements IEdtPreset {
+export class EdtLEDBeatToSpark implements IEdtPreset {
     private beatSubscription;
 
     public startPreset(velocity: number): void {

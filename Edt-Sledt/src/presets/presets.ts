@@ -3,7 +3,7 @@ import {virtualOutput} from '../communication/midi';
 import {manualPresets$} from '../inputs/edt-padt';
 import {presetMidi$} from '../inputs/midi';
 import {GlitchLogo} from './ambient/glitchLogo';
-import {BeatToFlash} from './colors/beatToFlash';
+import {EdtLEDBeatToSpark} from './colors/edtLEDBeatToSpark';
 import {EdtLEDColorFlash} from './colors/edtLEDColorFlash';
 import {EdtVidtFollowColor} from './colors/edtVidtFollowColor';
 import {BgColorCycle} from './drums/bgColorCycle';
@@ -39,7 +39,7 @@ edtPresets.set(10, new GlitchLogo());
 // Output controls that take 'subjects' or inputs and send this to an output device
 edtPresets.set(11, new EdtLEDColorFlash());
 edtPresets.set(12, new EdtVidtFollowColor());
-edtPresets.set(13, new BeatToFlash());
+edtPresets.set(13, new EdtLEDBeatToSpark());
 edtPresets.set(14, new EdtLEDBeatToRainbow());
 
 /**
