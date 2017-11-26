@@ -9,6 +9,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {VidtPresets} from '../../../SharedTypes/socket';
 
 import {GlitchTextComponent} from './components/glitch-text-component/glitch-text.component';
+import {GridscapeComponent} from './presets/gridscape/gridscape.component';
 import {LogoIdleComponent} from './presets/logo-idle-component/logo-idle.component';
 import {HackingAnimationComponent} from './presets/hacking-animation/hacking-animation.component';
 import {ShutdownComponent} from './presets/shutdown/shutdown.component';
@@ -20,6 +21,9 @@ import {VistaComponent} from './presets/vista/vista.component';
 import {socketConfig} from '../../../SharedTypes/socket';
 
 const appRoutes = <Routes>[{
+    path: VidtPresets.Gridscape,
+    component: GridscapeComponent,
+}, {
     path: VidtPresets.LogoIdle,
     component: LogoIdleComponent
 }, {
@@ -56,7 +60,8 @@ const appRoutes = <Routes>[{
         VideoTvEffectComponent,
         VideoPlayerComponent,
         BluescreenComponent,
-        VistaComponent
+        VistaComponent,
+        GridscapeComponent
     ],
     imports: [
         RouterModule.forRoot(

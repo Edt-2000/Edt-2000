@@ -8,6 +8,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 export class LogoIdleComponent implements OnInit, OnDestroy {
 
+    public stars = Array(64).map((x,i) => i + 1);
+
     constructor() {}
 
     ngOnInit() {
