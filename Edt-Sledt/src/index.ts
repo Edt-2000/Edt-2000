@@ -5,8 +5,8 @@ import {DeviceIPs} from '../../SharedTypes/config';
 import {sendToOSC} from './communication/osc';
 import {edtPedal$} from './inputs/edt-pedal';
 import {edtTrack$} from './inputs/edt-track';
-import {edtPresets, preset$} from './presets/presets';
 import {sendToVidt} from './outputs/edt-vidt';
+import {edtPresets, preset$} from './presets/presets';
 
 preset$
     .do((msg) => {
@@ -25,10 +25,9 @@ preset$
 // });
 
 edtPedal$.subscribe((pedal) => {
-    console.log('Pedal!', pedal.instance, pedal.pedal);
+    // console.log('Pedal!', pedal.instance, pedal.pedal);
 });
 
 edtTrack$.subscribe((trackMsg) => {
-    console.log('Track', trackMsg);
     sendToVidt(trackMsg);
 });
