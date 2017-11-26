@@ -58,9 +58,10 @@
     "component": {
       "flat": true,
       "spec": false,
-      "inlineStyle": true,
+      "inlineStyle": false,
       "inlineTemplate": true,
-      "changeDetection": "OnPush"
+      "changeDetection": "OnPush",
+      "viewEncapsulation": "None"
     }
   }
 }

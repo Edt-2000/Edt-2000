@@ -3,7 +3,7 @@ import {Socket} from 'ngx-socket-io';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/filter'
 import {IColor, IIntensityMsg, IPreparePresetMsg, ITrackMsg} from '../../../SharedTypes/socket';
-import "rxjs/add/operator/do";
+import 'rxjs/add/operator/do';
 
 
 @Injectable()
