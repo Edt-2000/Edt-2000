@@ -2,9 +2,9 @@ import 'rxjs/add/operator/filter';
 import {Subscription} from 'rxjs/Subscription';
 import {IColor} from '../../../../SharedTypes/socket';
 import {EdtMainColor} from '../../subjects/colors';
+import {BeatMain} from '../../subjects/triggers';
 import {rescale} from '../../utils';
 import {IEdtPreset} from '../presets';
-import {BeatMain} from '../../subjects/triggers';
 
 /**
  * The bg IColor cycle Preset cycles between colors trigger by filteredNoteOn inputs
@@ -12,7 +12,7 @@ import {BeatMain} from '../../subjects/triggers';
 export class BgColorCycle implements IEdtPreset {
     private hue: number;
 
-    private triggerSubscriber: Subscription;
+    private subscription: Subscription;
 
     private rotationVelocity: number;
 
@@ -24,7 +24,7 @@ export class BgColorCycle implements IEdtPreset {
     public startPreset(rotationVelocity: number): void {
         this.rotationVelocity = rotationVelocity;
 
-        this.triggerSubscriber = BeatMain
+        this.subscription = BeatMain
             .subscribe(() => {
                 this.hue = (this.hue + rescale(this.rotationVelocity, 127, 0, 255)) % 255;
                 const newColor: IColor = {
@@ -38,7 +38,7 @@ export class BgColorCycle implements IEdtPreset {
     }
 
     public stopPreset(): void {
-        if (typeof this.triggerSubscriber !== 'undefined') this.triggerSubscriber.unsubscribe();
+        if (typeof this.subscription !== 'undefined') this.subscription.unsubscribe();
     }
 
 }

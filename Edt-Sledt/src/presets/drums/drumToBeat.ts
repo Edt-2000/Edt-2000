@@ -5,10 +5,10 @@ import {BeatMain} from '../../subjects/triggers';
 import {IEdtPreset} from '../presets';
 
 export class DrumToBeat implements IEdtPreset {
-    private triggerSubscriber: Subscription;
+    private subscriber: Subscription;
 
     public startPreset(listenTo: number): void {
-        this.triggerSubscriber = drumTriggerOn$
+        this.subscriber = drumTriggerOn$
             .filter((drumNote) => listenTo === drumNote)
             .subscribe((note) => {
                 BeatMain.next(note);
@@ -16,8 +16,8 @@ export class DrumToBeat implements IEdtPreset {
     }
 
     public stopPreset(): void {
-        if (typeof this.triggerSubscriber !== 'undefined') {
-            this.triggerSubscriber.unsubscribe();
+        if (typeof this.subscriber !== 'undefined') {
+            this.subscriber.unsubscribe();
         }
     }
 

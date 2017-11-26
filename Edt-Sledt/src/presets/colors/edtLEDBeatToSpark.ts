@@ -3,10 +3,10 @@ import {BeatMain} from '../../subjects/triggers';
 import {IEdtPreset} from '../presets';
 
 export class EdtLEDBeatToSpark implements IEdtPreset {
-    private beatSubscription;
+    private subscription;
 
     public startPreset(velocity: number): void {
-        this.beatSubscription = BeatMain
+        this.subscription = BeatMain
             .subscribe(() => {
                 EdtLEDSpark(0, 0, 127, 63, {
                     hue: 100,
@@ -17,8 +17,8 @@ export class EdtLEDBeatToSpark implements IEdtPreset {
     }
 
     public stopPreset(): void {
-        if (typeof this.beatSubscription !== 'undefined') {
-            this.beatSubscription.unsubscribe();
+        if (typeof this.subscription !== 'undefined') {
+            this.subscription.unsubscribe();
         }
     }
 }
