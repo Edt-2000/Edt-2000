@@ -36,15 +36,12 @@ export function EdtLEDRainbow(instance: number, start: number, end: number, colo
     ]);
 }
 
-export function EdtOnOff(instance: number = 0, duration: number) {
-    sendToOSC(DeviceIPs.edtOut, [OSCDevices.EdtOnOff, instance.toString()], [
-        1,
-        255,
-        255,
-        255,
-        255,
-        255,
-        duration,
+export function EdtKitt(instance: number = 0, position, length, colorMsg: IColor) {
+    sendToOSC(DeviceIPs.edtOut, [OSCDevices.EdtLed], [
+        Modii.Kitt,
+        position,
+        length,
+        colorMsg.hue,
     ]);
 }
 

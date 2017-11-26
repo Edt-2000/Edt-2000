@@ -9,6 +9,8 @@ import {EdtVidtFollowColor} from './colors/edtVidtFollowColor';
 import {BgColorCycle} from './drums/bgColorCycle';
 import {DrumToBeat} from './drums/drumToBeat';
 import {EdtLEDBeatToRainbow} from './colors/edtLEDBeatToRainbow';
+import {MidiToColors} from './colors/midiToColors';
+import {KittFuzzer} from './led-animations/kitt-fuzzer';
 
 /**
  * An Edt-Preset is a `state` that can be active during a performance.
@@ -41,6 +43,10 @@ edtPresets.set(11, new EdtLEDColorFlash());
 edtPresets.set(12, new EdtVidtFollowColor());
 edtPresets.set(13, new EdtLEDBeatToSpark());
 edtPresets.set(14, new EdtLEDBeatToRainbow());
+edtPresets.set(15, new MidiToColors());
+
+// Animations etc
+edtPresets.set(20, new KittFuzzer());
 
 /**
  * Expose Preset Observable with combined midi and manual preset listeners
@@ -64,4 +70,4 @@ export const preset$ = manualPresets$
     })
     .merge(presetMidi$) // Also listen to midi preset changes
     .filter((msg) => edtPresets.has(msg.preset)) // Only filter the ones we have registered
-    .do((msg) => console.log(`Setting preset ${msg.preset} ${msg.state ? 'on' : 'off'}.`));
+    .do((msg) => console.log(`Setting preset ${msg.preset} ${msg.state ? 'on' : 'off'} with param ${msg.modifier}.`));
