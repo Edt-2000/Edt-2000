@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {CommunicationService} from './communication.service';
 
-import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+import {SocketIoModule} from 'ngx-socket-io';
 import {TextDisplayComponent} from './presets/text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
 import {VidtPresets} from '../../../SharedTypes/socket';
@@ -17,10 +17,7 @@ import {BluescreenComponent} from './presets/bluescreen/bluescreen.component';
 import {VideoPlayerComponent} from './presets/video-player/video-player.component';
 import {VistaComponent} from './presets/vista/vista.component';
 
-const config: SocketIoConfig = {
-    url: '10.0.0.200:8988',
-    options: {}
-};
+import {socketConfig} from '../../../SharedTypes/socket';
 
 const appRoutes = <Routes>[{
     path: VidtPresets.LogoIdle,
@@ -67,7 +64,7 @@ const appRoutes = <Routes>[{
             {enableTracing: true} // <-- debugging purposes only
         ),
         BrowserModule,
-        SocketIoModule.forRoot(config)
+        SocketIoModule.forRoot(socketConfig)
     ],
     providers: [
         CommunicationService

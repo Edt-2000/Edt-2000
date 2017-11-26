@@ -9,6 +9,8 @@ export const enum DeviceIPs {
 export enum OSCDevices {
     EdtLed = 'L',
     EdtOnOff = 'O',
+    EdtTrack = 'TK',
+    EdtPedal = 'PD',
 }
 
 // Set Modus of Edt-LED

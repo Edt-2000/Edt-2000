@@ -1,3 +1,8 @@
+export const socketConfig: {url: string, options: object} = {
+    url: '10.0.0.200:8988',
+    options: {},
+};
+
 // -------------------------------- Building blocks
 
 export interface IColor {

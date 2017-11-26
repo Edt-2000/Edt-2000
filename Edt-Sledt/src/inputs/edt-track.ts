@@ -3,11 +3,12 @@ import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {ITrackMsg} from '../../../SharedTypes/socket';
 import {OSC$} from '../communication/osc';
+import {OSCDevices} from '../../../SharedTypes/config';
 
 export const edtTrack$: Observable<ITrackMsg> = OSC$
     .filter((OSCMsg) => (
         OSCMsg.addresses.length === 1 &&
-        OSCMsg.addresses[0] === 'TK' &&
+        OSCMsg.addresses[0] === OSCDevices.EdtTrack &&
         OSCMsg.values.length === 6
     ))
     .map((OSCMsg) => {
