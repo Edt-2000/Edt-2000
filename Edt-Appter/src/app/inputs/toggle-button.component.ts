@@ -7,7 +7,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
       toggle-button works!
     </p>
   `,
-  styles: [],
+  styleUrls: ['./toggle-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleButtonComponent implements OnInit {
