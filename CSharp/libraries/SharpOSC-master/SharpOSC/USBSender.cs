@@ -14,7 +14,7 @@ namespace SharpOSC
         {
             serialPort = new SerialPort(portName, baudRate);
 
-            serialPort.Open();
+            //serialPort.Open();
         }
 
         public void Send(byte[] message)
