@@ -1,20 +1,39 @@
+import {CommonModule} from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {RouterModule} from "@angular/router";
+import {RouterModule, Routes} from '@angular/router';
 
 
 import { AppComponent } from './app.component';
+import { ColorFlashesComponent } from './pages/color-flashes/color-flashes.component';
+import { ColoredTriggerComponent } from './components/colored-trigger/colored-trigger.component';
 
+
+const appRoutes = <Routes>[{
+  path: 'colorFlashes',
+  component: ColorFlashesComponent
+}];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ColorFlashesComponent,
+    ColoredTriggerComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule
+    CommonModule,
+    RouterModule.forRoot(
+      appRoutes,
+      {enableTracing: true} // <-- debugging purposes only
+    ),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    ColorFlashesComponent,
+    ColoredTriggerComponent
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
