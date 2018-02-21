@@ -37,6 +37,7 @@ export const presetMidi$: Observable<IPresetMsg> = presetOn$.merge(presetOff$);
 
 // Loggers, comment to disable
 // noteOn$.subscribe((msg) => console.log('NoteOn', msg));
+presetOn$.subscribe((msg) => console.log('Preset', msg));
 // noteOff$.subscribe((msg) => console.log('NoteOff', msg));
 // Program.subscribe((msg) => console.log('Program', msg));
 // Select.subscribe((msg) => console.log('Select', msg));
