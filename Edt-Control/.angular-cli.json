@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "edt-appter"
+    "name": "edt-control"
   },
   "apps": [
     {
@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -56,12 +56,10 @@
   "defaults": {
     "styleExt": "scss",
     "component": {
-      "flat": true,
-      "spec": false,
-      "inlineStyle": false,
       "inlineTemplate": true,
-      "changeDetection": "OnPush",
-      "viewEncapsulation": "None"
+      "spec": false,
+      "inlineStyle": true,
+      "changeDetection": "OnPush"
     }
   }
 }

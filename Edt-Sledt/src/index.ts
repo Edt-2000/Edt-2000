@@ -3,9 +3,6 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/merge';
 import {DeviceIPs} from '../../SharedTypes/config';
 import {sendToOSC} from './communication/osc';
-import {edtPedal$} from './inputs/edt-pedal';
-import {edtTrack$} from './inputs/edt-track';
-import {sendToVidt} from './outputs/edt-vidt';
 import {edtPresets, preset$} from './presets/presets';
 
 preset$
@@ -24,10 +21,10 @@ preset$
 //     console.log('OSC:', msg.addresses, msg.values);
 // });
 
-edtPedal$.subscribe((pedal) => {
-    // console.log('Pedal!', pedal.instance, pedal.pedal);
-});
+// edtPedal$.subscribe((pedal) => {
+//     // console.log('Pedal!', pedal.instance, pedal.pedal);
+// });
 
-edtTrack$.subscribe((trackMsg) => {
-    sendToVidt(trackMsg);
-});
+// edtTrack$.subscribe((trackMsg) => {
+//     sendToVidt(trackMsg);
+// });

@@ -3,11 +3,9 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/withLatestFrom';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
-import {IColor} from '../../../../SharedTypes/socket';
 import {noteOn$} from '../../inputs/midi';
-import {EdtKitt, EdtLEDSpark} from '../../outputs/edt-led';
+import {EdtLEDSpark} from '../../outputs/edt-led';
 import {EdtMainColor} from '../../subjects/colors';
-import {IMidiNoteMsg} from '../../types';
 import {rescale} from '../../utils';
 import {IEdtPreset} from '../presets';
 
