@@ -1,15 +1,12 @@
-import {presetMsgChannel} from '../../../SharedTypes/config';
-import {virtualOutput} from '../communication/midi';
-import {manualPresets$} from '../inputs/edt-padt';
 import {presetMidi$} from '../inputs/midi';
 import {GlitchLogo} from './ambient/glitchLogo';
+import {EdtLEDBeatToRainbow} from './colors/edtLEDBeatToRainbow';
 import {EdtLEDBeatToSpark} from './colors/edtLEDBeatToSpark';
 import {EdtLEDColorFlash} from './colors/edtLEDColorFlash';
 import {EdtVidtFollowColor} from './colors/edtVidtFollowColor';
+import {MidiToColors} from './colors/midiToColors';
 import {BgColorCycle} from './drums/bgColorCycle';
 import {DrumToBeat} from './drums/drumToBeat';
-import {EdtLEDBeatToRainbow} from './colors/edtLEDBeatToRainbow';
-import {MidiToColors} from './colors/midiToColors';
 import {KittFuzzer} from './led-animations/kitt-fuzzer';
 
 /**
@@ -52,8 +49,15 @@ edtPresets.set(20, new KittFuzzer());
  * Expose Preset Observable with combined midi and manual preset listeners
  * @type {Observable<IPresetMsg>}
  */
-export const preset$ = manualPresets$
-    .do((msg) => { // If manual, send out midi notes so we can record
+export const preset$ = presetMidi$
+    .filter((msg) => edtPresets.has(msg.preset)) // Only filter the ones we have registered
+    .do((msg) => console.log(`Setting preset ${msg.preset} ${msg.state ? 'on' : 'off'} with param ${msg.modifier}.`));
+
+/**
+ // ManuelPreset could be used to manually set and record presets
+
+ manualPresets$
+ .do((msg) => {
         if (msg.state) {
             virtualOutput.send('noteon', {
                 note: msg.preset,
@@ -68,6 +72,4 @@ export const preset$ = manualPresets$
             });
         }
     })
-    .merge(presetMidi$) // Also listen to midi preset changes
-    .filter((msg) => edtPresets.has(msg.preset)) // Only filter the ones we have registered
-    .do((msg) => console.log(`Setting preset ${msg.preset} ${msg.state ? 'on' : 'off'} with param ${msg.modifier}.`));
+ */

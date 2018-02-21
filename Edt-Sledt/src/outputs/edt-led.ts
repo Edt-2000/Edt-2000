@@ -1,7 +1,6 @@
 import {DeviceIPs, Modii, OSCDevices} from '../../../SharedTypes/config';
 import {IColor} from '../../../SharedTypes/socket';
 import {sendToOSC} from '../communication/osc';
-import {rescale} from '../utils';
 
 /**
  * Flash LEDS
