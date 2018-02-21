@@ -1,4 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {IColor} from '../../../../../SharedTypes/socket';
+import {CommunicationService} from '../../communication.service';
 
 @Component({
   selector: 'app-color-flashes',
@@ -6,7 +8,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
     <app-colored-trigger
       *ngFor="let trigger of triggers"
       [bgColor]="trigger"
-      (triggerAction)="triggerAction(trigger)"
+      (triggerAction)="triggerAction($event)"
     >
     </app-colored-trigger>
   `,
@@ -30,9 +32,14 @@ export class ColorFlashesComponent implements OnInit {
 
   public triggerAction(color: string) {
     console.log('color:', color);
+    this.communicationService.sendToSledt(<IColor>{
+      hue: 100,
+      saturation: 100,
+      brightness: 255
+    });
   }
 
-  constructor() { }
+  constructor(private communicationService: CommunicationService) { }
 
   ngOnInit() {
   }

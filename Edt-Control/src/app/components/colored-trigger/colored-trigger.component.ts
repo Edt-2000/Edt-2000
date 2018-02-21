@@ -6,7 +6,7 @@ import {Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output}
     <div
       class="colored-trigger"
       [style.backgroundColor]="bgColor"
-      (click)="triggerAction.emit()"
+      (click)="triggerAction.emit(bgColor)"
     ></div>
   `,
   styles: [`
@@ -21,7 +21,7 @@ import {Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output}
 })
 export class ColoredTriggerComponent implements OnInit {
   @Input() public bgColor: string;
-  @Output() public triggerAction: EventEmitter<any> = new EventEmitter();
+  @Output() public triggerAction: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 

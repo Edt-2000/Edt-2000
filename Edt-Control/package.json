@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,7 +23,8 @@
     "@angular/router": "^5.2.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
-    "zone.js": "^0.8.19"
+    "zone.js": "^0.8.19",
+    "ngx-socket-io": "latest"
   },
   "devDependencies": {
     "@angular/cli": "~1.7.0",

@@ -14,10 +14,14 @@ export const io = socket(server);
 /**
  * Socket management
  */
-io.on('connection', (display) => {
+io.on('connection', (client) => {
     console.log('Display connected');
-    display.on('disconnect', () => {
+    client.on('disconnect', () => {
         console.log('Display disconnected');
+    });
+
+    client.on('message', (message: any) => {
+        console.log('socket: ', message);
     });
 });
 
