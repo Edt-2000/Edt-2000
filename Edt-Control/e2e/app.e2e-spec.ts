@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('edt-appter App', () => {
+describe('edt-control App', () => {
   let page: AppPage;
 
   beforeEach(() => {
