@@ -13,6 +13,7 @@ export interface IColor {
 
 export enum VidtPresets {
     HackingAnimation = 'HackingAnimation',
+    Gridscape = 'Gridscape',
     LogoIdle = 'LogoIdle',
     TextDisplay = 'TextDisplay',
     Shutdown = 'Shutdown',
