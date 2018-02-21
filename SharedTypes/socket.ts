@@ -1,5 +1,5 @@
 export const socketConfig: {url: string, options: object} = {
-    url: process.env.SOCKETURL + ':8988',
+    url: '192.168.0.103:8988',
     options: {},
 };
 
@@ -20,7 +20,6 @@ export enum VidtPresets {
     VideoPlayer = 'VideoPlayer',
     Bluescreen = 'Bluescreen',
     Vista = 'Vista',
-    Gridscape = 'Gridscape'
 }
 
 // SubMessages
