@@ -23,6 +23,7 @@
     }
 
     &__color {
+        animation-name: glitch-idle;
         animation-duration: 300ms;
         animation-timing-function: cubic-bezier(.25, .46, .45, .94);
         animation-iteration-count: infinite;
@@ -69,12 +70,6 @@
             animation: glitch-line 1s linear 1s infinite;
         }
     }
-
-    &--idle {
-        .glitch__color {
-            animation-name: glitch-idle;
-        }
-    }
     @for $i from 1 through 20 {
         &--level#{$i} {
             .glitch__color {
@@ -85,8 +80,8 @@
 
 }
 @for $i from 1 through 20 {
-    $amount: (8 + (($i - 1) * 4)) px;
-    $negAmount: (-1 * (8 + (($i - 1) * 4))) px;
+    $amount: (8 + (($i - 1) * 4)) * 1px;
+    $negAmount: (-1 * (8 + (($i - 1) * 4))) * 1px;
     @keyframes glitch-level#{$i} {
         0% {
             transform: translate(0);
@@ -124,6 +119,26 @@
     }
     80% {
         transform: translate(8px, -8px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+@keyframes glitch-test {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-40px, 40px);
+    }
+    40% {
+        transform: translate(-40px, -40px);
+    }
+    60% {
+        transform: translate(40px, 40px);
+    }
+    80% {
+        transform: translate(40px, -40px);
     }
     100% {
         transform: translate(0);

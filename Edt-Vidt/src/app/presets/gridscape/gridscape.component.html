@@ -1,7 +1,7 @@
 <div class="gridscape">
     <div class="gridscape__horizon">
         <div class=gridscape__star *ngFor="let star of stars"></div>
-        <div class="gridscape__sun">
+        <div class="gridscape__sun" [class.bounce]="bounce">
         </div>
     </div>
     <div class="gridscape__land">

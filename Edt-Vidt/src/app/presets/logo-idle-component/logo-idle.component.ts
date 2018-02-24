@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class LogoIdleComponent implements OnInit, OnDestroy {
 
     public stars = Array(64).map((x, i) => i + 1);
-    public glitchClass = "glitch--idle";
+    public glitchClass: string;
     private _track$: Subscription;
 
 
@@ -21,8 +21,10 @@ export class LogoIdleComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._track$ = this.communicationService.intensity.subscribe(({intensity}) => {
             const level = Math.round(this.mapInput(intensity, 0, 127, 1, 5));
-            console.log(intensity);
-            this.glitchClass = `glitch--level${level}`;
+            const className = `glitch--level${level}`;
+            if (className !== this.glitchClass) {
+                this.glitchClass = `glitch--level${level}`;
+            }
         });
     }
 
