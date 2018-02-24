@@ -1,5 +1,9 @@
+import {DeviceIPs} from './config';
+
+export const socketPort: number = 8988;
+
 export const socketConfig: {url: string, options: object} = {
-    url: '192.168.0.103:8988',
+    url: `${DeviceIPs.edtSledt}:${socketPort}`,
     options: {},
 };
 

@@ -8,6 +8,7 @@ const app = express();
 const server = http.createServer(app);
 
 import socket = require('socket.io');
+import {socketPort} from '../../../SharedTypes/socket';
 // init
 export const io = socket(server);
 
@@ -25,4 +26,4 @@ io.on('connection', (client) => {
     });
 });
 
-server.listen(8988);
+server.listen(socketPort);
