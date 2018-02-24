@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommunicationService} from '../../communication.service';
 import {Subscription} from 'rxjs/Subscription';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
@@ -25,7 +24,6 @@ export class GridscapeComponent implements OnInit {
         this._track$ = this.communicationService.intensity
             .debounceTime(100)
             .subscribe(() => {
-                console.log('bounce');
                 this.bounce = true;
 
                 setTimeout(() => {
