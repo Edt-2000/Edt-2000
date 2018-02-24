@@ -3,12 +3,12 @@ import {IIntensityMsg, IPreparePresetMsg, VidtPresets} from '../../../../SharedT
 import {sendToVidt} from '../../outputs/edt-vidt';
 import {IEdtPreset} from '../presets';
 
-export class GlitchLogo implements IEdtPreset {
+export class Gridscape implements IEdtPreset {
     private subscription;
 
     public startPreset(intensity): void {
         sendToVidt({
-            preset: VidtPresets.LogoIdle,
+            preset: VidtPresets.Gridscape,
         } as IPreparePresetMsg);
 
         this.subscription = BeatMain

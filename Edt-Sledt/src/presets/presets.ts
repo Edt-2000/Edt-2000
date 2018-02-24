@@ -8,6 +8,7 @@ import {MidiToColors} from './colors/midiToColors';
 import {BgColorCycle} from './drums/bgColorCycle';
 import {DrumToBeat} from './drums/drumToBeat';
 import {KittFuzzer} from './led-animations/kitt-fuzzer';
+import {Gridscape} from './ambient/gridscape';
 
 /**
  * An Edt-Preset is a `state` that can be active during a performance.
@@ -33,6 +34,7 @@ edtPresets.set(1, new BgColorCycle());
 edtPresets.set(2, new DrumToBeat());
 
 // Ambient effects
+edtPresets.set(9,  new Gridscape());
 edtPresets.set(10, new GlitchLogo());
 
 // Output controls that take 'subjects' or inputs and send this to an output device
