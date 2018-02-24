@@ -1,21 +1,34 @@
 import {CommonModule} from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SocketIoModule} from 'ngx-socket-io';
 import {socketConfig} from '../../../SharedTypes/socket';
 
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {CommunicationService} from './communication.service';
-import { ColorFlashesComponent } from './pages/color-flashes/color-flashes.component';
-import { ColoredTriggerComponent } from './components/colored-trigger/colored-trigger.component';
+import {ColorFlashesComponent} from './pages/color-flashes/color-flashes.component';
+import {ColoredTriggerComponent} from './components/colored-trigger/colored-trigger.component';
+import {PresetToggleComponent} from './components/preset-toggle/preset-toggle.component';
+import {PresetTogglerComponent} from './pages/preset-toggler/preset-toggler.component';
+import { PageSwitcherComponent } from './pages/page-switcher.component';
 
 
 const appRoutes = <Routes>[
   {
-    path: 'colorFlashes',
-    component: ColorFlashesComponent
+    path: '',
+    component: PageSwitcherComponent,
+    children: [
+      {
+        path: 'colorFlashes',
+        component: ColorFlashesComponent
+      },
+      {
+        path: 'presetToggler',
+        component: PresetTogglerComponent
+      }
+    ]
   },
   {
     path: '',
@@ -28,7 +41,10 @@ const appRoutes = <Routes>[
   declarations: [
     AppComponent,
     ColorFlashesComponent,
-    ColoredTriggerComponent
+    ColoredTriggerComponent,
+    PresetToggleComponent,
+    PresetTogglerComponent,
+    PageSwitcherComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +62,8 @@ const appRoutes = <Routes>[
   ],
   bootstrap: [
     AppComponent
-  ]
+  ],
+  exports: []
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -4,13 +4,12 @@ import {Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output}
   selector: 'app-colored-trigger',
   template: `
     <div
-      class="colored-trigger"
       [style.backgroundColor]="bgColor"
       (click)="triggerAction.emit(bgColor)"
     ></div>
   `,
   styles: [`
-    .colored-trigger {
+    div {
       flex: 0 0 auto;
       width: 100px;
       height: 100px;
