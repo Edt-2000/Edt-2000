@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, Input, OnDestroy} from '@angular/core';
+import {Component, OnInit, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
 import { NgClass } from '@angular/common';
 
 interface IVideoAsset {
@@ -13,17 +13,21 @@ interface IVideoAsset {
   styleUrls: ['./video-player.component.scss']
 })
 export class VideoPlayerComponent implements OnInit {
+    @ViewChild('videoplayer') videoplayer: any;
 
     private interval;
     private videoAssets: IVideoAsset[];
-    public src: string;
-    public glitch: boolean;
-    public effectOverlay: boolean;
+    public video: IVideoAsset;
 
     constructor(private element: ElementRef) {
         this.videoAssets = [
             {
-                src: "lights-of-orion.mp4",
+                src: 'lights-of-orion.mp4',
+                glitch: true,
+                effectOverlay: true
+            },
+            {
+                src: 'video-kat.mp4',
                 glitch: true,
                 effectOverlay: true
             }
@@ -31,28 +35,38 @@ export class VideoPlayerComponent implements OnInit {
     }
 
     ngOnInit() {
-        const video = this.element.nativeElement.getElementsByClassName('video__player');
-
         // todo change video nr with ipad
-        this.switchVideo(0);
+       this.switchVideo(0);
 
-        video.muted = true; //fix for muted attr bug
-        video.play();
+        if (this.video !== undefined) {
+            this.playVideo();
+        }
 
-        if(this.glitch) {
+    }
+
+    playVideo() {
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+
+        this.videoplayer.nativeElement.muted = true; // fix for muted attr bug
+        this.videoplayer.nativeElement.play();
+
+        if(this.video.glitch) {
             this.interval = setInterval(() => {
-                video.currentTime = Math.random() * video.duration;
+                this.videoplayer.nativeElement.currentTime = Math.random() * this.videoplayer.nativeElement.duration;
             }, 1000);
         }
     }
 
     switchVideo(videoIndex: number) {
         const video = this.videoAssets[videoIndex];
-        if (video === undefined) {
+        if (!video) {
+            console.error(`Video doesn't exist`);
             return;
         }
 
-        [this.src, this.glitch, this.effectOverlay] = [video.src, video.glitch, video.effectOverlay];
+        this.video = video;
     }
 
     ngOnDestroy() {
