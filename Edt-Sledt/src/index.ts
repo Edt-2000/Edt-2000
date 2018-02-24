@@ -1,14 +1,9 @@
 'use strict';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/merge';
-import {DeviceIPs} from '../../SharedTypes/config';
-import {sendToOSC} from './communication/osc';
 import {edtPresets, preset$} from './presets/presets';
 
 preset$
-    .do((msg) => {
-        sendToOSC(DeviceIPs.edtPad, ['Preset', msg.preset.toString()], [Number(msg.state)]);
-    })
     .subscribe((msg) => {
         if (msg.state) {
             edtPresets.get(msg.preset).startPreset(msg.modifier);
