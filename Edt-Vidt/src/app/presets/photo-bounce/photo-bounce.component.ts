@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {IPhotoAsset, photoAssets} from '../../../data/assets';
 
 @Component({
   selector: 'app-photo-bounce',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotoBounceComponent implements OnInit {
 
-  constructor() { }
+    public photo: IPhotoAsset;
 
-  ngOnInit() {
-  }
+    constructor(private element: ElementRef) {
+    }
+
+    ngOnInit() {
+        this.switchPhoto(4);
+    }
+
+    switchPhoto(photoIndex: number) {
+        const photo = photoAssets[photoIndex];
+        if (!photo) {
+            this.photo = photoAssets[0];
+        } else {
+            this.photo = photo;
+        }
+    }
 
 }
