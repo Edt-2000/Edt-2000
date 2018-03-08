@@ -14,7 +14,6 @@ export const edtPresets = new Map<number, {
 
 export const preset$ = presetMidi$
     .pipe(
-        tap(message => console.log(message)),
         filter((msg) => edtPresets.has(msg.preset)),
     );
 
