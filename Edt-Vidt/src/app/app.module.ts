@@ -6,7 +6,7 @@ import {CommunicationService} from './communication.service';
 import {SocketIoModule} from 'ngx-socket-io';
 import {TextDisplayComponent} from './presets/text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
-import {VidtPresets} from '../../../SharedTypes/socket';
+import {socketConfig, VidtPresets} from '../../../SharedTypes/socket';
 
 import {GlitchTextComponent} from './components/glitch-text-component/glitch-text.component';
 import {GridscapeComponent} from './presets/gridscape/gridscape.component';
@@ -17,9 +17,7 @@ import {VideoTvEffectComponent} from './components/video-tv-effect/video-tv-effe
 import {BluescreenComponent} from './presets/bluescreen/bluescreen.component';
 import {VideoPlayerComponent} from './presets/video-player/video-player.component';
 import {VistaComponent} from './presets/vista/vista.component';
-
-import {socketConfig} from '../../../SharedTypes/socket';
-import { PhotoGlitcherComponent } from './presets/photo-glitcher/photo-glitcher.component';
+import {PhotoGlitcherComponent} from './presets/photo-glitcher/photo-glitcher.component';
 import {PhotoBounceComponent} from './presets/photo-bounce/photo-bounce.component';
 
 const appRoutes = <Routes>[{
@@ -43,6 +41,9 @@ const appRoutes = <Routes>[{
 }, {
     path: VidtPresets.VideoPlayer,
     component: VideoPlayerComponent
+}, {
+    path: VidtPresets.PhotoBounce,
+    component: PhotoBounceComponent
 }, {
     path: VidtPresets.PhotoGlitcher,
     component: PhotoGlitcherComponent
