@@ -1,3 +1,3 @@
-<div class="photo-bounce">
+<div class="photo-bounce" [class.bounce]="bounce">
   <img class="photo-bounce__img" *ngIf="photo && photo.src" src="/assets/img/photo-glitcher/{{ photo.src }}">
 </div>

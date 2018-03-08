@@ -11,7 +11,7 @@ export class PhotoGlitcherComponent implements OnInit {
 
     public photo: IPhotoAsset;
 
-    constructor(private element: ElementRef) {
+    constructor() {
    }
 
     ngOnInit() {
