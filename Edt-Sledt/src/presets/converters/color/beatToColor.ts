@@ -1,15 +1,15 @@
 import 'rxjs/add/operator/filter';
 import {Subscription} from 'rxjs/Subscription';
-import {IColor} from '../../../../SharedTypes/socket';
-import {EdtMainColor} from '../../subjects/colors';
-import {BeatMain} from '../../subjects/triggers';
-import {rescale} from '../../utils';
-import {IEdtPreset} from '../presets';
+import {IColor} from '../../../../../SharedTypes/socket';
+import {EdtMainColor} from '../../../subjects/colors';
+import {BeatMain} from '../../../subjects/triggers';
+import {rescale} from '../../../utils';
+import {IEdtPresetLogic} from '../../presets';
 
 /**
  * The bg IColor cycle Preset cycles between colors trigger by filteredNoteOn inputs
  */
-export class BgColorCycle implements IEdtPreset {
+export class BeatToColor implements IEdtPresetLogic {
     private hue: number;
 
     private subscription: Subscription;

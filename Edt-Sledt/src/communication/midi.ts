@@ -14,6 +14,7 @@ import {
 } from '../../../SharedTypes/config';
 import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, MidiMsgTypes} from '../types';
 import {noteToNote, noteToOctave} from '../utils';
+import {Note} from '../inputs/midi';
 
 // console.log(new easymidi.getInputs());
 export const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
@@ -33,7 +34,7 @@ export const sledtNoteOn$: Observable<IMidiNoteMsg> = Observable
     .map((msg): IMidiNoteMsg => {
         return {
             noteOn: true,
-            note: msg.note,
+            note: Note[msg.note],
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),
             velocity: msg.velocity,
@@ -45,7 +46,7 @@ export const sledtNoteOff$: Observable<IMidiNoteMsg> = Observable
     .map((msg): IMidiNoteMsg => {
         return {
             noteOn: false,
-            note: msg.note,
+            note: Note[msg.note],
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),
             velocity: msg.velocity,

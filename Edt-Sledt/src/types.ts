@@ -1,6 +1,8 @@
 /**
  * Midi Messages from easymidi
  */
+import {Note} from './inputs/midi';
+
 export interface IMidiChannel {
     readonly channel: number;
 }
@@ -18,7 +20,7 @@ export interface IMidiCCMsg extends IMidiChannel {
  */
 export interface IMidiNoteMsg extends IMidiChannel {
     readonly noteOn: boolean;
-    readonly note: number;
+    readonly note: Note;
     readonly noteNumber: number;
     readonly octave: number;
     readonly velocity: number;
