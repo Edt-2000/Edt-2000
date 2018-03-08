@@ -1,5 +1,7 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IPhotoAsset, photoAssets} from '../../../data/assets';
+import {Subscription} from 'rxjs/Subscription';
+import {CommunicationService} from '../../communication.service';
 
 @Component({
   selector: 'app-photo-bounce',
@@ -9,12 +11,25 @@ import {IPhotoAsset, photoAssets} from '../../../data/assets';
 export class PhotoBounceComponent implements OnInit {
 
     public photo: IPhotoAsset;
+    public bounce: boolean;
+    private _track$: Subscription;
 
-    constructor(private element: ElementRef) {
+    constructor(private communicationService: CommunicationService) {
     }
 
     ngOnInit() {
-        this.switchPhoto(1);
+        this.switchPhoto(2);
+
+        this._track$ = this.communicationService.intensity
+            .subscribe(() => {
+                this.bounce = false;
+                this.bounce = true;
+                //
+                // // todo replace by animation frame js native
+                // setTimeout(() => {
+                //     this.bounce = false;
+                // }, 100);
+            })
     }
 
     switchPhoto(photoIndex: number) {
@@ -25,5 +40,4 @@ export class PhotoBounceComponent implements OnInit {
             this.photo = photo;
         }
     }
-
 }
