@@ -5,10 +5,13 @@ import {edtPresets, preset$} from './presets/presets';
 
 preset$
     .subscribe((msg) => {
-        if (msg.state) {
-            edtPresets.get(msg.preset).startPreset(msg.modifier);
-        } else {
-            edtPresets.get(msg.preset).stopPreset();
+        if (msg.state && !edtPresets.get(msg.preset).active) {
+            console.log('Starting preset', edtPresets.get(msg.preset).preset);
+            edtPresets.get(msg.preset).preset.startPreset(msg.modifier);
+        }
+        if (!msg.state && edtPresets.get(msg.preset).active) {
+            console.log('Stopping preset', edtPresets.get(msg.preset).preset);
+            edtPresets.get(msg.preset).preset.stopPreset();
         }
     });
 

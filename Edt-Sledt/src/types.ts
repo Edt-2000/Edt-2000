@@ -20,7 +20,7 @@ export interface IMidiCCMsg extends IMidiChannel {
  */
 export interface IMidiNoteMsg extends IMidiChannel {
     readonly noteOn: boolean;
-    readonly note: Note;
+    readonly note: number;
     readonly noteNumber: number;
     readonly octave: number;
     readonly velocity: number;

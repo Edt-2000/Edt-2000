@@ -34,7 +34,7 @@ export const sledtNoteOn$: Observable<IMidiNoteMsg> = Observable
     .map((msg): IMidiNoteMsg => {
         return {
             noteOn: true,
-            note: Note[msg.note],
+            note: msg.note,
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),
             velocity: msg.velocity,
@@ -46,7 +46,7 @@ export const sledtNoteOff$: Observable<IMidiNoteMsg> = Observable
     .map((msg): IMidiNoteMsg => {
         return {
             noteOn: false,
-            note: Note[msg.note],
+            note: msg.note,
             noteNumber: noteToNote(msg.note),
             octave: noteToOctave(msg.note),
             velocity: msg.velocity,
