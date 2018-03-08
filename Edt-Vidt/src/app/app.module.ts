@@ -20,6 +20,7 @@ import {VistaComponent} from './presets/vista/vista.component';
 
 import {socketConfig} from '../../../SharedTypes/socket';
 import { PhotoGlitcherComponent } from './presets/photo-glitcher/photo-glitcher.component';
+import {PhotoBounceComponent} from './presets/photo-bounce/photo-bounce.component';
 
 const appRoutes = <Routes>[{
     path: VidtPresets.Gridscape,
@@ -66,7 +67,8 @@ const appRoutes = <Routes>[{
         BluescreenComponent,
         VistaComponent,
         GridscapeComponent,
-        PhotoGlitcherComponent
+        PhotoGlitcherComponent,
+        PhotoBounceComponent
     ],
     imports: [
         RouterModule.forRoot(
