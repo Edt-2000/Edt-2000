@@ -14,7 +14,7 @@ export class PhotoBounceComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.switchPhoto(4);
+        this.switchPhoto(1);
     }
 
     switchPhoto(photoIndex: number) {
