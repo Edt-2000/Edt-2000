@@ -22,6 +22,8 @@ export enum VidtPresets {
     TextDisplay = 'TextDisplay',
     Shutdown = 'Shutdown',
     VideoPlayer = 'VideoPlayer',
+    PhotoBounce = 'Photobounce',
+    PhotoGlitcher = 'PhotoGlitcher',
     Bluescreen = 'Bluescreen',
     Vista = 'Vista',
 }

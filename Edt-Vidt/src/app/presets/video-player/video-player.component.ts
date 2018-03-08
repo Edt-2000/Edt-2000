@@ -1,11 +1,5 @@
-import {Component, OnInit, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
-import { NgClass } from '@angular/common';
-
-interface IVideoAsset {
-    src: string,
-    glitch: boolean,
-    effectOverlay: boolean
-}
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {IVideoAsset, videoAssets} from '../../../data/assets';
 
 @Component({
   selector: 'app-video-player',
@@ -16,22 +10,9 @@ export class VideoPlayerComponent implements OnInit {
     @ViewChild('videoplayer') videoplayer: any;
 
     private interval;
-    private videoAssets: IVideoAsset[];
     public video: IVideoAsset;
 
     constructor(private element: ElementRef) {
-        this.videoAssets = [
-            {
-                src: 'lights-of-orion.mp4',
-                glitch: true,
-                effectOverlay: true
-            },
-            {
-                src: 'video-kat.mp4',
-                glitch: true,
-                effectOverlay: true
-            }
-        ]
     }
 
     ngOnInit() {
@@ -41,7 +22,6 @@ export class VideoPlayerComponent implements OnInit {
         if (this.video !== undefined) {
             this.playVideo();
         }
-
     }
 
     playVideo() {
@@ -60,13 +40,12 @@ export class VideoPlayerComponent implements OnInit {
     }
 
     switchVideo(videoIndex: number) {
-        const video = this.videoAssets[videoIndex];
+        const video = videoAssets[videoIndex];
         if (!video) {
-            console.error(`Video doesn't exist`);
-            return;
+            this.video = videoAssets[0]
+        } else {
+            this.video = video;
         }
-
-        this.video = video;
     }
 
     ngOnDestroy() {
