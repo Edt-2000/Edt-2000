@@ -19,6 +19,7 @@ import {VideoPlayerComponent} from './presets/video-player/video-player.componen
 import {VistaComponent} from './presets/vista/vista.component';
 
 import {socketConfig} from '../../../SharedTypes/socket';
+import { PhotoGlitcherComponent } from './presets/photo-glitcher/photo-glitcher.component';
 
 const appRoutes = <Routes>[{
     path: VidtPresets.Gridscape,
@@ -41,7 +42,10 @@ const appRoutes = <Routes>[{
 }, {
     path: VidtPresets.VideoPlayer,
     component: VideoPlayerComponent
-},{
+}, {
+    path: VidtPresets.PhotoGlitcher,
+    component: PhotoGlitcherComponent
+}, {
     path: VidtPresets.Vista,
     component: VistaComponent
 }, {
@@ -61,7 +65,8 @@ const appRoutes = <Routes>[{
         VideoPlayerComponent,
         BluescreenComponent,
         VistaComponent,
-        GridscapeComponent
+        GridscapeComponent,
+        PhotoGlitcherComponent
     ],
     imports: [
         RouterModule.forRoot(
