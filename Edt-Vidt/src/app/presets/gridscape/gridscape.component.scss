@@ -24,7 +24,7 @@ $orange: #FF4700;
         bottom: 0;
         height: 50vh;
         left: 0;
-        perspective: 4000px;
+        perspective: 2000px;
         position: absolute;
         right: 0;
         &:before {
@@ -40,7 +40,7 @@ $orange: #FF4700;
     }
 
     &__overlay {
-        background: linear-gradient(to bottom, $lightblue 0%, $lightblue 2%, transparent 14%);
+        background: linear-gradient(to bottom, $lightblue 0%, $lightblue 3%, transparent 14%);
         bottom: 0;
         left: 0;
         position: absolute;
@@ -82,10 +82,10 @@ $orange: #FF4700;
     &__line-vertical {
         border-left: 2px solid $lightblue;
         height: 100%;
-        width: calc(100% / 26);
+        width: calc(100% / 80);
 
         &:first-child {
-            margin-left: calc(100% / 26);
+            margin-left: calc(100% / 80);
         }
     }
 
