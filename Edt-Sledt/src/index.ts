@@ -1,28 +1,21 @@
 'use strict';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/merge';
-import {edtPresets, preset$} from './presets/presets';
+import {edtPresets} from './presets/presets';
+import {filter} from 'rxjs/operators';
+import {presetMidi$} from './inputs/midi';
 
-preset$
+presetMidi$
+    .pipe(
+        filter((msg) => edtPresets.has(msg.preset)),
+    )
     .subscribe((msg) => {
         if (msg.state && !edtPresets.get(msg.preset).active) {
-            console.log('Starting preset', edtPresets.get(msg.preset).preset);
+            console.log('Starting preset', edtPresets.get(msg.preset));
             edtPresets.get(msg.preset).preset.startPreset(msg.modifier);
+            edtPresets.get(msg.preset).active = true;
         }
         if (!msg.state && edtPresets.get(msg.preset).active) {
-            console.log('Stopping preset', edtPresets.get(msg.preset).preset);
+            console.log('Stopping preset', edtPresets.get(msg.preset));
             edtPresets.get(msg.preset).preset.stopPreset();
+            edtPresets.get(msg.preset).active = false;
         }
     });
-
-// OSC$.subscribe((msg) => {
-//     console.log('OSC:', msg.addresses, msg.values);
-// });
-
-// edtPedal$.subscribe((pedal) => {
-//     // console.log('Pedal!', pedal.instance, pedal.pedal);
-// });
-
-// edtTrack$.subscribe((trackMsg) => {
-//     sendToVidt(trackMsg);
-// });

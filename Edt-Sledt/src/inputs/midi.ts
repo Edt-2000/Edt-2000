@@ -1,39 +1,48 @@
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/operator/share';
 import {Observable} from 'rxjs/Observable';
 import {adjustmentChannel, presetMsgChannel} from '../../../SharedTypes/config';
 import {sledtNoteOff$, sledtNoteOn$} from '../communication/midi';
 import {IMidiNoteMsg, IPresetMsg} from '../types';
+import {filter, map, merge} from 'rxjs/operators';
 
-export const noteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
-export const noteOff$: Observable<IMidiNoteMsg> = sledtNoteOff$.filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel);
+export const noteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.pipe(
+    filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel),
+);
+export const noteOff$: Observable<IMidiNoteMsg> = sledtNoteOff$.pipe(
+    filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel),
+);
 
-export const adjustmentNoteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.filter((msg) => msg.channel === adjustmentChannel);
-export const adjustmentNoteOff$: Observable<IMidiNoteMsg> = sledtNoteOff$.filter((msg) => msg.channel === adjustmentChannel);
+export const adjustmentNoteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.pipe(
+    filter((msg) => msg.channel === adjustmentChannel),
+);
+export const adjustmentNoteOff$: Observable<IMidiNoteMsg> = sledtNoteOff$.pipe(
+    filter((msg) => msg.channel === adjustmentChannel),
+);
 
-const presetOn$: Observable<IPresetMsg> = sledtNoteOn$
-    .filter((msg) => msg.channel === presetMsgChannel)
-    .map((msg): IPresetMsg => {
+const presetOn$: Observable<IPresetMsg> = sledtNoteOn$.pipe(
+    filter((msg) => msg.channel === presetMsgChannel),
+    map((msg): IPresetMsg => {
         return {
             preset: msg.note,
             modifier: msg.velocity,
             state: true,
         };
-    });
+    }),
+);
 
-const presetOff$: Observable<IPresetMsg> = sledtNoteOff$
-    .filter((msg) => msg.channel === presetMsgChannel)
-    .map((msg): IPresetMsg => {
+const presetOff$: Observable<IPresetMsg> = sledtNoteOff$.pipe(
+    filter((msg) => msg.channel === presetMsgChannel),
+    map((msg): IPresetMsg => {
         return {
             preset: msg.note,
             modifier: msg.velocity,
             state: false,
         };
-    });
+    }),
+);
 
-export const presetMidi$: Observable<IPresetMsg> = presetOn$.merge(presetOff$);
+export const presetMidi$: Observable<IPresetMsg> = presetOn$.pipe(
+    merge(presetOff$)
+);
 
 
 

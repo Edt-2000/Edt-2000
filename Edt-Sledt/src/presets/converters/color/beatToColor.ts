@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/filter';
 import {Subscription} from 'rxjs/Subscription';
 import {IColor} from '../../../../../SharedTypes/socket';
 import {EdtMainColor} from '../../../subjects/colors';

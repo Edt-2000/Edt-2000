@@ -19,7 +19,7 @@ export function sendToOSC(device: DeviceIPs, addresses: string[], params: number
             };
         }),
     });
-    return sock.send(buf, 0, buf.length, oscOutPort, device);
+    return sock.send(buf, 0, buf.length, oscOutPort, DeviceIPs[DeviceIPs[device]]);
 }
 
 // Use a subject to be able to push new OSC messages
@@ -59,4 +59,3 @@ function processOscMessage(msg, rinfo) {
         return console.log('Invalid OSC:', error);
     }
 }
-// /TP/* 4 0 31 0 127 127
