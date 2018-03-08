@@ -18,7 +18,7 @@ export class PhotoBounceComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.switchPhoto(1);
+        this.switchPhoto(2);
 
         this._track$ = this.communicationService.intensity
             .subscribe(() => {
