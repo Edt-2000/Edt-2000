@@ -27,6 +27,7 @@ $orange: #FF4700;
         perspective: 2000px;
         position: absolute;
         right: 0;
+
         &:before {
             background: linear-gradient(to bottom, rgba(#B30699, 0.34) 0%, rgba(#FFF, 0) 100%);
             content: '';
