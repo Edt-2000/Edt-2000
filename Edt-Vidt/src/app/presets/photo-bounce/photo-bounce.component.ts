@@ -20,7 +20,7 @@ export class PhotoBounceComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.switchPhoto(2);
+        this.switchPhoto(8   );
 
         this.animation = this.img.nativeElement.animate(
             [
@@ -44,6 +44,9 @@ export class PhotoBounceComponent implements OnInit {
                 this.animate();
             });
 
+        document.onkeypress = () => {
+            this.animate();
+        }
     }
 
     animate() {

@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 
 @Component({
     selector: 'app-screensavebouncer',
     templateUrl: './screensavebouncer.component.html',
     styleUrls: ['./screensavebouncer.component.scss']
 })
-export class ScreensavebouncerComponent implements OnInit {
+export class ScreensavebouncerComponent implements AfterViewInit {
     @ViewChild('item') item: any;
     public y = 0;
     public x = 0;
@@ -15,14 +15,16 @@ export class ScreensavebouncerComponent implements OnInit {
     public maxY: number;
     public directionX = 1;
     public directionY = 1;
-    public speed = 4;
+    public speed = 6;
 
     constructor() {
     }
 
-    ngOnInit() {
-        this.maxX = window.innerWidth - this.item.nativeElement.offsetWidth;
-        this.maxY = window.innerHeight - this.item.nativeElement.offsetHeight;
+    // ngOnInit(){}
+
+    ngAfterViewInit() {
+        this.maxX = window.innerWidth - this.item.nativeElement.clientWidth;
+        this.maxY = window.innerHeight - this.item.nativeElement.clientHeight;
         requestAnimationFrame(() => {
             this.bounce();
         });
@@ -35,8 +37,15 @@ export class ScreensavebouncerComponent implements OnInit {
             this.directionX = 1;
         }
 
+        if (this.y + 1 > this.maxY && this.directionY === 1) {
+            this.directionY = -1;
+        } else if (this.y - 1 < this.minY && this.directionY === -1) {
+            this.directionY = 1;
+        }
+
         this.x = this.x + this.directionX * this.speed;
-        console.log(this.maxX, this.maxY);
+        this.y = this.y + this.directionY * this.speed;
+
         this.item.nativeElement.style.transform = `translate(${this.x}px,${this.y}px)`;
 
         requestAnimationFrame(() => {
@@ -45,12 +54,3 @@ export class ScreensavebouncerComponent implements OnInit {
     }
 
 }
-
-// Animate.
-function animate(highResTimestamp) {
-    requestAnimationFrame(animate);
-    // Animate something...
-}
-
-// Start the animation.
-requestAnimationFrame(animate);
