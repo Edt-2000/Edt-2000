@@ -1,18 +1,20 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {IPhotoAsset, photoAssets} from '../../../data/assets';
 import {Subscription} from 'rxjs/Subscription';
 import {CommunicationService} from '../../communication.service';
 
 @Component({
-  selector: 'app-photo-bounce',
-  templateUrl: './photo-bounce.component.html',
-  styleUrls: ['./photo-bounce.component.scss']
+    selector: 'app-photo-bounce',
+    templateUrl: './photo-bounce.component.html',
+    styleUrls: ['./photo-bounce.component.scss']
 })
 export class PhotoBounceComponent implements OnInit {
 
+    @ViewChild('img') img: any;
+
     public photo: IPhotoAsset;
-    public bounce: boolean;
     private _track$: Subscription;
+    public animation;
 
     constructor(private communicationService: CommunicationService) {
     }
@@ -20,16 +22,40 @@ export class PhotoBounceComponent implements OnInit {
     ngOnInit() {
         this.switchPhoto(2);
 
+        this.animation = this.img.nativeElement.animate(
+            [
+                {
+                    transform: 'scale(1)'
+                },
+                {
+                    transform: 'scale(1.5)'
+                },
+                {
+                    transform: 'scale(1)'
+                }
+            ], {
+                easing: 'linear',
+                duration: 200
+            }
+        );
+
         this._track$ = this.communicationService.intensity
             .subscribe(() => {
-                this.bounce = false;
-                this.bounce = true;
-                //
-                // // todo replace by animation frame js native
-                // setTimeout(() => {
-                //     this.bounce = false;
-                // }, 100);
-            })
+                this.animate();
+            });
+
+    }
+
+    animate() {
+        requestAnimationFrame(() => {
+            if (this.animation.playState === 'running') {
+                this.animation.cancel();
+            }
+
+            requestAnimationFrame(() => {
+                this.animation.play();
+            });
+        });
     }
 
     switchPhoto(photoIndex: number) {

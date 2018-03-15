@@ -19,6 +19,7 @@ import {VideoPlayerComponent} from './presets/video-player/video-player.componen
 import {VistaComponent} from './presets/vista/vista.component';
 import {PhotoGlitcherComponent} from './presets/photo-glitcher/photo-glitcher.component';
 import {PhotoBounceComponent} from './presets/photo-bounce/photo-bounce.component';
+import { ScreensavebouncerComponent } from './presets/screensavebouncer/screensavebouncer.component';
 
 const appRoutes = <Routes>[{
     path: VidtPresets.Gridscape,
@@ -48,6 +49,9 @@ const appRoutes = <Routes>[{
     path: VidtPresets.PhotoGlitcher,
     component: PhotoGlitcherComponent
 }, {
+    path: VidtPresets.ScreensaveBouncer,
+    component: ScreensavebouncerComponent
+}, {
     path: VidtPresets.Vista,
     component: VistaComponent
 }, {
@@ -69,7 +73,8 @@ const appRoutes = <Routes>[{
         VistaComponent,
         GridscapeComponent,
         PhotoGlitcherComponent,
-        PhotoBounceComponent
+        PhotoBounceComponent,
+        ScreensavebouncerComponent
     ],
     imports: [
         RouterModule.forRoot(

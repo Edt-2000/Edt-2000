@@ -1,0 +1,13 @@
+.screensavebouncer {
+    width: 100vw;
+    background: #000;
+    height: 100vh;
+    position: relative;
+
+    &__item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        //transition: 1s transform;
+    }
+}
