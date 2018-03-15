@@ -1,9 +1,8 @@
 import {Subscription} from 'rxjs/Subscription';
-import {drumTriggerOn$} from '../../inputs/musicTriggers';
-import {filter} from 'rxjs/operators';
 import {sendToVidt} from '../../outputs/edt-vidt';
 import {IIntensityMsg, IPreparePresetMsg, VidtPresets} from '../../../../SharedTypes/socket';
 import {IEdtPresetLogic} from '../presets';
+import {BeatMain} from '../../subjects/triggers';
 
 export class BeatToVidtBounce implements IEdtPresetLogic {
     private subscriber: Subscription;
@@ -13,9 +12,7 @@ export class BeatToVidtBounce implements IEdtPresetLogic {
             preset: VidtPresets.PhotoBounce,
         } as IPreparePresetMsg);
 
-        this.subscriber = drumTriggerOn$.pipe(
-            filter((drumNote) => listenTo === drumNote)
-        )
+        this.subscriber = BeatMain
             .subscribe((note) => {
                 sendToVidt({
                     intensity: 100
