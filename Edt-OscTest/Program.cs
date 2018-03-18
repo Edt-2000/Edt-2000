@@ -31,9 +31,11 @@ namespace Edt_OscTest
         static void Main(string[] args)
         {
             //var sender = new UDPSender("10.0.0.255", 12345);
-            //var udpSender = new UDPSender("192.168.1.255", 12345);
+            //var sender = new UDPSender("192.168.0.102", 12345);
 
-            var sender = new USBSender("COM3", 9600);
+            var sender = new USB("COM7", 9600);
+
+            
 
             int strobo = 0;
             int color = 0;
@@ -41,137 +43,139 @@ namespace Edt_OscTest
             do
             {
                 var key = Console.ReadKey();
-
-                if (key.Key == ConsoleKey.Q)
+                
+                if(key.Key == ConsoleKey.Q)
                 {
                     //                                  0                      1  2    3  4    5    6
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 97, 255, 20, 127));
+                    sender.Send(new OscMessage("/L/1", (int)Mode.SingleSolid, 0, 127, 97, 255, 20, 127));
+                    sender.Send(new OscMessage("/L/2", (int)Mode.SingleSolid, 0, 127, 97, 255, 20, 127));
+                    sender.Send(new OscMessage("/L/3", (int)Mode.SingleSolid, 0, 127, 97, 255, 20, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 20, 32));
 
                 }
-                if (key.Key == ConsoleKey.W)
+                else if(key.Key == ConsoleKey.W)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 97, 255, 40, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 40, 32));
                 }
-                if (key.Key == ConsoleKey.E)
+                else if(key.Key == ConsoleKey.E)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 97, 255, 60, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 60, 32));
                 }
-                if (key.Key == ConsoleKey.R)
+                else if(key.Key == ConsoleKey.R)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 97, 255, 80, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 80, 32));
                 }
 
-                if (key.Key == ConsoleKey.Y)
+                else if(key.Key == ConsoleKey.Y)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.RainbowSpark, 0, 127, 0, 127, 16));
                     sender.Send(new OscMessage("/O", (int)Mode.RainbowSpark, 0, 127, 0, 127, 16));
                 }
 
-                if (key.Key == ConsoleKey.D1)
+                else if(key.Key == ConsoleKey.D1)
                 {
                     //                                  0                      1  2    3   4    5    6
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
-                if (key.Key == ConsoleKey.D2)
+                else if(key.Key == ConsoleKey.D2)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 60, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 60, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
-                if (key.Key == ConsoleKey.D3)
+                else if(key.Key == ConsoleKey.D3)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 97, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 97, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
-                if (key.Key == ConsoleKey.D4)
+                else if(key.Key == ConsoleKey.D4)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 140, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 140, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
-                if (key.Key == ConsoleKey.D5)
+                else if(key.Key == ConsoleKey.D5)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 180, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 180, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
-                if (key.Key == ConsoleKey.D6)
+                else if(key.Key == ConsoleKey.D6)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 220, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 220, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
-                if (key.Key == ConsoleKey.D7)
+                else if(key.Key == ConsoleKey.D7)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 10, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 10, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
-                if (key.Key == ConsoleKey.D8)
+                else if(key.Key == ConsoleKey.D8)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 70, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 70, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
-                if (key.Key == ConsoleKey.D9)
+                else if(key.Key == ConsoleKey.D9)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 140, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 140, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
-                if (key.Key == ConsoleKey.D0)
+                else if(key.Key == ConsoleKey.D0)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 210, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 255, 32));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 210, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 254, 32));
                 }
 
                 ///
 
-                if (key.Key == ConsoleKey.F1)
+                else if(key.Key == ConsoleKey.F1)
                 {
                     //                                  0                      1  2    3   4    5    6
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
                 }
-                if (key.Key == ConsoleKey.F2)
+                else if(key.Key == ConsoleKey.F2)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 60, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
                 }
-                if (key.Key == ConsoleKey.F3)
+                else if(key.Key == ConsoleKey.F3)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 97, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
                 }
-                if (key.Key == ConsoleKey.F4)
+                else if(key.Key == ConsoleKey.F4)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 140, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
                 }
-                if (key.Key == ConsoleKey.F5)
+                else if(key.Key == ConsoleKey.F5)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 180, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
                 }
-                if (key.Key == ConsoleKey.F6)
+                else if(key.Key == ConsoleKey.F6)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 220, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
                 }
-                if (key.Key == ConsoleKey.F7)
+                else if(key.Key == ConsoleKey.F7)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 10, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
                 }
-                if (key.Key == ConsoleKey.F8)
+                else if(key.Key == ConsoleKey.F8)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 70, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
                 }
-                if (key.Key == ConsoleKey.F9)
+                else if(key.Key == ConsoleKey.F9)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 140, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
                 }
-                if (key.Key == ConsoleKey.F10)
+                else if(key.Key == ConsoleKey.F10)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 210, 255, 50, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 20, 255, 50, 32));
@@ -179,14 +183,14 @@ namespace Edt_OscTest
 
                 ///
 
-                if (key.Key == ConsoleKey.G)
+                else if(key.Key == ConsoleKey.G)
                 {
                     //                                  0                      1  2    3  4  5    6
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 0, 0, 255, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 0, 0, 255, 127));
                 }
 
-                if (key.Key == ConsoleKey.T)
+                else if(key.Key == ConsoleKey.T)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, 0, 0, 0, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, 0, 0, 0, 127));
@@ -194,83 +198,83 @@ namespace Edt_OscTest
 
                 ///
 
-                if (key.Key == ConsoleKey.U)
+                else if(key.Key == ConsoleKey.U)
                 {
                     //                                  0                      1  2    3  4    5    6
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 0, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 0, 255, 255, 127));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 0, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 0, 255, 254, 127));
                 }
-                if (key.Key == ConsoleKey.I)
+                else if(key.Key == ConsoleKey.I)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 64, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 64, 255, 255, 127));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 64, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 64, 255, 254, 127));
                 }
-                if (key.Key == ConsoleKey.O)
+                else if(key.Key == ConsoleKey.O)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 128, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 128, 255, 255, 127));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 128, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 128, 255, 254, 127));
                 }
-                if (key.Key == ConsoleKey.P)
+                else if(key.Key == ConsoleKey.P)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 192, 255, 255, 127));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 192, 255, 255, 127));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 192, 255, 254, 127));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 192, 255, 254, 127));
                 }
 
-                if (key.Key == ConsoleKey.H)
+                else if(key.Key == ConsoleKey.H)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 20, 255, 255, 63));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 20, 255, 255, 63));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 20, 255, 254, 63));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 20, 255, 254, 63));
                 }
-                if (key.Key == ConsoleKey.J)
+                else if(key.Key == ConsoleKey.J)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 50, 255, 255, 63));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 50, 255, 255, 63));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 50, 255, 254, 63));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 50, 255, 254, 63));
                 }
-                if (key.Key == ConsoleKey.K)
+                else if(key.Key == ConsoleKey.K)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 80, 255, 255, 63));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 80, 255, 255, 63));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 80, 255, 254, 63));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 80, 255, 254, 63));
                 }
-                if (key.Key == ConsoleKey.L)
+                else if(key.Key == ConsoleKey.L)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 120, 255, 255, 63));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 120, 255, 255, 63));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 120, 255, 254, 63));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 120, 255, 254, 63));
                 }
 
-                if (key.Key == ConsoleKey.C)
+                else if(key.Key == ConsoleKey.C)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.DualSpark, 0, 127, 60, 200, 127, 16));
                     sender.Send(new OscMessage("/O", (int)Mode.DualSpark, 0, 127, 60, 200, 127, 16));
                 }
 
-                if (key.Key == ConsoleKey.V)
+                else if(key.Key == ConsoleKey.V)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SingleSpark, 0, 127, 100, 255, 255, 16));
-                    sender.Send(new OscMessage("/O", (int)Mode.SingleSpark, 0, 127, 100, 255, 255, 16));
+                    sender.Send(new OscMessage("/L", (int)Mode.SingleSpark, 0, 127, 100, 255, 254, 16));
+                    sender.Send(new OscMessage("/O", (int)Mode.SingleSpark, 0, 127, 100, 255, 254, 16));
                 }
 
-                if (key.Key == ConsoleKey.B)
+                else if(key.Key == ConsoleKey.B)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 20, 255, 255, 1));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 20, 255, 255, 1));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 20, 255, 254, 1));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 20, 255, 254, 1));
                 }
-                if (key.Key == ConsoleKey.N)
+                else if(key.Key == ConsoleKey.N)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 50, 255, 255, 1));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 50, 255, 255, 1));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 50, 255, 254, 1));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 50, 255, 254, 1));
                 }
-                if (key.Key == ConsoleKey.M)
+                else if(key.Key == ConsoleKey.M)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 80, 255, 255, 1));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 80, 255, 255, 1));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 80, 255, 254, 1));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 80, 255, 254, 1));
                 }
-                if (key.Key == ConsoleKey.OemComma)
+                else if(key.Key == ConsoleKey.OemComma)
                 {
-                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 120, 255, 255, 1));
-                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 120, 255, 255, 1));
+                    sender.Send(new OscMessage("/L", (int)Mode.SinglePulse, 0, 127, 120, 255, 254, 1));
+                    sender.Send(new OscMessage("/O", (int)Mode.SinglePulse, 0, 127, 120, 255, 254, 1));
                 }
 
-                if (key.Key == ConsoleKey.A)
+                else if(key.Key == ConsoleKey.A)
                 {
                     int r = 0;
 
@@ -287,7 +291,7 @@ namespace Edt_OscTest
                     }
                 }
 
-                if (key.Key == ConsoleKey.OemPeriod)
+                else if(key.Key == ConsoleKey.OemPeriod)
                 {
                     int r = 0;
 
@@ -303,7 +307,7 @@ namespace Edt_OscTest
                     }
                 }
 
-                if (key.Key == ConsoleKey.S)
+                else if(key.Key == ConsoleKey.S)
                 {
 
                     for (var i = 0.0; i < Math.PI; i += (Math.PI / 100))
@@ -320,7 +324,7 @@ namespace Edt_OscTest
                     }
                 }
 
-                if (key.Key == ConsoleKey.D)
+                else if(key.Key == ConsoleKey.D)
                 {
                     int r = 0;
                     while (r++ < 100)
@@ -333,33 +337,33 @@ namespace Edt_OscTest
                     }
                 }
 
-                if (key.Key == ConsoleKey.F)
+                else if(key.Key == ConsoleKey.F)
                 {
                     int r = 0;
                     while (r++ < 256)
                     {
-                        sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, r, 255, 255, 127));
-                        sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, r, 255, 255, 127));
+                        sender.Send(new OscMessage("/L", (int)Mode.SingleSolid, 0, 127, r, 255, 254, 127));
+                        sender.Send(new OscMessage("/O", (int)Mode.SingleSolid, 0, 127, r, 255, 254, 127));
 
                         Console.WriteLine(r);
                         Thread.Sleep(100);
                     }
                 }
-                if (key.Key == ConsoleKey.Z)
+                else if(key.Key == ConsoleKey.Z)
                 {
                     //                                  0                  1  2    3                                         4
                     sender.Send(new OscMessage("/L", (int)Mode.Twinkle, 0, 127, (int)((new Random()).NextDouble() * 255), 127));
                     sender.Send(new OscMessage("/O", (int)Mode.Twinkle, 0, 127, (int)((new Random()).NextDouble() * 255), 127));
                 }
 
-                if (key.Key == ConsoleKey.X)
+                else if(key.Key == ConsoleKey.X)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.RainbowSolid, 0, 127, 0, 127));
                     sender.Send(new OscMessage("/O", (int)Mode.RainbowSolid, 0, 127, 0, 127));
                 }
 
 
-                if (key.Key == ConsoleKey.Spacebar)
+                else if(key.Key == ConsoleKey.Spacebar)
                 {
                     strobo = ((strobo + 31) % 95);
                     color = ((color + 15) % 255);
@@ -369,7 +373,7 @@ namespace Edt_OscTest
                     sender.Send(new OscMessage("/L", (int)Mode.Strobo, color, strobo));
                     sender.Send(new OscMessage("/O", (int)Mode.Strobo, color, strobo));
                 }
-                if (key.Key == ConsoleKey.Escape)
+                else if(key.Key == ConsoleKey.Escape)
                 {
                     sender.Send(new OscMessage("/L", (int)Mode.Strobo, 0, 0));
                     sender.Send(new OscMessage("/O", (int)Mode.Strobo, 0, 0));

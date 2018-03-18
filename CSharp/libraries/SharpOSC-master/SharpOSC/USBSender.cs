@@ -6,15 +6,25 @@ using System.Text;
 
 namespace SharpOSC
 {
-    public class USBSender
+    public class USB
     {
         private SerialPort serialPort;
 
-        public USBSender(string portName, int baudRate)
+        public USB(string portName, int baudRate)
         {
             serialPort = new SerialPort(portName, baudRate);
 
-            //serialPort.Open();
+            //serialPort.DataReceived += SerialPort_DataReceived;
+
+            serialPort.Open();
+        }
+
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            if(e.EventType == SerialData.Chars)
+            {
+                Console.WriteLine(serialPort.ReadExisting());
+            }
         }
 
         public void Send(byte[] message)
