@@ -14,6 +14,8 @@ namespace SharpOSC
         {
             serialPort = new SerialPort(portName, baudRate);
 
+            serialPort.WriteTimeout = 1;
+
             //serialPort.DataReceived += SerialPort_DataReceived;
 
             serialPort.Open();
@@ -29,7 +31,15 @@ namespace SharpOSC
 
         public void Send(byte[] message)
         {
-            serialPort.Write(message, 0, message.Length);
+            try
+            {
+                serialPort.Write(message, 0, message.Length);
+            }
+            catch(Exception)
+            {
+                serialPort.Close();
+                serialPort.Open();
+            }
         }
 
         public void Send(OscPacket packet)
