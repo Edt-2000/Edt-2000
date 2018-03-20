@@ -12,9 +12,12 @@ namespace SharpOSC
 
         public USB(string portName, int baudRate)
         {
-            serialPort = new SerialPort(portName, baudRate);
-
-            serialPort.WriteTimeout = 1;
+            serialPort = new SerialPort(portName, baudRate)
+            {
+                DtrEnable = true,
+                RtsEnable = false,
+                WriteTimeout = 1
+            };
 
             //serialPort.DataReceived += SerialPort_DataReceived;
 
