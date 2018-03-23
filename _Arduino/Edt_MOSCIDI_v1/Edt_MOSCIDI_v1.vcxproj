@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Path>C:\\Python27\\;C:\\Python27\\Scripts;C:\\Program Files\\Dell\\DW WLAN Card;;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;c:\\Program Files\\WIDCOMM\\Bluetooth Software\\;c:\\Program Files\\WIDCOMM\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Users\\thoma\\AppData\\Local\\atom\\bin;c:\\python27;c:\\python27\\Scripts</Path>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{85294E9E-4400-4F4F-A2EC-225F607B5C92}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeBuildCommandLine>platformio -f -c visualstudio run</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>platformio -f -c visualstudio run --target clean</NMakeCleanCommandLine>
+    <NMakePreprocessorDefinitions>F_CPU=16000000L;PLATFORMIO=021003;ARDUINO_ARCH_AVR;ARDUINO_AVR_UNO;ARDUINO=10608;__AVR_ATmega328P__</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\variants\standard;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\cores\arduino;D:\Edt-2000\Arduino\Edt_MOSCIDI_v1\src;D:\Edt-2000\Arduino\libraries\MIDI;d:\OSC-light;D:\Edt-2000\Arduino\libraries\Edt-lib;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Bridge\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\EEPROM\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Esplora\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Ethernet\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Firmata;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\GSM\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\HID\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Keyboard\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\LiquidCrystal\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Mouse\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\RobotIRremote\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Robot_Control\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Robot_Motor\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SD\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SPI\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Scheduler\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Servo\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SoftwareSerial\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SpacebrewYun\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Stepper\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\TFT\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Temboo\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\USBHost\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\WiFi\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Wire\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-atmelavr\avr\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-atmelavr\lib\gcc\avr\4.8.1\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-atmelavr\lib\gcc\avr\4.8.1\include-fixed</NMakeIncludeSearchPath>
+    <NMakeForcedIncludes>D:\Edt-2000\Arduino\VSfix\IntellisenseClang.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeBuildCommandLine>platformio run</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>platformio run --target clean</NMakeCleanCommandLine>
+    <NMakePreprocessorDefinitions>F_CPU=16000000L;PLATFORMIO=021003;ARDUINO_ARCH_AVR;ARDUINO_AVR_UNO;ARDUINO=10608;__AVR_ATmega328P__</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\variants\standard;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\cores\arduino;D:\Edt-2000\Arduino\Edt_MOSCIDI_v1\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Bridge\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\EEPROM\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Esplora\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Ethernet\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Firmata;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\GSM\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\HID\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Keyboard\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\LiquidCrystal\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Mouse\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\RobotIRremote\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Robot_Control\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Robot_Motor\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SD\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SPI\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Scheduler\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Servo\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SoftwareSerial\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SpacebrewYun\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Stepper\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\TFT\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Temboo\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\USBHost\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\WiFi\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Wire\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-atmelavr\avr\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-atmelavr\lib\gcc\avr\4.8.1\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-atmelavr\lib\gcc\avr\4.8.1\include-fixed</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ItemGroup>
+    <None Include="platformio.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+</Project>
