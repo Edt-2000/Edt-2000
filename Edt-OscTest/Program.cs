@@ -30,10 +30,10 @@ namespace Edt_OscTest
 
         static void Main(string[] args)
         {
-            //var sender = new UDPSender("10.0.0.2", 12345);
+            //var sender = new UDPSender("169.254.65.172", 12345);
             //var sender = new UDPSender("192.168.0.102", 12345);
 
-            var sender = new USB("COM15", 9600);
+            var sender = new USB("COM3", 9600);
 
             
 
