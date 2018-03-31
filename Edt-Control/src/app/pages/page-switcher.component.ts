@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {pages} from '../app.routes';
 
 interface IPageLink {
   path: string;
@@ -8,29 +9,18 @@ interface IPageLink {
 @Component({
   selector: 'app-page-switcher',
   template: `
+    <div class="tabs">
     <ul>
       <li *ngFor="let link of pageLinks">
-        <a [routerLink]="link.path">{{link.text}}</a>
+        <a [routerLink]="link.path" routerLinkActive="active">{{link.text}}</a>
       </li>
     </ul>
-    <router-outlet></router-outlet>
+    </div>
   `,
-  styleUrls: [
-    'page-switcher.component.scss'
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageSwitcherComponent implements OnInit {
-  pageLinks: IPageLink[] = [
-    {
-      path: '/colorFlashes',
-      text: 'COLOR'
-    },
-    {
-      path: '/presetToggler',
-      text: 'PRESETS'
-    }
-  ];
+  public pageLinks = pages;
 
   constructor() { }
 

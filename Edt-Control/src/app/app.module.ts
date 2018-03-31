@@ -1,63 +1,41 @@
 import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {SocketIoModule} from 'ngx-socket-io';
 import {socketConfig} from '../../../SharedTypes/socket';
 
-
 import {AppComponent} from './app.component';
 import {CommunicationService} from './communication.service';
-import {ColorFlashesComponent} from './pages/color-flashes/color-flashes.component';
-import {ColoredTriggerComponent} from './components/colored-trigger/colored-trigger.component';
-import {PresetToggleComponent} from './components/preset-toggle/preset-toggle.component';
-import {PresetTogglerComponent} from './pages/preset-toggler/preset-toggler.component';
-import { PageSwitcherComponent } from './pages/page-switcher.component';
-
-
-const appRoutes = <Routes>[
-  {
-    path: '',
-    component: PageSwitcherComponent,
-    children: [
-      {
-        path: 'colorFlashes',
-        component: ColorFlashesComponent
-      },
-      {
-        path: 'presetToggler',
-        component: PresetTogglerComponent
-      }
-    ]
-  },
-  {
-    path: '',
-    redirectTo: 'colorFlashes',
-    pathMatch: 'full'
-  }
-];
+import {PageSwitcherComponent} from './pages/page-switcher.component';
+import {PresetControllerComponent} from './pages/preset-controller/preset-controller.component';
+import {ColorControllerComponent} from './pages/color-controller/color-controller.component';
+import {pages} from './app.routes';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ColorFlashesComponent,
-    ColoredTriggerComponent,
-    PresetToggleComponent,
-    PresetTogglerComponent,
-    PageSwitcherComponent
+    PageSwitcherComponent,
+    PresetControllerComponent,
+    ColorControllerComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
     RouterModule.forRoot(
-      appRoutes,
+      [
+        ...pages,
+        {
+          path: '',
+          redirectTo: pages[0].path,
+          pathMatch: 'full'
+        }
+      ],
       {enableTracing: true} // <-- debugging purposes only
     ),
     SocketIoModule.forRoot(socketConfig)
   ],
   providers: [
-    ColorFlashesComponent,
-    ColoredTriggerComponent,
     CommunicationService
   ],
   bootstrap: [
