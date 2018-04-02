@@ -1,26 +1,26 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import * as io from 'socket.io-client';
+import { CommunicationService } from '../services/communication.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     name: 'app',
     template: require('./app.template')
 })
 export default class App extends Vue {
-    socket = io('localhost:8080');
+    public communicationService: CommunicationService;
+    public communicationObservable: Observable<any>;
 
+
+    constructor() {
+        super();
+        this.communicationService = new CommunicationService();
+        this.communicationObservable = this.communicationService.socketObservable;
+    }
     mounted() {
-        this.socket.on('connect', () =>{
-            console.log('socket connected');
-        });
-
-        this.socket.on('message', (message: any) => {
-            console.log('message', message);
-        });
-
-
-        //communication servicev > socket > obser > filters > meeredere observerabesl
-        // router.push({ path: '/screensave-bouncer' });
+        this.communicationObservable.subscribe((data) => {
+            console.log(data);
+        })
 
     }
 

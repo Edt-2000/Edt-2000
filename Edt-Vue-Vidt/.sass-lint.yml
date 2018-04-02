@@ -1,0 +1,24 @@
+# 0 = nothing
+# 1 = warning
+# 2 = error
+
+rules:
+    class-name-format: 0
+    property-sort-order: 1
+    mixins-before-declarations: 0
+    no-important: 2
+    no-ids: 2
+    nesting-depth:
+        - 2
+        - max-depth: 4
+    no-css-comments: 0
+    indentation:
+        - 2
+        - size: 4
+    no-misspelled-properties:
+        - 2
+        - extra-properties:
+            - 'touch-callout'
+files:
+    ignore:
+        - 'src/styles/css/reset.scss'

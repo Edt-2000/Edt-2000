@@ -10,16 +10,10 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-    entry: {
-        main:    path.resolve(__dirname, './src/typescript/main.ts'),
-        server:  path.resolve(__dirname, './src/typescript/server.ts'),
-        // vendor: vendorDependencies
-    },
+    entry: ['./src/typescript/server.ts'],
     output: {
-        path: path.resolve(__dirname, 'dist/static/js'),
-        publicPath: '/assets/js',
-        filename: '[name].js',
-        chunkFilename: '[name].js'
+        filename: 'server.js',
+        path: path.join(__dirname, 'dist/js')
     },
     resolve: {
         extensions: ['.ts', '.js', '.json'],

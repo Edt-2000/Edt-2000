@@ -7,7 +7,7 @@ Run `npm install`
 
 ## Start
 
-* Start socket server: `npm run start-socket`
-* Serve & build application: `npm start`
+* Serve & build application: `npm start`. Then go to `localhost:4040`
 * Build application: `npm build`
 * Build ts only: `npm build-ts'
+

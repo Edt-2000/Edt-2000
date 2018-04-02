@@ -6,11 +6,11 @@ function serve() {
         server: {
             baseDir: './dist'
         },
-        port: 3030,
+        port: 4040,
         notify: false,
         open: false,
         ui: {
-            port: 3031
+            port: 4041
         }
     });
 

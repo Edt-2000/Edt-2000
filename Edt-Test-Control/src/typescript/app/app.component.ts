@@ -11,8 +11,7 @@ export default class App extends Vue {
 
     mounted() {
         this.socket.on('connect', () =>{
-            console.log('socket connected');
-
+            console.log('connected');
             document.onkeypress = (e) => {
                 const key = e.which;
                 this.socket.emit('message', {

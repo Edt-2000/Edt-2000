@@ -32,17 +32,6 @@ gulp.task("build", gulp.parallel(
     build
 ));
 
-gulp.task("build-ts", gulp.parallel(
-    typescript.compile
-));
-
-// gulp.task("build:prod", gulp.series(
-//     build,
-//     gulp.parallel(
-//         typescript.compileProd
-//     )
-// ));
-
 gulp.task("icons", gulp.parallel(
     svg.generateUI,
     svg.generateIcons

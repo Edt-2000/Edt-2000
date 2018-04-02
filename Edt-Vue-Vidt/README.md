@@ -6,6 +6,6 @@ Run `npm install`
 
 ## Start
 
-* Serve & build application: `npm start`
+* Serve & build application: `npm start`. Then go to `localhost:3030`
 * Build application: `npm build`
 * Build ts only: `npm build-ts'
