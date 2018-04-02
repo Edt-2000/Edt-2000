@@ -3,15 +3,18 @@ import { Observer } from 'rxjs/Observer';
 import Socket = SocketIOClient.Socket;
 import * as io from "socket.io-client";
 
+// TODO: type messages
 export interface CommunicationServiceModel {
     socketObservable: Observable<any>;
     presetObservable: Observable<any>;
+    intensityObservable: Observable<any>;
 }
 
 class CommunicationService implements CommunicationServiceModel {
     private socket: Socket;
     public socketObservable: Observable<any>;
     public presetObservable: Observable<any>;
+    public intensityObservable: Observable<any>;
 
     constructor() {
         this.socket = io('localhost:8080');
@@ -28,6 +31,12 @@ class CommunicationService implements CommunicationServiceModel {
 
         this.presetObservable = Observable.create((observer: Observer<any>) => {
             this.socket.on('preset', (data: any) => {
+                observer.next(data);
+            });
+        });
+
+        this.intensityObservable = Observable.create((observer: Observer<any>) => {
+            this.socket.on('intensity', (data: any) => {
                 observer.next(data);
             });
         });

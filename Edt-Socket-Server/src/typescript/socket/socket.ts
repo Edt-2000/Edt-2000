@@ -36,6 +36,11 @@ export default class SocketServer {
                 console.log('preset', m);
             });
 
+            socket.on('intensity', (m: any) => {
+                this.ioServer.emit('intensity', m);
+                console.log('intensity', m);
+            });
+
             socket.on('disconnect', () => {
                 console.log('Client disconnected');
             });

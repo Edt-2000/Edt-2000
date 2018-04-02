@@ -81,8 +81,8 @@
 }
 
 @for $i from 1 through 20 {
-    $amount: (8 + (($i - 1) * 4)) * 1px;
-    $negAmount: (-1 * (8 + (($i - 1) * 4))) * 1px;
+    $amount: (4 + (($i - 1) * 4)) * 1px;
+    $negAmount: (-1 * (4 + (($i - 1) * 4))) * 1px;
     @keyframes glitch-level#{$i} {
         0% {
             transform: translate(0);

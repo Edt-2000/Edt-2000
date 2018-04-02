@@ -15,22 +15,22 @@ export default class App extends Vue {
     @Provide() communicationService: CommunicationServiceModel = communicationService;
 
     public presetObservable: Observable<any>;
+    public intensityObservable: Observable<any>;
 
     constructor() {
         super();
         this.presetObservable = this.communicationService.presetObservable;
+        this.intensityObservable = this.communicationService.intensityObservable;
     }
 
     mounted() {
-        router.push('/screensave-bouncer');
         this.presetObservable
             .map((item) => {
                 return item.preset;
             })
             .subscribe((preset) => {
                 router.push(preset);
-            })
-
+            });
     }
 
 }

@@ -19,13 +19,20 @@ export default class App extends Vue {
                 // todo make controls interface
                 // todo: set preset paths in shared config
 
-                if (key === 49) {
+                if (key === 97) { //a
+                    console.log('preset', key)
                     this.socket.emit('preset', {
                         'preset': '/logo'
                     });
-                } else if (key === 50) {
+                } else if (key === 98) { //b
+                    console.log('preset', key)
                     this.socket.emit('preset', {
                         'preset': '/screensave-bouncer'
+                    });
+                } else if (key >= 49 && key <= 57) { //1-9
+                    console.log('intensity', key)
+                    this.socket.emit('intensity', {
+                        'intensity': key
                     });
                 }
 
