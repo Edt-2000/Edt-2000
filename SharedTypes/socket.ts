@@ -26,7 +26,9 @@ export enum VidtPresets {
     PhotoGlitcher = 'PhotoGlitcher',
     Bluescreen = 'Bluescreen',
     Vista = 'Vista',
+    ScreensaveBouncer = 'Screensavebouncer'
 }
+
 
 // SubMessages
 
@@ -47,7 +49,7 @@ export interface IIntensityMsg {
 // -------------------------------- Specific Messages
 
 export interface ICenteredText extends IColor {
-    readonly textValue;
+    readonly textValue: string;
 }
 
 export interface ITrackMsg {
