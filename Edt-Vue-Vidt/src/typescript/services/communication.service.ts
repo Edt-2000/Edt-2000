@@ -3,7 +3,12 @@ import { Observer } from 'rxjs/Observer';
 import Socket = SocketIOClient.Socket;
 import * as io from "socket.io-client";
 
-export class CommunicationService {
+export interface CommunicationServiceModel {
+    socket: Socket;
+    socketObservable: Observable<any>;
+}
+
+class CommunicationService implements CommunicationServiceModel{
     public socket: Socket;
     public socketObservable: Observable<any>;
 
@@ -20,5 +25,6 @@ export class CommunicationService {
             });
         });
     }
-
 }
+
+export const communicationService: CommunicationServiceModel = new CommunicationService();
