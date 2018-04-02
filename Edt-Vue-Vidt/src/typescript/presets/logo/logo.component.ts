@@ -1,7 +1,8 @@
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import { Component, Inject } from 'vue-property-decorator';
 import { GlitchText } from '../../components/glitch-text/glitch-text.component';
 import { mapInput } from '../../helpers/map-input';
+import { communicationService, CommunicationServiceModel } from '../../services/communication.service';
 
 @Component({
     name: 'logo',
@@ -12,6 +13,8 @@ import { mapInput } from '../../helpers/map-input';
 })
 
 export class Logo extends Vue {
+    @Inject() communicationService: CommunicationServiceModel;
+
     public stars: number[] = Array(64).map((x, i) => i + 1);
     public level: number = 0;
     public text: string = 'Strobocops';

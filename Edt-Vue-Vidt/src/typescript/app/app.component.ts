@@ -1,28 +1,35 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Observable } from 'rxjs/Observable';
-import { Inject } from 'vue-property-decorator';
-import { CommunicationServiceModel } from '../services/communication.service';
+import { Inject, Provide } from 'vue-property-decorator';
+import { communicationService, CommunicationServiceModel } from '../services/communication.service';
+import { router } from '../services/router.service';
+import 'rxjs/add/operator/map';
 
 @Component({
     name: 'app',
-    template: require('./app.template')
+    template: require('./app.template'),
+    router: router,
 })
 export default class App extends Vue {
-    @Inject() communicationService: CommunicationServiceModel;
+    @Provide() communicationService: CommunicationServiceModel = communicationService;
 
-    public communicationObservable: Observable<any>;
-
+    public presetObservable: Observable<any>;
 
     constructor() {
         super();
-        this.communicationObservable = this.communicationService.socketObservable;
+        this.presetObservable = this.communicationService.presetObservable;
     }
 
     mounted() {
-        this.communicationObservable.subscribe((data) => {
-            console.log(data);
-        })
+        router.push('/screensave-bouncer');
+        this.presetObservable
+            .map((item) => {
+                return item.preset;
+            })
+            .subscribe((preset) => {
+                router.push(preset);
+            })
 
     }
 

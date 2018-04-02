@@ -14,9 +14,21 @@ export default class App extends Vue {
             console.log('connected');
             document.onkeypress = (e) => {
                 const key = e.which;
-                this.socket.emit('message', {
-                    'key': key
-                });
+                console.log(key);
+
+                // todo make controls interface
+                // todo: set preset paths in shared config
+
+                if (key === 49) {
+                    this.socket.emit('preset', {
+                        'preset': '/logo'
+                    });
+                } else if (key === 50) {
+                    this.socket.emit('preset', {
+                        'preset': '/screensave-bouncer'
+                    });
+                }
+
             }
 
         });
@@ -24,8 +36,6 @@ export default class App extends Vue {
         this.socket.on('message', (message: any) => {
             console.log('message', message);
         });
-
-        // router.push({ path: '/screensave-bouncer' });
 
     }
 
