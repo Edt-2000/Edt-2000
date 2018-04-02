@@ -1,13 +1,15 @@
 import {Subscription} from 'rxjs/Subscription';
 import {sendToVidt} from '../../outputs/edt-vidt';
 import {IIntensityMsg, IPreparePresetMsg, VidtPresets} from '../../../../SharedTypes/socket';
-import {IEdtPresetLogic} from '../presets';
+import {PresetLogic} from '../presets-logic';
 import {BeatMain} from '../../subjects/triggers';
 
-export class BeatToVidtBounce implements IEdtPresetLogic {
+export class BeatToVidtBounce extends PresetLogic {
+    title = 'Beat To Vidt Bounce';
+
     private subscriber: Subscription;
 
-    public startPreset(listenTo: number): void {
+    public _startPreset(listenTo: number): void {
         sendToVidt({
             preset: VidtPresets.PhotoBounce,
         } as IPreparePresetMsg);
@@ -20,7 +22,7 @@ export class BeatToVidtBounce implements IEdtPresetLogic {
             });
     }
 
-    public stopPreset(): void {
+    public _stopPreset(): void {
         if (typeof this.subscriber !== 'undefined') {
             this.subscriber.unsubscribe();
         }

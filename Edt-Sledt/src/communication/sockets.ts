@@ -4,10 +4,11 @@
  */
 import express = require('express');
 import http = require('http');
+import socket = require('socket.io');
+
 const app = express();
 const server = http.createServer(app);
 
-import socket = require('socket.io');
 import {socketPort} from '../../../SharedTypes/socket';
 // init
 export const io = socket(server);

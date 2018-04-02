@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {adjustmentChannel, presetMsgChannel} from '../../../SharedTypes/config';
-import {sledtNoteOff$, sledtNoteOn$} from '../communication/midi';
+import {CC$, Program$, Select$, sledtNoteOff$, sledtNoteOn$} from '../communication/midi';
 import {IMidiNoteMsg, IPresetMsg} from '../types';
 import {filter, map, merge} from 'rxjs/operators';
 
@@ -45,13 +45,12 @@ export const presetMidi$: Observable<IPresetMsg> = presetOn$.pipe(
 );
 
 
-
 // Loggers, comment to disable
 // noteOn$.subscribe((msg) => console.log('NoteOn', msg));
 // noteOff$.subscribe((msg) => console.log('NoteOff', msg));
-// Program.subscribe((msg) => console.log('Program', msg));
-// Select.subscribe((msg) => console.log('Select', msg));
-// CC.subscribe((msg) => console.log('CC', msg));
+// Program$.subscribe((msg) => console.log('Program', msg));
+// Select$.subscribe((msg) => console.log('Select', msg));
+// CC$.subscribe((msg) => console.log('CC', msg));
 
 export enum Note {
     'C0',

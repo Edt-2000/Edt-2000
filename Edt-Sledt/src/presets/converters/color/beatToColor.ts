@@ -3,12 +3,13 @@ import {IColor} from '../../../../../SharedTypes/socket';
 import {EdtMainColor} from '../../../subjects/colors';
 import {BeatMain} from '../../../subjects/triggers';
 import {rescale} from '../../../utils';
-import {IEdtPresetLogic} from '../../presets';
+import {PresetLogic} from '../../presets-logic';
 
 /**
  * The bg IColor cycle Preset cycles between colors trigger by filteredNoteOn inputs
  */
-export class BeatToColor implements IEdtPresetLogic {
+export class BeatToColor extends PresetLogic {
+    title = 'Beat To Color';
     private hue: number;
 
     private subscription: Subscription;
@@ -16,11 +17,12 @@ export class BeatToColor implements IEdtPresetLogic {
     private rotationVelocity: number;
 
     constructor() {
+        super();
         this.hue = 0;
         this.rotationVelocity = 0;
     }
 
-    public startPreset(rotationVelocity: number): void {
+    public _startPreset(rotationVelocity: number): void {
         this.rotationVelocity = rotationVelocity;
 
         this.subscription = BeatMain
@@ -36,7 +38,7 @@ export class BeatToColor implements IEdtPresetLogic {
             });
     }
 
-    public stopPreset(): void {
+    public _stopPreset(): void {
         if (typeof this.subscription !== 'undefined') this.subscription.unsubscribe();
     }
 
