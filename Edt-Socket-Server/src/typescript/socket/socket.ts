@@ -25,12 +25,6 @@ export default class SocketServer {
             console.log('Connected client on port %s.', this.port);
 
             // TODO: set message types in shared config
-
-            socket.on('message', (m: any) => {
-                this.ioServer.emit('message', m);
-                console.log('message', m);
-            });
-
             socket.on('preset', (m: any) => {
                 this.ioServer.emit('preset', m);
                 console.log('preset', m);
@@ -39,6 +33,11 @@ export default class SocketServer {
             socket.on('intensity', (m: any) => {
                 this.ioServer.emit('intensity', m);
                 console.log('intensity', m);
+            });
+
+            socket.on('text', (m: any) => {
+                this.ioServer.emit('text', m);
+                console.log('text', m);
             });
 
             socket.on('disconnect', () => {

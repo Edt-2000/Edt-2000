@@ -18,7 +18,7 @@ export interface IColor {
 export enum VidtPresets {
     HackingAnimation = 'HackingAnimation',
     Gridscape = 'Gridscape',
-    LogoIdle = 'LogoIdle',
+    Logo = 'Logo',
     TextDisplay = 'TextDisplay',
     Shutdown = 'Shutdown',
     VideoPlayer = 'VideoPlayer',
@@ -29,7 +29,10 @@ export enum VidtPresets {
     ScreensaveBouncer = 'Screensavebouncer'
 }
 
-
+export interface PresetModel {
+    name: VidtPresets;
+    path: string;
+}
 
 // SubMessages
 

@@ -9,7 +9,7 @@
     "outDir": "dist/",
     "sourceMap": true,
     "baseUrl": ".",
-    "rootDir": "./src/",
+//    "rootDir": "./src/",
     "strict": true,
     "lib": ["es2017", "dom"]
   },

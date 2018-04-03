@@ -5,6 +5,7 @@ import { Inject, Provide } from 'vue-property-decorator';
 import { communicationService, CommunicationServiceModel } from '../services/communication.service';
 import { router } from '../services/router.service';
 import 'rxjs/add/operator/map';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     name: 'app',
@@ -15,12 +16,11 @@ export default class App extends Vue {
     @Provide() communicationService: CommunicationServiceModel = communicationService;
 
     public presetObservable: Observable<any>;
-    public intensityObservable: Observable<any>;
+    public subscription: Subscription;
 
     constructor() {
         super();
         this.presetObservable = this.communicationService.presetObservable;
-        this.intensityObservable = this.communicationService.intensityObservable;
     }
 
     mounted() {
@@ -31,6 +31,12 @@ export default class App extends Vue {
             .subscribe((preset) => {
                 router.push(preset);
             });
+    }
+
+    destroyed() {
+        if (typeof this.subscription !== 'undefined') {
+            this.subscription.unsubscribe();
+        }
     }
 
 }

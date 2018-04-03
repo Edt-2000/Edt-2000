@@ -4,7 +4,7 @@ import { GlitchText } from '../../components/glitch-text/glitch-text.component';
 import { mapInput } from '../../helpers/map-input';
 import { CommunicationServiceModel } from '../../services/communication.service';
 import { Observable } from 'rxjs/Observable';
-import { router } from '../../services/router.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     name: 'logo',
@@ -22,6 +22,7 @@ export class Logo extends Vue {
     public text: string = 'Strobocops';
     public timeOut: number | null;
     public intensityObservable: Observable<any>;
+    public subscription: Subscription;
 
     constructor() {
         super();
@@ -29,13 +30,11 @@ export class Logo extends Vue {
     }
 
     mounted() {
-        this.intensityObservable
+        this.subscription = this.intensityObservable
             .map((item) => {
-                console.log(item);
                 return item.intensity;
             })
             .subscribe((intensity) => {
-                console.log(intensity);
                 this.glitch(intensity)
             })
 
@@ -49,7 +48,7 @@ export class Logo extends Vue {
             this.level = 0;
         }
 
-        this.level = mapInput(input, 49, 57, 1, 20);
+        this.level = mapInput(input, 1, 9, 1, 20);
 
         this.decay();
     }
@@ -66,5 +65,11 @@ export class Logo extends Vue {
                 this.decay()
             }
         }, 220);
+    }
+
+    destroyed() {
+        if (typeof this.subscription !== 'undefined') {
+            this.subscription.unsubscribe();
+        }
     }
 }

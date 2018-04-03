@@ -1,50 +1,56 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import * as io from 'socket.io-client';
+import { PresetModel, VidtPresets } from '../../../../SharedTypes/socket';
 
 @Component({
     name: 'app',
     template: require('./app.template')
 })
 export default class App extends Vue {
-    socket = io('localhost:8080');
+    private socket = io('localhost:8080');
+
+    public socketConnected: boolean = false;
+    public currentPreset: PresetModel|null = null;
+    public vidtPresets = VidtPresets;
+    public presets: PresetModel[] = [
+        {
+            name: this.vidtPresets.Logo,
+            path: '/logo'
+        },
+        {
+            name: this.vidtPresets.ScreensaveBouncer,
+            path: '/screensave-bouncer'
+        }
+    ];
+    public intensitys: number[] = [1, 2, 3, 4 ,5, 6, 7, 8, 9];
 
     mounted() {
         this.socket.on('connect', () =>{
-            console.log('connected');
-            document.onkeypress = (e) => {
-                const key = e.which;
-                console.log(key);
-
-                // todo make controls interface
-                // todo: set preset paths in shared config
-
-                if (key === 97) { //a
-                    console.log('preset', key)
-                    this.socket.emit('preset', {
-                        'preset': '/logo'
-                    });
-                } else if (key === 98) { //b
-                    console.log('preset', key)
-                    this.socket.emit('preset', {
-                        'preset': '/screensave-bouncer'
-                    });
-                } else if (key >= 49 && key <= 57) { //1-9
-                    console.log('intensity', key)
-                    this.socket.emit('intensity', {
-                        'intensity': key
-                    });
-                }
-
-            }
-
+            this.socketConnected = true;
         });
 
         this.socket.on('message', (message: any) => {
             console.log('message', message);
         });
-
     }
 
+    setPreset(preset: PresetModel) {
+        this.currentPreset = preset;
+
+        if (this.socketConnected) {
+            this.socket.emit('preset', {
+                'preset': preset.path
+            });
+        }
+    }
+
+    setIntensity(intensity: number) {
+        if (this.socketConnected) {
+            this.socket.emit('intensity', {
+                'intensity': intensity
+            });
+        }
+    }
 }
 
