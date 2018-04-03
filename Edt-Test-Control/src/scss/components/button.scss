@@ -2,16 +2,17 @@ $colorArray: (darkgreen, green, yellowgreen, #ffea00, gold, orange, orangered, r
 
 .button {
     background: #1E477D;
+    color: #fff;
     display: block;
     font-family: monospace;
-    padding: 0 1rem;
-    font-weight: 700;
     font-size: 2rem;
+    font-weight: 700;
     height: 60px;
     line-height: 60px;
     min-width: 60px;
+    padding: 0 1rem;
     text-align: center;
-    color: #fff;
+    text-transform: uppercase;
 
     &:hover {
         background: darken(#1E477D, 5%);

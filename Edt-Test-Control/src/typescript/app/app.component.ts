@@ -24,6 +24,7 @@ export default class App extends Vue {
         }
     ];
     public intensitys: number[] = [1, 2, 3, 4 ,5, 6, 7, 8, 9];
+    public defaultText: string = 'Strobocops';
     public customText: string = '';
 
     mounted() {
@@ -55,9 +56,11 @@ export default class App extends Vue {
     }
 
     setText(text: string) {
+        const textToSend = (text ? text : this.defaultText);
+
         if (this.socketConnected) {
             this.socket.emit('text', {
-                'text': text.toUpperCase()
+                'text': textToSend.toUpperCase()
             });
         }
     }

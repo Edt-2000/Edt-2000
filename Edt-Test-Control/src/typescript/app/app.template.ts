@@ -23,7 +23,7 @@ module.exports = `
             <h2 class="options__title">Tekst</h2>
             <ul class="options__list">
                 <li class="options__item">
-                    <button class="button" v-on:click="setText('strobocops')">Strobocops</button>   
+                    <button class="button" v-on:click="setText(defaultText)">{{ defaultText }}</button>   
                 </li>
                  <li class="options__item">
                     <input class="input" type="text" v-model="customText" v-on:keyup="setText(customText)">

@@ -47,14 +47,24 @@ export class ScreensaveBouncer extends Vue {
             })
             .subscribe((text) => {
                 this.text = text;
+                // wait for text to be in dom
+                requestAnimationFrame(() => {
+                    this.calculateBoundaries();
+                });
             });
 
-        this.maxX = window.innerWidth - this.$refs.text.clientWidth;
-        this.maxY = window.innerHeight - this.$refs.text.clientHeight;
+
+        this.calculateBoundaries();
 
         requestAnimationFrame(() => {
             this.bounce();
         });
+    }
+
+    calculateBoundaries() {
+        this.maxX = window.innerWidth - this.$refs.text.clientWidth;
+        this.maxY = window.innerHeight - this.$refs.text.clientHeight;
+        console.log(this.maxX);
     }
 
     bounce() {
