@@ -1,6 +1,9 @@
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import { Component, Inject } from 'vue-property-decorator';
 import { GlitchText } from '../../components/glitch-text/glitch-text.component';
+import { Observable } from 'rxjs/Observable';
+import { CommunicationServiceModel } from '../../services/communication.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     name: 'screensave-bouncer',
@@ -11,7 +14,11 @@ import { GlitchText } from '../../components/glitch-text/glitch-text.component';
 })
 
 export class ScreensaveBouncer extends Vue {
+    @Inject() communicationService: CommunicationServiceModel;
+
     public text: string = 'bounce';
+    public textObservable: Observable<any>;
+    public subscription: Subscription;
 
     public y: number = 0;
     public x: number = 0;
@@ -27,9 +34,24 @@ export class ScreensaveBouncer extends Vue {
     };
     public styles: Object = {};
 
+    constructor() {
+        super();
+        this.textObservable = this.communicationService.textObservable;
+    }
+
     mounted() {
+
+        this.subscription = this.textObservable
+            .map((item) => {
+                return item.text;
+            })
+            .subscribe((text) => {
+                this.text = text;
+            });
+
         this.maxX = window.innerWidth - this.$refs.text.clientWidth;
         this.maxY = window.innerHeight - this.$refs.text.clientHeight;
+
         requestAnimationFrame(() => {
             this.bounce();
         });
@@ -58,5 +80,12 @@ export class ScreensaveBouncer extends Vue {
         requestAnimationFrame(() => {
             this.bounce();
         });
+    }
+
+
+    destroyed() {
+        if (typeof this.subscription !== 'undefined') {
+            this.subscription.unsubscribe();
+        }
     }
 }

@@ -5,14 +5,14 @@ import * as io from "socket.io-client";
 
 // TODO: type messages
 export interface CommunicationServiceModel {
-    socketObservable: Observable<any>;
+    textObservable: Observable<any>;
     presetObservable: Observable<any>;
     intensityObservable: Observable<any>;
 }
 
 class CommunicationService implements CommunicationServiceModel {
     private socket: Socket;
-    public socketObservable: Observable<any>;
+    public textObservable: Observable<any>;
     public presetObservable: Observable<any>;
     public intensityObservable: Observable<any>;
 
@@ -23,8 +23,8 @@ class CommunicationService implements CommunicationServiceModel {
             console.log('socket connected');
         });
 
-        this.socketObservable = Observable.create((observer: Observer<any>) => {
-            this.socket.on('message', (data: any) => {
+        this.textObservable = Observable.create((observer: Observer<any>) => {
+            this.socket.on('text', (data: any) => {
                 observer.next(data);
             });
         });

@@ -36,9 +36,7 @@ export class Logo extends Vue {
             })
             .subscribe((intensity) => {
                 this.glitch(intensity)
-            })
-
-        //unmount > subscribe uit
+            });
     }
 
     glitch(input: number) {

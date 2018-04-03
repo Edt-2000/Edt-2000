@@ -1,7 +1,6 @@
 const paths = {
     src: {
         src:            "./src/",
-        less:           "./src/less/",
         styles:         "./src/scss/",
         html:            "./src/html/",
         twig:            "./src/twig/",
@@ -9,7 +8,6 @@ const paths = {
         icons:          "./src/sprites/icons/",
         iconsUI:        "./src/sprites/ui/",
         assets:         "./src/static/assets/",
-        favicons:       "./src/static/favicons/",
         vendor:         "./node_modules/",
     },
 

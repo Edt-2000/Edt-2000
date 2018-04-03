@@ -24,6 +24,7 @@ export default class App extends Vue {
         }
     ];
     public intensitys: number[] = [1, 2, 3, 4 ,5, 6, 7, 8, 9];
+    public customText: string = '';
 
     mounted() {
         this.socket.on('connect', () =>{
@@ -49,6 +50,14 @@ export default class App extends Vue {
         if (this.socketConnected) {
             this.socket.emit('intensity', {
                 'intensity': intensity
+            });
+        }
+    }
+
+    setText(text: string) {
+        if (this.socketConnected) {
+            this.socket.emit('text', {
+                'text': text.toUpperCase()
             });
         }
     }
