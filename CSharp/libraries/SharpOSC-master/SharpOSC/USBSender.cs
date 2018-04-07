@@ -19,7 +19,7 @@ namespace SharpOSC
                 WriteTimeout = 1
             };
 
-            //serialPort.DataReceived += SerialPort_DataReceived;
+            serialPort.DataReceived += SerialPort_DataReceived;
 
             serialPort.Open();
         }
