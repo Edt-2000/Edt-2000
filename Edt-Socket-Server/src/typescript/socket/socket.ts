@@ -30,6 +30,11 @@ export default class SocketServer {
                 console.log('preset', m);
             });
 
+            socket.on('beat', (m: any) => {
+                this.ioServer.emit('beat', m);
+                console.log('beat', m);
+            });
+
             socket.on('intensity', (m: any) => {
                 this.ioServer.emit('intensity', m);
                 console.log('intensity', m);

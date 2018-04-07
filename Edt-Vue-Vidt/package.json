@@ -51,7 +51,7 @@
         "tsconfig-paths-webpack-plugin": "^2.0.0",
         "tslint": "^5.9.1",
         "tslint-loader": "^3.5.0",
-        "typescript": "2.7.1",
+        "typescript": "2.8.1",
         "vue": "^2.5.13",
         "vue-class-component": "^6.2.0",
         "vue-inject": "^2.0.1",

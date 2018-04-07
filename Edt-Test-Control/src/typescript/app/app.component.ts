@@ -15,13 +15,33 @@ export default class App extends Vue {
     public vidtPresets = VidtPresets;
     public presets: PresetModel[] = [
         {
+            name: this.vidtPresets.Bluescreen,
+            path: '/bluescreen'
+        },
+        {
+            name: this.vidtPresets.Gridscape,
+            path: '/gridscape'
+        },
+        {
+            name: this.vidtPresets.Hacking,
+            path: '/hacking'
+        },
+        {
             name: this.vidtPresets.Logo,
             path: '/logo'
         },
         {
             name: this.vidtPresets.ScreensaveBouncer,
             path: '/screensave-bouncer'
-        }
+        },
+        {
+            name: this.vidtPresets.Shutdown,
+            path: '/shutdown'
+        },
+        {
+            name: this.vidtPresets.Vista,
+            path: '/vista'
+        },
     ];
     public intensitys: number[] = [1, 2, 3, 4 ,5, 6, 7, 8, 9];
     public defaultText: string = 'Strobocops';
@@ -55,6 +75,15 @@ export default class App extends Vue {
         }
     }
 
+
+    setBeat() {
+        if (this.socketConnected) {
+            this.socket.emit('beat', {
+                'beat': true
+            });
+        }
+    }
+
     setText(text: string) {
         const textToSend = (text ? text : this.defaultText);
 
@@ -64,5 +93,24 @@ export default class App extends Vue {
             });
         }
     }
+
+    showBeat() {
+        return this.currentPreset && (
+            this.currentPreset.name == this.vidtPresets.Gridscape
+        );
+    }
+
+    showTextInput() {
+        return this.currentPreset && (
+            this.currentPreset.name == this.vidtPresets.ScreensaveBouncer
+        );
+    }
+
+    showIntensity() {
+        return this.currentPreset &&(
+            this.currentPreset.name == this.vidtPresets.Logo
+        );
+    }
+
 }
 

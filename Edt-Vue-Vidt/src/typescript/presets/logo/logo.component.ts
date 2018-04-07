@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
     }
 })
 
-export class Logo extends Vue {
+export class LogoComponent extends Vue {
     @Inject() communicationService: CommunicationServiceModel;
 
     public stars: number[] = Array(64).map((x, i) => i + 1);

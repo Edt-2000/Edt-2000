@@ -5,16 +5,18 @@ import * as io from "socket.io-client";
 
 // TODO: type messages
 export interface CommunicationServiceModel {
-    textObservable: Observable<any>;
     presetObservable: Observable<any>;
+    beatObservable: Observable<any>;
     intensityObservable: Observable<any>;
+    textObservable: Observable<any>;
 }
 
 class CommunicationService implements CommunicationServiceModel {
     private socket: Socket;
-    public textObservable: Observable<any>;
     public presetObservable: Observable<any>;
+    public beatObservable: Observable<any>;
     public intensityObservable: Observable<any>;
+    public textObservable: Observable<any>;
 
     constructor() {
         this.socket = io('localhost:8080');
@@ -23,20 +25,26 @@ class CommunicationService implements CommunicationServiceModel {
             console.log('socket connected');
         });
 
-        this.textObservable = Observable.create((observer: Observer<any>) => {
-            this.socket.on('text', (data: any) => {
-                observer.next(data);
-            });
-        });
-
         this.presetObservable = Observable.create((observer: Observer<any>) => {
             this.socket.on('preset', (data: any) => {
                 observer.next(data);
             });
         });
 
+        this.beatObservable = Observable.create((observer: Observer<any>) => {
+            this.socket.on('beat', (data: any) => {
+                observer.next(data);
+            });
+        });
+
         this.intensityObservable = Observable.create((observer: Observer<any>) => {
             this.socket.on('intensity', (data: any) => {
+                observer.next(data);
+            });
+        });
+
+        this.textObservable = Observable.create((observer: Observer<any>) => {
+            this.socket.on('text', (data: any) => {
                 observer.next(data);
             });
         });

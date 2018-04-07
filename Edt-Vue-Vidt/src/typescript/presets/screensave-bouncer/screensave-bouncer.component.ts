@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
     }
 })
 
-export class ScreensaveBouncer extends Vue {
+export class ScreensaveBouncerComponent extends Vue {
     @Inject() communicationService: CommunicationServiceModel;
 
     public text: string = 'bounce';
@@ -40,7 +40,6 @@ export class ScreensaveBouncer extends Vue {
     }
 
     mounted() {
-
         this.subscription = this.textObservable
             .map((item) => {
                 return item.text;
@@ -64,7 +63,6 @@ export class ScreensaveBouncer extends Vue {
     calculateBoundaries() {
         this.maxX = window.innerWidth - this.$refs.text.clientWidth;
         this.maxY = window.innerHeight - this.$refs.text.clientHeight;
-        console.log(this.maxX);
     }
 
     bounce() {

@@ -10,7 +10,7 @@ module.exports = `
             </ul>
         </div>
         
-        <div class="options__section" v-if="currentPreset && currentPreset.name == vidtPresets.Logo">
+        <div class="options__section" v-if="showIntensity()">
             <h2 class="options__title">Intensity</h2>
             <ul class="options__list">
                 <li class="options__item" v-for="intensity in intensitys">
@@ -19,7 +19,16 @@ module.exports = `
             </ul>
         </div>
         
-        <div class="options__section" v-if="currentPreset && currentPreset.name == vidtPresets.ScreensaveBouncer">
+        <div class="options__section" v-if="showBeat()">
+            <h2 class="options__title">Beat</h2>
+            <ul class="options__list">
+                <li class="options__item">
+                    <button class="button" v-on:click="setBeat()">Beat me</button>   
+                </li>
+            </ul>
+        </div>
+        
+        <div class="options__section" v-if="showTextInput()">
             <h2 class="options__title">Tekst</h2>
             <ul class="options__list">
                 <li class="options__item">
