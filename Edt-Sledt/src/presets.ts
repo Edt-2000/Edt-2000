@@ -1,6 +1,6 @@
 import {BeatToColor} from './presets/converters/color/beatToColor';
 import {DrumToBeat} from './presets/converters/drums/drumToBeat';
-import {Note} from './inputs/midi';
+import {Note} from '../../SharedTypes/midi';
 import {BeatToVidtBounce} from './presets/outputs/beatToVidtBounce';
 import {MidiToColors} from './presets/converters/color/midiToColors';
 

@@ -1,3 +1,7 @@
+import {ctrlSocketOut$} from '../communication/sockets';
+import {Actions} from '../../../SharedTypes/actions';
+import {Note} from '../../../SharedTypes/midi';
+
 export abstract class PresetLogic {
     active = false;
 
@@ -7,6 +11,10 @@ export abstract class PresetLogic {
         if (!this.active) {
             this._startPreset(velocity);
             this.active = true;
+            ctrlSocketOut$.next({
+                type: Actions.PRESET_ON,
+                preset: this.title,
+            })
         }
     }
 
@@ -14,6 +22,10 @@ export abstract class PresetLogic {
         if (this.active) {
             this._stopPreset();
             this.active = false;
+            ctrlSocketOut$.next({
+                type: Actions.PRESET_OFF,
+                preset: this.title,
+            })
         }
     }
 
@@ -22,4 +34,4 @@ export abstract class PresetLogic {
     abstract _stopPreset(): void;
 }
 
-export const presetMap = new Map<number, PresetLogic>();
+export const presetMap = new Map<Note, PresetLogic>();

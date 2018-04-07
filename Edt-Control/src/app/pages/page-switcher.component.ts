@@ -1,27 +1,31 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {edtPresets} from '../../../../Edt-Sledt/src/presets';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {pages} from '../app.routes';
+import {CommunicationService} from '../communication.service';
 
 @Component({
-  selector: 'app-page-switcher',
-  template: `
-    <div class="tabs">
-      <ul>
-        <li *ngFor="let link of presets">
-          <a [routerLink]="link.path" routerLinkActive="active">{{link.title}}</a>
-        </li>
-      </ul>
-    </div>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-page-switcher',
+    template: `
+        <div class="tabs">
+            <ul>
+                <li *ngFor="let link of pageTabs">
+                    <a [routerLink]="link.path" routerLinkActive="active">{{link.text}}</a>
+                </li>
+            </ul>
+        </div>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PageSwitcherComponent implements OnInit {
-  public presets = Array.from(edtPresets);
+export class PageSwitcherComponent implements OnInit, OnDestroy {
+    public pageTabs = pages;
 
-  constructor() {
-  }
+    constructor(private communicationService: CommunicationService) {
+    }
 
-  ngOnInit() {
-    console.log(this.presets);
-  }
+    ngOnInit() {
+
+    }
+
+    ngOnDestroy() {
+    }
 
 }
