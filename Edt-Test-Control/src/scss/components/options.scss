@@ -16,6 +16,7 @@
     &__list {
         @include list-reset;
         display: flex;
+        flex-wrap: wrap;
         margin: -.4rem;
     }
 

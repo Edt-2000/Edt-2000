@@ -27,6 +27,14 @@ export default class App extends Vue {
             path: '/hacking'
         },
         {
+            name: this.vidtPresets.PhotoBouncer,
+            path: '/photo-bouncer'
+        },
+        {
+            name: this.vidtPresets.PhotoGlitcher,
+            path: '/photo-glitcher'
+        },
+        {
             name: this.vidtPresets.Logo,
             path: '/logo'
         },
@@ -39,10 +47,15 @@ export default class App extends Vue {
             path: '/shutdown'
         },
         {
+            name: this.vidtPresets.VideoPlayer,
+            path: '/video-player'
+        },
+        {
             name: this.vidtPresets.Vista,
             path: '/vista'
         },
     ];
+
     public intensitys: number[] = [1, 2, 3, 4 ,5, 6, 7, 8, 9];
     public defaultText: string = 'Strobocops';
     public customText: string = '';

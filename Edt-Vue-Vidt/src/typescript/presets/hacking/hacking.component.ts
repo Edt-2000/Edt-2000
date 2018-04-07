@@ -14,6 +14,8 @@ export class HackingComponent extends Vue {
         character: HTMLElement
     };
 
+    interval: number | undefined;
+
     mounted() {
         const response = fetch(new Request("/assets/data/stevencode.txt"));
 
@@ -22,7 +24,7 @@ export class HackingComponent extends Vue {
                 const textArray: string[] = textString.split('');
                 let count: number = 0;
 
-                setInterval(() => {
+                this.interval = window.setInterval(() => {
                     if (textArray[count] === "\n") {
                         this.$refs.text.appendChild(document.createElement("br"));
                     }
@@ -42,5 +44,9 @@ export class HackingComponent extends Vue {
                 }, 30);
             });
         });
+    }
+
+    destroyed() {
+        clearInterval(this.interval);
     }
 }

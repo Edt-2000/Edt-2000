@@ -21,12 +21,12 @@ export enum VidtPresets {
     Logo = 'Logo',
     TextDisplay = 'TextDisplay',
     Shutdown = 'Shutdown',
-    VideoPlayer = 'VideoPlayer',
-    PhotoBounce = 'Photobounce',
-    PhotoGlitcher = 'PhotoGlitcher',
+    VideoPlayer = 'Video-player',
+    PhotoBouncer = 'Photo-bouncer',
+    PhotoGlitcher = 'Photo-glitcher',
     Bluescreen = 'Bluescreen',
     Vista = 'Vista',
-    ScreensaveBouncer = 'Screensavebouncer'
+    ScreensaveBouncer = 'Screensave-bouncer'
 }
 
 export interface PresetModel {
