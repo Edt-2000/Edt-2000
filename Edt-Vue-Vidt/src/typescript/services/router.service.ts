@@ -22,7 +22,7 @@ export const router = new VueRouter({
         { path: '/photo-glitcher', component: PhotoGlitcherComponent },
         { path: '/screensave-bouncer', component: ScreensaveBouncerComponent },
         { path: '/shutdown', component: ShutdownComponent },
-        { path: '/video', component: VideoPlayerComponent },
+        { path: '/video-player', component: VideoPlayerComponent },
         { path: '/vista', component: VistaComponent },
         { path: '*', redirect: '/' },
     ]
