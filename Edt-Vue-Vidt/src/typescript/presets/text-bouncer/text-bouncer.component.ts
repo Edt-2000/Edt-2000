@@ -6,14 +6,14 @@ import { CommunicationServiceModel } from '../../services/communication.service'
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-    name: 'screensave-bouncer',
-    template: require('./screensave-bouncer.template'),
+    name: 'text-bouncer',
+    template: require('./text-bouncer.template'),
     components: {
         GlitchText
     }
 })
 
-export class ScreensaveBouncerComponent extends Vue {
+export class TextBouncerComponent extends Vue {
     @Inject() communicationService: CommunicationServiceModel;
 
     public text: string = 'bounce';

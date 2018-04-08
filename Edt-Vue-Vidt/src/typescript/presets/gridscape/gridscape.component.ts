@@ -50,7 +50,7 @@ export class GridscapeComponent extends Vue {
                 duration: 200
             }
         );
-        
+
         this.animation.pause();
 
         this.subscription = this.beatObservable

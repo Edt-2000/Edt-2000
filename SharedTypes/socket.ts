@@ -26,7 +26,7 @@ export enum VidtPresets {
     PhotoGlitcher = 'Photo-glitcher',
     Bluescreen = 'Bluescreen',
     Vista = 'Vista',
-    ScreensaveBouncer = 'Screensave-bouncer'
+    TextBouncer = 'Text-bouncer'
 }
 
 export interface PresetModel {

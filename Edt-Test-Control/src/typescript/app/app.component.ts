@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import Component from 'vue-class-component';
 import * as io from 'socket.io-client';
 import { PresetModel, VidtPresets } from '../../../../SharedTypes/socket';
+import { Component, Watch } from 'vue-property-decorator';
 
 @Component({
     name: 'app',
@@ -9,8 +9,8 @@ import { PresetModel, VidtPresets } from '../../../../SharedTypes/socket';
 })
 export default class App extends Vue {
     private socket = io('localhost:8080');
-
     public socketConnected: boolean = false;
+
     public currentPreset: PresetModel|null = null;
     public vidtPresets = VidtPresets;
     public presets: PresetModel[] = [
@@ -39,8 +39,8 @@ export default class App extends Vue {
             path: '/logo'
         },
         {
-            name: this.vidtPresets.ScreensaveBouncer,
-            path: '/screensave-bouncer'
+            name: this.vidtPresets.TextBouncer,
+            path: '/text-bouncer'
         },
         {
             name: this.vidtPresets.Shutdown,
@@ -57,8 +57,15 @@ export default class App extends Vue {
     ];
 
     public intensitys: number[] = [1, 2, 3, 4 ,5, 6, 7, 8, 9];
-    public defaultText: string = 'Strobocops';
-    public customText: string = '';
+
+    public textOptions: string[] = ['strobocops', 'lalala', 'edt'];
+    public text: string = this.textOptions[0];
+
+    @Watch('text')
+    setCssClass() {
+        this.text = this.text.toLowerCase();
+        this.sendText();
+    };
 
     mounted() {
         this.socket.on('connect', () =>{
@@ -70,41 +77,9 @@ export default class App extends Vue {
         });
     }
 
-    setPreset(preset: PresetModel) {
-        this.currentPreset = preset;
-
-        if (this.socketConnected) {
-            this.socket.emit('preset', {
-                'preset': preset.path
-            });
-        }
-    }
-
-    setIntensity(intensity: number) {
-        if (this.socketConnected) {
-            this.socket.emit('intensity', {
-                'intensity': intensity
-            });
-        }
-    }
-
-
-    setBeat() {
-        if (this.socketConnected) {
-            this.socket.emit('beat', {
-                'beat': true
-            });
-        }
-    }
 
     setText(text: string) {
-        const textToSend = (text ? text : this.defaultText);
-
-        if (this.socketConnected) {
-            this.socket.emit('text', {
-                'text': textToSend.toUpperCase()
-            });
-        }
+        this.text = text.toLowerCase();
     }
 
     showBeat() {
@@ -115,7 +90,7 @@ export default class App extends Vue {
 
     showTextInput() {
         return this.currentPreset && (
-            this.currentPreset.name == this.vidtPresets.ScreensaveBouncer
+            this.currentPreset.name == this.vidtPresets.TextBouncer
         );
     }
 
@@ -125,5 +100,40 @@ export default class App extends Vue {
         );
     }
 
+
+    sendPreset(preset: PresetModel) {
+        this.currentPreset = preset;
+
+        if (this.socketConnected) {
+            this.socket.emit('preset', {
+                'preset': preset.path
+            });
+        }
+    }
+
+    sendIntensity(intensity: number) {
+        if (this.socketConnected) {
+            this.socket.emit('intensity', {
+                'intensity': intensity
+            });
+        }
+    }
+
+
+    sendBeat() {
+        if (this.socketConnected) {
+            this.socket.emit('beat', {
+                'beat': true
+            });
+        }
+    }
+
+    sendText() {
+        if (this.socketConnected) {
+            this.socket.emit('text', {
+                'text': this.text
+            });
+        }
+    }
 }
 

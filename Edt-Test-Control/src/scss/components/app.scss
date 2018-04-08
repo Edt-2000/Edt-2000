@@ -1,0 +1,8 @@
+@import '../config/colors';
+
+.app {
+    background: $c-black;
+    color: $c-white;
+    min-height: 100vh;
+    padding: 2rem;
+}

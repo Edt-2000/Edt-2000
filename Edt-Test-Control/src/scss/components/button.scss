@@ -1,25 +1,35 @@
-$colorArray: (darkgreen, green, yellowgreen, #ffea00, gold, orange, orangered, red, darkred);
+@import '../config/colors';
+@import '../config/sizes';
 
 .button {
-    background: #1E477D;
-    color: #fff;
+    @include font-style-button;
+    background: $c-blue;
+    color: $c-white;
     display: block;
-    font-family: monospace;
-    font-size: 2rem;
-    font-weight: 700;
-    height: 60px;
-    line-height: 60px;
+    height: $height-button;
+    line-height: $height-button;
     min-width: 60px;
+    overflow: hidden;
     padding: 0 1rem;
     text-align: center;
+    text-overflow: ellipsis;
     text-transform: uppercase;
+    white-space: nowrap;
 
     &:hover {
-        background: darken(#1E477D, 5%);
+        background: $c-darkblue;
     }
 
-    @each $color in $colorArray {
-        $i: index($colorArray, $color);
+    &.is-active {
+        background: $c-pink;
+    }
+
+    &--preset {
+        width: 310px;
+    }
+
+    @each $color in $colorIntensity {
+        $i: index($colorIntensity, $color);
         &--intensity-#{$i} {
             background: $color;
 
