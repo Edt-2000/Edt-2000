@@ -1,7 +1,7 @@
 import * as http from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
-import { IBeatMsg, IIntensityMsg, IPhotoMsg, IPresetMsg, ITextMsg, IVideoMsg } from '../../../../Shared/socket';
+import { IAnimationMsg, IBeatMsg, IIntensityMsg, IPhotoMsg, IPresetMsg, ITextMsg, IVideoMsg } from '../../../../Shared/socket';
 
 export default class SocketServer {
     private app: express.Application;
@@ -28,6 +28,11 @@ export default class SocketServer {
             socket.on('preset', (m: IPresetMsg) => {
                 this.ioServer.emit('preset', m);
                 console.log('preset', m);
+            });
+
+            socket.on('animation', (m: IAnimationMsg) => {
+                this.ioServer.emit('animation', m);
+                console.log('animation', m);
             });
 
             socket.on('beat', (m: IBeatMsg) => {

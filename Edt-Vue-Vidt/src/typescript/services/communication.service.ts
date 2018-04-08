@@ -2,10 +2,11 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import Socket = SocketIOClient.Socket;
 import * as io from "socket.io-client";
-import { IBeatMsg, IIntensityMsg, IPhotoMsg, IPresetMsg, ITextMsg, IVideoMsg } from '../../../../Shared/socket';
+import { IAnimationMsg, IBeatMsg, IIntensityMsg, IPhotoMsg, IPresetMsg, ITextMsg, IVideoMsg } from '../../../../Shared/socket';
 
 export interface ICommunicationService {
     presetObservable: Observable<IPresetMsg>;
+    animationObservable: Observable<IAnimationMsg>;
     beatObservable: Observable<IBeatMsg>;
     intensityObservable: Observable<IIntensityMsg>;
     photoObservable: Observable<IPhotoMsg>;
@@ -16,6 +17,7 @@ export interface ICommunicationService {
 class CommunicationService implements ICommunicationService {
     private socket: Socket;
     public presetObservable: Observable<IPresetMsg>;
+    public animationObservable: Observable<IAnimationMsg>;
     public beatObservable: Observable<IBeatMsg>;
     public intensityObservable: Observable<IIntensityMsg>;
     public photoObservable: Observable<IPhotoMsg>;
@@ -31,6 +33,12 @@ class CommunicationService implements ICommunicationService {
 
         this.presetObservable = Observable.create((observer: Observer<IPresetMsg>) => {
             this.socket.on('preset', (data: IPresetMsg) => {
+                observer.next(data);
+            });
+        });
+
+        this.animationObservable = Observable.create((observer: Observer<IAnimationMsg>) => {
+            this.socket.on('animation', (data: IAnimationMsg) => {
                 observer.next(data);
             });
         });

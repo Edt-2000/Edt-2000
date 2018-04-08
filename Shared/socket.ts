@@ -1,5 +1,5 @@
 import {DeviceIPs} from './config';
-import { IPreset } from './presets';
+import { animationTypes, IPreset } from './presets';
 import { IPhotoAsset, IVideoAsset } from './assets';
 
 export const socketPort: number = 8988;
@@ -23,20 +23,24 @@ export interface IPresetMsg {
     readonly preset: IPreset;
 }
 
-export interface IIntensityMsg {
-    readonly intensity: number;
+export interface IAnimationMsg {
+    readonly animation: animationTypes;
 }
 
 export interface IBeatMsg {
     readonly beat: boolean;
 }
 
-export interface ITextMsg {
-    readonly text: string;
+export interface IIntensityMsg {
+    readonly intensity: number;
 }
 
 export interface IPhotoMsg {
     readonly photo: IPhotoAsset;
+}
+
+export interface ITextMsg {
+    readonly text: string;
 }
 
 export interface IVideoMsg {
