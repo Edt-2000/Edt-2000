@@ -2,9 +2,10 @@
 /**
  * Socket Server
  */
-import {socketPort} from '../../../SharedTypes/config';
+import {socketPort} from '../../../Shared/config';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
+import {controlActions} from '../../../Shared/actions';
 
 const app = require('express')();
 const server = require('http').createServer(app);
@@ -13,12 +14,8 @@ const io = require('socket.io')(server, {
     transports: ['websocket'],
 });
 
-interface ctrlState {
-    presets?: string[],
-}
-
-export const ctrlSocketIn$ = new BehaviorSubject({} as ctrlState);
-export const ctrlSocketOut$: Subject<any> = new Subject();
+export const ctrlSocketIn$ = new BehaviorSubject({} as controlActions);
+export const ctrlSocketOut$: Subject<controlActions> = new Subject();
 
 ctrlSocketOut$.subscribe(msg => {
     io.emit('toControl', msg);
@@ -32,8 +29,8 @@ io.on('connection', (socket) => {
         console.log('Controller disconnected!');
     });
 
-    socket.on('fromControl', (message: any) => {
-        ctrlSocketIn$.next(message);
+    socket.on('fromControl', (action: controlActions) => {
+        ctrlSocketIn$.next(action);
     });
 });
 

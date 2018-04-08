@@ -1,15 +1,5 @@
-import {DeviceIPs} from './config';
-import { animationTypes, IPreset } from './vidt-presets';
 import { IPhotoAsset, IVideoAsset } from './assets';
-
-export const socketPort: number = 8988;
-
-export const socketConfig: {url: string, options: object} = {
-    url: `${DeviceIPs.edtSledt}:${socketPort}`,
-    options: {},
-};
-
-// -------------------------------- Building blocks
+import { animationTypes, IPreset } from './vidt-presets';
 
 export interface IColor {
     readonly hue: number;

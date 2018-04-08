@@ -1,6 +1,6 @@
 import {Subscription} from 'rxjs/Subscription';
 import {sendToVidt} from '../../outputs/edt-vidt';
-import {IIntensityMsg, IPreparePresetMsg, VidtPresets} from '../../../../SharedTypes/socket';
+import {IIntensityMsg, IPreparePresetMsg, VidtPresets} from '../../../../Shared/socket';
 import {PresetLogic} from '../presets-logic';
 import {BeatMain} from '../../subjects/triggers';
 

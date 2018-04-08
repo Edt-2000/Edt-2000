@@ -1,4 +1,4 @@
-import {IColor} from '../../../SharedTypes/socket';
+import {IColor} from '../../../Shared/socket';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 export const EdtMainColor = new BehaviorSubject({
