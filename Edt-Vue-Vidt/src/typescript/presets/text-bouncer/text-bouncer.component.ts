@@ -17,9 +17,14 @@ import { ITextMsg } from '../../../../../Shared/socket';
 export class TextBouncerComponent extends Vue {
     @Inject() communicationService: ICommunicationService;
 
-    public text: string = 'bounce';
-    public textObservable: Observable<ITextMsg>;
+    public textObservable: Observable<ITextMsg> = this.communicationService.textObservable;
     public subscription: Subscription;
+
+    public $refs: {
+        text: HTMLElement
+    };
+    public styles: Object = {};
+    public text: string = 'bounce';
 
     public y: number = 0;
     public x: number = 0;
@@ -30,15 +35,6 @@ export class TextBouncerComponent extends Vue {
     public directionX: number = 1;
     public directionY: number = 1;
     public speed: number = 6;
-    public $refs: {
-        text: HTMLElement
-    };
-    public styles: Object = {};
-
-    constructor() {
-        super();
-        this.textObservable = this.communicationService.textObservable;
-    }
 
     mounted() {
         this.subscription = this.textObservable

@@ -18,17 +18,13 @@ import { IIntensityMsg } from '../../../../../Shared/socket';
 export class LogoComponent extends Vue {
     @Inject() communicationService: ICommunicationService;
 
+    public intensityObservable: Observable<IIntensityMsg> = this.communicationService.intensityObservable;
+    public subscription: Subscription;
+
     public stars: number[] = Array(64).map((x, i) => i + 1);
     public level: number = 0;
     public text: string = 'Strobocops';
     public timeOut: number | null;
-    public intensityObservable: Observable<IIntensityMsg>;
-    public subscription: Subscription;
-
-    constructor() {
-        super();
-        this.intensityObservable = this.communicationService.intensityObservable;
-    }
 
     mounted() {
         this.subscription = this.intensityObservable

@@ -91,7 +91,9 @@ export const VidtPresets: IPreset[] = [
     {
         name: 'gridscape',
         path: '/gridscape',
-        inputs: [new PresetBeatInput('beat')]
+        inputs: [
+            new PresetBeatInput('beat')
+        ]
     },
     {
         name: 'hacking',
@@ -101,22 +103,32 @@ export const VidtPresets: IPreset[] = [
     {
         name: 'photo-bouncer',
         path: '/photo-bouncer',
-        inputs: [new PresetBeatInput('beat'), new PresetPhotoInput('photo')]
+        inputs: [
+            new PresetBeatInput('beat'),
+            new PresetPhotoInput('photo')
+        ]
     },
     {
         name: 'photo-glitcher',
         path: '/photo-glitcher',
-        inputs: [ new PresetPhotoInput('photo'), new PresetAnimationInput('animation')]
+        inputs: [
+            new PresetPhotoInput('photo'),
+            new PresetAnimationInput('animation')
+        ]
     },
     {
         name: 'logo',
         path: '/logo',
-        inputs: [new PresetIntensityInput('intensity', 1, 9)]
+        inputs: [
+            new PresetIntensityInput('intensity', 1, 9)
+        ]
     },
     {
         name: 'text-bouncer',
         path: '/text-bouncer',
-        inputs: [new PresetTextInput('text')]
+        inputs: [
+            new PresetTextInput('text')
+        ]
     },
     {
         name: 'shutdown',
@@ -126,7 +138,10 @@ export const VidtPresets: IPreset[] = [
     {
         name: 'video-player',
         path: '/video-player',
-        inputs: [ new PresetVideoInput('photo')]
+        inputs: [
+            new PresetVideoInput('photo'),
+            new PresetBeatInput('beat')
+        ]
     },
     {
         name: 'vista',

@@ -50,15 +50,18 @@ export const photoAssets: IPhotoAsset[] = [
 export interface IVideoAsset {
     name: string,
     src: string,
+    overlay: boolean;
 }
 
 export const videoAssets: IVideoAsset[] = [
     {
         name: 'Lights of Orion',
         src: 'lights-of-orion.mp4',
+        overlay: true
     },
     {
         name: 'Mr. Nielson',
-        src: 'video-kat.mp4'
+        src: 'video-kat.mp4',
+        overlay: true
     }
 ];

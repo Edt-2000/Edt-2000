@@ -16,8 +16,8 @@ import { photoAssets, IPhotoAsset } from '../../../../../Shared/assets';
 export class PhotoBouncerComponent extends Vue {
     @Inject() communicationService: ICommunicationService;
 
-    public beatObservable: Observable<IBeatMsg>;
-    public photoObservable: Observable<IPhotoMsg>;
+    public beatObservable: Observable<IBeatMsg> = this.communicationService.beatObservable;
+    public photoObservable: Observable<IPhotoMsg> = this.communicationService.photoObservable;
     public beatSubscription: Subscription;
     public photoSubscription: Subscription;
 
@@ -29,12 +29,6 @@ export class PhotoBouncerComponent extends Vue {
     public photo: IPhotoAsset;
     public animation: Animation;
     public src: string = '';
-
-    constructor() {
-        super();
-        this.beatObservable = this.communicationService.beatObservable;
-        this.photoObservable = this.communicationService.photoObservable;
-    }
 
     mounted() {
         this.photo = this.photoAssets[8];
@@ -92,15 +86,6 @@ export class PhotoBouncerComponent extends Vue {
             });
         });
     }
-
-    switchPhoto(photo: IPhotoAsset) {
-        if (!photo) {
-            this.photo = this.photoAssets[0];
-        } else {
-            this.photo = photo;
-        }
-    }
-
 
     destroyed() {
         if (typeof this.beatSubscription !== 'undefined') {

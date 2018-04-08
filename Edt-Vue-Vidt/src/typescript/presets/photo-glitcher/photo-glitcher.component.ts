@@ -16,8 +16,8 @@ import { IAnimationMsg, IPhotoMsg } from '../../../../../Shared/socket';
 export class PhotoGlitcherComponent extends Vue {
     @Inject() communicationService: ICommunicationService;
 
-    public animationObservable: Observable<IAnimationMsg>;
-    public photoObservable: Observable<IPhotoMsg>;
+    public animationObservable: Observable<IAnimationMsg> = this.communicationService.animationObservable;
+    public photoObservable: Observable<IPhotoMsg> = this.communicationService.photoObservable;
     public animationSubscription: Subscription;
     public photoSubscription: Subscription;
 
@@ -25,12 +25,6 @@ export class PhotoGlitcherComponent extends Vue {
     public photo: IPhotoAsset;
     public animation: string = 'bounce';
     public src: string = '';
-
-    constructor() {
-        super();
-        this.animationObservable = this.communicationService.animationObservable;
-        this.photoObservable = this.communicationService.photoObservable;
-    }
 
     mounted() {
         this.photo = this.photoAssets[8];
@@ -58,16 +52,6 @@ export class PhotoGlitcherComponent extends Vue {
     setSrc() {
         this.src = `assets/img/photoassets/${this.photo.src}`;
     }
-
-
-    switchPhoto(photo: IPhotoAsset) {
-        if (!photo) {
-            this.photo = this.photoAssets[0];
-        } else {
-            this.photo = photo;
-        }
-    }
-
 
     destroyed() {
         if (typeof this.animationSubscription !== 'undefined') {

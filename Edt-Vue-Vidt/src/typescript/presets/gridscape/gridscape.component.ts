@@ -15,7 +15,7 @@ import { IBeatMsg } from '../../../../../Shared/socket';
 export class GridscapeComponent extends Vue {
     @Inject() communicationService: ICommunicationService;
 
-    public beatObservable: Observable<IBeatMsg>;
+    public beatObservable: Observable<IBeatMsg> = this.communicationService.beatObservable;
     public subscription: Subscription;
 
     public $refs: {
@@ -28,11 +28,6 @@ export class GridscapeComponent extends Vue {
 
     public bounce: boolean = false;
     public animation: Animation;
-
-    constructor() {
-        super();
-        this.beatObservable = this.communicationService.beatObservable;
-    }
 
     mounted() {
         this.animation = this.$refs.sun.animate(

@@ -68,7 +68,7 @@ class CommunicationService implements ICommunicationService {
         });
 
         this.videoObservable = Observable.create((observer: Observer<IVideoMsg>) => {
-            this.socket.on('text', (data: IVideoMsg) => {
+            this.socket.on('video', (data: IVideoMsg) => {
                 observer.next(data);
             });
         });

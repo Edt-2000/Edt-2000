@@ -20,6 +20,11 @@
         background: $c-darkblue;
     }
 
+    &:active,
+    &:focus {
+        outline: none;
+    }
+
     &.is-active {
         background: $c-pink;
     }

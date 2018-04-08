@@ -4,5 +4,9 @@
     background: $c-black;
     color: $c-white;
     min-height: 100vh;
-    padding: 2rem;
+    padding: 2rem 1rem;
+
+    @media only screen and (min-width: 768px) {
+        padding: 2rem;
+    }
 }

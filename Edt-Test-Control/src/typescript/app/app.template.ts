@@ -13,27 +13,6 @@ module.exports = `
             </ul>
         </div>
         
-        <div class="options__section" v-if="showBeatInput()">
-            <h2 class="options__title">Beat</h2>
-            <ul class="options__list">
-                <li class="options__item">
-                    <button class="button" v-on:click="sendBeat()">Beat me</button>   
-                </li>
-            </ul>
-        </div>
-        
-        <div class="options__section" v-if="showIntensityInput()">
-            <h2 class="options__title">Intensity</h2>
-            <ul class="options__list">
-                <li class="options__item" v-for="intensity in intensityRange()">
-                    <button class="button" 
-                    v-bind:class="'button--intensity-' + intensity" 
-                    v-on:click="sendIntensity(intensity)"
-                    >{{ intensity }}</button>   
-                </li>
-            </ul>
-        </div>
-        
         <div class="options__section" v-if="showPhotoInput()">
             <h2 class="options__title">Photo</h2>
             <ul class="options__list">
@@ -83,6 +62,27 @@ module.exports = `
                     v-bind:class="{ 'is-active': (video === currentVideo) }"
                     v-on:click="setVideo(video)"
                     >{{ video.name }}</button>   
+                </li>
+            </ul>
+        </div>
+        
+        <div class="options__section" v-if="showBeatInput()">
+            <h2 class="options__title">Beat</h2>
+            <ul class="options__list">
+                <li class="options__item">
+                    <button class="button" v-on:click="sendBeat()">Beat me</button>   
+                </li>
+            </ul>
+        </div>
+        
+        <div class="options__section" v-if="showIntensityInput()">
+            <h2 class="options__title">Intensity</h2>
+            <ul class="options__list">
+                <li class="options__item" v-for="intensity in intensityRange()">
+                    <button class="button" 
+                    v-bind:class="'button--intensity-' + intensity" 
+                    v-on:click="sendIntensity(intensity)"
+                    >{{ intensity }}</button>   
                 </li>
             </ul>
         </div>
