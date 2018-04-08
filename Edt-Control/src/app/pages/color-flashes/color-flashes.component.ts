@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IColor} from '../../../../../SharedTypes/socket';
+import {IColor} from '../../../../../Shared/socket';
 import {CommunicationService} from '../../communication.service';
 
 @Component({

@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {
     adjustmentChannel, presetMsgChannel, virtualMidiInputDevice,
     virtualMidiOutputDevice,
-} from '../../../SharedTypes/config';
+} from '../../../Shared/config';
 import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, MidiMsgTypes} from '../types';
 import {noteToNote, noteToOctave} from '../utils';
 import {filter, map} from 'rxjs/operators';

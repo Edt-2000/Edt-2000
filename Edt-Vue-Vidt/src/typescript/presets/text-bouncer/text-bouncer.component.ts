@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
 import { GlitchText } from '../../components/glitch-text/glitch-text.component';
 import { Observable } from 'rxjs/Observable';
-import { CommunicationServiceModel } from '../../services/communication.service';
+import { ICommunicationService } from '../../services/communication.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class TextBouncerComponent extends Vue {
-    @Inject() communicationService: CommunicationServiceModel;
+    @Inject() communicationService: ICommunicationService;
 
     public text: string = 'bounce';
     public textObservable: Observable<any>;

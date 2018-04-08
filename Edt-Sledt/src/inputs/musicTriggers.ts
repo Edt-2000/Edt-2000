@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/Observable';
-import {drumChannel} from '../../../SharedTypes/config';
+import {drumChannel} from '../../../Shared/config';
 import {IMidiNoteMsg} from '../types';
 import {noteOff$, noteOn$} from './midi';
 import {filter, map, merge} from 'rxjs/operators';

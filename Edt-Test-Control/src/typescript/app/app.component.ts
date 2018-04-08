@@ -1,7 +1,8 @@
 import Vue from 'vue';
+import * as _ from 'lodash';
 import * as io from 'socket.io-client';
-import { PresetModel, VidtPresets } from '../../../../SharedTypes/socket';
 import { Component, Watch } from 'vue-property-decorator';
+import { IPreset, IPresetInput, PresetBeatInput, PresetIntensityInput, PresetTextInput, VidtPresets } from '../../../../Shared/presets';
 
 @Component({
     name: 'app',
@@ -11,58 +12,20 @@ export default class App extends Vue {
     private socket = io('localhost:8080');
     public socketConnected: boolean = false;
 
-    public currentPreset: PresetModel|null = null;
-    public vidtPresets = VidtPresets;
-    public presets: PresetModel[] = [
-        {
-            name: this.vidtPresets.Bluescreen,
-            path: '/bluescreen'
-        },
-        {
-            name: this.vidtPresets.Gridscape,
-            path: '/gridscape'
-        },
-        {
-            name: this.vidtPresets.Hacking,
-            path: '/hacking'
-        },
-        {
-            name: this.vidtPresets.PhotoBouncer,
-            path: '/photo-bouncer'
-        },
-        {
-            name: this.vidtPresets.PhotoGlitcher,
-            path: '/photo-glitcher'
-        },
-        {
-            name: this.vidtPresets.Logo,
-            path: '/logo'
-        },
-        {
-            name: this.vidtPresets.TextBouncer,
-            path: '/text-bouncer'
-        },
-        {
-            name: this.vidtPresets.Shutdown,
-            path: '/shutdown'
-        },
-        {
-            name: this.vidtPresets.VideoPlayer,
-            path: '/video-player'
-        },
-        {
-            name: this.vidtPresets.Vista,
-            path: '/vista'
-        },
-    ];
+    public currentPreset: IPreset|null = null;
+    public presets: IPreset[] = VidtPresets;
+
+    public beatInput : PresetBeatInput|undefined = undefined;
+    public intensityInput : PresetIntensityInput|undefined = undefined;
+    public textInput : PresetTextInput|undefined = undefined;
 
     public intensitys: number[] = [1, 2, 3, 4 ,5, 6, 7, 8, 9];
 
-    public textOptions: string[] = ['strobocops', 'lalala', 'edt'];
+    public textOptions: string[] = ['bounce', 'strobocops', 'lalala', 'edt'];
     public text: string = this.textOptions[0];
 
     @Watch('text')
-    setCssClass() {
+    updateText() {
         this.text = this.text.toLowerCase();
         this.sendText();
     };
@@ -77,6 +40,15 @@ export default class App extends Vue {
         });
     }
 
+    setPreset(preset: IPreset) {
+        this.currentPreset = preset;
+
+        this.beatInput      = _.find(this.currentPreset.inputs, (p) => p instanceof PresetBeatInput) as PresetBeatInput;
+        this.intensityInput = _.find(this.currentPreset.inputs, (p) => p instanceof PresetIntensityInput) as PresetIntensityInput;
+        this.textInput      = _.find(this.currentPreset.inputs, (p) => p instanceof PresetTextInput) as PresetTextInput;
+
+        this.sendPreset();
+    }
 
     setText(text: string) {
         this.text = text.toLowerCase();
@@ -84,29 +56,37 @@ export default class App extends Vue {
 
     showBeat() {
         return this.currentPreset && (
-            this.currentPreset.name == this.vidtPresets.Gridscape
+            this.currentPreset.inputs.some((p) => p instanceof PresetBeatInput)
         );
     }
 
     showTextInput() {
         return this.currentPreset && (
-            this.currentPreset.name == this.vidtPresets.TextBouncer
+            this.currentPreset.inputs.some((p) => p instanceof PresetTextInput)
         );
     }
 
     showIntensity() {
-        return this.currentPreset &&(
-            this.currentPreset.name == this.vidtPresets.Logo
+        return this.currentPreset && (
+            this.currentPreset.inputs.some((p) => p instanceof PresetIntensityInput)
         );
     }
 
+    intensityRange(): number[] {
+        if(this.intensityInput !== undefined) {
+            const min = this.intensityInput.min;
+            const max = this.intensityInput.max;
 
-    sendPreset(preset: PresetModel) {
-        this.currentPreset = preset;
+            return Array(max - min + 1).fill(0).map((_, idx) => min + idx)
+        }
 
+        return [];
+    }
+
+    sendPreset() {
         if (this.socketConnected) {
             this.socket.emit('preset', {
-                'preset': preset.path
+                'preset': this.currentPreset
             });
         }
     }

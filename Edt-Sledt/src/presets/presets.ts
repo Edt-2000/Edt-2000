@@ -1,4 +1,4 @@
-import {presets} from '../../../SharedTypes/presets';
+import {presets} from '../../../Shared/presets';
 
 export interface IEdtPresetLogic {
     startPreset(velocity: number): void;

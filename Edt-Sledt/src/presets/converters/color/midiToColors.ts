@@ -1,5 +1,5 @@
 import {Subscription} from 'rxjs/Subscription';
-import {IColor} from '../../../../../SharedTypes/socket';
+import {IColor} from '../../../../../Shared/socket';
 import {noteOn$} from '../../../inputs/midi';
 import {EdtMainColor} from '../../../subjects/colors';
 import {rescale, shuffleArray} from '../../../utils';

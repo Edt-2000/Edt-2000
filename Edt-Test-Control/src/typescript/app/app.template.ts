@@ -7,8 +7,8 @@ module.exports = `
                 <li class="options__item" v-for="preset in presets">
                     <button class="button button--preset" 
                     v-bind:class="{ 'is-active': (preset === currentPreset) }" 
-                    v-on:click="sendPreset(preset)"
-                    >{{ preset.name }}</button>   
+                    v-on:click="setPreset(preset)"
+                    >{{ preset.name }}</button>
                 </li>
             </ul>
         </div>
@@ -16,7 +16,7 @@ module.exports = `
         <div class="options__section" v-if="showIntensity()">
             <h2 class="options__title">Intensity</h2>
             <ul class="options__list">
-                <li class="options__item" v-for="intensity in intensitys">
+                <li class="options__item" v-for="intensity in intensityRange()">
                     <button class="button" 
                     v-bind:class="'button--intensity-' + intensity" 
                     v-on:click="sendIntensity(intensity)"

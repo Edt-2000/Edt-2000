@@ -1,11 +1,13 @@
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { Observable } from 'rxjs/Observable';
-import { Inject, Provide } from 'vue-property-decorator';
-import { communicationService, CommunicationServiceModel } from '../services/communication.service';
+import { Provide } from 'vue-property-decorator';
+
+import { communicationService, ICommunicationService } from '../services/communication.service';
 import { router } from '../services/router.service';
-import 'rxjs/add/operator/map';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     name: 'app',
@@ -13,7 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
     router: router,
 })
 export default class App extends Vue {
-    @Provide() communicationService: CommunicationServiceModel = communicationService;
+    @Provide() communicationService: ICommunicationService = communicationService;
 
     public presetObservable: Observable<any>;
     public subscription: Subscription;
@@ -26,10 +28,10 @@ export default class App extends Vue {
     mounted() {
         this.presetObservable
             .map((item) => {
-                return item.preset;
+                return item.preset.path;
             })
-            .subscribe((preset) => {
-                router.push(preset);
+            .subscribe((path) => {
+                router.push(path);
             });
     }
 

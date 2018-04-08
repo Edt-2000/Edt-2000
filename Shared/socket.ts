@@ -1,4 +1,5 @@
 import {DeviceIPs} from './config';
+import { IPreset } from './presets';
 
 export const socketPort: number = 8988;
 
@@ -15,39 +16,28 @@ export interface IColor {
     readonly brightness: number;
 }
 
-export enum VidtPresets {
-    Hacking = 'Hacking',
-    Gridscape = 'Gridscape',
-    Logo = 'Logo',
-    TextDisplay = 'TextDisplay',
-    Shutdown = 'Shutdown',
-    VideoPlayer = 'Video-player',
-    PhotoBouncer = 'Photo-bouncer',
-    PhotoGlitcher = 'Photo-glitcher',
-    Bluescreen = 'Bluescreen',
-    Vista = 'Vista',
-    TextBouncer = 'Text-bouncer'
-}
-
-export interface PresetModel {
-    name: VidtPresets;
-    path: string;
-}
-
 // SubMessages
 
-export interface IPreparePresetMsg {
-    readonly preset: VidtPresets;
-}
-
-export interface IChangeVideoSrcMsg {
-    readonly video: number;
-    readonly glitchEffect: boolean;
-    readonly lineEffect: boolean;
+export interface IPresetMsg {
+    readonly preset: IPreset;
 }
 
 export interface IIntensityMsg {
     readonly intensity: number;
+}
+
+export interface IBeatMsg {
+    readonly beat: boolean;
+}
+
+export interface ITextMsg {
+    readonly text: string;
+}
+
+export interface IVideoSrcMsg {
+    readonly video: number;
+    readonly glitchEffect: boolean;
+    readonly lineEffect: boolean;
 }
 
 // -------------------------------- Specific Messages

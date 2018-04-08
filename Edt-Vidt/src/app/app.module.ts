@@ -6,7 +6,7 @@ import {CommunicationService} from './communication.service';
 import {SocketIoModule} from 'ngx-socket-io';
 import {TextDisplayComponent} from './presets/text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
-import {socketConfig, VidtPresets} from '../../../SharedTypes/socket';
+import {socketConfig, VidtPresets} from '../../../Shared/socket';
 
 import {GlitchTextComponent} from './components/glitch-text-component/glitch-text.component';
 import {GridscapeComponent} from './presets/gridscape/gridscape.component';

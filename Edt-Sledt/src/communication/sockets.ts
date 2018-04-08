@@ -8,7 +8,7 @@ const app = express();
 const server = http.createServer(app);
 
 import socket = require('socket.io');
-import {socketPort} from '../../../SharedTypes/socket';
+import {socketPort} from '../../../Shared/socket';
 // init
 export const io = socket(server);
 

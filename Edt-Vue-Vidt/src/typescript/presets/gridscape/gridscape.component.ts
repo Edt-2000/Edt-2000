@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
-import { CommunicationServiceModel } from '../../services/communication.service';
+import { ICommunicationService } from '../../services/communication.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class GridscapeComponent extends Vue {
-    @Inject() communicationService: CommunicationServiceModel;
+    @Inject() communicationService: ICommunicationService;
 
     public $refs: {
         sun: HTMLElement,

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
 import { GlitchText } from '../../components/glitch-text/glitch-text.component';
 import { mapInput } from '../../helpers/map-input';
-import { CommunicationServiceModel } from '../../services/communication.service';
+import { ICommunicationService } from '../../services/communication.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class LogoComponent extends Vue {
-    @Inject() communicationService: CommunicationServiceModel;
+    @Inject() communicationService: ICommunicationService;
 
     public stars: number[] = Array(64).map((x, i) => i + 1);
     public level: number = 0;
