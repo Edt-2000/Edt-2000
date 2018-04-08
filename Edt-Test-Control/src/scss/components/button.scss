@@ -1,0 +1,32 @@
+$colorArray: (darkgreen, green, yellowgreen, #ffea00, gold, orange, orangered, red, darkred);
+
+.button {
+    background: #1E477D;
+    color: #fff;
+    display: block;
+    font-family: monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    height: 60px;
+    line-height: 60px;
+    min-width: 60px;
+    padding: 0 1rem;
+    text-align: center;
+    text-transform: uppercase;
+
+    &:hover {
+        background: darken(#1E477D, 5%);
+    }
+
+    @each $color in $colorArray {
+        $i: index($colorArray, $color);
+        &--intensity-#{$i} {
+            background: $color;
+
+            &:hover {
+                background: darken($color, 5%);
+            }
+        }
+    }
+
+}

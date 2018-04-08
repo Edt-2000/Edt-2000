@@ -22,6 +22,12 @@ An important function of the Edt-Sledt is to control `Ableton Live` depending on
 
 
 
+### Edt-Vue Vidt
+Run: 
+
+`cd Edt-Socket-Server npm start`
+`cd Edt-Test-Control npm start`
+`cd Edt-Vue-Vidt npm start`
 
 
 

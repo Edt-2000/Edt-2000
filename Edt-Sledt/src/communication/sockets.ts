@@ -2,29 +2,40 @@
 /**
  * Socket Server
  */
-import express = require('express');
-import http = require('http');
-import socket = require('socket.io');
+import {socketPort} from '../../../SharedTypes/config';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Subject} from 'rxjs/Subject';
 
-const app = express();
-const server = http.createServer(app);
+const app = require('express')();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {
+    origins: '*:*',
+    transports: ['websocket'],
+});
 
-import {socketPort} from '../../../SharedTypes/socket';
-// init
-export const io = socket(server);
+interface ctrlState {
+    presets?: string[],
+}
 
-/**
- * Socket management
- */
-io.on('connection', (client) => {
-    console.log('Display connected');
-    client.on('disconnect', () => {
-        console.log('Display disconnected');
+export const ctrlSocketIn$ = new BehaviorSubject({} as ctrlState);
+export const ctrlSocketOut$: Subject<any> = new Subject();
+
+ctrlSocketOut$.subscribe(msg => {
+    io.emit('toControl', msg);
+});
+
+io.on('connection', (socket) => {
+    console.log('Controller connected!');
+    // TODO: SEND ALONG STATE OF ALL SUBJECTS ETC
+
+    socket.on('disconnect', () => {
+        console.log('Controller disconnected!');
     });
 
-    client.on('message', (message: any) => {
-        console.log('socket: ', message);
+    socket.on('fromControl', (message: any) => {
+        ctrlSocketIn$.next(message);
     });
 });
 
 server.listen(socketPort);
+console.log('Socket active!');

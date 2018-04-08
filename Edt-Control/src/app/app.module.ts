@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {SocketIoModule} from 'ngx-socket-io';
-import {socketConfig} from '../../../SharedTypes/socket';
+import {socketConfig} from '../../../SharedTypes/config';
 
 import {AppComponent} from './app.component';
 import {CommunicationService} from './communication.service';
@@ -13,35 +13,35 @@ import {ColorControllerComponent} from './pages/color-controller/color-controlle
 import {pages} from './app.routes';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PageSwitcherComponent,
-    PresetControllerComponent,
-    ColorControllerComponent
-  ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    RouterModule.forRoot(
-      [
-        ...pages,
-        {
-          path: '',
-          redirectTo: pages[0].path,
-          pathMatch: 'full'
-        }
-      ],
-      {enableTracing: true} // <-- debugging purposes only
-    ),
-    SocketIoModule.forRoot(socketConfig)
-  ],
-  providers: [
-    CommunicationService
-  ],
-  bootstrap: [
-    AppComponent
-  ],
-  exports: []
+    declarations: [
+        AppComponent,
+        PageSwitcherComponent,
+        PresetControllerComponent,
+        ColorControllerComponent
+    ],
+    imports: [
+        BrowserModule,
+        CommonModule,
+        RouterModule.forRoot(
+            [
+                ...pages,
+                {
+                    path: '',
+                    redirectTo: pages[0].path,
+                    pathMatch: 'full'
+                }
+            ],
+            {enableTracing: true} // <-- debugging purposes only
+        ),
+        SocketIoModule.forRoot(socketConfig)
+    ],
+    providers: [
+        CommunicationService
+    ],
+    bootstrap: [
+        AppComponent
+    ],
+    exports: []
 })
 export class AppModule {
 }

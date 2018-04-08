@@ -2,7 +2,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {IColor} from '../../../../../SharedTypes/socket';
 import {noteOn$} from '../../../inputs/midi';
 import {EdtMainColor} from '../../../subjects/colors';
-import {rescale, shuffleArray} from '../../../utils';
+import {rescale, shuffleArray} from '../../../../../SharedTypes/utils';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
 

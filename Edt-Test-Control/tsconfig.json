@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es5",
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "outDir": "dist/",
+    "sourceMap": true,
+    "baseUrl": ".",
+//    "rootDir": "./src/",
+    "strict": true,
+    "lib": ["es2017", "dom"]
+  },
+  "include": [
+    "./src/typescript/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+  ]
+}

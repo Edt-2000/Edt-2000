@@ -1,14 +1,3 @@
-import {DeviceIPs} from './config';
-
-export const socketPort: number = 8988;
-
-export const socketConfig: {url: string, options: object} = {
-    url: `${DeviceIPs.edtSledt}:${socketPort}`,
-    options: {},
-};
-
-// -------------------------------- Building blocks
-
 export interface IColor {
     readonly hue: number;
     readonly saturation: number;
@@ -16,16 +5,22 @@ export interface IColor {
 }
 
 export enum VidtPresets {
-    HackingAnimation = 'HackingAnimation',
+    Hacking = 'Hacking',
     Gridscape = 'Gridscape',
-    LogoIdle = 'LogoIdle',
+    Logo = 'Logo',
     TextDisplay = 'TextDisplay',
     Shutdown = 'Shutdown',
-    VideoPlayer = 'VideoPlayer',
-    PhotoBounce = 'Photobounce',
-    PhotoGlitcher = 'PhotoGlitcher',
+    VideoPlayer = 'Video-player',
+    PhotoBouncer = 'Photo-bouncer',
+    PhotoGlitcher = 'Photo-glitcher',
     Bluescreen = 'Bluescreen',
     Vista = 'Vista',
+    ScreensaveBouncer = 'Screensave-bouncer'
+}
+
+export interface PresetModel {
+    name: VidtPresets;
+    path: string;
 }
 
 // SubMessages
@@ -34,20 +29,12 @@ export interface IPreparePresetMsg {
     readonly preset: VidtPresets;
 }
 
-export interface IChangeVideoSrcMsg {
-    readonly video: number;
-    readonly glitchEffect: boolean;
-    readonly lineEffect: boolean;
-}
-
 export interface IIntensityMsg {
     readonly intensity: number;
 }
 
-// -------------------------------- Specific Messages
-
 export interface ICenteredText extends IColor {
-    readonly textValue;
+    readonly textValue: string;
 }
 
 export interface ITrackMsg {

@@ -1,0 +1,40 @@
+@import "../config/colors";
+
+.hacking {
+    background: $c-black;
+    height: 100%;
+
+    &__text {
+        bottom: 0;
+        font-family: monospace;
+        font-size: 18px;
+        left: 0;
+        line-height: 1.5rem;
+        padding: 2rem;
+        position: absolute;
+        right: 0;
+    }
+
+    &__character {
+        animation: type 500ms linear;
+        color: $c-green--dark;
+    }
+}
+
+@keyframes type {
+    0% {
+        background: $c-white;
+        color: $c-white;
+    }
+
+    5% {
+        background: transparent;
+        color: $c-white;
+    }
+
+    100% {
+        background: transparent;
+        color: $c-green--dark;
+    }
+
+}
