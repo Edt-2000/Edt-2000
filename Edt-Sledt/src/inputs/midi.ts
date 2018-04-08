@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/Observable';
-import {adjustmentChannel, presetMsgChannel} from '../../../SharedTypes/config';
+import {adjustmentChannel, presetMsgChannel} from '../../../Shared/config';
 import {sledtNoteOff$, sledtNoteOn$} from '../communication/midi';
 import {IMidiNoteMsg, IPresetMsg} from '../../../SharedTypes/types';
 import {filter, map, merge} from 'rxjs/operators';

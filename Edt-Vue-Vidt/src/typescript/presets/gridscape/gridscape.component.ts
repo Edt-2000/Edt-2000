@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
-import { CommunicationServiceModel } from '../../services/communication.service';
+import { ICommunicationService } from '../../services/communication.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { IBeatMsg } from '../../../../../Shared/socket';
 
 @Component({
     name: 'gridscape',
@@ -12,14 +13,14 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class GridscapeComponent extends Vue {
-    @Inject() communicationService: CommunicationServiceModel;
+    @Inject() communicationService: ICommunicationService;
+
+    public beatObservable: Observable<IBeatMsg> = this.communicationService.beatObservable;
+    public subscription: Subscription;
 
     public $refs: {
         sun: HTMLElement,
     };
-
-    public beatObservable: Observable<any>;
-    public subscription: Subscription;
 
     public linesVertical = Array(80).map((x, i) => i + 1);
     public linesHorizontal = Array(10).map((x, i) => i + 1);
@@ -27,11 +28,6 @@ export class GridscapeComponent extends Vue {
 
     public bounce: boolean = false;
     public animation: Animation;
-
-    constructor() {
-        super();
-        this.beatObservable = this.communicationService.beatObservable;
-    }
 
     mounted() {
         this.animation = this.$refs.sun.animate(
@@ -50,14 +46,14 @@ export class GridscapeComponent extends Vue {
                 duration: 200
             }
         );
-        
+
         this.animation.pause();
 
         this.subscription = this.beatObservable
-            .map((item) => {
+            .map((item: IBeatMsg) => {
                 return item.beat === true;
             })
-            .subscribe((beat) => {
+            .subscribe(() => {
                 this.animate();
             });
     }

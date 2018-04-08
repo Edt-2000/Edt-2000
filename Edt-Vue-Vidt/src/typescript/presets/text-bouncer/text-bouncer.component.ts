@@ -2,23 +2,29 @@ import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
 import { GlitchText } from '../../components/glitch-text/glitch-text.component';
 import { Observable } from 'rxjs/Observable';
-import { CommunicationServiceModel } from '../../services/communication.service';
+import { ICommunicationService } from '../../services/communication.service';
 import { Subscription } from 'rxjs/Subscription';
+import { ITextMsg } from '../../../../../Shared/socket';
 
 @Component({
-    name: 'screensave-bouncer',
-    template: require('./screensave-bouncer.template'),
+    name: 'text-bouncer',
+    template: require('./text-bouncer.template'),
     components: {
         GlitchText
     }
 })
 
-export class ScreensaveBouncerComponent extends Vue {
-    @Inject() communicationService: CommunicationServiceModel;
+export class TextBouncerComponent extends Vue {
+    @Inject() communicationService: ICommunicationService;
 
-    public text: string = 'bounce';
-    public textObservable: Observable<any>;
+    public textObservable: Observable<ITextMsg> = this.communicationService.textObservable;
     public subscription: Subscription;
+
+    public $refs: {
+        text: HTMLElement
+    };
+    public styles: Object = {};
+    public text: string = 'bounce';
 
     public y: number = 0;
     public x: number = 0;
@@ -29,22 +35,13 @@ export class ScreensaveBouncerComponent extends Vue {
     public directionX: number = 1;
     public directionY: number = 1;
     public speed: number = 6;
-    public $refs: {
-        text: HTMLElement
-    };
-    public styles: Object = {};
-
-    constructor() {
-        super();
-        this.textObservable = this.communicationService.textObservable;
-    }
 
     mounted() {
         this.subscription = this.textObservable
-            .map((item) => {
+            .map((item: ITextMsg) => {
                 return item.text;
             })
-            .subscribe((text) => {
+            .subscribe((text: string) => {
                 this.text = text;
                 // wait for text to be in dom
                 requestAnimationFrame(() => {

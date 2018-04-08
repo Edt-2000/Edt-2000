@@ -1,5 +1,5 @@
-import {DeviceIPs, Modii, OSCDevices} from '../../../SharedTypes/config';
-import {IColor} from '../../../SharedTypes/socket';
+import {DeviceIPs, Modii, OSCDevices} from '../../../Shared/config';
+import {IColor} from '../../../Shared/socket';
 import {sendToOSC} from '../communication/osc';
 
 export function EdtLEDSpark(instance: number, start: number, end: number, duration: number, colorMsg: IColor) {

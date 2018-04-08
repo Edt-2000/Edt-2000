@@ -2,21 +2,27 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import Socket = SocketIOClient.Socket;
 import * as io from "socket.io-client";
+import { IAnimationMsg, IBeatMsg, IIntensityMsg, IPhotoMsg, IPresetMsg, ITextMsg, IVideoMsg } from '../../../../Shared/socket';
 
-// TODO: type messages
-export interface CommunicationServiceModel {
-    presetObservable: Observable<any>;
-    beatObservable: Observable<any>;
-    intensityObservable: Observable<any>;
-    textObservable: Observable<any>;
+export interface ICommunicationService {
+    presetObservable: Observable<IPresetMsg>;
+    animationObservable: Observable<IAnimationMsg>;
+    beatObservable: Observable<IBeatMsg>;
+    intensityObservable: Observable<IIntensityMsg>;
+    photoObservable: Observable<IPhotoMsg>;
+    textObservable: Observable<ITextMsg>;
+    videoObservable: Observable<IVideoMsg>;
 }
 
-class CommunicationService implements CommunicationServiceModel {
+class CommunicationService implements ICommunicationService {
     private socket: Socket;
-    public presetObservable: Observable<any>;
-    public beatObservable: Observable<any>;
-    public intensityObservable: Observable<any>;
-    public textObservable: Observable<any>;
+    public presetObservable: Observable<IPresetMsg>;
+    public animationObservable: Observable<IAnimationMsg>;
+    public beatObservable: Observable<IBeatMsg>;
+    public intensityObservable: Observable<IIntensityMsg>;
+    public photoObservable: Observable<IPhotoMsg>;
+    public textObservable: Observable<ITextMsg>;
+    public videoObservable: Observable<IVideoMsg>;
 
     constructor() {
         this.socket = io('localhost:8080');
@@ -25,30 +31,48 @@ class CommunicationService implements CommunicationServiceModel {
             console.log('socket connected');
         });
 
-        this.presetObservable = Observable.create((observer: Observer<any>) => {
-            this.socket.on('preset', (data: any) => {
+        this.presetObservable = Observable.create((observer: Observer<IPresetMsg>) => {
+            this.socket.on('preset', (data: IPresetMsg) => {
                 observer.next(data);
             });
         });
 
-        this.beatObservable = Observable.create((observer: Observer<any>) => {
-            this.socket.on('beat', (data: any) => {
+        this.animationObservable = Observable.create((observer: Observer<IAnimationMsg>) => {
+            this.socket.on('animation', (data: IAnimationMsg) => {
                 observer.next(data);
             });
         });
 
-        this.intensityObservable = Observable.create((observer: Observer<any>) => {
-            this.socket.on('intensity', (data: any) => {
+        this.beatObservable = Observable.create((observer: Observer<IBeatMsg>) => {
+            this.socket.on('beat', (data: IBeatMsg) => {
                 observer.next(data);
             });
         });
 
-        this.textObservable = Observable.create((observer: Observer<any>) => {
-            this.socket.on('text', (data: any) => {
+        this.intensityObservable = Observable.create((observer: Observer<IIntensityMsg>) => {
+            this.socket.on('intensity', (data: IIntensityMsg) => {
+                observer.next(data);
+            });
+        });
+
+        this.photoObservable = Observable.create((observer: Observer<IPhotoMsg>) => {
+            this.socket.on('photo', (data: IPhotoMsg) => {
+                observer.next(data);
+            });
+        });
+
+        this.textObservable = Observable.create((observer: Observer<ITextMsg>) => {
+            this.socket.on('text', (data: ITextMsg) => {
+                observer.next(data);
+            });
+        });
+
+        this.videoObservable = Observable.create((observer: Observer<IVideoMsg>) => {
+            this.socket.on('video', (data: IVideoMsg) => {
                 observer.next(data);
             });
         });
     }
 }
 
-export const communicationService: CommunicationServiceModel = new CommunicationService();
+export const communicationService: ICommunicationService = new CommunicationService();
