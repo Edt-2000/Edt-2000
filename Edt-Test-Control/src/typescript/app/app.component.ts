@@ -2,7 +2,7 @@ import Vue from 'vue';
 import * as _ from 'lodash';
 import * as io from 'socket.io-client';
 import { Component, Watch } from 'vue-property-decorator';
-import { animations, animationTypes, IPreset, PresetAnimationInput, PresetBeatInput, PresetIntensityInput, PresetPhotoInput, PresetTextInput, PresetVideoInput, VidtPresets } from '../../../../Shared/presets';
+import { animations, animationTypes, IPreset, PresetAnimationInput, PresetBeatInput, PresetIntensityInput, PresetPhotoInput, PresetTextInput, PresetVideoInput, VidtPresets } from '../../../../Shared/vidt-presets';
 import { IPhotoAsset, IVideoAsset, photoAssets, videoAssets } from '../../../../Shared/assets';
 
 @Component({
@@ -148,7 +148,7 @@ export default class App extends Vue {
     sendAnimation() {
         if (this.socketConnected) {
             this.socket.emit('animation', {
-                'intensity': this.currentAnimation
+                'animation': this.currentAnimation
             });
         }
     }

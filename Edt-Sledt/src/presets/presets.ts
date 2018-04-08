@@ -1,4 +1,4 @@
-import {presets} from '../../../Shared/presets';
+import {presets} from '../../../Shared/vidt-presets';
 
 export interface IEdtPresetLogic {
     startPreset(velocity: number): void;

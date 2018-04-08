@@ -1,5 +1,5 @@
 import {DeviceIPs} from './config';
-import { animationTypes, IPreset } from './presets';
+import { animationTypes, IPreset } from './vidt-presets';
 import { IPhotoAsset, IVideoAsset } from './assets';
 
 export const socketPort: number = 8988;

@@ -14,7 +14,7 @@
 
     &--bounce {
         .photo-glitcher__img {
-            animation: bounce .2s linear infinite;
+            animation: bounce .4s linear infinite;
             height: 100%;
             left: 0;
             top: 0;
@@ -24,7 +24,7 @@
 
     &--rotate {
         .photo-glitcher__img {
-            animation: rotate .15s linear infinite;
+            animation: rotate .8s linear infinite;
         }
     }
 
@@ -62,15 +62,15 @@
 
 @keyframes rotate {
     0% {
-        transform: rotate(5deg);
+        transform: rotate(10deg);
     }
 
     50% {
-        transform: rotate(-5deg);
+        transform: rotate(-10deg);
     }
 
     100% {
-        transform: rotate(5deg);
+        transform: rotate(10deg);
     }
 }
 

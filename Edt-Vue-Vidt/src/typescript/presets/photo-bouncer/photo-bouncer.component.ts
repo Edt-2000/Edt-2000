@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Component, Inject } from 'vue-property-decorator';
+import { Component, Inject, Watch } from 'vue-property-decorator';
 import { ICommunicationService } from '../../services/communication.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -26,8 +26,9 @@ export class PhotoBouncerComponent extends Vue {
     };
 
     public photoAssets: IPhotoAsset[] = photoAssets;
-    public photo: IPhotoAsset = this.photoAssets[8];
+    public photo: IPhotoAsset;
     public animation: Animation;
+    public src: string = '';
 
     constructor() {
         super();
@@ -36,6 +37,8 @@ export class PhotoBouncerComponent extends Vue {
     }
 
     mounted() {
+        this.photo = this.photoAssets[8];
+        this.setSrc();
 
         this.animation = this.$refs.img.animate(
             [
@@ -69,10 +72,14 @@ export class PhotoBouncerComponent extends Vue {
                 return item.photo;
             })
             .subscribe((photo: IPhotoAsset) => {
-                this.photo = photo
+                this.photo = photo;
+                this.setSrc();
             });
     }
 
+    setSrc() {
+        this.src = `assets/img/photoassets/${this.photo.src}`;
+    }
 
     animate() {
         requestAnimationFrame(() => {
