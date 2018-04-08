@@ -3,6 +3,7 @@ import { Component, Inject } from 'vue-property-decorator';
 import { ICommunicationService } from '../../services/communication.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { IBeatMsg } from '../../../../../Shared/socket';
 
 @Component({
     name: 'gridscape',
@@ -14,12 +15,12 @@ import { Observable } from 'rxjs/Observable';
 export class GridscapeComponent extends Vue {
     @Inject() communicationService: ICommunicationService;
 
+    public beatObservable: Observable<IBeatMsg>;
+    public subscription: Subscription;
+
     public $refs: {
         sun: HTMLElement,
     };
-
-    public beatObservable: Observable<any>;
-    public subscription: Subscription;
 
     public linesVertical = Array(80).map((x, i) => i + 1);
     public linesHorizontal = Array(10).map((x, i) => i + 1);
@@ -54,10 +55,10 @@ export class GridscapeComponent extends Vue {
         this.animation.pause();
 
         this.subscription = this.beatObservable
-            .map((item) => {
+            .map((item: IBeatMsg) => {
                 return item.beat === true;
             })
-            .subscribe((beat) => {
+            .subscribe(() => {
                 this.animate();
             });
     }

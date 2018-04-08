@@ -1,6 +1,7 @@
 import * as http from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
+import { IBeatMsg, IIntensityMsg, IPhotoMsg, IPresetMsg, ITextMsg, IVideoMsg } from '../../../../Shared/socket';
 
 export default class SocketServer {
     private app: express.Application;
@@ -24,25 +25,34 @@ export default class SocketServer {
         this.ioServer.on('connect', (socket: any) =>{
             console.log('Connected client on port %s.', this.port);
 
-            // TODO: set message types in shared config
-            socket.on('preset', (m: any) => {
+            socket.on('preset', (m: IPresetMsg) => {
                 this.ioServer.emit('preset', m);
                 console.log('preset', m);
             });
 
-            socket.on('beat', (m: any) => {
+            socket.on('beat', (m: IBeatMsg) => {
                 this.ioServer.emit('beat', m);
                 console.log('beat', m);
             });
 
-            socket.on('intensity', (m: any) => {
+            socket.on('intensity', (m: IIntensityMsg) => {
                 this.ioServer.emit('intensity', m);
                 console.log('intensity', m);
             });
 
-            socket.on('text', (m: any) => {
+            socket.on('photo', (m: IPhotoMsg) => {
+                this.ioServer.emit('photo', m);
+                console.log('photo', m);
+            });
+
+            socket.on('text', (m: ITextMsg) => {
                 this.ioServer.emit('text', m);
                 console.log('text', m);
+            });
+
+            socket.on('video', (m: IVideoMsg) => {
+                this.ioServer.emit('video', m);
+                console.log('video', m);
             });
 
             socket.on('disconnect', () => {

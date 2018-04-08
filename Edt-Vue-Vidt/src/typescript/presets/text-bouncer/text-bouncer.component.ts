@@ -4,6 +4,7 @@ import { GlitchText } from '../../components/glitch-text/glitch-text.component';
 import { Observable } from 'rxjs/Observable';
 import { ICommunicationService } from '../../services/communication.service';
 import { Subscription } from 'rxjs/Subscription';
+import { ITextMsg } from '../../../../../Shared/socket';
 
 @Component({
     name: 'text-bouncer',
@@ -17,7 +18,7 @@ export class TextBouncerComponent extends Vue {
     @Inject() communicationService: ICommunicationService;
 
     public text: string = 'bounce';
-    public textObservable: Observable<any>;
+    public textObservable: Observable<ITextMsg>;
     public subscription: Subscription;
 
     public y: number = 0;
@@ -41,10 +42,10 @@ export class TextBouncerComponent extends Vue {
 
     mounted() {
         this.subscription = this.textObservable
-            .map((item) => {
+            .map((item: ITextMsg) => {
                 return item.text;
             })
-            .subscribe((text) => {
+            .subscribe((text: string) => {
                 this.text = text;
                 // wait for text to be in dom
                 requestAnimationFrame(() => {

@@ -5,6 +5,7 @@ import { mapInput } from '../../helpers/map-input';
 import { ICommunicationService } from '../../services/communication.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { IIntensityMsg } from '../../../../../Shared/socket';
 
 @Component({
     name: 'logo',
@@ -21,7 +22,7 @@ export class LogoComponent extends Vue {
     public level: number = 0;
     public text: string = 'Strobocops';
     public timeOut: number | null;
-    public intensityObservable: Observable<any>;
+    public intensityObservable: Observable<IIntensityMsg>;
     public subscription: Subscription;
 
     constructor() {
@@ -31,10 +32,10 @@ export class LogoComponent extends Vue {
 
     mounted() {
         this.subscription = this.intensityObservable
-            .map((item) => {
+            .map((item: IIntensityMsg) => {
                 return item.intensity;
             })
-            .subscribe((intensity) => {
+            .subscribe((intensity: number) => {
                 this.glitch(intensity)
             });
     }

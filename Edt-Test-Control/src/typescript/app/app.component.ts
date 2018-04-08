@@ -2,7 +2,8 @@ import Vue from 'vue';
 import * as _ from 'lodash';
 import * as io from 'socket.io-client';
 import { Component, Watch } from 'vue-property-decorator';
-import { IPreset, IPresetInput, PresetBeatInput, PresetIntensityInput, PresetTextInput, VidtPresets } from '../../../../Shared/presets';
+import { IPreset, PresetBeatInput, PresetIntensityInput, PresetPhotoInput, PresetTextInput, PresetVideoInput, VidtPresets } from '../../../../Shared/presets';
+import { IPhotoAsset, IVideoAsset, photoAssets, videoAssets } from '../../../../Shared/assets';
 
 @Component({
     name: 'app',
@@ -12,14 +13,20 @@ export default class App extends Vue {
     private socket = io('localhost:8080');
     public socketConnected: boolean = false;
 
-    public currentPreset: IPreset|null = null;
-    public presets: IPreset[] = VidtPresets;
-
     public beatInput : PresetBeatInput|undefined = undefined;
     public intensityInput : PresetIntensityInput|undefined = undefined;
+    public photoInput : PresetPhotoInput|undefined = undefined;
     public textInput : PresetTextInput|undefined = undefined;
+    public videoInput : PresetVideoInput|undefined = undefined;
 
-    public intensitys: number[] = [1, 2, 3, 4 ,5, 6, 7, 8, 9];
+    public presets: IPreset[] = VidtPresets;
+    public currentPreset: IPreset|null = null;
+
+    public photoAssets: IPhotoAsset[] = photoAssets;
+    public currentPhoto: IPhotoAsset|null = null;
+
+    public videoAssets: IVideoAsset[] = videoAssets;
+    public currentVideo: IVideoAsset|null = null;
 
     public textOptions: string[] = ['bounce', 'strobocops', 'lalala', 'edt'];
     public text: string = this.textOptions[0];
@@ -45,7 +52,9 @@ export default class App extends Vue {
 
         this.beatInput      = _.find(this.currentPreset.inputs, (p) => p instanceof PresetBeatInput) as PresetBeatInput;
         this.intensityInput = _.find(this.currentPreset.inputs, (p) => p instanceof PresetIntensityInput) as PresetIntensityInput;
+        this.photoInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetPhotoInput) as PresetPhotoInput;
         this.textInput      = _.find(this.currentPreset.inputs, (p) => p instanceof PresetTextInput) as PresetTextInput;
+        this.videoInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetVideoInput) as PresetVideoInput;
 
         this.sendPreset();
     }
@@ -54,22 +63,34 @@ export default class App extends Vue {
         this.text = text.toLowerCase();
     }
 
-    showBeat() {
-        return this.currentPreset && (
-            this.currentPreset.inputs.some((p) => p instanceof PresetBeatInput)
-        );
+    setPhoto(photo: IPhotoAsset) {
+        this.currentPhoto = photo;
+        this.sendPhoto();
+    }
+
+    setVideo(video: IVideoAsset) {
+        this.currentVideo = video;
+        this.sendVideo();
+    }
+
+    showBeatInput() {
+        return this.currentPreset && this.beatInput;
+    }
+
+    showPhotoInput() {
+        return this.currentPreset && this.photoInput;
     }
 
     showTextInput() {
-        return this.currentPreset && (
-            this.currentPreset.inputs.some((p) => p instanceof PresetTextInput)
-        );
+        return this.currentPreset && this.textInput;
     }
 
-    showIntensity() {
-        return this.currentPreset && (
-            this.currentPreset.inputs.some((p) => p instanceof PresetIntensityInput)
-        );
+    showIntensityInput() {
+        return this.currentPreset && this.intensityInput;
+    }
+
+    showVideoInput() {
+        return this.currentPreset && this.videoInput;
     }
 
     intensityRange(): number[] {
@@ -90,6 +111,13 @@ export default class App extends Vue {
             });
         }
     }
+    sendBeat() {
+        if (this.socketConnected) {
+            this.socket.emit('beat', {
+                'beat': true
+            });
+        }
+    }
 
     sendIntensity(intensity: number) {
         if (this.socketConnected) {
@@ -99,11 +127,10 @@ export default class App extends Vue {
         }
     }
 
-
-    sendBeat() {
+    sendPhoto() {
         if (this.socketConnected) {
-            this.socket.emit('beat', {
-                'beat': true
+            this.socket.emit('photo', {
+                'photo': this.currentPhoto
             });
         }
     }
@@ -112,6 +139,14 @@ export default class App extends Vue {
         if (this.socketConnected) {
             this.socket.emit('text', {
                 'text': this.text
+            });
+        }
+    }
+
+    sendVideo() {
+        if (this.socketConnected) {
+            this.socket.emit('video', {
+                'video': this.currentVideo
             });
         }
     }

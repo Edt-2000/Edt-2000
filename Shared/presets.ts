@@ -1,3 +1,5 @@
+import { IPhotoAsset, IVideoAsset } from './assets';
+
 export interface IPreset {
     name: string;
     path: string;
@@ -29,6 +31,15 @@ export class PresetIntensityInput implements IPresetInput {
     }
 }
 
+export class PresetPhotoInput implements IPresetInput {
+    name: string;
+    photo: IPhotoAsset;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
 export class PresetTextInput implements IPresetInput {
     name: string;
 
@@ -36,6 +47,24 @@ export class PresetTextInput implements IPresetInput {
         this.name = name;
     }
 }
+
+export class PresetVideoInput implements IPresetInput {
+    name: string;
+    video: IVideoAsset;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
+
+//
+// export const animationTypes {
+//     bounce = 'bounce',
+//     rotate = 'rotate',
+//     spin = 'spin',
+//     stretch = 'stretch'
+// }
 
 // vidt Presets
 
@@ -58,12 +87,12 @@ export const VidtPresets: IPreset[] = [
     {
         name: 'photo-bouncer',
         path: '/photo-bouncer',
-        inputs: [new PresetBeatInput('beat')]
+        inputs: [new PresetBeatInput('beat'), new PresetPhotoInput('photo')]
     },
     {
         name: 'photo-glitcher',
         path: '/photo-glitcher',
-        inputs: []
+        inputs: [ new PresetPhotoInput('photo')]
     },
     {
         name: 'logo',
@@ -83,7 +112,7 @@ export const VidtPresets: IPreset[] = [
     {
         name: 'video-player',
         path: '/video-player',
-        inputs: []
+        inputs: [ new PresetVideoInput('photo')]
     },
     {
         name: 'vista',

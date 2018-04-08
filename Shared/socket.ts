@@ -1,5 +1,6 @@
 import {DeviceIPs} from './config';
 import { IPreset } from './presets';
+import { IPhotoAsset, IVideoAsset } from './assets';
 
 export const socketPort: number = 8988;
 
@@ -34,10 +35,12 @@ export interface ITextMsg {
     readonly text: string;
 }
 
-export interface IVideoSrcMsg {
-    readonly video: number;
-    readonly glitchEffect: boolean;
-    readonly lineEffect: boolean;
+export interface IPhotoMsg {
+    readonly photo: IPhotoAsset;
+}
+
+export interface IVideoMsg {
+    readonly video: IVideoAsset;
 }
 
 // -------------------------------- Specific Messages

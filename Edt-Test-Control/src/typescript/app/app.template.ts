@@ -13,7 +13,16 @@ module.exports = `
             </ul>
         </div>
         
-        <div class="options__section" v-if="showIntensity()">
+        <div class="options__section" v-if="showBeatInput()">
+            <h2 class="options__title">Beat</h2>
+            <ul class="options__list">
+                <li class="options__item">
+                    <button class="button" v-on:click="sendBeat()">Beat me</button>   
+                </li>
+            </ul>
+        </div>
+        
+        <div class="options__section" v-if="showIntensityInput()">
             <h2 class="options__title">Intensity</h2>
             <ul class="options__list">
                 <li class="options__item" v-for="intensity in intensityRange()">
@@ -25,11 +34,14 @@ module.exports = `
             </ul>
         </div>
         
-        <div class="options__section" v-if="showBeat()">
-            <h2 class="options__title">Beat</h2>
+        <div class="options__section" v-if="showPhotoInput()">
+            <h2 class="options__title">Photo</h2>
             <ul class="options__list">
-                <li class="options__item">
-                    <button class="button" v-on:click="sendBeat()">Beat me</button>   
+                <li class="options__item" v-for="photo in photoAssets">
+                    <button class="button" 
+                    v-bind:class="{ 'is-active': (photo === currentPhoto) }"
+                    v-on:click="setPhoto(photo)"
+                    >{{ photo.name }}</button>   
                 </li>
             </ul>
         </div>
@@ -47,6 +59,18 @@ module.exports = `
             <ul class="options__list">
                  <li class="options__item">
                     <input id="custom-text" class="form__input" type="text" v-model="text">
+                </li>
+            </ul>
+        </div>
+        
+        <div class="options__section" v-if="showVideoInput()">
+            <h2 class="options__title">Video</h2>
+            <ul class="options__list">
+                <li class="options__item" v-for="video in videoAssets">
+                    <button class="button" 
+                    v-bind:class="{ 'is-active': (video === currentVideo) }"
+                    v-on:click="setVideo(video)"
+                    >{{ video.name }}</button>   
                 </li>
             </ul>
         </div>
