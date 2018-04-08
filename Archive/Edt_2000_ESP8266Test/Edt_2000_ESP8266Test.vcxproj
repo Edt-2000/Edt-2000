@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Path>C:\\Python27\\;C:\\Python27\\Scripts;C:\\Program Files\\Dell\\DW WLAN Card;;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;c:\\Program Files\\WIDCOMM\\Bluetooth Software\\;c:\\Program Files\\WIDCOMM\\Bluetooth Software\\syswow64;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Users\\thoma\\AppData\\Local\\atom\\bin;c:\\python27;c:\\python27\\Scripts</Path>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{08F50A45-B862-4E06-BEEE-4283780615F8}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeBuildCommandLine>platformio -f -c visualstudio run</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>platformio -f -c visualstudio run --target clean</NMakeCleanCommandLine>
+    <NMakePreprocessorDefinitions>F_CPU=80000000L;__ets__;ICACHE_FLASH;PLATFORMIO=021003;ESP8266;ARDUINO_ARCH_ESP8266;ARDUINO_ESP8266_THING;ARDUINO=20200</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\variants\generic;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\variants\thing;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\cores\esp8266;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\cores\esp8266\libb64;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\cores\esp8266\spiffs;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\cores\esp8266\umm_malloc;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\tools\sdk\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\tools\sdk\lwip\include;D:\Edt-2000\Arduino\libraries\Edt-lib;D:\Edt-2000\Arduino\libraries\OSC-master;D:\Edt-2000\Arduino\Edt_2000_ESP8266Test\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ArduinoOTA;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\DNSServer\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\EEPROM;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266AVRISP\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266HTTPClient\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266HTTPUpdateServer\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266SSDP;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266WebServer\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266WiFi\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266WiFiMesh\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266httpUpdate\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266mDNS;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Ethernet\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\GDBStub\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Hash\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\SD\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\SPI;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Servo\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\SoftwareSerial;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\TFT_Touch_Shield_V2;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Ticker;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Wire;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\esp8266\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-xtensa\xtensa-lx106-elf\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-xtensa\lib\gcc\xtensa-lx106-elf\4.8.2\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-xtensa\lib\gcc\xtensa-lx106-elf\4.8.2\include-fixed</NMakeIncludeSearchPath>
+    <NMakeForcedIncludes>D:\Edt-2000\Arduino\VSfix\IntellisenseClang.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeBuildCommandLine>platformio run</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>platformio run --target clean</NMakeCleanCommandLine>
+    <NMakePreprocessorDefinitions>F_CPU=80000000L;__ets__;ICACHE_FLASH;PLATFORMIO=021003;ESP8266;ARDUINO_ARCH_ESP8266;ARDUINO_ESP8266_THING;ARDUINO=20200</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\variants\generic;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\variants\thing;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\cores\esp8266;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\cores\esp8266\libb64;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\cores\esp8266\spiffs;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\cores\esp8266\umm_malloc;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\tools\sdk\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\tools\sdk\lwip\include;D:\Edt-2000\Arduino\libraries\Edt-lib;D:\Edt-2000\Arduino\libraries\OSC-master;D:\Edt-2000\Arduino\Edt_2000_ESP8266Test\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ArduinoOTA;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\DNSServer\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\EEPROM;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266AVRISP\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266HTTPClient\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266HTTPUpdateServer\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266SSDP;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266WebServer\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266WiFi\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266WiFiMesh\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266httpUpdate\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\ESP8266mDNS;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Ethernet\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\GDBStub\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Hash\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\SD\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\SPI;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Servo\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\SoftwareSerial;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\TFT_Touch_Shield_V2;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Ticker;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\Wire;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif\libraries\esp8266\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-xtensa\xtensa-lx106-elf\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-xtensa\lib\gcc\xtensa-lx106-elf\4.8.2\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-xtensa\lib\gcc\xtensa-lx106-elf\4.8.2\include-fixed</NMakeIncludeSearchPath>
+    <NMakeForcedIncludes>D:\Edt-2000\Arduino\VSfix\IntellisenseClang.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ItemGroup>
+    <None Include="platformio.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\WifiConfig.h" />
+  </ItemGroup>
+</Project>

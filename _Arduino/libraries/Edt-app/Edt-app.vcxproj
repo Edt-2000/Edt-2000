@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C9CDB20A-BF30-4536-BA74-A1A7383DDA94}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeOutput>Edt-app.exe</NMakeOutput>
+    <NMakePreprocessorDefinitions>F_CPU=16000000L;PLATFORMIO=021003;ARDUINO_ARCH_AVR;ARDUINO_AVR_UNO;ARDUINO=10608;__AVR_ATmega328P__</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>d:\OSC-light\OSC-light;D:\Edt-2000\Arduino\libraries\Edt-lib;D:\Edt-2000\Arduino\libraries\MIDI;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\variants\standard;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\cores\arduino;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Bridge\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\EEPROM\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Esplora\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Ethernet\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Firmata;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\GSM\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\HID\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Keyboard\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\LiquidCrystal\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Mouse\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\RobotIRremote\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Robot_Control\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Robot_Motor\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SD\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SPI\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Scheduler\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Servo\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SoftwareSerial\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\SpacebrewYun\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Stepper\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\TFT\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Temboo\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\USBHost\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\WiFi\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoavr\libraries\Wire\src;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-atmelavr\avr\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-atmelavr\lib\gcc\avr\4.8.1\include;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\toolchain-atmelavr\lib\gcc\avr\4.8.1\include-fixed;$(HOMEDRIVE)$(HOMEPATH)\.platformio\packages\framework-arduinoespressif8266\libraries\ESP8266WiFi\src</NMakeIncludeSearchPath>
+    <NMakeForcedIncludes>D:\Edt-2000\Arduino\VSfix\IntellisenseClang.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeOutput>Edt-app.exe</NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="SuitApplication.h" />
+    <ClInclude Include="TOPApplication.h" />
+    <ClInclude Include="TreeApplication.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
