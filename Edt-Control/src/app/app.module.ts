@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {SocketIoModule} from 'ngx-socket-io';
-import {socketConfig} from '../../../SharedTypes/config';
+import {socketConfig} from '../../../Shared/config';
 
 import {AppComponent} from './app.component';
 import {CommunicationService} from './communication.service';

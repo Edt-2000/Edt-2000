@@ -6,7 +6,7 @@ import {CommunicationService} from './communication.service';
 import {SocketIoModule} from 'ngx-socket-io';
 import {TextDisplayComponent} from './presets/text-display/text-display.component';
 import {RouterModule, Routes} from '@angular/router';
-import {VidtPresets} from '../../../SharedTypes/socket';
+import {VidtPresets} from '../../../Shared/socket';
 
 import {GlitchTextComponent} from './components/glitch-text-component/glitch-text.component';
 import {GridscapeComponent} from './presets/gridscape/gridscape.component';
@@ -20,7 +20,7 @@ import {VistaComponent} from './presets/vista/vista.component';
 import {PhotoGlitcherComponent} from './presets/photo-glitcher/photo-glitcher.component';
 import {PhotoBounceComponent} from './presets/photo-bounce/photo-bounce.component';
 import { ScreensavebouncerComponent } from './presets/screensavebouncer/screensavebouncer.component';
-import {socketConfig} from '../../../SharedTypes/config';
+import {socketConfig} from '../../../Shared/config';
 
 const appRoutes = <Routes>[{
     path: VidtPresets.Gridscape,

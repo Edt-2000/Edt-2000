@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import * as io from 'socket.io-client';
-import { PresetModel, VidtPresets } from '../../../../SharedTypes/socket';
+import { PresetModel, VidtPresets } from '../../../../Shared/socket';
 
 @Component({
     name: 'app',

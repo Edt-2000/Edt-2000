@@ -1,8 +1,8 @@
 import {Subscription} from 'rxjs/Subscription';
-import {IColor} from '../../../../../SharedTypes/socket';
+import {IColor} from '../../../../../Shared/socket';
 import {EdtMainColor} from '../../../subjects/colors';
 import {BeatMain} from '../../../subjects/triggers';
-import {rescale} from '../../../../../SharedTypes/utils';
+import {rescale} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 
 /**

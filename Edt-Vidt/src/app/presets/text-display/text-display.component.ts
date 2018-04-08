@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CommunicationService} from 'app/communication.service';
-import {ICenteredText} from '../../../../../SharedTypes/socket';
+import {ICenteredText} from '../../../../../Shared/socket';
 
 @Component({
     selector: 'app-centered-text-display',

@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/Observable';
-import {OSCDevices} from '../../../SharedTypes/config';
+import {OSCDevices} from '../../../Shared/config';
 import {OSC$} from '../communication/osc';
 import {filter, map} from 'rxjs/operators';
 

@@ -1,9 +1,9 @@
 import {Observable} from 'rxjs/Observable';
-import {adjustmentChannel, presetMsgChannel} from '../../../SharedTypes/config';
+import {adjustmentChannel, presetMsgChannel} from '../../../Shared/config';
 import {sledtNoteOff$, sledtNoteOn$} from '../communication/midi';
-import {IMidiNoteMsg, IPresetMsg} from '../../../SharedTypes/types';
+import {IMidiNoteMsg, IPresetMsg} from '../../../Shared/types';
 import {filter, map, merge} from 'rxjs/operators';
-import {Note} from '../../../SharedTypes/midi';
+import {Note} from '../../../Shared/midi';
 
 export const noteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.pipe(
     filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel),

@@ -1,6 +1,6 @@
 import {Component, HostBinding, Inject, OnInit} from '@angular/core';
 import {CommunicationService} from './communication.service';
-import {IColor, IPreparePresetMsg} from '../../../SharedTypes/socket';
+import {IColor, IPreparePresetMsg} from '../../../Shared/socket';
 import {Router} from '@angular/router';
 
 @Component({
