@@ -1,9 +1,9 @@
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
-import {DeviceIPs, oscInPort, oscOutPort} from '../../../Shared/config';
-
+import {DeviceIPs, oscInPort, oscOutPort} from '../../../SharedTypes/config';
 import dgram = require('dgram');
 import osc = require('osc-min');
+
 const sock = dgram.createSocket('udp4', processOscMessage);
 
 sock.bind(oscInPort);

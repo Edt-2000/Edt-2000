@@ -3,9 +3,9 @@ import {Observable} from 'rxjs/Observable';
 import {
     adjustmentChannel, presetMsgChannel, virtualMidiInputDevice,
     virtualMidiOutputDevice,
-} from '../../../Shared/config';
-import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, MidiMsgTypes} from '../types';
-import {noteToNote, noteToOctave} from '../utils';
+} from '../../../SharedTypes/config';
+import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, MidiMsgTypes} from '../../../SharedTypes/types';
+import {noteToNote, noteToOctave} from '../../../SharedTypes/utils';
 import {filter, map} from 'rxjs/operators';
 import 'rxjs/add/observable/fromEvent';
 

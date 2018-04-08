@@ -1,40 +1,31 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
-interface IPageLink {
-  path: string;
-  text: string;
-}
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {pages} from '../app.routes';
+import {CommunicationService} from '../communication.service';
 
 @Component({
-  selector: 'app-page-switcher',
-  template: `
-    <ul>
-      <li *ngFor="let link of pageLinks">
-        <a [routerLink]="link.path">{{link.text}}</a>
-      </li>
-    </ul>
-    <router-outlet></router-outlet>
-  `,
-  styleUrls: [
-    'page-switcher.component.scss'
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-page-switcher',
+    template: `
+        <div class="tabs">
+            <ul>
+                <li *ngFor="let link of pageTabs">
+                    <a [routerLink]="link.path" routerLinkActive="active">{{link.text}}</a>
+                </li>
+            </ul>
+        </div>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PageSwitcherComponent implements OnInit {
-  pageLinks: IPageLink[] = [
-    {
-      path: '/colorFlashes',
-      text: 'COLOR'
-    },
-    {
-      path: '/presetToggler',
-      text: 'PRESETS'
+export class PageSwitcherComponent implements OnInit, OnDestroy {
+    public pageTabs = pages;
+
+    constructor(private communicationService: CommunicationService) {
     }
-  ];
 
-  constructor() { }
+    ngOnInit() {
 
-  ngOnInit() {
-  }
+    }
+
+    ngOnDestroy() {
+    }
 
 }

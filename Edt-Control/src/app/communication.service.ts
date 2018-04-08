@@ -3,12 +3,15 @@ import {Socket} from 'ngx-socket-io';
 
 @Injectable()
 export class CommunicationService {
-    constructor(private socket: Socket) {
+    private _socket = this.socket.fromEvent('toControl');
 
+    constructor(private socket: Socket) {}
+
+    toSledt(message: any) {
+        this.socket.emit('fromControl', message);
     }
 
-    public sendToSledt(message: any) {
-      console.log('TEST', message);
-      this.socket.emit('message', message);
+    getSledt$() {
+        return this._socket;
     }
 }

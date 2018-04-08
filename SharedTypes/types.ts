@@ -1,3 +1,5 @@
+import {Note} from './midi';
+
 export interface IMidiChannel {
     readonly channel: number;
 }
@@ -33,7 +35,7 @@ export enum MidiMsgTypes {
 }
 
 export interface IPresetMsg {
-    preset: number;
+    preset: string;
     modifier: number;
     state: boolean;
 }
