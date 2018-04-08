@@ -1,6 +1,7 @@
 import {ctrlSocketOut$} from '../communication/sockets';
-import {Actions} from '../../../SharedTypes/actions';
-import {Note} from '../../../SharedTypes/midi';
+import {PresetOnAction} from '../../../Shared/actions';
+import {Note} from '../../../Shared/midi';
+import {presets} from '../presets';
 
 export abstract class PresetLogic {
     active = false;
@@ -11,10 +12,7 @@ export abstract class PresetLogic {
         if (!this.active) {
             this._startPreset(velocity);
             this.active = true;
-            ctrlSocketOut$.next({
-                type: Actions.PRESET_ON,
-                preset: this.title,
-            })
+
         }
     }
 

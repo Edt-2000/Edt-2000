@@ -1,5 +1,5 @@
 import {Subscription} from 'rxjs/Subscription';
-import {drumTriggerOn$} from '../../../inputs/musicTriggers';
+import {drumTriggerOn$} from '../../../inputs/music-triggers';
 import {BeatMain} from '../../../subjects/triggers';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
