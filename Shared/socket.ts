@@ -1,37 +1,43 @@
+import { IPhotoAsset, IVideoAsset } from './assets';
+import { animationTypes, IPreset } from './vidt-presets';
+
 export interface IColor {
     readonly hue: number;
     readonly saturation: number;
     readonly brightness: number;
 }
 
-export enum VidtPresets {
-    Hacking = 'Hacking',
-    Gridscape = 'Gridscape',
-    Logo = 'Logo',
-    TextDisplay = 'TextDisplay',
-    Shutdown = 'Shutdown',
-    VideoPlayer = 'Video-player',
-    PhotoBouncer = 'Photo-bouncer',
-    PhotoGlitcher = 'Photo-glitcher',
-    Bluescreen = 'Bluescreen',
-    Vista = 'Vista',
-    ScreensaveBouncer = 'Screensave-bouncer'
-}
-
-export interface PresetModel {
-    name: VidtPresets;
-    path: string;
-}
-
 // SubMessages
 
-export interface IPreparePresetMsg {
-    readonly preset: VidtPresets;
+export interface IPresetMsg {
+    readonly preset: IPreset;
+}
+
+export interface IAnimationMsg {
+    readonly animation: animationTypes;
+}
+
+export interface IBeatMsg {
+    readonly beat: boolean;
 }
 
 export interface IIntensityMsg {
     readonly intensity: number;
 }
+
+export interface IPhotoMsg {
+    readonly photo: IPhotoAsset;
+}
+
+export interface ITextMsg {
+    readonly text: string;
+}
+
+export interface IVideoMsg {
+    readonly video: IVideoAsset;
+}
+
+// -------------------------------- Specific Messages
 
 export interface ICenteredText extends IColor {
     readonly textValue: string;
