@@ -5,16 +5,22 @@ export interface IColor {
 }
 
 export enum VidtPresets {
-    HackingAnimation = 'HackingAnimation',
+    Hacking = 'Hacking',
     Gridscape = 'Gridscape',
-    LogoIdle = 'LogoIdle',
+    Logo = 'Logo',
     TextDisplay = 'TextDisplay',
     Shutdown = 'Shutdown',
-    VideoPlayer = 'VideoPlayer',
-    PhotoBounce = 'Photobounce',
-    PhotoGlitcher = 'PhotoGlitcher',
+    VideoPlayer = 'Video-player',
+    PhotoBouncer = 'Photo-bouncer',
+    PhotoGlitcher = 'Photo-glitcher',
     Bluescreen = 'Bluescreen',
     Vista = 'Vista',
+    ScreensaveBouncer = 'Screensave-bouncer'
+}
+
+export interface PresetModel {
+    name: VidtPresets;
+    path: string;
 }
 
 // SubMessages
@@ -28,7 +34,7 @@ export interface IIntensityMsg {
 }
 
 export interface ICenteredText extends IColor {
-    readonly textValue;
+    readonly textValue: string;
 }
 
 export interface ITrackMsg {

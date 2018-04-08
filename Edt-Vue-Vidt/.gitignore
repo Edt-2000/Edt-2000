@@ -1,0 +1,29 @@
+### Systemfiles
+.BridgeSort
+.DS_Store
+desktop.ini
+Thumbs.db
+*.orig
+
+### IDE's
+/.idea/
+*.iws
+*.iml
+*.ipr
+*.sublime-*
+
+### SonarQube
+/.sonar
+
+### Package Managers
+/.tmp/
+/bower_components/
+/node_modules/
+/vendor/
+/dist/
+/target/
+*.log
+
+### Project
+package-lock.json
+.env
