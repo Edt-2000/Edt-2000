@@ -1,7 +1,9 @@
 import Vue from 'vue';
-import Component from 'vue-class-component';
+import * as _ from 'lodash';
 import * as io from 'socket.io-client';
-import { PresetModel, VidtPresets } from '../../../../Shared/socket';
+import { Component, Watch } from 'vue-property-decorator';
+import { animations, animationTypes, IPreset, PresetAnimationInput, PresetBeatInput, PresetIntensityInput, PresetPhotoInput, PresetTextInput, PresetVideoInput, VidtPresets } from '../../../../Shared/vidt-presets';
+import { IPhotoAsset, IVideoAsset, photoAssets, videoAssets } from '../../../../Shared/assets';
 
 @Component({
     name: 'app',
@@ -9,56 +11,35 @@ import { PresetModel, VidtPresets } from '../../../../Shared/socket';
 })
 export default class App extends Vue {
     private socket = io('localhost:8080');
-
     public socketConnected: boolean = false;
-    public currentPreset: PresetModel|null = null;
-    public vidtPresets = VidtPresets;
-    public presets: PresetModel[] = [
-        {
-            name: this.vidtPresets.Bluescreen,
-            path: '/bluescreen'
-        },
-        {
-            name: this.vidtPresets.Gridscape,
-            path: '/gridscape'
-        },
-        {
-            name: this.vidtPresets.Hacking,
-            path: '/hacking'
-        },
-        {
-            name: this.vidtPresets.PhotoBouncer,
-            path: '/photo-bouncer'
-        },
-        {
-            name: this.vidtPresets.PhotoGlitcher,
-            path: '/photo-glitcher'
-        },
-        {
-            name: this.vidtPresets.Logo,
-            path: '/logo'
-        },
-        {
-            name: this.vidtPresets.ScreensaveBouncer,
-            path: '/screensave-bouncer'
-        },
-        {
-            name: this.vidtPresets.Shutdown,
-            path: '/shutdown'
-        },
-        {
-            name: this.vidtPresets.VideoPlayer,
-            path: '/video-player'
-        },
-        {
-            name: this.vidtPresets.Vista,
-            path: '/vista'
-        },
-    ];
 
-    public intensitys: number[] = [1, 2, 3, 4 ,5, 6, 7, 8, 9];
-    public defaultText: string = 'Strobocops';
-    public customText: string = '';
+    public animationInput : PresetAnimationInput|undefined = undefined;
+    public beatInput : PresetBeatInput|undefined = undefined;
+    public intensityInput : PresetIntensityInput|undefined = undefined;
+    public photoInput : PresetPhotoInput|undefined = undefined;
+    public textInput : PresetTextInput|undefined = undefined;
+    public videoInput : PresetVideoInput|undefined = undefined;
+
+    public presets: IPreset[] = VidtPresets;
+    public currentPreset: IPreset|null = null;
+
+    public animations: animationTypes[] = animations;
+    public currentAnimation: animationTypes|null = animations[0];
+
+    public photoAssets: IPhotoAsset[] = photoAssets;
+    public currentPhoto: IPhotoAsset|null = photoAssets[0];
+
+    public videoAssets: IVideoAsset[] = videoAssets;
+    public currentVideo: IVideoAsset|null = videoAssets[0];
+
+    public textOptions: string[] = ['bounce', 'strobocops', 'lalala', 'edt'];
+    public text: string = this.textOptions[0];
+
+    @Watch('text')
+    updateText() {
+        this.text = this.text.toLowerCase();
+        this.sendText();
+    };
 
     mounted() {
         this.socket.on('connect', () =>{
@@ -70,26 +51,109 @@ export default class App extends Vue {
         });
     }
 
-    setPreset(preset: PresetModel) {
+    setPreset(preset: IPreset) {
         this.currentPreset = preset;
 
+        this.animationInput = _.find(this.currentPreset.inputs, (p) => p instanceof PresetAnimationInput) as PresetAnimationInput;
+        this.beatInput      = _.find(this.currentPreset.inputs, (p) => p instanceof PresetBeatInput) as PresetBeatInput;
+        this.intensityInput = _.find(this.currentPreset.inputs, (p) => p instanceof PresetIntensityInput) as PresetIntensityInput;
+        this.photoInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetPhotoInput) as PresetPhotoInput;
+        this.textInput      = _.find(this.currentPreset.inputs, (p) => p instanceof PresetTextInput) as PresetTextInput;
+        this.videoInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetVideoInput) as PresetVideoInput;
+
+        this.sendPreset();
+        this.sendDefaults();
+    }
+
+    setAnimation(animation: animationTypes) {
+        this.currentAnimation = animation;
+        this.sendAnimation();
+    }
+
+    setText(text: string) {
+        this.text = text.toLowerCase();
+    }
+
+    setPhoto(photo: IPhotoAsset) {
+        this.currentPhoto = photo;
+        this.sendPhoto();
+    }
+
+    setVideo(video: IVideoAsset) {
+        this.currentVideo = video;
+        this.sendVideo();
+    }
+
+    showAnimationInput() {
+        return this.currentPreset && this.animationInput;
+    }
+
+    showBeatInput() {
+        return this.currentPreset && this.beatInput;
+    }
+
+    showPhotoInput() {
+        return this.currentPreset && this.photoInput;
+    }
+
+    showTextInput() {
+        return this.currentPreset && this.textInput;
+    }
+
+    showIntensityInput() {
+        return this.currentPreset && this.intensityInput;
+    }
+
+    showVideoInput() {
+        return this.currentPreset && this.videoInput;
+    }
+
+    intensityRange(): number[] {
+        if(this.intensityInput !== undefined) {
+            const min = this.intensityInput.min;
+            const max = this.intensityInput.max;
+
+            return Array(max - min + 1).fill(0).map((_, idx) => min + idx)
+        }
+
+        return [];
+    }
+
+    sendDefaults() {
+        if (this.animationInput) {
+            this.sendAnimation();
+        }
+
+        if (this.photoInput) {
+            this.sendPhoto();
+        }
+
+        if (this.textInput) {
+            this.sendText();
+        }
+
+        if (this.videoInput) {
+            this.sendVideo();
+        }
+    }
+
+    sendPreset() {
         if (this.socketConnected) {
             this.socket.emit('preset', {
-                'preset': preset.path
+                'preset': this.currentPreset
             });
         }
     }
 
-    setIntensity(intensity: number) {
+    sendAnimation() {
         if (this.socketConnected) {
-            this.socket.emit('intensity', {
-                'intensity': intensity
+            this.socket.emit('animation', {
+                'animation': this.currentAnimation
             });
         }
     }
 
-
-    setBeat() {
+    sendBeat() {
         if (this.socketConnected) {
             this.socket.emit('beat', {
                 'beat': true
@@ -97,33 +161,36 @@ export default class App extends Vue {
         }
     }
 
-    setText(text: string) {
-        const textToSend = (text ? text : this.defaultText);
-
+    sendIntensity(intensity: number) {
         if (this.socketConnected) {
-            this.socket.emit('text', {
-                'text': textToSend.toUpperCase()
+            this.socket.emit('intensity', {
+                'intensity': intensity
             });
         }
     }
 
-    showBeat() {
-        return this.currentPreset && (
-            this.currentPreset.name == this.vidtPresets.Gridscape
-        );
+    sendPhoto() {
+        if (this.socketConnected) {
+            this.socket.emit('photo', {
+                'photo': this.currentPhoto
+            });
+        }
     }
 
-    showTextInput() {
-        return this.currentPreset && (
-            this.currentPreset.name == this.vidtPresets.ScreensaveBouncer
-        );
+    sendText() {
+        if (this.socketConnected) {
+            this.socket.emit('text', {
+                'text': this.text
+            });
+        }
     }
 
-    showIntensity() {
-        return this.currentPreset &&(
-            this.currentPreset.name == this.vidtPresets.Logo
-        );
+    sendVideo() {
+        if (this.socketConnected) {
+            this.socket.emit('video', {
+                'video': this.currentVideo
+            });
+        }
     }
-
 }
 

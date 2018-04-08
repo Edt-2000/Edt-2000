@@ -1,0 +1,19 @@
+@import '../config/colors';
+@import '../config/sizes';
+
+.form {
+    &__label {
+        @include font-style-button;
+    }
+
+    &__input {
+        @include font-style-button;
+        background: $c-black;
+        border: 4px solid $c-white;
+        color: $c-white;
+        height: $height-button;
+        line-height: $height-button;
+        padding: 0 1rem;
+        text-transform: uppercase;
+    }
+}

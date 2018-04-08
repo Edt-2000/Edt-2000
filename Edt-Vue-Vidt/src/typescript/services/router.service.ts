@@ -1,5 +1,4 @@
 import VueRouter from 'vue-router';
-import { ScreensaveBouncerComponent } from '../presets/screensave-bouncer/screensave-bouncer.component';
 import { LogoComponent } from '../presets/logo/logo.component';
 import { ShutdownComponent } from '../presets/shutdown/shutdown.component';
 import { BluescreenComponent } from '../presets/bluescreen/bluescreen.component';
@@ -9,6 +8,7 @@ import { GridscapeComponent } from '../presets/gridscape/gridscape.component';
 import { PhotoGlitcherComponent } from '../presets/photo-glitcher/photo-glitcher.component';
 import { PhotoBouncerComponent } from '../presets/photo-bouncer/photo-bouncer.component';
 import { VideoPlayerComponent } from '../presets/video-player/video-player.component';
+import { TextBouncerComponent } from '../presets/text-bouncer/text-bouncer.component';
 
 export const router = new VueRouter({
     base:'',
@@ -20,7 +20,7 @@ export const router = new VueRouter({
         { path: '/logo', component: LogoComponent },
         { path: '/photo-bouncer', component: PhotoBouncerComponent },
         { path: '/photo-glitcher', component: PhotoGlitcherComponent },
-        { path: '/screensave-bouncer', component: ScreensaveBouncerComponent },
+        { path: '/text-bouncer', component: TextBouncerComponent },
         { path: '/shutdown', component: ShutdownComponent },
         { path: '/video-player', component: VideoPlayerComponent },
         { path: '/vista', component: VistaComponent },

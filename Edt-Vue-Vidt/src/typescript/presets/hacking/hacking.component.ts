@@ -14,7 +14,7 @@ export class HackingComponent extends Vue {
         character: HTMLElement
     };
 
-    interval: number | undefined;
+    public interval: number | undefined;
 
     mounted() {
         const response = fetch(new Request("/assets/data/stevencode.txt"));
