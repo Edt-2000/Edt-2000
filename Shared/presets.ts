@@ -19,6 +19,15 @@ export class PresetBeatInput implements IPresetInput {
     }
 }
 
+export class PresetAnimationInput implements IPresetInput {
+    name: string;
+    type: animationTypes;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
 export class PresetIntensityInput implements IPresetInput {
     name: string;
     min: number;
@@ -57,14 +66,19 @@ export class PresetVideoInput implements IPresetInput {
     }
 }
 
+export enum animationTypes {
+    bounce = 'bounce',
+    rotate = 'rotate',
+    spin = 'spin',
+    stretch = 'stretch'
+}
 
-//
-// export const animationTypes {
-//     bounce = 'bounce',
-//     rotate = 'rotate',
-//     spin = 'spin',
-//     stretch = 'stretch'
-// }
+export const animations = [
+    animationTypes.bounce,
+    animationTypes.rotate,
+    animationTypes.spin,
+    animationTypes.stretch
+];
 
 // vidt Presets
 
@@ -92,7 +106,7 @@ export const VidtPresets: IPreset[] = [
     {
         name: 'photo-glitcher',
         path: '/photo-glitcher',
-        inputs: [ new PresetPhotoInput('photo')]
+        inputs: [ new PresetPhotoInput('photo'), new PresetAnimationInput('animation')]
     },
     {
         name: 'logo',

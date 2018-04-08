@@ -46,6 +46,18 @@ module.exports = `
             </ul>
         </div>
         
+        <div class="options__section" v-if="showAnimationInput()">
+            <h2 class="options__title">Animations</h2>
+            <ul class="options__list">
+                <li class="options__item" v-for="animation in animations">
+                    <button class="button" 
+                    v-bind:class="{ 'is-active': (animation === currentAnimation) }"
+                    v-on:click="setAnimation(animation)"
+                    >{{ animation }}</button>   
+                </li>
+            </ul>
+        </div>
+        
         <div class="options__section" v-if="showTextInput()">
             <h2 class="options__title">Tekst</h2>
             <ul class="options__list">
