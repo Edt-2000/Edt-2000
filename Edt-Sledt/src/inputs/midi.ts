@@ -23,7 +23,7 @@ const presetOn$: Observable<IPresetMsg> = sledtNoteOn$.pipe(
     filter((msg) => msg.channel === presetMsgChannel),
     map((msg): IPresetMsg => {
         return {
-            preset: Note[msg.note],
+            preset: Note[Note[msg.note]],
             modifier: msg.velocity,
             state: true,
         };
@@ -34,7 +34,7 @@ const presetOff$: Observable<IPresetMsg> = sledtNoteOff$.pipe(
     filter((msg) => msg.channel === presetMsgChannel),
     map((msg): IPresetMsg => {
         return {
-            preset: Note[msg.note],
+            preset: Note[Note[msg.note]],
             modifier: msg.velocity,
             state: false,
         };

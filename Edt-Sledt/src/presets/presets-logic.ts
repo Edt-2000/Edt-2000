@@ -1,7 +1,4 @@
-import {ctrlSocketOut$} from '../communication/sockets';
-import {PresetOnAction} from '../../../Shared/actions';
 import {Note} from '../../../Shared/midi';
-import {presets} from '../presets';
 
 export abstract class PresetLogic {
     active = false;
@@ -20,10 +17,6 @@ export abstract class PresetLogic {
         if (this.active) {
             this._stopPreset();
             this.active = false;
-            ctrlSocketOut$.next({
-                type: Actions.PRESET_OFF,
-                preset: this.title,
-            })
         }
     }
 

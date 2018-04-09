@@ -35,7 +35,7 @@ export enum MidiMsgTypes {
 }
 
 export interface IPresetMsg {
-    preset: string;
-    modifier: number;
-    state: boolean;
+    readonly preset: Note;
+    readonly modifier: number;
+    readonly state: boolean;
 }

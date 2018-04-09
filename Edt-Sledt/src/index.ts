@@ -1,30 +1,33 @@
-import {filter} from 'rxjs/operators';
+import {filter, tap} from 'rxjs/operators';
 import {presetMidi$} from './inputs/midi';
 import {presetMap} from './presets/presets-logic';
 import {presets} from './presets';
 import {Note} from '../../Shared/midi';
-import {PresetOnAction} from '../../Shared/actions';
 import {ctrlSocketOut$} from './communication/sockets';
+import {merge} from 'rxjs/observable/merge';
+import {Actions} from '../../Shared/actions';
+import {presetCtrlOff$, presetCtrlOn$} from './inputs/edt-control';
 
 // Add all presets to the preset map
 Object.keys(presets).map((key) => presetMap.set(Note[key], presets[key]));
 
-presetMidi$
-    .pipe(
-        filter((msg) => presetMap.has(Note[msg.preset])),
+merge(
+    presetMidi$,
+    presetCtrlOff$,
+    presetCtrlOn$,
+).pipe(
+        filter((msg) => presetMap.has(msg.preset)),
+        filter((msg) => presetMap.get(msg.preset).active !== msg.state), // Check if new state is not current state
     )
     .subscribe((msg) => {
-        if (msg.state && !presetMap.get(Note[msg.preset]).active) {
-            console.log('Starting preset', presetMap.get(Note[msg.preset]).title);
-            presetMap.get(Note[msg.preset]).startPreset(msg.modifier);
-            ctrlSocketOut$.next(new PresetOnAction({
-                preset: presetMap.,
-
-            });
-        }
-        if (!msg.state && presetMap.get(Note[msg.preset]).active) {
-            console.log('Stopping preset', presetMap.get(Note[msg.preset]).title);
-            presetMap.get(Note[msg.preset]).stopPreset();
+        const preset = presetMap.get(msg.preset);
+        if (msg.state) {
+            console.log('Starting preset', preset.title);
+            preset.startPreset(msg.modifier);
+            ctrlSocketOut$.next(Actions.presetOn(msg));
+        } else {
+            console.log('Stopping preset', preset.title);
+            presetMap.get(msg.preset).stopPreset();
+            ctrlSocketOut$.next(Actions.presetOff(msg));
         }
     });
-
