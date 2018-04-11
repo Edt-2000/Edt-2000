@@ -2,12 +2,13 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import Socket = SocketIOClient.Socket;
 import * as io from "socket.io-client";
-import { IAnimationMsg, IBeatMsg, IIntensityMsg, IPhotoMsg, IPresetMsg, ITextMsg, IVideoMsg } from '../../../../Shared/socket';
+import { IAnimationMsg, IBeatMsg, IIntensityMsg, IPhotoMsg, IPresetMsg, ISingleColorMsg, ITextMsg, IVideoMsg } from '../../../../Shared/socket';
 
 export interface ICommunicationService {
     presetObservable: Observable<IPresetMsg>;
     animationObservable: Observable<IAnimationMsg>;
     beatObservable: Observable<IBeatMsg>;
+    colorObservable: Observable<ISingleColorMsg>;
     intensityObservable: Observable<IIntensityMsg>;
     photoObservable: Observable<IPhotoMsg>;
     textObservable: Observable<ITextMsg>;
@@ -19,6 +20,7 @@ class CommunicationService implements ICommunicationService {
     public presetObservable: Observable<IPresetMsg>;
     public animationObservable: Observable<IAnimationMsg>;
     public beatObservable: Observable<IBeatMsg>;
+    public colorObservable: Observable<ISingleColorMsg>;
     public intensityObservable: Observable<IIntensityMsg>;
     public photoObservable: Observable<IPhotoMsg>;
     public textObservable: Observable<ITextMsg>;
@@ -45,6 +47,12 @@ class CommunicationService implements ICommunicationService {
 
         this.beatObservable = Observable.create((observer: Observer<IBeatMsg>) => {
             this.socket.on('beat', (data: IBeatMsg) => {
+                observer.next(data);
+            });
+        });
+
+        this.colorObservable = Observable.create((observer: Observer<ISingleColorMsg>) => {
+            this.socket.on('color', (data: ISingleColorMsg) => {
                 observer.next(data);
             });
         });

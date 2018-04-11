@@ -5,6 +5,6 @@ module.exports = `
         Your browser does not support the video tag.
     </video>
 
-    <div v-if="showOverlay()" class="video__overlay"></div>
+    <div v-if="overlay" class="video__overlay"></div>
 </div>
 `;

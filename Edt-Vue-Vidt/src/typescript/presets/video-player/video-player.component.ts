@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Component, Inject } from 'vue-property-decorator';
+import { Component, Inject, Watch } from 'vue-property-decorator';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { IBeatMsg, IVideoMsg } from '../../../../../Shared/socket';
@@ -25,6 +25,7 @@ export class VideoPlayerComponent extends Vue {
     public video: IVideoAsset;
     public src: string = '';
     public interval: number;
+    public overlay: boolean = true;
     public $refs : {
         video: HTMLVideoElement
     };
@@ -42,6 +43,7 @@ export class VideoPlayerComponent extends Vue {
             .subscribe((video: IVideoAsset) => {
                 this.video = video;
                 this.setSrc();
+                this.setOverlay();
                 this.playVideo();
             });
 
@@ -58,8 +60,8 @@ export class VideoPlayerComponent extends Vue {
         this.src = `assets/video/${this.video.src}`;
     }
 
-    showOverlay() {
-        return (this.video && this.video.overlay);
+    setOverlay() {
+        this.overlay = (this.video && this.video.overlay);
     }
 
     playVideo() {
