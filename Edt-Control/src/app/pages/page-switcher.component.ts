@@ -8,7 +8,7 @@ import {CommunicationService} from '../communication.service';
         <div class="tabs">
             <ul>
                 <li *ngFor="let link of pageTabs">
-                    <a [routerLink]="link.path" routerLinkActive="active">{{link.text}}</a>
+                    <a [routerLink]="link.path" routerLinkActive="is-active">{{link.text}}</a>
                 </li>
             </ul>
         </div>

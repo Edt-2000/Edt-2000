@@ -5,12 +5,7 @@ import {Actions} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-color-controller',
-    template: `
-        <p>
-            <button (click)="send('C0', true)">D0</button>
-            <button (click)="send('C0', false)">D0</button>
-        </p>
-    `,
+    template: ``,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -24,11 +19,6 @@ export class ColorControllerComponent implements OnInit {
     }
 
     send(preset: Note, state: boolean) {
-        this.communicationService.toSledt(Actions.presetOn({
-                preset: Note[Note[preset]],
-                modifier: 0,
-                state,
-            })
-        );
+
     }
 }

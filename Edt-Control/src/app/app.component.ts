@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.communicationService.getSledt$().subscribe(console.log);
+        this.communicationService.presets$.subscribe((presetState) => {
+            console.log('PRESET', presetState);
+        });
     }
 }

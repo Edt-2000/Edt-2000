@@ -5,9 +5,6 @@ import {BeatMain} from '../../../subjects/triggers';
 import {rescale} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 
-/**
- * The bg IColor cycle Preset cycles between colors trigger by filteredNoteOn inputs
- */
 export class BeatToColor extends PresetLogic {
     title = 'Beat To Color';
     private hue: number;

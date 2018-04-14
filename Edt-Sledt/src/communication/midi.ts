@@ -7,7 +7,7 @@ import {
 import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, MidiMsgTypes} from '../../../Shared/types';
 import {noteToNote, noteToOctave} from '../../../Shared/utils';
 import {filter, map} from 'rxjs/operators';
-import 'rxjs/add/observable/fromEvent';
+import {fromEvent} from 'rxjs/observable/fromEvent';
 
 // console.log(new easymidi.getInputs());
 export const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
@@ -27,8 +27,7 @@ interface IEasyMidiNoteMsg {
 }
 
 // Create Observables from the midi stream.
-export const sledtNoteOn$: Observable<IMidiNoteMsg> = Observable
-    .fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteon).pipe(
+export const sledtNoteOn$: Observable<IMidiNoteMsg> = fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteon).pipe(
         map((msg): IMidiNoteMsg => {
             return {
                 noteOn: true,
@@ -40,8 +39,7 @@ export const sledtNoteOn$: Observable<IMidiNoteMsg> = Observable
             };
         }),
     );
-export const sledtNoteOff$: Observable<IMidiNoteMsg> = Observable
-    .fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteoff).pipe(
+export const sledtNoteOff$: Observable<IMidiNoteMsg> = fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteoff).pipe(
         map((msg): IMidiNoteMsg => {
             return {
                 noteOn: false,
@@ -54,14 +52,14 @@ export const sledtNoteOff$: Observable<IMidiNoteMsg> = Observable
         })
     );
 
-export const Program$: Observable<IMidiProgramMsg> = Observable.fromEvent<IMidiProgramMsg>(virtualInput, MidiMsgTypes.program).pipe(
+export const Program$: Observable<IMidiProgramMsg> = fromEvent<IMidiProgramMsg>(virtualInput, MidiMsgTypes.program).pipe(
     filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel)
 );
 
-export const Select$: Observable<IMidiSongMsg> = Observable.fromEvent<IMidiSongMsg>(virtualInput, MidiMsgTypes.select).pipe(
+export const Select$: Observable<IMidiSongMsg> = fromEvent<IMidiSongMsg>(virtualInput, MidiMsgTypes.select).pipe(
     filter((msg: IMidiSongMsg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel)
 );
 
-export const CC$: Observable<IMidiCCMsg> = Observable.fromEvent<IMidiCCMsg>(virtualInput, MidiMsgTypes.cc).pipe(
+export const CC$: Observable<IMidiCCMsg> = fromEvent<IMidiCCMsg>(virtualInput, MidiMsgTypes.cc).pipe(
     filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel)
 );

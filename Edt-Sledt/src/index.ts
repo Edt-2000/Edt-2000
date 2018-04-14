@@ -1,33 +1,50 @@
-import {filter, tap} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 import {presetMidi$} from './inputs/midi';
 import {presetMap} from './presets/presets-logic';
 import {presets} from './presets';
-import {Note} from '../../Shared/midi';
-import {ctrlSocketOut$} from './communication/sockets';
 import {merge} from 'rxjs/observable/merge';
-import {Actions} from '../../Shared/actions';
 import {presetCtrlOff$, presetCtrlOn$} from './inputs/edt-control';
+import {Actions} from '../../Shared/actions';
+import {ctrlSocketIn$, sendStateToControl} from './outputs/edt-control';
+import {io} from './communication/sockets';
 
-// Add all presets to the preset map
-Object.keys(presets).map((key) => presetMap.set(Note[key], presets[key]));
+Object.keys(presets).forEach((key) => presetMap.set(+key, presets[key]));
 
 merge(
     presetMidi$,
     presetCtrlOff$,
     presetCtrlOn$,
 ).pipe(
-        filter((msg) => presetMap.has(msg.preset)),
-        filter((msg) => presetMap.get(msg.preset).active !== msg.state), // Check if new state is not current state
-    )
+    filter((msg) => presetMap.has(msg.preset)),
+)
     .subscribe((msg) => {
         const preset = presetMap.get(msg.preset);
         if (msg.state) {
-            console.log('Starting preset', preset.title);
             preset.startPreset(msg.modifier);
-            ctrlSocketOut$.next(Actions.presetOn(msg));
         } else {
-            console.log('Stopping preset', preset.title);
-            presetMap.get(msg.preset).stopPreset();
-            ctrlSocketOut$.next(Actions.presetOff(msg));
+            preset.stopPreset();
         }
     });
+
+
+io.on('connection', (socket) => {
+    console.log('Controller connected!');
+    sendStateToControl();
+
+    socket.on('disconnect', () => {
+        console.log('Controller disconnected!');
+    });
+
+    socket.on('fromControl', (action: Actions) => {
+        ctrlSocketIn$.next(action);
+    });
+});
+
+// Loggers, comment to disable
+
+// presetOn$.subscribe((msg) => console.log('PresetOn', msg));
+// noteOn$.subscribe((msg) => console.log('NoteOn', msg));
+// noteOff$.subscribe((msg) => console.log('NoteOff', msg));
+// Program$.subscribe((msg) => console.log('Program', msg));
+// Select$.subscribe((msg) => console.log('Select', msg));
+// CC$.subscribe((msg) => console.log('CC', msg));

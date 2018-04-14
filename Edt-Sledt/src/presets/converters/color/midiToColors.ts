@@ -6,9 +6,6 @@ import {rescale, shuffleArray} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
 
-/**
- * The bg IColor cycle Preset cycles between colors trigger by filteredNoteOn inputs
- */
 export class MidiToColors extends PresetLogic {
     title: string = 'Midi To Colors';
 

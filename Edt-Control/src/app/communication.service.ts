@@ -1,9 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
+import {filter, pluck, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs/Observable';
+import {Actions, PRESET_STATE} from '../../../Shared/actions';
 
 @Injectable()
 export class CommunicationService {
-    private _socket = this.socket.fromEvent('toControl');
+    private _socket$: Observable<Actions> = this.socket.fromEvent('toControl');
 
     constructor(private socket: Socket) {}
 
@@ -11,7 +14,11 @@ export class CommunicationService {
         this.socket.emit('fromControl', message);
     }
 
-    getSledt$() {
-        return this._socket;
+    get presets$() {
+        return this._socket$
+            .pipe(
+                filter(preset => preset.type === PRESET_STATE),
+                pluck('payload'),
+            );
     }
 }

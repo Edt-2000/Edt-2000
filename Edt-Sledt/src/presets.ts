@@ -5,9 +5,9 @@ import {BeatToVidtBounce} from './presets/outputs/beatToVidtBounce';
 import {MidiToColors} from './presets/converters/color/midiToColors';
 
 export const presets = {
-    [Note.C0]: new BeatToColor(),
-    [Note.C_0]: new DrumToBeat(),
-    [Note.D0]: new MidiToColors(),
+    [Note.C_2]: new BeatToColor(),
+    [Note.C$_2]: new DrumToBeat(),
+    [Note.D_2]: new MidiToColors(),
 
-    [Note.C1]: new BeatToVidtBounce(),
+    [Note.C_1]: new BeatToVidtBounce(),
 };

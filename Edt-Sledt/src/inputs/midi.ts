@@ -44,14 +44,3 @@ const presetOff$: Observable<IPresetMsg> = sledtNoteOff$.pipe(
 export const presetMidi$: Observable<IPresetMsg> = presetOn$.pipe(
     merge(presetOff$)
 );
-
-
-// Loggers, comment to disable
-
-// presetOn$.subscribe((msg) => console.log('PresetOn', msg));
-// noteOn$.subscribe((msg) => console.log('NoteOn', msg));
-// noteOff$.subscribe((msg) => console.log('NoteOff', msg));
-// Program$.subscribe((msg) => console.log('Program', msg));
-// Select$.subscribe((msg) => console.log('Select', msg));
-// CC$.subscribe((msg) => console.log('CC', msg));
-
