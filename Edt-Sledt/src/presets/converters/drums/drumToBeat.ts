@@ -9,9 +9,9 @@ export class DrumToBeat extends PresetLogic {
 
     private subscriber: Subscription;
 
-    public _startPreset(listenTo: number): void {
+    public _startPreset(): void {
         this.subscriber = drumTriggerOn$.pipe(
-            filter((drumNote) => listenTo === drumNote)
+            filter((drumNote) => this.modifier === drumNote)
         )
             .subscribe((note) => {
                 BeatMain.next(note);

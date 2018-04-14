@@ -1,28 +1,28 @@
 import {sendStateToControl} from '../outputs/edt-control';
 
 export abstract class PresetLogic {
-    active = false;
+    state = false;
+    modifier: number;
 
     abstract title: string;
 
-    startPreset(velocity: number) {
+    startPreset(modifier: number) {
         console.log('Starting preset', this.title);
+        this.modifier = modifier;
         this._stopPreset();
-        this._startPreset(velocity);
-        this.active = true;
+        this._startPreset();
+        this.state = true;
         sendStateToControl();
     }
 
     stopPreset() {
-        if (this.active) {
-            console.log('Stopping preset', this.title);
-            this._stopPreset();
-            this.active = false;
-            sendStateToControl();
-        }
+        console.log('Stopping preset', this.title);
+        this._stopPreset();
+        this.state = false;
+        sendStateToControl();
     }
 
-    abstract _startPreset(velocity: number): void;
+    abstract _startPreset(): void;
 
     abstract _stopPreset(): void;
 }

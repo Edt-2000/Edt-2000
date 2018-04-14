@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {CommunicationService} from '../../communication.service';
 import {Note} from '../../../../../Shared/midi';
-import {Actions} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-color-controller',

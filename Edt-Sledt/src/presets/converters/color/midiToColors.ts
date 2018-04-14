@@ -23,10 +23,10 @@ export class MidiToColors extends PresetLogic {
         ]);
     }
 
-    public _startPreset(listenToChannel: number): void {
+    public _startPreset(): void {
 
         this.subscription = noteOn$.pipe(
-            filter((note) => note.channel === listenToChannel),
+            filter((note) => note.channel === this.modifier),
         )
             .subscribe((note) => {
                 this.hue = (rescale(this.hues[note.noteNumber - 1], 360, 0, 255)) % 255;

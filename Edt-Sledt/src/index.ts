@@ -1,9 +1,9 @@
-import {filter} from 'rxjs/operators';
+import {filter, tap} from 'rxjs/operators';
 import {presetMidi$} from './inputs/midi';
 import {presetMap} from './presets/presets-logic';
 import {presets} from './presets';
 import {merge} from 'rxjs/observable/merge';
-import {presetCtrlOff$, presetCtrlOn$} from './inputs/edt-control';
+import {presetCtrlChange$} from './inputs/edt-control';
 import {Actions} from '../../Shared/actions';
 import {ctrlSocketIn$, sendStateToControl} from './outputs/edt-control';
 import {io} from './communication/sockets';
@@ -12,8 +12,7 @@ Object.keys(presets).forEach((key) => presetMap.set(+key, presets[key]));
 
 merge(
     presetMidi$,
-    presetCtrlOff$,
-    presetCtrlOn$,
+    presetCtrlChange$,
 ).pipe(
     filter((msg) => presetMap.has(msg.preset)),
 )

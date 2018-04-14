@@ -7,24 +7,19 @@ import {PresetLogic} from '../../presets-logic';
 
 export class BeatToColor extends PresetLogic {
     title = 'Beat To Color';
+
     private hue: number;
-
     private subscription: Subscription;
-
-    private rotationVelocity: number;
 
     constructor() {
         super();
         this.hue = 0;
-        this.rotationVelocity = 0;
     }
 
-    public _startPreset(rotationVelocity: number): void {
-        this.rotationVelocity = rotationVelocity;
-
+    public _startPreset(): void {
         this.subscription = BeatMain
             .subscribe(() => {
-                this.hue = (this.hue + rescale(this.rotationVelocity, 127, 0, 255)) % 255;
+                this.hue = (this.hue + rescale(this.modifier, 127, 0, 255)) % 255;
                 const newColor: IColor = {
                     hue: this.hue,
                     saturation: 255,

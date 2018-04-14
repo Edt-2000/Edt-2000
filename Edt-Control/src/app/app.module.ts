@@ -11,13 +11,15 @@ import {PageSwitcherComponent} from './pages/page-switcher.component';
 import {PresetControllerComponent} from './pages/preset-controller/preset-controller.component';
 import {ColorControllerComponent} from './pages/color-controller/color-controller.component';
 import {pages} from './app.routes';
+import { PresetButtonComponent } from './components/preset-button/preset-button.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         PageSwitcherComponent,
         PresetControllerComponent,
-        ColorControllerComponent
+        ColorControllerComponent,
+        PresetButtonComponent
     ],
     imports: [
         BrowserModule,

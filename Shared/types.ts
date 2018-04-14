@@ -35,7 +35,11 @@ export enum MidiMsgTypes {
 }
 
 export interface IPresetMsg {
-    readonly preset: Note;
+    readonly preset: number;
     readonly modifier: number;
     readonly state: boolean;
+}
+
+export interface IControlPresetMsg extends IPresetMsg {
+    readonly title: string,
 }

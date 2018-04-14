@@ -9,8 +9,7 @@ export class BeatToVidtBounce extends PresetLogic {
 
     private subscriber: Subscription;
 
-    public _startPreset(listenTo: number): void {
-
+    public _startPreset(): void {
         this.subscriber = BeatMain
             .subscribe((note) => {
                 sendToVidt({

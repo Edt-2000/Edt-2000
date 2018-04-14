@@ -4,9 +4,9 @@ import {CommunicationService} from '../../communication.service';
 @Component({
     selector: 'app-preset-controller',
     template: `
-        <ul *ngIf="(presets$ | async) as presets">
-            <li *ngFor="let preset of presets" [style.background-color]="preset.active ? 'orange' : 'green'">
-                {{preset.title}}
+        <ul *ngIf="(communicationService.presetState$ | async) as presets">
+            <li *ngFor="let preset of presets;">
+                <app-preset-button [preset]="preset" (presetChange)="presetChange($event)"></app-preset-button>
             </li>
         </ul>
     `,
@@ -14,9 +14,7 @@ import {CommunicationService} from '../../communication.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PresetControllerComponent implements OnInit {
-    presets$ = this.communicationService.presets$;
-
-    constructor(private communicationService: CommunicationService) {}
+    constructor(public communicationService: CommunicationService) {}
 
     ngOnInit(): void {
 
