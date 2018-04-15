@@ -11,4 +11,6 @@ $primary-invert: $pink-invert;
 $danger: $orange;
 $family-primary: $family-serif;
 
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome.scss";
 @import "~bulma/bulma";

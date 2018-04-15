@@ -5,10 +5,10 @@ import {CommunicationService} from '../communication.service';
 @Component({
     selector: 'app-page-switcher',
     template: `
-        <div class="tabs">
+        <div class="tabs is-boxed is-large">
             <ul>
-                <li *ngFor="let link of pageTabs">
-                    <a [routerLink]="link.path" routerLinkActive="is-active">{{link.text}}</a>
+                <li *ngFor="let link of pageTabs" routerLinkActive="is-active">
+                    <a [routerLink]="link.path">{{link.text}}</a>
                 </li>
             </ul>
         </div>

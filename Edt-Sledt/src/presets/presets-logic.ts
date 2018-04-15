@@ -11,7 +11,7 @@ export abstract class PresetLogic {
     abstract title: string;
 
     startPreset(modifier: number) {
-        console.log('Starting preset', this.title);
+        console.log('Starting preset', this.title, modifier);
         this.modifier = modifier;
         this._stopPreset();
         this._startPreset();

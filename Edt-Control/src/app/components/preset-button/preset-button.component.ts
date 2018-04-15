@@ -5,24 +5,29 @@ import {Actions} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-preset-button',
-    template: `        
-        <ng-container [ngSwitch]="preset.config.type">
-            <ng-container *ngSwitchCase="none">
-                <button class="button is-large is-light" [class.is-success]="preset.state" (click)="changePreset(0)">
-                    {{preset.title}}
-                </button>
+    template: `
+        <nav class="panel">
+            <p class="panel-heading" (click)="changePreset(preset.modifier, !preset.state)" [class.has-text-success]="preset.state">
+                {{preset.title}}
+            </p>
+            <ng-container [ngSwitch]="preset.config.type">
+                <ng-container *ngSwitchCase="'select'">
+                    <div class="panel-block">
+                        <div class="buttons has-addons">
+                            <button
+                                *ngFor="let select of preset.config.select"
+                                class="button"
+                                [class.is-active]="select.value === preset.modifier"
+                                [class.is-success]="preset.state && select.value === preset.modifier"
+                                (click)="changePreset(select.value, true)">
+                                {{select.value}}: {{select.label}}
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="'continuous'"></ng-container>
             </ng-container>
-            <ng-container *ngSwitchCase="select">
-                <ul>
-                    <li *ngFor="let select of preset.config.select">
-                        <button class="button is-large is-light" (click)="changePreset(select.value)">
-                            {{select.value}}: {{select.label}}
-                        </button>
-                    </li>
-                </ul>
-            </ng-container>
-            <ng-container *ngSwitchCase="continuous"></ng-container>
-        </ng-container>
+        </nav>
     `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -30,16 +35,17 @@ import {Actions} from '../../../../../Shared/actions';
 export class PresetButtonComponent implements OnInit {
     @Input() preset: IControlPresetMsg;
 
-    constructor(private communicationService: CommunicationService) {}
+    constructor(private communicationService: CommunicationService) {
+    }
 
     ngOnInit() {
     }
 
-    changePreset(modifier) {
+    changePreset(modifier, state) {
         this.communicationService.toSledt(Actions.presetChange({
             preset: this.preset.preset,
+            state,
             modifier,
-            state: !this.preset.state,
         }));
     }
 }
