@@ -4,9 +4,19 @@ import {EdtMainColor} from '../../../subjects/colors';
 import {BeatMain} from '../../../subjects/triggers';
 import {rescale} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
+import {IModifierOptions} from '../../../../../Shared/types';
 
 export class BeatToColor extends PresetLogic {
     title = 'Beat To Color';
+    modifierOptions: IModifierOptions = {
+        type: 'select',
+        select: [
+            {label: 'small', value: 30},
+            {label: 'medium', value: 60},
+            {label: 'large', value: 90},
+        ],
+    };
+
 
     private hue: number;
     private subscription: Subscription;

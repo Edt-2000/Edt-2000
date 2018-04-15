@@ -1,8 +1,12 @@
 import {sendStateToControl} from '../outputs/edt-control';
+import {IModifierOptions} from '../../../Shared/types';
+
 
 export abstract class PresetLogic {
     state = false;
     modifier: number;
+
+    abstract modifierOptions: IModifierOptions;
 
     abstract title: string;
 

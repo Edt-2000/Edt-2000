@@ -5,9 +5,19 @@ import {EdtMainColor} from '../../../subjects/colors';
 import {rescale, shuffleArray} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
+import {IModifierOptions} from '../../../../../Shared/types';
+import {MidiChannels} from '../../../../../Shared/config';
 
 export class MidiToColors extends PresetLogic {
     title: string = 'Midi To Colors';
+    modifierOptions: IModifierOptions = {
+        type: 'select',
+        select: [
+            {label: MidiChannels[MidiChannels.drum], value: MidiChannels.drum},
+            {label: MidiChannels[MidiChannels.bass], value: MidiChannels.bass},
+            {label: MidiChannels[MidiChannels.synth], value: MidiChannels.synth},
+        ],
+    };
 
     private hue: number;
     private subscription: Subscription;

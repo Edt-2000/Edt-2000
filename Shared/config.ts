@@ -38,6 +38,14 @@ export enum Modii {
     DualSparkle = 11,
     Kitt = 12,
 }
+
+// MIDI channel descriptions (useful in Edt-Control)
+export enum MidiChannels {
+    synth = 1,
+    bass = 2,
+    drum = 10,
+}
+
 export const oscInPort = 12345;
 
 export const oscOutPort = 12345;

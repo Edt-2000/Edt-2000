@@ -3,9 +3,13 @@ import {sendToVidt} from '../../outputs/edt-vidt';
 import {IIntensityMsg} from '../../../../Shared/socket';
 import {PresetLogic} from '../presets-logic';
 import {BeatMain} from '../../subjects/triggers';
+import {IModifierOptions} from '../../../../Shared/types';
 
 export class BeatToVidtBounce extends PresetLogic {
     title = 'Beat To Vidt Bounce';
+    modifierOptions: IModifierOptions = {
+        type: 'none',
+    };
 
     private subscriber: Subscription;
 

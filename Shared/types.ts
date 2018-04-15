@@ -1,5 +1,3 @@
-import {Note} from './midi';
-
 export interface IMidiChannel {
     readonly channel: number;
 }
@@ -42,4 +40,20 @@ export interface IPresetMsg {
 
 export interface IControlPresetMsg extends IPresetMsg {
     readonly title: string,
+    readonly config: IModifierOptions,
+}
+
+export interface IModifierOptions {
+    readonly type: 'none' | 'select' | 'continuous';
+    readonly select?: IModifierSelectOption[],
+    readonly continuous?: {
+        readonly min: number;
+        readonly max: number;
+        readonly step: number;
+    }
+}
+
+export interface IModifierSelectOption {
+    label: string,
+    value: number,
 }

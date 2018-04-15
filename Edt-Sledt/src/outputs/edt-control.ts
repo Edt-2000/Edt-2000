@@ -16,6 +16,7 @@ export function sendStateToControl() {
                 modifier: preset.modifier,
                 state: preset.state,
                 title: preset.title,
+                config: preset.modifierOptions,
             }
         });
     ctrlSocketOut$.next(Actions.presetState(currentState));
