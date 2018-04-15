@@ -1,5 +1,6 @@
 import {sendStateToControl} from '../outputs/edt-control';
 import {IModifierOptions} from '../../../Shared/types';
+import {Note} from '../../../Shared/midi';
 
 
 export abstract class PresetLogic {
@@ -9,6 +10,7 @@ export abstract class PresetLogic {
     abstract modifierOptions: IModifierOptions;
 
     abstract title: string;
+    abstract note: Note;
 
     startPreset(modifier: number) {
         console.log('Starting preset', this.title, modifier);

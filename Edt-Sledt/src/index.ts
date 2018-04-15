@@ -1,34 +1,46 @@
-import {filter, tap} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 import {presetMidi$} from './inputs/midi';
 import {presetMap} from './presets/presets-logic';
-import {presets} from './presets';
 import {merge} from 'rxjs/observable/merge';
 import {presetCtrlChange$} from './inputs/edt-control';
 import {Actions} from '../../Shared/actions';
-import {ctrlSocketIn$, sendStateToControl} from './outputs/edt-control';
+import {ctrlSocketIn$, ctrlSocketOut$, sendStateToControl} from './outputs/edt-control';
 import {io} from './communication/sockets';
+import {BeatToColor} from './presets/converters/color/beatToColor';
+import {DrumToBeat} from './presets/converters/drums/drumToBeat';
+import {BeatToVidtBounce} from './presets/outputs/beatToVidtBounce';
+import {MidiToColors} from './presets/converters/color/midiToColors';
+import {presetCues} from '../../Shared/cues';
+import {midiOutput$} from './communication/midi';
 
-Object.keys(presets).forEach((key) => presetMap.set(+key, presets[key]));
+// Init all presets and add to presetMap
+[
+    new BeatToColor(),
+    new MidiToColors(),
+    new DrumToBeat(),
+    new BeatToVidtBounce(),
+].forEach((preset) => presetMap.set(+preset.note, preset));
 
 merge(
     presetMidi$,
     presetCtrlChange$,
 ).pipe(
     filter((msg) => presetMap.has(msg.preset)),
-)
-    .subscribe((msg) => {
-        const preset = presetMap.get(msg.preset);
-        if (msg.state) {
-            preset.startPreset(msg.modifier);
-        } else {
-            preset.stopPreset();
-        }
-    });
+).subscribe((msg) => {
+    const preset = presetMap.get(msg.preset);
+    if (msg.state) {
+        preset.startPreset(msg.modifier);
+    } else {
+        preset.stopPreset();
+    }
+});
 
+presetCtrlChange$.subscribe(presetChange => midiOutput$.next(presetChange));
 
 io.on('connection', (socket) => {
     console.log('Controller connected!');
     sendStateToControl();
+    ctrlSocketOut$.next(Actions.cueList(presetCues));
 
     socket.on('disconnect', () => {
         console.log('Controller disconnected!');

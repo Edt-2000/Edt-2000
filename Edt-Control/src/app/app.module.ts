@@ -12,6 +12,7 @@ import {PresetControllerComponent} from './pages/preset-controller/preset-contro
 import {ColorControllerComponent} from './pages/color-controller/color-controller.component';
 import {pages} from './app.routes';
 import { PresetButtonComponent } from './components/preset-button/preset-button.component';
+import { CuesControllerComponent } from './pages/cues-controller/cues-controller.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { PresetButtonComponent } from './components/preset-button/preset-button.
         PageSwitcherComponent,
         PresetControllerComponent,
         ColorControllerComponent,
-        PresetButtonComponent
+        PresetButtonComponent,
+        CuesControllerComponent
     ],
     imports: [
         BrowserModule,

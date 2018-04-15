@@ -7,7 +7,10 @@ import {Actions} from '../../../../../Shared/actions';
     selector: 'app-preset-button',
     template: `
         <nav class="panel">
-            <p class="panel-heading" (click)="changePreset(preset.modifier, !preset.state)" [class.has-text-success]="preset.state">
+            <p
+                class="panel-heading"
+                (click)="changePreset(preset.modifier, !preset.state)"
+                [class.has-text-success]="preset.state">
                 {{preset.title}}
             </p>
             <ng-container [ngSwitch]="preset.config.type">
@@ -41,7 +44,7 @@ export class PresetButtonComponent implements OnInit {
     ngOnInit() {
     }
 
-    changePreset(modifier, state) {
+    changePreset(modifier = 127, state) {
         this.communicationService.toSledt(Actions.presetChange({
             preset: this.preset.preset,
             state,

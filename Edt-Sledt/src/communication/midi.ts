@@ -4,21 +4,22 @@ import {
     adjustmentChannel, presetMsgChannel, virtualMidiInputDevice,
     virtualMidiOutputDevice,
 } from '../../../Shared/config';
-import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, MidiMsgTypes} from '../../../Shared/types';
+import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, IPresetMsg, MidiMsgTypes} from '../../../Shared/types';
 import {noteToNote, noteToOctave} from '../../../Shared/utils';
 import {filter, map} from 'rxjs/operators';
 import {fromEvent} from 'rxjs/observable/fromEvent';
+import {Subject} from 'rxjs/Subject';
+
+const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
+const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
 
 // console.log(new easymidi.getInputs());
-export const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
-
 // try {
 //     const hardwareInput = new easymidi.Input('EDTMID USB MIDI Interface');
 // } catch(error) {
 //     console.error('No live MIDI interface!');
 // }
 
-const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
 
 interface IEasyMidiNoteMsg {
     channel: number;
@@ -26,7 +27,21 @@ interface IEasyMidiNoteMsg {
     velocity: number;
 }
 
-// Create Observables from the midi stream.
+export const midiOutput$ = new Subject<IPresetMsg>();
+
+midiOutput$.subscribe(msg => {
+    const midiMsg: IEasyMidiNoteMsg = {
+        channel: presetMsgChannel - 1,
+        note: msg.preset,
+        velocity: msg.modifier,
+    };
+    if (msg.state) {
+        virtualOutput.send('noteon', midiMsg);
+    } else {
+        virtualOutput.send('noteoff', midiMsg);
+    }
+});
+
 export const sledtNoteOn$: Observable<IMidiNoteMsg> = fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteon).pipe(
         map((msg): IMidiNoteMsg => {
             return {

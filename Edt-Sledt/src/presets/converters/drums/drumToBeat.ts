@@ -4,9 +4,12 @@ import {BeatMain} from '../../../subjects/triggers';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
 import {IModifierOptions} from '../../../../../Shared/types';
+import {Note} from '../../../../../Shared/midi';
 
 export class DrumToBeat extends PresetLogic {
     title = 'Drum to Beat';
+    note = Note.C$_2;
+
     modifierOptions: IModifierOptions = {
         type: 'select',
         select: [

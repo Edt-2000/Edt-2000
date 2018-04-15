@@ -5,16 +5,13 @@ import {BeatMain} from '../../../subjects/triggers';
 import {rescale} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 import {IModifierOptions} from '../../../../../Shared/types';
+import {Note} from '../../../../../Shared/midi';
 
 export class BeatToColor extends PresetLogic {
     title = 'Beat To Color';
+    note = Note.C_2;
     modifierOptions: IModifierOptions = {
-        type: 'select',
-        select: [
-            {label: 'small', value: 30},
-            {label: 'medium', value: 60},
-            {label: 'large', value: 90},
-        ],
+        type: 'none',
     };
 
 
@@ -29,7 +26,8 @@ export class BeatToColor extends PresetLogic {
     public _startPreset(): void {
         this.subscription = BeatMain
             .subscribe(() => {
-                this.hue = (this.hue + rescale(this.modifier, 127, 0, 255)) % 255;
+                // TODO: set to random set of colors instead of rotating hue
+                this.hue = (this.hue + rescale(60, 127, 0, 255)) % 255;
                 const newColor: IColor = {
                     hue: this.hue,
                     saturation: 255,

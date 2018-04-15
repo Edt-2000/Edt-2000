@@ -43,6 +43,12 @@ export interface IControlPresetMsg extends IPresetMsg {
     readonly config: IModifierOptions,
 }
 
+export interface IPresetCue {
+    title: string;
+    description: string;
+    presets: IPresetMsg[];
+}
+
 export interface IModifierOptions {
     readonly type: 'none' | 'select' | 'continuous';
     readonly select?: IModifierSelectOption[],

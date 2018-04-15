@@ -7,9 +7,12 @@ import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
 import {IModifierOptions} from '../../../../../Shared/types';
 import {MidiChannels} from '../../../../../Shared/config';
+import {Note} from '../../../../../Shared/midi';
 
 export class MidiToColors extends PresetLogic {
     title: string = 'Midi To Colors';
+    note = Note.D_2;
+
     modifierOptions: IModifierOptions = {
         type: 'select',
         select: [
