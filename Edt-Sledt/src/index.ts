@@ -14,12 +14,14 @@ import {presetCues} from '../../Shared/cues';
 import {midiOutput$} from './communication/midi';
 
 // Init all presets and add to presetMap
-[
+const presets = [
     new BeatToColor(),
     new MidiToColors(),
     new DrumToBeat(),
     new BeatToVidtBounce(),
-].forEach((preset) => presetMap.set(+preset.note, preset));
+];
+presets.forEach((preset) => presetMap.set(+preset.note, preset));
+if (presets.length !== presetMap.size) console.error('Not all presets have a unique NoteNr!');
 
 merge(
     presetMidi$,

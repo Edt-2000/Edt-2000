@@ -7,7 +7,6 @@ import {socketConfig} from '../../../Shared/config';
 
 import {AppComponent} from './app.component';
 import {CommunicationService} from './communication.service';
-import {PageSwitcherComponent} from './pages/page-switcher.component';
 import {PresetControllerComponent} from './pages/preset-controller/preset-controller.component';
 import {ColorControllerComponent} from './pages/color-controller/color-controller.component';
 import {pages} from './app.routes';
@@ -17,7 +16,6 @@ import { CuesControllerComponent } from './pages/cues-controller/cues-controller
 @NgModule({
     declarations: [
         AppComponent,
-        PageSwitcherComponent,
         PresetControllerComponent,
         ColorControllerComponent,
         PresetButtonComponent,

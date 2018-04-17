@@ -6,31 +6,34 @@ import {Actions} from '../../../../../Shared/actions';
 @Component({
     selector: 'app-preset-button',
     template: `
-        <nav class="panel">
-            <p
-                class="panel-heading"
+        <div class="card">
+            <header class="card-header"
                 (click)="changePreset(preset.modifier, !preset.state)"
                 [class.has-text-success]="preset.state">
-                {{preset.title}}
-            </p>
-            <ng-container [ngSwitch]="preset.config.type">
-                <ng-container *ngSwitchCase="'select'">
-                    <div class="panel-block">
-                        <div class="buttons has-addons">
-                            <button
-                                *ngFor="let select of preset.config.select"
-                                class="button"
-                                [class.is-active]="select.value === preset.modifier"
-                                [class.is-success]="preset.state && select.value === preset.modifier"
-                                (click)="changePreset(select.value, true)">
-                                {{select.value}}: {{select.label}}
-                            </button>
+                <p class="card-header-title">
+                    {{preset.title}} ({{preset.modifier}})
+                </p>
+                <div class="card-header-icon">
+                    <span class="icon">
+                        <i class="fa fa-toggle-off"></i>
+                    </span>
+                </div>
+            </header>
+            <div class="card-footer">
+                <ng-container [ngSwitch]="preset.config.type">
+                    <ng-container *ngSwitchCase="'select'">
+                        <div *ngFor="let select of preset.config.select"
+                            class="card-footer-item"
+                            [class.is-active]="select.value === preset.modifier"
+                            [class.is-success]="preset.state && select.value === preset.modifier"
+                            (click)="changePreset(select.value, true)">
+                            {{select.value}}: {{select.label}}
                         </div>
-                    </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'continuous'"></ng-container>
                 </ng-container>
-                <ng-container *ngSwitchCase="'continuous'"></ng-container>
-            </ng-container>
-        </nav>
+            </div>
+        </div>
     `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush

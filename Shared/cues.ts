@@ -5,8 +5,7 @@ import {IPresetCue} from './types';
 
 export const presetCues: IPresetCue[] = [
     {
-        title: 'DrumKick -> ColorChanges',
-        description: 'Drumkick -> Beat, Beat to ColorChange',
+        label: 'DrumKick -> ColorChanges',
         presets: [
             {
                 preset: new DrumToBeat().note,

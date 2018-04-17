@@ -44,8 +44,7 @@ export interface IControlPresetMsg extends IPresetMsg {
 }
 
 export interface IPresetCue {
-    title: string;
-    description: string;
+    label: string;
     presets: IPresetMsg[];
 }
 

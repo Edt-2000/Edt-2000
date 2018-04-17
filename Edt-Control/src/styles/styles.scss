@@ -1,0 +1,10 @@
+// Theme from https://github.com/jenil/bulmaswatch and modified where needed
+@import "fonts";
+@import "variables";
+
+$fa-font-path: "~font-awesome/fonts";
+@import "../../node_modules/font-awesome/scss/font-awesome";
+@import "../../node_modules/bulma/bulma";
+
+
+@import "overrides";

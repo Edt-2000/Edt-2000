@@ -5,13 +5,11 @@ import {PRESET_STATE} from '../../../../../Shared/actions';
 @Component({
     selector: 'app-preset-controller',
     template: `
-        <section class="section">
-            <div class="columns" *ngIf="(presetState$ | async) as presets">
-                <div class="column" *ngFor="let preset of presets;">
-                    <app-preset-button [preset]="preset" (presetChange)="presetChange($event)"></app-preset-button>
-                </div>
+        <div class="columns" *ngIf="(presetState$ | async) as presets">
+            <div class="column" *ngFor="let preset of presets;">
+                <app-preset-button [preset]="preset" (presetChange)="presetChange($event)"></app-preset-button>
             </div>
-        </section>
+        </div>
     `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
