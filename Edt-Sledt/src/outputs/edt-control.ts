@@ -4,7 +4,6 @@ import {Actions} from '../../../Shared/actions';
 import {io} from '../communication/sockets';
 import {presetMap} from '../presets/presets-logic';
 import {IControlPresetMsg} from '../../../Shared/types';
-import {interval} from 'rxjs/observable/interval';
 
 export const ctrlSocketIn$ = new BehaviorSubject({} as Actions);
 export const ctrlSocketOut$: Subject<Actions> = new Subject();
@@ -25,9 +24,4 @@ export function sendStateToControl() {
 
 ctrlSocketOut$.subscribe(msg => {
     io.emit('toControl', msg);
-    // io.emit(msg.type, msg.payload);
-});
-
-interval(1000).subscribe(() => {
-    io.emit('beat', { beat: true });
 });

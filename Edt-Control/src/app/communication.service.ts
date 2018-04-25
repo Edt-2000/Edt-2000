@@ -1,17 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {Observable} from 'rxjs/Observable';
-import {Actions, CUE_LIST, PRESET_STATE} from '../../../Shared/actions';
+import {Actions} from '../../../Shared/actions';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {IControlPresetMsg, IPresetCue} from '../../../Shared/types';
 
-
 @Injectable()
 export class CommunicationService {
-    // TODO: this does not give typing!
     actions$ = {
-        [PRESET_STATE]: new BehaviorSubject<IControlPresetMsg[]>([]),
-        [CUE_LIST]: new BehaviorSubject<IPresetCue[]>([]),
+        PRESET_STATE: <BehaviorSubject<IControlPresetMsg[]>> new BehaviorSubject([]),
+        CUE_LIST: <BehaviorSubject<IPresetCue[]>> new BehaviorSubject([]),
     };
 
     private _socket$: Observable<Actions> = this.socket.fromEvent('toControl');
