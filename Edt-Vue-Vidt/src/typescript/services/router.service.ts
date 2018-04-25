@@ -9,12 +9,14 @@ import { PhotoGlitcherComponent } from '../presets/photo-glitcher/photo-glitcher
 import { PhotoBouncerComponent } from '../presets/photo-bouncer/photo-bouncer.component';
 import { VideoPlayerComponent } from '../presets/video-player/video-player.component';
 import { TextBouncerComponent } from '../presets/text-bouncer/text-bouncer.component';
+import { ColorBackgroundComponent } from '../presets/color-background/color-background.component';
 
 export const router = new VueRouter({
     base:'',
     routes: [
         { path: '/',component: LogoComponent },
         { path: '/bluescreen', component: BluescreenComponent },
+        { path: '/color-background', component: ColorBackgroundComponent },
         { path: '/gridscape', component: GridscapeComponent },
         { path: '/hacking', component: HackingComponent },
         { path: '/logo', component: LogoComponent },
