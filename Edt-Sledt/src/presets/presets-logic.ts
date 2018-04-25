@@ -5,7 +5,7 @@ import {Note} from '../../../Shared/midi';
 
 export abstract class PresetLogic {
     state = false;
-    modifier: number;
+    modifier: number = 0;
 
     abstract modifierOptions: IModifierOptions;
 

@@ -7,7 +7,7 @@ import {PRESET_STATE} from '../../../../../Shared/actions';
     template: `
         <div class="columns" *ngIf="(presetState$ | async) as presets">
             <div class="column" *ngFor="let preset of presets;">
-                <app-preset-button [preset]="preset" (presetChange)="presetChange($event)"></app-preset-button>
+                <app-preset-switcher [preset]="preset"></app-preset-switcher>
             </div>
         </div>
     `,

@@ -4,7 +4,7 @@ import {CommunicationService} from '../../communication.service';
 import {Actions} from '../../../../../Shared/actions';
 
 @Component({
-    selector: 'app-preset-button',
+    selector: 'app-preset-switcher',
     template: `
         <div class="card">
             <header class="card-header"
@@ -27,10 +27,12 @@ import {Actions} from '../../../../../Shared/actions';
                             [class.is-active]="select.value === preset.modifier"
                             [class.is-success]="preset.state && select.value === preset.modifier"
                             (click)="changePreset(select.value, true)">
-                            {{select.value}}: {{select.label}}
+                            {{select.label}}
                         </div>
                     </ng-container>
-                    <ng-container *ngSwitchCase="'continuous'"></ng-container>
+                    <ng-container *ngSwitchCase="'continuous'">
+                        
+                    </ng-container>
                 </ng-container>
             </div>
         </div>
@@ -38,7 +40,7 @@ import {Actions} from '../../../../../Shared/actions';
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PresetButtonComponent implements OnInit {
+export class PresetSwitcherComponent implements OnInit {
     @Input() preset: IControlPresetMsg;
 
     constructor(private communicationService: CommunicationService) {
@@ -53,5 +55,9 @@ export class PresetButtonComponent implements OnInit {
             state,
             modifier,
         }));
+    }
+
+    slideInput(preset, slider) {
+        console.log(preset, slider);
     }
 }

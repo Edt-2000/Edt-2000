@@ -11,7 +11,7 @@ export class BeatToVidtBounce extends PresetLogic {
     note = Note.C_1;
 
     modifierOptions: IModifierOptions = {
-        type: 'none',
+        type: 'continuous',
     };
 
     private subscriber: Subscription;

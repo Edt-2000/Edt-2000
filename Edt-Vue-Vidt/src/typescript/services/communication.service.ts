@@ -25,7 +25,7 @@ class CommunicationService implements ICommunicationService {
     public videoObservable: Observable<IVideoMsg>;
 
     constructor() {
-        this.socket = io('localhost:8080');
+        this.socket = io();
 
         this.socket.on('connect', () => {
             console.log('socket connected');
