@@ -86,6 +86,29 @@ module.exports = `
                 </li>
             </ul>
         </div>
+        
+        <div class="options__section" v-if="showColorInput()">
+            <h2 class="options__title">Color</h2>
+            <ul class="options__list">
+                <li class="options__item">
+                    <button class="button" v-on:click="generateColor()">Generate color</button>   
+                </li>
+                <li class="options__item">
+                    <button class="button" 
+                        v-bind:class="{ 'is-active': (pulse) }"
+                        v-on:click="setPulse()"
+                    >Pulse</button>   
+                </li>
+                <li class="options__item">
+                    <button class="button" 
+                        v-bind:class="{ 'is-active': (doubleColor) }"
+                        v-on:click="setDoubleColor()"
+                    >Double color</button>   
+                </li>
+               
+            </ul>
+            <p class="options__output" v-if="hues">Hues: {{ hues.join(', ') }}</p>
+        </div>
     </div>
 </div>
 `;

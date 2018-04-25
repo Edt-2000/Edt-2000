@@ -1,13 +1,12 @@
 import { IPhotoAsset, IVideoAsset } from './assets';
 import { animationTypes, IPreset } from './vidt-presets';
 
-export interface IColor {
-    readonly hue: number;
+export interface ISingleColorMsg {
+    readonly hues: number[];
     readonly saturation: number;
-    readonly brightness: number;
+    readonly value: number;
+    readonly duration: number;
 }
-
-// SubMessages
 
 export interface IPresetMsg {
     readonly preset: IPreset;
@@ -39,7 +38,7 @@ export interface IVideoMsg {
 
 // -------------------------------- Specific Messages
 
-export interface ICenteredText extends IColor {
+export interface ICenteredText extends ISingleColorMsg {
     readonly textValue: string;
 }
 

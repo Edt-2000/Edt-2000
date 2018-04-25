@@ -19,6 +19,15 @@ export class PresetBeatInput implements IPresetInput {
     }
 }
 
+
+export class PresetColorInput implements IPresetInput {
+    name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
 export class PresetAnimationInput implements IPresetInput {
     name: string;
     type: animationTypes;
@@ -80,6 +89,15 @@ export const animations = [
     animationTypes.stretch
 ];
 
+//
+// function convert([prestType, ...args]) {
+//     switch(prestType) {
+//         case 1: return toTest1(args)
+//     }
+// }
+//
+// const toTest1 = (hue, hue2, tes1, test3) => {}
+
 // vidt Presets
 
 export const VidtPresets: IPreset[] = [
@@ -87,6 +105,13 @@ export const VidtPresets: IPreset[] = [
         name: 'bluescreen',
         path: '/bluescreen',
         inputs: []
+    },
+    {
+        name: 'color-background',
+        path: '/color-background',
+        inputs: [
+            new PresetColorInput('color')
+        ]
     },
     {
         name: 'gridscape',

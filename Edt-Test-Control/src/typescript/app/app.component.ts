@@ -2,7 +2,7 @@ import Vue from 'vue';
 import * as _ from 'lodash';
 import * as io from 'socket.io-client';
 import { Component, Watch } from 'vue-property-decorator';
-import { animations, animationTypes, IPreset, PresetAnimationInput, PresetBeatInput, PresetIntensityInput, PresetPhotoInput, PresetTextInput, PresetVideoInput, VidtPresets } from '../../../../Shared/vidt-presets';
+import { animations, animationTypes, IPreset, PresetAnimationInput, PresetBeatInput, PresetColorInput, PresetIntensityInput, PresetPhotoInput, PresetTextInput, PresetVideoInput, VidtPresets } from '../../../../Shared/vidt-presets';
 import { IPhotoAsset, IVideoAsset, photoAssets, videoAssets } from '../../../../Shared/assets';
 
 @Component({
@@ -15,6 +15,7 @@ export default class App extends Vue {
 
     public animationInput : PresetAnimationInput|undefined = undefined;
     public beatInput : PresetBeatInput|undefined = undefined;
+    public colorInput : PresetColorInput|undefined = undefined;
     public intensityInput : PresetIntensityInput|undefined = undefined;
     public photoInput : PresetPhotoInput|undefined = undefined;
     public textInput : PresetTextInput|undefined = undefined;
@@ -34,6 +35,11 @@ export default class App extends Vue {
 
     public textOptions: string[] = ['bounce', 'strobocops', 'lalala', 'edt'];
     public text: string = this.textOptions[0];
+
+    public hues: number[] = [];
+    public doubleColor: boolean = false;
+    public pulse: boolean = false;
+    public pulseDuration: number;
 
     @Watch('text')
     updateText() {
@@ -55,6 +61,7 @@ export default class App extends Vue {
         this.currentPreset = preset;
 
         this.animationInput = _.find(this.currentPreset.inputs, (p) => p instanceof PresetAnimationInput) as PresetAnimationInput;
+        this.colorInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetColorInput) as PresetColorInput;
         this.beatInput      = _.find(this.currentPreset.inputs, (p) => p instanceof PresetBeatInput) as PresetBeatInput;
         this.intensityInput = _.find(this.currentPreset.inputs, (p) => p instanceof PresetIntensityInput) as PresetIntensityInput;
         this.photoInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetPhotoInput) as PresetPhotoInput;
@@ -74,6 +81,14 @@ export default class App extends Vue {
         this.text = text.toLowerCase();
     }
 
+    setPulse() {
+        this.pulse = !this.pulse;
+    }
+
+    setDoubleColor() {
+        this.doubleColor = !this.doubleColor;
+    }
+
     setPhoto(photo: IPhotoAsset) {
         this.currentPhoto = photo;
         this.sendPhoto();
@@ -90,6 +105,10 @@ export default class App extends Vue {
 
     showBeatInput() {
         return this.currentPreset && this.beatInput;
+    }
+
+    showColorInput() {
+        return this.currentPreset && this.colorInput;
     }
 
     showPhotoInput() {
@@ -117,6 +136,22 @@ export default class App extends Vue {
         }
 
         return [];
+    }
+
+    generateColor() {
+        this.hues = [];
+        this.hues.push(this.randomHue());
+        if (this.doubleColor) {
+            this.hues.push(this.randomHue());
+        }
+
+        this.pulseDuration = (this.pulse ? Math.ceil(Math.random() * 6) : 0);
+
+        this.sendColor();
+    }
+
+    randomHue() {
+        return Math.ceil(Math.random() * 360);
     }
 
     sendDefaults() {
@@ -157,6 +192,17 @@ export default class App extends Vue {
         if (this.socketConnected) {
             this.socket.emit('beat', {
                 'beat': true
+            });
+        }
+    }
+
+    sendColor() {
+        if (this.socketConnected) {
+            this.socket.emit('color', {
+                'hues': this.hues,
+                'saturation': 100,
+                'value': 100,
+                'duration': this.pulseDuration
             });
         }
     }

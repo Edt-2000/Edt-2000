@@ -46,7 +46,6 @@ export const photoAssets: IPhotoAsset[] = [
     }
 ];
 
-
 export interface IVideoAsset {
     name: string,
     src: string,
@@ -62,6 +61,6 @@ export const videoAssets: IVideoAsset[] = [
     {
         name: 'Mr. Nielson',
         src: 'video-kat.mp4',
-        overlay: true
+        overlay: false
     }
 ];

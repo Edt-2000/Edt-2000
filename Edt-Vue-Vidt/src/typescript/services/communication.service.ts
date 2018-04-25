@@ -3,6 +3,7 @@ import { Observer } from 'rxjs/Observer';
 import Socket = SocketIOClient.Socket;
 import * as io from "socket.io-client";
 import { IAnimationMsg, IBeatMsg, IIntensityMsg, IPhotoMsg, IPresetMsg, ISingleColorMsg, ITextMsg, IVideoMsg } from '../../../../Shared/socket';
+import { DeviceIPs, socketConfig, socketPort } from '../../../../Shared/config';
 
 export interface ICommunicationService {
     presetObservable: Observable<IPresetMsg>;
@@ -27,10 +28,18 @@ class CommunicationService implements ICommunicationService {
     public videoObservable: Observable<IVideoMsg>;
 
     constructor() {
-        this.socket = io('localhost:8080');
+
+        console.log(" YOLO");
+        console.log(`${DeviceIPs.edtSledt}:${socketPort}`);
+
+        this.socket = io(`${DeviceIPs.edtSledt}:${socketPort}`, { transports : ['websocket'] });//'localhost:8080');
 
         this.socket.on('connect', () => {
             console.log('socket connected');
+        });
+
+        this.socket.on('connection', () => {
+            console.log('socket connectioned');
         });
 
         this.presetObservable = Observable.create((observer: Observer<IPresetMsg>) => {
@@ -47,6 +56,7 @@ class CommunicationService implements ICommunicationService {
 
         this.beatObservable = Observable.create((observer: Observer<IBeatMsg>) => {
             this.socket.on('beat', (data: IBeatMsg) => {
+                console.log(new Date());
                 observer.next(data);
             });
         });
