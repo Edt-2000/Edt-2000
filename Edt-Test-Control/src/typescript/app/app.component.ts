@@ -37,7 +37,7 @@ export default class App extends Vue {
     public text: string = this.textOptions[0];
 
     public hues: number[] = [];
-    public doubleColor: boolean = false;
+    public colorType: string = 'single';
     public pulse: boolean = false;
     public pulseDuration: number;
 
@@ -85,8 +85,8 @@ export default class App extends Vue {
         this.pulse = !this.pulse;
     }
 
-    setDoubleColor() {
-        this.doubleColor = !this.doubleColor;
+    setColorType(type: string) {
+        this.colorType = type;
     }
 
     setPhoto(photo: IPhotoAsset) {
@@ -140,8 +140,13 @@ export default class App extends Vue {
 
     generateColor() {
         this.hues = [];
-        this.hues.push(this.randomHue());
-        if (this.doubleColor) {
+
+        if (this.colorType === 'double') {
+            this.hues.push(this.randomHue());
+            this.hues.push(this.randomHue());
+        } else if (this.colorType === 'rainbow') {
+            this.hues = this.rainbowHue();
+        } else {
             this.hues.push(this.randomHue());
         }
 
@@ -152,6 +157,16 @@ export default class App extends Vue {
 
     randomHue() {
         return Math.ceil(Math.random() * 360);
+    }
+
+    rainbowHue() {
+        let rainbowArray = [];
+
+        for (let i = 0; i <= 360; i+=20) {
+            rainbowArray.push(i);
+        }
+
+        return rainbowArray;
     }
 
     sendDefaults() {
@@ -199,6 +214,7 @@ export default class App extends Vue {
     sendColor() {
         if (this.socketConnected) {
             this.socket.emit('color', {
+                'type': this.colorType,
                 'hues': this.hues,
                 'saturation': 100,
                 'value': 100,

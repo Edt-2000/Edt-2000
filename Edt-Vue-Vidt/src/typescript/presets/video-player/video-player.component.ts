@@ -3,8 +3,8 @@ import { Component, Inject, Watch } from 'vue-property-decorator';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { IBeatMsg, IVideoMsg } from '../../../../../Shared/socket';
-import { ICommunicationService } from '../../services/communication.service';
 import { IVideoAsset, videoAssets } from '../../../../../Shared/assets';
+import { ICommunicationService } from '../../services/communication.service';
 
 @Component({
     name: 'video-player',

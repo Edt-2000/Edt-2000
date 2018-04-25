@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { Component, Inject } from 'vue-property-decorator';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { IBeatMsg, ISingleColorMsg } from '../../../../../Shared/socket';
+import { IBeatMsg, IColorMsg } from '../../../../../Shared/socket';
 import { ICommunicationService } from '../../services/communication.service';
 const convert = require('color-convert');
 
@@ -16,7 +16,7 @@ const convert = require('color-convert');
 export class ColorBackgroundComponent extends Vue {
     @Inject() communicationService: ICommunicationService;
 
-    public colorObservable: Observable<ISingleColorMsg> = this.communicationService.colorObservable;
+    public colorObservable: Observable<IColorMsg> = this.communicationService.colorObservable;
     public colorSubscription: Subscription;
 
     public $refs: {
@@ -24,6 +24,7 @@ export class ColorBackgroundComponent extends Vue {
     };
     public animation: Animation|null;
 
+    public colorType: string;
     public pulseDuration: number;
     public rgbColors: number[][] = [];
     public styles: Object = {};
@@ -47,7 +48,8 @@ export class ColorBackgroundComponent extends Vue {
         this.animation.pause();
 
         this.colorSubscription = this.colorObservable
-            .subscribe((item: ISingleColorMsg) => {
+            .subscribe((item: IColorMsg) => {
+                this.colorType = item.type;
                 this.pulseDuration = item.duration * 100;
                 this.saveColors(item);
                 this.setStyles();
@@ -58,13 +60,14 @@ export class ColorBackgroundComponent extends Vue {
             });
     }
 
-    saveColors(item: ISingleColorMsg) {
+    saveColors(item: IColorMsg) {
         // reset array
         this.rgbColors = [];
         for (const hue of item.hues) {
             const rgb = this.convertToRGB(hue, item.saturation, item.value);
             this.rgbColors.push(rgb);
         }
+        this.rgbColors.reverse();
     }
 
     convertToRGB(h: number, s: number, v: number) {
@@ -106,7 +109,9 @@ export class ColorBackgroundComponent extends Vue {
         }
 
         let bcgColor: string = '';
-        if (this.rgbColors.length > 1) {
+        if (this.colorType === 'single') {
+            bcgColor = `rgb(${this.rgbColors[0].join(', ')})`;
+        } else if (this.colorType === 'double') {
             bcgColor = `repeating-linear-gradient(-45deg`;
             let spacing = 0;
             for (const color of this.rgbColors) {
@@ -114,9 +119,19 @@ export class ColorBackgroundComponent extends Vue {
                 spacing += 100;
             }
             bcgColor += ')';
+        } else if (this.colorType === 'rainbow') {
+            bcgColor = `repeating-linear-gradient(-45deg`;
+            const totalColors: number = this.rgbColors.length;
+            let spacing = 0;
+            let currentIndex: number = 0;
 
-        } else if (this.rgbColors.length >= 1) {
-            bcgColor = `rgb(${this.rgbColors[0].join(', ')})`;
+            for (const color of this.rgbColors) {
+                const percentage = (100 / totalColors) * currentIndex;
+                const percentageNext = (100 / totalColors) * ++currentIndex;
+                bcgColor += `, rgb(${color.join(', ')}) ${percentage}%, rgb(${color.join(', ')}) ${percentageNext}%`;
+                spacing += 100;
+            }
+            bcgColor += ')';
         }
 
         this.styles =  {

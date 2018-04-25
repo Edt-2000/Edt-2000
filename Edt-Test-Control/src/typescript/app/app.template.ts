@@ -91,9 +91,6 @@ module.exports = `
             <h2 class="options__title">Color</h2>
             <ul class="options__list">
                 <li class="options__item">
-                    <button class="button" v-on:click="generateColor()">Generate color</button>   
-                </li>
-                <li class="options__item">
                     <button class="button" 
                         v-bind:class="{ 'is-active': (pulse) }"
                         v-on:click="setPulse()"
@@ -101,12 +98,28 @@ module.exports = `
                 </li>
                 <li class="options__item">
                     <button class="button" 
-                        v-bind:class="{ 'is-active': (doubleColor) }"
-                        v-on:click="setDoubleColor()"
+                        v-bind:class="{ 'is-active': (colorType === 'single') }"
+                        v-on:click="setColorType('single')"
+                    >Single color</button>   
+                </li>
+                <li class="options__item">
+                    <button class="button" 
+                        v-bind:class="{ 'is-active': (colorType === 'double') }"
+                        v-on:click="setColorType('double')"
                     >Double color</button>   
                 </li>
-               
+                 <li class="options__item">
+                    <button class="button" 
+                        v-bind:class="{ 'is-active': (colorType === 'rainbow') }"
+                        v-on:click="setColorType('rainbow')"
+                    >Rainbow!</button>   
+                </li>
             </ul>
+            <ul class="options__list">
+                <li class="options__item">
+                    <button class="button" v-on:click="generateColor()">Generate color</button>   
+                </li>
+             </ul>
             <p class="options__output" v-if="hues">Hues: {{ hues.join(', ') }}</p>
         </div>
     </div>
