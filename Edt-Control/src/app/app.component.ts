@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {pages} from './app.routes';
+import {SocketService} from './socket.service';
 
 @Component({
     selector: 'app-root',
@@ -20,7 +21,7 @@ import {pages} from './app.routes';
 export class AppComponent implements OnInit {
     pages = pages;
 
-    constructor() {
+    constructor(public socket: SocketService) {
     }
 
     ngOnInit(): void {}

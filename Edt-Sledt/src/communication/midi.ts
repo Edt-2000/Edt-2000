@@ -27,9 +27,9 @@ interface IEasyMidiNoteMsg {
     velocity: number;
 }
 
-export const midiOutput$ = new Subject<IPresetMsg>();
+export const midiPreset$ = new Subject<IPresetMsg>();
 
-midiOutput$.subscribe(msg => {
+midiPreset$.subscribe(msg => {
     const midiMsg: IEasyMidiNoteMsg = {
         channel: presetMsgChannel - 1,
         note: msg.preset,

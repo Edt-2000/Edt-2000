@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {IControlPresetMsg} from '../../../../../Shared/types';
-import {CommunicationService} from '../../communication.service';
-import {Actions} from '../../../../../Shared/actions';
+import {SocketService} from '../../socket.service';
+import {PresetActions} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-preset-switcher',
@@ -43,21 +43,17 @@ import {Actions} from '../../../../../Shared/actions';
 export class PresetSwitcherComponent implements OnInit {
     @Input() preset: IControlPresetMsg;
 
-    constructor(private communicationService: CommunicationService) {
+    constructor(private socket: SocketService) {
     }
 
     ngOnInit() {
     }
 
     changePreset(modifier = 127, state) {
-        this.communicationService.toSledt(Actions.presetChange({
+        this.socket.toSledt(PresetActions.presetChange({
             preset: this.preset.preset,
             state,
             modifier,
         }));
-    }
-
-    slideInput(preset, slider) {
-        console.log(preset, slider);
     }
 }

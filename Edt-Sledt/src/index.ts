@@ -1,9 +1,7 @@
-import {filter} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {presetMidi$} from './inputs/midi';
 import {presetMap} from './presets/presets-logic';
 import {merge} from 'rxjs/observable/merge';
-import {presetCtrlChange$} from './inputs/edt-control';
-import {Actions} from '../../Shared/actions';
 import {ctrlSocketIn$, ctrlSocketOut$, sendStateToControl} from './outputs/edt-control';
 import {io} from './communication/sockets';
 import {BeatToColor} from './presets/converters/color/beatToColor';
@@ -11,9 +9,11 @@ import {DrumToBeat} from './presets/converters/drums/drumToBeat';
 import {BeatToVidtBounce} from './presets/outputs/beatToVidtBounce';
 import {MidiToColors} from './presets/converters/color/midiToColors';
 import {presetCues} from '../../Shared/cues';
-import {midiOutput$} from './communication/midi';
+import {midiPreset$} from './communication/midi';
+import {ctrlActions, PresetActions} from '../../Shared/actions';
+import {isActionOf} from 'typesafe-actions';
 
-// Init all presets and add to presetMap
+// Simply add a preset in this array to activate it!
 const presets = [
     new BeatToColor(),
     new MidiToColors(),
@@ -25,7 +25,7 @@ if (presets.length !== presetMap.size) console.error('Not all presets have a uni
 
 merge(
     presetMidi$,
-    presetCtrlChange$,
+    ctrlSocketIn$.pipe(filter(isActionOf(PresetActions.presetChange)), map(msg => msg.payload)),
 ).pipe(
     filter((msg) => presetMap.has(msg.preset)),
 ).subscribe((msg) => {
@@ -37,19 +37,19 @@ merge(
     }
 });
 
-presetCtrlChange$.subscribe(presetChange => midiOutput$.next(presetChange));
+ctrlSocketIn$.pipe(filter(isActionOf(PresetActions.presetChange))).subscribe(msg => midiPreset$.next(msg.payload));
 
 io.on('connection', (socket) => {
     console.log('Controller connected!');
     sendStateToControl();
-    ctrlSocketOut$.next(Actions.cueList(presetCues));
+    ctrlSocketOut$.next(PresetActions.cueList(presetCues));
 
     socket.on('disconnect', () => {
         console.log('Controller disconnected!');
     });
 
-    socket.on('fromControl', (action: Actions) => {
-        ctrlSocketIn$.next(action);
+    socket.on('fromControl', (msg: ctrlActions) => {
+        ctrlSocketIn$.next(msg);
     });
 });
 

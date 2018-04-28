@@ -1,14 +1,14 @@
 import {IControlPresetMsg, IPresetCue, IPresetMsg} from './types';
-import {ActionsUnion, createAction} from './fsa-helpers';
+import {ActionsUnion, buildAction} from '../Edt-Sledt/node_modules/typesafe-actions/es5-commonjs';
 
-export const PRESET_CHANGE = 'PRESET_CHANGE';
-export const PRESET_STATE = 'PRESET_STATE';
-export const CUE_LIST = 'CUE_LIST';
+const PRESET_CHANGE = 'PRESET_CHANGE';
+const PRESET_STATE = 'PRESET_STATE';
+const CUE_LIST = 'CUE_LIST';
 
-export const Actions = {
-    presetChange: (payload: IPresetMsg) => createAction(PRESET_CHANGE, payload),
-    presetState: (payload: IControlPresetMsg[]) => createAction(PRESET_STATE, payload),
-    cueList: (payload: IPresetCue[]) => createAction(CUE_LIST, payload),
+export const PresetActions = {
+    presetChange: buildAction(PRESET_CHANGE).payload<IPresetMsg>(),
+    presetState: buildAction(PRESET_STATE).payload<IControlPresetMsg[]>(),
+    cueList: buildAction(CUE_LIST).payload<IPresetCue[]>(),
 };
 
-export type Actions = ActionsUnion<typeof Actions>
+export type ctrlActions = ActionsUnion<typeof PresetActions>;

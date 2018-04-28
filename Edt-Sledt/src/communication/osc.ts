@@ -19,7 +19,7 @@ export function sendToOSC(device: DeviceIPs, addresses: string[], params: number
             };
         }),
     });
-    return sock.send(buf, 0, buf.length, oscOutPort, DeviceIPs[DeviceIPs[device]]);
+    return sock.send(buf, 0, buf.length, oscOutPort, device);
 }
 
 // Use a subject to be able to push new OSC messages
