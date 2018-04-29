@@ -44,10 +44,9 @@ export class GridscapeComponent extends Vue {
 
         this.animation.pause();
 
-        this.subscription = Actions$.mainBeat
-            .subscribe(() => {
-                this.animate();
-            });
+        this.subscription = Actions$.mainBeat.subscribe(() => {
+            this.animate();
+        });
     }
 
     animate() {

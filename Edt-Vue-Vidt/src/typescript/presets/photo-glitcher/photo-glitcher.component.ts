@@ -2,6 +2,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import {photoAssets} from '../../../../../Shared/assets';
 import {Actions$} from '../../../../../Shared/actions';
+import {animationTypes} from '../../../../../Shared/vidt-presets';
 
 @Component({
     name: 'photo-glitcher',
@@ -22,7 +23,7 @@ export class PhotoGlitcherComponent extends Vue {
 
         this.animationSubscription = Actions$.animationType
             .subscribe((animation) => {
-                this.animation = animation;
+                this.animation = animationTypes[animation];
             });
 
         this.photoSubscription = Actions$.imageSrc

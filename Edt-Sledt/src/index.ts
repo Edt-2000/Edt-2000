@@ -12,6 +12,7 @@ import {presetCues} from '../../Shared/cues';
 import {midiPreset} from './communication/midi';
 import {Actions, Actions$, nextActionFromMsg} from '../../Shared/actions';
 import {PrepareVidtPreset} from './presets/outputs/vidt/prepareVidtPreset';
+import {SwitchAnimationType} from './presets/outputs/vidt/switchAnimationType';
 
 // Simply add a preset in this array to activate it!
 const presets = [
@@ -20,6 +21,7 @@ const presets = [
     new DrumToBeat(),
     new BeatToVidtBounce(),
     new PrepareVidtPreset(),
+    new SwitchAnimationType(),
 ];
 presets.forEach((preset) => presetMap.set(+preset.note, preset));
 if (presets.length !== presetMap.size) console.error('Not all presets have a unique NoteNr!');

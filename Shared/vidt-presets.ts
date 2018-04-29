@@ -13,15 +13,8 @@ vidtPresets.set(10, '/video');
 vidtPresets.set(11, '/vista');
 
 export enum animationTypes {
-    bounce = 'bounce',
-    rotate = 'rotate',
-    spin = 'spin',
-    stretch = 'stretch'
+    bounce,
+    rotate,
+    spin,
+    stretch,
 }
-
-export const animations = [
-    animationTypes.bounce,
-    animationTypes.rotate,
-    animationTypes.spin,
-    animationTypes.stretch
-];
