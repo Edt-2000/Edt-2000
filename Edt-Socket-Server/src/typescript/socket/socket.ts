@@ -40,6 +40,11 @@ export default class SocketServer {
                 console.log('beat', m);
             });
 
+            socket.on('color', (m: IBeatMsg) => {
+                this.ioServer.emit('color', m);
+                console.log('color', m);
+            });
+
             socket.on('intensity', (m: IIntensityMsg) => {
                 this.ioServer.emit('intensity', m);
                 console.log('intensity', m);
