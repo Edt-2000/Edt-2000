@@ -4,25 +4,11 @@ import {presetMap} from './presets/presets-logic';
 import {merge} from 'rxjs/observable/merge';
 import {sendStateToControl, toControl} from './outputs/edt-control';
 import {io} from './communication/sockets';
-import {BeatToColor} from './presets/converters/color/beatToColor';
-import {DrumToBeat} from './presets/converters/drums/drumToBeat';
-import {BeatToVidtBounce} from './presets/outputs/vidt/beatToVidtBounce';
-import {MidiToColors} from './presets/converters/color/midiToColors';
 import {presetCues} from '../../Shared/cues';
 import {midiPreset} from './communication/midi';
 import {Actions, Actions$, nextActionFromMsg} from '../../Shared/actions';
-import {PrepareVidtPreset} from './presets/outputs/vidt/prepareVidtPreset';
-import {SwitchAnimationType} from './presets/outputs/vidt/switchAnimationType';
+import {presets} from './presets/presets';
 
-// Simply add a preset in this array to activate it!
-const presets = [
-    new BeatToColor(),
-    new MidiToColors(),
-    new DrumToBeat(),
-    new BeatToVidtBounce(),
-    new PrepareVidtPreset(),
-    new SwitchAnimationType(),
-];
 presets.forEach((preset) => presetMap.set(+preset.note, preset));
 if (presets.length !== presetMap.size) console.error('Not all presets have a unique NoteNr!');
 

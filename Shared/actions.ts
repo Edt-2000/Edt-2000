@@ -11,6 +11,7 @@ export const CUE_LIST = 'CUE_LIST';
 export const PREPARE_VIDT = 'PREPARE_VIDT';
 
 export const IMAGE_SRC = 'IMAGE_SRC';
+export const VIDEO_SRC = 'VIDEO_SRC';
 
 export const MAIN_TEXT = 'MAIN_TEXT';
 
@@ -28,6 +29,7 @@ export const Actions = {
 
     // Assets
     imageSrc: (payload: IPhotoAsset) => createAction(IMAGE_SRC, payload),
+    videoSrc: (payload: IVideoAsset) => createAction(VIDEO_SRC, payload),
 
     mainText: (payload: string) => createAction(MAIN_TEXT, payload),
 
@@ -67,6 +69,7 @@ export function nextActionFromMsg(msg: Actions) {
     if (msg.type === PREPARE_VIDT) Actions$.prepareVidt.next(msg.payload);
 
     if (msg.type === IMAGE_SRC) Actions$.imageSrc.next(msg.payload);
+    if (msg.type === VIDEO_SRC) Actions$.videoSrc.next(msg.payload);
 
     if (msg.type === MAIN_TEXT) Actions$.mainText.next(msg.payload);
 

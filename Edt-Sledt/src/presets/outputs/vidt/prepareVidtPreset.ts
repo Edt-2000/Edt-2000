@@ -22,7 +22,6 @@ export class PrepareVidtPreset extends PresetLogic {
     }
 
     public _stopPreset(): void {
-        toVidt(Actions.prepareVidt(1)); // Always return to default first preset
         if (typeof this.subscriber !== 'undefined') {
             this.subscriber.unsubscribe();
         }
