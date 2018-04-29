@@ -6,7 +6,7 @@ import {sendStateToControl, toControl} from './outputs/edt-control';
 import {io} from './communication/sockets';
 import {BeatToColor} from './presets/converters/color/beatToColor';
 import {DrumToBeat} from './presets/converters/drums/drumToBeat';
-import {BeatToVidtBounce} from './presets/outputs/beatToVidtBounce';
+import {BeatToVidtBounce} from './presets/outputs/vidt/beatToVidtBounce';
 import {MidiToColors} from './presets/converters/color/midiToColors';
 import {presetCues} from '../../Shared/cues';
 import {midiPreset} from './communication/midi';

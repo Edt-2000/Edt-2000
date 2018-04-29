@@ -1,8 +1,8 @@
 import {Subscription} from 'rxjs/Subscription';
-import {PresetLogic} from '../presets-logic';
-import {BeatMain} from '../../subjects/triggers';
-import {IModifierOptions} from '../../../../Shared/types';
-import {Note} from '../../../../Shared/midi';
+import {PresetLogic} from '../../presets-logic';
+import {BeatMain} from '../../../subjects/triggers';
+import {IModifierOptions} from '../../../../../Shared/types';
+import {Note} from '../../../../../Shared/midi';
 
 export class BeatToVidtBounce extends PresetLogic {
     title = 'Beat To Vidt Bounce';
