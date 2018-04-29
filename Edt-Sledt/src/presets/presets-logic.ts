@@ -2,7 +2,6 @@ import {sendStateToControl} from '../outputs/edt-control';
 import {IModifierOptions} from '../../../Shared/types';
 import {Note} from '../../../Shared/midi';
 
-
 export abstract class PresetLogic {
     state = false;
     modifier: number = 0;

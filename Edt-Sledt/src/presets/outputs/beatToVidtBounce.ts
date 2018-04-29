@@ -1,6 +1,4 @@
 import {Subscription} from 'rxjs/Subscription';
-import {sendToVidt} from '../../outputs/edt-vidt';
-import {IIntensityMsg} from '../../../../Shared/socket';
 import {PresetLogic} from '../presets-logic';
 import {BeatMain} from '../../subjects/triggers';
 import {IModifierOptions} from '../../../../Shared/types';
@@ -19,9 +17,7 @@ export class BeatToVidtBounce extends PresetLogic {
     public _startPreset(): void {
         this.subscriber = BeatMain
             .subscribe((note) => {
-                sendToVidt({
-                    intensity: 100
-                } as IIntensityMsg)
+
             });
     }
 

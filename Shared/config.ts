@@ -41,7 +41,7 @@ export enum Modii {
     Kitt = 12,
 }
 
-// MIDI channel descriptions (useful in Edt-Control)
+// TODO: each song has a different channel setup, needs to be dynamic!
 export enum MidiChannels {
     synth = 1,
     bass = 2,
@@ -49,12 +49,10 @@ export enum MidiChannels {
 }
 
 export const oscInPort = 12345;
-
 export const oscOutPort = 12345;
-// Which channel sends presets?
-export const drumChannel: number = 10;
-export const adjustmentChannel: number = 15;
 
+export const adjustmentChannel: number = 15;
 export const presetMsgChannel: number = 16;
+
 export const virtualMidiInputDevice: string = 'EDT-SLEDT-IN';
 export const virtualMidiOutputDevice: string = 'EDT-SLEDT-OUT';

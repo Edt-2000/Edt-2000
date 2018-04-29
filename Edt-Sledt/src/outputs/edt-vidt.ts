@@ -1,5 +1,9 @@
 'use strict';
 
-export function sendToVidt(message: any): void {
-    console.log('Emitting socket to Edt-Vidt: ', message);
+import {Actions} from '../../../Shared/actions';
+import {io} from '../communication/sockets';
+
+export function toVidt(msg: Actions): void {
+    console.log('Edt-Vidt: ', msg);
+    io.emit('toVidt', msg);
 }

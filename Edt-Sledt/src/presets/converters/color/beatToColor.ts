@@ -1,6 +1,6 @@
 import {Subscription} from 'rxjs/Subscription';
 import {IColor} from '../../../../../Shared/socket';
-import {EdtMainColor} from '../../../subjects/colors';
+import {mainColor} from '../../../subjects/colors';
 import {BeatMain} from '../../../subjects/triggers';
 import {rescale} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
@@ -34,7 +34,7 @@ export class BeatToColor extends PresetLogic {
                     brightness: 255,
                 };
                 // Emit this new IColor value to other listeners
-                EdtMainColor.next(newColor);
+                mainColor.next(newColor);
             });
     }
 

@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {SocketService} from '../../socket.service';
+import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-cues-controller',
     template: `
-        <ul *ngIf="(sock.cueList$ | async) as cues">
+        <ul *ngIf="(cueList$ | async) as cues">
             <li *ngFor="let cue of cues">
                 <h1>{{cue.title}}</h1>
                 <p>{{cue.description}}</p>
@@ -15,8 +15,9 @@ import {SocketService} from '../../socket.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CuesControllerComponent implements OnInit {
+    cueList$ = Actions$.cueList.asObservable();
 
-    constructor(public sock: SocketService) {
+    constructor() {
     }
 
     ngOnInit() {

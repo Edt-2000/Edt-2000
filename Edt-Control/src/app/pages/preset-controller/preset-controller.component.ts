@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {SocketService} from '../../socket.service';
+import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-preset-controller',
     template: `
-        <div class="columns" *ngIf="(sock.presetState$ | async) as presets">
+        <div class="columns" *ngIf="(presetState$ | async) as presets">
             <div class="column" *ngFor="let preset of presets;">
                 <app-preset-switcher [preset]="preset"></app-preset-switcher>
             </div>
@@ -14,8 +14,9 @@ import {SocketService} from '../../socket.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PresetControllerComponent implements OnInit {
+    presetState$ = Actions$.presetState.asObservable();
 
-    constructor(public sock: SocketService) {
+    constructor() {
     }
 
     ngOnInit(): void {

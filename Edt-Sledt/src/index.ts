@@ -1,8 +1,8 @@
-import {filter, map} from 'rxjs/operators';
+import {filter} from 'rxjs/operators';
 import {presetMidi$} from './inputs/midi';
 import {presetMap} from './presets/presets-logic';
 import {merge} from 'rxjs/observable/merge';
-import {ctrlSocketIn$, ctrlSocketOut$, sendStateToControl} from './outputs/edt-control';
+import {sendStateToControl, toControl} from './outputs/edt-control';
 import {io} from './communication/sockets';
 import {BeatToColor} from './presets/converters/color/beatToColor';
 import {DrumToBeat} from './presets/converters/drums/drumToBeat';
@@ -10,8 +10,7 @@ import {BeatToVidtBounce} from './presets/outputs/beatToVidtBounce';
 import {MidiToColors} from './presets/converters/color/midiToColors';
 import {presetCues} from '../../Shared/cues';
 import {midiPreset$} from './communication/midi';
-import {ctrlActions, PresetActions} from '../../Shared/actions';
-import {isActionOf} from 'typesafe-actions';
+import {Actions, Actions$, nextActionFromMsg} from '../../Shared/actions';
 
 // Simply add a preset in this array to activate it!
 const presets = [
@@ -25,7 +24,7 @@ if (presets.length !== presetMap.size) console.error('Not all presets have a uni
 
 merge(
     presetMidi$,
-    ctrlSocketIn$.pipe(filter(isActionOf(PresetActions.presetChange)), map(msg => msg.payload)),
+    Actions$.presetChange,
 ).pipe(
     filter((msg) => presetMap.has(msg.preset)),
 ).subscribe((msg) => {
@@ -37,20 +36,18 @@ merge(
     }
 });
 
-ctrlSocketIn$.pipe(filter(isActionOf(PresetActions.presetChange))).subscribe(msg => midiPreset$.next(msg.payload));
+Actions$.presetChange.subscribe(msg => midiPreset$.next(msg));
 
 io.on('connection', (socket) => {
-    console.log('Controller connected!');
+    console.log('Device connected!');
     sendStateToControl();
-    ctrlSocketOut$.next(PresetActions.cueList(presetCues));
+    toControl(Actions.cueList(presetCues));
 
     socket.on('disconnect', () => {
-        console.log('Controller disconnected!');
+        console.log('Device disconnected!');
     });
 
-    socket.on('fromControl', (msg: ctrlActions) => {
-        ctrlSocketIn$.next(msg);
-    });
+    socket.on('fromControl', nextActionFromMsg);
 });
 
 // Loggers, comment to disable

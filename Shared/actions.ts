@@ -1,14 +1,27 @@
 import {IControlPresetMsg, IPresetCue, IPresetMsg} from './types';
-import {ActionsUnion, buildAction} from '../Edt-Sledt/node_modules/typesafe-actions/es5-commonjs';
+import {BehaviorSubject, Subject} from '../Edt-Sledt/node_modules/rxjs';
+import {ActionsUnion, createAction} from './fsa-helpers';
 
-const PRESET_CHANGE = 'PRESET_CHANGE';
-const PRESET_STATE = 'PRESET_STATE';
-const CUE_LIST = 'CUE_LIST';
+export const PRESET_CHANGE = 'PRESET_CHANGE';
+export const PRESET_STATE = 'PRESET_STATE';
+export const CUE_LIST = 'CUE_LIST';
 
-export const PresetActions = {
-    presetChange: buildAction(PRESET_CHANGE).payload<IPresetMsg>(),
-    presetState: buildAction(PRESET_STATE).payload<IControlPresetMsg[]>(),
-    cueList: buildAction(CUE_LIST).payload<IPresetCue[]>(),
+export const Actions = {
+    presetChange: (payload: IPresetMsg) => createAction(PRESET_CHANGE, payload),
+    presetState: (payload: IControlPresetMsg[]) => createAction(PRESET_STATE, payload),
+    cueList: (payload: IPresetCue[]) => createAction(CUE_LIST, payload),
 };
 
-export type ctrlActions = ActionsUnion<typeof PresetActions>;
+export type Actions = ActionsUnion<typeof Actions>;
+
+export const Actions$ = {
+    presetChange: <Subject<IPresetMsg>> new Subject(),
+    presetState: <BehaviorSubject<IControlPresetMsg[]>> new BehaviorSubject([]),
+    cueList: <BehaviorSubject<IPresetCue[]>> new BehaviorSubject([]),
+};
+
+export function nextActionFromMsg(msg: Actions) {
+    if (msg.type === PRESET_CHANGE) Actions$.presetChange.next(msg.payload);
+    if (msg.type === PRESET_STATE) Actions$.presetState.next(msg.payload);
+    if (msg.type === CUE_LIST) Actions$.cueList.next(msg.payload);
+}

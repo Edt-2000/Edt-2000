@@ -1,7 +1,7 @@
 import {Subscription} from 'rxjs/Subscription';
 import {IColor} from '../../../../../Shared/socket';
 import {noteOn$} from '../../../inputs/midi';
-import {EdtMainColor} from '../../../subjects/colors';
+import {mainColor} from '../../../subjects/colors';
 import {rescale, shuffleArray} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
@@ -49,7 +49,7 @@ export class MidiToColors extends PresetLogic {
                     brightness: 255,
                 };
                 // Emit this new IColor value to other listeners
-                EdtMainColor.next(newColor);
+                mainColor.next(newColor);
             });
     }
 

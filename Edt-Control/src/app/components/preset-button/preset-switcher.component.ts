@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {IControlPresetMsg} from '../../../../../Shared/types';
 import {SocketService} from '../../socket.service';
-import {PresetActions} from '../../../../../Shared/actions';
+import {Actions} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-preset-switcher',
@@ -50,7 +50,7 @@ export class PresetSwitcherComponent implements OnInit {
     }
 
     changePreset(modifier = 127, state) {
-        this.socket.toSledt(PresetActions.presetChange({
+        this.socket.toSledt(Actions.presetChange({
             preset: this.preset.preset,
             state,
             modifier,
