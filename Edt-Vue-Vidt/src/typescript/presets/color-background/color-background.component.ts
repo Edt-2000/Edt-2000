@@ -1,9 +1,8 @@
 import Vue from 'vue';
-import { Component, Inject } from 'vue-property-decorator';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { IBeatMsg, IColorMsg } from '../../../../../Shared/socket';
-import { ICommunicationService } from '../../services/communication.service';
+import {Component} from 'vue-property-decorator';
+import {IColor} from '../../../../../Shared/socket';
+import {Actions$} from '../../../../../Shared/actions';
+
 const convert = require('color-convert');
 
 @Component({
@@ -14,10 +13,7 @@ const convert = require('color-convert');
 })
 
 export class ColorBackgroundComponent extends Vue {
-    @Inject() communicationService: ICommunicationService;
-
-    public colorObservable: Observable<IColorMsg> = this.communicationService.colorObservable;
-    public colorSubscription: Subscription;
+    public colorSubscription: any;
 
     public $refs: {
         color: HTMLElement,
@@ -47,27 +43,28 @@ export class ColorBackgroundComponent extends Vue {
 
         this.animation.pause();
 
-        this.colorSubscription = this.colorObservable
-            .subscribe((item: IColorMsg) => {
-                this.colorType = item.type;
-                this.pulseDuration = item.duration * 100;
-                this.saveColors(item);
-                this.setStyles();
-
-                if (this.pulseDuration !== 0) {
-                    this.pulse();
-                }
-            });
+        // TODO: colors currently broken, need more different color actions
+        // this.colorSubscription = Actions$.singleColor
+        //     .subscribe((item) => {
+        //         this.colorType = 'single';
+        //         this.pulseDuration = 300;
+        //         this.saveColors(item);
+        //         this.setStyles();
+        //
+        //         if (this.pulseDuration !== 0) {
+        //             this.pulse();
+        //         }
+        //     });
     }
 
-    saveColors(item: IColorMsg) {
-        // reset array
-        this.rgbColors = [];
-        for (const hue of item.hues) {
-            const rgb = this.convertToRGB(hue, item.saturation, item.value);
-            this.rgbColors.push(rgb);
-        }
-        this.rgbColors.reverse();
+    saveColors(item: IColor) {
+        // // reset array
+        // this.rgbColors = [];
+        // for (const hue of item.hues) {
+        //     const rgb = this.convertToRGB(hue, item.saturation, item.value);
+        //     this.rgbColors.push(rgb);
+        // }
+        // this.rgbColors.reverse();
     }
 
     convertToRGB(h: number, s: number, v: number) {

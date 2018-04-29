@@ -1,13 +1,12 @@
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { Provide } from 'vue-property-decorator';
 
-import { communicationService, ICommunicationService } from '../services/communication.service';
-import { router } from '../services/router.service';
+import {router} from '../services/router.service';
+import * as io from 'socket.io-client';
+import {DeviceIPs, socketPort} from '../../../../Shared/config';
+import {Actions$, nextActionFromMsg} from '../../../../Shared/actions';
+import Socket = SocketIOClient.Socket;
+import {vidtPresets} from '../../../../Shared/vidt-presets';
 
 @Component({
     name: 'app',
@@ -15,30 +14,31 @@ import { router } from '../services/router.service';
     router: router,
 })
 export default class App extends Vue {
-    @Provide() communicationService: ICommunicationService = communicationService;
-
-    public presetObservable: Observable<any>;
-    public subscription: Subscription;
+    private socket: Socket;
 
     constructor() {
         super();
-        this.presetObservable = this.communicationService.presetObservable;
+        this.socket = io(`${DeviceIPs.edtSledt}:${socketPort}`, { transports : ['websocket'] });
+
+        this.socket.on('connection', () => {
+            console.log('socket connectioned');
+        });
+
+        this.socket.on('toVidt', nextActionFromMsg);
     }
 
     mounted() {
-        this.presetObservable
-            .map((item) => {
-                return item.preset.path;
-            })
-            .subscribe((path) => {
-                router.push(path);
-            });
+        Actions$.prepareVidt.subscribe((presetNr) => {
+            if (vidtPresets.has(presetNr)) {
+                router.push(vidtPresets.get(presetNr) || '');
+            } else {
+                console.error('Unknown preset');
+            }
+        });
     }
 
     destroyed() {
-        if (typeof this.subscription !== 'undefined') {
-            this.subscription.unsubscribe();
-        }
+
     }
 
 }

@@ -1,11 +1,8 @@
 import Vue from 'vue';
-import { Component, Inject } from 'vue-property-decorator';
-import { GlitchText } from '../../components/glitch-text/glitch-text.component';
-import { mapInput } from '../../helpers/map-input';
-import { ICommunicationService } from '../../services/communication.service';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { IIntensityMsg } from '../../../../../Shared/socket';
+import {Component} from 'vue-property-decorator';
+import {GlitchText} from '../../components/glitch-text/glitch-text.component';
+import {mapInput} from '../../helpers/map-input';
+import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
     name: 'logo',
@@ -16,10 +13,7 @@ import { IIntensityMsg } from '../../../../../Shared/socket';
 })
 
 export class LogoComponent extends Vue {
-    @Inject() communicationService: ICommunicationService;
-
-    public intensityObservable: Observable<IIntensityMsg> = this.communicationService.intensityObservable;
-    public subscription: Subscription;
+    public subscription: any;
 
     public stars: number[] = Array(64).map((x, i) => i + 1);
     public level: number = 0;
@@ -27,11 +21,8 @@ export class LogoComponent extends Vue {
     public timeOut: number | null;
 
     mounted() {
-        this.subscription = this.intensityObservable
-            .map((item: IIntensityMsg) => {
-                return item.intensity;
-            })
-            .subscribe((intensity: number) => {
+        this.subscription = Actions$.glitchIntensity
+            .subscribe((intensity) => {
                 this.glitch(intensity)
             });
     }

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import {stevenCode} from '../../../static/assets/data/stevencode';
 
 @Component({
     name: 'hacking',
@@ -17,33 +18,27 @@ export class HackingComponent extends Vue {
     public interval: number | undefined;
 
     mounted() {
-        const response = fetch(new Request("/assets/data/stevencode.txt"));
+        const textArray: string[] = stevenCode.split('');
+        let count: number = 0;
 
-        response.then((value) => {
-            value.text().then((textString) => {
-                const textArray: string[] = textString.split('');
-                let count: number = 0;
+        this.interval = window.setInterval(() => {
+            if (textArray[count] === "\n") {
+                this.$refs.text.appendChild(document.createElement("br"));
+            }
+            else {
+                const element: HTMLElement = document.createElement('span');
+                element.classList.add('hacking__character');
+                element.innerHTML = textArray[count];
+                this.$refs.text.appendChild(element);
+            }
 
-                this.interval = window.setInterval(() => {
-                    if (textArray[count] === "\n") {
-                        this.$refs.text.appendChild(document.createElement("br"));
-                    }
-                    else {
-                        const element: HTMLElement = document.createElement('span');
-                        element.classList.add('hacking__character');
-                        element.innerHTML = textArray[count];
-                        this.$refs.text.appendChild(element);
-                    }
+            count++;
 
-                    count++;
+            if (count === textArray.length) {
+                count = 0;
+            }
 
-                    if (count === textArray.length) {
-                        count = 0;
-                    }
-
-                }, 30);
-            });
-        });
+        }, 30);
     }
 
     destroyed() {

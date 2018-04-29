@@ -31,8 +31,8 @@ export class DrumToBeat extends PresetLogic {
         this.subscriber = drumTriggerOn$.pipe(
             filter((drumNote) => this.modifier === drumNote)
         )
-            .subscribe((note) => {
-                BeatMain.next(note);
+            .subscribe(() => {
+                BeatMain.next(127);
             });
     }
 

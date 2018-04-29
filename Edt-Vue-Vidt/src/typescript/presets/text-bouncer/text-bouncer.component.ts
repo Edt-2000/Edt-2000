@@ -1,10 +1,7 @@
 import Vue from 'vue';
-import { Component, Inject } from 'vue-property-decorator';
-import { GlitchText } from '../../components/glitch-text/glitch-text.component';
-import { Observable } from 'rxjs/Observable';
-import { ICommunicationService } from '../../services/communication.service';
-import { Subscription } from 'rxjs/Subscription';
-import { ITextMsg } from '../../../../../Shared/socket';
+import {Component} from 'vue-property-decorator';
+import {GlitchText} from '../../components/glitch-text/glitch-text.component';
+import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
     name: 'text-bouncer',
@@ -15,10 +12,7 @@ import { ITextMsg } from '../../../../../Shared/socket';
 })
 
 export class TextBouncerComponent extends Vue {
-    @Inject() communicationService: ICommunicationService;
-
-    public textObservable: Observable<ITextMsg> = this.communicationService.textObservable;
-    public subscription: Subscription;
+    public subscription: any;
 
     public $refs: {
         text: HTMLElement
@@ -37,11 +31,8 @@ export class TextBouncerComponent extends Vue {
     public speed: number = 6;
 
     mounted() {
-        this.subscription = this.textObservable
-            .map((item: ITextMsg) => {
-                return item.text;
-            })
-            .subscribe((text: string) => {
+        this.subscription = Actions$.mainText
+            .subscribe((text) => {
                 this.text = text;
                 // wait for text to be in dom
                 requestAnimationFrame(() => {
