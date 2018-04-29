@@ -9,7 +9,7 @@ import {DrumToBeat} from './presets/converters/drums/drumToBeat';
 import {BeatToVidtBounce} from './presets/outputs/beatToVidtBounce';
 import {MidiToColors} from './presets/converters/color/midiToColors';
 import {presetCues} from '../../Shared/cues';
-import {midiPreset$} from './communication/midi';
+import {midiPreset} from './communication/midi';
 import {Actions, Actions$, nextActionFromMsg} from '../../Shared/actions';
 
 // Simply add a preset in this array to activate it!
@@ -36,7 +36,7 @@ merge(
     }
 });
 
-Actions$.presetChange.subscribe(msg => midiPreset$.next(msg));
+Actions$.presetChange.subscribe(midiPreset);
 
 io.on('connection', (socket) => {
     console.log('Device connected!');
@@ -49,6 +49,8 @@ io.on('connection', (socket) => {
 
     socket.on('fromControl', nextActionFromMsg);
 });
+
+console.log('Init complete, waiting for devices and/or messages..');
 
 // Loggers, comment to disable
 

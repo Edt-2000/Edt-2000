@@ -27,9 +27,7 @@ interface IEasyMidiNoteMsg {
     velocity: number;
 }
 
-export const midiPreset$ = new Subject<IPresetMsg>();
-
-midiPreset$.subscribe(msg => {
+export function midiPreset(msg: IPresetMsg) {
     const midiMsg: IEasyMidiNoteMsg = {
         channel: presetMsgChannel - 1,
         note: msg.preset,
@@ -40,7 +38,7 @@ midiPreset$.subscribe(msg => {
     } else {
         virtualOutput.send('noteoff', midiMsg);
     }
-});
+}
 
 export const sledtNoteOn$: Observable<IMidiNoteMsg> = fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteon).pipe(
         map((msg): IMidiNoteMsg => {
