@@ -1,4 +1,3 @@
-import {BeatToVidtBounce} from './outputs/vidt/beatToVidtBounce';
 import {BeatToColor} from './converters/color/beatToColor';
 import {PrepareVidtPreset} from './outputs/vidt/prepareVidtPreset';
 import {MidiToColors} from './converters/color/midiToColors';
@@ -9,6 +8,5 @@ export const presets = [
     new BeatToColor(),
     new MidiToColors(),
     new DrumToBeat(),
-    new BeatToVidtBounce(),
     new PrepareVidtPreset(),
 ];

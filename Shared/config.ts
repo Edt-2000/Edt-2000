@@ -44,6 +44,7 @@ export enum Modii {
 export enum MidiChannels {
     synth = 1,
     bass = 2,
+    melody = 3,
     drum = 10,
 }
 

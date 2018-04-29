@@ -43,28 +43,22 @@ export class ColorBackgroundComponent extends Vue {
 
         this.animation.pause();
 
-        // TODO: colors currently broken, need more different color actions
-        // this.colorSubscription = Actions$.singleColor
-        //     .subscribe((item) => {
-        //         this.colorType = 'single';
-        //         this.pulseDuration = 300;
-        //         this.saveColors(item);
-        //         this.setStyles();
-        //
-        //         if (this.pulseDuration !== 0) {
-        //             this.pulse();
-        //         }
-        //     });
+        this.colorSubscription = Actions$.singleColor
+            .subscribe((item) => {
+                this.colorType = 'single';
+                this.pulseDuration = 300;
+                this.saveColors(item);
+                this.setStyles();
+
+                if (this.pulseDuration !== 0) {
+                    this.pulse();
+                }
+            });
     }
 
     saveColors(item: IColor) {
-        // // reset array
-        // this.rgbColors = [];
-        // for (const hue of item.hues) {
-        //     const rgb = this.convertToRGB(hue, item.saturation, item.value);
-        //     this.rgbColors.push(rgb);
-        // }
-        // this.rgbColors.reverse();
+        // reset array
+        this.rgbColors = [this.convertToRGB(item.hue, item.saturation, item.brightness)];
     }
 
     convertToRGB(h: number, s: number, v: number) {

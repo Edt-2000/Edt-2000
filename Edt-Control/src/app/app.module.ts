@@ -11,6 +11,7 @@ import {pages} from './app.routes';
 import {PresetSwitcherComponent} from './components/preset-button/preset-switcher.component';
 import {CuesControllerComponent} from './pages/cues-controller/cues-controller.component';
 import {SocketService} from './socket.service';
+import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller.component';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import {SocketService} from './socket.service';
         PresetControllerComponent,
         ColorControllerComponent,
         PresetSwitcherComponent,
-        CuesControllerComponent
+        CuesControllerComponent,
+        VidtControllerComponent
     ],
     imports: [
         BrowserModule,

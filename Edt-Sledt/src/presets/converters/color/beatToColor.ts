@@ -1,7 +1,7 @@
 import {Subscription} from 'rxjs/Subscription';
 import {IColor} from '../../../../../Shared/socket';
 import {mainColor} from '../../../subjects/colors';
-import {BeatMain} from '../../../subjects/triggers';
+import {BeatMain$} from '../../../subjects/triggers';
 import {rescale} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 import {IModifierOptions} from '../../../../../Shared/types';
@@ -24,7 +24,7 @@ export class BeatToColor extends PresetLogic {
     }
 
     public _startPreset(): void {
-        this.subscription = BeatMain
+        this.subscription = BeatMain$
             .subscribe(() => {
                 // TODO: set to random set of colors instead of rotating hue
                 this.hue = (this.hue + rescale(60, 127, 0, 255)) % 255;

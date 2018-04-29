@@ -2,8 +2,8 @@
 
 import {Actions} from '../../../Shared/actions';
 import {io} from '../communication/sockets';
-import {BeatMain} from '../subjects/triggers';
-import {mainColor} from '../subjects/colors';
+import {BeatMain$} from '../subjects/triggers';
+import {mainColor$} from '../subjects/colors';
 import {animationType, imageSrc, videoSrc} from '../subjects/vidtSettings';
 
 export function toVidt(msg: Actions): void {
@@ -11,11 +11,11 @@ export function toVidt(msg: Actions): void {
     io.emit('toVidt', msg);
 }
 
-BeatMain.subscribe(velocity => {
+BeatMain$.subscribe(velocity => {
     toVidt(Actions.mainBeat(velocity));
 });
 
-mainColor.subscribe(color => {
+mainColor$.subscribe(color => {
     toVidt(Actions.singleColor(color));
 });
 
