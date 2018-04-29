@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {IControlPresetMsg} from '../../../../../Shared/types';
 import {SocketService} from '../../socket.service';
 import {Actions} from '../../../../../Shared/actions';
+import {Note} from '../../../../../Shared/midi';
 
 @Component({
     selector: 'app-preset-switcher',
@@ -11,7 +12,7 @@ import {Actions} from '../../../../../Shared/actions';
                 (click)="changePreset(preset.modifier, !preset.state)"
                 [class.has-text-success]="preset.state">
                 <p class="card-header-title">
-                    {{preset.title}} ({{preset.modifier}})
+                    {{noteName}}: {{preset.title}} ({{preset.modifier}})
                 </p>
                 <div class="card-header-icon">
                     <span class="icon">
@@ -27,7 +28,7 @@ import {Actions} from '../../../../../Shared/actions';
                             [class.is-active]="select.value === preset.modifier"
                             [class.is-success]="preset.state && select.value === preset.modifier"
                             (click)="changePreset(select.value, true)">
-                            {{select.label}}
+                            {{select.label}} ({{select.value}})
                         </div>
                     </ng-container>
                     <ng-container *ngSwitchCase="'continuous'">
@@ -42,11 +43,13 @@ import {Actions} from '../../../../../Shared/actions';
 })
 export class PresetSwitcherComponent implements OnInit {
     @Input() preset: IControlPresetMsg;
+    noteName: string;
 
     constructor(private socket: SocketService) {
     }
 
     ngOnInit() {
+        this.noteName = Note[this.preset.preset];
     }
 
     changePreset(modifier = 127, state) {
