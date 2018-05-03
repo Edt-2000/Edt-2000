@@ -1,21 +1,22 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {CommunicationService} from '../../communication.service';
-import {tap} from 'rxjs/operators';
+import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-preset-controller',
     template: `
-    <p>
-      preset-controller works!
-    </p>
-  `,
+        <div class="columns is-multiline" *ngIf="(presetState$ | async) as presets">
+            <div class="column is-fullwidth" *ngFor="let preset of presets;">
+                <app-preset-switcher [preset]="preset"></app-preset-switcher>
+            </div>
+        </div>
+    `,
     styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PresetControllerComponent implements OnInit {
+    presetState$ = Actions$.presetState.asObservable();
 
-    constructor(private communicationService: CommunicationService) {
-
+    constructor() {
     }
 
     ngOnInit(): void {

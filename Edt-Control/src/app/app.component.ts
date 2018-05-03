@@ -1,19 +1,28 @@
 import {Component, OnInit} from '@angular/core';
-import {CommunicationService} from './communication.service';
+import {pages} from './app.routes';
+import {SocketService} from './socket.service';
 
 @Component({
     selector: 'app-root',
     template: `
-    <app-page-switcher></app-page-switcher>
-    <router-outlet></router-outlet>
+        <section class="section">
+            <router-outlet></router-outlet>
+        </section>
+
+        <nav class="navbar is-success is-fixed-bottom">
+            <div class="navbar-brand">
+                <a *ngFor="let page of pages" routerLinkActive="is-active" class="navbar-item" [routerLink]="page.path">
+                    {{page.text}}
+                </a>
+            </div>
+        </nav>
   `
 })
 export class AppComponent implements OnInit {
-    constructor(private communicationService: CommunicationService) {
+    pages = pages;
 
+    constructor(public socket: SocketService) {
     }
 
-    ngOnInit(): void {
-        this.communicationService.getSledt$().subscribe(console.log);
-    }
+    ngOnInit(): void {}
 }

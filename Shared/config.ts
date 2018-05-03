@@ -11,12 +11,13 @@ export const enum DeviceIPs {
     edtOut = '10.0.0.11',
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
-    edtSledt = '192.168.2.43',
+    edtDispEdter = '169.254.219.93',
+    edtSledt = '169.254.219.90',
 }
 
 // OSC Adresses of Edt Family
 export enum OSCDevices {
-    EdtLed = 'L',
+    EdtDispEdter = 'L',
     EdtOnOff = 'O',
     EdtTrack = 'TK',
     EdtPedal = 'PD',
@@ -36,15 +37,22 @@ export enum Modii {
     DualSolid = 9,
     DualPulse = 10,
     DualSparkle = 11,
-    Kitt = 12,
+    Chase = 12,
 }
+
+// TODO: each song has a different channel setup, needs to be dynamic!
+export enum MidiChannels {
+    synth = 1,
+    bass = 2,
+    melody = 3,
+    drum = 10,
+}
+
 export const oscInPort = 12345;
-
 export const oscOutPort = 12345;
-// Which channel sends presets?
-export const drumChannel: number = 10;
-export const adjustmentChannel: number = 15;
 
+export const adjustmentChannel: number = 15;
 export const presetMsgChannel: number = 16;
+
 export const virtualMidiInputDevice: string = 'EDT-SLEDT-IN';
 export const virtualMidiOutputDevice: string = 'EDT-SLEDT-OUT';

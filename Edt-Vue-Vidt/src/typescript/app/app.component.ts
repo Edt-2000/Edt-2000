@@ -1,13 +1,12 @@
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { Provide } from 'vue-property-decorator';
 
-import { communicationService, ICommunicationService } from '../services/communication.service';
 import { router } from '../services/router.service';
+import * as io from 'socket.io-client';
+import { DeviceIPs, socketPort } from '../../../../Shared/config';
+import { Actions$, nextActionFromMsg } from '../../../../Shared/actions';
+import { vidtPresets } from '../../../../Shared/vidt-presets';
+import Socket = SocketIOClient.Socket;
 
 @Component({
     name: 'app',
@@ -15,24 +14,28 @@ import { router } from '../services/router.service';
     router: router,
 })
 export default class App extends Vue {
-    @Provide() communicationService: ICommunicationService = communicationService;
-
-    public presetObservable: Observable<any>;
-    public subscription: Subscription;
+    private socket: Socket;
+    public subscription: any;
 
     constructor() {
         super();
-        this.presetObservable = this.communicationService.presetObservable;
+        this.socket = io(`${DeviceIPs.edtSledt}:${socketPort}`, { transports : ['websocket'] });
+
+        this.socket.on('connection', () => {
+            console.log('socket connectioned');
+        });
+
+        this.socket.on('toVidt', nextActionFromMsg);
     }
 
     mounted() {
-        this.presetObservable
-            .map((item) => {
-                return item.preset.path;
-            })
-            .subscribe((path) => {
-                router.push(path);
-            });
+        this.subscription = Actions$.prepareVidt.subscribe((presetNr) => {
+            if (vidtPresets.has(presetNr)) {
+                router.push(vidtPresets.get(presetNr) || '');
+            } else {
+                console.error('Unknown preset');
+            }
+        });
     }
 
     destroyed() {
@@ -40,6 +43,5 @@ export default class App extends Vue {
             this.subscription.unsubscribe();
         }
     }
-
 }
 

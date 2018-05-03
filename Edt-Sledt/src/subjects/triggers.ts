@@ -1,8 +1,7 @@
-'use strict';
 import {Subject} from 'rxjs/Subject';
+import {Actions$} from '../../../Shared/actions';
+import {merge} from 'rxjs/operators';
 
-export const BeatMain = new Subject();
+export const BeatMain: Subject<number> = new Subject();
 
-BeatMain.subscribe((note) => {
-    console.log('beat');
-});
+export const BeatMain$ = BeatMain.asObservable().pipe(merge(Actions$.mainBeat));

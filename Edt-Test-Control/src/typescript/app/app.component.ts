@@ -35,8 +35,8 @@ export default class App extends Vue {
     public textInput : PresetTextInput|undefined = undefined;
     public videoInput : PresetVideoInput|undefined = undefined;
 
-    public presets: IPreset[] = VidtPresets;
-    public currentPreset: IPreset|null = null;
+    public presets: IVidtPreset[] = VidtPresets;
+    public currentPreset: IVidtPreset|null = null;
 
     public animations: animationTypes[] = animations;
     public currentAnimation: animationTypes|null = animations[0];
@@ -71,7 +71,7 @@ export default class App extends Vue {
         });
     }
 
-    setPreset(preset: IPreset) {
+    setPreset(preset: IVidtPreset) {
         this.currentPreset = preset;
 
         this.animationInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetAnimationInput) as PresetAnimationInput;

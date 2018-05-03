@@ -1,190 +1,21 @@
-import { IPhotoAsset, IVideoAsset } from './assets';
+export const vidtPresets: Map<number, string> = new Map();
 
-export interface IPreset {
-    name: string;
-    path: string;
-    inputs: IPresetInput[];
-}
-
-// inputs
-export interface IPresetInput {
-    name: string;
-}
-
-export class PresetBeatInput implements IPresetInput {
-    name: string;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
-
-export class PresetColorInput implements IPresetInput {
-    name: string;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
-
-export class PresetColorTwinkleInput implements IPresetInput {
-    name: string;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
-
-export class PresetAnimationInput implements IPresetInput {
-    name: string;
-    type: animationTypes;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
-
-export class PresetIntensityInput implements IPresetInput {
-    name: string;
-    min: number;
-    max: number;
-
-    constructor(name: string, min: number, max: number) {
-        this.name = name;
-        this.min = min;
-        this.max = max;
-    }
-}
-
-export class PresetPhotoInput implements IPresetInput {
-    name: string;
-    photo: IPhotoAsset;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
-
-export class PresetTextInput implements IPresetInput {
-    name: string;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
-
-export class PresetVideoInput implements IPresetInput {
-    name: string;
-    video: IVideoAsset;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
+vidtPresets.set(1, '/logo');
+vidtPresets.set(2, '/bluescreen');
+vidtPresets.set(3, '/color');
+vidtPresets.set(4, '/gridscape');
+vidtPresets.set(5, '/hacking');
+vidtPresets.set(6, '/photobouncer');
+vidtPresets.set(7, '/photoglitcher');
+vidtPresets.set(8, '/text-bouncer');
+vidtPresets.set(9, '/shutdown');
+vidtPresets.set(10, '/video');
+vidtPresets.set(11, '/vista');
+vidtPresets.set(13, '/color-twinkle');
 
 export enum animationTypes {
-    bounce = 'bounce',
-    rotate = 'rotate',
-    spin = 'spin',
-    stretch = 'stretch'
+    bounce,
+    rotate,
+    spin,
+    stretch,
 }
-
-export const animations = [
-    animationTypes.bounce,
-    animationTypes.rotate,
-    animationTypes.spin,
-    animationTypes.stretch
-];
-
-//
-// function convert([prestType, ...args]) {
-//     switch(prestType) {
-//         case 1: return toTest1(args)
-//     }
-// }
-//
-// const toTest1 = (hue, hue2, tes1, test3) => {}
-
-// vidt Presets
-
-export const VidtPresets: IPreset[] = [
-    {
-        name: 'bluescreen',
-        path: '/bluescreen',
-        inputs: []
-    },
-    {
-        name: 'color-background',
-        path: '/color-background',
-        inputs: [
-            new PresetColorInput('color')
-        ]
-    },
-    {
-        name: 'color-twinkle',
-        path: '/color-twinkle',
-        inputs: [
-            new PresetColorTwinkleInput('color')
-        ]
-    },
-    {
-        name: 'gridscape',
-        path: '/gridscape',
-        inputs: [
-            new PresetBeatInput('beat')
-        ]
-    },
-    {
-        name: 'hacking',
-        path: '/hacking',
-        inputs: []
-    },
-    {
-        name: 'photo-bouncer',
-        path: '/photo-bouncer',
-        inputs: [
-            new PresetBeatInput('beat'),
-            new PresetPhotoInput('photo')
-        ]
-    },
-    {
-        name: 'photo-glitcher',
-        path: '/photo-glitcher',
-        inputs: [
-            new PresetPhotoInput('photo'),
-            new PresetAnimationInput('animation')
-        ]
-    },
-    {
-        name: 'logo',
-        path: '/logo',
-        inputs: [
-            new PresetIntensityInput('intensity', 1, 9)
-        ]
-    },
-    {
-        name: 'text-bouncer',
-        path: '/text-bouncer',
-        inputs: [
-            new PresetTextInput('text')
-        ]
-    },
-    {
-        name: 'shutdown',
-        path: '/shutdown',
-        inputs: []
-    },
-    {
-        name: 'video-player',
-        path: '/video-player',
-        inputs: [
-            new PresetVideoInput('photo'),
-            new PresetBeatInput('beat')
-        ]
-    },
-    {
-        name: 'vista',
-        path: '/vista',
-        inputs: []
-    },
-];

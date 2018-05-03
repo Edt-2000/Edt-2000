@@ -1,10 +1,7 @@
 import Vue from 'vue';
-import { Component, Inject, Watch } from 'vue-property-decorator';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { IBeatMsg, IVideoMsg } from '../../../../../Shared/socket';
-import { IVideoAsset, videoAssets } from '../../../../../Shared/assets';
-import { ICommunicationService } from '../../services/communication.service';
+import {Component} from 'vue-property-decorator';
+import {IVideoAsset} from '../../../../../Shared/assets';
+import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
     name: 'video-player',
@@ -14,15 +11,9 @@ import { ICommunicationService } from '../../services/communication.service';
 })
 
 export class VideoPlayerComponent extends Vue {
-    @Inject() communicationService: ICommunicationService;
+    public beatSubscription: any;
+    public videoSubscription: any;
 
-    public beatObservable: Observable<IBeatMsg> = this.communicationService.beatObservable;
-    public videoObservable: Observable<IVideoMsg> = this.communicationService.videoObservable;
-    public beatSubscription: Subscription;
-    public videoSubscription: Subscription;
-
-    public videoAssets: IVideoAsset[] = videoAssets;
-    public video: IVideoAsset;
     public src: string = '';
     public interval: number;
     public overlay: boolean = true;
@@ -31,37 +22,25 @@ export class VideoPlayerComponent extends Vue {
     };
 
     mounted() {
-        this.video = this.videoAssets[0];
-        this.setSrc();
-        this.playVideo();
-        this.glitchVideoContinuous();
-
-        this.videoSubscription = this.videoObservable
-            .map((item: IVideoMsg) => {
-                return item.video;
-            })
+        this.videoSubscription = Actions$.videoSrc
             .subscribe((video: IVideoAsset) => {
-                this.video = video;
-                this.setSrc();
-                this.setOverlay();
+                this.setSrc(video.src);
+                this.setOverlay(video.overlay);
                 this.playVideo();
             });
 
-        this.beatSubscription = this.beatObservable
-            .map((item: IBeatMsg) => {
-                return item.beat === true;
-            })
+        this.beatSubscription = Actions$.mainBeat
             .subscribe(() => {
                 this.glitchVideo();
             });
     }
 
-    setSrc() {
-        this.src = `assets/video/${this.video.src}`;
+    setSrc(src: string) {
+        this.src = `assets/video/${src}`;
     }
 
-    setOverlay() {
-        this.overlay = (this.video && this.video.overlay);
+    setOverlay(state: boolean) {
+        this.overlay = state;
     }
 
     playVideo() {

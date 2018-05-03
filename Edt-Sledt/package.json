@@ -11,15 +11,15 @@
   "author": "Edt-2000",
   "license": "ISC",
   "dependencies": {
-    "easymidi": "0.0.2",
-    "express": "^4.15.4",
+    "easymidi": "0.0.4",
+    "express": "^4.16.3",
     "osc-min": "^1.1.1",
-    "rxjs": "^5.5.6",
-    "socket.io": "^2.0.3"
+    "rxjs": "^5.5.8",
+    "socket.io": "^2.1.0"
   },
   "devDependencies": {
     "@types/node": "^8.0.28",
     "ts-node": "^3.3.0",
-    "typescript": "^2.5.2"
+    "typescript": "^2.8.1"
   }
 }

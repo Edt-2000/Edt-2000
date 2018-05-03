@@ -1,10 +1,7 @@
 import Vue from 'vue';
-import { Component, Inject, Watch } from 'vue-property-decorator';
-import { ICommunicationService } from '../../services/communication.service';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { IBeatMsg, IPhotoMsg } from '../../../../../Shared/socket';
-import { photoAssets, IPhotoAsset } from '../../../../../Shared/assets';
+import {Component} from 'vue-property-decorator';
+import {IPhotoAsset, photoAssets} from '../../../../../Shared/assets';
+import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
     name: 'photo-bouncer',
@@ -14,25 +11,19 @@ import { photoAssets, IPhotoAsset } from '../../../../../Shared/assets';
 })
 
 export class PhotoBouncerComponent extends Vue {
-    @Inject() communicationService: ICommunicationService;
-
-    public beatObservable: Observable<IBeatMsg> = this.communicationService.beatObservable;
-    public photoObservable: Observable<IPhotoMsg> = this.communicationService.photoObservable;
-    public beatSubscription: Subscription;
-    public photoSubscription: Subscription;
+    public beatSubscription: any;
+    public photoSubscription: any;
 
     public $refs: {
         img: HTMLElement,
     };
 
     public photoAssets: IPhotoAsset[] = photoAssets;
-    public photo: IPhotoAsset;
     public animation: Animation;
     public src: string = '';
 
     mounted() {
-        this.photo = this.photoAssets[8];
-        this.setSrc();
+        this.setSrc(this.photoAssets[0].src);
 
         this.animation = this.$refs.img.animate(
             [
@@ -53,26 +44,19 @@ export class PhotoBouncerComponent extends Vue {
 
         this.animation.pause();
 
-        this.beatSubscription = this.beatObservable
-            .map((item: IBeatMsg) => {
-                return item.beat === true;
-            })
+        this.beatSubscription = Actions$.mainBeat
             .subscribe(() => {
                 this.animate();
             });
 
-        this.photoSubscription = this.photoObservable
-            .map((item: IPhotoMsg) => {
-                return item.photo;
-            })
-            .subscribe((photo: IPhotoAsset) => {
-                this.photo = photo;
-                this.setSrc();
+        this.photoSubscription = Actions$.imageSrc
+            .subscribe((photo) => {
+                this.setSrc(photo.src);
             });
     }
 
-    setSrc() {
-        this.src = `assets/img/photoassets/${this.photo.src}`;
+    setSrc(src: string) {
+        this.src = `assets/img/photoassets/${src}`;
     }
 
     animate() {

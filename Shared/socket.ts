@@ -1,49 +1,10 @@
-import { IPhotoAsset, IVideoAsset } from './assets';
-import { animationTypes, IPreset } from './vidt-presets';
-
-export interface IColorMsg {
-    readonly type: string;
-    readonly hues: number[];
+export interface IColor {
+    readonly hue: number;
     readonly saturation: number;
-    readonly value: number;
-    readonly duration: number;
+    readonly brightness: number;
 }
 
-export interface IPresetMsg {
-    readonly preset: IPreset;
-}
-
-export interface IAnimationMsg {
-    readonly animation: animationTypes;
-}
-
-export interface IBeatMsg {
-    readonly beat: boolean;
-}
-
-export interface IIntensityMsg {
-    readonly intensity: number;
-}
-
-export interface IPhotoMsg {
-    readonly photo: IPhotoAsset;
-}
-
-export interface ITextMsg {
-    readonly text: string;
-}
-
-export interface IVideoMsg {
-    readonly video: IVideoAsset;
-}
-
-// -------------------------------- Specific Messages
-
-export interface ICenteredText extends IColorMsg {
-    readonly textValue: string;
-}
-
-export interface ITrackMsg {
+export interface ITrack {
     left: {
         x: number,
         y: number,

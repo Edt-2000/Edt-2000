@@ -1,40 +1,40 @@
 import {Subscription} from 'rxjs/Subscription';
 import {IColor} from '../../../../../Shared/socket';
-import {EdtMainColor} from '../../../subjects/colors';
-import {BeatMain} from '../../../subjects/triggers';
+import {mainColor} from '../../../subjects/colors';
+import {BeatMain$} from '../../../subjects/triggers';
 import {rescale} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
+import {IModifierOptions} from '../../../../../Shared/types';
+import {Note} from '../../../../../Shared/midi';
 
-/**
- * The bg IColor cycle Preset cycles between colors trigger by filteredNoteOn inputs
- */
 export class BeatToColor extends PresetLogic {
     title = 'Beat To Color';
+    note = Note.C_2;
+    modifierOptions: IModifierOptions = {
+        type: 'none',
+    };
+
+
     private hue: number;
-
     private subscription: Subscription;
-
-    private rotationVelocity: number;
 
     constructor() {
         super();
         this.hue = 0;
-        this.rotationVelocity = 0;
     }
 
-    public _startPreset(rotationVelocity: number): void {
-        this.rotationVelocity = rotationVelocity;
-
-        this.subscription = BeatMain
+    public _startPreset(): void {
+        this.subscription = BeatMain$
             .subscribe(() => {
-                this.hue = (this.hue + rescale(this.rotationVelocity, 127, 0, 255)) % 255;
+                // TODO: set to random set of colors instead of rotating hue
+                this.hue = (this.hue + rescale(60, 127, 0, 255)) % 255;
                 const newColor: IColor = {
                     hue: this.hue,
                     saturation: 255,
                     brightness: 255,
                 };
                 // Emit this new IColor value to other listeners
-                EdtMainColor.next(newColor);
+                mainColor.next(newColor);
             });
     }
 

@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs/Observable';
-import {drumChannel} from '../../../Shared/config';
+import {MidiChannels} from '../../../Shared/config';
 import {IMidiNoteMsg} from '../../../Shared/types';
 import {noteOff$, noteOn$} from './midi';
 import {filter, map, merge} from 'rxjs/operators';
@@ -20,7 +20,7 @@ export enum DrumNotes {
 const drumTriggerOnOff$: Observable<IMidiNoteMsg> = noteOn$
     .pipe(
         merge(noteOff$),
-        filter((msg) => msg.channel === drumChannel && msg.note in DrumNotes),
+        filter((msg) => msg.channel === MidiChannels.drum && msg.note in DrumNotes),
     );
 
 export const drumTriggerOn$: Observable<DrumNotes> = drumTriggerOnOff$
