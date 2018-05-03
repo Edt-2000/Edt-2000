@@ -122,6 +122,17 @@ module.exports = `
              </ul>
             <p class="options__output" v-if="hues">Hues: {{ hues.join(', ') }}</p>
         </div>
+        <!---->
+        <!--<div class="options__section" v-if="showColorTwinkleInput()">-->
+            <!--<h2 class="options__title">Twinkle</h2>-->
+            <!--<ul class="options__list">-->
+                <!--<li class="options__item">-->
+                    <!--<button class="button" -->
+                        <!--v-on:click="setTwinkle()"-->
+                    <!--&gt;Twinkle twinkle</button>   -->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
     </div>
 </div>
 `;

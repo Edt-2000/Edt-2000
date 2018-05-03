@@ -19,8 +19,15 @@ export class PresetBeatInput implements IPresetInput {
     }
 }
 
-
 export class PresetColorInput implements IPresetInput {
+    name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
+export class PresetColorTwinkleInput implements IPresetInput {
     name: string;
 
     constructor(name: string) {
@@ -111,6 +118,13 @@ export const VidtPresets: IPreset[] = [
         path: '/color-background',
         inputs: [
             new PresetColorInput('color')
+        ]
+    },
+    {
+        name: 'color-twinkle',
+        path: '/color-twinkle',
+        inputs: [
+            new PresetColorTwinkleInput('color')
         ]
     },
     {

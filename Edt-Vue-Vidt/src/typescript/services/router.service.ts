@@ -10,6 +10,7 @@ import { PhotoBouncerComponent } from '../presets/photo-bouncer/photo-bouncer.co
 import { VideoPlayerComponent } from '../presets/video-player/video-player.component';
 import { TextBouncerComponent } from '../presets/text-bouncer/text-bouncer.component';
 import { ColorBackgroundComponent } from '../presets/color-background/color-background.component';
+import { ColorTwinkleComponent } from '../presets/color-twinkle/color-twinkle.component';
 
 export const router = new VueRouter({
     base:'',
@@ -17,6 +18,7 @@ export const router = new VueRouter({
         { path: '/',component: LogoComponent },
         { path: '/bluescreen', component: BluescreenComponent },
         { path: '/color-background', component: ColorBackgroundComponent },
+        { path: '/color-twinkle', component: ColorTwinkleComponent },
         { path: '/gridscape', component: GridscapeComponent },
         { path: '/hacking', component: HackingComponent },
         { path: '/logo', component: LogoComponent },

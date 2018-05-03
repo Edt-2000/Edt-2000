@@ -2,7 +2,20 @@ import Vue from 'vue';
 import * as _ from 'lodash';
 import * as io from 'socket.io-client';
 import { Component, Watch } from 'vue-property-decorator';
-import { animations, animationTypes, IPreset, PresetAnimationInput, PresetBeatInput, PresetColorInput, PresetIntensityInput, PresetPhotoInput, PresetTextInput, PresetVideoInput, VidtPresets } from '../../../../Shared/vidt-presets';
+import {
+    animations,
+    animationTypes,
+    IPreset,
+    PresetAnimationInput,
+    PresetBeatInput,
+    PresetColorInput,
+    PresetColorTwinkleInput,
+    PresetIntensityInput,
+    PresetPhotoInput,
+    PresetTextInput,
+    PresetVideoInput,
+    VidtPresets
+} from '../../../../Shared/vidt-presets';
 import { IPhotoAsset, IVideoAsset, photoAssets, videoAssets } from '../../../../Shared/assets';
 
 @Component({
@@ -16,6 +29,7 @@ export default class App extends Vue {
     public animationInput : PresetAnimationInput|undefined = undefined;
     public beatInput : PresetBeatInput|undefined = undefined;
     public colorInput : PresetColorInput|undefined = undefined;
+    public colorTwinkleInput : PresetColorTwinkleInput|undefined = undefined;
     public intensityInput : PresetIntensityInput|undefined = undefined;
     public photoInput : PresetPhotoInput|undefined = undefined;
     public textInput : PresetTextInput|undefined = undefined;
@@ -60,13 +74,14 @@ export default class App extends Vue {
     setPreset(preset: IPreset) {
         this.currentPreset = preset;
 
-        this.animationInput = _.find(this.currentPreset.inputs, (p) => p instanceof PresetAnimationInput) as PresetAnimationInput;
-        this.colorInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetColorInput) as PresetColorInput;
-        this.beatInput      = _.find(this.currentPreset.inputs, (p) => p instanceof PresetBeatInput) as PresetBeatInput;
-        this.intensityInput = _.find(this.currentPreset.inputs, (p) => p instanceof PresetIntensityInput) as PresetIntensityInput;
-        this.photoInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetPhotoInput) as PresetPhotoInput;
-        this.textInput      = _.find(this.currentPreset.inputs, (p) => p instanceof PresetTextInput) as PresetTextInput;
-        this.videoInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetVideoInput) as PresetVideoInput;
+        this.animationInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetAnimationInput) as PresetAnimationInput;
+        this.colorInput         = _.find(this.currentPreset.inputs, (p) => p instanceof PresetColorInput) as PresetColorInput;
+        this.colorTwinkleInput  = _.find(this.currentPreset.inputs, (p) => p instanceof PresetColorTwinkleInput) as PresetColorTwinkleInput;
+        this.beatInput          = _.find(this.currentPreset.inputs, (p) => p instanceof PresetBeatInput) as PresetBeatInput;
+        this.intensityInput     = _.find(this.currentPreset.inputs, (p) => p instanceof PresetIntensityInput) as PresetIntensityInput;
+        this.photoInput         = _.find(this.currentPreset.inputs, (p) => p instanceof PresetPhotoInput) as PresetPhotoInput;
+        this.textInput          = _.find(this.currentPreset.inputs, (p) => p instanceof PresetTextInput) as PresetTextInput;
+        this.videoInput         = _.find(this.currentPreset.inputs, (p) => p instanceof PresetVideoInput) as PresetVideoInput;
 
         this.sendPreset();
         this.sendDefaults();
