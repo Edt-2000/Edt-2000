@@ -11,15 +11,15 @@ import {Actions} from '../../../../../Shared/actions';
                     BEAT
                 </button>
 
-                <button class="button is-large" (click)="sendColor(0, 100, 100)" style="background-color: #ff0000;">
+                <button class="button is-large" (click)="sendColor(0, 255, 255)" style="background-color: #ff0000;">
                     RED
                 </button>
 
-                <button class="button is-large" (click)="sendColor(120, 100, 100)" style="background-color: #00ff01;">
+                <button class="button is-large" (click)="sendColor(120, 255, 255)" style="background-color: #00ff01;">
                     GREEN
                 </button>
-                
-                <button class="button is-large" (click)="sendColor(240, 100, 100)" style="background-color: #0200ff;">
+
+                <button class="button is-large" (click)="sendColor(240, 255, 255)" style="background-color: #0000ff;">
                     BLUE
                 </button>
             </div>
