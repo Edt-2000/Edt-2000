@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import {stevenCode} from '../../../static/assets/data/stevencode';
+import { stevenCode } from '../../../static/assets/data/stevencode';
 
 @Component({
     name: 'hacking',

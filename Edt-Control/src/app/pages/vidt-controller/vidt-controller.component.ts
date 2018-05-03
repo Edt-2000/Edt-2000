@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {SocketService} from '../../socket.service';
 import {Actions} from '../../../../../Shared/actions';
+import { IPhotoAsset, photoAssets } from '../../../../../Shared/assets';
 
 @Component({
     selector: 'app-vidt-controller',
@@ -22,6 +23,12 @@ import {Actions} from '../../../../../Shared/actions';
                 <button class="button is-large" (click)="sendColor(240, 100, 100)" style="background-color: #0200ff;">
                     BLUE
                 </button>
+                
+                <ng-container *ngFor="let asset of photoAssets">
+                    <button class="button is-large" (click)="sendPhotoAsset(asset)">
+                        {{asset.name}}
+                    </button>
+                </ng-container>
             </div>
         </div>
     `,
@@ -29,6 +36,8 @@ import {Actions} from '../../../../../Shared/actions';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VidtControllerComponent implements OnInit {
+    photoAssets = photoAssets;
+
 
     constructor(private socket: SocketService) {
     }
@@ -48,4 +57,7 @@ export class VidtControllerComponent implements OnInit {
         }))
     }
 
+    sendPhotoAsset(asset: IPhotoAsset) {
+        this.socket.toSledt(Actions.imageSrc(asset));
+    }
 }

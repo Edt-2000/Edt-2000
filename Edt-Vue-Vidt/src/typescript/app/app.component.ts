@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-import {router} from '../services/router.service';
+import { router } from '../services/router.service';
 import * as io from 'socket.io-client';
-import {DeviceIPs, socketPort} from '../../../../Shared/config';
-import {Actions$, nextActionFromMsg} from '../../../../Shared/actions';
+import { DeviceIPs, socketPort } from '../../../../Shared/config';
+import { Actions$, nextActionFromMsg } from '../../../../Shared/actions';
+import { vidtPresets } from '../../../../Shared/vidt-presets';
 import Socket = SocketIOClient.Socket;
-import {vidtPresets} from '../../../../Shared/vidt-presets';
 
 @Component({
     name: 'app',
@@ -15,6 +15,7 @@ import {vidtPresets} from '../../../../Shared/vidt-presets';
 })
 export default class App extends Vue {
     private socket: Socket;
+    public subscription: any;
 
     constructor() {
         super();
@@ -28,7 +29,7 @@ export default class App extends Vue {
     }
 
     mounted() {
-        Actions$.prepareVidt.subscribe((presetNr) => {
+        this.subscription = Actions$.prepareVidt.subscribe((presetNr) => {
             if (vidtPresets.has(presetNr)) {
                 router.push(vidtPresets.get(presetNr) || '');
             } else {
@@ -38,8 +39,9 @@ export default class App extends Vue {
     }
 
     destroyed() {
-
+        if (typeof this.subscription !== 'undefined') {
+            this.subscription.unsubscribe();
+        }
     }
-
 }
 

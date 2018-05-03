@@ -18,6 +18,7 @@ export const MAIN_TEXT = 'MAIN_TEXT';
 export const ANIMATION_TYPE = 'ANIMATION_TYPE';
 
 export const SINGLE_COLOR = 'SINGLE_COLOR';
+export const MULTI_COLOR = 'MULTI_COLOR';
 export const MAIN_BEAT = 'MAIN_BEAT';
 export const GLITCH_INTENSITY = 'GLITCH_INTENSITY';
 
@@ -38,6 +39,7 @@ export const Actions = {
 
     // Subjects
     singleColor: (payload: IColor) => createAction(SINGLE_COLOR, payload),
+    multiColor: (payload: IColor[]) => createAction(MULTI_COLOR, payload),
     mainBeat: (payload: number) => createAction(MAIN_BEAT, payload),
     glitchIntensity: (payload: number) => createAction(GLITCH_INTENSITY, payload),
 };
@@ -58,6 +60,7 @@ export const Actions$ = {
     animationType: <BehaviorSubject<animationTypes>> new BehaviorSubject<animationTypes>(animationTypes.bounce),
 
     singleColor: <Subject<IColor>> new Subject<IColor>(),
+    multiColor: <Subject<IColor[]>> new Subject<IColor[]>(),
     mainBeat: <Subject<number>> new Subject<number>(),
     glitchIntensity: <Subject<number>> new Subject<number>(),
 };
@@ -76,6 +79,7 @@ export function nextActionFromMsg(msg: Actions) {
     if (msg.type === ANIMATION_TYPE) Actions$.animationType.next(msg.payload);
 
     if (msg.type === SINGLE_COLOR) Actions$.singleColor.next(msg.payload);
+    if (msg.type === MULTI_COLOR) Actions$.multiColor.next(msg.payload);
     if (msg.type === MAIN_BEAT) Actions$.mainBeat.next(msg.payload);
     if (msg.type === GLITCH_INTENSITY) Actions$.glitchIntensity.next(msg.payload);
 }
