@@ -46,7 +46,7 @@ export class ColorBackgroundComponent extends Vue {
         this.colorSubscription = Actions$.singleColor
             .subscribe((item) => {
                 this.colorType = 'single';
-                this.pulseDuration = 300;
+                this.pulseDuration = 0;
                 this.saveColors(item);
                 this.setStyles();
 

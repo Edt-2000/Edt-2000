@@ -33,7 +33,9 @@ export class MidiToColors extends PresetLogic {
         this.hue = 0;
 
         this.hues = shuffleArray([
-            0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+            0, 18, 58, 85, 95, 105, 129, 158, 183, 218,
+            // TODO: find 2 more colors to make a palette of 12
+            218, 218,
         ]);
     }
 
@@ -43,9 +45,8 @@ export class MidiToColors extends PresetLogic {
             filter((note) => note.channel === this.modifier),
         )
             .subscribe((note) => {
-                this.hue = (rescale(this.hues[note.noteNumber - 1], 360, 0, 255)) % 255;
                 const newColor: IColor = {
-                    hue: this.hue,
+                    hue: this.hues[note.noteNumber - 1],
                     saturation: 255,
                     brightness: 255,
                 };

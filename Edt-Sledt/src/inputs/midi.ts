@@ -8,6 +8,7 @@ import {Note} from '../../../Shared/midi';
 export const noteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.pipe(
     filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel),
 );
+
 export const noteOff$: Observable<IMidiNoteMsg> = sledtNoteOff$.pipe(
     filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== adjustmentChannel),
 );
