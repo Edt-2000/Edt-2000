@@ -8,7 +8,6 @@ import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, IPresetMsg, Mid
 import {noteToNote, noteToOctave} from '../../../Shared/utils';
 import {filter, map} from 'rxjs/operators';
 import {fromEvent} from 'rxjs/observable/fromEvent';
-import {Subject} from 'rxjs/Subject';
 
 const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
 const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);

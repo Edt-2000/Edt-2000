@@ -1,11 +1,11 @@
 import {filter} from 'rxjs/operators';
-import {presetMidi$} from './inputs/midi';
+import {noteOff$, noteOn$, presetMidi$} from './inputs/midi';
 import {presetMap} from './presets/presets-logic';
 import {merge} from 'rxjs/observable/merge';
 import {sendStateToControl, toControl} from './outputs/edt-control';
 import {io} from './communication/sockets';
 import {presetCues} from '../../Shared/cues';
-import {midiPreset} from './communication/midi';
+import {CC$, midiPreset, Program$, Select$} from './communication/midi';
 import {Actions, Actions$, nextActionFromMsg} from '../../Shared/actions';
 import {presets} from './presets/presets';
 

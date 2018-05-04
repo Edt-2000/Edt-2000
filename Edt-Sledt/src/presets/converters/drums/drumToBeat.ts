@@ -1,10 +1,10 @@
 import {Subscription} from 'rxjs/Subscription';
 import {DrumNotes, drumTriggerOn$} from '../../../inputs/music-triggers';
-import {BeatMain} from '../../../subjects/triggers';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
 import {IModifierOptions} from '../../../../../Shared/types';
 import {Note} from '../../../../../Shared/midi';
+import {Actions, nextActionFromMsg} from '../../../../../Shared/actions';
 
 export class DrumToBeat extends PresetLogic {
     title = 'Drum to Beat';
@@ -31,8 +31,8 @@ export class DrumToBeat extends PresetLogic {
         this.subscriber = drumTriggerOn$.pipe(
             filter((drumNote) => this.modifier === drumNote)
         )
-            .subscribe(() => {
-                BeatMain.next(127);
+            .subscribe((beat) => {
+                nextActionFromMsg(Actions.mainBeat(beat));
             });
     }
 

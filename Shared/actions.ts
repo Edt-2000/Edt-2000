@@ -1,7 +1,7 @@
 import {IControlPresetMsg, IPresetCue, IPresetMsg} from './types';
 import {BehaviorSubject, Subject} from '../Edt-Sledt/node_modules/rxjs';
 import {ActionsUnion, createAction} from './fsa-helpers';
-import {animationTypes} from './vidt-presets';
+import {animationTypes, vidtPresets} from './vidt-presets';
 import {IColor} from './socket';
 import {IPhotoAsset, IVideoAsset, photoAssets, videoAssets} from './assets';
 
@@ -50,19 +50,27 @@ export const Actions$ = {
     presetChange: <Subject<IPresetMsg>> new Subject(),
     presetState: <BehaviorSubject<IControlPresetMsg[]>> new BehaviorSubject([] as IControlPresetMsg[]),
     cueList: <BehaviorSubject<IPresetCue[]>> new BehaviorSubject([] as IPresetCue[]),
-    prepareVidt: <Subject<number>> new Subject<number>(),
+    prepareVidt: <BehaviorSubject<number>> new BehaviorSubject<number>(1),
 
     imageSrc: <BehaviorSubject<IPhotoAsset>> new BehaviorSubject<IPhotoAsset>(photoAssets[0]),
     videoSrc: <BehaviorSubject<IVideoAsset>> new BehaviorSubject<IVideoAsset>(videoAssets[0]),
 
-    mainText: <BehaviorSubject<string>> new BehaviorSubject<string>(''),
+    mainText: <BehaviorSubject<string>> new BehaviorSubject<string>('STROBOCOPS'),
 
     animationType: <BehaviorSubject<animationTypes>> new BehaviorSubject<animationTypes>(animationTypes.bounce),
 
-    singleColor: <Subject<IColor>> new Subject<IColor>(),
-    multiColor: <Subject<IColor[]>> new Subject<IColor[]>(),
+    singleColor: <BehaviorSubject<IColor>> new BehaviorSubject<IColor>({
+        hue: 0,
+        saturation: 0,
+        brightness: 0,
+    }),
+    multiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([{
+        hue: 0,
+        saturation: 0,
+        brightness: 0,
+    }]),
     mainBeat: <Subject<number>> new Subject<number>(),
-    glitchIntensity: <Subject<number>> new Subject<number>(),
+    glitchIntensity: <BehaviorSubject<number>> new BehaviorSubject<number>(0),
 };
 
 export function nextActionFromMsg(msg: Actions) {

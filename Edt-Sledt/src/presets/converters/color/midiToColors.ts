@@ -1,13 +1,13 @@
 import {Subscription} from 'rxjs/Subscription';
 import {IColor} from '../../../../../Shared/socket';
 import {noteOn$} from '../../../inputs/midi';
-import {mainColor} from '../../../subjects/colors';
-import {rescale, shuffleArray} from '../../../../../Shared/utils';
+import {shuffleArray} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
 import {IModifierOptions} from '../../../../../Shared/types';
 import {MidiChannels} from '../../../../../Shared/config';
 import {Note} from '../../../../../Shared/midi';
+import {Actions, nextActionFromMsg} from '../../../../../Shared/actions';
 
 export class MidiToColors extends PresetLogic {
     title: string = 'Midi To Colors';
@@ -50,8 +50,7 @@ export class MidiToColors extends PresetLogic {
                     saturation: 255,
                     brightness: 255,
                 };
-                // Emit this new IColor value to other listeners
-                mainColor.next(newColor);
+                nextActionFromMsg(Actions.singleColor(newColor));
             });
     }
 

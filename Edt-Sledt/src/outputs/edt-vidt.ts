@@ -1,32 +1,30 @@
 'use strict';
 
-import {Actions} from '../../../Shared/actions';
+import {Actions, Actions$} from '../../../Shared/actions';
 import {io} from '../communication/sockets';
-import {BeatMain$} from '../subjects/triggers';
-import {mainColor$} from '../subjects/colors';
-import { animationType, imageSrc, imageSrc$, videoSrc, videoSrc$, animationType$ } from '../subjects/vidtSettings';
 
 export function toVidt(msg: Actions): void {
-    console.log('Edt-Vidt: ', msg);
     io.emit('toVidt', msg);
 }
 
-BeatMain$.subscribe(velocity => {
+// There are a number of actions we always want to send to the Edt-Vidt
+
+Actions$.mainBeat.subscribe(velocity => {
     toVidt(Actions.mainBeat(velocity));
 });
 
-mainColor$.subscribe(color => {
+Actions$.singleColor.subscribe(color => {
     toVidt(Actions.singleColor(color));
 });
 
-animationType$.subscribe(type => {
+Actions$.animationType.subscribe(type => {
     toVidt(Actions.animationType(type));
 });
 
-imageSrc$.subscribe(src => {
+Actions$.imageSrc.subscribe(src => {
     toVidt(Actions.imageSrc(src));
 });
 
-videoSrc$.subscribe(src => {
+Actions$.videoSrc.subscribe(src => {
     toVidt(Actions.videoSrc(src));
 });
