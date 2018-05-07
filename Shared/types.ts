@@ -49,7 +49,6 @@ export interface IPresetCue {
 }
 
 export interface IModifierOptions {
-    readonly type: 'none' | 'select' | 'continuous';
     readonly select?: IModifierSelectOption[],
     readonly continuous?: {
         readonly min: number;

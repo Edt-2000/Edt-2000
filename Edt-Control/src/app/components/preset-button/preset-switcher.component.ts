@@ -21,19 +21,14 @@ import {Note} from '../../../../../Shared/midi';
                 </div>
             </header>
             <div class="card-footer">
-                <ng-container [ngSwitch]="preset.config.type">
-                    <ng-container *ngSwitchCase="'select'">
-                        <div *ngFor="let select of preset.config.select"
-                            class="card-footer-item"
-                            [class.is-active]="select.value === preset.modifier"
-                            [class.is-success]="preset.state && select.value === preset.modifier"
-                            (click)="changePreset(select.value, true)">
-                            {{select.label}} ({{select.value}})
-                        </div>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="'continuous'">
-                        
-                    </ng-container>
+                <ng-container *ngIf="'preset.config.select'">
+                    <div *ngFor="let select of preset.config.select"
+                        class="card-footer-item"
+                        [class.is-active]="select.value === preset.modifier"
+                        [class.is-success]="preset.state && select.value === preset.modifier"
+                        (click)="changePreset(select.value, true)">
+                        {{select.label}} ({{select.value}})
+                    </div>
                 </ng-container>
             </div>
         </div>

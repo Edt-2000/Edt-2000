@@ -11,7 +11,6 @@ export class PrepareVidtPreset extends PresetLogic {
     note = Note.G8;
 
     modifierOptions: IModifierOptions = {
-        type: 'select',
         select: Array.from(vidtPresets).map(([value, label]) => ({ value, label })),
     };
 

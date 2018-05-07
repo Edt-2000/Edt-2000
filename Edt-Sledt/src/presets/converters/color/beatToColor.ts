@@ -9,9 +9,7 @@ import {Actions, Actions$, nextActionFromMsg} from '../../../../../Shared/action
 export class BeatToColor extends PresetLogic {
     title = 'Beat To Color';
     note = Note.C_2;
-    modifierOptions: IModifierOptions = {
-        type: 'none',
-    };
+    modifierOptions: IModifierOptions = {};
 
 
     private hue: number;

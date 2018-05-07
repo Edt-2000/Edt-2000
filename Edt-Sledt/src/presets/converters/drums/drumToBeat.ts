@@ -11,7 +11,6 @@ export class DrumToBeat extends PresetLogic {
     note = Note.C$_2;
 
     modifierOptions: IModifierOptions = {
-        type: 'select',
         select: [
             {label: DrumNotes[DrumNotes._1], value: DrumNotes._1},
             {label: DrumNotes[DrumNotes._2], value: DrumNotes._2},

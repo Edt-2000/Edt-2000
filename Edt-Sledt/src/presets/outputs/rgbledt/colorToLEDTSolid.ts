@@ -9,9 +9,7 @@ export class ColorToLEDTSolid extends PresetLogic {
     title = 'ColorToKittSimple';
     note = Note.A$2;
 
-    modifierOptions: IModifierOptions = {
-        type: 'none',
-    };
+    modifierOptions: IModifierOptions = {};
 
     private subscriber: Subscription;
 

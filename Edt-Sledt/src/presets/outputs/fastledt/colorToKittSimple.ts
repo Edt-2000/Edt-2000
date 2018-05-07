@@ -9,7 +9,6 @@ export class ColorToKittSimple extends PresetLogic {
     note = Note.A$1;
 
     modifierOptions: IModifierOptions = {
-        type: 'select',
         select: [
             {label: MidiChannels[MidiChannels.synth], value: MidiChannels.synth},
             {label: MidiChannels[MidiChannels.bass], value: MidiChannels.bass},
