@@ -1,7 +1,7 @@
-import {IControlPresetMsg, IPresetCue, IPresetMsg} from './types';
+import {IControlPresetMsg, ICue, IPresetMsg} from './types';
 import {BehaviorSubject, Subject} from '../Edt-Sledt/node_modules/rxjs';
 import {ActionsUnion, createAction} from './fsa-helpers';
-import {animationTypes, vidtPresets} from './vidt-presets';
+import {animationTypes} from './vidt-presets';
 import {IColor} from './socket';
 import {IPhotoAsset, IVideoAsset, photoAssets, videoAssets} from './assets';
 
@@ -25,7 +25,7 @@ export const GLITCH_INTENSITY = 'GLITCH_INTENSITY';
 export const Actions = {
     presetChange: (payload: IPresetMsg) => createAction(PRESET_CHANGE, payload),
     presetState: (payload: IControlPresetMsg[]) => createAction(PRESET_STATE, payload),
-    cueList: (payload: IPresetCue[]) => createAction(CUE_LIST, payload),
+    cueList: (payload: ICue[]) => createAction(CUE_LIST, payload),
     prepareVidt: (payload: number) => createAction(PREPARE_VIDT, payload),
 
     // Assets
@@ -49,7 +49,7 @@ export type Actions = ActionsUnion<typeof Actions>;
 export const Actions$ = {
     presetChange: <Subject<IPresetMsg>> new Subject(),
     presetState: <BehaviorSubject<IControlPresetMsg[]>> new BehaviorSubject([] as IControlPresetMsg[]),
-    cueList: <BehaviorSubject<IPresetCue[]>> new BehaviorSubject([] as IPresetCue[]),
+    cueList: <BehaviorSubject<ICue[]>> new BehaviorSubject([] as ICue[]),
     prepareVidt: <BehaviorSubject<number>> new BehaviorSubject<number>(1),
 
     imageSrc: <BehaviorSubject<IPhotoAsset>> new BehaviorSubject<IPhotoAsset>(photoAssets[0]),

@@ -51,7 +51,7 @@ export enum MidiChannels {
 export const oscInPort = 12345;
 export const oscOutPort = 12345;
 
-export const adjustmentChannel: number = 15;
+export const automationChannel: number = 15;
 export const presetMsgChannel: number = 16;
 
 export const virtualMidiInputDevice: string = 'EDT-SLEDT-IN';

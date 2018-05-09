@@ -9,7 +9,6 @@ const sock = dgram.createSocket('udp4', processOscMessage);
 sock.bind(oscInPort);
 
 export function sendToOSC(device: DeviceIPs, addresses: string[], params: number[] = []): void {
-    console.log('Send to OSC', addresses, params);
     const buf = osc.toBuffer({
         address: '/' + addresses.join('/'),
         args: params.map((param) => {

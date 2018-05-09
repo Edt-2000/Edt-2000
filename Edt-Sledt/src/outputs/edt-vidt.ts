@@ -1,5 +1,3 @@
-'use strict';
-
 import {Actions, Actions$} from '../../../Shared/actions';
 import {io} from '../communication/sockets';
 
@@ -28,3 +26,10 @@ Actions$.imageSrc.subscribe(src => {
 Actions$.videoSrc.subscribe(src => {
     toVidt(Actions.videoSrc(src));
 });
+
+Actions$.prepareVidt.subscribe(preset => {
+    console.info('wut', preset);
+    toVidt(Actions.prepareVidt(preset));
+});
+
+export const EdtVidtOutput = 'EdtVidtOutput';

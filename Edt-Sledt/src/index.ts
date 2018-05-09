@@ -1,13 +1,15 @@
 import {filter} from 'rxjs/operators';
-import {noteOff$, noteOn$, presetMidi$} from './inputs/midi';
+import {presetMidi$} from './inputs/midi';
 import {presetMap} from './presets/presets-logic';
 import {merge} from 'rxjs/observable/merge';
 import {sendStateToControl, toControl} from './outputs/edt-control';
 import {io} from './communication/sockets';
-import {presetCues} from '../../Shared/cues';
-import {CC$, midiPreset, Program$, Select$} from './communication/midi';
 import {Actions, Actions$, nextActionFromMsg} from '../../Shared/actions';
 import {presets} from './presets/presets';
+import {MidiAutomationInput} from './inputs/midi-automation';
+import {MidiAutomationOutput} from './outputs/midi-automation';
+import {presetCues} from '../../Shared/cues';
+import {EdtVidtOutput} from './outputs/edt-vidt';
 
 presets.forEach((preset) => presetMap.set(+preset.note, preset));
 if (presets.length !== presetMap.size) console.error('Not all presets have a unique NoteNr!');
@@ -26,8 +28,6 @@ merge(
     }
 });
 
-Actions$.presetChange.subscribe(midiPreset);
-
 io.on('connection', (socket) => {
     console.log('Device connected!');
     sendStateToControl();
@@ -40,6 +40,7 @@ io.on('connection', (socket) => {
     socket.on('fromControl', nextActionFromMsg);
 });
 
+console.log('Including modules: ', MidiAutomationInput, MidiAutomationOutput, EdtVidtOutput);
 console.log('Init complete, waiting for devices and/or messages..');
 
 // Loggers, comment to disable

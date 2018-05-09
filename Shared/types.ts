@@ -1,3 +1,5 @@
+import {Actions} from './actions';
+
 export interface IMidiChannel {
     readonly channel: number;
 }
@@ -43,9 +45,9 @@ export interface IControlPresetMsg extends IPresetMsg {
     readonly config: IModifierOptions,
 }
 
-export interface IPresetCue {
+export interface ICue {
     label: string;
-    presets: IPresetMsg[];
+    actions: Actions[];
 }
 
 export interface IModifierOptions {

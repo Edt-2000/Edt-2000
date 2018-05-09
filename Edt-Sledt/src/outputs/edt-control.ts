@@ -4,7 +4,6 @@ import {IControlPresetMsg} from '../../../Shared/types';
 import {Actions} from '../../../Shared/actions';
 
 export function toControl(msg: Actions) {
-    console.log('toControl:', msg);
     io.emit('toControl', msg);
 }
 

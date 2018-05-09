@@ -11,7 +11,7 @@ vidtPresets.set(8, '/text-bouncer');
 vidtPresets.set(9, '/shutdown');
 vidtPresets.set(10, '/video');
 vidtPresets.set(11, '/vista');
-vidtPresets.set(13, '/color-twinkle');
+vidtPresets.set(12, '/color-twinkle');
 
 export enum animationTypes {
     bounce,
