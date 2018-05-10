@@ -1,6 +1,9 @@
 import easymidi = require('easymidi');
 import {Observable} from 'rxjs/Observable';
-import {presetMsgChannel, virtualMidiInputDevice, virtualMidiOutputDevice,} from '../../../Shared/config';
+import {
+    automationChannel, virtualMidiInputDevice,
+    virtualMidiOutputDevice,
+} from '../../../Shared/config';
 import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, IPresetMsg, MidiMsgTypes} from '../../../Shared/types';
 import {noteToNote, noteToOctave} from '../../../Shared/utils';
 import {map} from 'rxjs/operators';
@@ -56,7 +59,7 @@ export const CC$: Observable<IMidiCCMsg> = fromEvent<IMidiCCMsg>(virtualInput, M
 
 export function sendMIDIPreset(msg: IPresetMsg) {
     const midiMsg: IEasyMidiNoteMsg = {
-        channel: presetMsgChannel - 1,
+        channel: automationChannel - 1,
         note: msg.preset,
         velocity: msg.modifier,
     };

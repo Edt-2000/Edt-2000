@@ -28,7 +28,6 @@ Actions$.videoSrc.subscribe(src => {
 });
 
 Actions$.prepareVidt.subscribe(preset => {
-    console.info('wut', preset);
     toVidt(Actions.prepareVidt(preset));
 });
 

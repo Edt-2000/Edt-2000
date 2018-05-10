@@ -1,20 +1,20 @@
 import {Observable} from 'rxjs/Observable';
-import {automationChannel, presetMsgChannel} from '../../../Shared/config';
+import {automationChannel} from '../../../Shared/config';
 import {CC$, sledtNoteOff$, sledtNoteOn$} from '../communication/midi';
 import {IMidiNoteMsg, IPresetMsg} from '../../../Shared/types';
 import {filter, map, merge} from 'rxjs/operators';
 import {Note} from '../../../Shared/midi';
 
 export const noteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.pipe(
-    filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== automationChannel),
+    filter((msg) => msg.channel !== automationChannel),
 );
 
 export const noteOff$: Observable<IMidiNoteMsg> = sledtNoteOff$.pipe(
-    filter((msg) => msg.channel !== presetMsgChannel || msg.channel !== automationChannel),
+    filter((msg) => msg.channel !== automationChannel),
 );
 
 const presetOn$: Observable<IPresetMsg> = sledtNoteOn$.pipe(
-    filter((msg) => msg.channel === presetMsgChannel),
+    filter((msg) => msg.channel === automationChannel),
     map((msg): IPresetMsg => {
         return {
             preset: Note[Note[msg.note]],
@@ -25,7 +25,7 @@ const presetOn$: Observable<IPresetMsg> = sledtNoteOn$.pipe(
 );
 
 const presetOff$: Observable<IPresetMsg> = sledtNoteOff$.pipe(
-    filter((msg) => msg.channel === presetMsgChannel),
+    filter((msg) => msg.channel === automationChannel),
     map((msg): IPresetMsg => {
         return {
             preset: Note[Note[msg.note]],
