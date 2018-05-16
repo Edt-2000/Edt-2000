@@ -43,7 +43,7 @@ export class ColorBackgroundComponent extends Vue {
 
         this.animation.pause();
 
-        this.colorSubscription = Actions$.singleColor
+        this.colorSubscription = Actions$.vidtSingleColor
             .subscribe((item) => {
                 this.colorType = 'single';
                 this.pulseDuration = 0;

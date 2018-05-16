@@ -29,7 +29,7 @@ export class VideoPlayerComponent extends Vue {
                 this.playVideo();
             });
 
-        this.beatSubscription = Actions$.mainBeat
+        this.beatSubscription = Actions$.vidtBeat
             .subscribe(() => {
                 this.glitchVideo();
             });

@@ -44,7 +44,7 @@ export class PhotoBouncerComponent extends Vue {
 
         this.animation.pause();
 
-        this.beatSubscription = Actions$.mainBeat
+        this.beatSubscription = Actions$.vidtBeat
             .subscribe(() => {
                 this.animate();
             });
