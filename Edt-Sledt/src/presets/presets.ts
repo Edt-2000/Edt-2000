@@ -3,6 +3,8 @@ import {MidiToColors} from './converters/color/midiToColors';
 import {DrumToBeat} from './converters/drums/drumToBeat';
 import {ColorToKittSimple} from './outputs/fastledt/colorToKittSimple';
 import {ColorToLEDTSolid} from './outputs/rgbledt/colorToLEDTSolid';
+import {MainBeatToVidtBeat} from './outputs/vidt/mainBeatToVidtBeat';
+import {ColorToVidtColor} from './outputs/vidt/colorToVidtColor';
 
 export const presets = [
     new BeatToColor(),
@@ -10,4 +12,6 @@ export const presets = [
     new DrumToBeat(),
     new ColorToKittSimple(),
     new ColorToLEDTSolid(),
+    new MainBeatToVidtBeat(),
+    new ColorToVidtColor(),
 ];
