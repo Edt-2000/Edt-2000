@@ -11,10 +11,18 @@
         font-family: $font-neon;
         font-size: 14rem;
         left: 50%;
+        letter-spacing: 8px;
         position: absolute;
+        text-align: center;
+        text-shadow: 0 0 40px currentColor;
+        text-transform: uppercase;
         top: 50%;
         transform: translate(-50%, -50%);
-        text-shadow: 0 0 40px currentColor;
-        letter-spacing: 8px;
+        transition: opacity .6s, transform .6s;
+
+        .is-hidden & {
+            opacity: 0;
+            transform: scale(0);
+        }
     }
 }
