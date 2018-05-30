@@ -23,4 +23,8 @@ Actions$.prepareVidt.subscribe(preset => {
     toVidt(Actions.prepareVidt(preset));
 });
 
+Actions$.mainText.subscribe(text => {
+    toVidt(Actions.mainText(text));
+});
+
 export const EdtVidtOutput = 'EdtVidtOutput';

@@ -1,0 +1,17 @@
+export const words: string[] = [
+    'MAN',
+    'VROUW',
+    'ALLEMAAL',
+    'NEUKEN',
+    'HARDER',
+    'ROUWER',
+    'EN',
+    'CABRIO',
+    'LAST',
+    'CHRISTMAS',
+    'I',
+    'GAVE',
+    'YOU',
+    'MY',
+    'HEARD',
+];
