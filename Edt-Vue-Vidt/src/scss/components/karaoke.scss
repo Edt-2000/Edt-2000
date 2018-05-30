@@ -1,0 +1,20 @@
+@import '../config/colors';
+@import '../mixins/typography';
+
+.karaoke {
+    background: $c-black;
+    height: 100vh;
+    position: relative;
+
+    &__text {
+        color: $c-pink;
+        font-family: $font-neon;
+        font-size: 14rem;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-shadow: 0 0 40px currentColor;
+        letter-spacing: 8px;
+    }
+}

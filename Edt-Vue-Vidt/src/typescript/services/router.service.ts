@@ -12,6 +12,7 @@ import { GridscapeComponent } from '../presets/gridscape/gridscape.component';
 import { ShutdownComponent } from '../presets/shutdown/shutdown.component';
 import { vidtPresets } from '../../../../Shared/vidt-presets';
 import { ColorTwinkleComponent } from '../presets/color-twinkle/color-twinkle.component';
+import { KaraokeComponent } from '../presets/karaoke/karaoke.component';
 
 export const router = new VueRouter({
     base:'',
@@ -28,6 +29,7 @@ export const router = new VueRouter({
         { path: vidtPresets.get(10) || '',  component: VideoPlayerComponent },
         { path: vidtPresets.get(11) || '',  component: VistaComponent },
         { path: vidtPresets.get(12) || '',  component: ColorTwinkleComponent },
+        { path: vidtPresets.get(13) || '',  component: KaraokeComponent },
         { path: '*', redirect: vidtPresets.get(1) || ''},
     ],
 });
