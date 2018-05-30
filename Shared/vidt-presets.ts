@@ -12,6 +12,7 @@ vidtPresets.set(9, '/shutdown');
 vidtPresets.set(10, '/video');
 vidtPresets.set(11, '/vista');
 vidtPresets.set(12, '/color-twinkle');
+vidtPresets.set(13, '/karaoke');
 
 export enum animationTypes {
     bounce,
