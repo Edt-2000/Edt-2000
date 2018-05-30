@@ -18,7 +18,7 @@
         text-transform: uppercase;
         top: 50%;
         transform: translate(-50%, -50%);
-        transition: opacity .6s, transform .6s;
+        transition: opacity .3s, transform .3s;
 
         .is-hidden & {
             opacity: 0;
