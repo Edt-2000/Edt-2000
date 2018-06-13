@@ -6,8 +6,7 @@ import {Actions$} from '../../../../../Shared/actions';
     template: `
         <ul *ngIf="(cueList$ | async) as cues">
             <li *ngFor="let cue of cues">
-                <h1>{{cue.title}}</h1>
-                <p>{{cue.description}}</p>
+                <button class="button is-large">{{cue.label}}</button>
             </li>
         </ul>
     `,
