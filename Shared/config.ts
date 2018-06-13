@@ -12,7 +12,7 @@ export const enum DeviceIPs {
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
     edtDispEdter = '169.168.219.93',
-    edtSledt = '192.168.2.16',
+    edtSledt = '192.168.2.20',
 }
 
 // OSC Adresses of Edt Family

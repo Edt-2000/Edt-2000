@@ -2,8 +2,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import {IColor} from '../../../../../Shared/socket';
 import {Actions$} from '../../../../../Shared/actions';
-
-const convert = require('color-convert');
+import { hsv2rgb } from '../../helpers/hsv-2-rgb';
 
 @Component({
     name: 'color-background',
@@ -47,22 +46,13 @@ export class ColorBackgroundComponent extends Vue {
             .subscribe((item) => {
                 this.colorType = 'single';
                 this.pulseDuration = 0;
-                this.saveColors(item);
+                this.rgbColors = [hsv2rgb(item)];
                 this.setStyles();
 
                 if (this.pulseDuration !== 0) {
                     this.pulse();
                 }
             });
-    }
-
-    saveColors(item: IColor) {
-        // reset array
-        this.rgbColors = [this.convertToRGB(item.hue, item.saturation, item.brightness)];
-    }
-
-    convertToRGB(h: number, s: number, v: number) {
-        return convert.hsv.rgb(h, s, v);
     }
 
     pulse() {

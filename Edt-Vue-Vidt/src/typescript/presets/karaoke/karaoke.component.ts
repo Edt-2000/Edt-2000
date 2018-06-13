@@ -36,7 +36,7 @@ export class KaraokeComponent extends Vue {
 
                         window.setTimeout(() => {
                             this.cssClass = '';
-                        }, 300)
+                        }, 150)
                     });
                 } else {
                     this.text = text;

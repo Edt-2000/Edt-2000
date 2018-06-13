@@ -69,9 +69,9 @@ export const Actions$ = {
         brightness: 0,
     }),
     vidtSingleColor: <BehaviorSubject<IColor>> new BehaviorSubject<IColor>({
-        hue: 326,
-        saturation: 91,
-        brightness: 100,
+        hue: 231,
+        saturation: 255,
+        brightness: 255,
     }),
     multiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([{
         hue: 0,
