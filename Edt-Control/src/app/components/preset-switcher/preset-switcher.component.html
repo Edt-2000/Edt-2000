@@ -1,0 +1,18 @@
+<div class="preset-switcher">
+    <button class="preset-switcher__button preset-switcher__button--main"
+            (click)="changePreset(preset.modifier, !preset.state)"
+            [class.is-active]="preset.state">
+        <span>{{noteName}}: {{preset.title}} ({{preset.modifier}})</span>
+    </button>
+    <div class="preset-switcher__items">
+        <ng-container *ngIf="'preset.config.select'">
+            <button *ngFor="let select of preset.config.select"
+                    class="preset-switcher__button preset-switcher__button--sub"
+                    [class.is-selected]="select.value === preset.modifier"
+                    [class.is-active]="preset.state"
+                    (click)="changePreset(select.value, true)">
+                <span>{{select.label}} ({{select.value}})</span>
+            </button>
+        </ng-container>
+    </div>
+</div>

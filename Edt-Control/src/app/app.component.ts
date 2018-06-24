@@ -4,19 +4,7 @@ import {SocketService} from './socket.service';
 
 @Component({
     selector: 'app-root',
-    template: `
-        <section class="section">
-            <router-outlet></router-outlet>
-        </section>
-
-        <nav class="navbar is-success is-fixed-bottom">
-            <div class="navbar-brand">
-                <a *ngFor="let page of pages" routerLinkActive="is-active" class="navbar-item" [routerLink]="page.path">
-                    {{page.text}}
-                </a>
-            </div>
-        </nav>
-  `
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
     pages = pages;

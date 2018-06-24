@@ -1,0 +1,26 @@
+@import '../config/colors';
+@import '../config/fonts';
+@import '../config/sizes';
+@import '../mixins/screen';
+
+.app {
+    background: $c-black;
+    color: $c-white;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+
+    &__nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    &__content {
+        padding-top: $nav-height;
+    }
+
+    @include screen($screen-simple) {
+        padding: 2rem;
+    }
+}

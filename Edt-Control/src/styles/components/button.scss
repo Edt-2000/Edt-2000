@@ -1,0 +1,47 @@
+@import '../config/colors';
+@import '../config/sizes';
+
+.button {
+    @include font-style-button;
+    background: $c-blue;
+    color: $c-white;
+    display: block;
+    height: $height-button;
+    line-height: $height-button;
+    min-width: 60px;
+    overflow: hidden;
+    padding: 0 1rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &:hover {
+        background: $c-darkblue;
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+    }
+
+    &.is-active {
+        background: $c-pink;
+    }
+
+    &--preset {
+        width: 310px;
+    }
+
+    @each $color in $colorIntensity {
+        $i: index($colorIntensity, $color);
+        &--intensity-#{$i} {
+            background: $color;
+
+            &:hover {
+                background: darken($color, 5%);
+            }
+        }
+    }
+
+}

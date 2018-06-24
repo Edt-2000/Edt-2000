@@ -1,0 +1,23 @@
+@import '../config/sizes';
+@import '../mixins/list-reset';
+@import '../mixins/screen';
+
+.list {
+    @include list-reset;
+    display: flex;
+    flex-wrap: wrap;
+    margin: -.6rem;
+
+    &__item {
+        padding: .6rem;
+    }
+
+    @include screen($screen-simple) {
+        &--presets {
+            .list__item {
+                flex-basis: 33.33%;
+                width: 33.33%;
+            }
+        }
+    }
+}

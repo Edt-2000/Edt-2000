@@ -8,7 +8,7 @@ import {AppComponent} from './app.component';
 import {PresetControllerComponent} from './pages/preset-controller/preset-controller.component';
 import {ColorControllerComponent} from './pages/color-controller/color-controller.component';
 import {pages} from './app.routes';
-import {PresetSwitcherComponent} from './components/preset-button/preset-switcher.component';
+import {PresetSwitcherComponent} from './components/preset-switcher/preset-switcher.component';
 import {CuesControllerComponent} from './pages/cues-controller/cues-controller.component';
 import {SocketService} from './socket.service';
 import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller.component';
