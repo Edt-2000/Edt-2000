@@ -1,9 +1,11 @@
-// Theme from https://github.com/jenil/bulmaswatch and modified where needed
-@import "fonts";
-@import "variables";
+@import 'base/reset';
+@import 'base/base';
+@import 'config/fonts';
+@import 'config/sizes';
 
-$fa-font-path: "~font-awesome/fonts";
-@import "../../node_modules/font-awesome/scss/font-awesome";
-@import "../../node_modules/bulma/bulma";
+@import 'components/app';
+@import 'components/button';
+@import 'components/form';
+@import 'components/list';
+@import 'components/nav';
 
-@import "overrides";
