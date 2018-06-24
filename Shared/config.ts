@@ -43,10 +43,10 @@ export enum Modii {
 
 // TODO: each song has a different channel setup, needs to be dynamic!
 export enum MidiChannels {
-    synth = 1,
-    bass = 2,
-    melody = 3,
-    drum = 10,
+    channel_1 = 1,
+    channel_2 = 2,
+    channel_3 = 3,
+    channel_10 = 10,
 }
 
 export const Arduinos: string[] = [

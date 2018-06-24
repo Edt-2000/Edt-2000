@@ -4,7 +4,7 @@ import {IMidiNoteMsg} from '../../../Shared/types';
 import {noteOff$, noteOn$} from './midi';
 import {filter, map, merge} from 'rxjs/operators';
 
-// The drum notes are mapped by the KORG to the following note numbers
+// The channel_10 notes are mapped by the KORG to the following note numbers
 export enum DrumNotes {
     '_1' = 36,
     '_2' = 38,
@@ -20,7 +20,7 @@ export enum DrumNotes {
 const drumTriggerOnOff$: Observable<IMidiNoteMsg> = noteOn$
     .pipe(
         merge(noteOff$),
-        filter((msg) => msg.channel === MidiChannels.drum && msg.note in DrumNotes),
+        filter((msg) => msg.channel === MidiChannels.channel_10 && msg.note in DrumNotes),
     );
 
 export const drumTriggerOn$: Observable<DrumNotes> = drumTriggerOnOff$

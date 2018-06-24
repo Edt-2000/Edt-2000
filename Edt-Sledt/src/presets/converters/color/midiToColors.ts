@@ -15,10 +15,10 @@ export class MidiToColors extends PresetLogic {
 
     modifierOptions: IModifierOptions = {
         select: [
-            {label: MidiChannels[MidiChannels.synth], value: MidiChannels.synth},
-            {label: MidiChannels[MidiChannels.bass], value: MidiChannels.bass},
-            {label: MidiChannels[MidiChannels.melody], value: MidiChannels.melody},
-            {label: MidiChannels[MidiChannels.drum], value: MidiChannels.drum},
+            {label: MidiChannels[MidiChannels.channel_1], value: MidiChannels.channel_1},
+            {label: MidiChannels[MidiChannels.channel_2], value: MidiChannels.channel_2},
+            {label: MidiChannels[MidiChannels.channel_3], value: MidiChannels.channel_3},
+            {label: MidiChannels[MidiChannels.channel_10], value: MidiChannels.channel_10},
         ],
     };
 
