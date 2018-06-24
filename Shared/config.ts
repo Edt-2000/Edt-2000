@@ -12,12 +12,13 @@ export const enum DeviceIPs {
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
     edtDispEdter = '169.168.219.93',
-    edtSledt = '192.168.2.20',
+    edtSledt = '192.168.2.16',
 }
 
-// OSC Adresses of Edt Family
 export enum OSCDevices {
-    EdtDispEdter = 'L',
+    EdtFastLed = 'F',
+    EdtRGBLed = 'R',
+    EdtDMX = 'D',
     EdtOnOff = 'O',
     EdtTrack = 'TK',
     EdtPedal = 'PD',
@@ -47,6 +48,12 @@ export enum MidiChannels {
     melody = 3,
     drum = 10,
 }
+
+export const Arduinos: string[] = [
+    '/dev/tty.usbmodem14231',
+    '/dev/tty.usbmodem14241',
+    '/dev/tty.usbmodem14211',
+];
 
 export const oscInPort = 12345;
 export const oscOutPort = 12345;

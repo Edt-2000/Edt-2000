@@ -10,6 +10,7 @@ import {MidiAutomationInput} from './inputs/midi-automation';
 import {MidiAutomationOutput} from './outputs/midi-automation';
 import {presetCues} from '../../Shared/cues';
 import {EdtVidtOutput} from './outputs/edt-vidt';
+import {EdtSerialModule} from './communication/serial';
 
 presets.forEach((preset) => presetMap.set(+preset.note, preset));
 if (presets.length !== presetMap.size) console.error('Not all presets have a unique NoteNr!');
@@ -40,7 +41,7 @@ io.on('connection', (socket) => {
     socket.on('fromControl', nextActionFromMsg);
 });
 
-console.log('Including modules: ', MidiAutomationInput, MidiAutomationOutput, EdtVidtOutput);
+console.log('Including modules: ', MidiAutomationInput, MidiAutomationOutput, EdtVidtOutput, EdtSerialModule);
 console.log('Init complete, waiting for devices and/or messages..');
 
 // Loggers, comment to disable

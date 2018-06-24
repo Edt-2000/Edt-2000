@@ -10,7 +10,7 @@ import {toVidt} from '../../../outputs/edt-vidt';
 
 export class MainBeatToVidtBeat extends PresetLogic {
     title = 'MainBeatToVidtBeat';
-    note = Note.A$3;
+    note = Note.A$6;
 
     modifierOptions: IModifierOptions = {};
 

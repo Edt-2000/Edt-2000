@@ -4,10 +4,11 @@ import {IModifierOptions} from '../../../../../Shared/types';
 import {Note} from '../../../../../Shared/midi';
 import {Actions$} from '../../../../../Shared/actions';
 import {FastLedtSingleSolid} from '../../../outputs/edt-fastled';
+import {RGBLedtSingleSolid} from '../../../outputs/edt-rgbledt';
 
-export class ColorToLEDTSolid extends PresetLogic {
-    title = 'ColorToLEDTSolid';
-    note = Note.A$2;
+export class ColorToAllSolid extends PresetLogic {
+    title = 'ColorToAllSolid';
+    note = Note.A$3;
 
     modifierOptions: IModifierOptions = {};
 
@@ -16,6 +17,7 @@ export class ColorToLEDTSolid extends PresetLogic {
     public _startPreset(): void {
         this.subscriber = Actions$.singleColor.subscribe((color) => {
             FastLedtSingleSolid(0, color);
+            RGBLedtSingleSolid(0, color);
         });
     }
 
