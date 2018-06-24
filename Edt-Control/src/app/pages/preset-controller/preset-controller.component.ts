@@ -3,14 +3,8 @@ import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-preset-controller',
-    template: `
-        <div class="columns is-multiline" *ngIf="(presetState$ | async) as presets">
-            <div class="column is-fullwidth" *ngFor="let preset of presets;">
-                <app-preset-switcher [preset]="preset"></app-preset-switcher>
-            </div>
-        </div>
-    `,
-    styles: [],
+    templateUrl: './preset-controller.component.html',
+    styleUrls: ['./preset-controller.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PresetControllerComponent implements OnInit {

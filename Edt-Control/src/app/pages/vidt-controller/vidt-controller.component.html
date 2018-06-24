@@ -1,0 +1,41 @@
+<div class="vidt-controller">
+    <ul class="list">
+        <li class="list__item">
+            <button class="button" (click)="sendBeat()">BEAT</button>
+        </li>
+
+        <ng-container *ngFor="let vidtPage of vidtPages">
+            <li class="list__item">
+            <button class="button" (click)="sendVidtPreset(vidtPage)">
+                    {{vidtPage.label}}
+                </button>
+            </li>
+        </ng-container>
+        <ng-container *ngFor="let asset of photoAssets">
+            <li class="list__item">
+                <button class="button" (click)="sendPhotoAsset(asset)">
+                    {{asset.name}}
+                </button>
+            </li>
+        </ng-container>
+
+        <li class="list__item">
+            <label class="form__label">Direct input</label>
+            <input #mainDirect type="text" class="form__input" (keyup)="sendText(mainDirect.value)">
+        </li>
+
+        <li class="list__item">
+            <label class="form__label">On send</label>
+            <input #mainBtn type="text" class="form__input">
+            <button class="button" (click)="sendText(mainBtn.value)">SEND</button>
+        </li>
+
+        <ng-container *ngFor="let word of wordsArray">
+            <li class="list__item">
+                <button class="button" (click)="sendText(word)">
+                    {{word}}
+                </button>
+            </li>
+        </ng-container>
+    </ul>
+</div>

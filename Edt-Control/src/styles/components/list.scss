@@ -1,0 +1,55 @@
+@import '../config/sizes';
+@import '../mixins/list-reset';
+@import '../mixins/screen';
+
+.list {
+    @include list-reset;
+    display: flex;
+    flex-wrap: wrap;
+    margin: -.5rem;
+
+    &__item {
+        padding: .5rem;
+    }
+
+    &--colors {
+        > .list__item {
+            flex-basis: 50%;
+            width: 50%;
+        }
+    }
+
+    &--presets {
+        > .list__item {
+            flex-basis: 100%;
+            width: 100%;
+        }
+    }
+
+    @include screen($screen-minimal) {
+        &--colors {
+            > .list__item {
+                flex-basis: 33.33%;
+                width: 33.33%;
+            }
+        }
+    }
+
+    @include screen($screen-simple) {
+        &--colors {
+            > .list__item {
+                flex-basis: 25%;
+                width: 25%;
+            }
+        }
+    }
+
+    @include screen($screen-xlarge) {
+        &--colors {
+            > .list__item {
+                flex-basis: 20%;
+                width: 20%;
+            }
+        }
+    }
+}

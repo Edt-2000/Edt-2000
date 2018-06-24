@@ -1,0 +1,36 @@
+@import '../config/colors';
+@import '../config/sizes';
+
+.button {
+    background-color: $c-purple;
+    border: 2px solid $c-purple;
+    display: block;
+    color: $c-white;
+    font-size: 1.125rem;
+    height: $height-button;
+    line-height: $height-button - 4px;
+    min-width: 120px;
+    overflow: hidden;
+    padding: 0 1rem;
+    position: relative;
+    text-align: center;
+    transition: background-color .2s, border-color .2s;
+    white-space: nowrap;
+
+    &--white-outline {
+        background-color: transparent;
+        border-color: $c-offwhite;
+        color: $c-white;
+    }
+
+    &--white {
+        background-color: $c-offwhite;
+        border-color: $c-offwhite;
+        color: $c-black;
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+    }
+}

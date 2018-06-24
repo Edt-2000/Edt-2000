@@ -1,0 +1,17 @@
+@import '../../../styles/config/colors';
+
+.color-controller {
+    &__button {
+        color: $c-black;
+        padding-bottom: 100%;
+        width: 100%;
+        
+        span {
+            display: none;
+        }
+
+        &.is-active {
+
+        }
+    }
+}
