@@ -2,46 +2,31 @@
 @import '../config/sizes';
 
 .button {
-    @include font-style-button;
-    background: $c-blue;
-    color: $c-white;
+    border: 2px solid transparent;
     display: block;
-    height: $height-button;
-    line-height: $height-button;
-    min-width: 60px;
+    height: 42px;
+    line-height: 38px;
     overflow: hidden;
     padding: 0 1rem;
+    position: relative;
     text-align: center;
-    text-overflow: ellipsis;
-    text-transform: uppercase;
+    transition: background-color .2s, border-color .2s;
     white-space: nowrap;
 
-    &:hover {
-        background: $c-darkblue;
+    &--white-outline {
+        background-color: transparent;
+        border-color: $c-offwhite;
+        color: $c-white;
+    }
+
+    &--white {
+        background-color: $c-offwhite;
+        border-color: $c-offwhite;
+        color: $c-black;
     }
 
     &:active,
     &:focus {
         outline: none;
     }
-
-    &.is-active {
-        background: $c-pink;
-    }
-
-    &--preset {
-        width: 310px;
-    }
-
-    @each $color in $colorIntensity {
-        $i: index($colorIntensity, $color);
-        &--intensity-#{$i} {
-            background: $color;
-
-            &:hover {
-                background: darken($color, 5%);
-            }
-        }
-    }
-
 }

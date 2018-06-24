@@ -1,5 +1,5 @@
-<div class="list list--presets" *ngIf="(presetState$ | async) as presets">
+<ul class="list list--presets" *ngIf="(presetState$ | async) as presets">
     <li class="list__item" *ngFor="let preset of presets;">
         <app-preset-switcher [preset]="preset"></app-preset-switcher>
     </li>
-</div>
+</ul>

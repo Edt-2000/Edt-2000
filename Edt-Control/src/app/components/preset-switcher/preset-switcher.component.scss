@@ -1,29 +1,28 @@
 @import '../../../styles/config/colors';
+@import '../../../styles/config/sizes';
+@import '../../../styles/mixins/stretch';
+@import '../../../styles/mixins/screen';
 
 .preset-switcher {
+    margin: 0 0 1rem;
     width: 100%;
 
-    &__button {
-        background: $c-offwhite;
-        color: $c-black;
-        height: 42px;
-        line-height: 42px;
-        padding: 0 2.2rem 0 1rem;
-        width: 100%;
-        position: relative;
-        white-space: nowrap;
+    &__main {
+        margin-bottom: 1rem;
+        padding-right: 2.5rem;
+        text-align: left;
 
         &::after {
-            display: block;
-            content: '';
-            width: 16px;
-            height: 16px;
+            background: $c-grey;
             border-radius: 50%;
-            background: $c-red;
+            content: '';
+            display: block;
+            height: 16px;
             position: absolute;
-            top: 50%;
             right: 1rem;
+            top: 50%;
             transform: translateY(-50%);
+            width: 16px;
         }
 
         &.is-active {
@@ -31,11 +30,34 @@
                 background: $c-green;
             }
         }
-
-
     }
 
-    &__items {
+    &__sub {
+        min-width: 120px;
+        text-align: left;
 
+        &.is-active {
+            background-color: $c-green;
+            border-color: $c-green;
+
+            &.is-selected {
+                background-color: $c-green;
+                border-color: $c-green;
+            }
+        }
+
+        &.is-selected {
+            background-color: $c-grey;
+            border-color: $c-grey;
+        }
+    }
+
+    @include screen($screen-simple) {
+        display: flex;
+
+        &__main {
+            flex: 0 0 300px;
+            margin: 0 1.5rem 0 0;
+        }
     }
 }

@@ -6,18 +6,16 @@
     @include list-reset;
     display: flex;
     flex-wrap: wrap;
-    margin: -.6rem;
+    margin: -.4rem;
 
     &__item {
-        padding: .6rem;
+        padding: .4rem;
     }
 
-    @include screen($screen-simple) {
-        &--presets {
-            .list__item {
-                flex-basis: 33.33%;
-                width: 33.33%;
-            }
+    &--presets {
+        > .list__item {
+            flex-basis: 100%;
+            width: 100%;
         }
     }
 }
