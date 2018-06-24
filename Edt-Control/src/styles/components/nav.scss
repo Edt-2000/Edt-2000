@@ -1,6 +1,7 @@
 @import '../config/colors';
 @import '../config/fonts';
 @import '../config/sizes';
+@import '../mixins/container';
 @import '../mixins/list-reset';
 @import '../mixins/screen';
 
@@ -8,10 +9,16 @@
     background: $c-pink;
     height: $nav-height;
 
+    &__container {
+        @include container;
+        height: 100%;
+    }
+
     &__list {
         @include list-reset;
         display: flex;
         height: 100%;
+        margin-left: -1rem;
     }
 
     &__item {
@@ -19,15 +26,16 @@
         position: relative;
 
         &::after {
-            content: '';
-            width: 1px;
-            height: 60%;
             background: $c-white;
+            content: '';
+            height: 26px;
             position: absolute;
-            top: 20%;
             right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
         }
-        
+
         &:last-child {
             &::after {
                 display: none;
@@ -38,20 +46,16 @@
     &__link {
         color: $c-white;
         display: block;
-        height: 100%;
         font-weight: 700;
+        height: 100%;
         line-height: 42px;
         padding: 0 1rem;
-        transition: color .2s;
         text-transform: uppercase;
+        transition: color .2s;
 
         &:hover,
         &.is-active {
             color: $c-black;
         }
-    }
-
-    @include screen($screen-simple) {
-        padding: 0 .5rem;
     }
 }

@@ -1,6 +1,8 @@
 @import '../config/colors';
 @import '../config/fonts';
 @import '../config/sizes';
+@import '../mixins/container';
+
 @import '../mixins/screen';
 
 .app {
@@ -17,12 +19,9 @@
     }
 
     &__content {
-        padding: 80px 1rem 2rem 1rem;
+        @include container;
+        padding-bottom: 20px;
+        padding-top: ($nav-height + 40px);
     }
 
-    @include screen($screen-simple) {
-        &__content {
-            padding: 80px 1.5rem 2rem 1.5rem;
-        }
-    }
 }

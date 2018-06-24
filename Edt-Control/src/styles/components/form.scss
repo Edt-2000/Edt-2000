@@ -1,18 +1,19 @@
 @import '../config/colors';
+@import '../config/fonts';
 @import '../config/sizes';
 
 .form {
     &__label {
-        @include font-style-button;
+        font-family: $font-mono;
     }
 
     &__input {
-        @include font-style-button;
+        font-family: $font-mono;
         background: $c-black;
-        border: 4px solid $c-white;
+        border: 2px solid $c-white;
         color: $c-white;
         height: $height-button;
-        line-height: $height-button;
+        line-height: $height-button - 4px;
         padding: 0 1rem;
         text-transform: uppercase;
     }

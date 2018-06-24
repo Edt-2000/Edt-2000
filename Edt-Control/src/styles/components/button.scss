@@ -2,10 +2,14 @@
 @import '../config/sizes';
 
 .button {
-    border: 2px solid transparent;
+    background-color: $c-purple;
+    border: 2px solid $c-purple;
     display: block;
-    height: 42px;
-    line-height: 38px;
+    color: $c-white;
+    font-size: 1.125rem;
+    height: $height-button;
+    line-height: $height-button - 4px;
+    min-width: 120px;
     overflow: hidden;
     padding: 0 1rem;
     position: relative;
