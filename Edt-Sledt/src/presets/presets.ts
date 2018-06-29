@@ -6,10 +6,14 @@ import {ColorToLEDTSolid} from './outputs/rgbledt/colorToLEDTSolid';
 import {MainBeatToVidtBeat} from './outputs/vidt/mainBeatToVidtBeat';
 import {ColorToVidtColor} from './outputs/vidt/colorToVidtColor';
 import {ColorToAllSolid} from './outputs/_ledt/colorToAllSolid';
+import {MidiToColorsOff} from './converters/color/midiToColorsOff';
+import {StroboAll} from './outputs/_ledt/stroboAll';
 
 export const presets = [
     new BeatToColor(),
     new MidiToColors(),
+    new StroboAll(),
+    new MidiToColorsOff(),
     new DrumToBeat(),
     new ColorToKittSimple(),
     new ColorToLEDTSolid(),

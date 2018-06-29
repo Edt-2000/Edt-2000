@@ -12,6 +12,8 @@ serialports.forEach(port => port.on('error', function(err) {
 
 export function sendToSerial(device: string, strip: number | '?', params: number[] = []): void  {
     const msg = convertToOSC([device, strip.toString()], params);
+
+    // console.log('msg', device, strip.toString(), ...params);
     serialports.forEach(port => {
         port.write(msg);
     });

@@ -1,6 +1,9 @@
 import {Subscription} from 'rxjs/Subscription';
 import {IColor} from '../../../../../Shared/socket';
-import {noteOn$} from '../../../inputs/midi';
+import {
+    noteOff$,
+    noteOn$,
+} from '../../../inputs/midi';
 import {shuffleArray} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
@@ -9,9 +12,9 @@ import {MidiChannels} from '../../../../../Shared/config';
 import {Note} from '../../../../../Shared/midi';
 import {Actions, nextActionFromMsg} from '../../../../../Shared/actions';
 
-export class MidiToColors extends PresetLogic {
-    title: string = 'Midi To Colors';
-    note = Note.D_2;
+export class MidiToColorsOff extends PresetLogic {
+    title: string = 'Midi To Colors Off';
+    note = Note.D$3;
 
     modifierOptions: IModifierOptions = {
         select: [
@@ -20,8 +23,6 @@ export class MidiToColors extends PresetLogic {
             {label: MidiChannels[MidiChannels.channel_3], value: MidiChannels.channel_3},
             {label: MidiChannels[MidiChannels.channel_4], value: MidiChannels.channel_4},
             {label: MidiChannels[MidiChannels.channel_5], value: MidiChannels.channel_5},
-            {label: MidiChannels[MidiChannels.channel_10], value: MidiChannels.channel_10},
-
         ],
     };
 
@@ -40,15 +41,14 @@ export class MidiToColors extends PresetLogic {
     }
 
     public _startPreset(): void {
-
-        this.subscription = noteOn$.pipe(
+        this.subscription = noteOff$.pipe(
             filter((note) => note.channel === this.modifier),
         )
             .subscribe((note) => {
                 const newColor: IColor = {
                     hue: this.hues[note.noteNumber - 1],
-                    saturation: 255,
-                    brightness: 255,
+                    saturation: 0,
+                    brightness: 0,
                 };
                 nextActionFromMsg(Actions.singleColor(newColor));
             });

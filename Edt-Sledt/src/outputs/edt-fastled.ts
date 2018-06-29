@@ -7,13 +7,9 @@ import {sendToSerial} from '../communication/serial';
 
 export function EdtLEDSpark(instance: number = 0, start: number, end: number, duration: number, colorMsg: IColor) {
     sendToSerial(OSCDevices.EdtFastLed, '?', [
-        Modii.SingleSpark,
-        start,
-        end,
+        Modii.Bash,
         colorMsg.hue,
-        colorMsg.saturation,
         colorMsg.brightness,
-        duration,
     ]);
 }
 
@@ -24,6 +20,14 @@ export function EdtLEDRainbow(instance: number = 0, start: number, end: number, 
         end,
         colorMsg.hue,
         deltaHue,
+    ]);
+}
+
+export function FastLedtStrobo(instance: number = 0, hue: number, fps: number) {
+    // TODO Why u no work!?? Thomas
+    sendToSerial(OSCDevices.EdtFastLed, '?', [
+        hue,
+        fps,
     ]);
 }
 

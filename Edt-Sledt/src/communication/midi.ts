@@ -9,7 +9,8 @@ import {noteToNote, noteToOctave} from '../../../Shared/utils';
 import {map} from 'rxjs/operators';
 import {fromEvent} from 'rxjs/observable/fromEvent';
 
-const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
+// const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
+const virtualInput = new easymidi.Input('EDTMID USB MIDI Interface');
 const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
 
 // console.log(new easymidi.getInputs());
@@ -54,6 +55,8 @@ export const sledtNoteOff$: Observable<IMidiNoteMsg> = fromEvent<IEasyMidiNoteMs
 export const Program$: Observable<IMidiProgramMsg> = fromEvent<IMidiProgramMsg>(virtualInput, MidiMsgTypes.program).pipe(map(program => ({...program, channel: program.channel + 1})));
 
 export const Select$: Observable<IMidiSongMsg> = fromEvent<IMidiSongMsg>(virtualInput, MidiMsgTypes.select).pipe(map(select => ({...select, channel: select.channel + 1})));
+
+export const Clock$: Observable<void> = fromEvent<void>(virtualInput, MidiMsgTypes.clock);
 
 export const CC$: Observable<IMidiCCMsg> = fromEvent<IMidiCCMsg>(virtualInput, MidiMsgTypes.cc).pipe(map(cc => ({...cc, channel: cc.channel + 1})));
 
