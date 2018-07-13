@@ -1,6 +1,6 @@
 export const socketPort: number = 8988;
 
-export const socketConfig: { url: string, options: object } = {
+export const socketConfig = {
     url: `http://${DeviceIPs.edtSledt}:${socketPort}`,
     options: {
         transports: ['websocket'],
@@ -11,8 +11,9 @@ export const enum DeviceIPs {
     edtOut = '10.0.0.11',
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
+    edtRemoteDMX = '10.0.0.30',
     edtDispEdter = '169.168.219.93',
-    edtSledt = '192.168.178.123',
+    edtSledt = '10.0.0.202',
 }
 
 export enum OSCDevices {
@@ -52,16 +53,20 @@ export enum MidiChannels {
     channel_10 = 10,
 }
 
-export const Arduinos: string[] = [
-    '/dev/tty.usbmodem14131',
-    '/dev/tty.usbmodem14141',
-    // '/dev/tty.usbmodem14211',
+export const Arduinos = [
+    '/dev/tty.usbmodem14231',
+    '/dev/tty.usbmodem14241',
+    '/dev/tty.usbmodem14211',
 ];
+
+export const useRealMidi = false;
 
 export const oscInPort = 12345;
 export const oscOutPort = 12345;
 
-export const automationChannel: number = 16;
+export const automationChannel = 16;
 
-export const virtualMidiInputDevice: string = 'EDT-SLEDT-IN';
-export const virtualMidiOutputDevice: string = 'EDT-SLEDT-OUT';
+export const fastLedAmount = 7;
+
+export const virtualMidiInputDevice = 'EDT-SLEDT-IN';
+export const virtualMidiOutputDevice = 'EDT-SLEDT-OUT';
