@@ -1,5 +1,8 @@
 export const words: string[] = [
     'STROBOCOPS',
+    'DANCE',
+    'YOLO',
+    'HACKEH',
     'MAN',
     'VROUW',
     'ALLEMAAL',
@@ -8,6 +11,7 @@ export const words: string[] = [
     'RAUWER',
     'EN',
     'CABRIO',
+    'CABRIOLETTA',
     'LAST',
     'CHRISTMAS',
     'I',
@@ -15,5 +19,6 @@ export const words: string[] = [
     'YOU',
     'MY',
     'HEART',
-    'CODEMONKEYS'
+    'CODEMONKEYS',
+    'GEJAT'
 ];

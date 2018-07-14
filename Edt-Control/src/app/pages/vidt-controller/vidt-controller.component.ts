@@ -28,7 +28,6 @@ export class VidtControllerComponent implements OnInit {
         return slug.replace('/', '');
     }
 
-
     sendBeat() {
         this.socket.toSledt(Actions.mainBeat(127));
     }
