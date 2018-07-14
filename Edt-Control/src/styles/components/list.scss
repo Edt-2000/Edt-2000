@@ -12,6 +12,10 @@
         padding: .5rem;
     }
 
+    & + .list {
+        margin-top: 1rem;
+    }
+
     &--colors {
         > .list__item {
             flex-basis: 50%;
