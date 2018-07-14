@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {SocketService} from '../../socket.service';
 import {Actions} from '../../../../../Shared/actions';
-import { IPhotoAsset, photoAssets } from '../../../../../Shared/assets';
+import { IPhotoAsset, photoAssets, IVideoAsset, videoAssets } from '../../../../../Shared/assets';
 import {vidtPresets} from '../../../../../Shared/vidt-presets';
 import {words} from '../../../../../Shared/words';
 
@@ -13,6 +13,7 @@ import {words} from '../../../../../Shared/words';
 })
 export class VidtControllerComponent implements OnInit {
     photoAssets = photoAssets;
+    videoAssets = videoAssets;
     vidtPages = Array.from(vidtPresets, ([preset, label]) => ({preset, label}));
     wordsArray = words;
 
@@ -20,7 +21,13 @@ export class VidtControllerComponent implements OnInit {
     }
 
     ngOnInit() {
+
     }
+
+    formatLabel(slug: string) {
+        return slug.replace('/', '');
+    }
+
 
     sendBeat() {
         this.socket.toSledt(Actions.mainBeat(127));
@@ -28,6 +35,10 @@ export class VidtControllerComponent implements OnInit {
 
     sendPhotoAsset(asset: IPhotoAsset) {
         this.socket.toSledt(Actions.imageSrc(asset));
+    }
+
+    sendVideoAsset(asset: IVideoAsset) {
+        this.socket.toSledt(Actions.videoSrc(asset));
     }
 
     sendVidtPreset({preset}) {

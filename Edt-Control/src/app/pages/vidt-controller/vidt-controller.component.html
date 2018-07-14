@@ -1,41 +1,78 @@
 <div class="vidt-controller">
-    <ul class="list">
-        <li class="list__item">
-            <button class="button" (click)="sendBeat()">BEAT</button>
-        </li>
 
-        <ng-container *ngFor="let vidtPage of vidtPages">
+    <div class="section">
+        <h2 class="section__title">Presets</h2>
+        <ul class="list">
+            <ng-container *ngFor="let vidtPage of vidtPages">
+                <li class="list__item">
+                <button class="vidt-controller__button button" (click)="sendVidtPreset(vidtPage)">
+                        {{ formatLabel(vidtPage.label) }}
+                    </button>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+    <div class="section">
+        <h2 class="section__title">Photo's</h2>
+        <ul class="list">
+            <ng-container *ngFor="let asset of photoAssets">
+                <li class="list__item">
+                    <button class="vidt-controller__button button" (click)="sendPhotoAsset(asset)">
+                        {{asset.name}}
+                    </button>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2 class="section__title">Videos's</h2>
+        <ul class="list">
+            <ng-container *ngFor="let asset of videoAssets">
+                <li class="list__item">
+                    <button class="vidt-controller__button button" (click)="sendVideoAsset(asset)">
+                        {{asset.name}}
+                    </button>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2 class="section__title">Text</h2>
+
+        <ul class="list">
+            <ng-container *ngFor="let word of wordsArray">
+                <li class="list__item">
+                    <button class="vidt-controller__button button" (click)="sendText(word)">
+                        {{word}}
+                    </button>
+                </li>
+            </ng-container>
+        </ul>
+        <ul class="list">
             <li class="list__item">
-            <button class="button" (click)="sendVidtPreset(vidtPage)">
-                    {{vidtPage.label}}
-                </button>
+                <label class="form__label">Direct input</label>
+                <input #mainDirect type="text" class="form__input" (keyup)="sendText(mainDirect.value)">
             </li>
-        </ng-container>
-        <ng-container *ngFor="let asset of photoAssets">
+
             <li class="list__item">
-                <button class="button" (click)="sendPhotoAsset(asset)">
-                    {{asset.name}}
-                </button>
+                <label class="form__label">On send</label>
+                <div class="form__item">
+                    <input #mainBtn type="text" class="form__input">
+                    <button class="vidt-controller__button button form__button" (click)="sendText(mainBtn.value)">SEND</button>
+                </div>
             </li>
-        </ng-container>
+        </ul>
+    </div>
 
-        <li class="list__item">
-            <label class="form__label">Direct input</label>
-            <input #mainDirect type="text" class="form__input" (keyup)="sendText(mainDirect.value)">
-        </li>
 
-        <li class="list__item">
-            <label class="form__label">On send</label>
-            <input #mainBtn type="text" class="form__input">
-            <button class="button" (click)="sendText(mainBtn.value)">SEND</button>
-        </li>
-
-        <ng-container *ngFor="let word of wordsArray">
+    <div class="section">
+        <h2 class="section__title">Beat</h2>
+        <ul class="list">
             <li class="list__item">
-                <button class="button" (click)="sendText(word)">
-                    {{word}}
-                </button>
+                <button class="vidt-controller__button button" (click)="sendBeat()">BEAT</button>
             </li>
-        </ng-container>
-    </ul>
+        </ul>
+    </div>
 </div>
