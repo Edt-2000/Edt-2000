@@ -39,6 +39,19 @@
     </div>
 
     <div class="section">
+        <h2 class="section__title">Animations</h2>
+        <ul class="list">
+            <ng-container *ngFor="let type of animations">
+                <li class="list__item">
+                    <button class="vidt-controller__button button" (click)="sendAnimation(type)">
+                        {{type}}
+                    </button>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+
+    <div class="section">
         <h2 class="section__title">Text</h2>
         <ul class="list">
             <ng-container *ngFor="let word of wordsArray">

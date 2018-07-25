@@ -15,8 +15,8 @@ vidtPresets.set(12, '/color-twinkle');
 vidtPresets.set(13, '/karaoke');
 
 export enum animationTypes {
-    bounce,
-    rotate,
-    spin,
-    stretch,
+    bounce = 'bounce',
+    rotate = 'rotate',
+    spin = 'spin',
+    stretch = 'stretch',
 }

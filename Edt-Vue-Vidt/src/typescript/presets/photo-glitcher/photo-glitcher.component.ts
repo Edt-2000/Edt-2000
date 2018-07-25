@@ -23,7 +23,7 @@ export class PhotoGlitcherComponent extends Vue {
 
         this.animationSubscription = Actions$.animationType
             .subscribe((animation) => {
-                this.animation = animationTypes[animation];
+                this.animation = animation;
             });
 
         this.photoSubscription = Actions$.imageSrc

@@ -20,7 +20,7 @@ let virtualInput;
 const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
 
 if(useRealMidi) {
-    console.log('MIDI interfaces:', new easymidi.getInputs());
+    // console.log('MIDI interfaces:', new easymidi.getInputs());
     virtualInput = new easymidi.Input('EDTMID USB MIDI Interface');
 } else {
     virtualInput = new easymidi.Input(virtualMidiInputDevice, true);

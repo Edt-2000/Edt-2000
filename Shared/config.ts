@@ -59,7 +59,7 @@ export const Arduinos = [
     '/dev/tty.usbmodem14211',
 ];
 
-export const useRealMidi = false;
+export const useRealMidi = true;
 
 export const oscInPort = 12345;
 export const oscOutPort = 12345;

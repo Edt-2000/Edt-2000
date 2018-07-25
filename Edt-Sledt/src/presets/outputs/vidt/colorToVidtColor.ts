@@ -2,10 +2,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {PresetLogic} from '../../presets-logic';
 import {IModifierOptions} from '../../../../../Shared/types';
 import {Note} from '../../../../../Shared/midi';
-import {
-    Actions,
-    Actions$,
-} from '../../../../../Shared/actions';
+import {Actions, Actions$,} from '../../../../../Shared/actions';
 import {toVidt} from '../../../outputs/edt-vidt';
 
 export class ColorToVidtColor extends PresetLogic {

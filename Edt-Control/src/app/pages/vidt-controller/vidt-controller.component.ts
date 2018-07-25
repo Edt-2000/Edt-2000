@@ -2,7 +2,10 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {SocketService} from '../../socket.service';
 import {Actions} from '../../../../../Shared/actions';
 import { IPhotoAsset, photoAssets, IVideoAsset, videoAssets } from '../../../../../Shared/assets';
-import {vidtPresets} from '../../../../../Shared/vidt-presets';
+import {
+    animationTypes,
+    vidtPresets,
+} from '../../../../../Shared/vidt-presets';
 import {words} from '../../../../../Shared/words';
 
 @Component({
@@ -16,6 +19,12 @@ export class VidtControllerComponent implements OnInit {
     videoAssets = videoAssets;
     vidtPages = Array.from(vidtPresets, ([preset, label]) => ({preset, label}));
     wordsArray = words;
+    animations = [
+        animationTypes.stretch,
+        animationTypes.spin,
+        animationTypes.rotate,
+        animationTypes.bounce,
+    ];
 
     constructor(private socket: SocketService) {
     }
@@ -46,5 +55,9 @@ export class VidtControllerComponent implements OnInit {
 
     sendText(main: string) {
         this.socket.toSledt(Actions.mainText(main));
+    }
+
+    sendAnimation(animation: animationTypes) {
+        this.socket.toSledt(Actions.animationType(animation));
     }
 }
