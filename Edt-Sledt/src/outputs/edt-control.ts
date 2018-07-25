@@ -8,15 +8,18 @@ export function toControl(msg: Actions) {
 }
 
 export function sendStateToControl() {
-    const currentState = Array.from(presetMap)
-        .map(([presetNr, preset]) => {
-            return <IControlPresetMsg>{
-                preset: presetNr,
-                modifier: preset.modifier,
-                state: preset.state,
-                title: preset.title,
-                config: preset.modifierOptions,
-            }
-        });
-    toControl(Actions.presetState(currentState));
+    toControl(
+        Actions.presetState(
+            Array.from(presetMap)
+                .map(([presetNr, preset]) => {
+                    return <IControlPresetMsg>{
+                        preset: presetNr,
+                        modifier: preset.modifier,
+                        state: preset.state,
+                        title: preset.title,
+                        config: preset.modifierOptions,
+                    }
+                }),
+        ),
+    );
 }

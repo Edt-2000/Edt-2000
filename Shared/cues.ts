@@ -6,7 +6,7 @@ import {DrumNotes} from '../Edt-Sledt/src/inputs/music-triggers';
 
 export const presetCues: ICue[] = [
     {
-        label: 'DrumKick -> ColorChanges',
+        label: 'DrumKick -> ColorChange',
         actions: [
             Actions.presetChange({
                 preset: new DrumToBeat().note,

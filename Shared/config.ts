@@ -13,7 +13,7 @@ export const enum DeviceIPs {
     edtPad = '10.0.0.100',
     edtRemoteDMX = '10.0.0.30',
     edtDispEdter = '169.168.219.93',
-    edtSledt = '10.0.0.202',
+    edtSledt = '192.168.2.16',
 }
 
 export enum OSCDevices {
@@ -59,7 +59,7 @@ export const Arduinos = [
     '/dev/tty.usbmodem14211',
 ];
 
-export const useRealMidi = true;
+export const useRealMidi = false;
 
 export const oscInPort = 12345;
 export const oscOutPort = 12345;
