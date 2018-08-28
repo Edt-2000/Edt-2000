@@ -1,10 +1,11 @@
 import {Subscription} from 'rxjs/Subscription';
-import {DrumNotes, drumTriggerOn$} from '../../../inputs/music-triggers';
+import {drumTriggerOn$} from '../../../inputs/music-triggers';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
 import {IModifierOptions} from '../../../../../Shared/types';
 import {Note} from '../../../../../Shared/midi';
 import {Actions, nextActionFromMsg} from '../../../../../Shared/actions';
+import {DrumNotes} from "../../../../../Shared/config";
 
 export class DrumToBeat extends PresetLogic {
     title = 'Drum to Beat';
