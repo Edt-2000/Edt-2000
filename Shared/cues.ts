@@ -18,7 +18,7 @@ export const presetCues: ICue[] = [
                 modifier: 127,
                 state: true,
             }),
-            Actions.prepareVidt(),
+            Actions.prepareVidt(1),
         ],
     }
 ];
