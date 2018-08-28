@@ -20,6 +20,7 @@ export const ANIMATION_TYPE = 'ANIMATION_TYPE';
 export const SINGLE_COLOR = 'SINGLE_COLOR';
 export const VIDT_SINGLE_COLOR = 'VIDT_SINGLE_COLOR';
 export const MULTI_COLOR = 'MULTI_COLOR';
+export const VIDT_MULTI_COLOR = 'VIDT_MULTI_COLOR';
 export const MAIN_BEAT = 'MAIN_BEAT';
 export const VIDT_BEAT = 'VIDT_BEAT';
 export const GLITCH_INTENSITY = 'GLITCH_INTENSITY';
@@ -43,6 +44,7 @@ export const Actions = {
     singleColor: (payload: IColor) => createAction(SINGLE_COLOR, payload),
     vidtSingleColor: (payload: IColor) => createAction(VIDT_SINGLE_COLOR, payload),
     multiColor: (payload: IColor[]) => createAction(MULTI_COLOR, payload),
+    vidtMultiColor: (payload: IColor[]) => createAction(VIDT_MULTI_COLOR, payload),
     mainBeat: (payload: number) => createAction(MAIN_BEAT, payload),
     vidtBeat: (payload: number) => createAction(VIDT_BEAT, payload),
     glitchIntensity: (payload: number) => createAction(GLITCH_INTENSITY, payload),
@@ -78,6 +80,11 @@ export const Actions$ = {
         saturation: 0,
         brightness: 0,
     }]),
+    vidtMultiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([{
+        hue: 0,
+        saturation: 0,
+        brightness: 0,
+    }]),
     mainBeat: <Subject<number>> new Subject<number>(),
     vidtBeat: <Subject<number>> new Subject<number>(),
     glitchIntensity: <BehaviorSubject<number>> new BehaviorSubject<number>(0),
@@ -99,6 +106,7 @@ export function nextActionFromMsg(msg: Actions) {
     if (msg.type === SINGLE_COLOR) Actions$.singleColor.next(msg.payload);
     if (msg.type === VIDT_SINGLE_COLOR) Actions$.vidtSingleColor.next(msg.payload);
     if (msg.type === MULTI_COLOR) Actions$.multiColor.next(msg.payload);
+    if (msg.type === VIDT_MULTI_COLOR) Actions$.vidtMultiColor.next(msg.payload);
     if (msg.type === MAIN_BEAT) Actions$.mainBeat.next(msg.payload);
     if (msg.type === VIDT_BEAT) Actions$.vidtBeat.next(msg.payload);
     if (msg.type === GLITCH_INTENSITY) Actions$.glitchIntensity.next(msg.payload);
