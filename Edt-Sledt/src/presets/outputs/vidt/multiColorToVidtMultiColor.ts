@@ -26,6 +26,6 @@ export class MultiColorToVidtMultiColor extends PresetLogic {
         if (typeof this.subscriber !== 'undefined') {
             this.subscriber.unsubscribe();
         }
-    } test
+    }
 
 }
