@@ -24,4 +24,12 @@ export class ColorControllerComponent implements OnInit {
         }))
     }
 
+    sendMultiColor(colors: number[]) {
+        this.socket.toSledt(Actions.multiColor(colors.map((color) => ({
+            hue: color,
+            saturation: 255,
+            brightness: 255,
+        }))))
+    }
+
 }

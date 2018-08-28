@@ -13,7 +13,7 @@ export const enum DeviceIPs {
     edtPad = '10.0.0.100',
     edtRemoteDMX = '10.0.0.30',
     edtDispEdter = '169.168.219.93',
-    edtSledt = '192.168.2.16',
+    edtSledt = '192.168.2.3',
 }
 
 export enum OSCDevices {
