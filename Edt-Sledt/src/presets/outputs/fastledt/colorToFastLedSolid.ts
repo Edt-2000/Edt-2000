@@ -5,8 +5,8 @@ import {Note} from '../../../../../Shared/midi';
 import {Actions$} from '../../../../../Shared/actions';
 import {FastLedtSingleSolid} from '../../../outputs/edt-fastled';
 
-export class ColorToLEDTSolid extends PresetLogic {
-    title = 'ColorToLEDTSolid';
+export class ColorToFastLedSolid extends PresetLogic {
+    title = 'ColorToFastLedSolid';
     note = Note.A$2;
 
     modifierOptions: IModifierOptions = {};

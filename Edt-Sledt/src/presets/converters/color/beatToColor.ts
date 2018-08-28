@@ -11,7 +11,6 @@ export class BeatToColor extends PresetLogic {
     note = Note.C_2;
     modifierOptions: IModifierOptions = {};
 
-
     private hue: number;
     private subscription: Subscription;
 

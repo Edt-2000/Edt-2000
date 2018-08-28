@@ -3,7 +3,9 @@ import {PresetLogic} from '../../presets-logic';
 import {IModifierOptions} from '../../../../../Shared/types';
 import {Note} from '../../../../../Shared/midi';
 import {Actions$} from '../../../../../Shared/actions';
-import {FastLedtSingleSolid} from '../../../outputs/edt-fastled';
+import {
+    FastLedtSingleSolid,
+} from '../../../outputs/edt-fastled';
 import {RGBLedtSingleSolid} from '../../../outputs/edt-rgbledt';
 
 export class ColorToAllSolid extends PresetLogic {
