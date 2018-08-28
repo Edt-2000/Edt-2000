@@ -12,16 +12,13 @@ import { hsv2rgb } from '../../helpers/hsv-2-rgb';
 })
 
 export class ColorBackgroundComponent extends Vue {
-    public colorSubscription: any;
+    public singleColorSubscription: any;
+    public multiColorSubscription: any;
 
     public $refs: {
         color: HTMLElement,
     };
     public animation: Animation|null;
-
-    public colorType: string;
-    public pulseDuration: number;
-    public rgbColors: number[][] = [];
     public styles: Object = {};
 
     mounted() {
@@ -42,21 +39,22 @@ export class ColorBackgroundComponent extends Vue {
 
         this.animation.pause();
 
-        this.colorSubscription = Actions$.vidtSingleColor
-            .subscribe((item) => {
-                this.colorType = 'single';
-                this.pulseDuration = 0;
-                this.rgbColors = [hsv2rgb(item)];
-                this.setStyles();
+        this.singleColorSubscription = Actions$.vidtSingleColor
+            .subscribe((color: IColor) => {
 
-                if (this.pulseDuration !== 0) {
-                    this.pulse();
-                }
+                const rgbColors = this.getRGBColors([color]);
+                this.setStyles(rgbColors);
+            });
+
+        this.multiColorSubscription = Actions$.vidtMultiColor
+            .subscribe((colors: IColor[]) => {
+                const rgbColors = this.getRGBColors(colors);
+                this.setStyles(rgbColors);
             });
     }
 
     pulse() {
-        requestAnimationFrame(() => {
+        requestAnimationFrame((pulseDuration) => {
             if (this.animation) {
                 this.animation.cancel();
                 this.animation = this.$refs.color.animate(
@@ -70,7 +68,7 @@ export class ColorBackgroundComponent extends Vue {
                     ], {
                         fill: 'forwards',
                         easing: 'ease-in',
-                        duration: this.pulseDuration
+                        duration: pulseDuration
                     }
                 );
             }
@@ -84,34 +82,34 @@ export class ColorBackgroundComponent extends Vue {
         });
     }
 
-    setStyles() {
+    getRGBColors(colors: IColor[]) {
+        return colors.map((color) => {
+            return hsv2rgb(color);
+        })
+    }
+
+    setStyles(rgbColors: number[][]) {
         if (this.animation) {
             this.animation.cancel();
         }
 
         let bcgColor: string = '';
-        if (this.colorType === 'single') {
-            bcgColor = `rgb(${this.rgbColors[0].join(', ')})`;
-        } else if (this.colorType === 'double') {
+        if (rgbColors.length === 1) {
+            bcgColor = `rgb(${rgbColors[0].join(', ')})`;
+        }
+        else {
             bcgColor = `repeating-linear-gradient(-45deg`;
-            let spacing = 0;
-            for (const color of this.rgbColors) {
-                bcgColor += `, rgb(${color.join(', ')}) ${spacing}px, rgb(${color.join(', ')}) ${spacing + 100}px`;
-                spacing += 100;
-            }
-            bcgColor += ')';
-        } else if (this.colorType === 'rainbow') {
-            bcgColor = `repeating-linear-gradient(-45deg`;
-            const totalColors: number = this.rgbColors.length;
+            const totalColors: number = rgbColors.length;
             let spacing = 0;
             let currentIndex: number = 0;
 
-            for (const color of this.rgbColors) {
+            for (const color of rgbColors) {
                 const percentage = (100 / totalColors) * currentIndex;
                 const percentageNext = (100 / totalColors) * ++currentIndex;
                 bcgColor += `, rgb(${color.join(', ')}) ${percentage}%, rgb(${color.join(', ')}) ${percentageNext}%`;
                 spacing += 100;
             }
+
             bcgColor += ')';
         }
 
@@ -123,8 +121,12 @@ export class ColorBackgroundComponent extends Vue {
     }
 
     destroyed() {
-        if (typeof this.colorSubscription !== 'undefined') {
-            this.colorSubscription.unsubscribe();
+        if (typeof this.singleColorSubscription !== 'undefined') {
+            this.singleColorSubscription.unsubscribe();
+        }
+
+        if (typeof this.multiColorSubscription !== 'undefined') {
+            this.multiColorSubscription.unsubscribe();
         }
     }
 }

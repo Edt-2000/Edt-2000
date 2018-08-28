@@ -1,8 +1,8 @@
-import {BeatToColor} from '../Edt-Sledt/src/presets/converters/color/beatToColor'
-import {ICue} from './types';
-import {Actions, PREPARE_VIDT} from './actions';
-import {DrumToBeat} from '../Edt-Sledt/src/presets/converters/drums/drumToBeat';
-import {DrumNotes} from '../Edt-Sledt/src/inputs/music-triggers';
+import { BeatToColor } from '../Edt-Sledt/src/presets/converters/color/beatToColor'
+import { ICue } from './types';
+import { Actions } from './actions';
+import { DrumToBeat } from '../Edt-Sledt/src/presets/converters/drums/drumToBeat';
+import { DrumNotes } from '../Edt-Sledt/src/inputs/music-triggers';
 
 export const presetCues: ICue[] = [
     {
@@ -18,7 +18,7 @@ export const presetCues: ICue[] = [
                 modifier: 127,
                 state: true,
             }),
-            Actions.prepareVidt(1),
+            Actions.prepareVidt(3),
         ],
     }
 ];
