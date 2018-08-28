@@ -15,5 +15,6 @@ export const words: string[] = [
     'I GAVE YOU MY HEART',
     'HEART',
     'CODEMONKEYS',
-    'GEJAT'
+    'GEJAT',
+    '<<<<<<< HEAD <fuck><conflict> >>>>>>> master <fuckyou><im master>'
 ];
