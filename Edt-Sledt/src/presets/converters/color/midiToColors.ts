@@ -18,7 +18,10 @@ export class MidiToColors extends PresetLogic {
             {label: MidiChannels[MidiChannels.channel_1], value: MidiChannels.channel_1},
             {label: MidiChannels[MidiChannels.channel_2], value: MidiChannels.channel_2},
             {label: MidiChannels[MidiChannels.channel_3], value: MidiChannels.channel_3},
+            {label: MidiChannels[MidiChannels.channel_4], value: MidiChannels.channel_4},
+            {label: MidiChannels[MidiChannels.channel_5], value: MidiChannels.channel_5},
             {label: MidiChannels[MidiChannels.channel_10], value: MidiChannels.channel_10},
+
         ],
     };
 
@@ -32,9 +35,7 @@ export class MidiToColors extends PresetLogic {
         this.hue = 0;
 
         this.hues = shuffleArray([
-            0, 18, 58, 85, 95, 105, 129, 158, 183, 218,
-            // TODO: find 2 more colors to make a palette of 12
-            218, 218,
+            0, 18, 48, 58, 85, 95, 105, 129, 158, 183, 200, 218, // nice colors?
         ]);
     }
 
