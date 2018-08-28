@@ -7,18 +7,20 @@ import {
     Actions$,
 } from '../../../../../Shared/actions';
 import {toVidt} from '../../../outputs/edt-vidt';
+import {drumTriggerOn$} from "../../../inputs/music-triggers";
+import {DrumNotes} from "../../../../../Shared/config";
 
-export class MultiColorToVidtMultiColor extends PresetLogic {
-    title = 'MultiColorToVidtMultiColor';
-    note = Note.B5;
+export class DrumToVidt extends PresetLogic {
+    title = 'DrumToVidt';
+    note = Note.C$0;
 
     modifierOptions: IModifierOptions = {};
 
     private subscriber: Subscription;
 
     public _startPreset(): void {
-        this.subscriber = Actions$.multiColor.subscribe((color) => {
-            toVidt(Actions.vidtMultiColor(color));
+        this.subscriber = drumTriggerOn$.subscribe((note: DrumNotes) => {
+            toVidt(Actions.vidtDrum(note));
         });
     }
 

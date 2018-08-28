@@ -70,3 +70,16 @@ export const fastLedAmount = 7;
 
 export const virtualMidiInputDevice = 'EDT-SLEDT-IN';
 export const virtualMidiOutputDevice = 'EDT-SLEDT-OUT';
+
+// The channel_10 notes are mapped by the KORG to the following note numbers
+export enum DrumNotes {
+    '_1' = 36,
+    '_2' = 38,
+    '_3' = 40,
+    '_4' = 41,
+    '_5' = 43,
+    '_6A' = 42,
+    '_6B' = 46,
+    '_7A' = 49,
+    '_7B' = 51,
+}

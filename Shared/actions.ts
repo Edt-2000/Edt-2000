@@ -4,6 +4,7 @@ import {ActionsUnion, createAction} from './fsa-helpers';
 import {animationTypes} from './vidt-presets';
 import {IColor} from './socket';
 import {IPhotoAsset, IVideoAsset, photoAssets, videoAssets} from './assets';
+import {DrumNotes} from "./config";
 
 export const PRESET_CHANGE = 'PRESET_CHANGE';
 export const PRESET_STATE = 'PRESET_STATE';
@@ -23,6 +24,7 @@ export const MULTI_COLOR = 'MULTI_COLOR';
 export const VIDT_MULTI_COLOR = 'VIDT_MULTI_COLOR';
 export const MAIN_BEAT = 'MAIN_BEAT';
 export const VIDT_BEAT = 'VIDT_BEAT';
+export const VIDT_DRUM = 'VIDT_DRUM';
 export const GLITCH_INTENSITY = 'GLITCH_INTENSITY';
 
 export const Actions = {
@@ -47,6 +49,7 @@ export const Actions = {
     vidtMultiColor: (payload: IColor[]) => createAction(VIDT_MULTI_COLOR, payload),
     mainBeat: (payload: number) => createAction(MAIN_BEAT, payload),
     vidtBeat: (payload: number) => createAction(VIDT_BEAT, payload),
+    vidtDrum: (payload: DrumNotes) => createAction(VIDT_DRUM, payload),
     glitchIntensity: (payload: number) => createAction(GLITCH_INTENSITY, payload),
 };
 
@@ -87,6 +90,7 @@ export const Actions$ = {
     }]),
     mainBeat: <Subject<number>> new Subject<number>(),
     vidtBeat: <Subject<number>> new Subject<number>(),
+    vidtDrum: <Subject<DrumNotes>> new Subject<DrumNotes>(),
     glitchIntensity: <BehaviorSubject<number>> new BehaviorSubject<number>(0),
 };
 
@@ -109,5 +113,6 @@ export function nextActionFromMsg(msg: Actions) {
     if (msg.type === VIDT_MULTI_COLOR) Actions$.vidtMultiColor.next(msg.payload);
     if (msg.type === MAIN_BEAT) Actions$.mainBeat.next(msg.payload);
     if (msg.type === VIDT_BEAT) Actions$.vidtBeat.next(msg.payload);
+    if (msg.type === VIDT_DRUM) Actions$.vidtDrum.next(msg.payload);
     if (msg.type === GLITCH_INTENSITY) Actions$.glitchIntensity.next(msg.payload);
 }
