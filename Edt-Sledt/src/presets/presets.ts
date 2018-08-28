@@ -5,6 +5,7 @@ import {MainBeatToVidtBeat} from './outputs/vidt/mainBeatToVidtBeat';
 import {ColorToVidtColor} from './outputs/vidt/colorToVidtColor';
 import {ColorToAllSolid} from './outputs/_ledt/colorToAllSolid';
 import {MultiColorToVidtMultiColor} from "./outputs/vidt/multiColorToVidtMultiColor";
+import {ColorToFastLedSolid} from "./outputs/fastledt/colorToFastLedSolid";
 
 
 export const presets = [
@@ -14,5 +15,6 @@ export const presets = [
     new ColorToAllSolid(),
     new MainBeatToVidtBeat(),
     new ColorToVidtColor(),
+    new ColorToFastLedSolid(),
     new MultiColorToVidtMultiColor(),
 ];
