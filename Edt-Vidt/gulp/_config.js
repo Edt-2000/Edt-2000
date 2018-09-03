@@ -7,18 +7,18 @@ const paths = {
         typescript:     "./src/typescript/",
         icons:          "./src/sprites/icons/",
         iconsUI:        "./src/sprites/ui/",
-        assets:         "./src/static/assets/",
+        assets:         "../assets/",
         vendor:         "./node_modules/",
     },
 
     target: {
         tmp:            "./.tmp/",
-        assets:         "./dist/assets/",
-        scripts:        "./dist/assets/js/",
-        styles:         "./dist/assets/css/",
-        html:            "./dist/",
+        assets:         "../dist/Edt-Vidt/assets/",
+        scripts:        "../dist/Edt-Vidt/assets/js/",
+        styles:         "../dist/Edt-Vidt/assets/css/",
+        html:           "../dist/Edt-Vidt/",
+        staticAssets:   "../dist/Edt-Vidt/assets/",
         icons:          "./src/static/assets/img",
-        staticAssets:   "./dist/assets/",
         favicons:       "./src/static/favicons/",
     }
 };
