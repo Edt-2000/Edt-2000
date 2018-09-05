@@ -29,7 +29,7 @@ export default class App extends Vue {
     }
 
     mounted() {
-        this.subscription = Actions$.prepareVidt.subscribe((presetNr) => {
+        this.subscription = Actions$.prepareVidt.subscribe((presetNr: number) => {
             if (vidtPresets.has(presetNr)) {
                 router.push(vidtPresets.get(presetNr) || '');
             } else {
