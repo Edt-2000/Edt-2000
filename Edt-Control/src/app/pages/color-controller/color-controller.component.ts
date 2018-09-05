@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { Actions } from '../../../../../Shared/actions';
 import { SocketService } from '../../socket.service';
+import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
+import { IColor } from '../../../../../Shared/socket';
 
 @Component({
     selector: 'app-color-controller',
@@ -30,6 +32,12 @@ export class ColorControllerComponent implements OnInit {
             saturation: 255,
             brightness: 255,
         }))))
+    }
+
+    setStyles(colors: IColor[]) {
+        const bcgColor = ColorHelper.getRGBString(colors);
+        return `background: ${bcgColor}`;
+
     }
 
 }

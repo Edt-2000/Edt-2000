@@ -2,10 +2,11 @@
 
 .color-controller {
     &__button {
+        border: 0;
         color: $c-black;
         padding-bottom: 100%;
         width: 100%;
-        
+
         span {
             display: none;
         }

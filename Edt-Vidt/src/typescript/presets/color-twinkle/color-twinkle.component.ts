@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { Actions$ } from '../../../../../Shared/actions';
 import { IColor } from '../../../../../Shared/socket';
-import { hsv2rgb } from '../../helpers/hsv-2-rgb';
+import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
 @Component({
     name: 'color-twinkle',
@@ -28,9 +28,8 @@ export class ColorTwinkleComponent extends Vue {
     }
 
     setStyles(hsb: IColor) {
-        const colorArray = hsv2rgb(hsb);
         this.styles = {
-            'color': `rgb(${colorArray.join(', ')})`
+            'color': ColorHelper.getRGBString([hsb])
         };
     }
 

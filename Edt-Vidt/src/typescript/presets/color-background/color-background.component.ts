@@ -1,14 +1,13 @@
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import {IColor} from '../../../../../Shared/socket';
-import {Actions$} from '../../../../../Shared/actions';
-import { hsv2rgb } from '../../helpers/hsv-2-rgb';
+import { Component } from 'vue-property-decorator';
+import { IColor } from '../../../../../Shared/socket';
+import { Actions$ } from '../../../../../Shared/actions';
+import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
 @Component({
     name: 'color-background',
     template: require('./color-background.template'),
-    components: {
-    }
+    components: {}
 })
 
 export class ColorBackgroundComponent extends Vue {
@@ -18,7 +17,7 @@ export class ColorBackgroundComponent extends Vue {
     public $refs: {
         color: HTMLElement,
     };
-    public animation: Animation|null;
+    public animation: Animation | null;
     public styles: Object = {};
 
     mounted() {
@@ -41,15 +40,12 @@ export class ColorBackgroundComponent extends Vue {
 
         this.singleColorSubscription = Actions$.vidtSingleColor
             .subscribe((color: IColor) => {
-
-                const rgbColors = this.getRGBColors([color]);
-                this.setStyles(rgbColors);
+                this.setStyles([color]);
             });
 
         this.multiColorSubscription = Actions$.vidtMultiColor
             .subscribe((colors: IColor[]) => {
-                const rgbColors = this.getRGBColors(colors);
-                this.setStyles(rgbColors);
+                this.setStyles(colors);
             });
     }
 
@@ -82,39 +78,16 @@ export class ColorBackgroundComponent extends Vue {
         });
     }
 
-    getRGBColors(colors: IColor[]) {
-        return colors.map((color) => {
-            return hsv2rgb(color);
-        })
-    }
 
-    setStyles(rgbColors: number[][]) {
+    setStyles(colors: IColor[]) {
         if (this.animation) {
             this.animation.cancel();
         }
 
-        let bcgColor: string = '';
-        if (rgbColors.length === 1) {
-            bcgColor = `rgb(${rgbColors[0].join(', ')})`;
-        }
-        else {
-            bcgColor = `repeating-linear-gradient(-45deg`;
-            const totalColors: number = rgbColors.length;
-            let spacing = 0;
-            let currentIndex: number = 0;
+        const bcgColor = ColorHelper.getRGBString(colors);
 
-            for (const color of rgbColors) {
-                const percentage = (100 / totalColors) * currentIndex;
-                const percentageNext = (100 / totalColors) * ++currentIndex;
-                bcgColor += `, rgb(${color.join(', ')}) ${percentage}%, rgb(${color.join(', ')}) ${percentageNext}%`;
-                spacing += 100;
-            }
-
-            bcgColor += ')';
-        }
-
-        this.styles =  {
-            'background' : `${bcgColor}`,
+        this.styles = {
+            'background': `${bcgColor}`,
             'opacity': 1
         };
 
