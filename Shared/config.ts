@@ -14,6 +14,7 @@ export const enum DeviceIPs {
     edtRemoteDMX = '10.0.0.30',
     edtDispEdter = '169.168.219.93',
     // edtSledt = '192.168.2.3',
+    edtcUDosPBUS = '192.168.2.42',
     edtSledt = '192.168.2.92', // Edt-Wifi
 }
 
@@ -53,12 +54,6 @@ export enum MidiChannels {
     channel_5 = 5,
     channel_10 = 10,
 }
-
-export const Arduinos = [
-    '/dev/tty.usbmodem14231',
-    '/dev/tty.usbmodem14241',
-    '/dev/tty.usbmodem14211',
-];
 
 export const useRealMidi = false;
 

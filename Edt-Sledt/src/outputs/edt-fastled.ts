@@ -1,12 +1,9 @@
-import {
-    Modii,
-    OSCDevices,
-} from '../../../Shared/config';
+import {DeviceIPs, Modii, OSCDevices,} from '../../../Shared/config';
 import {IColor} from '../../../Shared/socket';
-import {sendToSerial} from '../communication/serial';
+import {sendToOSC} from "../communication/osc";
 
 export function EdtLEDSpark(instance: number = 0, start: number, end: number, duration: number, colorMsg: IColor) {
-    sendToSerial(OSCDevices.EdtFastLed, '?', [
+    sendToOSC(DeviceIPs.edtcUDosPBUS, [OSCDevices.EdtFastLed, instance+'' || '?'], [
         Modii.SingleSpark,
         colorMsg.hue,
         colorMsg.brightness,
@@ -14,7 +11,7 @@ export function EdtLEDSpark(instance: number = 0, start: number, end: number, du
 }
 
 export function EdtLEDRainbow(instance: number = 0, start: number, end: number, colorMsg: IColor, deltaHue: number) {
-    sendToSerial(OSCDevices.EdtFastLed, '?',[
+    sendToOSC(DeviceIPs.edtcUDosPBUS, [OSCDevices.EdtFastLed, instance+'' || '?'],[
         Modii.RainbowSolid,
         start,
         end,
@@ -24,7 +21,7 @@ export function EdtLEDRainbow(instance: number = 0, start: number, end: number, 
 }
 
 export function FastLedtSingleSolid(instance: number = 0, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToSerial(OSCDevices.EdtFastLed, instance || '?', [
+    sendToOSC(DeviceIPs.edtcUDosPBUS, [OSCDevices.EdtFastLed, instance+'' || '?'], [
         Modii.SingleSolid,
         start,
         end,
