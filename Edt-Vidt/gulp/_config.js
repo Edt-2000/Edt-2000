@@ -13,11 +13,11 @@ const paths = {
 
     target: {
         tmp:            "./.tmp/",
-        assets:         "../dist/Edt-Vidt/assets/",
-        scripts:        "../dist/Edt-Vidt/assets/js/",
-        styles:         "../dist/Edt-Vidt/assets/css/",
-        html:           "../dist/Edt-Vidt/",
-        staticAssets:   "../dist/Edt-Vidt/assets/",
+        assets:         "./dist/assets/",
+        scripts:        "./dist/assets/js/",
+        styles:         "./dist/assets/css/",
+        html:           "./dist/",
+        staticAssets:   "./dist/assets/",
         icons:          "./src/static/assets/img",
         favicons:       "./src/static/favicons/",
     }
