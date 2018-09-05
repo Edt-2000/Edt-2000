@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { Actions } from '../../../../../Shared/actions';
 import { SocketService } from '../../socket.service';
+import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
 @Component({
     selector: 'app-color-controller',
@@ -30,6 +31,19 @@ export class ColorControllerComponent implements OnInit {
             saturation: 255,
             brightness: 255,
         }))))
+    }
+
+    setStyles(colors: number[][]) {
+        const colorArray =  colors.map((color) => {
+            return {
+                hue: color[0],
+                saturation: color[1],
+                brightness: color[2],
+            }
+        });
+
+        const bcgColor = ColorHelper.getRGBString(colorArray);
+        return `background: ${bcgColor}`;
     }
 
 }
