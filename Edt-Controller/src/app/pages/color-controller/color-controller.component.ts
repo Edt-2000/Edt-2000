@@ -33,7 +33,7 @@ export class ColorControllerComponent implements OnInit {
         }))))
     }
 
-    setStyles(colors: number[][]) {
+    getRGBString(colors: number[][]) {
         const colorArray =  colors.map((color) => {
             return {
                 hue: color[0],
@@ -42,8 +42,13 @@ export class ColorControllerComponent implements OnInit {
             }
         });
 
-        const bcgColor = ColorHelper.getRGBString(colorArray);
-        return `background: ${bcgColor}`;
+        return ColorHelper.getRGBString(colorArray);
     }
 
+    getStyle(colors: number[][]) {
+        const rgbString = this.getRGBString(colors);
+        return {
+            'background': rgbString
+        };
+    }
 }
