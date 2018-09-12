@@ -25,11 +25,11 @@ export class ColorControllerComponent implements OnInit {
         }))
     }
 
-    sendMultiColor(colors: number[]) {
-        this.socket.toSledt(Actions.multiColor(colors.map((color) => ({
-            hue: color,
+    sendMultiColor(hues: number[]) {
+        this.socket.toSledt(Actions.multiColor(hues.map((hue) => ({
+            hue: hue,
             saturation: 255,
-            brightness: 255,
+            brightness: 255
         }))))
     }
 
@@ -38,7 +38,7 @@ export class ColorControllerComponent implements OnInit {
             return {
                 hue: color[0],
                 saturation: color[1],
-                brightness: color[2],
+                brightness: color[2]
             }
         });
 
@@ -50,5 +50,13 @@ export class ColorControllerComponent implements OnInit {
         return {
             'background': rgbString
         };
+    }
+
+    getMultiStyle(hues: number[]) {
+        const hsvArray = hues.map((hue) => {
+            return [hue, 255, 255];
+        });
+
+        return this.getStyle(hsvArray);
     }
 }

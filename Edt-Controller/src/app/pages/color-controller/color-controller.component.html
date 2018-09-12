@@ -9,23 +9,19 @@
         </li>
 
         <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(58, 255, 255)" [ngStyle]="getStyle([[58, 255, 255]])"></button>
+            <button class="button color-controller__button" (click)="sendColor(42, 255, 255)" [ngStyle]="getStyle([[42, 255, 255]])"></button>
         </li>
 
         <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(85, 255, 255)" [ngStyle]="getStyle([[85, 255, 255]])"></button>
-        </li>
-
-      <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(95, 255, 255)" [ngStyle]="getStyle([[95, 255, 255]])"></button>
+            <button class="button color-controller__button" (click)="sendColor(90, 255, 255)" [ngStyle]="getStyle([[90, 255, 255]])"></button>
         </li>
 
         <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(105, 255, 255)" [ngStyle]="getStyle([[105, 255, 255]])"></button>
+            <button class="button color-controller__button" (click)="sendColor(86, 255, 150)" [ngStyle]="getStyle([[86, 255, 150]])"></button>
         </li>
 
         <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(129, 255, 255)" [ngStyle]="getStyle([[129, 255, 255]])"></button>
+            <button class="button color-controller__button" (click)="sendColor(130, 255, 255)" [ngStyle]="getStyle([[130, 255, 255]])"></button>
         </li>
 
         <li class="list__item">
@@ -33,11 +29,11 @@
         </li>
 
         <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(183, 255, 255)" [ngStyle]="getStyle([[183, 255, 255]])"></button>
+            <button class="button color-controller__button" (click)="sendColor(200, 255, 255)" [ngStyle]="getStyle([[200, 255, 255]])"></button>
         </li>
 
         <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(218, 255, 255)" [ngStyle]="getStyle([[218, 255, 255]])"></button>
+            <button class="button color-controller__button" (click)="sendColor(220, 255, 255)" [ngStyle]="getStyle([[220, 255, 255]])"></button>
         </li>
 
         <li class="list__item">
@@ -49,7 +45,19 @@
         </li>
 
         <li class="list__item">
-            <button class="button color-controller__button" (click)="sendMultiColor([129, 158, 183, 218])" [ngStyle]="getStyle([[129, 255, 255], [158, 255, 255], [183, 255, 255], [218, 255, 255]])"></button>
+            <button class="button color-controller__button" (click)="sendMultiColor([129, 200, 183, 218])" [ngStyle]="getMultiStyle([129, 200, 183, 218])"></button>
+        </li>
+
+        <li class="list__item">
+            <button class="button color-controller__button" (click)="sendMultiColor([0, 16, 45, 90])" [ngStyle]="getMultiStyle([0, 16, 45, 90])"></button>
+        </li>
+
+        <li class="list__item">
+            <button class="button color-controller__button" (click)="sendMultiColor([220, 90])" [ngStyle]="getMultiStyle([220, 90])"></button>
+        </li>
+
+        <li class="list__item">
+            <button class="button color-controller__button" (click)="sendMultiColor([90, 158, 220])" [ngStyle]="getMultiStyle([90, 158, 220])"></button>
         </li>
 
     </ul>

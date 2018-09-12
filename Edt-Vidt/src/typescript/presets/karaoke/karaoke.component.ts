@@ -2,6 +2,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import { Actions$ } from '../../../../../Shared/actions';
 import { IColor } from '../../../../../Shared/socket';
+import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
 const convert = require('color-convert');
 
@@ -44,8 +45,8 @@ export class KaraokeComponent extends Vue {
             });
 
         this.colorSubscription = Actions$.vidtSingleColor
-            .subscribe((item) => {
-                this.setStyles(item);
+            .subscribe((color: IColor) => {
+                this.setStyles([color]);
             });
 
     }
@@ -54,10 +55,11 @@ export class KaraokeComponent extends Vue {
         return convert.hsv.rgb(h, s, v);
     }
 
-    setStyles(hsb: IColor) {
-        const colorArray = this.convertToRGB(hsb.hue, hsb.saturation, hsb.brightness);
+    setStyles(colors: IColor[]) {
+        const bcgColor = ColorHelper.getRGBString(colors);
+
         this.styles = {
-            'color': `rgb(${colorArray.join(', ')})`
+            'color': `${bcgColor}`
         };
     }
 

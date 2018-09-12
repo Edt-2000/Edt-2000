@@ -15,7 +15,7 @@ export const enum DeviceIPs {
     edtDispEdter = '169.168.219.93',
     // edtSledt = '192.168.2.3',
     edtcUDosPBUS = '192.168.2.42',
-    edtSledt = '192.168.2.92', // Edt-Wifi
+    edtSledt = '192.168.2.11', // Edt-Wifi
 }
 
 export enum OSCDevices {

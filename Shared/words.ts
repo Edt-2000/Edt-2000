@@ -13,8 +13,14 @@ export const words: string[] = [
     'CABRIOLETTA',
     'LAST CHRISTMAS',
     'I GAVE YOU MY HEART',
-    'HEART',
+    'SPECIAL',
     'CODEMONKEYS',
+    'Harder dan jij',
     'GEJAT',
-    '<<<<<<< HEAD <fuck><conflict> >>>>>>> master <fuckyou><im master>'
+    '<<<<<<< HEAD conflict> >>>>>>> master',
+    'Remind the gap',
+    'SPIERDIJK!',
+    'NOG EEN LIEDJE!',
+    'SLAYER!',
+    'LALALA'
 ];

@@ -20,6 +20,7 @@
         top: 50%;
         transform: translate(-50%, -50%);
         transition: opacity .3s, transform .3s;
+        width: 94vw;
 
         .is-hidden & {
             opacity: 0;
