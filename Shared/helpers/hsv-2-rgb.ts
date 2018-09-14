@@ -31,10 +31,7 @@ export class ColorHelper {
     }
 
     static hsvArray2RGBArray(hsvColors: IColor[]) {
-        return hsvColors.map((color) => {
-            return ColorHelper.hsv2rgb(color);
-        });
-
+        return hsvColors.map(ColorHelper.hsv2rgb)
     }
 
     static hsv2rgb(hsv: IColor): number[] {
@@ -44,9 +41,9 @@ export class ColorHelper {
         const hi = Math.floor(h) % 6;
 
         const f = h - Math.floor(h);
-        const p = 255 * v * (1 - s);
-        const q = 255 * v * (1 - (s * f));
-        const t = 255 * v * (1 - (s * (1 - f)));
+        const p = Math.floor(255 * v * (1 - s));
+        const q = Math.floor(255 * v * (1 - (s * f)));
+        const t = Math.floor(255 * v * (1 - (s * (1 - f))));
         v *= 255;
 
         switch (hi) {

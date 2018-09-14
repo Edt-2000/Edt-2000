@@ -1,9 +1,12 @@
-import {DeviceIPs, Modii, OSCDevices,} from '../../../Shared/config';
+import {
+    Modii,
+    OSCDevices,
+} from '../../../Shared/config';
 import {IColor} from '../../../Shared/socket';
-import {sendToOSC} from "../communication/osc";
+import {sendToSerial} from '../communication/serial';
 
 export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
-    sendToOSC(DeviceIPs.edtcUDosPBUS, [OSCDevices.EdtRGBLed, '?'], [
+    sendToSerial(OSCDevices.EdtRGBLed, instance, [
         Modii.SingleSolid,
         0,
         127,

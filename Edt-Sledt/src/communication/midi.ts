@@ -2,28 +2,31 @@ import easymidi = require('easymidi');
 import {Observable} from 'rxjs/Observable';
 import {
     automationChannel,
-    useRealMidi,
+    hardwareMidiInput,
     virtualMidiInputDevice,
     virtualMidiOutputDevice,
 } from '../../../Shared/config';
 import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, IPresetMsg, MidiMsgTypes} from '../../../Shared/types';
 import {noteToNote, noteToOctave} from '../../../Shared/utils';
-import {
-    bufferCount,
-    map,
-    mapTo,
-    scan,
-} from 'rxjs/operators';
+import {bufferCount, map,} from 'rxjs/operators';
 import {fromEvent} from 'rxjs/observable/fromEvent';
+import {merge} from 'rxjs/observable/merge';
 
-let virtualInput;
+const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
 const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);
+const argv = require('minimist')(process.argv.slice(2));
 
-if(useRealMidi) {
-    // console.log('MIDI interfaces:', new easymidi.getInputs());
-    virtualInput = new easymidi.Input('EDTMID USB MIDI Interface');
-} else {
-    virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
+// TODO: a bit ugly, but currently no real alternative
+let hardwareInput;
+let getMidiObservable = <T>(eventName: MidiMsgTypes) => fromEvent<T>(virtualInput, eventName);
+
+if (argv.hardwaremidi) {
+    console.log('MIDI hardware enabled');
+    hardwareInput = new easymidi.Input(hardwareMidiInput);
+    getMidiObservable = <T>(eventName: MidiMsgTypes) => merge(
+        fromEvent<T>(virtualInput, eventName),
+        fromEvent<T>(hardwareInput, eventName),
+    );
 }
 
 interface IEasyMidiNoteMsg {
@@ -32,7 +35,7 @@ interface IEasyMidiNoteMsg {
     velocity: number;
 }
 
-export const sledtNoteOn$: Observable<IMidiNoteMsg> = fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteon).pipe(
+export const sledtNoteOn$: Observable<IMidiNoteMsg> = getMidiObservable<IMidiNoteMsg>(MidiMsgTypes.noteon).pipe(
         map((msg): IMidiNoteMsg => {
             return {
                 noteOn: true,
@@ -44,8 +47,7 @@ export const sledtNoteOn$: Observable<IMidiNoteMsg> = fromEvent<IEasyMidiNoteMsg
             };
         }),
     );
-
-export const sledtNoteOff$: Observable<IMidiNoteMsg> = fromEvent<IEasyMidiNoteMsg>(virtualInput, MidiMsgTypes.noteoff).pipe(
+export const sledtNoteOff$: Observable<IMidiNoteMsg> = getMidiObservable<IMidiNoteMsg>(MidiMsgTypes.noteoff).pipe(
         map((msg): IMidiNoteMsg => {
             return {
                 noteOn: false,
@@ -57,15 +59,11 @@ export const sledtNoteOff$: Observable<IMidiNoteMsg> = fromEvent<IEasyMidiNoteMs
             };
         })
     );
-export const Program$: Observable<IMidiProgramMsg> = fromEvent<IMidiProgramMsg>(virtualInput, MidiMsgTypes.program).pipe(map(program => ({...program, channel: program.channel + 1})));
-
-export const Select$: Observable<IMidiSongMsg> = fromEvent<IMidiSongMsg>(virtualInput, MidiMsgTypes.select).pipe(map(select => ({...select, channel: select.channel + 1})));
-
-export const Clock$: Observable<void> = fromEvent<void>(virtualInput, MidiMsgTypes.clock);
-
+export const Program$: Observable<IMidiProgramMsg> = getMidiObservable<IMidiProgramMsg>(MidiMsgTypes.program).pipe(map(program => ({...program, channel: program.channel + 1})));
+export const Select$: Observable<IMidiSongMsg> = getMidiObservable<IMidiSongMsg>(MidiMsgTypes.select).pipe(map(select => ({...select, channel: select.channel + 1})));
+export const Clock$: Observable<void> = getMidiObservable<void>(MidiMsgTypes.clock);
 export const BPM$: Observable<void> = Clock$.pipe(bufferCount(24), map(() => {}));
-
-export const CC$: Observable<IMidiCCMsg> = fromEvent<IMidiCCMsg>(virtualInput, MidiMsgTypes.cc).pipe(map(cc => ({...cc, channel: cc.channel + 1})));
+export const CC$: Observable<IMidiCCMsg> = getMidiObservable<IMidiCCMsg>(MidiMsgTypes.cc).pipe(map(cc => ({...cc, channel: cc.channel + 1})));
 
 export function sendMIDIPreset(msg: IPresetMsg) {
     const midiMsg: IEasyMidiNoteMsg = {

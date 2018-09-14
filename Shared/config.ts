@@ -15,7 +15,7 @@ export const enum DeviceIPs {
     edtDispEdter = '169.168.219.93',
     // edtSledt = '192.168.2.3',
     edtcUDosPBUS = '192.168.2.42',
-    edtSledt = '192.168.2.11', // Edt-Wifi
+    edtSledt = '192.168.2.92', // Edt-Wifi
 }
 
 export enum OSCDevices {
@@ -55,16 +55,22 @@ export enum MidiChannels {
     channel_10 = 10,
 }
 
-export const useRealMidi = false;
+// Use npm run serialports to discover connected Arduino's
+export const Arduinos = [
+    '/dev/tty.usbmodem14231',
+    '/dev/tty.usbmodem14241',
+    '/dev/tty.usbmodem14211',
+];
 
-export const oscInPort = 12345;
 export const oscOutPort = 12345;
+export const oscInPort = 12345;
 
 export const automationChannel = 16;
 
 export const fastLedAmount = 7;
 
 export const virtualMidiInputDevice = 'EDT-SLEDT-IN';
+export const hardwareMidiInput = 'EDTMID USB MIDI Interface';
 export const virtualMidiOutputDevice = 'EDT-SLEDT-OUT';
 
 // The channel_10 notes are mapped by the KORG to the following note numbers

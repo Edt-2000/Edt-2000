@@ -1,10 +1,10 @@
 import {Observable} from 'rxjs/Observable';
-import {ITrackMsg} from '../../../Shared/socket';
 import {OSC$} from '../communication/osc';
 import {OSCDevices} from '../../../Shared/config';
 import {filter, map} from 'rxjs/operators';
+import {ITrack} from "../../../Shared/socket";
 
-export const edtTrack$: Observable<ITrackMsg> = OSC$.pipe(
+export const edtTrack$: Observable<ITrack> = OSC$.pipe(
     filter((OSCMsg) => (
         OSCMsg.addresses.length === 1 &&
         OSCMsg.addresses[0] === OSCDevices.EdtTrack &&
