@@ -15,7 +15,7 @@ export const enum DeviceIPs {
     edtDispEdter = '169.168.219.93',
     // edtSledt = '192.168.2.3',
     edtcUDosPBUS = '192.168.2.42',
-    edtSledt = '192.168.2.92', // Edt-Wifi
+    edtSledt = '192.168.2.109', // Edt-Wifi
 }
 
 export enum OSCDevices {
@@ -57,9 +57,9 @@ export enum MidiChannels {
 
 // Use npm run serialports to discover connected Arduino's
 export const Arduinos = [
-    '/dev/tty.usbmodem14231',
-    '/dev/tty.usbmodem14241',
-    '/dev/tty.usbmodem14211',
+    '/dev/tty.usbmodem14424331',
+    '/dev/tty.usbmodem14424311',
+    '/dev/tty.usbmodem14424341',
 ];
 
 export const oscOutPort = 12345;
@@ -67,7 +67,7 @@ export const oscInPort = 12345;
 
 export const automationChannel = 16;
 
-export const fastLedAmount = 7;
+export const fastLedAmount: number = 7;
 
 export const virtualMidiInputDevice = 'EDT-SLEDT-IN';
 export const hardwareMidiInput = 'EDTMID USB MIDI Interface';

@@ -1,5 +1,5 @@
 import SerialPort = require('serialport');
-import {Arduinos, OSCDevices,} from '../../../Shared/config';
+import {Arduinos,} from '../../../Shared/config';
 import {convertToOSC, OSC$,} from './osc';
 import {filter, map,} from 'rxjs/operators';
 
@@ -12,8 +12,10 @@ serialports.forEach(port => port.on('error', function(err) {
     console.log(`Serial port ${port.path} error! Restart Edt-Sledt if needed.`);
 }));
 
-export function sendToSerial(device: string, strip: number, params: number[] = []): void  {
-    const msg = convertToOSC([device, (strip === 0 ? '?' : strip).toString()], params); // if strip === 0, convert to '?'
+export function sendToSerial(addresses: string[], params: number[] = []): void  {
+    const msg = convertToOSC(addresses, params);
+
+    console.log('osc:', msg.toString());
 
     serialports.forEach(port => {
         port.write(msg);
@@ -28,14 +30,14 @@ export function sendToSerial(device: string, strip: number, params: number[] = [
 OSC$.pipe(
     filter(OSCMsg => OSCMsg.addresses.indexOf('R?') !== -1),
     map((OSCMsg) => {
-        sendToSerial(OSCDevices.EdtRGBLed, 0, OSCMsg.values);
+        sendToSerial(OSCMsg.addresses, OSCMsg.values);
     }),
 ).subscribe();
 
 OSC$.pipe(
     filter(OSCMsg => OSCMsg.addresses.indexOf('F?') !== -1),
     map((OSCMsg) => {
-        sendToSerial(OSCDevices.EdtFastLed, 0, OSCMsg.values);
+        sendToSerial(OSCMsg.addresses, OSCMsg.values);
     }),
 ).subscribe();
 

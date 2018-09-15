@@ -49,6 +49,6 @@ console.log('Init complete, waiting for devices and/or messages..');
 // presetOn$.subscribe((msg) => console.log('PresetOn', msg));
 // noteOn$.subscribe((msg) => console.log('NoteOn', msg));
 // noteOff$.subscribe((msg) => console.log('NoteOff', msg));
-// Program$.subscribe((msg) => console.log('Program', msg));
-// Select$.subscribe((msg) => console.log('Select', msg));
+// program$.subscribe((msg) => console.log('Program', msg));
+// select$.subscribe((msg) => console.log('Select', msg));
 // CC$.subscribe((msg) => console.log('CC', msg));

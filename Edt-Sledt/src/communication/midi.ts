@@ -59,10 +59,10 @@ export const sledtNoteOff$: Observable<IMidiNoteMsg> = getMidiObservable<IMidiNo
             };
         })
     );
-export const Program$: Observable<IMidiProgramMsg> = getMidiObservable<IMidiProgramMsg>(MidiMsgTypes.program).pipe(map(program => ({...program, channel: program.channel + 1})));
-export const Select$: Observable<IMidiSongMsg> = getMidiObservable<IMidiSongMsg>(MidiMsgTypes.select).pipe(map(select => ({...select, channel: select.channel + 1})));
-export const Clock$: Observable<void> = getMidiObservable<void>(MidiMsgTypes.clock);
-export const BPM$: Observable<void> = Clock$.pipe(bufferCount(24), map(() => {}));
+export const program$: Observable<IMidiProgramMsg> = getMidiObservable<IMidiProgramMsg>(MidiMsgTypes.program).pipe(map(program => ({...program, channel: program.channel + 1})));
+export const select$: Observable<IMidiSongMsg> = getMidiObservable<IMidiSongMsg>(MidiMsgTypes.select).pipe(map(select => ({...select, channel: select.channel + 1})));
+export const clock$: Observable<void> = getMidiObservable<void>(MidiMsgTypes.clock);
+export const BPM$: Observable<void> = clock$.pipe(bufferCount(24), map(() => {}));
 export const CC$: Observable<IMidiCCMsg> = getMidiObservable<IMidiCCMsg>(MidiMsgTypes.cc).pipe(map(cc => ({...cc, channel: cc.channel + 1})));
 
 export function sendMIDIPreset(msg: IPresetMsg) {

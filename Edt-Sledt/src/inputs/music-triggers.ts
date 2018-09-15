@@ -4,7 +4,7 @@ import {IMidiNoteMsg} from '../../../Shared/types';
 import {noteOff$, noteOn$} from './midi';
 import {filter, map, merge} from 'rxjs/operators';
 
-const drumTriggerOnOff$: Observable<IMidiNoteMsg> = noteOn$
+export const drumTriggerOnOff$: Observable<IMidiNoteMsg> = noteOn$
     .pipe(
         merge(noteOff$),
         filter((msg) => msg.channel === MidiChannels.channel_10 && msg.note in DrumNotes),
@@ -16,7 +16,7 @@ export const drumTriggerOn$: Observable<DrumNotes> = drumTriggerOnOff$
         map((msg) => DrumNotes[DrumNotes[msg.note]])
     );
 
-export const DrumTriggerOff$: Observable<DrumNotes> = drumTriggerOnOff$
+export const drumTriggerOff$: Observable<DrumNotes> = drumTriggerOnOff$
     .pipe(
         filter((msg) => !msg.noteOn),
         map((msg) => DrumNotes[DrumNotes[msg.note]])

@@ -7,6 +7,7 @@ import {ColorToAllSolid} from './outputs/_ledt/colorToAllSolid';
 import {MultiColorToVidtMultiColor} from "./outputs/vidt/multiColorToVidtMultiColor";
 import {ColorToFastLedSolid} from "./outputs/fastledt/colorToFastLedSolid";
 import {DrumToVidt} from "./outputs/vidt/drumToVidt";
+import {DrumsToFastLedStrip} from "./outputs/fastledt/drumsToFastLedStrip";
 
 
 export const presets = [
@@ -19,4 +20,5 @@ export const presets = [
     new ColorToFastLedSolid(),
     new MultiColorToVidtMultiColor(),
     new DrumToVidt(),
+    new DrumsToFastLedStrip(),
 ];

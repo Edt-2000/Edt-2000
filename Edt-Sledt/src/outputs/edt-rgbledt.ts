@@ -6,7 +6,7 @@ import {IColor} from '../../../Shared/socket';
 import {sendToSerial} from '../communication/serial';
 
 export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
-    sendToSerial(OSCDevices.EdtRGBLed, instance, [
+    sendToSerial([OSCDevices.EdtRGBLed + instance], [
         Modii.SingleSolid,
         0,
         127,
