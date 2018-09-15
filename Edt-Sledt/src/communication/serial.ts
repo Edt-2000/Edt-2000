@@ -4,11 +4,12 @@ import {convertToOSC, OSC$,} from './osc';
 import {filter, map,} from 'rxjs/operators';
 
 const serialports: SerialPort[] = Arduinos.map(portName => {
+    console.log('Setting up serial port for Arduino', portName);
     return new SerialPort(portName, { baudRate: 57600 });
 });
 
 serialports.forEach(port => port.on('error', function(err) {
-    console.log('Serial error: ', err.message);
+    console.log(`Serial port ${port.path} error! Restart Edt-Sledt if needed.`);
 }));
 
 export function sendToSerial(device: string, strip: number, params: number[] = []): void  {

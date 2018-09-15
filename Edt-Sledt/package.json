@@ -5,7 +5,8 @@
   "main": "test.js",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "start-with-midi": "ts-node src/index.ts --hardwaremidi"
+    "start-with-midi": "ts-node src/index.ts --hardwaremidi",
+    "serialports": "serialport-list"
   },
   "author": "Edt-2000",
   "license": "ISC",
