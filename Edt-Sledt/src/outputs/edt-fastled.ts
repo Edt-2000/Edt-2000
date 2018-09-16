@@ -26,7 +26,7 @@ import {sendToSerial} from '../communication/serial';
 // }
 
 export function FastLedtSingleSolid(instance: number, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToSerial([OSCDevices.EdtFastLed, instance.toString()], [
+    sendToSerial([OSCDevices.EdtFastLed + instance.toString()], [
         Modii.SingleSolid,
         start,
         end,
@@ -37,7 +37,7 @@ export function FastLedtSingleSolid(instance: number, colorMsg: IColor, start: n
 }
 
 export function FastLedtSinglePulse(instance: number, duration: number, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToSerial([OSCDevices.EdtFastLed, instance.toString()], [
+    sendToSerial([OSCDevices.EdtFastLed + instance.toString()], [
         Modii.SinglePulse,
         start,
         end,
@@ -47,4 +47,13 @@ export function FastLedtSinglePulse(instance: number, duration: number, colorMsg
         duration,
     ]);
 }
+
+export function FastLedtStrobe(instance: number, speed: number, hue: number) {
+    sendToSerial([OSCDevices.EdtFastLed + instance.toString()], [
+        Modii.Strobo,
+        hue,
+        speed,
+    ]);
+}
+
 

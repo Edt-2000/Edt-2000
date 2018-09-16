@@ -1,9 +1,9 @@
 import SerialPort = require('serialport');
-import {Arduinos,} from '../../../Shared/config';
+import {arduinos,} from '../../../Shared/config';
 import {convertToOSC, OSC$,} from './osc';
 import {filter, map,} from 'rxjs/operators';
 
-const serialports: SerialPort[] = Arduinos.map(portName => {
+const serialports: SerialPort[] = arduinos.map(portName => {
     console.log('Setting up serial port for Arduino', portName);
     return new SerialPort(portName, { baudRate: 57600 });
 });
@@ -15,7 +15,7 @@ serialports.forEach(port => port.on('error', function(err) {
 export function sendToSerial(addresses: string[], params: number[] = []): void  {
     const msg = convertToOSC(addresses, params);
 
-    console.log('osc:', msg.toString());
+    // console.log('Sending serial:', msg.toString());
 
     serialports.forEach(port => {
         port.write(msg);

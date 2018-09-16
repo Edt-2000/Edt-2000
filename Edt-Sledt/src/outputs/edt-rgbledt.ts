@@ -15,3 +15,11 @@ export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
         colorMsg.brightness,
     ]);
 }
+
+export function RGBLedtStrobe(instance: number, speed: number, hue: number) {
+    sendToSerial([OSCDevices.EdtRGBLed + instance.toString()], [
+        Modii.Strobo,
+        hue,
+        speed,
+    ]);
+}

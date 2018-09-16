@@ -9,10 +9,9 @@ const sock = dgram.createSocket('udp4', processOscMessage);
 sock.bind(oscInPort);
 
 export function convertToOSC(addresses: string[], params: number[]) {
-    // TODO: remove frigging 0 -> ? conversion
+    // TODO: remove 0 -> ? conversion and implement 0 in all receivers
     const thomasAddress = '/' + addresses.join('/').replace('0', '?');
 
-    console.log('converting to OSC:', thomasAddress, params);
     return osc.toBuffer({
         address: thomasAddress,
         args: params.map((param) => {

@@ -1,3 +1,5 @@
+import {IColor} from "./socket";
+
 export const socketPort: number = 8988;
 
 export const socketConfig = {
@@ -55,11 +57,45 @@ export enum MidiChannels {
     channel_10 = 10,
 }
 
+// Black is useful to turn off lights and screens
+export const BlackColor: IColor = {
+    hue: 0,
+    saturation: 0,
+    brightness: 0,
+};
+
+export enum ColorPreset {
+    Red = 0,
+    Orange = 18,
+    Yellow = 58,
+    Lime = 85,
+    Green = 95,
+    SeaGreen = 105,
+    Turquoise = 129,
+    Blue = 158,
+    Purple = 183,
+    Pink = 218,
+}
+
+export const colorSet: number[] = [
+    ColorPreset.Red,
+    ColorPreset.Red,
+    ColorPreset.Orange,
+    ColorPreset.Yellow,
+    ColorPreset.Lime,
+    ColorPreset.Green,
+    ColorPreset.SeaGreen,
+    ColorPreset.Turquoise,
+    ColorPreset.Blue,
+    ColorPreset.Purple,
+    ColorPreset.Pink,
+];
+
 // Use npm run serialports to discover connected Arduino's
-export const Arduinos = [
-    '/dev/tty.usbmodem14424331',
-    '/dev/tty.usbmodem14424311',
-    '/dev/tty.usbmodem14424341',
+export const arduinos = [
+    '/dev/tty.usbmodem1412311',
+    '/dev/tty.usbmodem1412331',
+    '/dev/tty.usbmodem1412341',
 ];
 
 export const oscOutPort = 12345;
@@ -85,3 +121,30 @@ export enum DrumNotes {
     '_7A' = 49,
     '_7B' = 51,
 }
+
+export const strobeSpeeds = [
+    {
+        label: 'slow',
+        value: 10,
+    },
+    {
+        label: 'medium',
+        value: 50,
+    },
+    {
+        label: 'fast',
+        value: 100,
+    },
+    {
+        label: 'faster',
+        value: 150,
+    },
+    {
+        label: 'whoa',
+        value: 200,
+    },
+    {
+        label: 'drool',
+        value: 255,
+    },
+]
