@@ -39,9 +39,9 @@ export const presets = [
  chase preset based on drum inputs (each drum is a different color or soeed?)
  chase preset based on beat
 
-
  add flash-length to Actions$ and create button for Control
 
+ auto-index photo and video files instead of manual adding
 
  add more colors to multi-color selection in Control
  Add cues for some presets to switch quickly

@@ -4,9 +4,11 @@
 @import 'config/sizes';
 
 @import 'components/app';
-@import 'components/button';
+@import 'components/text-button';
+@import 'components/trigger-button';
 @import 'components/form';
 @import 'components/list';
 @import 'components/nav';
 @import 'components/section';
+@import "components/preset-switcher";
 

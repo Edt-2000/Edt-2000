@@ -5,8 +5,8 @@
         <ul class="list">
             <ng-container *ngFor="let vidtPage of vidtPages">
                 <li class="list__item">
-                <button class="vidt-controller__button button" (click)="sendVidtPreset(vidtPage)">
-                        {{ formatLabel(vidtPage.label) }}
+                <button class="text-button" (click)="socket.sendVidtPreset(vidtPage)">
+                        {{ vidtPage.label }}
                     </button>
                 </li>
             </ng-container>
@@ -17,7 +17,7 @@
         <ul class="list">
             <ng-container *ngFor="let asset of photoAssets">
                 <li class="list__item">
-                    <button class="vidt-controller__button button" (click)="sendPhotoAsset(asset)">
+                    <button class="text-button" (click)="socket.sendPhotoAsset(asset)">
                         {{asset.name}}
                     </button>
                 </li>
@@ -30,7 +30,7 @@
         <ul class="list">
             <ng-container *ngFor="let asset of videoAssets">
                 <li class="list__item">
-                    <button class="vidt-controller__button button" (click)="sendVideoAsset(asset)">
+                    <button class="text-button" (click)="socket.sendVideoAsset(asset)">
                         {{asset.name}}
                     </button>
                 </li>
@@ -43,7 +43,7 @@
         <ul class="list">
             <ng-container *ngFor="let type of animations">
                 <li class="list__item">
-                    <button class="vidt-controller__button button" (click)="sendAnimation(type)">
+                    <button class="text-button" (click)="socket.sendAnimation(type)">
                         {{type}}
                     </button>
                 </li>
@@ -56,7 +56,7 @@
         <ul class="list">
             <ng-container *ngFor="let word of wordsArray">
                 <li class="list__item">
-                    <button class="vidt-controller__button button" (click)="sendText(word)">
+                    <button class="text-button" (click)="socket.sendText(word)">
                         {{word}}
                     </button>
                 </li>
@@ -65,14 +65,14 @@
         <ul class="list">
             <li class="list__item">
                 <label class="form__label">Direct input</label>
-                <input #mainDirect type="text" class="form__input" (keyup)="sendText(mainDirect.value)">
+                <input #mainDirect type="text" class="form__input" (keyup)="socket.sendText(mainDirect.value)">
             </li>
 
             <li class="list__item">
                 <label class="form__label">On send</label>
                 <div class="form__item">
                     <input #mainBtn type="text" class="form__input">
-                    <button class="vidt-controller__button button form__button" (click)="sendText(mainBtn.value)">SEND</button>
+                    <button class="text-button form__button" (click)="socket.sendText(mainBtn.value)">SEND</button>
                 </div>
             </li>
         </ul>
@@ -83,7 +83,7 @@
         <h2 class="section__title">Beat</h2>
         <ul class="list">
             <li class="list__item">
-                <button class="vidt-controller__button button" (click)="sendBeat()">BEAT</button>
+                <button class="text-button" (click)="socket.sendBeat()">BEAT</button>
             </li>
         </ul>
     </div>

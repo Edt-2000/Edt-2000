@@ -3,8 +3,13 @@ import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
     selector: 'app-preset-controller',
-    templateUrl: './preset-controller.component.html',
-    styleUrls: ['./preset-controller.component.scss'],
+    template: `
+      <ul class="list list--presets" *ngIf="(presetState$ | async) as presets">
+        <li class="list__item" *ngFor="let preset of presets;">
+          <app-preset-switcher [preset]="preset"></app-preset-switcher>
+        </li>
+      </ul>
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PresetControllerComponent implements OnInit {

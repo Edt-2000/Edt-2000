@@ -22,6 +22,7 @@ export const SINGLE_COLOR = 'SINGLE_COLOR';
 export const VIDT_SINGLE_COLOR = 'VIDT_SINGLE_COLOR';
 export const MULTI_COLOR = 'MULTI_COLOR';
 export const VIDT_MULTI_COLOR = 'VIDT_MULTI_COLOR';
+export const COLOR_PALETTE = 'COLOR_PALETTE';
 export const MAIN_BEAT = 'MAIN_BEAT';
 export const VIDT_BEAT = 'VIDT_BEAT';
 export const VIDT_DRUM = 'VIDT_DRUM';
@@ -47,6 +48,7 @@ export const Actions = {
     vidtSingleColor: (payload: IColor) => createAction(VIDT_SINGLE_COLOR, payload),
     multiColor: (payload: IColor[]) => createAction(MULTI_COLOR, payload),
     vidtMultiColor: (payload: IColor[]) => createAction(VIDT_MULTI_COLOR, payload),
+    colorPalette: (payload: IColor[]) => createAction(COLOR_PALETTE, payload),
     mainBeat: (payload: number) => createAction(MAIN_BEAT, payload),
     vidtBeat: (payload: number) => createAction(VIDT_BEAT, payload),
     vidtDrum: (payload: DrumNotes) => createAction(VIDT_DRUM, payload),
@@ -88,6 +90,7 @@ export const Actions$ = {
         saturation: 0,
         brightness: 0,
     }]),
+    colorPalette: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([]),
     mainBeat: <Subject<number>> new Subject<number>(),
     vidtBeat: <Subject<number>> new Subject<number>(),
     vidtDrum: <Subject<DrumNotes>> new Subject<DrumNotes>(),
@@ -111,6 +114,7 @@ export function nextActionFromMsg(msg: Actions) {
     if (msg.type === VIDT_SINGLE_COLOR) Actions$.vidtSingleColor.next(msg.payload);
     if (msg.type === MULTI_COLOR) Actions$.multiColor.next(msg.payload);
     if (msg.type === VIDT_MULTI_COLOR) Actions$.vidtMultiColor.next(msg.payload);
+    if (msg.type === COLOR_PALETTE) Actions$.colorPalette.next(msg.payload);
     if (msg.type === MAIN_BEAT) Actions$.mainBeat.next(msg.payload);
     if (msg.type === VIDT_BEAT) Actions$.vidtBeat.next(msg.payload);
     if (msg.type === VIDT_DRUM) Actions$.vidtDrum.next(msg.payload);
