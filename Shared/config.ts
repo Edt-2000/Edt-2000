@@ -17,7 +17,7 @@ export const enum DeviceIPs {
     edtDispEdter = '169.168.219.93',
     // edtSledt = '192.168.2.3',
     edtcUDosPBUS = '192.168.2.42',
-    edtSledt = '192.168.2.109', // Edt-Wifi
+    edtSledt = '10.0.0.204', // Edt-Wifi
 }
 
 export enum OSCDevices {
@@ -93,9 +93,9 @@ export const colorSet: number[] = [
 
 // Use npm run serialports to discover connected Arduino's
 export const arduinos = [
-    '/dev/tty.usbmodem1412311',
-    '/dev/tty.usbmodem1412331',
-    '/dev/tty.usbmodem1412341',
+    '/dev/tty.usbmodem1432341',
+    '/dev/tty.usbmodem1432311',
+    '/dev/tty.usbmodem1432331',
 ];
 
 export const oscOutPort = 12345;

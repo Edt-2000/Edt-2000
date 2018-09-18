@@ -3,6 +3,9 @@ import { ICue } from './types';
 import { Actions } from './actions';
 import { DrumToBeat } from '../Edt-Sledt/src/presets/converters/drums/drumToBeat';
 import { DrumNotes } from './config';
+import {MultiColorToVidtMultiColor} from "../Edt-Sledt/src/presets/outputs/vidt/multiColorToVidtMultiColor";
+import {ColorToVidtColor} from "../Edt-Sledt/src/presets/outputs/vidt/colorToVidtColor";
+import {MainBeatToVidtBeat} from "../Edt-Sledt/src/presets/outputs/vidt/mainBeatToVidtBeat";
 
 export const presetCues: ICue[] = [
     {
@@ -20,5 +23,26 @@ export const presetCues: ICue[] = [
             }),
             Actions.prepareVidt(3),
         ],
+    },
+    {
+        label: 'Prepare Vidt',
+        actions: [
+            Actions.presetChange({
+                preset: new MultiColorToVidtMultiColor().note,
+                modifier: 0,
+                state: true,
+            }),
+            Actions.presetChange({
+                preset: new ColorToVidtColor().note,
+                modifier: 0,
+                state: true,
+            }),
+            Actions.presetChange({
+                preset: new MainBeatToVidtBeat().note,
+                modifier: 0,
+                state: true,
+            })
+        ],
     }
+
 ];

@@ -31,6 +31,7 @@ export class ColorControllerComponent implements OnInit {
             saturation: 255,
             brightness: 255
         }))))
+
     }
 
     getRGBString(colors: number[][]) {
