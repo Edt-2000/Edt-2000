@@ -25,8 +25,6 @@ export class ColorHelper {
             bcgColor += ')';
         }
 
-        console.log(bcgColor);
-
         return bcgColor;
     }
 

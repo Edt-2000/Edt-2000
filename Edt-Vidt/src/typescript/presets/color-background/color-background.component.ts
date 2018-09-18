@@ -45,7 +45,6 @@ export class ColorBackgroundComponent extends Vue {
 
         this.multiColorSubscription = Actions$.vidtMultiColor
             .subscribe((colors: IColor[]) => {
-                console.log(colors);
                 this.setStyles(colors);
             });
     }
