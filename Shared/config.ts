@@ -58,9 +58,9 @@ export enum MidiChannels {
 
 // Black is useful to turn off lights and screens
 export const BlackColor: IColor = {
-    hue: 0,
-    saturation: 0,
-    brightness: 0,
+    h: 0,
+    s: 0,
+    b: 0,
 };
 
 export enum ColorPreset {

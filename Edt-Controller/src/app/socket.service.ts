@@ -4,6 +4,7 @@ import {Actions, nextActionFromMsg} from '../../../Shared/actions';
 import {IPhotoAsset, IVideoAsset} from "../../../Shared/assets";
 import {animationTypes} from "../../../Shared/vidt-presets";
 import {ICue} from "../../../Shared/types";
+import {IColor} from "../../../Shared/socket";
 
 @Injectable()
 export class SocketService {
@@ -47,16 +48,11 @@ export class SocketService {
     this.toSledt(Actions.presetChange({preset, state, modifier}));
   }
 
-  sendColor(hue, saturation, brightness) {
-    this.toSledt(Actions.singleColor({hue, saturation, brightness}))
+  sendColor(color: IColor) {
+    this.toSledt(Actions.singleColor(color))
   }
 
-  sendMultiColor(hues: number[]) {
-    this.toSledt(Actions.multiColor(hues.map((hue) => ({
-      hue,
-      saturation: 255,
-      brightness: 255
-    }))))
-
+  sendMultiColor(colors: IColor[]) {
+    this.toSledt(Actions.multiColor(colors));
   }
 }

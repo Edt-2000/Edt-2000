@@ -22,12 +22,12 @@ export class BeatToColor extends PresetLogic {
     public _startPreset(): void {
         this.subscription = Actions$.mainBeat
             .subscribe(() => {
-                // TODO: set to random set of colors instead of rotating hue
+                // TODO: set to random set of colors instead of rotating h
                 this.hue = (this.hue + rescale(60, 127, 0, 255)) % 255;
                 const newColor: IColor = {
-                    hue: this.hue,
-                    saturation: 255,
-                    brightness: 255,
+                    h: this.hue,
+                    s: 255,
+                    b: 255,
                 };
                 nextActionFromMsg(Actions.singleColor(newColor));
             });

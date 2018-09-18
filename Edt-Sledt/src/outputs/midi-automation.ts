@@ -8,7 +8,7 @@ Actions$.presetChange.subscribe(sendMIDIPreset);
 //     sendMIDICC({
 //         channel: automationChannel,
 //         controller: 1, // TODO make a map of CC to actions
-//         value: Math.round(color.hue / 3),
+//         value: Math.round(color.h / 3),
 //     });
 // });
 

@@ -46,9 +46,9 @@ export class MidiToColors extends PresetLogic {
         )
             .subscribe((note) => {
                 const newColor: IColor = {
-                    hue: this.hues[note.noteNumber - 1],
-                    saturation: 255,
-                    brightness: 255,
+                    h: this.hues[note.noteNumber - 1],
+                    s: 255,
+                    b: 255,
                 };
                 nextActionFromMsg(Actions.singleColor(newColor));
             });

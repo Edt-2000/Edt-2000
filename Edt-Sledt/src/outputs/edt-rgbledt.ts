@@ -10,9 +10,9 @@ export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
         Modii.SingleSolid,
         0,
         127,
-        colorMsg.hue,
-        colorMsg.saturation,
-        colorMsg.brightness,
+        colorMsg.h,
+        colorMsg.s,
+        colorMsg.b,
     ]);
 }
 

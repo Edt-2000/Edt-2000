@@ -18,7 +18,7 @@ export class ColorStrobeRGBLed extends PresetLogic {
 
     public _startPreset(): void {
         this.subscriber = Actions$.singleColor.subscribe((color) => {
-            RGBLedtStrobe(0, this.modifier, color.hue);
+            RGBLedtStrobe(0, this.modifier, color.h);
         });
     }
 

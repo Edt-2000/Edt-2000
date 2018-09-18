@@ -18,7 +18,7 @@ export class ColorStrobeFastLed extends PresetLogic {
 
     public _startPreset(): void {
         this.subscriber = Actions$.singleColor.subscribe((color) => {
-            FastLedtStrobe(0, this.modifier, color.hue);
+            FastLedtStrobe(0, this.modifier, color.h);
         });
     }
 

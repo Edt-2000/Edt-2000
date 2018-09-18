@@ -9,8 +9,8 @@ import {sendToSerial} from '../communication/serial';
 // export function EdtLEDSpark(instance: number, colorMsg: IColor) {
 //     sendToSerial(OSCDevices.EdtFastLed, instance, [
 //         Modii.SingleSpark,
-//         colorMsg.hue,
-//         colorMsg.brightness,
+//         colorMsg.h,
+//         colorMsg.b,
 //     ]);
 // }
 
@@ -20,7 +20,7 @@ import {sendToSerial} from '../communication/serial';
 //         Modii.RainbowSolid,
 //         start,
 //         end,
-//         colorMsg.hue,
+//         colorMsg.h,
 //         deltaHue,
 //     ]);
 // }
@@ -30,9 +30,9 @@ export function FastLedtSingleSolid(instance: number, colorMsg: IColor, start: n
         Modii.SingleSolid,
         start,
         end,
-        colorMsg.hue,
-        colorMsg.saturation,
-        colorMsg.brightness,
+        colorMsg.h,
+        colorMsg.s,
+        colorMsg.b,
     ]);
 }
 
@@ -41,9 +41,9 @@ export function FastLedtSinglePulse(instance: number, duration: number, colorMsg
         Modii.SinglePulse,
         start,
         end,
-        colorMsg.hue,
-        colorMsg.saturation,
-        colorMsg.brightness,
+        colorMsg.h,
+        colorMsg.s,
+        colorMsg.b,
         duration,
     ]);
 }

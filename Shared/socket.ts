@@ -1,7 +1,7 @@
 export interface IColor {
-    readonly hue: number;
-    readonly saturation: number;
-    readonly brightness: number;
+    readonly h: number;
+    readonly s: number;
+    readonly b: number;
 }
 
 export interface ITrack {

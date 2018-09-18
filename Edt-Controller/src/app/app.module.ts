@@ -12,6 +12,7 @@ import {PresetSwitcherComponent} from './components/preset-switcher/preset-switc
 import {CuesControllerComponent} from './pages/cues-controller/cues-controller.component';
 import {SocketService} from './socket.service';
 import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller.component';
+import { TriggerButtonComponent } from './components/trigger-button/trigger-button.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller
         ColorControllerComponent,
         PresetSwitcherComponent,
         CuesControllerComponent,
-        VidtControllerComponent
+        VidtControllerComponent,
+        TriggerButtonComponent
     ],
     imports: [
         BrowserModule,
