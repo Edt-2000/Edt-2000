@@ -43,8 +43,11 @@ export const presets = [
  add flash-length to Actions$ and create button for Control
 
  auto-index photo and video files instead of manual adding
+ add video and photo files to .gitignore directory
 
  add more colors to multi-color selection in Control
  Add cues for some presets to switch quickly
+
+ create multi-color system
 
  **/
