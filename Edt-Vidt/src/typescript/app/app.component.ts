@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-import { router } from '../services/router.service';
+import {router} from '../services/router.service';
 import * as io from 'socket.io-client';
-import { DeviceIPs, socketPort } from '../../../../Shared/config';
-import { Actions$, nextActionFromMsg } from '../../../../Shared/actions';
-import { vidtPresets } from '../../../../Shared/vidt-presets';
+import {socketConfig} from '../../../../Shared/config';
+import {Actions$, nextActionFromMsg} from '../../../../Shared/actions';
+import {vidtPresets} from '../../../../Shared/vidt-presets';
 import Socket = SocketIOClient.Socket;
 
 @Component({
@@ -19,7 +19,7 @@ export default class App extends Vue {
 
     constructor() {
         super();
-        this.socket = io(`${DeviceIPs.edtSledt}:${socketPort}`, { transports : ['websocket'] });
+        this.socket = io(socketConfig.url, socketConfig.options);
 
         this.socket.on('connection', () => {
             console.log('socket connectioned');

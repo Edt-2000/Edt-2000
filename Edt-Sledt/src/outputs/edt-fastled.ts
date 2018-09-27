@@ -1,13 +1,14 @@
 import {
+    DeviceIPs,
     Modii,
     OSCDevices,
 } from '../../../Shared/config';
 import {IColor} from '../../../Shared/socket';
-import {sendToSerial} from '../communication/serial';
+import {sendToOSC} from "../communication/osc";
 
 // Might not work yet
 // export function EdtLEDSpark(instance: number, colorMsg: IColor) {
-//     sendToSerial(OSCDevices.EdtFastLed, instance, [
+//     sendToArduino(OSCDevices.EdtFastLed, instance, [
 //         Modii.SingleSpark,
 //         colorMsg.h,
 //         colorMsg.b,
@@ -16,7 +17,7 @@ import {sendToSerial} from '../communication/serial';
 
 // Not yet working??
 // export function EdtLEDRainbow(instance: number = 0, start: number, end: number, colorMsg: IColor, deltaHue: number) {
-//     sendToSerial(OSCDevices.EdtFastLed, instance,[
+//     sendToArduino(OSCDevices.EdtFastLed, instance,[
 //         Modii.RainbowSolid,
 //         start,
 //         end,
@@ -26,7 +27,7 @@ import {sendToSerial} from '../communication/serial';
 // }
 
 export function FastLedtSingleSolid(instance: number, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToSerial([OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance.toString()], [
         Modii.SingleSolid,
         start,
         end,
@@ -37,7 +38,7 @@ export function FastLedtSingleSolid(instance: number, colorMsg: IColor, start: n
 }
 
 export function FastLedtSinglePulse(instance: number, duration: number, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToSerial([OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance.toString()], [
         Modii.SinglePulse,
         start,
         end,
@@ -49,7 +50,7 @@ export function FastLedtSinglePulse(instance: number, duration: number, colorMsg
 }
 
 export function FastLedtStrobe(instance: number, speed: number, hue: number) {
-    sendToSerial([OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance.toString()], [
         Modii.Strobo,
         hue,
         speed,

@@ -1,4 +1,5 @@
 import {IColor} from "./socket";
+import {Note} from "./midi";
 
 export const socketPort: number = 8988;
 
@@ -14,9 +15,9 @@ export const enum DeviceIPs {
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
     edtRemoteDMX = '10.0.0.30',
-    edtDispEdter = '169.168.219.93',
+    edtDispEdter = '192.168.2.255',
     edtcUDosPBUS = '192.168.2.42',
-    edtSledt = 'localhost',
+    edtSledt = '192.168.2.124',
 }
 
 export enum OSCDevices {
@@ -78,7 +79,6 @@ export enum ColorPreset {
 
 export const colorSet: number[] = [
     ColorPreset.Red,
-    ColorPreset.Red,
     ColorPreset.Orange,
     ColorPreset.Yellow,
     ColorPreset.Lime,
@@ -90,14 +90,7 @@ export const colorSet: number[] = [
     ColorPreset.Pink,
 ];
 
-// Use npm run serialports to discover connected Arduino's
-export const arduinos = [
-    '/dev/tty.usbmodem1432341',
-    '/dev/tty.usbmodem1432311',
-    '/dev/tty.usbmodem1432331',
-];
-
-export const oscOutPort = 12345;
+export const oscOutPort = 12346;
 export const oscInPort = 12345;
 
 export const automationChannel = 16;
@@ -110,15 +103,15 @@ export const virtualMidiOutputDevice = 'EDT-SLEDT-OUT';
 
 // The channel_10 notes are mapped by the KORG to the following note numbers
 export enum DrumNotes {
-    '_1' = 36,
-    '_2' = 38,
-    '_3' = 40,
-    '_4' = 41,
-    '_5' = 43,
-    '_6A' = 42,
-    '_6B' = 46,
-    '_7A' = 49,
-    '_7B' = 51,
+    '_1' = Note.C1,
+    '_2' = Note.D1,
+    '_3' = Note.E1,
+    '_4' = Note.F1,
+    '_5' = Note.G1,
+    '_6A' = Note.F$1,
+    '_6B' = Note.A$1,
+    '_7A' = Note.C$2,
+    '_7B' = Note.D$2,
 }
 
 export const strobeSpeeds = [
@@ -128,22 +121,14 @@ export const strobeSpeeds = [
     },
     {
         label: 'medium',
-        value: 50,
+        value: 25,
     },
     {
         label: 'fast',
-        value: 100,
+        value: 40,
     },
     {
         label: 'faster',
-        value: 150,
+        value: 55,
     },
-    {
-        label: 'whoa',
-        value: 200,
-    },
-    {
-        label: 'drool',
-        value: 255,
-    },
-]
+];
