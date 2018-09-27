@@ -85,12 +85,12 @@ function getFlashPattern() {
     }
 
     return [
-        DrumNotes._2,
         DrumNotes._1,
         DrumNotes._2,
-        DrumNotes._1,
-        DrumNotes._2,
-        DrumNotes._1,
-        DrumNotes._2,
+        DrumNotes._3,
+        DrumNotes._4,
+        DrumNotes._5,
+        DrumNotes._6A,
+        DrumNotes._6B,
     ];
 }

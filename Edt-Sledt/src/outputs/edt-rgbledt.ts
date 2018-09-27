@@ -7,7 +7,7 @@ import {IColor} from '../../../Shared/socket';
 import {sendToOSC} from "../communication/osc";
 
 export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
-    sendToOSC(DeviceIPs.edtDispEdter,[OSCDevices.EdtRGBLed + instance], [
+    sendToOSC(DeviceIPs.edtDispEdter,[OSCDevices.EdtRGBLed + instance.toString()], [
         Modii.SingleSolid,
         0,
         127,
