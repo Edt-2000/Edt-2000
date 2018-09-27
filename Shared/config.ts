@@ -15,8 +15,8 @@ export const enum DeviceIPs {
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
     edtRemoteDMX = '10.0.0.30',
-    edtDispEdter = '192.168.2.255',
-    edtcUDosPBUS = '192.168.2.42',
+    edtDispEdter = '192.168.2.51',
+    edtcUDosPBUS = '192.168.2.51',
     edtSledt = '192.168.2.124',
 }
 
@@ -26,6 +26,7 @@ export enum OSCDevices {
     EdtDMX = 'D',
     EdtOnOff = 'O',
     EdtTrack = 'TK',
+    EdtAudio = 'A',
     EdtPedal = 'PD',
 }
 
