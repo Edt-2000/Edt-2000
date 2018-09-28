@@ -15,9 +15,9 @@ export const enum DeviceIPs {
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
     edtRemoteDMX = '10.0.0.30',
-    edtDispEdter = '192.168.2.51',
-    edtcUDosPBUS = '192.168.2.51',
-    edtSledt = '192.168.2.124',
+    edtDispEdter = '10.0.0.203',
+    // edtSledt = '10.0.0.201',
+    edtSledt = 'localhost',
 }
 
 export enum OSCDevices {
@@ -63,6 +63,12 @@ export const BlackColor: IColor = {
     h: 0,
     s: 0,
     b: 0,
+};
+
+export const defaultColor: IColor = {
+    h: 231,
+    s: 255,
+    b: 255,
 };
 
 export enum ColorPreset {

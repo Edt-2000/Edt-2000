@@ -4,7 +4,7 @@ import {ActionsUnion, createAction} from './fsa-helpers';
 import {animationTypes} from './vidt-presets';
 import {IColor} from './socket';
 import {IPhotoAsset, IVideoAsset, photoAssets, videoAssets} from './assets';
-import {DrumNotes} from "./config";
+import {defaultColor, DrumNotes} from "./config";
 
 export const PRESET_CHANGE = 'PRESET_CHANGE';
 export const PRESET_STATE = 'PRESET_STATE';
@@ -70,26 +70,10 @@ export const Actions$ = {
 
     animationType: <BehaviorSubject<animationTypes>> new BehaviorSubject<animationTypes>(animationTypes.bounce),
 
-    singleColor: <BehaviorSubject<IColor>> new BehaviorSubject<IColor>({
-        h: 0,
-        s: 0,
-        b: 0,
-    }),
-    vidtSingleColor: <BehaviorSubject<IColor>> new BehaviorSubject<IColor>({
-        h: 231,
-        s: 255,
-        b: 255,
-    }),
-    multiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([{
-        h: 0,
-        s: 0,
-        b: 0,
-    }]),
-    vidtMultiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([{
-        h: 0,
-        s: 0,
-        b: 0,
-    }]),
+    singleColor: <BehaviorSubject<IColor>> new BehaviorSubject<IColor>(defaultColor),
+    vidtSingleColor: <BehaviorSubject<IColor>> new BehaviorSubject<IColor>(defaultColor),
+    multiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([defaultColor]),
+    vidtMultiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([defaultColor]),
     colorPalette: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([]),
     mainBeat: <Subject<number>> new Subject<number>(),
     vidtBeat: <Subject<number>> new Subject<number>(),

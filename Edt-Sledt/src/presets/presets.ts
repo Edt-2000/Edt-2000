@@ -17,14 +17,14 @@ export const presets = [
     new MidiToColors(),
     new DrumToBeat(),
     new ColorToAllSolid(),
+    new ColorToFastLedSolid(),
     new ColorStrobeFastLed(),
     new ColorStrobeRGBLed(),
+    new DrumsToFastLedStrip(),
     new MainBeatToVidtBeat(),
     new ColorToVidtColor(),
-    new ColorToFastLedSolid(),
     new MultiColorToVidtMultiColor(),
     new DrumToVidt(),
-    new DrumsToFastLedStrip(),
 ];
 
 

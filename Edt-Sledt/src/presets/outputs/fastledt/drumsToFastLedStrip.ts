@@ -15,9 +15,8 @@ export class DrumsToFastLedStrip extends PresetLogic {
 
     modifierOptions: IModifierOptions = {
         select: [
-            {label: 'HorizontalCompleteStrips', value: 10},
-            {label: 'VerticalChunks', value: 20},
-            {label: 'VerticalMixedChunks', value: 30},
+            {label: 'simple', value: 10},
+            {label: 'fromCenter', value: 20},
         ],
     };
 
@@ -29,21 +28,7 @@ export class DrumsToFastLedStrip extends PresetLogic {
                 withLatestFrom(Actions$.singleColor),
             )
             .subscribe(([drumNote, color]) => {
-
-                switch (this.modifier) {
-                    case this.modifierOptions.select[0].value:
-                        this.horizontalCompleteStrips(drumNote, {h: 0, s:254, b: 254});
-                        break;
-
-                    case this.modifierOptions.select[1].value:
-
-                        break;
-
-                    case this.modifierOptions.select[2].value:
-
-                        break;
-                }
-                // FastLedtSingleSolid()
+                this.horizontalCompleteStrips(drumNote, color, patterns[this.modifier]);
             });
     }
 
@@ -53,38 +38,16 @@ export class DrumsToFastLedStrip extends PresetLogic {
         }
     }
 
-    private horizontalCompleteStrips(drumNote: DrumNotes, color: IColor) {
-        let flashPattern = getFlashPattern();
-
-        flashPattern.forEach((note, index) => {
-            if (note === drumNote) FastLedtSinglePulse(index + 1, 63, color);
+    private horizontalCompleteStrips(drumNote: DrumNotes, color: IColor, pattern: number[]) {
+        pattern.forEach((note, index) => {
+            if (note === drumNote) FastLedtSinglePulse(index + 1, 50, color);
         });
     }
 
 }
 
-function getFlashPattern() {
-// Group into three, with KICK center + outsides if possible
-    // K - - K - - K
-    if (fastLedAmount === 3) {
-        return [
-            DrumNotes._2,
-            DrumNotes._1,
-            DrumNotes._2,
-        ];
-    }
-
-    if (fastLedAmount === 5) {
-        return [
-            DrumNotes._1,
-            DrumNotes._2,
-            DrumNotes._1,
-            DrumNotes._2,
-            DrumNotes._1,
-        ];
-    }
-
-    return [
+const patterns = {
+    10: [
         DrumNotes._1,
         DrumNotes._2,
         DrumNotes._3,
@@ -92,5 +55,16 @@ function getFlashPattern() {
         DrumNotes._5,
         DrumNotes._6A,
         DrumNotes._6B,
-    ];
-}
+    ],
+
+    20: [
+        DrumNotes._6A,
+        DrumNotes._3,
+        DrumNotes._2,
+        DrumNotes._1,
+        DrumNotes._2,
+        DrumNotes._3,
+        DrumNotes._6A,
+    ],
+
+};
