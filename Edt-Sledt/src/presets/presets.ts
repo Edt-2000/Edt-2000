@@ -3,21 +3,21 @@ import {MidiToColors} from './converters/color/midiToColors';
 import {DrumToBeat} from './converters/drums/drumToBeat';
 import {MainBeatToVidtBeat} from './outputs/vidt/mainBeatToVidtBeat';
 import {ColorToVidtColor} from './outputs/vidt/colorToVidtColor';
-import {ColorToAllSolid} from './outputs/_ledt/colorToAllSolid';
 import {MultiColorToVidtMultiColor} from "./outputs/vidt/multiColorToVidtMultiColor";
 import {ColorToFastLedSolid} from "./outputs/fastledt/colorToFastLedSolid";
 import {DrumToVidt} from "./outputs/vidt/drumToVidt";
 import {ColorStrobeFastLed} from "./outputs/fastledt/colorStrobeFastLed";
 import {ColorStrobeRGBLed} from "./outputs/rgbledt/colorStrobeRGBLed";
 import {DrumsToFastLedStrip} from "./outputs/fastledt/drumsToFastLedStrip";
+import {ColorToRGBLedSolid} from "./outputs/rgbledt/colorToRGBLedSolid";
 
 
 export const presets = [
     new BeatToColor(),
     new MidiToColors(),
     new DrumToBeat(),
-    new ColorToAllSolid(),
     new ColorToFastLedSolid(),
+    new ColorToRGBLedSolid(),
     new ColorStrobeFastLed(),
     new ColorStrobeRGBLed(),
     new DrumsToFastLedStrip(),

@@ -3,7 +3,7 @@ import {PresetLogic} from '../../presets-logic';
 import {IModifierOptions} from '../../../../../Shared/types';
 import {Note} from '../../../../../Shared/midi';
 import {drumTriggerOn$} from "../../../inputs/music-triggers";
-import {DrumNotes, fastLedAmount} from "../../../../../Shared/config";
+import {DrumNotes} from "../../../../../Shared/config";
 import {FastLedtSinglePulse} from "../../../outputs/edt-fastled";
 import {withLatestFrom} from "rxjs/operators";
 import {Actions$} from "../../../../../Shared/actions";
