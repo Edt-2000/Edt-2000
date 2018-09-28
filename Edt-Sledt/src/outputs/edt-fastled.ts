@@ -1,30 +1,27 @@
-import {
-    DeviceIPs,
-    Modii,
-    OSCDevices,
-} from '../../../Shared/config';
+import {DeviceIPs, Modii, OSCDevices,} from '../../../Shared/config';
 import {IColor} from '../../../Shared/socket';
 import {sendToOSC} from "../communication/osc";
 
-// Might not work yet
-// export function EdtLEDSpark(instance: number, colorMsg: IColor) {
-//     sendToArduino(OSCDevices.EdtFastLed, instance, [
-//         Modii.SingleSpark,
-//         colorMsg.h,
-//         colorMsg.b,
-//     ]);
-// }
+export function FastLedtSpark(instance: number, colorMsg: IColor, start: number = 0, end: number = 127) {
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed, instance.toString()], [
+        Modii.SingleSpark,
+        start,
+        end,
+        colorMsg.h,
+        colorMsg.s,
+        colorMsg.b,
+    ]);
+}
 
-// Not yet working??
-// export function EdtLEDRainbow(instance: number = 0, start: number, end: number, colorMsg: IColor, deltaHue: number) {
-//     sendToArduino(OSCDevices.EdtFastLed, instance,[
-//         Modii.RainbowSolid,
-//         start,
-//         end,
-//         colorMsg.h,
-//         deltaHue,
-//     ]);
-// }
+export function FastLedtRainbowSpark(instance: number = 0, start: number, end: number, colorMsg: IColor, deltaHue: number) {
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance.toString()], [
+        Modii.RainbowSpark,
+        start,
+        end,
+        colorMsg.h,
+        deltaHue,
+    ]);
+}
 
 export function FastLedtSingleSolid(instance: number, colorMsg: IColor, start: number = 0, end: number = 127) {
     sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance.toString()], [

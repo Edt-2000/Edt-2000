@@ -4,10 +4,10 @@ import {IModifierOptions} from '../../../../../Shared/types';
 import {Note} from '../../../../../Shared/midi';
 import {drumTriggerOn$} from "../../../inputs/music-triggers";
 import {DrumNotes} from "../../../../../Shared/config";
-import {FastLedtSinglePulse} from "../../../outputs/edt-fastled";
 import {withLatestFrom} from "rxjs/operators";
 import {Actions$} from "../../../../../Shared/actions";
 import {IColor} from "../../../../../Shared/socket";
+import {FastLedtSinglePulse} from "../../../outputs/edt-fastled";
 
 export class DrumsToFastLedStrip extends PresetLogic {
     title = 'DrumsToFastLedStrip';
@@ -28,7 +28,7 @@ export class DrumsToFastLedStrip extends PresetLogic {
                 withLatestFrom(Actions$.singleColor),
             )
             .subscribe(([drumNote, color]) => {
-                this.horizontalCompleteStrips(drumNote, color, patterns[this.modifier]);
+                if(patterns[this.modifier]) this.horizontalCompleteStrips(drumNote, color, patterns[this.modifier]);
             });
     }
 
