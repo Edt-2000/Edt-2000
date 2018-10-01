@@ -10,6 +10,7 @@ import {ColorStrobeFastLed} from "./outputs/fastledt/colorStrobeFastLed";
 import {ColorStrobeRGBLed} from "./outputs/rgbledt/colorStrobeRGBLed";
 import {DrumsToFastLedStrip} from "./outputs/fastledt/drumsToFastLedStrip";
 import {ColorToRGBLedSolid} from "./outputs/rgbledt/colorToRGBLedSolid";
+import {ColorToInverseVidtColor} from "./converters/color/colorToInverseVidtColor";
 import {BeatToColorSpark} from "./outputs/fastledt/beatToColorSpark";
 import {BeatToRainbowSpark} from "./outputs/fastledt/beatToRainbowSpark";
 
@@ -27,8 +28,10 @@ export const presets = [
     new DrumsToFastLedStrip(),
     new MainBeatToVidtBeat(),
     new ColorToVidtColor(),
+    new ColorToInverseVidtColor(),
     new MultiColorToVidtMultiColor(),
     new DrumToVidt(),
+    // new BeatToNextWord(),
 ];
 
 

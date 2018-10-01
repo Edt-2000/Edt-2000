@@ -4,16 +4,13 @@ import {IModifierOptions} from '../../../../../Shared/types';
 import {Note} from '../../../../../Shared/midi';
 import {Actions$} from '../../../../../Shared/actions';
 import {FastLedtSpark} from '../../../outputs/edt-fastled';
-import {strobeSpeeds} from "../../../../../Shared/config";
 import {withLatestFrom} from "rxjs/operators";
 
 export class BeatToColorSpark extends PresetLogic {
     title = 'BeatToColorSpark';
     note = Note.B3;
 
-    modifierOptions: IModifierOptions = {
-        select: strobeSpeeds,
-    };
+    modifierOptions: IModifierOptions = {};
 
     private subscriber: Subscription;
 

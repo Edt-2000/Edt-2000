@@ -33,13 +33,12 @@ export class MidiToColors extends PresetLogic {
     constructor() {
         super();
         this.hue = 0;
-
-        this.hues = shuffleArray([
-            0, 18, 48, 58, 85, 95, 105, 129, 158, 183, 200, 218, // nice colors?
-        ]);
     }
 
     public _startPreset(): void {
+        this.hues = shuffleArray([
+            0, 18, 48, 58, 85, 95, 105, 129, 158, 183, 200, 218, // nice colors?
+        ]);
 
         this.subscription = noteOn$.pipe(
             filter((note) => note.channel === this.modifier),

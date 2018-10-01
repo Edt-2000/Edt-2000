@@ -17,6 +17,7 @@ export class DrumsToFastLedStrip extends PresetLogic {
         select: [
             {label: 'simple', value: 10},
             {label: 'fromCenter', value: 20},
+            {label: 'centralBeat', value: 30},
         ],
     };
 
@@ -61,10 +62,19 @@ const patterns = {
         DrumNotes._6A,
         DrumNotes._3,
         DrumNotes._2,
-        DrumNotes._1,
+        DrumNotes._6A,
         DrumNotes._2,
         DrumNotes._3,
         DrumNotes._6A,
     ],
 
+    30: [
+        DrumNotes._1,
+        DrumNotes._2,
+        DrumNotes._6A,
+        DrumNotes._1,
+        DrumNotes._6A,
+        DrumNotes._2,
+        DrumNotes._1,
+    ],
 };

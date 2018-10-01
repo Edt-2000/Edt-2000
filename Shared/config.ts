@@ -97,7 +97,7 @@ export const colorSet: number[] = [
     ColorPreset.Pink,
 ];
 
-export const oscOutPort = 12346;
+export const oscOutPort = 12345;
 export const oscInPort = 12345;
 
 export const automationChannel = 16;
