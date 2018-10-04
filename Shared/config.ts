@@ -104,8 +104,8 @@ export const automationChannel = 16;
 
 export const fastLedAmount: number = 7;
 
-export const virtualMidiInputDevice = 'EDT-SLEDT-IN';
 export const hardwareMidiInput = 'EDTMID USB MIDI Interface';
+export const virtualMidiInputDevice = 'EDT-SLEDT-IN';
 export const virtualMidiOutputDevice = 'EDT-SLEDT-OUT';
 
 // The channel_10 notes are mapped by the KORG to the following note numbers
