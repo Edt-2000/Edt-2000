@@ -11,7 +11,7 @@ void setup() {
   size(400,400);
   frameRate(1);
   
-  oscP5 = new OscP5(this, 12345);
+  oscP5 = new OscP5(this, 12346);
  
   printArray(Serial.list());
   

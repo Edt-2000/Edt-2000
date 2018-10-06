@@ -15,9 +15,8 @@ export const enum DeviceIPs {
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
     edtRemoteDMX = '10.0.0.30',
-    edtDispEdter = '10.0.0.203',
-    // edtSledt = '10.0.0.201',
-    edtSledt = 'localhost',
+    edtDispEdter = '10.0.0.201',
+    edtSledt = '10.0.0.201',
 }
 
 export enum OSCDevices {
@@ -48,7 +47,6 @@ export enum Modii {
     Bash = 13,
 }
 
-// TODO: each song has a different channel setup, needs to be dynamic!
 export enum MidiChannels {
     channel_1 = 1,
     channel_2 = 2,
@@ -97,7 +95,7 @@ export const colorSet: number[] = [
     ColorPreset.Pink,
 ];
 
-export const oscOutPort = 12345;
+export const oscOutPort = 12346;
 export const oscInPort = 12345;
 
 export const automationChannel = 16;
@@ -121,21 +119,36 @@ export enum DrumNotes {
     '_7B' = Note.D$2,
 }
 
-export const strobeSpeeds = [
-    {
-        label: 'slow',
-        value: 10,
-    },
-    {
-        label: 'medium',
-        value: 25,
-    },
-    {
-        label: 'fast',
-        value: 40,
-    },
-    {
-        label: 'faster',
-        value: 55,
-    },
-];
+// TODO: move to own file
+export const modifiers = {
+    strobeSpeeds: [
+        {label: 'slow', value: 10},
+        {label: 'medium', value: 25},
+        {label: 'fast', value: 40},
+        {label: 'faster', value: 55},
+    ],
+    fadeSpeeds: [
+        {label: 'fast', value: 150},
+        {label: 'medium', value: 80},
+        {label: 'slow', value: 30}
+    ],
+    midiChannels: [
+        {label: MidiChannels[MidiChannels.channel_1], value: MidiChannels.channel_1},
+        {label: MidiChannels[MidiChannels.channel_2], value: MidiChannels.channel_2},
+        {label: MidiChannels[MidiChannels.channel_3], value: MidiChannels.channel_3},
+        {label: MidiChannels[MidiChannels.channel_4], value: MidiChannels.channel_4},
+        {label: MidiChannels[MidiChannels.channel_5], value: MidiChannels.channel_5},
+        {label: MidiChannels[MidiChannels.channel_10], value: MidiChannels.channel_10},
+    ],
+    drumNotes: [
+        {label: DrumNotes[DrumNotes._1], value: DrumNotes._1},
+        {label: DrumNotes[DrumNotes._2], value: DrumNotes._2},
+        {label: DrumNotes[DrumNotes._3], value: DrumNotes._3},
+        {label: DrumNotes[DrumNotes._4], value: DrumNotes._4},
+        {label: DrumNotes[DrumNotes._5], value: DrumNotes._5},
+        {label: DrumNotes[DrumNotes._6A], value: DrumNotes._6A},
+        {label: DrumNotes[DrumNotes._6B], value: DrumNotes._6B},
+        {label: DrumNotes[DrumNotes._7A], value: DrumNotes._7A},
+        {label: DrumNotes[DrumNotes._7B], value: DrumNotes._7B},
+    ]
+};

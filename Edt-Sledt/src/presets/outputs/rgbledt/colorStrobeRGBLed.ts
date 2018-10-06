@@ -2,11 +2,11 @@ import {Subscription} from 'rxjs/Subscription';
 import {PresetLogic} from '../../presets-logic';
 import {Actions$} from '../../../../../Shared/actions';
 import {RGBLedtStrobe} from "../../../outputs/edt-rgbledt";
-import {strobeSpeeds} from "../../../../../Shared/config";
+import {modifiers} from "../../../../../Shared/config";
 
 export class ColorStrobeRGBLed extends PresetLogic {
     modifierOptions = {
-        select: strobeSpeeds,
+        select: modifiers.strobeSpeeds,
     };
 
     private subscriber: Subscription;

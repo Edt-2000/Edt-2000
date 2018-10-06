@@ -11,13 +11,13 @@ import {ColorStrobeRGBLed} from "./outputs/rgbledt/colorStrobeRGBLed";
 import {DrumsToFastLedStrip} from "./outputs/fastledt/drumsToFastLedStrip";
 import {ColorToRGBLedSolid} from "./outputs/rgbledt/colorToRGBLedSolid";
 import {ColorToInverseVidtColor} from "./converters/color/colorToInverseVidtColor";
-import {BeatToColorSpark} from "./outputs/fastledt/beatToColorSpark";
+import {ColorToFastLedSpark} from "./outputs/fastledt/colorToFastLedSpark";
 import {BeatToRainbowSpark} from "./outputs/fastledt/beatToRainbowSpark";
 import {Note} from "../../../Shared/midi";
 
 export const presets = {
     [Note.A3]: new BeatToColor(),
-    [Note.B3]: new BeatToColorSpark(),
+    [Note.B3]: new ColorToFastLedSpark(),
     [Note.C3]: new BeatToRainbowSpark(),
 
     [Note.A2]: new MidiToColors(),

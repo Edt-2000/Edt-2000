@@ -15,6 +15,7 @@ export const IMAGE_SRC = 'IMAGE_SRC';
 export const VIDEO_SRC = 'VIDEO_SRC';
 
 export const MAIN_TEXT = 'MAIN_TEXT';
+export const WORD_SET = 'WORD_SET';
 
 export const ANIMATION_TYPE = 'ANIMATION_TYPE';
 
@@ -39,6 +40,7 @@ export const Actions = {
     videoSrc: (payload: IVideoAsset) => createAction(VIDEO_SRC, payload),
 
     mainText: (payload: string) => createAction(MAIN_TEXT, payload),
+    wordSet: (payload: string[]) => createAction(WORD_SET, payload),
 
     // Effects
     animationType: (payload: animationTypes) => createAction(ANIMATION_TYPE, payload),
@@ -67,6 +69,7 @@ export const Actions$ = {
     videoSrc: <BehaviorSubject<IVideoAsset>> new BehaviorSubject<IVideoAsset>(videoAssets[0]),
 
     mainText: <BehaviorSubject<string>> new BehaviorSubject<string>('STROBOCOPS'),
+    wordSet: <BehaviorSubject<string[]>> new BehaviorSubject<string[]>(['STROBOCOPS']),
 
     animationType: <BehaviorSubject<animationTypes>> new BehaviorSubject<animationTypes>(animationTypes.bounce),
 
@@ -74,7 +77,7 @@ export const Actions$ = {
     vidtSingleColor: <BehaviorSubject<IColor>> new BehaviorSubject<IColor>(defaultColor),
     multiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([defaultColor]),
     vidtMultiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([defaultColor]),
-    colorPalette: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([]),
+    colorPalette: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([defaultColor]),
     mainBeat: <Subject<number>> new Subject<number>(),
     vidtBeat: <Subject<number>> new Subject<number>(),
     vidtDrum: <Subject<DrumNotes>> new Subject<DrumNotes>(),
@@ -91,6 +94,7 @@ export function nextActionFromMsg(msg: Actions) {
     if (msg.type === VIDEO_SRC) Actions$.videoSrc.next(msg.payload);
 
     if (msg.type === MAIN_TEXT) Actions$.mainText.next(msg.payload);
+    if (msg.type === WORD_SET) Actions$.wordSet.next(msg.payload);
 
     if (msg.type === ANIMATION_TYPE) Actions$.animationType.next(msg.payload);
 

@@ -3,21 +3,11 @@ import {drumTriggerOn$} from '../../../inputs/music-triggers';
 import {PresetLogic} from '../../presets-logic';
 import {filter} from 'rxjs/operators';
 import {Actions, nextActionFromMsg} from '../../../../../Shared/actions';
-import {DrumNotes} from "../../../../../Shared/config";
+import {modifiers} from "../../../../../Shared/config";
 
 export class DrumToBeat extends PresetLogic {
     modifierOptions = {
-        select: [
-            {label: DrumNotes[DrumNotes._1], value: DrumNotes._1},
-            {label: DrumNotes[DrumNotes._2], value: DrumNotes._2},
-            {label: DrumNotes[DrumNotes._3], value: DrumNotes._3},
-            {label: DrumNotes[DrumNotes._4], value: DrumNotes._4},
-            {label: DrumNotes[DrumNotes._5], value: DrumNotes._5},
-            {label: DrumNotes[DrumNotes._6A], value: DrumNotes._6A},
-            {label: DrumNotes[DrumNotes._6B], value: DrumNotes._6B},
-            {label: DrumNotes[DrumNotes._7A], value: DrumNotes._7A},
-            {label: DrumNotes[DrumNotes._7B], value: DrumNotes._7B},
-            ],
+        select: modifiers.drumNotes,
     };
 
     private subscriber: Subscription;

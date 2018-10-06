@@ -1,20 +1,21 @@
-import {DeviceIPs, Modii, OSCDevices,} from '../../../Shared/config';
+import {DeviceIPs, fadeSpeeds, Modii, OSCDevices,} from '../../../Shared/config';
 import {IColor} from '../../../Shared/socket';
 import {sendToOSC} from "../communication/osc";
 
-export function FastLedtSpark(instance: number, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed, instance.toString()], [
+export function FastLedtSpark(instance: number, colorMsg: IColor, speed: number, start: number = 0, end: number = 127) {
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
         Modii.SingleSpark,
         start,
         end,
         colorMsg.h,
         colorMsg.s,
         colorMsg.b,
+        speed,
     ]);
 }
 
 export function FastLedtRainbowSpark(instance: number = 0, start: number, end: number, colorMsg: IColor, deltaHue: number) {
-    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
         Modii.RainbowSpark,
         start,
         end,
@@ -24,7 +25,7 @@ export function FastLedtRainbowSpark(instance: number = 0, start: number, end: n
 }
 
 export function FastLedtSingleSolid(instance: number, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
         Modii.SingleSolid,
         start,
         end,
@@ -35,7 +36,7 @@ export function FastLedtSingleSolid(instance: number, colorMsg: IColor, start: n
 }
 
 export function FastLedtSinglePulse(instance: number, duration: number, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
         Modii.SinglePulse,
         start,
         end,
@@ -47,7 +48,7 @@ export function FastLedtSinglePulse(instance: number, duration: number, colorMsg
 }
 
 export function FastLedtStrobe(instance: number, speed: number, hue: number) {
-    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
         Modii.Strobo,
         hue,
         speed,
