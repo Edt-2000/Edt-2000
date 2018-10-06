@@ -35,7 +35,6 @@ export const presets = {
     [Note.C7]: new ColorToInverseVidtColor(),
     [Note.D7]: new MultiColorToVidtMultiColor(),
     [Note.E7]: new DrumToVidt(),
-    // [Note.]: new BeatToNextWord(),
 };
 
 // TODO list:

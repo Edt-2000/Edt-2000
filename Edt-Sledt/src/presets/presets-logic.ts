@@ -1,14 +1,16 @@
 import {sendStateToControl} from '../outputs/edt-control';
 import {IModifierOptions} from '../../../Shared/types';
+import {presets} from "./presets";
 
 export abstract class PresetLogic {
+    readonly title: string = this.constructor.name;
+    readonly modifierOptions: IModifierOptions = {};
+
     state = false;
     modifier = 127; // Important; otherwise it will send noteOff
 
-    modifierOptions?: IModifierOptions = {};
-
     startPreset(modifier: number) {
-        console.log('Starting preset', modifier);
+        console.log('Starting preset', this.title, modifier);
         this.modifier = modifier;
         this._stopPreset();
         this._startPreset();
@@ -17,7 +19,7 @@ export abstract class PresetLogic {
     }
 
     stopPreset() {
-        console.log('Stopping preset');
+        console.log('Stopping preset', this.title);
         this._stopPreset();
         this.state = false;
         sendStateToControl();
@@ -26,4 +28,8 @@ export abstract class PresetLogic {
     protected abstract _startPreset(): void;
 
     protected abstract _stopPreset(): void;
+
+    static get note(): number {
+        return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === this.name);
+    }
 }

@@ -7,10 +7,10 @@ import {withLatestFrom} from "rxjs/operators";
 export class BeatToRainbowSpark extends PresetLogic {
     modifierOptions = {
         select: [
-            { label: 'small', value: 30 },
-            { label: 'medium', value: 60 },
-            { label: 'large', value: 90 }
-            ],
+            {label: 'small', value: 30},
+            {label: 'medium', value: 60},
+            {label: 'large', value: 90}
+        ],
     };
 
     private subscriber: Subscription;

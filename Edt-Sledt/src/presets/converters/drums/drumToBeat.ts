@@ -18,8 +18,7 @@ export class DrumToBeat extends PresetLogic {
             {label: DrumNotes[DrumNotes._7A], value: DrumNotes._7A},
             {label: DrumNotes[DrumNotes._7B], value: DrumNotes._7B},
             ],
-    }
-
+    };
 
     private subscriber: Subscription;
 

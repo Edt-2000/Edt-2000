@@ -14,7 +14,7 @@ export class MidiToColors extends PresetLogic {
             {label: MidiChannels[MidiChannels.channel_4], value: MidiChannels.channel_4},
             {label: MidiChannels[MidiChannels.channel_5], value: MidiChannels.channel_5},
             {label: MidiChannels[MidiChannels.channel_10], value: MidiChannels.channel_10},
-            ],
+        ],
     };
 
     private subscription: Subscription;
