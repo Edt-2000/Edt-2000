@@ -13,27 +13,30 @@ import {ColorToRGBLedSolid} from "./outputs/rgbledt/colorToRGBLedSolid";
 import {ColorToInverseVidtColor} from "./converters/color/colorToInverseVidtColor";
 import {BeatToColorSpark} from "./outputs/fastledt/beatToColorSpark";
 import {BeatToRainbowSpark} from "./outputs/fastledt/beatToRainbowSpark";
+import {Note} from "../../../Shared/midi";
 
+export const presets = {
+    [Note.A3]: new BeatToColor(),
+    [Note.B3]: new BeatToColorSpark(),
+    [Note.C3]: new BeatToRainbowSpark(),
 
-export const presets = [
-    new BeatToColor(),
-    new MidiToColors(),
-    new DrumToBeat(),
-    new ColorToFastLedSolid(),
-    new ColorToRGBLedSolid(),
-    new ColorStrobeFastLed(),
-    new ColorStrobeRGBLed(),
-    new BeatToColorSpark(),
-    new BeatToRainbowSpark(),
-    new DrumsToFastLedStrip(),
-    new MainBeatToVidtBeat(),
-    new ColorToVidtColor(),
-    new ColorToInverseVidtColor(),
-    new MultiColorToVidtMultiColor(),
-    new DrumToVidt(),
-    // new BeatToNextWord(),
-];
+    [Note.A2]: new MidiToColors(),
 
+    [Note.A1]: new DrumToBeat(),
+    [Note.B1]: new DrumsToFastLedStrip(),
+
+    [Note.A0]: new ColorToFastLedSolid(),
+    [Note.B0]: new ColorToRGBLedSolid(),
+    [Note.C0]: new ColorStrobeFastLed(),
+    [Note.D0]: new ColorStrobeRGBLed(),
+
+    [Note.A7]: new MainBeatToVidtBeat(),
+    [Note.B7]: new ColorToVidtColor(),
+    [Note.C7]: new ColorToInverseVidtColor(),
+    [Note.D7]: new MultiColorToVidtMultiColor(),
+    [Note.E7]: new DrumToVidt(),
+    // [Note.]: new BeatToNextWord(),
+};
 
 // TODO list:
 

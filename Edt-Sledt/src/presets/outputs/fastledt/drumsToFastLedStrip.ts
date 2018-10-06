@@ -1,7 +1,5 @@
 import {Subscription} from 'rxjs/Subscription';
 import {PresetLogic} from '../../presets-logic';
-import {IModifierOptions} from '../../../../../Shared/types';
-import {Note} from '../../../../../Shared/midi';
 import {drumTriggerOn$} from "../../../inputs/music-triggers";
 import {DrumNotes} from "../../../../../Shared/config";
 import {withLatestFrom} from "rxjs/operators";
@@ -10,30 +8,27 @@ import {IColor} from "../../../../../Shared/socket";
 import {FastLedtSinglePulse} from "../../../outputs/edt-fastled";
 
 export class DrumsToFastLedStrip extends PresetLogic {
-    title = 'DrumsToFastLedStrip';
-    note = Note.B1;
-
-    modifierOptions: IModifierOptions = {
+    modifierOptions = {
         select: [
             {label: 'simple', value: 10},
             {label: 'fromCenter', value: 20},
             {label: 'centralBeat', value: 30},
-        ],
+            ],
     };
 
     private subscriber: Subscription;
 
-    public _startPreset(): void {
+    protected _startPreset(): void {
         this.subscriber = drumTriggerOn$
             .pipe(
                 withLatestFrom(Actions$.singleColor),
             )
             .subscribe(([drumNote, color]) => {
-                if(patterns[this.modifier]) this.horizontalCompleteStrips(drumNote, color, patterns[this.modifier]);
+                if(this.patterns[this.modifier]) this.horizontalCompleteStrips(drumNote, color, this.patterns[this.modifier]);
             });
     }
 
-    public _stopPreset(): void {
+    protected _stopPreset(): void {
         if (typeof this.subscriber !== 'undefined') {
             this.subscriber.unsubscribe();
         }
@@ -45,36 +40,35 @@ export class DrumsToFastLedStrip extends PresetLogic {
         });
     }
 
+    private patterns = {
+        10: [
+            DrumNotes._1,
+            DrumNotes._2,
+            DrumNotes._3,
+            DrumNotes._4,
+            DrumNotes._5,
+            DrumNotes._6A,
+            DrumNotes._6B,
+        ],
+
+        20: [
+            DrumNotes._6A,
+            DrumNotes._3,
+            DrumNotes._2,
+            DrumNotes._6A,
+            DrumNotes._2,
+            DrumNotes._3,
+            DrumNotes._6A,
+        ],
+
+        30: [
+            DrumNotes._1,
+            DrumNotes._2,
+            DrumNotes._6A,
+            DrumNotes._1,
+            DrumNotes._6A,
+            DrumNotes._2,
+            DrumNotes._1,
+        ],
+    }
 }
-
-const patterns = {
-    10: [
-        DrumNotes._1,
-        DrumNotes._2,
-        DrumNotes._3,
-        DrumNotes._4,
-        DrumNotes._5,
-        DrumNotes._6A,
-        DrumNotes._6B,
-    ],
-
-    20: [
-        DrumNotes._6A,
-        DrumNotes._3,
-        DrumNotes._2,
-        DrumNotes._6A,
-        DrumNotes._2,
-        DrumNotes._3,
-        DrumNotes._6A,
-    ],
-
-    30: [
-        DrumNotes._1,
-        DrumNotes._2,
-        DrumNotes._6A,
-        DrumNotes._1,
-        DrumNotes._6A,
-        DrumNotes._2,
-        DrumNotes._1,
-    ],
-};

@@ -1,26 +1,21 @@
 import {Subscription} from 'rxjs/Subscription';
 import {PresetLogic} from '../../presets-logic';
-import {IModifierOptions} from '../../../../../Shared/types';
-import {Note} from '../../../../../Shared/midi';
 import {Actions$} from '../../../../../Shared/actions';
 import {FastLedtRainbowSpark} from "../../../outputs/edt-fastled";
 import {withLatestFrom} from "rxjs/operators";
 
 export class BeatToRainbowSpark extends PresetLogic {
-    title = 'BeatToRainbowSpark';
-    note = Note.B4;
-
-    modifierOptions: IModifierOptions = {
+    modifierOptions = {
         select: [
             { label: 'small', value: 30 },
             { label: 'medium', value: 60 },
             { label: 'large', value: 90 }
-        ],
+            ],
     };
 
     private subscriber: Subscription;
 
-    public _startPreset(): void {
+    protected _startPreset(): void {
         this.subscriber = Actions$.mainBeat.pipe(
             withLatestFrom(Actions$.singleColor),
         ).subscribe(([, color]) => {
@@ -28,7 +23,7 @@ export class BeatToRainbowSpark extends PresetLogic {
         });
     }
 
-    public _stopPreset(): void {
+    protected _stopPreset(): void {
         if (typeof this.subscriber !== 'undefined') {
             this.subscriber.unsubscribe();
         }
