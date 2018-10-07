@@ -24,3 +24,18 @@ export const words: string[] = [
     'SLAYER!',
     'LALALA'
 ];
+
+export interface WordSet {
+    name: string,
+    set: string[],
+}
+
+export const wordSets: WordSet[] = [
+    {
+        name: 'CABRIO',
+        set: [
+            ...'CABRIO'.split(''),
+            'CABRIOLETTA',
+        ],
+    },
+];

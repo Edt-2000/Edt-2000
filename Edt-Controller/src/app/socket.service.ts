@@ -36,6 +36,11 @@ export class SocketService {
     this.toSledt(Actions.mainText(main));
   }
 
+  sendWordset(set: string[]) {
+    this.toSledt(Actions.wordSet(set));
+  }
+
+
   sendAnimation(animation: animationTypes) {
     this.toSledt(Actions.animationType(animation));
   }

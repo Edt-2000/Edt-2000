@@ -62,6 +62,15 @@
                 </li>
             </ng-container>
         </ul>
+      <ul class="list">
+        <ng-container *ngFor="let wordSet of wordSets">
+          <li class="list__item">
+            <button class="text-button" (click)="socket.sendWordset(wordSet.set)">
+              {{wordSet.name}}
+            </button>
+          </li>
+        </ng-container>
+      </ul>
         <ul class="list">
             <li class="list__item">
                 <label class="form__label">Direct input</label>

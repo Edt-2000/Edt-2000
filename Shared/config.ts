@@ -82,19 +82,6 @@ export enum ColorPreset {
     Pink = 218,
 }
 
-export const colorSet: number[] = [
-    ColorPreset.Red,
-    ColorPreset.Orange,
-    ColorPreset.Yellow,
-    ColorPreset.Lime,
-    ColorPreset.Green,
-    ColorPreset.SeaGreen,
-    ColorPreset.Turquoise,
-    ColorPreset.Blue,
-    ColorPreset.Purple,
-    ColorPreset.Pink,
-];
-
 export const oscOutPort = 12346;
 export const oscInPort = 12345;
 
@@ -141,14 +128,14 @@ export const modifiers = {
         {label: MidiChannels[MidiChannels.channel_10], value: MidiChannels.channel_10},
     ],
     drumNotes: [
-        {label: DrumNotes[DrumNotes._1], value: DrumNotes._1},
-        {label: DrumNotes[DrumNotes._2], value: DrumNotes._2},
-        {label: DrumNotes[DrumNotes._3], value: DrumNotes._3},
-        {label: DrumNotes[DrumNotes._4], value: DrumNotes._4},
-        {label: DrumNotes[DrumNotes._5], value: DrumNotes._5},
-        {label: DrumNotes[DrumNotes._6A], value: DrumNotes._6A},
-        {label: DrumNotes[DrumNotes._6B], value: DrumNotes._6B},
-        {label: DrumNotes[DrumNotes._7A], value: DrumNotes._7A},
-        {label: DrumNotes[DrumNotes._7B], value: DrumNotes._7B},
+        {label: DrumNotes[DrumNotes._1], value: `${DrumNotes._1} - ${Note[DrumNotes._1]}`},
+        {label: DrumNotes[DrumNotes._2], value: `${DrumNotes._2} - ${Note[DrumNotes._2]}`},
+        {label: DrumNotes[DrumNotes._3], value: `${DrumNotes._3} - ${Note[DrumNotes._3]}`},
+        {label: DrumNotes[DrumNotes._4], value: `${DrumNotes._4} - ${Note[DrumNotes._4]}`},
+        {label: DrumNotes[DrumNotes._5], value: `${DrumNotes._5} - ${Note[DrumNotes._5]}`},
+        {label: DrumNotes[DrumNotes._6A], value: `${DrumNotes._6A} - ${Note[DrumNotes._6A]}`},
+        {label: DrumNotes[DrumNotes._6B], value: `${DrumNotes._6B} - ${Note[DrumNotes._6B]}`},
+        {label: DrumNotes[DrumNotes._7A], value: `${DrumNotes._7A} - ${Note[DrumNotes._7A]}`},
+        {label: DrumNotes[DrumNotes._7B], value: `${DrumNotes._7B} - ${Note[DrumNotes._7B]}`},
     ]
 };

@@ -1,4 +1,4 @@
-import {DeviceIPs, fadeSpeeds, Modii, OSCDevices,} from '../../../Shared/config';
+import {DeviceIPs, Modii, OSCDevices,} from '../../../Shared/config';
 import {IColor} from '../../../Shared/socket';
 import {sendToOSC} from "../communication/osc";
 
