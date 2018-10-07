@@ -32,7 +32,7 @@ export class PhotoGlitcherComponent extends Vue {
     }
 
     setSrc(src: string) {
-        this.src = `assets/img/photoassets/${src}`;
+        this.src = `assets/photos/${src}`;
     }
 
     destroyed() {
