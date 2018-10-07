@@ -1,64 +1,81 @@
 <div class="color-controller">
-    <ul class="list list--colors">
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(0, 255, 255)" [ngStyle]="getStyle([[0, 255, 255]])"></button>
-        </li>
+  <ul class="list list--colors">
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 0, s: 255, b: 255}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(18, 255, 255)" [ngStyle]="getStyle([[18, 255, 255]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 18, s: 255, b: 255}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(42, 255, 255)" [ngStyle]="getStyle([[42, 255, 255]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 42, s: 255, b: 255}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(90, 255, 255)" [ngStyle]="getStyle([[90, 255, 255]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 90, s: 255, b: 255}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(86, 255, 150)" [ngStyle]="getStyle([[86, 255, 150]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 86, s: 255, b: 150}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(130, 255, 255)" [ngStyle]="getStyle([[130, 255, 255]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 130, s: 255, b: 255}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(158, 255, 255)" [ngStyle]="getStyle([[158, 255, 255]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 158, s: 255, b: 255}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(200, 255, 255)" [ngStyle]="getStyle([[200, 255, 255]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 200, s: 255, b: 255}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(220, 255, 255)" [ngStyle]="getStyle([[220, 255, 255]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 220, s: 255, b: 255}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(0, 0, 255)" [ngStyle]="getStyle([[0, 0, 255]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 0, s: 0, b: 255}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendColor(0, 0, 0)" [ngStyle]="getStyle([[0, 0, 0]])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[{h: 0, s: 0, b: 0}]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendMultiColor([129, 200, 183, 218])" [ngStyle]="getMultiStyle([129, 200, 183, 218])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[
+      {h: 129, s: 255, b: 255},
+      {h: 200, s: 255, b: 255},
+      {h: 183, s: 255, b: 255},
+      {h: 218, s: 255, b: 255}
+      ]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendMultiColor([0, 16, 45, 90])" [ngStyle]="getMultiStyle([0, 16, 45, 90])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[
+      {h: 0, s: 255, b: 255},
+      {h: 16, s: 255, b: 255},
+      {h: 45, s: 255, b: 255},
+      {h: 90, s: 255, b: 255}
+      ]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendMultiColor([220, 90])" [ngStyle]="getMultiStyle([220, 90])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[
+      {h: 220, s: 255, b: 255},
+      {h: 90, s: 255, b: 255}
+      ]"></app-trigger-button>
+    </li>
 
-        <li class="list__item">
-            <button class="button color-controller__button" (click)="sendMultiColor([90, 158, 220])" [ngStyle]="getMultiStyle([90, 158, 220])"></button>
-        </li>
+    <li class="list__item">
+      <app-trigger-button [colors]="[
+      {h: 90, s: 255, b: 255},
+      {h: 158, s: 255, b: 255},
+      {h: 220, s: 255, b: 255}
+      ]"></app-trigger-button>
+    </li>
 
-    </ul>
+  </ul>
 </div>

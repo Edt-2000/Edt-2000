@@ -7,7 +7,7 @@ const paths = {
         typescript:     "./src/typescript/",
         icons:          "./src/sprites/icons/",
         iconsUI:        "./src/sprites/ui/",
-        assets:         "../assets/",
+        assets:         "../Shared/assets/",
         vendor:         "./node_modules/",
     },
 
@@ -18,8 +18,8 @@ const paths = {
         styles:         "./dist/assets/css/",
         html:           "./dist/",
         staticAssets:   "./dist/assets/",
-        icons:          "./src/static/assets/img",
-        favicons:       "./src/static/favicons/",
+        icons:          "./assets/img",
+        favicons:       "./favicons/",
     }
 };
 

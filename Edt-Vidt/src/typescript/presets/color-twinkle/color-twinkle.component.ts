@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { Actions$ } from '../../../../../Shared/actions';
-import { IColor } from '../../../../../Shared/socket';
+import { IColor } from '../../../../../Shared/types';
 import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
 @Component({

@@ -1,23 +1,24 @@
 import {
+    DeviceIPs,
     Modii,
     OSCDevices,
 } from '../../../Shared/config';
-import {IColor} from '../../../Shared/socket';
-import {sendToSerial} from '../communication/serial';
+import {IColor} from '../../../Shared/types';
+import {sendToOSC} from "../communication/osc";
 
 export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
-    sendToSerial([OSCDevices.EdtRGBLed + instance], [
+    sendToOSC(DeviceIPs.edtDispEdter,[OSCDevices.EdtRGBLed + instance.toString()], [
         Modii.SingleSolid,
         0,
         127,
-        colorMsg.hue,
-        colorMsg.saturation,
-        colorMsg.brightness,
+        colorMsg.h,
+        colorMsg.s,
+        colorMsg.b,
     ]);
 }
 
 export function RGBLedtStrobe(instance: number, speed: number, hue: number) {
-    sendToSerial([OSCDevices.EdtRGBLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter,[OSCDevices.EdtRGBLed + instance.toString()], [
         Modii.Strobo,
         hue,
         speed,

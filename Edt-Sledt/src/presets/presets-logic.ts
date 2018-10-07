@@ -1,15 +1,13 @@
 import {sendStateToControl} from '../outputs/edt-control';
 import {IModifierOptions} from '../../../Shared/types';
-import {Note} from '../../../Shared/midi';
+import {presets} from "./presets";
 
 export abstract class PresetLogic {
+    readonly title: string = this.constructor.name;
+    readonly modifierOptions: IModifierOptions = {};
+
     state = false;
-    modifier: number = 127; // Important; otherwise it will send noteOff
-
-    abstract modifierOptions: IModifierOptions;
-
-    abstract title: string;
-    abstract note: Note;
+    modifier = 127; // Important; otherwise it will send noteOff
 
     startPreset(modifier: number) {
         console.log('Starting preset', this.title, modifier);
@@ -27,9 +25,11 @@ export abstract class PresetLogic {
         sendStateToControl();
     }
 
-    abstract _startPreset(): void;
+    protected abstract _startPreset(): void;
 
-    abstract _stopPreset(): void;
+    protected abstract _stopPreset(): void;
+
+    static get note(): number {
+        return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === this.name);
+    }
 }
-
-export const presetMap = new Map<number, PresetLogic>();

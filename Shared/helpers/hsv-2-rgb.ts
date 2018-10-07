@@ -1,5 +1,5 @@
 import { mapInput } from './map-input';
-import { IColor } from '../socket';
+import { IColor } from '../types';
 
 export class ColorHelper {
     static getRGBString(hsvColors: IColor[]) {
@@ -25,8 +25,6 @@ export class ColorHelper {
             bcgColor += ')';
         }
 
-        console.log(bcgColor);
-
         return bcgColor;
     }
 
@@ -35,9 +33,9 @@ export class ColorHelper {
     }
 
     static hsv2rgb(hsv: IColor): number[] {
-        const h = mapInput(hsv.hue, 0, 255, 0, 360) / 60;
-        const s = hsv.saturation / 255;
-        let v = hsv.brightness / 255;
+        const h = mapInput(hsv.h, 0, 255, 0, 360) / 60;
+        const s = hsv.s / 255;
+        let v = hsv.b / 255;
         const hi = Math.floor(h) % 6;
 
         const f = h - Math.floor(h);

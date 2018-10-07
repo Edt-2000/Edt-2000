@@ -1,55 +1,54 @@
-import {
-    Modii,
-    OSCDevices,
-} from '../../../Shared/config';
-import {IColor} from '../../../Shared/socket';
-import {sendToSerial} from '../communication/serial';
+import {DeviceIPs, Modii, OSCDevices,} from '../../../Shared/config';
+import {IColor} from '../../../Shared/types';
+import {sendToOSC} from "../communication/osc";
 
-// Might not work yet
-// export function EdtLEDSpark(instance: number, colorMsg: IColor) {
-//     sendToSerial(OSCDevices.EdtFastLed, instance, [
-//         Modii.SingleSpark,
-//         colorMsg.hue,
-//         colorMsg.brightness,
-//     ]);
-// }
+export function FastLedtSpark(instance: number, colorMsg: IColor, speed: number, start: number = 0, end: number = 127) {
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
+        Modii.SingleSpark,
+        start,
+        end,
+        colorMsg.h,
+        colorMsg.s,
+        colorMsg.b,
+        speed,
+    ]);
+}
 
-// Not yet working??
-// export function EdtLEDRainbow(instance: number = 0, start: number, end: number, colorMsg: IColor, deltaHue: number) {
-//     sendToSerial(OSCDevices.EdtFastLed, instance,[
-//         Modii.RainbowSolid,
-//         start,
-//         end,
-//         colorMsg.hue,
-//         deltaHue,
-//     ]);
-// }
+export function FastLedtRainbowSpark(instance: number = 0, start: number, end: number, colorMsg: IColor, deltaHue: number) {
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
+        Modii.RainbowSpark,
+        start,
+        end,
+        colorMsg.h,
+        deltaHue,
+    ]);
+}
 
 export function FastLedtSingleSolid(instance: number, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToSerial([OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
         Modii.SingleSolid,
         start,
         end,
-        colorMsg.hue,
-        colorMsg.saturation,
-        colorMsg.brightness,
+        colorMsg.h,
+        colorMsg.s,
+        colorMsg.b,
     ]);
 }
 
 export function FastLedtSinglePulse(instance: number, duration: number, colorMsg: IColor, start: number = 0, end: number = 127) {
-    sendToSerial([OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
         Modii.SinglePulse,
         start,
         end,
-        colorMsg.hue,
-        colorMsg.saturation,
-        colorMsg.brightness,
+        colorMsg.h,
+        colorMsg.s,
+        colorMsg.b,
         duration,
     ]);
 }
 
 export function FastLedtStrobe(instance: number, speed: number, hue: number) {
-    sendToSerial([OSCDevices.EdtFastLed + instance.toString()], [
+    sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
         Modii.Strobo,
         hue,
         speed,

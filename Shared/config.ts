@@ -1,4 +1,5 @@
-import {IColor} from "./socket";
+import {IColor} from "./types";
+import {Note} from "./midi";
 
 export const socketPort: number = 8988;
 
@@ -14,10 +15,8 @@ export const enum DeviceIPs {
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
     edtRemoteDMX = '10.0.0.30',
-    edtDispEdter = '169.168.219.93',
-    // edtSledt = '192.168.2.3',
-    edtcUDosPBUS = '192.168.2.42',
-    edtSledt = '10.0.0.204', // Edt-Wifi
+    edtDispEdter = '10.0.0.201',
+    edtSledt = '10.0.0.201',
 }
 
 export enum OSCDevices {
@@ -26,6 +25,7 @@ export enum OSCDevices {
     EdtDMX = 'D',
     EdtOnOff = 'O',
     EdtTrack = 'TK',
+    EdtAudio = 'A',
     EdtPedal = 'PD',
 }
 
@@ -47,7 +47,6 @@ export enum Modii {
     Bash = 13,
 }
 
-// TODO: each song has a different channel setup, needs to be dynamic!
 export enum MidiChannels {
     channel_1 = 1,
     channel_2 = 2,
@@ -59,9 +58,15 @@ export enum MidiChannels {
 
 // Black is useful to turn off lights and screens
 export const BlackColor: IColor = {
-    hue: 0,
-    saturation: 0,
-    brightness: 0,
+    h: 0,
+    s: 0,
+    b: 0,
+};
+
+export const defaultColor: IColor = {
+    h: 231,
+    s: 255,
+    b: 255,
 };
 
 export enum ColorPreset {
@@ -77,74 +82,60 @@ export enum ColorPreset {
     Pink = 218,
 }
 
-export const colorSet: number[] = [
-    ColorPreset.Red,
-    ColorPreset.Red,
-    ColorPreset.Orange,
-    ColorPreset.Yellow,
-    ColorPreset.Lime,
-    ColorPreset.Green,
-    ColorPreset.SeaGreen,
-    ColorPreset.Turquoise,
-    ColorPreset.Blue,
-    ColorPreset.Purple,
-    ColorPreset.Pink,
-];
-
-// Use npm run serialports to discover connected Arduino's
-export const arduinos = [
-    '/dev/tty.usbmodem1432341',
-    '/dev/tty.usbmodem1432311',
-    '/dev/tty.usbmodem1432331',
-];
-
-export const oscOutPort = 12345;
+export const oscOutPort = 12346;
 export const oscInPort = 12345;
 
 export const automationChannel = 16;
 
 export const fastLedAmount: number = 7;
 
-export const virtualMidiInputDevice = 'EDT-SLEDT-IN';
 export const hardwareMidiInput = 'EDTMID USB MIDI Interface';
+export const virtualMidiInputDevice = 'EDT-SLEDT-IN';
 export const virtualMidiOutputDevice = 'EDT-SLEDT-OUT';
 
 // The channel_10 notes are mapped by the KORG to the following note numbers
 export enum DrumNotes {
-    '_1' = 36,
-    '_2' = 38,
-    '_3' = 40,
-    '_4' = 41,
-    '_5' = 43,
-    '_6A' = 42,
-    '_6B' = 46,
-    '_7A' = 49,
-    '_7B' = 51,
+    '_1' = Note.C1,
+    '_2' = Note.D1,
+    '_3' = Note.E1,
+    '_4' = Note.F1,
+    '_5' = Note.G1,
+    '_6A' = Note.F$1,
+    '_6B' = Note.A$1,
+    '_7A' = Note.C$2,
+    '_7B' = Note.D$2,
 }
 
-export const strobeSpeeds = [
-    {
-        label: 'slow',
-        value: 10,
-    },
-    {
-        label: 'medium',
-        value: 50,
-    },
-    {
-        label: 'fast',
-        value: 100,
-    },
-    {
-        label: 'faster',
-        value: 150,
-    },
-    {
-        label: 'whoa',
-        value: 200,
-    },
-    {
-        label: 'drool',
-        value: 255,
-    },
-]
+// TODO: move to own file
+export const modifiers = {
+    strobeSpeeds: [
+        {label: 'slow', value: 10},
+        {label: 'medium', value: 25},
+        {label: 'fast', value: 40},
+        {label: 'faster', value: 55},
+    ],
+    fadeSpeeds: [
+        {label: 'fast', value: 150},
+        {label: 'medium', value: 80},
+        {label: 'slow', value: 30}
+    ],
+    midiChannels: [
+        {label: MidiChannels[MidiChannels.channel_1], value: MidiChannels.channel_1},
+        {label: MidiChannels[MidiChannels.channel_2], value: MidiChannels.channel_2},
+        {label: MidiChannels[MidiChannels.channel_3], value: MidiChannels.channel_3},
+        {label: MidiChannels[MidiChannels.channel_4], value: MidiChannels.channel_4},
+        {label: MidiChannels[MidiChannels.channel_5], value: MidiChannels.channel_5},
+        {label: MidiChannels[MidiChannels.channel_10], value: MidiChannels.channel_10},
+    ],
+    drumNotes: [
+        {label: DrumNotes[DrumNotes._1], value: `${DrumNotes._1} - ${Note[DrumNotes._1]}`},
+        {label: DrumNotes[DrumNotes._2], value: `${DrumNotes._2} - ${Note[DrumNotes._2]}`},
+        {label: DrumNotes[DrumNotes._3], value: `${DrumNotes._3} - ${Note[DrumNotes._3]}`},
+        {label: DrumNotes[DrumNotes._4], value: `${DrumNotes._4} - ${Note[DrumNotes._4]}`},
+        {label: DrumNotes[DrumNotes._5], value: `${DrumNotes._5} - ${Note[DrumNotes._5]}`},
+        {label: DrumNotes[DrumNotes._6A], value: `${DrumNotes._6A} - ${Note[DrumNotes._6A]}`},
+        {label: DrumNotes[DrumNotes._6B], value: `${DrumNotes._6B} - ${Note[DrumNotes._6B]}`},
+        {label: DrumNotes[DrumNotes._7A], value: `${DrumNotes._7A} - ${Note[DrumNotes._7A]}`},
+        {label: DrumNotes[DrumNotes._7B], value: `${DrumNotes._7B} - ${Note[DrumNotes._7B]}`},
+    ]
+};
