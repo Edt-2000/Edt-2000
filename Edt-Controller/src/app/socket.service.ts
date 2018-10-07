@@ -4,7 +4,7 @@ import {Actions, nextActionFromMsg} from '../../../Shared/actions';
 import {IPhotoAsset, IVideoAsset} from "../../../Shared/assets";
 import {animationTypes} from "../../../Shared/vidt-presets";
 import {ICue} from "../../../Shared/types";
-import {IColor} from "../../../Shared/socket";
+import {IColor} from "../../../Shared/types";
 
 @Injectable()
 export class SocketService {

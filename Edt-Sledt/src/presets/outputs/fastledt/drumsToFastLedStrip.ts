@@ -4,7 +4,7 @@ import {drumTriggerOn$} from "../../../inputs/music-triggers";
 import {DrumNotes} from "../../../../../Shared/config";
 import {withLatestFrom} from "rxjs/operators";
 import {Actions$} from "../../../../../Shared/actions";
-import {IColor} from "../../../../../Shared/socket";
+import {IColor} from "../../../../../Shared/types";
 import {FastLedtSinglePulse} from "../../../outputs/edt-fastled";
 
 export class DrumsToFastLedStrip extends PresetLogic {

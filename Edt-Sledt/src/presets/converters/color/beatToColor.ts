@@ -1,5 +1,5 @@
 import {Subscription} from 'rxjs/Subscription';
-import {IColor} from '../../../../../Shared/socket';
+import {IColor} from '../../../../../Shared/types';
 import {rescale} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 import {Actions, Actions$, nextActionFromMsg} from '../../../../../Shared/actions';

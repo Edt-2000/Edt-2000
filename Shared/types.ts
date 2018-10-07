@@ -63,3 +63,22 @@ export interface IModifierSelectOption {
     label: string,
     value: number,
 }
+
+export interface ITrack {
+    left: {
+        x: number,
+        y: number,
+        z: number,
+    };
+    right: {
+        x: number,
+        y: number,
+        z: number,
+    };
+}
+
+export interface IColor {
+    readonly h: number;
+    readonly s: number;
+    readonly b: number;
+}

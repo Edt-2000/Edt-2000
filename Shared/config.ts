@@ -1,4 +1,4 @@
-import {IColor} from "./socket";
+import {IColor} from "./types";
 import {Note} from "./midi";
 
 export const socketPort: number = 8988;

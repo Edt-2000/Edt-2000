@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {SocketService} from "../../socket.service";
-import {IColor} from "../../../../../Shared/socket";
+import {IColor} from "../../../../../Shared/types";
 import {ColorHelper} from "../../../../../Shared/helpers/hsv-2-rgb";
 
 @Component({

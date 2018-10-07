@@ -1,5 +1,5 @@
 import { mapInput } from './map-input';
-import { IColor } from '../socket';
+import { IColor } from '../types';
 
 export class ColorHelper {
     static getRGBString(hsvColors: IColor[]) {

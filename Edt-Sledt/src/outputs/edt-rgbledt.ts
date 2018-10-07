@@ -3,7 +3,7 @@ import {
     Modii,
     OSCDevices,
 } from '../../../Shared/config';
-import {IColor} from '../../../Shared/socket';
+import {IColor} from '../../../Shared/types';
 import {sendToOSC} from "../communication/osc";
 
 export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {

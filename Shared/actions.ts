@@ -2,7 +2,7 @@ import {IControlPresetMsg, ICue, IPresetMsg} from './types';
 import {BehaviorSubject, Subject} from '../Edt-Sledt/node_modules/rxjs';
 import {ActionsUnion, createAction} from './fsa-helpers';
 import {animationTypes} from './vidt-presets';
-import {IColor} from './socket';
+import {IColor} from './types';
 import {IPhotoAsset, IVideoAsset, photoAssets, videoAssets} from './assets';
 import {defaultColor, DrumNotes} from "./config";
 

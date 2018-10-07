@@ -1,5 +1,5 @@
 import {DeviceIPs, Modii, OSCDevices,} from '../../../Shared/config';
-import {IColor} from '../../../Shared/socket';
+import {IColor} from '../../../Shared/types';
 import {sendToOSC} from "../communication/osc";
 
 export function FastLedtSpark(instance: number, colorMsg: IColor, speed: number, start: number = 0, end: number = 127) {
