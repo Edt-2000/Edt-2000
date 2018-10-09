@@ -2,7 +2,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {noteOn$} from '../../../inputs/midi';
 import {PresetLogic} from '../../presets-logic';
 import {filter, withLatestFrom} from 'rxjs/operators';
-import {modifiers} from '../../../../../Shared/config';
+import {modifiers} from '../../../../../Shared/modifiers';
 import {Actions, Actions$, nextActionFromMsg} from '../../../../../Shared/actions';
 
 export class MidiToColors extends PresetLogic {
@@ -18,8 +18,7 @@ export class MidiToColors extends PresetLogic {
             withLatestFrom(Actions$.multiColor),
         )
             .subscribe(([noteOn, multiColor]) => {
-                // TODO: create calculation which takes a color based on note
-                nextActionFromMsg(Actions.singleColor(multiColor[multiColor.length % noteOn.note]));
+                nextActionFromMsg(Actions.singleColor(multiColor[noteOn.note % multiColor.length]));
             });
     }
 
