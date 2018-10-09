@@ -18,7 +18,10 @@ export function sendStateToControl() {
                         modifier: preset.modifier,
                         state: preset.state,
                         title: preset.title,
-                        config: preset.modifierOptions,
+                        config: {
+                            select: preset.modifierOptions.select,
+                            continuous: preset.modifierOptions.continuous,
+                        },
                     }
                 }),
         ),

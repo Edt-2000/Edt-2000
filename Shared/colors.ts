@@ -28,8 +28,6 @@ export const colorSets: IColor[][] = [
     ].map(createFullColor),
     [
         Colors.Red,
-        Colors.Yellow,
-        Colors.Green,
         Colors.Blue,
     ].map(createFullColor)
 ];
