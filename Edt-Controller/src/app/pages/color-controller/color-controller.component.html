@@ -45,36 +45,7 @@
     </li>
 
     <li class="list__item">
-      <app-trigger-button [colors]="[
-      {h: 129, s: 255, b: 255},
-      {h: 200, s: 255, b: 255},
-      {h: 183, s: 255, b: 255},
-      {h: 218, s: 255, b: 255}
-      ]"></app-trigger-button>
-    </li>
-
-    <li class="list__item">
-      <app-trigger-button [colors]="[
-      {h: 0, s: 255, b: 255},
-      {h: 16, s: 255, b: 255},
-      {h: 45, s: 255, b: 255},
-      {h: 90, s: 255, b: 255}
-      ]"></app-trigger-button>
-    </li>
-
-    <li class="list__item">
-      <app-trigger-button [colors]="[
-      {h: 220, s: 255, b: 255},
-      {h: 90, s: 255, b: 255}
-      ]"></app-trigger-button>
-    </li>
-
-    <li class="list__item">
-      <app-trigger-button [colors]="[
-      {h: 90, s: 255, b: 255},
-      {h: 158, s: 255, b: 255},
-      {h: 220, s: 255, b: 255}
-      ]"></app-trigger-button>
+      <app-trigger-button *ngFor="let colors of colorSets" [colors]="colors"></app-trigger-button>
     </li>
 
   </ul>

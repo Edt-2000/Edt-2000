@@ -1,3 +1,5 @@
+import {IColor} from "./types";
+
 export enum Colors {
     Red = 0,
     Orange = 18,
@@ -11,4 +13,17 @@ export enum Colors {
     Pink = 218,
 }
 
-export const colorSets = {};
+export const colorSets: IColor[][] = [
+    [
+        Colors.Red,
+        Colors.Orange,
+        Colors.Yellow,
+        Colors.Green,
+        Colors.Blue,
+        Colors.Pink,
+    ].map(createFullColor),
+];
+
+export function createFullColor(h: number): IColor {
+    return {h, s: 255, b: 255};
+}
