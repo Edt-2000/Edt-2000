@@ -1,10 +1,10 @@
-import {IControlPresetMsg, ICue, IPresetMsg} from './types';
+import {IColor, IControlPresetMsg, ICue, IPresetMsg} from './types';
 import {BehaviorSubject, Subject} from '../Edt-Sledt/node_modules/rxjs';
 import {ActionsUnion, createAction} from './fsa-helpers';
 import {animationTypes} from './vidt-presets';
-import {IColor} from './types';
 import {IPhotoAsset, IVideoAsset, photoAssets, videoAssets} from './assets';
 import {defaultColor, DrumNotes} from "./config";
+import {colorSets} from "./colors";
 
 export const PRESET_CHANGE = 'PRESET_CHANGE';
 export const PRESET_STATE = 'PRESET_STATE';
@@ -75,9 +75,9 @@ export const Actions$ = {
 
     singleColor: <BehaviorSubject<IColor>> new BehaviorSubject<IColor>(defaultColor),
     vidtSingleColor: <BehaviorSubject<IColor>> new BehaviorSubject<IColor>(defaultColor),
-    multiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([defaultColor]),
-    vidtMultiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([defaultColor]),
-    colorPalette: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>([defaultColor]),
+    multiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>(colorSets[0]),
+    vidtMultiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>(colorSets[0]),
+    colorPalette: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>(colorSets[0]),
     mainBeat: <Subject<number>> new Subject<number>(),
     vidtBeat: <Subject<number>> new Subject<number>(),
     vidtDrum: <Subject<DrumNotes>> new Subject<DrumNotes>(),

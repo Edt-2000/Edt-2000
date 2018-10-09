@@ -18,8 +18,12 @@ export const colorSets: IColor[][] = [
         Colors.Red,
         Colors.Orange,
         Colors.Yellow,
+        Colors.Lime,
         Colors.Green,
+        Colors.SeaGreen,
+        Colors.Turquoise,
         Colors.Blue,
+        Colors.Purple,
         Colors.Pink,
     ].map(createFullColor),
 ];

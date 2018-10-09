@@ -1,24 +1,20 @@
 import {Subscription} from 'rxjs/Subscription';
-import {IColor} from '../../../../../Shared/types';
-import {rescale} from '../../../../../Shared/utils';
 import {PresetLogic} from '../../presets-logic';
 import {Actions, Actions$, nextActionFromMsg} from '../../../../../Shared/actions';
+import {withLatestFrom} from "rxjs/operators";
 
 export class BeatToColor extends PresetLogic {
-    private hue: number = 0;
+    private index: number = 0;
     private subscription: Subscription;
 
     protected _startPreset(): void {
-        this.subscription = Actions$.mainBeat
-            .subscribe(() => {
-                // TODO: set to random set of colors instead of rotating h
-                this.hue = (this.hue + rescale(60, 127, 0, 255)) % 255;
-                const newColor: IColor = {
-                    h: this.hue,
-                    s: 255,
-                    b: 255,
-                };
-                nextActionFromMsg(Actions.singleColor(newColor));
+        this.subscription = Actions$.mainBeat.pipe(
+            withLatestFrom(Actions$.multiColor),
+        )
+            .subscribe(([, colors]) => {
+                // Calculate new index with modulo
+                this.index = (this.index + 1) % colors.length;
+                nextActionFromMsg(Actions.singleColor(colors[this.index]));
             });
     }
 
