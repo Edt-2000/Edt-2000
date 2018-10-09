@@ -1,5 +1,5 @@
-import { mapInput } from './map-input';
-import { IColor } from '../types';
+import {mapInput} from './map-input';
+import {IColor} from '../types';
 
 export class ColorHelper {
     static getRGBString(hsvColors: IColor[]) {
@@ -10,7 +10,7 @@ export class ColorHelper {
             bcgColor = `rgb(${rgbColors[0].join(', ')})`;
         }
         else {
-            bcgColor = `repeating-linear-gradient(-45deg`;
+            bcgColor = `repeating-linear-gradient(`;
             const totalColors: number = rgbColors.length;
             let spacing = 0;
             let currentIndex: number = 0;

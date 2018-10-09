@@ -1,43 +1,37 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {SocketService} from "../../socket.service";
 import {IColor} from "../../../../../Shared/types";
 import {ColorHelper} from "../../../../../Shared/helpers/hsv-2-rgb";
+import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-trigger-button',
   template: `
-    <ng-container *ngIf="colors.length === 1; else multiColor">
-      <button
-        class="trigger-button trigger-button--square trigger-button--no-border"
-        (click)="socket.sendColor(colors[0])"
-        [style.backgroundColor]="getStyle(colors[0])"></button>
-    </ng-container>
-    <ng-template #multiColor>
-        <button 
-          class="trigger-button trigger-button--square trigger-button--no-border"
-          (click)="socket.sendMultiColor(colors)" 
-          [style.backgroundColor]="getMultiStyle(colors)"></button>
-    </ng-template>
+    <button class="trigger-button" (click)="sendColor(colorArr)" [style.background-color]="bgColor"></button>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TriggerButtonComponent implements OnInit {
-  @Input() colors: IColor[];
+export class TriggerButtonComponent {
+  colorArr: IColor[];
+  bgColor: SafeStyle;
 
   constructor(
     public socket: SocketService,
+    private sanitizer: DomSanitizer
   ) {
   }
 
-  ngOnInit() {
-  }
+  @Input() set colors(colors: IColor[]) {
+    // TODO FIX ANNOYING FRIGGING ANGULAR SANITIZE SHIZZLE
+    this.bgColor = ColorHelper.getRGBString(colors);
+    this.colorArr = colors;
+  };
 
-  getStyle(color: IColor) {
-    return ColorHelper.getRGBString([color]);
-  }
-
-  // TODO: insafe style... hmm
-  getMultiStyle(colors: IColor[]) {
-    return ColorHelper.getRGBString(colors);
+  sendColor(colorArr: IColor[]) {
+    if (colorArr.length === 1) {
+      this.socket.sendColor(colorArr[0])
+    } else {
+      this.socket.sendMultiColor(colorArr);
+    }
   }
 }
