@@ -5,7 +5,7 @@ import {toVidt} from '../../../outputs/edt-vidt';
 import {drumTriggerOn$} from "../../../inputs/music-triggers";
 import {DrumNotes} from "../../../../../Shared/config";
 
-export class DrumToVidt extends PresetLogic {
+export class DrumsToVidt extends PresetLogic {
     private subscriber: Subscription;
 
     protected _startPreset(): void {

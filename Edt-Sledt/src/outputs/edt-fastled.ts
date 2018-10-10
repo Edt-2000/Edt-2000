@@ -14,13 +14,14 @@ export function FastLedtSpark(instance: number, colorMsg: IColor, speed: number,
     ]);
 }
 
-export function FastLedtRainbowSpark(instance: number = 0, start: number, end: number, colorMsg: IColor, deltaHue: number) {
+export function FastLedtRainbowSpark(instance: number = 0, duration: number, startHue: number, deltaHue: number, start: number = 0, end: number = 127) {
     sendToOSC(DeviceIPs.edtDispEdter, [OSCDevices.EdtFastLed + instance], [
         Modii.RainbowSpark,
         start,
         end,
-        colorMsg.h,
+        startHue,
         deltaHue,
+        duration,
     ]);
 }
 

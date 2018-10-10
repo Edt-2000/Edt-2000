@@ -12,7 +12,8 @@ export const modifiers = {
     fadeSpeeds: [
         {label: 'fast', value: 150},
         {label: 'medium', value: 80},
-        {label: 'slow', value: 30}
+        {label: 'slow', value: 30},
+        {label: 'more slow', value: 10},
     ],
     midiChannels: [
         {label: MidiChannels[MidiChannels.channel_1], value: MidiChannels.channel_1},
