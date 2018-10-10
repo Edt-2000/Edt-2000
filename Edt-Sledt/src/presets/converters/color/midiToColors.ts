@@ -1,4 +1,3 @@
-import {Subscription} from 'rxjs/Subscription';
 import {noteOn$} from '../../../inputs/midi';
 import {PresetLogic} from '../../presets-logic';
 import {filter, withLatestFrom} from 'rxjs/operators';
@@ -10,20 +9,17 @@ export class MidiToColors extends PresetLogic {
         select: modifiers.midiChannels,
     };
 
-    private subscription: Subscription;
-
     protected _startPreset(): void {
-        this.subscription = noteOn$.pipe(
+        this.addSub(noteOn$.pipe(
             filter((note) => note.channel === this.modifier),
             withLatestFrom(Actions$.multiColor),
         )
             .subscribe(([noteOn, multiColor]) => {
                 nextActionFromMsg(Actions.singleColor(multiColor[noteOn.note % multiColor.length]));
-            });
+            }));
     }
 
     protected _stopPreset(): void {
-        if (typeof this.subscription !== 'undefined') this.subscription.unsubscribe();
     }
 
 }

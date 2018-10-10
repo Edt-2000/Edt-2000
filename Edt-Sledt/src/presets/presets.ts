@@ -15,6 +15,7 @@ import {ColorToFastLedSpark} from "./outputs/fastledt/colorToFastLedSpark";
 import {BeatToRainbowSpark} from "./outputs/fastledt/beatToRainbowSpark";
 import {Note} from "../../../Shared/midi";
 import {BeatToNextWord} from "./converters/words/beatToNextWord";
+import {MidiChannelToMelody} from "./converters/melody/midiChannelToMelody";
 
 export const presets = {
     [Note.A3]: new BeatToColor(),
@@ -32,6 +33,8 @@ export const presets = {
     [Note.D0]: new ColorStrobeRGBLed(),
 
     [Note.A4]: new BeatToNextWord(),
+
+    [Note.A5]: new MidiChannelToMelody(),
 
     [Note.A7]: new MainBeatToVidtBeat(),
     [Note.B7]: new ColorToVidtColor(),

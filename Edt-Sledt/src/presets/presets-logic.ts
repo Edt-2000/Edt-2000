@@ -1,6 +1,7 @@
 import {sendStateToControl} from '../outputs/edt-control';
 import {IModifierOptions} from '../../../Shared/types';
 import {presets} from "./presets";
+import {Subscription} from "rxjs";
 
 export abstract class PresetLogic {
     readonly title: string = this.constructor.name;
@@ -8,6 +9,8 @@ export abstract class PresetLogic {
 
     state = false;
     modifier = 127; // Important; otherwise it will send noteOff
+
+    protected subscriptions: Subscription[] = [];
 
     startPreset(modifier: number) {
         console.log('Starting preset', this.title, modifier);
@@ -20,9 +23,17 @@ export abstract class PresetLogic {
 
     stopPreset() {
         console.log('Stopping preset', this.title);
+        // Unsubscribe and reset array
+        this.subscriptions.forEach(sub => sub.unsubscribe());
+        this.subscriptions = [];
+
         this._stopPreset();
         this.state = false;
         sendStateToControl();
+    }
+
+    addSub(sub: Subscription) {
+        this.subscriptions.push(sub);
     }
 
     protected abstract _startPreset(): void;

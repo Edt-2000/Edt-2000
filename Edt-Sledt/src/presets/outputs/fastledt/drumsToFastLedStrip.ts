@@ -1,4 +1,3 @@
-import {Subscription} from 'rxjs/Subscription';
 import {PresetLogic} from '../../presets-logic';
 import {drumTriggerOn$} from "../../../inputs/music-triggers";
 import {BlackColor, DrumNotes} from "../../../../../Shared/config";
@@ -16,23 +15,18 @@ export class DrumsToFastLedStrip extends PresetLogic {
         ],
     };
 
-    private subscriber: Subscription;
-
     protected _startPreset(): void {
         FastLedtSinglePulse(0, 100, BlackColor); // Turn of all strips before starting
-        this.subscriber = drumTriggerOn$
+        this.addSub(drumTriggerOn$
             .pipe(
                 withLatestFrom(Actions$.singleColor),
             )
             .subscribe(([drumNote, color]) => {
                 if (this.patterns[this.modifier]) this.horizontalCompleteStrips(drumNote, color, this.patterns[this.modifier]);
-            });
+            }));
     }
 
     protected _stopPreset(): void {
-        if (typeof this.subscriber !== 'undefined') {
-            this.subscriber.unsubscribe();
-        }
     }
 
     private horizontalCompleteStrips(drumNote: DrumNotes, color: IColor, pattern: number[]) {

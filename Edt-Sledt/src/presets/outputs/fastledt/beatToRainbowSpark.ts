@@ -1,4 +1,3 @@
-import {Subscription} from 'rxjs/Subscription';
 import {PresetLogic} from '../../presets-logic';
 import {Actions$} from '../../../../../Shared/actions';
 import {FastLedtRainbowSpark} from "../../../outputs/edt-fastled";
@@ -10,20 +9,15 @@ export class BeatToRainbowSpark extends PresetLogic {
         select: modifiers.fadeSpeeds,
     };
 
-    private subscriber: Subscription;
-
     protected _startPreset(): void {
-        this.subscriber = Actions$.mainBeat.pipe(
+        this.addSub(Actions$.mainBeat.pipe(
             withLatestFrom(Actions$.singleColor),
         ).subscribe(([, color]) => {
             FastLedtRainbowSpark(0, this.modifier, color.h, 127);
-        });
+        }));
     }
 
     protected _stopPreset(): void {
-        if (typeof this.subscriber !== 'undefined') {
-            this.subscriber.unsubscribe();
-        }
     }
 
 }
