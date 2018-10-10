@@ -3,7 +3,7 @@ import {Actions, Actions$, nextActionFromMsg} from '../../../../../Shared/action
 import {withLatestFrom} from "rxjs/operators";
 
 export class BeatToColor extends PresetLogic {
-    private index: number = 0;
+    private index = -1;
 
     protected _startPreset(): void {
         this.addSub(Actions$.mainBeat.pipe(

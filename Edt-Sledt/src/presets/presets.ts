@@ -16,11 +16,13 @@ import {BeatToRainbowSpark} from "./outputs/fastledt/beatToRainbowSpark";
 import {Note} from "../../../Shared/midi";
 import {BeatToNextWord} from "./converters/words/beatToNextWord";
 import {MidiChannelToMelody} from "./converters/melody/midiChannelToMelody";
+import {BeatToMovingMultiColorFastLed} from "./outputs/fastledt/beatToMovingMultiColorFastLed";
 
 export const presets = {
     [Note.A3]: new BeatToColor(),
-    [Note.B3]: new ColorToFastLedSpark(),
     [Note.C3]: new BeatToRainbowSpark(),
+    [Note.E3]: new BeatToMovingMultiColorFastLed(),
+    [Note.B3]: new ColorToFastLedSpark(),
 
     [Note.A2]: new MidiToColors(),
 
@@ -47,8 +49,6 @@ export const presets = {
 
 /**
 
- rainbowspark from beat with modifiers for intensity? from color
- rainbowspark from beat with modifiers for intensity? from multi-color
  preset: simple mapping from multicolor to all fastLEDs
  twinkle from beat with modifiers for multi-color vs random
  chase preset based on channel midi notes
