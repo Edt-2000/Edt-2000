@@ -29,7 +29,33 @@ export const colorSets: IColor[][] = [
     [
         Colors.Red,
         Colors.Blue,
-    ].map(createFullColor)
+    ].map(createFullColor),
+    [
+        Colors.Red,
+        Colors.Turquoise,
+        Colors.Orange,
+        Colors.Purple,
+        Colors.Pink,
+        Colors.Lime,
+        Colors.Blue,
+    ].map(createFullColor),
+    [
+        Colors.Red,
+        Colors.Pink,
+        Colors.Turquoise,
+        Colors.Blue,
+        Colors.Purple,
+    ].map(createFullColor),
+    [
+        Colors.Red,
+        Colors.SeaGreen,
+        Colors.Orange,
+        Colors.Yellow,
+        Colors.Purple,
+        Colors.Green,
+        Colors.Lime,
+        Colors.Blue,
+    ].map(createFullColor),
 ];
 
 export function createFullColor(h: number): IColor {

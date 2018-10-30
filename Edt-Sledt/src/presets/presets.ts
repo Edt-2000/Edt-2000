@@ -15,7 +15,7 @@ import {ColorToFastLedSpark} from "./outputs/fastledt/colorToFastLedSpark";
 import {BeatToRainbowSpark} from "./outputs/fastledt/beatToRainbowSpark";
 import {Note} from "../../../Shared/midi";
 import {BeatToNextWord} from "./converters/words/beatToNextWord";
-import {MidiChannelToMelody} from "./converters/melody/midiChannelToMelody";
+import {MidiChannelToMainMelody} from "./converters/melody/midiChannelToMainMelody";
 import {BeatToMovingMultiColorFastLed} from "./outputs/fastledt/beatToMovingMultiColorFastLed";
 
 export const presets = {
@@ -36,7 +36,7 @@ export const presets = {
 
     [Note.A4]: new BeatToNextWord(),
 
-    [Note.A5]: new MidiChannelToMelody(),
+    [Note.A5]: new MidiChannelToMainMelody(),
 
     [Note.A7]: new MainBeatToVidtBeat(),
     [Note.B7]: new ColorToVidtColor(),
@@ -49,8 +49,6 @@ export const presets = {
 
 /**
 
- preset: simple mapping from multicolor to all fastLEDs
- twinkle from beat with modifiers for multi-color vs random
  chase preset based on channel midi notes
  chase preset based on drum inputs (each drum is a different color or soeed?)
  chase preset based on beat
@@ -60,9 +58,6 @@ export const presets = {
  auto-index photo and video files instead of manual adding
  add video and photo files to .gitignore directory
 
- add more colors to multi-color selection in Control
  Add cues for some presets to switch quickly
-
- create multi-color system
 
  **/

@@ -25,7 +25,7 @@ export const MULTI_COLOR = 'MULTI_COLOR';
 export const VIDT_MULTI_COLOR = 'VIDT_MULTI_COLOR';
 export const COLOR_PALETTE = 'COLOR_PALETTE';
 export const MAIN_BEAT = 'MAIN_BEAT';
-export const MELODY = 'MELODY';
+export const MAIN_MELODY = 'MAIN_MELODY';
 export const VIDT_BEAT = 'VIDT_BEAT';
 export const VIDT_DRUM = 'VIDT_DRUM';
 export const GLITCH_INTENSITY = 'GLITCH_INTENSITY';
@@ -54,7 +54,7 @@ export const Actions = {
     colorPalette: (payload: IColor[]) => createAction(COLOR_PALETTE, payload),
 
     mainBeat: (payload: number) => createAction(MAIN_BEAT, payload),
-    melody: (payload: IMidiNoteMsg) => createAction(MELODY, payload),
+    mainMelody: (payload: IMidiNoteMsg) => createAction(MAIN_MELODY, payload),
     vidtBeat: (payload: number) => createAction(VIDT_BEAT, payload),
     vidtDrum: (payload: DrumNotes) => createAction(VIDT_DRUM, payload),
 
@@ -83,7 +83,7 @@ export const Actions$ = {
     vidtMultiColor: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>(colorSets[0]),
     colorPalette: <BehaviorSubject<IColor[]>> new BehaviorSubject<IColor[]>(colorSets[0]),
     mainBeat: <Subject<number>> new Subject<number>(),
-    melody: <Subject<IMidiNoteMsg>> new Subject<IMidiNoteMsg>(),
+    mainMelody: <Subject<IMidiNoteMsg>> new Subject<IMidiNoteMsg>(),
     vidtBeat: <Subject<number>> new Subject<number>(),
     vidtDrum: <Subject<DrumNotes>> new Subject<DrumNotes>(),
     glitchIntensity: <BehaviorSubject<number>> new BehaviorSubject<number>(0),
@@ -109,7 +109,7 @@ export function nextActionFromMsg(msg: Actions) {
     if (msg.type === VIDT_MULTI_COLOR) Actions$.vidtMultiColor.next(msg.payload);
     if (msg.type === COLOR_PALETTE) Actions$.colorPalette.next(msg.payload);
     if (msg.type === MAIN_BEAT) Actions$.mainBeat.next(msg.payload);
-    if (msg.type === MELODY) Actions$.melody.next(msg.payload);
+    if (msg.type === MAIN_MELODY) Actions$.mainMelody.next(msg.payload);
     if (msg.type === VIDT_BEAT) Actions$.vidtBeat.next(msg.payload);
     if (msg.type === VIDT_DRUM) Actions$.vidtDrum.next(msg.payload);
     if (msg.type === GLITCH_INTENSITY) Actions$.glitchIntensity.next(msg.payload);

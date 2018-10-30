@@ -9,6 +9,8 @@ export class BeatToMovingMultiColorFastLed extends PresetLogic {
         select: [
             {label: 'left', value: 1},
             {label: 'right', value: 2},
+            {label: 'cross-2', value: 3},
+            {label: 'cross-3', value: 4},
         ]
     };
 
@@ -19,8 +21,16 @@ export class BeatToMovingMultiColorFastLed extends PresetLogic {
             withLatestFrom(Actions$.multiColor),
         )
             .subscribe(([, colors]) => {
-                // Loop around the startIndex to get the moving effect (left or right)
-                this.startIndex = (this.startIndex + 1) % colors.length;
+                const rightNewIndex = (this.startIndex + 1) % colors.length;
+                const leftNewIndex = Math.abs((this.startIndex - 1) % colors.length);
+                switch (this.modifier) {
+                    case 1:
+                        this.startIndex = rightNewIndex;
+                        break;
+                    case 2:
+                        this.startIndex = leftNewIndex;
+                        break;
+                }
 
                 for (let ledStripIndex = 0; ledStripIndex < fastLedAmount; ledStripIndex++) {
                     const ledStripColorIndex = (this.startIndex + ledStripIndex) % colors.length;

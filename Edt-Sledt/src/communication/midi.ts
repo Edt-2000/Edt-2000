@@ -7,10 +7,10 @@ import {
     virtualMidiOutputDevice,
 } from '../../../Shared/config';
 import {IMidiCCMsg, IMidiNoteMsg, IMidiProgramMsg, IMidiSongMsg, IPresetMsg, MidiMsgTypes} from '../../../Shared/types';
-import {noteToNote, noteToOctave} from '../../../Shared/utils';
 import {bufferCount, map,} from 'rxjs/operators';
 import {fromEvent} from 'rxjs/observable/fromEvent';
 import {merge} from 'rxjs/observable/merge';
+import {noteToNote, noteToOctave} from "../../../Shared/utils";
 
 const virtualInput = new easymidi.Input(virtualMidiInputDevice, true);
 const virtualOutput = new easymidi.Output(virtualMidiOutputDevice, true);

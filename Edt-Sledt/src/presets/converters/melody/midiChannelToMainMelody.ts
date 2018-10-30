@@ -4,7 +4,7 @@ import {modifiers} from "../../../../../Shared/modifiers";
 import {filter} from "rxjs/operators";
 import {Actions, nextActionFromMsg} from "../../../../../Shared/actions";
 
-export class MidiChannelToMelody extends PresetLogic {
+export class MidiChannelToMainMelody extends PresetLogic {
     modifierOptions = {
         select: modifiers.midiChannels,
     };
@@ -13,7 +13,7 @@ export class MidiChannelToMelody extends PresetLogic {
         this.addSub(noteOn$.pipe(
             filter(note => note.channel === this.modifier),
         ).subscribe((note) => {
-            nextActionFromMsg(Actions.melody(note));
+            nextActionFromMsg(Actions.mainMelody(note));
         }));
     }
 
