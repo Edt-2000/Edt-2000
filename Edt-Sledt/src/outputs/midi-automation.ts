@@ -1,6 +1,5 @@
 import {Actions$} from '../../../Shared/actions';
-import {sendMIDICC, sendMIDIPreset} from '../communication/midi';
-import {automationChannel} from '../../../Shared/config';
+import {sendMIDIPreset} from '../communication/midi';
 
 Actions$.presetChange.subscribe(sendMIDIPreset);
 

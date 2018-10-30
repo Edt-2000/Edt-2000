@@ -12,7 +12,7 @@ export class BeatToNextWord extends PresetLogic {
         ).subscribe(([, wordSet]) => {
             // Calculate index++ but wrap around if too far
             this.index++;
-            if(this.index >= wordSet.length) this.index = 0;
+            if (this.index >= wordSet.length) this.index = 0;
             nextActionFromMsg(Actions.mainText(wordSet[this.index]));
         }));
     }

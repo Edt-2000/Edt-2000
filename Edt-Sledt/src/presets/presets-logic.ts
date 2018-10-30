@@ -12,6 +12,10 @@ export abstract class PresetLogic {
 
     protected subscriptions: Subscription[] = [];
 
+    static get note(): number {
+        return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === this.name);
+    }
+
     startPreset(modifier: number) {
         console.log('Starting preset', this.title, modifier);
         this.modifier = modifier;
@@ -39,8 +43,4 @@ export abstract class PresetLogic {
     protected abstract _startPreset(): void;
 
     protected abstract _stopPreset(): void;
-
-    static get note(): number {
-        return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === this.name);
-    }
 }

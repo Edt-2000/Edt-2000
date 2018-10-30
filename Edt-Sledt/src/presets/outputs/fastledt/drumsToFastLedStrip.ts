@@ -14,27 +14,6 @@ export class DrumsToFastLedStrip extends PresetLogic {
             {label: 'centralBeat', value: 30},
         ],
     };
-
-    protected _startPreset(): void {
-        FastLedtSinglePulse(0, 100, BlackColor); // Turn of all strips before starting
-        this.addSub(drumTriggerOn$
-            .pipe(
-                withLatestFrom(Actions$.singleColor),
-            )
-            .subscribe(([drumNote, color]) => {
-                if (this.patterns[this.modifier]) this.horizontalCompleteStrips(drumNote, color, this.patterns[this.modifier]);
-            }));
-    }
-
-    protected _stopPreset(): void {
-    }
-
-    private horizontalCompleteStrips(drumNote: DrumNotes, color: IColor, pattern: number[]) {
-        pattern.forEach((note, index) => {
-            if (note === drumNote) FastLedtSinglePulse(index + 1, 50, color);
-        });
-    }
-
     private patterns = {
         10: [
             DrumNotes._1,
@@ -65,5 +44,25 @@ export class DrumsToFastLedStrip extends PresetLogic {
             DrumNotes._2,
             DrumNotes._1,
         ],
+    }
+
+    protected _startPreset(): void {
+        FastLedtSinglePulse(0, 100, BlackColor); // Turn of all strips before starting
+        this.addSub(drumTriggerOn$
+            .pipe(
+                withLatestFrom(Actions$.singleColor),
+            )
+            .subscribe(([drumNote, color]) => {
+                if (this.patterns[this.modifier]) this.horizontalCompleteStrips(drumNote, color, this.patterns[this.modifier]);
+            }));
+    }
+
+    protected _stopPreset(): void {
+    }
+
+    private horizontalCompleteStrips(drumNote: DrumNotes, color: IColor, pattern: number[]) {
+        pattern.forEach((note, index) => {
+            if (note === drumNote) FastLedtSinglePulse(index + 1, 50, color);
+        });
     }
 }

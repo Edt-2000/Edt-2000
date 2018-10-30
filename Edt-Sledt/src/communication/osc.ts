@@ -26,7 +26,7 @@ export function convertToOSC(addresses: string[], params: number[]) {
 export function sendToOSC(device: DeviceIPs, addresses: string[], params: number[] = []): void {
     console.log('OSC:', device, addresses, params);
     const buf = convertToOSC(addresses, params);
-    return sock.send(buf, 0,  buf.length, oscOutPort, device);
+    return sock.send(buf, 0, buf.length, oscOutPort, device);
 }
 
 // Use a subject to be able to push new OSC messages

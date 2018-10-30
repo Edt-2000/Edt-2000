@@ -21,6 +21,7 @@
     },
     "devDependencies": {
         "@types/node": "8.0.28",
+        "prettier": "1.14.3",
         "ts-node": "3.3.0",
         "ts-node-dev": "^1.0.0-pre.30",
         "typescript": "2.8.1"
