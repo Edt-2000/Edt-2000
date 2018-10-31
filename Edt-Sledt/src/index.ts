@@ -1,14 +1,14 @@
 import {filter} from 'rxjs/operators';
 import {presetMidi$} from './inputs/midi';
 import {merge} from 'rxjs/observable/merge';
-import {sendStateToControl, toControl} from './outputs/edt-control';
-import {io} from './communication/sockets';
+import {SocketSetup} from './communication/sockets';
 import {Actions, Actions$, nextActionFromMsg} from '../../Shared/actions';
 import {MidiAutomationInput} from './inputs/midi-automation';
 import {MidiAutomationOutput} from './outputs/midi-automation';
-import {presetCues} from '../../Shared/cues';
-import {EdtVidtOutput} from './outputs/edt-vidt';
-import {presets} from "./presets/presets";
+import {EdtVidtSetup} from './outputs/edt-vidt';
+import {getPresetState, presets} from "./presets/presets";
+import {AssetScanDir} from "./asset-scan-dir";
+import {EdtControlSetup} from "./outputs/edt-control";
 
 merge(
     presetMidi$,
@@ -23,19 +23,16 @@ merge(
     }
 });
 
-io.on('connection', (socket) => {
-    console.log('Device connected!');
-    sendStateToControl();
-    toControl(Actions.cueList(presetCues));
+nextActionFromMsg(Actions.presetState(getPresetState()));
 
-    socket.on('disconnect', () => {
-        console.log('Device disconnected!');
-    });
-
-    socket.on('fromControl', nextActionFromMsg);
-});
-
-console.log('Including modules: ', MidiAutomationInput, MidiAutomationOutput, EdtVidtOutput);
+console.log('Including modules: ',
+    MidiAutomationInput,
+    MidiAutomationOutput,
+    EdtVidtSetup,
+    EdtControlSetup,
+    AssetScanDir,
+    SocketSetup,
+);
 console.log('Init complete, waiting for devices and/or messages..');
 
 // Loggers, comment to disable

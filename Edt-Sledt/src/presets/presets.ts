@@ -17,6 +17,7 @@ import {Note} from "../../../Shared/midi";
 import {BeatToNextWord} from "./converters/words/beatToNextWord";
 import {MidiChannelToMainMelody} from "./converters/melody/midiChannelToMainMelody";
 import {BeatToMovingMultiColorFastLed} from "./outputs/fastledt/beatToMovingMultiColorFastLed";
+import {IControlPresetMsg} from "../../../Shared/types";
 
 export const presets = {
     [Note.A3]: new BeatToColor(),
@@ -44,6 +45,23 @@ export const presets = {
     [Note.D7]: new MultiColorToVidtMultiColor(),
     [Note.E7]: new DrumsToVidt(),
 };
+
+export function getPresetState(): IControlPresetMsg[] {
+    return Object.getOwnPropertyNames(presets)
+        .map((presetNr) => {
+            const preset = presets[presetNr];
+            return <IControlPresetMsg>{
+                preset: +presetNr, // preset key is a string, but send it as number
+                modifier: preset.modifier,
+                state: preset.state,
+                title: preset.title,
+                config: {
+                    select: preset.modifierOptions.select,
+                    continuous: preset.modifierOptions.continuous,
+                },
+            }
+        })
+}
 
 // TODO list:
 

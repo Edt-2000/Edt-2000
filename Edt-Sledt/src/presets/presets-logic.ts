@@ -1,7 +1,7 @@
-import {sendStateToControl} from '../outputs/edt-control';
 import {IModifierOptions} from '../../../Shared/types';
-import {presets} from "./presets";
+import {getPresetState, presets} from "./presets";
 import {Subscription} from "rxjs";
+import {Actions, nextActionFromMsg} from "../../../Shared/actions";
 
 export abstract class PresetLogic {
     readonly title: string = this.constructor.name;
@@ -22,7 +22,7 @@ export abstract class PresetLogic {
         this._stopPreset();
         this._startPreset();
         this.state = true;
-        sendStateToControl();
+        nextActionFromMsg(Actions.presetState(getPresetState()));
     }
 
     stopPreset() {
@@ -33,7 +33,7 @@ export abstract class PresetLogic {
 
         this._stopPreset();
         this.state = false;
-        sendStateToControl();
+        nextActionFromMsg(Actions.presetState(getPresetState()));
     }
 
     addSub(sub: Subscription) {

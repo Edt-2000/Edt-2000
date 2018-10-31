@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import {IVideoAsset} from '../../../../../Shared/assets';
 import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
@@ -16,16 +15,15 @@ export class VideoPlayerComponent extends Vue {
 
     public src: string = '';
     public interval: number;
-    public overlay: boolean = true;
+    public overlay: boolean = false;
     public $refs : {
         video: HTMLVideoElement
     };
 
     mounted() {
         this.videoSubscription = Actions$.videoSrc
-            .subscribe((video: IVideoAsset) => {
-                this.setSrc(video.src);
-                this.setOverlay(video.overlay);
+            .subscribe((video: string) => {
+                this.setSrc(video);
                 this.playVideo();
             });
 
@@ -36,11 +34,7 @@ export class VideoPlayerComponent extends Vue {
     }
 
     setSrc(src: string) {
-        this.src = `assets/video/${src}`;
-    }
-
-    setOverlay(state: boolean) {
-        this.overlay = state;
+        this.src = `assets/videos/${src}`;
     }
 
     playVideo() {

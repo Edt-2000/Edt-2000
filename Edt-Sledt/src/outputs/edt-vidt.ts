@@ -1,30 +1,45 @@
-import {Actions, Actions$} from '../../../Shared/actions';
-import {io} from '../communication/sockets';
+import {vidtSocket$} from "../communication/sockets";
+import {fromEvent} from "rxjs/observable/fromEvent";
+import * as SocketIO from "socket.io";
+import {take, takeUntil} from "rxjs/operators";
+import {Actions, Actions$} from "../../../Shared/actions";
 
-export function toVidt(msg: Actions): void {
-    io.emit('toVidt', msg);
-}
+vidtSocket$.subscribe(socket => {
+    const disconnected$ = fromEvent<SocketIO.Socket>(socket, 'disconnect');
 
-// There are a number of actions we always want to send to the Edt-Vidt
+    console.log('Vidt instance connected!', socket.id);
 
-Actions$.animationType.subscribe(type => {
-    toVidt(Actions.animationType(type));
+    disconnected$.pipe(take(1)).subscribe(() => {
+        console.log('Vidt instance disconnected!', socket.id);
+    });
+
+    Actions$.animationType.pipe(takeUntil(disconnected$)).subscribe(type => {
+        socket.emit('toVidt', Actions.animationType(type));
+    });
+    Actions$.imageSrc.pipe(takeUntil(disconnected$)).subscribe(src => {
+        socket.emit('toVidt', Actions.imageSrc(src));
+    });
+    Actions$.videoSrc.pipe(takeUntil(disconnected$)).subscribe(src => {
+        socket.emit('toVidt', Actions.videoSrc(src));
+    });
+    Actions$.prepareVidt.pipe(takeUntil(disconnected$)).subscribe(preset => {
+        socket.emit('toVidt', Actions.prepareVidt(preset));
+    });
+    Actions$.mainText.pipe(takeUntil(disconnected$)).subscribe(text => {
+        socket.emit('toVidt', Actions.mainText(text));
+    });
+    Actions$.vidtDrum.pipe(takeUntil(disconnected$)).subscribe(drum => {
+        socket.emit('toVidt', Actions.vidtDrum(drum));
+    });
+    Actions$.vidtMultiColor.pipe(takeUntil(disconnected$)).subscribe(multi => {
+        socket.emit('toVidt', Actions.vidtMultiColor(multi));
+    });
+    Actions$.vidtBeat.pipe(takeUntil(disconnected$)).subscribe(beat => {
+        socket.emit('toVidt', Actions.vidtBeat(beat));
+    });
+    Actions$.vidtSingleColor.pipe(takeUntil(disconnected$)).subscribe(color => {
+        socket.emit('toVidt', Actions.vidtSingleColor(color));
+    });
 });
 
-Actions$.imageSrc.subscribe(src => {
-    toVidt(Actions.imageSrc(src));
-});
-
-Actions$.videoSrc.subscribe(src => {
-    toVidt(Actions.videoSrc(src));
-});
-
-Actions$.prepareVidt.subscribe(preset => {
-    toVidt(Actions.prepareVidt(preset));
-});
-
-Actions$.mainText.subscribe(text => {
-    toVidt(Actions.mainText(text));
-});
-
-export const EdtVidtOutput = 'EdtVidtOutput';
+export const EdtVidtSetup = 'EdtVidtSetup';

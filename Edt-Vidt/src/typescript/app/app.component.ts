@@ -3,7 +3,7 @@ import Component from 'vue-class-component';
 
 import {router} from '../services/router.service';
 import * as io from 'socket.io-client';
-import {socketConfig} from '../../../../Shared/config';
+import {vidtSocketConfig} from '../../../../Shared/config';
 import {Actions$, nextActionFromMsg} from '../../../../Shared/actions';
 import {vidtPresets} from '../../../../Shared/vidt-presets';
 import Socket = SocketIOClient.Socket;
@@ -19,7 +19,7 @@ export default class App extends Vue {
 
     constructor() {
         super();
-        this.socket = io(socketConfig.url, socketConfig.options);
+        this.socket = io(vidtSocketConfig.url, vidtSocketConfig.options);
 
         this.socket.on('connection', () => {
             console.log('socket connectioned');

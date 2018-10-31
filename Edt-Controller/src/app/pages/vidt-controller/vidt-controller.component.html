@@ -15,10 +15,10 @@
     <div class="section">
         <h2 class="section__title">Photo's</h2>
         <ul class="list">
-            <ng-container *ngFor="let asset of photoAssets">
+          <ng-container *ngFor="let asset of photoAssets | async as pAssets">
                 <li class="list__item">
                     <button class="text-button" (click)="socket.sendPhotoAsset(asset)">
-                        {{asset.name}}
+                      {{asset}}
                     </button>
                 </li>
             </ng-container>
@@ -28,10 +28,10 @@
     <div class="section">
         <h2 class="section__title">Videos's</h2>
         <ul class="list">
-            <ng-container *ngFor="let asset of videoAssets">
+          <ng-container *ngFor="let asset of videoAssets | async as vAssets">
                 <li class="list__item">
                     <button class="text-button" (click)="socket.sendVideoAsset(asset)">
-                        {{asset.name}}
+                      {{asset}}
                     </button>
                 </li>
             </ng-container>

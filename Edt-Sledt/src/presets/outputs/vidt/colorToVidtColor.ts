@@ -1,11 +1,10 @@
 import {PresetLogic} from '../../presets-logic';
-import {Actions, Actions$,} from '../../../../../Shared/actions';
-import {toVidt} from '../../../outputs/edt-vidt';
+import {Actions, Actions$, nextActionFromMsg,} from '../../../../../Shared/actions';
 
 export class ColorToVidtColor extends PresetLogic {
     protected _startPreset(): void {
         this.addSub(Actions$.singleColor.subscribe((color) => {
-            toVidt(Actions.vidtSingleColor(color));
+            nextActionFromMsg(Actions.vidtSingleColor(color));
         }));
     }
 

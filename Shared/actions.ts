@@ -2,7 +2,6 @@ import {IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg} from './types
 import {BehaviorSubject, Subject} from '../Edt-Sledt/node_modules/rxjs';
 import {ActionsUnion, createAction} from './fsa-helpers';
 import {animationTypes} from './vidt-presets';
-import {IPhotoAsset, IVideoAsset, photoAssets, videoAssets} from './assets';
 import {defaultColor, DrumNotes} from "./config";
 import {colorSets} from "./colors";
 
@@ -11,7 +10,9 @@ export const PRESET_STATE = 'PRESET_STATE';
 export const CUE_LIST = 'CUE_LIST';
 export const PREPARE_VIDT = 'PREPARE_VIDT';
 
+export const IMAGE_LIST = 'IMAGE_LIST';
 export const IMAGE_SRC = 'IMAGE_SRC';
+export const VIDEO_LIST = 'VIDEO_LIST';
 export const VIDEO_SRC = 'VIDEO_SRC';
 
 export const MAIN_TEXT = 'MAIN_TEXT';
@@ -31,14 +32,17 @@ export const VIDT_DRUM = 'VIDT_DRUM';
 export const GLITCH_INTENSITY = 'GLITCH_INTENSITY';
 
 export const Actions = {
+
     presetChange: (payload: IPresetMsg) => createAction(PRESET_CHANGE, payload),
     presetState: (payload: IControlPresetMsg[]) => createAction(PRESET_STATE, payload),
     cueList: (payload: ICue[]) => createAction(CUE_LIST, payload),
     prepareVidt: (payload: number) => createAction(PREPARE_VIDT, payload),
 
     // Assets
-    imageSrc: (payload: IPhotoAsset) => createAction(IMAGE_SRC, payload),
-    videoSrc: (payload: IVideoAsset) => createAction(VIDEO_SRC, payload),
+    imageList: (payload: string[]) => createAction(IMAGE_LIST, payload),
+    imageSrc: (payload: string) => createAction(IMAGE_SRC, payload),
+    videoList: (payload: string[]) => createAction(VIDEO_LIST, payload),
+    videoSrc: (payload: string) => createAction(VIDEO_SRC, payload),
 
     mainText: (payload: string) => createAction(MAIN_TEXT, payload),
     wordSet: (payload: string[]) => createAction(WORD_SET, payload),
@@ -64,13 +68,16 @@ export const Actions = {
 export type Actions = ActionsUnion<typeof Actions>;
 
 export const Actions$ = {
-    presetChange: <Subject<IPresetMsg>> new Subject(),
     presetState: <BehaviorSubject<IControlPresetMsg[]>> new BehaviorSubject([] as IControlPresetMsg[]),
     cueList: <BehaviorSubject<ICue[]>> new BehaviorSubject([] as ICue[]),
+    imageList: <BehaviorSubject<string[]>> new BehaviorSubject<string[]>(['']),
+    videoList: <BehaviorSubject<string[]>> new BehaviorSubject<string[]>(['']),
+
+    presetChange: <Subject<IPresetMsg>> new Subject(),
     prepareVidt: <BehaviorSubject<number>> new BehaviorSubject<number>(1),
 
-    imageSrc: <BehaviorSubject<IPhotoAsset>> new BehaviorSubject<IPhotoAsset>(photoAssets[0]),
-    videoSrc: <BehaviorSubject<IVideoAsset>> new BehaviorSubject<IVideoAsset>(videoAssets[0]),
+    imageSrc: <BehaviorSubject<string>> new BehaviorSubject<string>(''),
+    videoSrc: <BehaviorSubject<string>> new BehaviorSubject<string>(''),
 
     mainText: <BehaviorSubject<string>> new BehaviorSubject<string>('STROBOCOPS'),
     wordSet: <BehaviorSubject<string[]>> new BehaviorSubject<string[]>(['STROBOCOPS']),
@@ -92,7 +99,6 @@ export const Actions$ = {
 export function nextActionFromMsg(msg: Actions) {
     if (msg.type === PRESET_CHANGE) Actions$.presetChange.next(msg.payload);
     if (msg.type === PRESET_STATE) Actions$.presetState.next(msg.payload);
-    if (msg.type === CUE_LIST) Actions$.cueList.next(msg.payload);
     if (msg.type === PREPARE_VIDT) Actions$.prepareVidt.next(msg.payload);
 
     if (msg.type === IMAGE_SRC) Actions$.imageSrc.next(msg.payload);

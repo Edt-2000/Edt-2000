@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {SocketService} from '../../socket.service';
-import {photoAssets, videoAssets} from '../../../../../Shared/assets';
 import {animationTypes, vidtPresets,} from '../../../../../Shared/vidt-presets';
 import {words, wordSets} from '../../../../../Shared/words';
+import {Actions$} from "../../../../../Shared/actions";
 
 @Component({
     selector: 'app-vidt-controller',
@@ -10,8 +10,8 @@ import {words, wordSets} from '../../../../../Shared/words';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VidtControllerComponent implements OnInit {
-    photoAssets = photoAssets;
-    videoAssets = videoAssets;
+  photoAssets = Actions$.imageList;
+  videoAssets = Actions$.videoList;
     vidtPages = Array.from(vidtPresets, ([preset, label]) => ({preset, label}));
     wordsArray = words;
     wordSets = wordSets;

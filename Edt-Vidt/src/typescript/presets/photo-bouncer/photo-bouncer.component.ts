@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import {IPhotoAsset, photoAssets} from '../../../../../Shared/assets';
 import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
@@ -18,13 +17,10 @@ export class PhotoBouncerComponent extends Vue {
         img: HTMLElement,
     };
 
-    public photoAssets: IPhotoAsset[] = photoAssets;
     public animation: Animation;
     public src: string = '';
 
     mounted() {
-        this.setSrc(this.photoAssets[0].src);
-
         this.animation = this.$refs.img.animate(
             [
                 {
@@ -51,7 +47,7 @@ export class PhotoBouncerComponent extends Vue {
 
         this.photoSubscription = Actions$.imageSrc
             .subscribe((photo) => {
-                this.setSrc(photo.src);
+                this.setSrc(photo);
             });
     }
 

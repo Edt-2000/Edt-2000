@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {SocketIoModule} from 'ngx-socket-io';
-import {socketConfig} from '../../../Shared/config';
+import {controlSocketConfig} from '../../../Shared/config';
 import {AppComponent} from './app.component';
 import {PresetControllerComponent} from './pages/preset-controller/preset-controller.component';
 import {ColorControllerComponent} from './pages/color-controller/color-controller.component';
@@ -38,7 +38,7 @@ import {TriggerButtonComponent} from './components/trigger-button/trigger-button
             ],
             {enableTracing: true} // <-- debugging purposes only
         ),
-        SocketIoModule.forRoot(socketConfig)
+      SocketIoModule.forRoot(controlSocketConfig)
     ],
     providers: [
         SocketService

@@ -65,6 +65,7 @@ typings/
 .idea/
 .idea/**.*
 
-/Shared/assets/video/*
+/Shared/assets/videos/*
+/Shared/assets/photos/*
 /dist/*
 **/package-lock.json

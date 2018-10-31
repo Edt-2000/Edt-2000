@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {Actions, nextActionFromMsg} from '../../../Shared/actions';
-import {IPhotoAsset, IVideoAsset} from "../../../Shared/assets";
 import {animationTypes} from "../../../Shared/vidt-presets";
-import {ICue} from "../../../Shared/types";
-import {IColor} from "../../../Shared/types";
+import {IColor, ICue} from "../../../Shared/types";
 
 @Injectable()
 export class SocketService {
@@ -20,11 +18,11 @@ export class SocketService {
     this.toSledt(Actions.mainBeat(127));
   }
 
-  sendPhotoAsset(asset: IPhotoAsset) {
+  sendPhotoAsset(asset: string) {
     this.toSledt(Actions.imageSrc(asset));
   }
 
-  sendVideoAsset(asset: IVideoAsset) {
+  sendVideoAsset(asset: string) {
     this.toSledt(Actions.videoSrc(asset));
   }
 

@@ -1,29 +1,30 @@
-import {io} from '../communication/sockets';
-import {IControlPresetMsg} from '../../../Shared/types';
-import {Actions} from '../../../Shared/actions';
-import {presets} from "../presets/presets";
+import {fromEvent} from "rxjs/observable/fromEvent";
+import {Actions, Actions$, nextActionFromMsg} from "../../../Shared/actions";
+import {take, takeUntil} from "rxjs/operators";
+import {controlSocket$} from "../communication/sockets";
+import * as SocketIO from "socket.io";
 
-export function toControl(msg: Actions) {
-    io.emit('toControl', msg);
-}
+controlSocket$.subscribe(socket => {
+    const disconnected$ = fromEvent<SocketIO.Socket>(socket, 'disconnect');
 
-export function sendStateToControl() {
-    toControl(
-        Actions.presetState(
-            Object.getOwnPropertyNames(presets)
-                .map((presetNr) => {
-                    const preset = presets[presetNr];
-                    return <IControlPresetMsg>{
-                        preset: +presetNr, // preset key is a string, but send it as number
-                        modifier: preset.modifier,
-                        state: preset.state,
-                        title: preset.title,
-                        config: {
-                            select: preset.modifierOptions.select,
-                            continuous: preset.modifierOptions.continuous,
-                        },
-                    }
-                }),
-        ),
-    );
-}
+    console.log('Controller connected!', socket.id);
+
+    disconnected$.pipe(take(1)).subscribe(() => {
+        console.log('Controller disconnected!', socket.id);
+    });
+
+    Actions$.presetState.pipe(takeUntil(disconnected$)).subscribe(state => {
+        socket.emit('toControl', Actions.presetState(state))
+    });
+    Actions$.cueList.pipe(takeUntil(disconnected$)).subscribe(list => {
+        socket.emit('toControl', Actions.cueList(list));
+    });
+    Actions$.videoList.pipe(takeUntil(disconnected$)).subscribe(list => {
+        socket.emit('toControl', Actions.videoList(list));
+    });
+
+    socket.on('fromControl', nextActionFromMsg);
+});
+
+
+export const EdtControlSetup = 'EdtControlSetup';

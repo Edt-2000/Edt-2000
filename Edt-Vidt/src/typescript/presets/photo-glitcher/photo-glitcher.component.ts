@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import {photoAssets} from '../../../../../Shared/assets';
 import {Actions$} from '../../../../../Shared/actions';
 
 @Component({
@@ -18,8 +17,6 @@ export class PhotoGlitcherComponent extends Vue {
     public src: string = '';
 
     mounted() {
-        this.setSrc(photoAssets[0].src);
-
         this.animationSubscription = Actions$.animationType
             .subscribe((animation) => {
                 this.animation = animation;
@@ -27,7 +24,7 @@ export class PhotoGlitcherComponent extends Vue {
 
         this.photoSubscription = Actions$.imageSrc
             .subscribe((photo) => {
-                this.setSrc(photo.src);
+                this.setSrc(photo);
             });
     }
 
