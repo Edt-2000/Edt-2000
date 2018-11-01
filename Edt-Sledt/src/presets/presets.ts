@@ -1,6 +1,6 @@
 import {BeatToColor} from './converters/color/beatToColor';
 import {MidiToColors} from './converters/color/midiToColors';
-import {DrumToBeat} from './converters/drums/drumToBeat';
+import {DrumSoundToBeat} from './converters/drums/drumSoundToBeat';
 import {MainBeatToVidtBeat} from './outputs/vidt/mainBeatToVidtBeat';
 import {ColorToVidtColor} from './outputs/vidt/colorToVidtColor';
 import {MultiColorToVidtMultiColor} from "./outputs/vidt/multiColorToVidtMultiColor";
@@ -8,7 +8,7 @@ import {ColorToFastLedSolid} from "./outputs/fastledt/colorToFastLedSolid";
 import {DrumsToVidt} from "./outputs/vidt/drumsToVidt";
 import {ColorStrobeFastLed} from "./outputs/fastledt/colorStrobeFastLed";
 import {ColorStrobeRGBLed} from "./outputs/rgbledt/colorStrobeRGBLed";
-import {DrumsToFastLedStrip} from "./outputs/fastledt/drumsToFastLedStrip";
+import {DrumSoundToFastLedStrip} from "./outputs/fastledt/drumSoundToFastLedStrip";
 import {ColorToRGBLedSolid} from "./outputs/rgbledt/colorToRGBLedSolid";
 import {ColorToInverseVidtColor} from "./converters/color/colorToInverseVidtColor";
 import {ColorToFastLedSpark} from "./outputs/fastledt/colorToFastLedSpark";
@@ -18,8 +18,14 @@ import {BeatToNextWord} from "./converters/words/beatToNextWord";
 import {MidiChannelToMainMelody} from "./converters/melody/midiChannelToMainMelody";
 import {BeatToMovingMultiColorFastLed} from "./outputs/fastledt/beatToMovingMultiColorFastLed";
 import {IControlPresetMsg} from "../../../Shared/types";
+import {DrumToKick} from "./converters/drums/drumSoundMapping/drumToKick";
+import {DrumToSnare} from "./converters/drums/drumSoundMapping/drumToSnare";
 
 export const presets = {
+    [Note.A1]: new DrumSoundToBeat(),
+    [Note.C$0]: new DrumToKick(),
+    [Note.D$0]: new DrumToSnare(),
+
     [Note.A3]: new BeatToColor(),
     [Note.C3]: new BeatToRainbowSpark(),
     [Note.E3]: new BeatToMovingMultiColorFastLed(),
@@ -27,8 +33,7 @@ export const presets = {
 
     [Note.A2]: new MidiToColors(),
 
-    [Note.A1]: new DrumToBeat(),
-    [Note.B1]: new DrumsToFastLedStrip(),
+    [Note.B1]: new DrumSoundToFastLedStrip(),
 
     [Note.A0]: new ColorToFastLedSolid(),
     [Note.B0]: new ColorToRGBLedSolid(),

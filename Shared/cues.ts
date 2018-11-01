@@ -1,14 +1,14 @@
 import {ICue} from './types';
 import {Actions} from "./actions";
 import {DrumNotes} from "./config";
-import {DrumToBeat} from "../Edt-Sledt/src/presets/converters/drums/drumToBeat";
+import {DrumSoundToBeat} from "../Edt-Sledt/src/presets/converters/drums/drumSoundToBeat";
 
 export const presetCues: ICue[] = [
     {
         label: 'DrumKick -> ColorToAll',
         actions: [
             Actions.presetChange({
-                preset: DrumToBeat.note,
+                preset: DrumSoundToBeat.note,
                 modifier: DrumNotes._1,
                 state: true,
             }),

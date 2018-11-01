@@ -24,12 +24,14 @@ export class BeatToMovingMultiColorFastLed extends PresetLogic {
                 const rightNewIndex = (this.startIndex + 1) % colors.length;
                 const leftNewIndex = Math.abs((this.startIndex - 1) % colors.length);
                 switch (this.modifier) {
-                    case 1:
-                        this.startIndex = rightNewIndex;
-                        break;
                     case 2:
                         this.startIndex = leftNewIndex;
                         break;
+                    case 1:
+                        this.startIndex = rightNewIndex;
+                        break;
+                    default:
+
                 }
 
                 for (let ledStripIndex = 0; ledStripIndex < fastLedAmount; ledStripIndex++) {

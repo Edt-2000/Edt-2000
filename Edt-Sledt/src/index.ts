@@ -1,4 +1,4 @@
-import {filter} from 'rxjs/operators';
+import {filter, tap} from 'rxjs/operators';
 import {presetMidi$} from './inputs/midi';
 import {merge} from 'rxjs/observable/merge';
 import {SocketSetup} from './communication/sockets';
@@ -22,6 +22,8 @@ merge(
         presets[msg.preset].stopPreset();
     }
 });
+
+Actions$.mainDrum.pipe(tap(drum => console.log('drum', drum))).subscribe();
 
 nextActionFromMsg(Actions.presetState(getPresetState()));
 

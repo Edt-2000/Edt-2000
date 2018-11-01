@@ -10,6 +10,7 @@ export class BeatToNextWord extends PresetLogic {
         this.addSub(Actions$.mainBeat.pipe(
             withLatestFrom(Actions$.wordSet),
         ).subscribe(([, wordSet]) => {
+            // TODO: Use rxjs operator
             // Calculate index++ but wrap around if too far
             this.index++;
             if (this.index >= wordSet.length) this.index = 0;
