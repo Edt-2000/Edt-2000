@@ -22,6 +22,9 @@ controlSocket$.subscribe(socket => {
     Actions$.videoList.pipe(takeUntil(disconnected$)).subscribe(list => {
         socket.emit('toControl', Actions.videoList(list));
     });
+    Actions$.imageList.pipe(takeUntil(disconnected$)).subscribe(list => {
+        socket.emit('toControl', Actions.imageList(list));
+    });
 
     socket.on('fromControl', nextActionFromMsg);
 });
