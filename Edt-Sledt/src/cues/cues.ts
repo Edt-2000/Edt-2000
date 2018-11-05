@@ -1,7 +1,7 @@
-import {ICue} from './types';
-import {Actions, nextActionFromMsg} from "./actions";
-import {DrumNotes} from "./config";
-import {DrumSoundToBeat} from "../Edt-Sledt/src/presets/converters/drums/drumSoundToBeat";
+import {ICue} from '../../../Shared/types';
+import {Actions, nextActionFromMsg} from "../../../Shared/actions";
+import {DrumNotes} from "../../../Shared/config";
+import {DrumSoundToBeat} from "../presets/converters/drums/drumSoundToBeat";
 
 const presetCues: ICue[] = [
     {

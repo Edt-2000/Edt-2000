@@ -38,6 +38,9 @@ export class SocketService {
     this.toSledt(Actions.wordSet(set));
   }
 
+  sendGlitchIntensity(intensity: number) {
+    this.toSledt(Actions.glitchIntensity(intensity))
+  }
 
   sendAnimation(animation: animationTypes) {
     this.toSledt(Actions.animationType(animation));

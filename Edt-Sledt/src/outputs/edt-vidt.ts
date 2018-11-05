@@ -40,6 +40,9 @@ vidtSocket$.subscribe(socket => {
     Actions$.vidtSingleColor.pipe(takeUntil(disconnected$)).subscribe(color => {
         socket.emit('toVidt', Actions.vidtSingleColor(color));
     });
+    Actions$.glitchIntensity.pipe(takeUntil(disconnected$)).subscribe(intensity => {
+        socket.emit('toVidt', Actions.glitchIntensity(intensity));
+    })
 });
 
 export const EdtVidtSetup = 'EdtVidtSetup';

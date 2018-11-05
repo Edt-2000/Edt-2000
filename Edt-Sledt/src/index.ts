@@ -9,7 +9,7 @@ import {EdtVidtSetup} from './outputs/edt-vidt';
 import {getPresetState, presets} from "./presets/presets";
 import {AssetScanDir} from "./asset-scan-dir";
 import {EdtControlSetup} from "./outputs/edt-control";
-import {CueListSetup} from "../../Shared/cues";
+import {CueListSetup} from "./cues/cues";
 
 merge(
     presetMidi$,
