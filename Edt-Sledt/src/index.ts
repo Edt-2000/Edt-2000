@@ -9,6 +9,7 @@ import {EdtVidtSetup} from './outputs/edt-vidt';
 import {getPresetState, presets} from "./presets/presets";
 import {AssetScanDir} from "./asset-scan-dir";
 import {EdtControlSetup} from "./outputs/edt-control";
+import {CueListSetup} from "../../Shared/cues";
 
 merge(
     presetMidi$,
@@ -34,6 +35,7 @@ console.log('Including modules: ',
     EdtControlSetup,
     AssetScanDir,
     SocketSetup,
+    CueListSetup,
 );
 console.log('Init complete, waiting for devices and/or messages..');
 

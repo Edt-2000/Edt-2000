@@ -101,8 +101,12 @@ export const Actions$ = {
 };
 
 export function nextActionFromMsg(msg: Actions) {
-    if (msg.type === PRESET_CHANGE) Actions$.presetChange.next(msg.payload);
     if (msg.type === PRESET_STATE) Actions$.presetState.next(msg.payload);
+    if (msg.type === CUE_LIST) Actions$.cueList.next(msg.payload);
+    if (msg.type === IMAGE_LIST) Actions$.imageList.next(msg.payload);
+    if (msg.type === VIDEO_LIST) Actions$.videoList.next(msg.payload);
+
+    if (msg.type === PRESET_CHANGE) Actions$.presetChange.next(msg.payload);
     if (msg.type === PREPARE_VIDT) Actions$.prepareVidt.next(msg.payload);
 
     if (msg.type === IMAGE_SRC) Actions$.imageSrc.next(msg.payload);

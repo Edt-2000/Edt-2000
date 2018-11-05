@@ -1,9 +1,9 @@
 import {ICue} from './types';
-import {Actions} from "./actions";
+import {Actions, nextActionFromMsg} from "./actions";
 import {DrumNotes} from "./config";
 import {DrumSoundToBeat} from "../Edt-Sledt/src/presets/converters/drums/drumSoundToBeat";
 
-export const presetCues: ICue[] = [
+const presetCues: ICue[] = [
     {
         label: 'DrumKick -> ColorToAll',
         actions: [
@@ -15,5 +15,8 @@ export const presetCues: ICue[] = [
             Actions.prepareVidt(3),
         ],
     },
-
 ];
+
+
+nextActionFromMsg(Actions.cueList(presetCues));
+export const CueListSetup = 'CueListSetup';
