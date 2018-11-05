@@ -20,7 +20,6 @@ import {BeatToMovingMultiColorFastLed} from "./outputs/fastledt/beatToMovingMult
 import {IControlPresetMsg} from "../../../Shared/types";
 import {DrumSoundMap} from "./converters/drums/drumSoundMap";
 import {DrumSounds} from "../../../Shared/drums";
-import {VidtBeatToGlitchIntensity} from "./outputs/vidt/vidtBeatToGlitchIntensity";
 
 export const presets = {
     [Note.A1]: new DrumSoundToBeat(),
@@ -59,7 +58,6 @@ export const presets = {
     [Note.C7]: new ColorToInverseVidtColor(),
     [Note.D7]: new MultiColorToVidtMultiColor(),
     [Note.E7]: new DrumsToVidt(),
-    [Note.F7]: new VidtBeatToGlitchIntensity(),
 };
 
 export function getPresetState(): IControlPresetMsg[] {

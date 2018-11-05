@@ -1,11 +1,18 @@
 import {PresetLogic} from '../../presets-logic';
 import {Actions, Actions$, nextActionFromMsg} from '../../../../../Shared/actions';
-import {modifiers} from "../../../../../Shared/modifiers";
 import {filter} from "rxjs/operators";
+import {DrumSounds} from "../../../../../Shared/drums";
 
 export class DrumSoundToBeat extends PresetLogic {
     modifierOptions = {
-        select: modifiers.drumSounds,
+        select: Object.keys(DrumSounds)
+            .filter(entry => isNaN(+entry)) // Filter out numeric entries of enum
+            .map(sound => {
+                return {
+                    label: sound,
+                    value: DrumSounds[sound],
+                }
+            }),
     };
 
     protected _startPreset(): void {

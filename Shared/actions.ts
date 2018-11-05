@@ -5,6 +5,7 @@ import {animationTypes} from './vidt-presets';
 import {defaultColor, DrumNotes} from "./config";
 import {colorSets} from "./colors";
 import {DrumSounds} from "./drums";
+import {modifiers} from "./modifiers";
 
 export const PRESET_CHANGE = 'PRESET_CHANGE';
 export const PRESET_STATE = 'PRESET_STATE';
@@ -97,7 +98,7 @@ export const Actions$ = {
     mainMelody: <Subject<IMidiNoteMsg>> new Subject<IMidiNoteMsg>(),
     vidtBeat: <Subject<number>> new Subject<number>(),
     vidtDrum: <Subject<DrumNotes>> new Subject<DrumNotes>(),
-    glitchIntensity: <BehaviorSubject<number>> new BehaviorSubject<number>(0),
+    glitchIntensity: <BehaviorSubject<number>> new BehaviorSubject<number>(modifiers.glitchIntensity[0].value),
 };
 
 export function nextActionFromMsg(msg: Actions) {

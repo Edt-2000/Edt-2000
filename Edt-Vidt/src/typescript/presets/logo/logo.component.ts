@@ -2,7 +2,10 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import {GlitchText} from '../../components/glitch-text/glitch-text.component';
 import {Actions$} from '../../../../../Shared/actions';
-import { mapInput } from '../../../../../Shared/helpers/map-input';
+import {mapInput} from '../../../../../Shared/helpers/map-input';
+import {withLatestFrom} from "../../../../../Edt-Sledt/node_modules/rxjs/operators";
+// Make sure to import from "../../../../../Edt-Sledt/node_modules/
+// Otherwise you get errors!
 
 @Component({
     name: 'logo',
@@ -21,8 +24,9 @@ export class LogoComponent extends Vue {
     public timeOut: number | null;
 
     mounted() {
-        this.subscription = Actions$.glitchIntensity
-            .subscribe((intensity) => {
+        this.subscription = Actions$.vidtBeat
+            .pipe(withLatestFrom(Actions$.glitchIntensity))
+            .subscribe(([beat, intensity]) => {
                 this.glitch(intensity)
             });
     }

@@ -1,7 +1,6 @@
 // TODO: move to own file
 import {Note} from "./midi";
 import {DrumNotes, MidiChannels} from "./config";
-import {DrumSounds} from "./drums";
 
 export const modifiers = {
     strobeSpeeds: [
@@ -34,10 +33,6 @@ export const modifiers = {
         {label: `_6B - ${Note[DrumNotes._6B]}`, value: DrumNotes._6B},
         {label: `_7A - ${Note[DrumNotes._7A]}`, value: DrumNotes._7A},
         {label: `_7B - ${Note[DrumNotes._7B]}`, value: DrumNotes._7B},
-    ],
-    drumSounds: [
-        {label: 'kick', value: DrumSounds.kick},
-        {label: 'snare', value: DrumSounds.snare},
     ],
     glitchIntensity: [
         {label: 'low', value: 1},
