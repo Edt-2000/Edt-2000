@@ -18,13 +18,22 @@ import {BeatToNextWord} from "./converters/words/beatToNextWord";
 import {MidiChannelToMainMelody} from "./converters/melody/midiChannelToMainMelody";
 import {BeatToMovingMultiColorFastLed} from "./outputs/fastledt/beatToMovingMultiColorFastLed";
 import {IControlPresetMsg} from "../../../Shared/types";
-import {DrumToKick} from "./converters/drums/drumSoundMapping/drumToKick";
-import {DrumToSnare} from "./converters/drums/drumSoundMapping/drumToSnare";
+import {DrumSoundMap} from "./converters/drums/drumSoundMap";
+import {DrumSounds} from "../../../Shared/drums";
 
 export const presets = {
     [Note.A1]: new DrumSoundToBeat(),
-    [Note.C$0]: new DrumToKick(),
-    [Note.D$0]: new DrumToSnare(),
+
+    [Note.C$0]: new DrumSoundMap(DrumSounds.kick),
+    [Note.A$0]: new DrumSoundMap(DrumSounds.snare),
+    [Note.F$0]: new DrumSoundMap(DrumSounds.floor),
+    [Note.D$0]: new DrumSoundMap(DrumSounds.tom1),
+    [Note.G$0]: new DrumSoundMap(DrumSounds.tom2),
+    [Note.C$1]: new DrumSoundMap(DrumSounds.bell),
+    [Note.A$1]: new DrumSoundMap(DrumSounds.clap),
+    [Note.F$1]: new DrumSoundMap(DrumSounds.crash),
+    [Note.D$1]: new DrumSoundMap(DrumSounds.hihatClosed),
+    [Note.G$1]: new DrumSoundMap(DrumSounds.hihatOpen),
 
     [Note.A3]: new BeatToColor(),
     [Note.C3]: new BeatToRainbowSpark(),

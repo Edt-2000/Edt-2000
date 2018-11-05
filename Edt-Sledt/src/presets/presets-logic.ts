@@ -4,8 +4,8 @@ import {Subscription} from "rxjs";
 import {Actions, nextActionFromMsg} from "../../../Shared/actions";
 
 export abstract class PresetLogic {
-    readonly title: string = this.constructor.name;
     readonly modifierOptions: IModifierOptions = {};
+    title: string = this.constructor.name;
 
     state = false;
     modifier = 127; // Important; otherwise it will send noteOff

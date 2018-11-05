@@ -1,4 +1,4 @@
-export const enum DrumSounds {
+export enum DrumSounds {
     kick = 1,
     snare = 2,
     hihatClosed = 3,
@@ -8,5 +8,5 @@ export const enum DrumSounds {
     tom2 = 7,
     bell = 8,
     crash = 9,
-    'clap' = 10,
+    clap = 10,
 }
