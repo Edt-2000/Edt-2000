@@ -5,6 +5,8 @@ import {modifiers} from '../../../../../Shared/modifiers';
 import {Actions, Actions$, nextActionFromMsg} from '../../../../../Shared/actions';
 
 export class MidiToColors extends PresetLogic {
+    modifier = modifiers.midiChannels[0].value;
+
     modifierOptions = {
         select: modifiers.midiChannels,
     };

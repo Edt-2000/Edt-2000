@@ -76,20 +76,3 @@ export function getPresetState(): IControlPresetMsg[] {
             }
         })
 }
-
-// TODO list:
-
-/**
-
- chase preset based on channel midi notes
- chase preset based on drum inputs (each drum is a different color or soeed?)
- chase preset based on beat
-
- add flash-length to Actions$ and create button for Control
-
- auto-index photo and video files instead of manual adding
- add video and photo files to .gitignore directory
-
- Add cues for some presets to switch quickly
-
- **/
