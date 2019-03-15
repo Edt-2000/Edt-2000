@@ -1,6 +1,3 @@
-Edt-Control/dist/
-Edt-Sledt/dist/
-
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
@@ -61,11 +58,9 @@ typings/
 
 # dotenv environment variables file
 .env
-.idea
+../.idea
 .idea/
 .idea/**.*
 
-/Shared/assets/videos/*
-/Shared/assets/photos/*
 /dist/*
 **/package-lock.json
