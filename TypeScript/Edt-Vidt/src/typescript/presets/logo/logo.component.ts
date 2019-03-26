@@ -1,11 +1,9 @@
-import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import {GlitchText} from '../../components/glitch-text/glitch-text.component';
-import {Actions$} from '../../../../../Shared/actions';
-import {mapInput} from '../../../../../Shared/helpers/map-input';
-import {withLatestFrom} from "../../../../../Edt-Sledt/node_modules/rxjs/operators";
-// Make sure to import from "../../../../../Edt-Sledt/node_modules/
-// Otherwise you get errors!
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import { GlitchText } from "../../components/glitch-text/glitch-text.component";
+import { Actions$ } from "../../../../../Shared/actions";
+import { mapInput } from "../../../../../Shared/helpers/map-input";
+import { withLatestFrom } from "rxjs/operators";
 
 @Component({
     name: 'logo',

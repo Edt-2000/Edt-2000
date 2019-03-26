@@ -1,11 +1,11 @@
-import {IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg} from './types';
-import {BehaviorSubject, Subject} from '../Edt-Sledt/node_modules/rxjs';
-import {ActionsUnion, createAction} from './fsa-helpers';
-import {animationTypes} from './vidt-presets';
-import {defaultColor, DrumNotes} from "./config";
-import {colorSets} from "./colors";
-import {DrumSounds} from "./drums";
-import {modifiers} from "./modifiers";
+import { IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from "./types";
+import { BehaviorSubject, Subject } from "rxjs";
+import { ActionsUnion, createAction } from "./fsa-helpers";
+import { animationTypes } from "./vidt-presets";
+import { defaultColor, DrumNotes } from "./config";
+import { colorSets } from "./colors";
+import { DrumSounds } from "./drums";
+import { modifiers } from "./modifiers";
 
 export const PRESET_CHANGE = 'PRESET_CHANGE';
 export const PRESET_STATE = 'PRESET_STATE';

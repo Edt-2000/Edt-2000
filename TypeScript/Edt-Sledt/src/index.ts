@@ -1,15 +1,14 @@
-import {filter, tap} from 'rxjs/operators';
-import {presetMidi$} from './inputs/midi';
-import {merge} from 'rxjs/observable/merge';
-import {SocketSetup} from './communication/sockets';
-import {Actions, Actions$, nextActionFromMsg} from '../../Shared/actions';
-import {MidiAutomationInput} from './inputs/midi-automation';
-import {MidiAutomationOutput} from './outputs/midi-automation';
-import {EdtVidtSetup} from './outputs/edt-vidt';
-import {getPresetState, presets} from "./presets/presets";
-import {AssetScanDir} from "./asset-scan-dir";
-import {EdtControlSetup} from "./outputs/edt-control";
-import {CueListSetup} from "./cues/cues";
+import { filter, tap } from "rxjs/operators";
+import { presetMidi$ } from "./inputs/midi";
+import { merge } from "rxjs/observable/merge";
+import { Actions, Actions$, nextActionFromMsg } from "../../Shared/actions";
+import { MidiAutomationInput } from "./inputs/midi-automation";
+import { MidiAutomationOutput } from "./outputs/midi-automation";
+import { EdtVidtSetup } from "./outputs/edt-vidt";
+import { getPresetState, presets } from "./presets/presets";
+import { AssetScanDir } from "./asset-scan-dir";
+import { EdtControlSetup } from "./outputs/edt-control";
+import { CueListSetup } from "./cues/cues";
 
 merge(
     presetMidi$,
@@ -34,7 +33,6 @@ console.log('Including modules: ',
     EdtVidtSetup,
     EdtControlSetup,
     AssetScanDir,
-    SocketSetup,
     CueListSetup,
 );
 console.log('Init complete, waiting for devices and/or messages..');

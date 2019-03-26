@@ -1,0 +1,13 @@
+{
+    "name": "edt-2000",
+    "version": "1.0.0",
+    "description": "MIDI / OSC Visual System",
+    "main": "index.js",
+    "license": "MIT",
+    "private": true,
+    "workspaces": [
+        "edt-controller",
+        "edt-sledt",
+        "edt-vidt"
+    ]
+}
