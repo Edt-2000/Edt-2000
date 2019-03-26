@@ -1,6 +1,6 @@
-import {PresetLogic} from '../../presets-logic';
-import {Actions, Actions$, nextActionFromMsg,} from '../../../../../Shared/actions';
-import {ModifierGroup} from "../../../../../Shared/types";
+import { PresetLogic } from '../../presets-logic';
+import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
+import { ModifierGroup } from '../../../../../Shared/types';
 
 export class ColorToVidtColor extends PresetLogic {
     modifierOptions = {
@@ -8,12 +8,13 @@ export class ColorToVidtColor extends PresetLogic {
     };
 
     protected _startPreset(): void {
-        this.addSub(Actions$.singleColor.subscribe((color) => {
-            nextActionFromMsg(Actions.vidtSingleColor(color));
-        }));
+        this.addSub(
+            Actions$.singleColor.subscribe(color => {
+                nextActionFromMsg(Actions.vidtSingleColor(color));
+            }),
+        );
     }
 
     protected _stopPreset(): void {
     }
-
 }

@@ -1,4 +1,4 @@
-@import "../config/colors";
+@import '../config/colors';
 
 .color-twinkle {
     height: 100vh;
@@ -50,13 +50,12 @@
         }
 
         &:nth-child(3n) {
-            transform: scale(.8);
+            transform: scale(0.8);
         }
 
         &:nth-child(4n) {
             transform: scale(1.4);
         }
-
     }
 }
 
@@ -72,5 +71,4 @@
     100% {
         opacity: 0;
     }
-
 }

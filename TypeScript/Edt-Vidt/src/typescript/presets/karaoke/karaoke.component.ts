@@ -1,24 +1,22 @@
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import {Actions$} from '../../../../../Shared/actions';
-import {IColor} from '../../../../../Shared/types';
-import {ColorHelper} from '../../../../../Shared/helpers/hsv-2-rgb';
+import { Component } from 'vue-property-decorator';
+import { Actions$ } from '../../../../../Shared/actions';
+import { IColor } from '../../../../../Shared/types';
+import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
 const convert = require('color-convert');
 
 @Component({
     name: 'karaoke',
     template: require('./karaoke.template'),
-    components: {
-    }
+    components: {},
 })
-
 export class KaraokeComponent extends Vue {
     public textSubscription: any;
     public colorSubscription: any;
 
     public $refs: {
-        text: HTMLElement
+        text: HTMLElement;
     };
 
     public cssClass: string = '';
@@ -26,29 +24,28 @@ export class KaraokeComponent extends Vue {
     public text: string = 'bounce';
 
     mounted() {
-        this.textSubscription = Actions$.mainText
-            .subscribe((text) => {
-                //if same bounce
-                if (this.text === text) {
-                    this.text = text;
-                    // wait for text to be in dom
-                    requestAnimationFrame(() => {
-                        this.cssClass = 'is-hidden';
+        this.textSubscription = Actions$.mainText.subscribe(text => {
+            //if same bounce
+            if (this.text === text) {
+                this.text = text;
+                // wait for text to be in dom
+                requestAnimationFrame(() => {
+                    this.cssClass = 'is-hidden';
 
-                        window.setTimeout(() => {
-                            this.cssClass = '';
-                        }, 150)
-                    });
-                } else {
-                    this.text = text;
-                }
-            });
+                    window.setTimeout(() => {
+                        this.cssClass = '';
+                    }, 150);
+                });
+            } else {
+                this.text = text;
+            }
+        });
 
-        this.colorSubscription = Actions$.vidtSingleColor
-            .subscribe((color: IColor) => {
+        this.colorSubscription = Actions$.vidtSingleColor.subscribe(
+            (color: IColor) => {
                 this.setStyles([color]);
-            });
-
+            },
+        );
     }
 
     convertToRGB(h: number, s: number, v: number) {
@@ -59,7 +56,7 @@ export class KaraokeComponent extends Vue {
         const bcgColor = ColorHelper.getRGBString(colors);
 
         this.styles = {
-            'color': `${bcgColor}`
+            color: `${bcgColor}`,
         };
     }
 

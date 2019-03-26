@@ -1,6 +1,6 @@
-import { IColor } from "./types";
-import { Note } from "./midi";
-import { Colors } from "./colors";
+import { IColor } from './types';
+import { Note } from './midi';
+import { Colors } from './colors';
 
 export const socketPort: number = 8988;
 
@@ -18,14 +18,13 @@ export const vidtSocketConfig = {
     },
 };
 
-
 export const enum DeviceIPs {
     edtOut = '10.0.0.11',
     edtIn = '10.0.0.12',
     edtPad = '10.0.0.100',
     edtRemoteDMX = '10.0.0.30',
     edtDispEdter = 'localhost',
-    edtSledt = "192.168.2.223",
+    edtSledt = '192.168.2.223',
 }
 
 export enum OSCDevices {

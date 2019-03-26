@@ -1,25 +1,25 @@
-import {BeatToColor} from './converters/color/beatToColor';
-import {MidiToColors} from './converters/color/midiToColors';
-import {DrumSoundToBeat} from './converters/drums/drumSoundToBeat';
-import {MainBeatToVidtBeat} from './outputs/vidt/mainBeatToVidtBeat';
-import {ColorToVidtColor} from './outputs/vidt/colorToVidtColor';
-import {MultiColorToVidtMultiColor} from "./outputs/vidt/multiColorToVidtMultiColor";
-import {ColorToFastLedSolid} from "./outputs/fastledt/colorToFastLedSolid";
-import {DrumsToVidt} from "./outputs/vidt/drumsToVidt";
-import {ColorStrobeFastLed} from "./outputs/fastledt/colorStrobeFastLed";
-import {ColorStrobeRGBLed} from "./outputs/rgbledt/colorStrobeRGBLed";
-import {DrumSoundToFastLedStrip} from "./outputs/fastledt/drumSoundToFastLedStrip";
-import {ColorToRGBLedSolid} from "./outputs/rgbledt/colorToRGBLedSolid";
-import {ColorToInverseVidtColor} from "./converters/color/colorToInverseVidtColor";
-import {ColorToFastLedSpark} from "./outputs/fastledt/colorToFastLedSpark";
-import {BeatToRainbowSpark} from "./outputs/fastledt/beatToRainbowSpark";
-import {Note} from "../../../Shared/midi";
-import {BeatToNextWord} from "./converters/words/beatToNextWord";
-import {MidiChannelToMainMelody} from "./converters/melody/midiChannelToMainMelody";
-import {BeatToMovingMultiColorFastLed} from "./outputs/fastledt/beatToMovingMultiColorFastLed";
-import {IControlPresetMsg} from "../../../Shared/types";
-import {DrumSoundMap} from "./converters/drums/drumSoundMap";
-import {DrumSounds} from "../../../Shared/drums";
+import { BeatToColor } from './converters/color/beatToColor';
+import { MidiToColors } from './converters/color/midiToColors';
+import { DrumSoundToBeat } from './converters/drums/drumSoundToBeat';
+import { MainBeatToVidtBeat } from './outputs/vidt/mainBeatToVidtBeat';
+import { ColorToVidtColor } from './outputs/vidt/colorToVidtColor';
+import { MultiColorToVidtMultiColor } from './outputs/vidt/multiColorToVidtMultiColor';
+import { ColorToFastLedSolid } from './outputs/fastledt/colorToFastLedSolid';
+import { DrumsToVidt } from './outputs/vidt/drumsToVidt';
+import { ColorStrobeFastLed } from './outputs/fastledt/colorStrobeFastLed';
+import { ColorStrobeRGBLed } from './outputs/rgbledt/colorStrobeRGBLed';
+import { DrumSoundToFastLedStrip } from './outputs/fastledt/drumSoundToFastLedStrip';
+import { ColorToRGBLedSolid } from './outputs/rgbledt/colorToRGBLedSolid';
+import { ColorToInverseVidtColor } from './converters/color/colorToInverseVidtColor';
+import { ColorToFastLedSpark } from './outputs/fastledt/colorToFastLedSpark';
+import { BeatToRainbowSpark } from './outputs/fastledt/beatToRainbowSpark';
+import { Note } from '../../../Shared/midi';
+import { BeatToNextWord } from './converters/words/beatToNextWord';
+import { MidiChannelToMainMelody } from './converters/melody/midiChannelToMainMelody';
+import { BeatToMovingMultiColorFastLed } from './outputs/fastledt/beatToMovingMultiColorFastLed';
+import { IControlPresetMsg } from '../../../Shared/types';
+import { DrumSoundMap } from './converters/drums/drumSoundMap';
+import { DrumSounds } from '../../../Shared/drums';
 
 export const presets = {
     [Note.A1]: new DrumSoundToBeat(),
@@ -61,19 +61,18 @@ export const presets = {
 };
 
 export function getPresetState(): IControlPresetMsg[] {
-    return Object.getOwnPropertyNames(presets)
-        .map((presetNr) => {
-            const preset = presets[presetNr];
-            return <IControlPresetMsg>{
-                preset: +presetNr, // preset key is a string, but send it as number
-                modifier: preset.modifier,
-                state: preset.state,
-                title: preset.title,
-                config: {
-                    select: preset.modifierOptions.select,
-                    continuous: preset.modifierOptions.continuous,
-                    group: preset.modifierOptions.group,
-                },
-            }
-        });
+    return Object.getOwnPropertyNames(presets).map(presetNr => {
+        const preset = presets[presetNr];
+        return <IControlPresetMsg>{
+            preset: +presetNr, // preset key is a string, but send it as number
+            modifier: preset.modifier,
+            state: preset.state,
+            title: preset.title,
+            config: {
+                select: preset.modifierOptions.select,
+                continuous: preset.modifierOptions.continuous,
+                group: preset.modifierOptions.group,
+            },
+        };
+    });
 }

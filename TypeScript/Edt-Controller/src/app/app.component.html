@@ -1,16 +1,22 @@
 <div class="app">
-    <div class="app__nav">
-        <nav class="nav">
-            <div class="nav__container">
-                <ul class="nav__list">
-                    <li class="nav__item" *ngFor="let page of pages">
-                        <button class="nav__link" routerLinkActive="is-active"[routerLink]="page.path">{{page.text}}</button>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <div class="app__content">
-        <router-outlet></router-outlet>
-    </div>
+  <div class="app__nav">
+    <nav class="nav">
+      <div class="nav__container">
+        <ul class="nav__list">
+          <li *ngFor="let page of pages" class="nav__item">
+            <button
+              [routerLink]="page.path"
+              class="nav__link"
+              routerLinkActive="is-active"
+            >
+              {{ page.text }}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="app__content">
+    <router-outlet></router-outlet>
+  </div>
 </div>

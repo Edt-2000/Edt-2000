@@ -1,35 +1,32 @@
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import {Actions$} from '../../../../../Shared/actions';
-import {IColor} from '../../../../../Shared/types';
-import {ColorHelper} from '../../../../../Shared/helpers/hsv-2-rgb';
+import { Component } from 'vue-property-decorator';
+import { Actions$ } from '../../../../../Shared/actions';
+import { IColor } from '../../../../../Shared/types';
+import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
 @Component({
     name: 'color-twinkle',
     template: require('./color-twinkle.template'),
-    components: {
-    }
+    components: {},
 })
-
 export class ColorTwinkleComponent extends Vue {
     public colorSubscription: any;
     public styles: Object = {};
     public $refs: {
-        color: HTMLElement,
+        color: HTMLElement;
     };
 
     public stars: number[] = Array(400).map((x, i) => i + 1);
 
     mounted() {
-        this.colorSubscription = Actions$.vidtSingleColor
-            .subscribe((item) => {
-                this.setStyles(item);
-            });
+        this.colorSubscription = Actions$.vidtSingleColor.subscribe(item => {
+            this.setStyles(item);
+        });
     }
 
     setStyles(hsb: IColor) {
         this.styles = {
-            'color': ColorHelper.getRGBString([hsb])
+            color: ColorHelper.getRGBString([hsb]),
         };
     }
 

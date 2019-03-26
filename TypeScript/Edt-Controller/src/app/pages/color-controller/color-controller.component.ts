@@ -1,13 +1,12 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {colorSets} from "../../../../../Shared/colors";
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { colorSets } from '../../../../../Shared/colors';
 
 @Component({
   selector: 'app-color-controller',
   templateUrl: './color-controller.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorControllerComponent implements OnInit {
-
   colorSets = colorSets;
 
   constructor() {
@@ -16,4 +15,3 @@ export class ColorControllerComponent implements OnInit {
   ngOnInit(): void {
   }
 }
-

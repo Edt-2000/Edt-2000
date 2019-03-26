@@ -1,13 +1,10 @@
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 
 @Component({
     name: 'shutdown',
     template: require('./shutdown.template'),
-    components: {
-    }
+    components: {},
 })
-
 export class ShutdownComponent extends Vue {
-
 }

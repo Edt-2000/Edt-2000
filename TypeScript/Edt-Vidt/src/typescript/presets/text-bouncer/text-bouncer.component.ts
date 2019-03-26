@@ -1,21 +1,20 @@
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import {GlitchText} from '../../components/glitch-text/glitch-text.component';
-import {Actions$} from '../../../../../Shared/actions';
+import { Component } from 'vue-property-decorator';
+import { GlitchText } from '../../components/glitch-text/glitch-text.component';
+import { Actions$ } from '../../../../../Shared/actions';
 
 @Component({
     name: 'text-bouncer',
     template: require('./text-bouncer.template'),
     components: {
-        GlitchText
-    }
+        GlitchText,
+    },
 })
-
 export class TextBouncerComponent extends Vue {
     public subscription: any;
 
     public $refs: {
-        text: HTMLElement
+        text: HTMLElement;
     };
     public styles: Object = {};
     public text: string = 'bounce';
@@ -31,15 +30,13 @@ export class TextBouncerComponent extends Vue {
     public speed: number = 6;
 
     mounted() {
-        this.subscription = Actions$.mainText
-            .subscribe((text) => {
-                this.text = text;
-                // wait for text to be in dom
-                requestAnimationFrame(() => {
-                    this.calculateBoundaries();
-                });
+        this.subscription = Actions$.mainText.subscribe(text => {
+            this.text = text;
+            // wait for text to be in dom
+            requestAnimationFrame(() => {
+                this.calculateBoundaries();
             });
-
+        });
 
         this.calculateBoundaries();
 
@@ -69,15 +66,14 @@ export class TextBouncerComponent extends Vue {
         this.x = this.x + this.directionX * this.speed;
         this.y = this.y + this.directionY * this.speed;
 
-        this.styles =  {
-            'transform' : `translate(${this.x}px,${this.y}px)`
+        this.styles = {
+            transform: `translate(${this.x}px,${this.y}px)`,
         };
 
         requestAnimationFrame(() => {
             this.bounce();
         });
     }
-
 
     destroyed() {
         if (typeof this.subscription !== 'undefined') {

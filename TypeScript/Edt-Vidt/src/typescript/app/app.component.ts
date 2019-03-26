@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-import {router} from '../services/router.service';
+import { router } from '../services/router.service';
 import * as io from 'socket.io-client';
-import {vidtSocketConfig} from '../../../../Shared/config';
-import {Actions$, nextActionFromMsg} from '../../../../Shared/actions';
-import {vidtPresets} from '../../../../Shared/vidt-presets';
+import { vidtSocketConfig } from '../../../../Shared/config';
+import { Actions$, nextActionFromMsg } from '../../../../Shared/actions';
+import { vidtPresets } from '../../../../Shared/vidt-presets';
 import Socket = SocketIOClient.Socket;
 
 @Component({
@@ -29,13 +29,15 @@ export default class App extends Vue {
     }
 
     mounted() {
-        this.subscription = Actions$.prepareVidt.subscribe((presetNr: number) => {
-            if (vidtPresets.has(presetNr)) {
-                router.push(vidtPresets.get(presetNr) || '');
-            } else {
-                console.error('Unknown preset');
-            }
-        });
+        this.subscription = Actions$.prepareVidt.subscribe(
+            (presetNr: number) => {
+                if (vidtPresets.has(presetNr)) {
+                    router.push(vidtPresets.get(presetNr) || '');
+                } else {
+                    console.error('Unknown preset');
+                }
+            },
+        );
     }
 
     destroyed() {
@@ -44,4 +46,3 @@ export default class App extends Vue {
         }
     }
 }
-

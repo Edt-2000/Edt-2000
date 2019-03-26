@@ -1,18 +1,17 @@
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import { GlitchText } from "../../components/glitch-text/glitch-text.component";
-import { Actions$ } from "../../../../../Shared/actions";
-import { mapInput } from "../../../../../Shared/helpers/map-input";
-import { withLatestFrom } from "rxjs/operators";
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import { GlitchText } from '../../components/glitch-text/glitch-text.component';
+import { Actions$ } from '../../../../../Shared/actions';
+import { mapInput } from '../../../../../Shared/helpers/map-input';
+import { withLatestFrom } from 'rxjs/operators';
 
 @Component({
     name: 'logo',
     template: require('./logo.template'),
     components: {
-        GlitchText
-    }
+        GlitchText,
+    },
 })
-
 export class LogoComponent extends Vue {
     public subscription: any;
 
@@ -25,7 +24,7 @@ export class LogoComponent extends Vue {
         this.subscription = Actions$.vidtBeat
             .pipe(withLatestFrom(Actions$.glitchIntensity))
             .subscribe(([beat, intensity]) => {
-                this.glitch(intensity)
+                this.glitch(intensity);
             });
     }
 
@@ -42,7 +41,7 @@ export class LogoComponent extends Vue {
     }
 
     decay() {
-        if(this.timeOut) {
+        if (this.timeOut) {
             clearTimeout(this.timeOut);
         }
 
@@ -50,7 +49,7 @@ export class LogoComponent extends Vue {
             this.level = Math.ceil(this.level / 2.0);
 
             if (this.level > 1) {
-                this.decay()
+                this.decay();
             }
         }, 220);
     }

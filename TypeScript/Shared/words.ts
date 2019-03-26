@@ -22,20 +22,17 @@ export const words: string[] = [
     'SPIERDIJK!',
     'NOG EEN LIEDJE!',
     'SLAYER!',
-    'LALALA'
+    'LALALA',
 ];
 
 export interface WordSet {
-    name: string,
-    set: string[],
+    name: string;
+    set: string[];
 }
 
 export const wordSets: WordSet[] = [
     {
         name: 'CABRIO',
-        set: [
-            ...'CABRIO'.split(''),
-            'CABRIOLETTA',
-        ],
+        set: [...'CABRIO'.split(''), 'CABRIOLETTA'],
     },
 ];

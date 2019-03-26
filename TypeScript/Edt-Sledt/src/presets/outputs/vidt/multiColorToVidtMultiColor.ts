@@ -1,6 +1,6 @@
-import {PresetLogic} from '../../presets-logic';
-import {Actions, Actions$, nextActionFromMsg,} from '../../../../../Shared/actions';
-import {ModifierGroup} from "../../../../../Shared/types";
+import { PresetLogic } from '../../presets-logic';
+import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
+import { ModifierGroup } from '../../../../../Shared/types';
 
 export class MultiColorToVidtMultiColor extends PresetLogic {
     modifierOptions = {
@@ -8,12 +8,13 @@ export class MultiColorToVidtMultiColor extends PresetLogic {
     };
 
     protected _startPreset(): void {
-        this.addSub(Actions$.multiColor.subscribe((color) => {
-            nextActionFromMsg(Actions.vidtMultiColor(color));
-        }));
+        this.addSub(
+            Actions$.multiColor.subscribe(color => {
+                nextActionFromMsg(Actions.vidtMultiColor(color));
+            }),
+        );
     }
 
     protected _stopPreset(): void {
     }
-
 }

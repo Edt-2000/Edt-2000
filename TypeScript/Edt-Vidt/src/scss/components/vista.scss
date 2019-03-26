@@ -1,5 +1,5 @@
 .vista {
-    background: #1E477D;
+    background: #1e477d;
     height: 100%;
     position: relative;
 
@@ -28,7 +28,12 @@
         @for $i from 1 through 40 {
             &:nth-child(#{$i}) {
                 animation-delay: 20ms * $i;
-                clip-path: polygon(($i - 1) * 2.5% 0, $i * 2.5% 0, $i * 2.5% 100%, ($i - 1) * 2.5% 100%);
+                clip-path: polygon(
+                        ($i - 1) * 2.5% 0,
+                        $i * 2.5% 0,
+                        $i * 2.5% 100%,
+                        ($i - 1) * 2.5% 100%
+                );
             }
         }
     }
@@ -40,33 +45,33 @@
     }
 
     95% {
-        transform: translate(-50%, -50%) skew(-50deg, 0deg)
+        transform: translate(-50%, -50%) skew(-50deg, 0deg);
     }
 
     100% {
-        transform: translate(-50%, -50%) skew(0deg)
+        transform: translate(-50%, -50%) skew(0deg);
     }
 }
 
 @keyframes move {
     @for $i from 0 through 4 {
-        #{0% + ($i * 5%)} {
+        #{0%+($i * 5%)} {
             transform: translate(-50%, -50%);
         }
 
-        #{1% + ($i * 5%)} {
+        #{1%+($i * 5%)} {
             transform: translate(-50%, -55%);
         }
 
-        #{2% + ($i * 5%)} {
+        #{2%+($i * 5%)} {
             transform: translate(-50%, -50%);
         }
 
-        #{3% + ($i * 5%)} {
+        #{3%+($i * 5%)} {
             transform: translate(-50%, -45%);
         }
 
-        #{4% + ($i * 5%)} {
+        #{4%+($i * 5%)} {
             transform: translate(-50%, -50%);
         }
     }
@@ -74,5 +79,4 @@
     100% {
         transform: translate(-50%, -50%);
     }
-
 }

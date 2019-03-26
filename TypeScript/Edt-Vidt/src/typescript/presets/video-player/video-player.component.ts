@@ -1,14 +1,12 @@
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import {Actions$} from '../../../../../Shared/actions';
+import { Component } from 'vue-property-decorator';
+import { Actions$ } from '../../../../../Shared/actions';
 
 @Component({
     name: 'video-player',
     template: require('./video-player.template'),
-    components: {
-    }
+    components: {},
 })
-
 export class VideoPlayerComponent extends Vue {
     public beatSubscription: any;
     public videoSubscription: any;
@@ -16,21 +14,21 @@ export class VideoPlayerComponent extends Vue {
     public src: string = '';
     public interval: number;
     public overlay: boolean = false;
-    public $refs : {
-        video: HTMLVideoElement
+    public $refs: {
+        video: HTMLVideoElement;
     };
 
     mounted() {
-        this.videoSubscription = Actions$.videoSrc
-            .subscribe((video: string) => {
+        this.videoSubscription = Actions$.videoSrc.subscribe(
+            (video: string) => {
                 this.setSrc(video);
                 this.playVideo();
-            });
+            },
+        );
 
-        this.beatSubscription = Actions$.vidtBeat
-            .subscribe(() => {
-                this.glitchVideo();
-            });
+        this.beatSubscription = Actions$.vidtBeat.subscribe(() => {
+            this.glitchVideo();
+        });
     }
 
     setSrc(src: string) {
@@ -51,12 +49,14 @@ export class VideoPlayerComponent extends Vue {
             clearInterval(this.interval);
         }
 
-        this.$refs.video.currentTime = Math.random() * this.$refs.video.duration;
+        this.$refs.video.currentTime =
+            Math.random() * this.$refs.video.duration;
     }
 
     glitchVideoContinuous() {
         this.interval = window.setInterval(() => {
-            this.$refs.video.currentTime = Math.random() * this.$refs.video.duration;
+            this.$refs.video.currentTime =
+                Math.random() * this.$refs.video.duration;
         }, 1000);
     }
 

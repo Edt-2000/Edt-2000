@@ -1,5 +1,5 @@
-import {Actions$} from '../../../Shared/actions';
-import {sendMIDIPreset} from '../communication/midi';
+import { Actions$ } from '../../../Shared/actions';
+import { sendMIDIPreset } from '../communication/midi';
 
 Actions$.presetChange.subscribe(sendMIDIPreset);
 

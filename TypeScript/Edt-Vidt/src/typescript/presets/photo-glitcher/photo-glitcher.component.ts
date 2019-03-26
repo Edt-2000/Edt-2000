@@ -1,14 +1,12 @@
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import {Actions$} from '../../../../../Shared/actions';
+import { Component } from 'vue-property-decorator';
+import { Actions$ } from '../../../../../Shared/actions';
 
 @Component({
     name: 'photo-glitcher',
     template: require('./photo-glitcher.template'),
-    components: {
-    }
+    components: {},
 })
-
 export class PhotoGlitcherComponent extends Vue {
     public animationSubscription: any;
     public photoSubscription: any;
@@ -17,15 +15,15 @@ export class PhotoGlitcherComponent extends Vue {
     public src: string = '';
 
     mounted() {
-        this.animationSubscription = Actions$.animationType
-            .subscribe((animation) => {
+        this.animationSubscription = Actions$.animationType.subscribe(
+            animation => {
                 this.animation = animation;
-            });
+            },
+        );
 
-        this.photoSubscription = Actions$.imageSrc
-            .subscribe((photo) => {
-                this.setSrc(photo);
-            });
+        this.photoSubscription = Actions$.imageSrc.subscribe(photo => {
+            this.setSrc(photo);
+        });
     }
 
     setSrc(src: string) {

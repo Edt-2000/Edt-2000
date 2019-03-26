@@ -9,5 +9,12 @@
         "edt-controller",
         "edt-sledt",
         "edt-vidt"
-    ]
+    ],
+    "prettier": {
+        "singleQuote": true,
+        "trailingComma": "all"
+    },
+    "dependencies": {
+        "prettier": "^1.16.4"
+    }
 }

@@ -8,6 +8,6 @@ const app = new Vue({
     el: '#app',
     template: '<app />',
     components: {
-        App
-    }
+        App,
+    },
 });

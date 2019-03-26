@@ -6,56 +6,56 @@
 @import '../mixins/screen';
 
 .nav {
-    background: $c-pink;
-    height: $nav-height;
+  background: $c-pink;
+  height: $nav-height;
 
-    &__container {
-        @include container;
-        height: 100%;
+  &__container {
+    @include container;
+    height: 100%;
+  }
+
+  &__list {
+    @include list-reset;
+    display: flex;
+    height: 100%;
+    margin-left: -1rem;
+  }
+
+  &__item {
+    flex: 0 0 auto;
+    position: relative;
+
+    &::after {
+      background: $c-white;
+      content: '';
+      height: 26px;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
     }
 
-    &__list {
-        @include list-reset;
-        display: flex;
-        height: 100%;
-        margin-left: -1rem;
+    &:last-child {
+      &::after {
+        display: none;
+      }
     }
+  }
 
-    &__item {
-        flex: 0 0 auto;
-        position: relative;
+  &__link {
+    color: $c-white;
+    display: block;
+    font-weight: 700;
+    height: 100%;
+    line-height: 42px;
+    padding: 0 1rem;
+    text-transform: uppercase;
+    transition: color 0.2s;
 
-        &::after {
-            background: $c-white;
-            content: '';
-            height: 26px;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1px;
-        }
-
-        &:last-child {
-            &::after {
-                display: none;
-            }
-        }
+    &:hover,
+    &.is-active {
+      color: $c-black;
     }
-
-    &__link {
-        color: $c-white;
-        display: block;
-        font-weight: 700;
-        height: 100%;
-        line-height: 42px;
-        padding: 0 1rem;
-        text-transform: uppercase;
-        transition: color .2s;
-
-        &:hover,
-        &.is-active {
-            color: $c-black;
-        }
-    }
+  }
 }

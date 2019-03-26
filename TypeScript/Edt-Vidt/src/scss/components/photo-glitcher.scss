@@ -1,5 +1,5 @@
 .photo-glitcher {
-    background: #FF179A;
+    background: #ff179a;
     height: 100vh;
     width: 100%;
 
@@ -14,7 +14,7 @@
 
     &--bounce {
         .photo-glitcher__img {
-            animation: bounce .4s linear infinite;
+            animation: bounce 0.4s linear infinite;
             height: 100%;
             left: 0;
             top: 0;
@@ -24,7 +24,7 @@
 
     &--rotate {
         .photo-glitcher__img {
-            animation: rotate .8s linear infinite;
+            animation: rotate 0.8s linear infinite;
         }
     }
 
@@ -43,7 +43,6 @@
             animation: stretch 2s linear infinite forwards;
         }
     }
-
 }
 
 @keyframes bounce {
@@ -85,9 +84,8 @@
 }
 
 @keyframes stretch {
-
     0% {
-        transform: skew(-30deg, 0deg)
+        transform: skew(-30deg, 0deg);
     }
 
     50% {
@@ -95,6 +93,6 @@
     }
 
     100% {
-        transform: skew(-30deg, 0deg)
+        transform: skew(-30deg, 0deg);
     }
 }

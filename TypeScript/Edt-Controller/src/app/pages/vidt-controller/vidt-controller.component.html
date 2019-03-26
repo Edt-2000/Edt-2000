@@ -1,108 +1,120 @@
 <div class="vidt-controller">
+  <div class="section">
+    <h2 class="section__title">Presets</h2>
+    <ul class="list">
+      <ng-container *ngFor="let vidtPage of vidtPages">
+        <li class="list__item">
+          <button (click)="socket.sendVidtPreset(vidtPage)" class="text-button">
+            {{ vidtPage.label }}
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div class="section">
+    <h2 class="section__title">Photo's</h2>
+    <ul class="list">
+      <ng-container *ngFor="let asset of (photoAssets | async) as pAssets">
+        <li class="list__item">
+          <button (click)="socket.sendPhotoAsset(asset)" class="text-button">
+            {{ asset }}
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
 
-    <div class="section">
-        <h2 class="section__title">Presets</h2>
-        <ul class="list">
-            <ng-container *ngFor="let vidtPage of vidtPages">
-                <li class="list__item">
-                <button class="text-button" (click)="socket.sendVidtPreset(vidtPage)">
-                        {{ vidtPage.label }}
-                    </button>
-                </li>
-            </ng-container>
-        </ul>
-    </div>
-    <div class="section">
-        <h2 class="section__title">Photo's</h2>
-        <ul class="list">
-          <ng-container *ngFor="let asset of photoAssets | async as pAssets">
-                <li class="list__item">
-                    <button class="text-button" (click)="socket.sendPhotoAsset(asset)">
-                      {{asset}}
-                    </button>
-                </li>
-            </ng-container>
-        </ul>
-    </div>
+  <div class="section">
+    <h2 class="section__title">Videos's</h2>
+    <ul class="list">
+      <ng-container *ngFor="let asset of (videoAssets | async) as vAssets">
+        <li class="list__item">
+          <button (click)="socket.sendVideoAsset(asset)" class="text-button">
+            {{ asset }}
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
 
-    <div class="section">
-        <h2 class="section__title">Videos's</h2>
-        <ul class="list">
-          <ng-container *ngFor="let asset of videoAssets | async as vAssets">
-                <li class="list__item">
-                    <button class="text-button" (click)="socket.sendVideoAsset(asset)">
-                      {{asset}}
-                    </button>
-                </li>
-            </ng-container>
-        </ul>
-    </div>
+  <div class="section">
+    <h2 class="section__title">Animations</h2>
+    <ul class="list">
+      <ng-container *ngFor="let type of animations">
+        <li class="list__item">
+          <button (click)="socket.sendAnimation(type)" class="text-button">
+            {{ type }}
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
 
-    <div class="section">
-        <h2 class="section__title">Animations</h2>
-        <ul class="list">
-            <ng-container *ngFor="let type of animations">
-                <li class="list__item">
-                    <button class="text-button" (click)="socket.sendAnimation(type)">
-                        {{type}}
-                    </button>
-                </li>
-            </ng-container>
-        </ul>
-    </div>
+  <div class="section">
+    <h2 class="section__title">Text</h2>
+    <ul class="list">
+      <ng-container *ngFor="let word of wordsArray">
+        <li class="list__item">
+          <button (click)="socket.sendText(word)" class="text-button">
+            {{ word }}
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+    <ul class="list">
+      <ng-container *ngFor="let wordSet of wordSets">
+        <li class="list__item">
+          <button (click)="socket.sendWordset(wordSet.set)" class="text-button">
+            {{ wordSet.name }}
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+    <ul class="list">
+      <li class="list__item">
+        <label class="form__label">Direct input</label>
+        <input
+          #mainDirect
+          (keyup)="socket.sendText(mainDirect.value)"
+          class="form__input"
+          type="text"
+        />
+      </li>
 
-    <div class="section">
-        <h2 class="section__title">Text</h2>
-        <ul class="list">
-            <ng-container *ngFor="let word of wordsArray">
-                <li class="list__item">
-                    <button class="text-button" (click)="socket.sendText(word)">
-                        {{word}}
-                    </button>
-                </li>
-            </ng-container>
-        </ul>
-      <ul class="list">
-        <ng-container *ngFor="let wordSet of wordSets">
-          <li class="list__item">
-            <button class="text-button" (click)="socket.sendWordset(wordSet.set)">
-              {{wordSet.name}}
-            </button>
-          </li>
-        </ng-container>
-      </ul>
-        <ul class="list">
-            <li class="list__item">
-                <label class="form__label">Direct input</label>
-                <input #mainDirect type="text" class="form__input" (keyup)="socket.sendText(mainDirect.value)">
-            </li>
-
-            <li class="list__item">
-                <label class="form__label">On send</label>
-                <div class="form__item">
-                    <input #mainBtn type="text" class="form__input">
-                    <button class="text-button form__button" (click)="socket.sendText(mainBtn.value)">SEND</button>
-                </div>
-            </li>
-        </ul>
-    </div>
+      <li class="list__item">
+        <label class="form__label">On send</label>
+        <div class="form__item">
+          <input #mainBtn class="form__input" type="text"/>
+          <button
+            (click)="socket.sendText(mainBtn.value)"
+            class="text-button form__button"
+          >
+            SEND
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
   <div class="section">
     <h2 class="section__title">GlitchIntensity</h2>
     <ul class="list">
       <li class="list__item" *ngFor="let intensity of glitchIntensities">
-        <button class="text-button" (click)="socket.sendGlitchIntensity(intensity.value)">
-          {{intensity.label}}
+        <button
+          (click)="socket.sendGlitchIntensity(intensity.value)"
+          class="text-button"
+        >
+          {{ intensity.label }}
         </button>
       </li>
     </ul>
   </div>
 
-    <div class="section">
-        <h2 class="section__title">Beat</h2>
-        <ul class="list">
-            <li class="list__item">
-                <button class="text-button" (click)="socket.sendBeat()">BEAT</button>
-            </li>
-        </ul>
-    </div>
+  <div class="section">
+    <h2 class="section__title">Beat</h2>
+    <ul class="list">
+      <li class="list__item">
+        <button (click)="socket.sendBeat()" class="text-button">BEAT</button>
+      </li>
+    </ul>
+  </div>
 </div>

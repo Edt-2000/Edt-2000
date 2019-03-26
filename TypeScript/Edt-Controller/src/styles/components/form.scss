@@ -3,39 +3,39 @@
 @import '../config/sizes';
 
 .form {
-    &__label {
-        color: $c-white;
-        display: block;
-        font-family: $font-mono;
-        font-size: 1.2rem;
-        margin: 0 0 .5rem;
-        text-transform: uppercase;
+  &__label {
+    color: $c-white;
+    display: block;
+    font-family: $font-mono;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    text-transform: uppercase;
+  }
+
+  &__input {
+    font-family: $font-mono;
+    background: $c-black;
+    border: 2px solid $c-white;
+    color: $c-white;
+    display: block;
+    font-size: 1.2rem;
+    height: $height-button;
+    line-height: $height-button - 4px;
+    padding: 0 1rem;
+    text-transform: uppercase;
+  }
+
+  &__item {
+    display: flex;
+    flex-wrap: wrap;
+
+    .form__label {
+      flex: 1 0 100%;
     }
 
-    &__input {
-        font-family: $font-mono;
-        background: $c-black;
-        border: 2px solid $c-white;
-        color: $c-white;
-        display: block;
-        font-size: 1.2rem;
-        height: $height-button;
-        line-height: $height-button - 4px;
-        padding: 0 1rem;
-        text-transform: uppercase;
+    .form__button {
+      border-color: $c-white;
+      border-left: none;
     }
-
-    &__item {
-        display: flex;
-        flex-wrap: wrap;
-
-        .form__label {
-            flex: 1 0 100%;
-        }
-
-        .form__button {
-            border-color: $c-white;
-            border-left: none;
-        }
-    }
+  }
 }

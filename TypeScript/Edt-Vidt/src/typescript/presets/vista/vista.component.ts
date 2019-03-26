@@ -1,13 +1,10 @@
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 
 @Component({
     name: 'vista',
     template: require('./vista.template'),
-    components: {
-    }
+    components: {},
 })
-
 export class VistaComponent extends Vue {
-
 }

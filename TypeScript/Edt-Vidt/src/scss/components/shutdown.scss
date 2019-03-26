@@ -1,4 +1,4 @@
-@import "../config/colors";
+@import '../config/colors';
 
 .shutdown {
     background: #000;
@@ -6,7 +6,7 @@
 
     &__text {
         animation: text-flicker 1s linear 4;
-        color: #FFF;
+        color: #fff;
         font-family: monospace;
         font-size: 22px;
         left: 50%;
@@ -18,9 +18,9 @@
 
     &::before {
         animation: shutdown-circle 200ms linear 4300ms;
-        background: #FFF;
+        background: #fff;
         border-radius: 50%;
-        box-shadow: 0 0 24px 28px #FFF;
+        box-shadow: 0 0 24px 28px #fff;
         content: '';
         height: 1px;
         left: 50%;
@@ -33,7 +33,7 @@
 
     &:after {
         animation: shutdown 600ms linear 4s;
-        background: #FFF;
+        background: #fff;
         bottom: 0;
         content: '';
         filter: blur(10px);

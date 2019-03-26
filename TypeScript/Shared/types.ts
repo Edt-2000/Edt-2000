@@ -1,4 +1,4 @@
-import {Actions} from './actions';
+import { Actions } from './actions';
 
 export interface IMidiChannel {
     readonly channel: number;
@@ -41,8 +41,8 @@ export interface IPresetMsg {
 }
 
 export interface IControlPresetMsg extends IPresetMsg {
-    readonly title: string,
-    readonly config: IModifierOptions,
+    readonly title: string;
+    readonly config: IModifierOptions;
 }
 
 export interface ICue {
@@ -59,30 +59,30 @@ export enum ModifierGroup {
 }
 
 export interface IModifierOptions {
-    readonly select?: IModifierSelectOption[],
+    readonly select?: IModifierSelectOption[];
     readonly continuous?: {
         readonly min: number;
         readonly max: number;
         readonly step: number;
-    },
-    readonly group: ModifierGroup,
+    };
+    readonly group: ModifierGroup;
 }
 
 export interface IModifierSelectOption {
-    label: string,
-    value: number,
+    label: string;
+    value: number;
 }
 
 export interface ITrack {
     left: {
-        x: number,
-        y: number,
-        z: number,
+        x: number;
+        y: number;
+        z: number;
     };
     right: {
-        x: number,
-        y: number,
-        z: number,
+        x: number;
+        y: number;
+        z: number;
     };
 }
 

@@ -1,7 +1,7 @@
-import {IModifierOptions} from '../../../Shared/types';
-import {getPresetState, presets} from "./presets";
-import {Subscription} from "rxjs";
-import {Actions, nextActionFromMsg} from "../../../Shared/actions";
+import { IModifierOptions } from '../../../Shared/types';
+import { getPresetState, presets } from './presets';
+import { Subscription } from 'rxjs';
+import { Actions, nextActionFromMsg } from '../../../Shared/actions';
 
 export abstract class PresetLogic {
     readonly modifierOptions: IModifierOptions;
@@ -13,7 +13,9 @@ export abstract class PresetLogic {
     protected subscriptions: Subscription[] = [];
 
     static get note(): number {
-        return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === this.name);
+        return +Object.getOwnPropertyNames(presets).find(
+            presetNote => presets[presetNote].title === this.name,
+        );
     }
 
     startPreset(modifier: number) {

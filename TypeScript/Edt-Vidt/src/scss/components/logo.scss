@@ -18,7 +18,7 @@
     }
 
     &__star {
-        color: transparentize(#FFF, 0.3);
+        color: transparentize(#fff, 0.3);
         font-family: $font-mono;
         position: absolute;
         z-index: 1;
@@ -48,7 +48,7 @@
                 font-size: 10px + (random(8) - 1);
 
                 &::before {
-                    content: "#{$content}";
+                    content: '#{$content}';
                     animation-duration: $duration;
                     animation-delay: $delay;
                 }
@@ -79,7 +79,6 @@
     100% {
         opacity: 0;
     }
-
 }
 
 @keyframes twinkle-reverse {
@@ -94,5 +93,4 @@
     100% {
         opacity: 1;
     }
-
 }

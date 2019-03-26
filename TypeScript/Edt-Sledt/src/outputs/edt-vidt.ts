@@ -1,8 +1,8 @@
-import {vidtSocket$} from "../communication/sockets";
-import {fromEvent} from "rxjs/observable/fromEvent";
-import * as SocketIO from "socket.io";
-import {take, takeUntil} from "rxjs/operators";
-import {Actions, Actions$} from "../../../Shared/actions";
+import { vidtSocket$ } from '../communication/sockets';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import * as SocketIO from 'socket.io';
+import { take, takeUntil } from 'rxjs/operators';
+import { Actions, Actions$ } from '../../../Shared/actions';
 
 vidtSocket$.subscribe(socket => {
     const disconnected$ = fromEvent<SocketIO.Socket>(socket, 'disconnect');
@@ -40,9 +40,11 @@ vidtSocket$.subscribe(socket => {
     Actions$.vidtSingleColor.pipe(takeUntil(disconnected$)).subscribe(color => {
         socket.emit('toVidt', Actions.vidtSingleColor(color));
     });
-    Actions$.glitchIntensity.pipe(takeUntil(disconnected$)).subscribe(intensity => {
-        socket.emit('toVidt', Actions.glitchIntensity(intensity));
-    })
+    Actions$.glitchIntensity
+        .pipe(takeUntil(disconnected$))
+        .subscribe(intensity => {
+            socket.emit('toVidt', Actions.glitchIntensity(intensity));
+        });
 });
 
 export const EdtVidtSetup = 'EdtVidtSetup';

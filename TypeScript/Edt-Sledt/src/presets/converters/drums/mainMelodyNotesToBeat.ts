@@ -1,5 +1,5 @@
-import {PresetLogic} from "../../presets-logic";
-import {ModifierGroup} from "../../../../../Shared/types";
+import { PresetLogic } from '../../presets-logic';
+import { ModifierGroup } from '../../../../../Shared/types';
 
 export class MainMelodyNotesToBeat extends PresetLogic {
     modifierOptions = {
@@ -11,5 +11,4 @@ export class MainMelodyNotesToBeat extends PresetLogic {
 
     protected _stopPreset(): void {
     }
-
 }

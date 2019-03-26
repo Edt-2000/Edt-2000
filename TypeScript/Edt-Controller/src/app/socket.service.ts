@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Socket} from 'ngx-socket-io';
-import {Actions, nextActionFromMsg} from '../../../Shared/actions';
-import {animationTypes} from "../../../Shared/vidt-presets";
-import {IColor, ICue} from "../../../Shared/types";
+import { Injectable } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
+import { Actions, nextActionFromMsg } from '../../../Shared/actions';
+import { animationTypes } from '../../../Shared/vidt-presets';
+import { IColor, ICue } from '../../../Shared/types';
 
 @Injectable()
 export class SocketService {
@@ -26,7 +26,7 @@ export class SocketService {
     this.toSledt(Actions.videoSrc(asset));
   }
 
-  sendVidtPreset({preset}) {
+  sendVidtPreset({ preset }) {
     this.toSledt(Actions.prepareVidt(preset));
   }
 
@@ -39,7 +39,7 @@ export class SocketService {
   }
 
   sendGlitchIntensity(intensity: number) {
-    this.toSledt(Actions.glitchIntensity(intensity))
+    this.toSledt(Actions.glitchIntensity(intensity));
   }
 
   sendAnimation(animation: animationTypes) {
@@ -51,11 +51,11 @@ export class SocketService {
   }
 
   changePreset(preset, state, modifier = 127) {
-    this.toSledt(Actions.presetChange({preset, state, modifier}));
+    this.toSledt(Actions.presetChange({ preset, state, modifier }));
   }
 
   sendColor(color: IColor) {
-    this.toSledt(Actions.singleColor(color))
+    this.toSledt(Actions.singleColor(color));
   }
 
   sendMultiColor(colors: IColor[]) {

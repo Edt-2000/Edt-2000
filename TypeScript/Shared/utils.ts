@@ -8,8 +8,13 @@ export function noteToNote(note: number): number {
     return (note % 12) + 1;
 }
 
-export function rescale(value: number, max: number, minRange: number, maxRange: number) {
-    return Math.round(((max - value) / (max)) * (maxRange - minRange)) + minRange;
+export function rescale(
+    value: number,
+    max: number,
+    minRange: number,
+    maxRange: number,
+) {
+    return Math.round(((max - value) / max) * (maxRange - minRange)) + minRange;
 }
 
 export function shuffleArray(array: any[]): any[] {

@@ -1,7 +1,7 @@
-import {ICue} from '../../../Shared/types';
-import {Actions, nextActionFromMsg} from "../../../Shared/actions";
-import {DrumNotes} from "../../../Shared/config";
-import {DrumSoundToBeat} from "../presets/converters/drums/drumSoundToBeat";
+import { ICue } from '../../../Shared/types';
+import { Actions, nextActionFromMsg } from '../../../Shared/actions';
+import { DrumNotes } from '../../../Shared/config';
+import { DrumSoundToBeat } from '../presets/converters/drums/drumSoundToBeat';
 
 const presetCues: ICue[] = [
     {
@@ -16,7 +16,6 @@ const presetCues: ICue[] = [
         ],
     },
 ];
-
 
 nextActionFromMsg(Actions.cueList(presetCues));
 export const CueListSetup = 'CueListSetup';

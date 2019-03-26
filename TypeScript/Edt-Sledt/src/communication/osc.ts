@@ -1,6 +1,6 @@
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {DeviceIPs, oscInPort, oscOutPort} from '../../../Shared/config';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { DeviceIPs, oscInPort, oscOutPort } from '../../../Shared/config';
 import dgram = require('dgram');
 import osc = require('osc-min');
 
@@ -14,7 +14,7 @@ export function convertToOSC(addresses: string[], params: number[]) {
 
     return osc.toBuffer({
         address: thomasAddress,
-        args: params.map((param) => {
+        args: params.map(param => {
             return {
                 type: 'integer',
                 value: param,
@@ -23,7 +23,11 @@ export function convertToOSC(addresses: string[], params: number[]) {
     });
 }
 
-export function sendToOSC(device: DeviceIPs, addresses: string[], params: number[] = []): void {
+export function sendToOSC(
+    device: DeviceIPs,
+    addresses: string[],
+    params: number[] = [],
+): void {
     console.log('OSC:', device, addresses, params);
     const buf = convertToOSC(addresses, params);
     return sock.send(buf, 0, buf.length, oscOutPort, device);
@@ -56,7 +60,7 @@ function processOscMessage(msg, rinfo) {
                 // Send to OSCSubject observable for further processing
                 OSCSubject.next({
                     addresses,
-                    values: oscMessage.args.map((arg) => arg.value),
+                    values: oscMessage.args.map(arg => arg.value),
                 });
             }
         } else {

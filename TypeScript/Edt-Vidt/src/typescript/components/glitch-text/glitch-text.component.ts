@@ -1,11 +1,10 @@
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 
 @Component({
     name: 'glitch-text',
-    template: require('./glitch-text.template')
+    template: require('./glitch-text.template'),
 })
-
 export class GlitchText extends Vue {
     cssClass: string = '';
 
@@ -17,6 +16,6 @@ export class GlitchText extends Vue {
 
     @Watch('level')
     setCssClass() {
-        this.cssClass = (this.level ? 'glitch-text--level' + this.level : '')
-    };
+        this.cssClass = this.level ? 'glitch-text--level' + this.level : '';
+    }
 }

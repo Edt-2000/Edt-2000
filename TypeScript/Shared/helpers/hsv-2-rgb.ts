@@ -1,5 +1,5 @@
-import {mapInput} from './map-input';
-import {IColor} from '../types';
+import { mapInput } from './map-input';
+import { IColor } from '../types';
 
 export class ColorHelper {
     static getRGBString(hsvColors: IColor[]) {
@@ -8,8 +8,7 @@ export class ColorHelper {
         let bcgColor: string = '';
         if (rgbColors.length === 1) {
             bcgColor = `rgb(${rgbColors[0].join(', ')})`;
-        }
-        else {
+        } else {
             bcgColor = `repeating-linear-gradient(`;
             const totalColors: number = rgbColors.length;
             let spacing = 0;
@@ -18,7 +17,11 @@ export class ColorHelper {
             for (const color of rgbColors) {
                 const percentage = (100 / totalColors) * currentIndex;
                 const percentageNext = (100 / totalColors) * ++currentIndex;
-                bcgColor += `, rgb(${color.join(', ')}) ${percentage}%, rgb(${color.join(', ')}) ${percentageNext}%`;
+                bcgColor += `, rgb(${color.join(
+                    ', ',
+                )}) ${percentage}%, rgb(${color.join(
+                    ', ',
+                )}) ${percentageNext}%`;
                 spacing += 100;
             }
 
@@ -29,7 +32,7 @@ export class ColorHelper {
     }
 
     static hsvArray2RGBArray(hsvColors: IColor[]) {
-        return hsvColors.map(ColorHelper.hsv2rgb)
+        return hsvColors.map(ColorHelper.hsv2rgb);
     }
 
     static hsv2rgb(hsv: IColor): number[] {
@@ -40,8 +43,8 @@ export class ColorHelper {
 
         const f = h - Math.floor(h);
         const p = Math.floor(255 * v * (1 - s));
-        const q = Math.floor(255 * v * (1 - (s * f)));
-        const t = Math.floor(255 * v * (1 - (s * (1 - f))));
+        const q = Math.floor(255 * v * (1 - s * f));
+        const t = Math.floor(255 * v * (1 - s * (1 - f)));
         v *= 255;
 
         switch (hi) {

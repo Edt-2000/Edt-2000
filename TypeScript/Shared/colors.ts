@@ -1,4 +1,4 @@
-import {IColor} from "./types";
+import { IColor } from './types';
 
 export enum Colors {
     Red = 0,
@@ -26,10 +26,7 @@ export const colorSets: IColor[][] = [
         Colors.Purple,
         Colors.Pink,
     ].map(createFullColor),
-    [
-        Colors.Red,
-        Colors.Blue,
-    ].map(createFullColor),
+    [Colors.Red, Colors.Blue].map(createFullColor),
     [
         Colors.Red,
         Colors.Turquoise,
@@ -39,13 +36,9 @@ export const colorSets: IColor[][] = [
         Colors.Lime,
         Colors.Blue,
     ].map(createFullColor),
-    [
-        Colors.Red,
-        Colors.Pink,
-        Colors.Turquoise,
-        Colors.Blue,
-        Colors.Purple,
-    ].map(createFullColor),
+    [Colors.Red, Colors.Pink, Colors.Turquoise, Colors.Blue, Colors.Purple].map(
+        createFullColor,
+    ),
     [
         Colors.Red,
         Colors.SeaGreen,
@@ -59,5 +52,5 @@ export const colorSets: IColor[][] = [
 ];
 
 export function createFullColor(h: number): IColor {
-    return {h, s: 255, b: 255};
+    return { h, s: 255, b: 255 };
 }
