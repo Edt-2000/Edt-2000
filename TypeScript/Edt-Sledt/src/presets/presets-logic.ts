@@ -1,5 +1,5 @@
 import { IModifierOptions } from '../../../Shared/types';
-import { getPresetState, presets } from './presets';
+import { getPresetState } from './presets';
 import { Subscription } from 'rxjs';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions';
 
@@ -11,12 +11,6 @@ export abstract class PresetLogic {
     modifier = 127; // Important; otherwise it will send noteOff
 
     protected subscriptions: Subscription[] = [];
-
-    static get note(): number {
-        return +Object.getOwnPropertyNames(presets).find(
-            presetNote => presets[presetNote].title === this.name,
-        );
-    }
 
     startPreset(modifier: number) {
         console.log('Starting preset', this.title, modifier);

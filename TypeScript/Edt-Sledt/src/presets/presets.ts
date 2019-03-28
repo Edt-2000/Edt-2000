@@ -20,6 +20,7 @@ import { BeatToMovingMultiColorFastLed } from './outputs/fastledt/beatToMovingMu
 import { IControlPresetMsg } from '../../../Shared/types';
 import { DrumSoundMap } from './converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../Shared/drums';
+import { PresetLogic } from './presets-logic';
 
 export const presets = {
     [Note.A1]: new DrumSoundToBeat(),
@@ -75,4 +76,10 @@ export function getPresetState(): IControlPresetMsg[] {
             },
         };
     });
+}
+
+export function getPresetNote(preset: PresetLogic): number {
+    return +Object.getOwnPropertyNames(presets).find(
+        presetNote => presets[presetNote].title === preset.title,
+    );
 }
