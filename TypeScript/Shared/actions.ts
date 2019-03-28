@@ -1,7 +1,7 @@
 import { IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './types';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './fsa-helpers';
-import { animationTypes } from './vidt-presets';
+import { animationTypes, vidtPresets } from './vidt-presets';
 import { defaultColor, DrumNotes } from './config';
 import { colorSets } from './colors';
 import { DrumSounds } from './drums';
@@ -36,10 +36,9 @@ export const GLITCH_INTENSITY = 'GLITCH_INTENSITY';
 
 export const Actions = {
     presetChange: (payload: IPresetMsg) => createAction(PRESET_CHANGE, payload),
-    presetState: (payload: IControlPresetMsg[]) =>
-        createAction(PRESET_STATE, payload),
+    presetState: (payload: IControlPresetMsg[]) => createAction(PRESET_STATE, payload),
     cueList: (payload: ICue[]) => createAction(CUE_LIST, payload),
-    prepareVidt: (payload: number) => createAction(PREPARE_VIDT, payload),
+    prepareVidt: (payload: vidtPresets) => createAction(PREPARE_VIDT, payload),
 
     // Assets
     imageList: (payload: string[]) => createAction(IMAGE_LIST, payload),
@@ -51,8 +50,7 @@ export const Actions = {
     wordSet: (payload: string[]) => createAction(WORD_SET, payload),
 
     // Effects
-    animationType: (payload: animationTypes) =>
-        createAction(ANIMATION_TYPE, payload),
+    animationType: (payload: animationTypes) => createAction(ANIMATION_TYPE, payload),
 
     // Subjects
     singleColor: (payload: IColor) => createAction(SINGLE_COLOR, payload),
@@ -84,7 +82,7 @@ export const Actions$ = {
     videoList: <BehaviorSubject<string[]>>new BehaviorSubject<string[]>(['']),
 
     presetChange: <Subject<IPresetMsg>>new Subject(),
-    prepareVidt: <BehaviorSubject<number>>new BehaviorSubject<number>(1),
+    prepareVidt: <BehaviorSubject<vidtPresets>>new BehaviorSubject<vidtPresets>(vidtPresets.logo),
 
     imageSrc: <BehaviorSubject<string>>new BehaviorSubject<string>(''),
     videoSrc: <BehaviorSubject<string>>new BehaviorSubject<string>(''),

@@ -9,9 +9,6 @@ const svg           = require("./gulp/svg");
 
 const build = gulp.series(
     gulp.parallel(
-        lint.lintSass
-    ),
-    gulp.parallel(
         copy.copyHtml,
         copy.copyAssets
     ),

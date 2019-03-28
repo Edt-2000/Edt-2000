@@ -14,22 +14,26 @@ import { vidtPresets } from '../../../../Shared/vidt-presets';
 import { ColorTwinkleComponent } from '../presets/color-twinkle/color-twinkle.component';
 import { KaraokeComponent } from '../presets/karaoke/karaoke.component';
 
+/**
+ * We need to map the vidtPreset enum to Vue component routing;
+ * we don't want cross imports between projects
+ */
 export const router = new VueRouter({
     base: '',
     routes: [
-        { path: vidtPresets.get(1) || '', component: LogoComponent },
-        { path: vidtPresets.get(2) || '', component: BluescreenComponent },
-        { path: vidtPresets.get(3) || '', component: ColorBackgroundComponent },
-        { path: vidtPresets.get(4) || '', component: GridscapeComponent },
-        { path: vidtPresets.get(5) || '', component: HackingComponent },
-        { path: vidtPresets.get(6) || '', component: PhotoBouncerComponent },
-        { path: vidtPresets.get(7) || '', component: PhotoGlitcherComponent },
-        { path: vidtPresets.get(8) || '', component: TextBouncerComponent },
-        { path: vidtPresets.get(9) || '', component: ShutdownComponent },
-        { path: vidtPresets.get(10) || '', component: VideoPlayerComponent },
-        { path: vidtPresets.get(11) || '', component: VistaComponent },
-        { path: vidtPresets.get(12) || '', component: ColorTwinkleComponent },
-        { path: vidtPresets.get(13) || '', component: KaraokeComponent },
-        { path: '*', redirect: vidtPresets.get(1) || '' },
+        { path: '/' + vidtPresets[vidtPresets.logo] || '', component: LogoComponent },
+        { path: '/' + vidtPresets[vidtPresets.bluescreen] || '', component: BluescreenComponent },
+        { path: '/' + vidtPresets[vidtPresets.color] || '', component: ColorBackgroundComponent },
+        { path: '/' + vidtPresets[vidtPresets.gridscape] || '', component: GridscapeComponent },
+        { path: '/' + vidtPresets[vidtPresets.hacking] || '', component: HackingComponent },
+        { path: '/' + vidtPresets[vidtPresets.photobouncer] || '', component: PhotoBouncerComponent },
+        { path: '/' + vidtPresets[vidtPresets.photoglitcher] || '', component: PhotoGlitcherComponent },
+        { path: '/' + vidtPresets[vidtPresets.textBouncer] || '', component: TextBouncerComponent },
+        { path: '/' + vidtPresets[vidtPresets.shutdown] || '', component: ShutdownComponent },
+        { path: '/' + vidtPresets[vidtPresets.video] || '', component: VideoPlayerComponent },
+        { path: '/' + vidtPresets[vidtPresets.vista] || '', component: VistaComponent },
+        { path: '/' + vidtPresets[vidtPresets.colorTwinkle] || '', component: ColorTwinkleComponent },
+        { path: '/' + vidtPresets[vidtPresets.karaoke] || '', component: KaraokeComponent },
+        { path: '*', redirect: '/' + vidtPresets[vidtPresets.logo] || '' },
     ],
 });

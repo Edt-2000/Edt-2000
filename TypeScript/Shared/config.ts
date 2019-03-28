@@ -4,6 +4,14 @@ import { Colors } from './colors';
 
 export const socketPort: number = 8988;
 
+export const enum DeviceIPs {
+    edtIn = '10.0.0.12',
+    edtPad = '10.0.0.100',
+    edtRemoteDMX = '10.0.0.30',
+    edtDispEdter = 'localhost',
+    edtSledt = 'localhost',
+}
+
 export const controlSocketConfig = {
     url: `http://${DeviceIPs.edtSledt}:${socketPort}/control`,
     options: {
@@ -17,15 +25,6 @@ export const vidtSocketConfig = {
         transports: ['websocket'],
     },
 };
-
-export const enum DeviceIPs {
-    edtOut = '10.0.0.11',
-    edtIn = '10.0.0.12',
-    edtPad = '10.0.0.100',
-    edtRemoteDMX = '10.0.0.30',
-    edtDispEdter = 'localhost',
-    edtSledt = '192.168.2.223',
-}
 
 export enum OSCDevices {
     EdtFastLed = 'F',

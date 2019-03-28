@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions';
-import { animationTypes } from '../../../Shared/vidt-presets';
+import { animationTypes, vidtPresets } from '../../../Shared/vidt-presets';
 import { IColor, ICue } from '../../../Shared/types';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class SocketService {
     this.toSledt(Actions.videoSrc(asset));
   }
 
-  sendVidtPreset({ preset }) {
+  sendVidtPreset(preset: vidtPresets) {
     this.toSledt(Actions.prepareVidt(preset));
   }
 

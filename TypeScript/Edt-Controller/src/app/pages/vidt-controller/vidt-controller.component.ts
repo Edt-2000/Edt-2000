@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { animationTypes, vidtPresets } from '../../../../../Shared/vidt-presets';
+import { animationTypes, vidtPresets, vidtPresetsArr } from '../../../../../Shared/vidt-presets';
 import { words, wordSets } from '../../../../../Shared/words';
 import { Actions$ } from '../../../../../Shared/actions';
 import { modifiers } from '../../../../../Shared/modifiers';
@@ -13,7 +13,8 @@ import { modifiers } from '../../../../../Shared/modifiers';
 export class VidtControllerComponent implements OnInit {
   photoAssets = Actions$.imageList;
   videoAssets = Actions$.videoList;
-  vidtPages = Array.from(vidtPresets, ([preset, label]) => ({ preset, label }));
+  vidtPagesArr = vidtPresetsArr;
+  vidtPagesEnum = vidtPresets;
   wordsArray = words;
   wordSets = wordSets;
   glitchIntensities = modifiers.glitchIntensity;

@@ -2,13 +2,11 @@
   <div class="section">
     <h2 class="section__title">Presets</h2>
     <ul class="list">
-      <ng-container *ngFor="let vidtPage of vidtPages">
-        <li class="list__item">
-          <button (click)="socket.sendVidtPreset(vidtPage)" class="text-button">
-            {{ vidtPage.label }}
-          </button>
-        </li>
-      </ng-container>
+      <li *ngFor="let vidtPage of vidtPagesArr" class="list__item">
+        <button (click)="socket.sendVidtPreset(vidtPagesEnum[vidtPage])" class="text-button">
+          {{ vidtPage }}
+        </button>
+      </li>
     </ul>
   </div>
   <div class="section">

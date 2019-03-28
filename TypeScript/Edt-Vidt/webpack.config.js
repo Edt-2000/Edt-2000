@@ -9,6 +9,7 @@ const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
+    mode: 'development',
     entry: {
         main: path.resolve(__dirname, './src/typescript/main.ts')
         // vendor: vendorDependencies

@@ -1,18 +1,20 @@
-export const vidtPresets: Map<number, string> = new Map();
+export enum vidtPresets {
+    'logo',
+    'bluescreen',
+    'color',
+    'gridscape',
+    'hacking',
+    'photobouncer',
+    'photoglitcher',
+    'textBouncer',
+    'shutdown',
+    'video',
+    'vista',
+    'colorTwinkle',
+    'karaoke',
+}
 
-vidtPresets.set(1, '/logo');
-vidtPresets.set(2, '/bluescreen');
-vidtPresets.set(3, '/color');
-vidtPresets.set(4, '/gridscape');
-vidtPresets.set(5, '/hacking');
-vidtPresets.set(6, '/photobouncer');
-vidtPresets.set(7, '/photoglitcher');
-vidtPresets.set(8, '/text-bouncer');
-vidtPresets.set(9, '/shutdown');
-vidtPresets.set(10, '/video');
-vidtPresets.set(11, '/vista');
-vidtPresets.set(12, '/color-twinkle');
-vidtPresets.set(13, '/karaoke');
+export const vidtPresetsArr = Object.keys(vidtPresets).filter(vp => isNaN(+vp));
 
 export enum animationTypes {
     bounce = 'bounce',
