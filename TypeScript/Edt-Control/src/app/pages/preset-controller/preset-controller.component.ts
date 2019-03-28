@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Actions$ } from '../../../../../Shared/actions';
-import { IControlPresetMsg } from '../../../../../Shared/types';
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { Actions$ } from "../../../../../Shared/actions";
+import { IControlPresetMsg } from "../../../../../Shared/types";
 
 interface presetStateGrouped {
   [key: number]: IControlPresetMsg[];

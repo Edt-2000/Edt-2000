@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { colorSets } from '../../../../../Shared/colors';
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { colorSets } from "../../../../../Shared/colors";
+import { Actions$ } from "../../../../../Shared/actions";
 
 @Component({
   selector: 'app-color-controller',
@@ -8,6 +9,7 @@ import { colorSets } from '../../../../../Shared/colors';
 })
 export class ColorControllerComponent implements OnInit {
   colorSets = colorSets;
+  currentColorSet$ = Actions$.colorPalette;
 
   constructor() {
   }

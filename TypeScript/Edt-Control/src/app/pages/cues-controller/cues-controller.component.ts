@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Actions$ } from '../../../../../Shared/actions';
-import { SocketService } from '../../socket.service';
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { Actions$ } from "../../../../../Shared/actions";
+import { SocketService } from "../../socket.service";
 
 @Component({
   selector: 'app-cues-controller',

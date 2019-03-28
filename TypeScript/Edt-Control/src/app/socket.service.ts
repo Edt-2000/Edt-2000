@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { Actions, nextActionFromMsg } from '../../../Shared/actions';
-import { animationTypes, vidtPresets } from '../../../Shared/vidt-presets';
-import { IColor, ICue } from '../../../Shared/types';
+import { Injectable } from "@angular/core";
+import { Socket } from "ngx-socket-io";
+import { Actions, nextActionFromMsg } from "../../../Shared/actions";
+import { animationTypes, vidtPresets } from "../../../Shared/vidt-presets";
+import { IColor, ICue } from "../../../Shared/types";
 
 @Injectable()
 export class SocketService {

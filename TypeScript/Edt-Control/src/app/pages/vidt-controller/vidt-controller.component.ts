@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SocketService } from '../../socket.service';
-import { animationTypes, vidtPresets, vidtPresetsArr } from '../../../../../Shared/vidt-presets';
-import { words, wordSets } from '../../../../../Shared/words';
-import { Actions$ } from '../../../../../Shared/actions';
-import { modifiers } from '../../../../../Shared/modifiers';
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { SocketService } from "../../socket.service";
+import { animationTypes, vidtPresets, vidtPresetsArr } from "../../../../../Shared/vidt-presets";
+import { words, wordSets } from "../../../../../Shared/words";
+import { Actions$ } from "../../../../../Shared/actions";
+import { modifiers } from "../../../../../Shared/modifiers";
 
 @Component({
   selector: 'app-vidt-controller',
