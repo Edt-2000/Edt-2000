@@ -28,8 +28,10 @@ let hardwareInput;
 let getMidiObservable = <T>(eventName: MidiMsgTypes) =>
     fromEvent<T>(virtualInput, eventName);
 
+// const inputs = easymidi.getInputs();
+// console.log(inputs);
+
 if (argv.hardwaremidi) {
-    // const inputs = easymidi.getInputs();
     hardwareInput = new easymidi.Input(hardwareMidiInput);
     getMidiObservable = <T>(eventName: MidiMsgTypes) =>
         merge(

@@ -12,9 +12,12 @@
   <div class="section">
     <h2 class="section__title">Photo's</h2>
     <ul class="list">
-      <ng-container *ngFor="let asset of (photoAssets | async) as pAssets">
+      <ng-container *ngFor="let asset of (photoAssets | async)">
         <li class="list__item">
-          <button (click)="socket.sendPhotoAsset(asset)" class="text-button">
+          <button
+            (click)="socket.sendPhotoAsset(asset)"
+            [style.background-image]="'url(assets/photos/' + asset + ')'"
+            class="photo-button">
             {{ asset }}
           </button>
         </li>
@@ -25,7 +28,7 @@
   <div class="section">
     <h2 class="section__title">Videos's</h2>
     <ul class="list">
-      <ng-container *ngFor="let asset of (videoAssets | async) as vAssets">
+      <ng-container *ngFor="let asset of (videoAssets | async)">
         <li class="list__item">
           <button (click)="socket.sendVideoAsset(asset)" class="text-button">
             {{ asset }}
@@ -96,7 +99,7 @@
   <div class="section">
     <h2 class="section__title">GlitchIntensity</h2>
     <ul class="list">
-      <li class="list__item" *ngFor="let intensity of glitchIntensities">
+      <li *ngFor="let intensity of glitchIntensities" class="list__item">
         <button
           (click)="socket.sendGlitchIntensity(intensity.value)"
           class="text-button"
