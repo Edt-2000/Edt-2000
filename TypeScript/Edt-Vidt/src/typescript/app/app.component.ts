@@ -14,15 +14,15 @@ import Socket = SocketIOClient.Socket;
     router: router,
 })
 export default class App extends Vue {
-    private socket: Socket;
     public subscription: any;
+    private socket: Socket;
 
     constructor() {
         super();
         this.socket = io(vidtSocketConfig.url, vidtSocketConfig.options);
 
         this.socket.on('connection', () => {
-            console.log('socket connectioned');
+            // console.log('socket connectioned');
         });
 
         this.socket.on('toVidt', nextActionFromMsg);

@@ -1,14 +1,20 @@
-import { filter, tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { presetMidi$ } from './inputs/midi';
 import { merge } from 'rxjs/observable/merge';
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions';
-import { MidiAutomationInput } from './inputs/midi-automation';
-import { MidiAutomationOutput } from './outputs/midi-automation';
-import { EdtVidtSetup } from './outputs/edt-vidt';
 import { getPresetState, presets } from './presets/presets';
-import { AssetScanDir } from './asset-scan-dir';
+import * as React from 'react';
+import { Fragment } from 'react';
+import { Box, render } from 'ink';
+import { MidiAutomationInput } from './inputs/midi-automation';
+import { EdtVidtSetup } from './outputs/edt-vidt';
+import { MidiAutomationOutput } from './outputs/midi-automation';
 import { EdtControlSetup } from './outputs/edt-control';
+import { AssetScanDir } from './asset-scan-dir';
 import { CueListSetup } from './cues/cues';
+import { IControlPresetMsg } from '../../Shared/types';
+
+const { rerender } = render(<Demo presetState={getPresetState()}/>);
 
 merge(presetMidi$, Actions$.presetChange)
     .pipe(filter(msg => presets[msg.preset]))
@@ -18,28 +24,26 @@ merge(presetMidi$, Actions$.presetChange)
         } else {
             presets[msg.preset].stopPreset();
         }
+        rerender(<Demo presetState={getPresetState()}/>);
     });
 
-Actions$.mainDrum.pipe(tap(drum => console.log('drum', drum))).subscribe();
-
 nextActionFromMsg(Actions.presetState(getPresetState()));
-
-console.log(
-    'Including modules: ',
+const loaders = {
     MidiAutomationInput,
     MidiAutomationOutput,
     EdtVidtSetup,
     EdtControlSetup,
     AssetScanDir,
     CueListSetup,
-);
-console.log('Init complete, waiting for devices and/or messages..');
+};
 
-// Loggers, comment to disable
-
-// presetOn$.subscribe((msg) => console.log('PresetOn', msg));
-// noteOn$.subscribe((msg) => console.log('NoteOn', msg));
-// noteOff$.subscribe((msg) => console.log('NoteOff', msg));
-// program$.subscribe((msg) => console.log('Program', msg));
-// select$.subscribe((msg) => console.log('Select', msg));
-// CC$.subscribe((msg) => console.log('CC', msg));
+function Demo({ presetState }: { presetState: IControlPresetMsg[] }) {
+    return <Fragment>
+        <Box>--------</Box>
+        {presetState.map(({ title, state, preset }) => {
+            return <Box key={preset}>
+                {title} is {state ? 'active' : 'inactive'}
+            </Box>;
+        })}
+    </Fragment>;
+}

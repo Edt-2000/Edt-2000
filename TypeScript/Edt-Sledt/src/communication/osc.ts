@@ -28,7 +28,6 @@ export function sendToOSC(
     addresses: string[],
     params: number[] = [],
 ): void {
-    console.log('OSC:', device, addresses, params);
     const buf = convertToOSC(addresses, params);
     return sock.send(buf, 0, buf.length, oscOutPort, device);
 }
@@ -64,9 +63,9 @@ function processOscMessage(msg, rinfo) {
                 });
             }
         } else {
-            console.log('Unsupported OSC format:', oscMessage);
+            console.error('Unsupported OSC format:', oscMessage);
         }
     } catch (error) {
-        return console.log('Invalid OSC:', error);
+        return console.error('Invalid OSC:', error);
     }
 }

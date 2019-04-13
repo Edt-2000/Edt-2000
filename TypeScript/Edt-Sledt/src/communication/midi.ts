@@ -30,7 +30,6 @@ let getMidiObservable = <T>(eventName: MidiMsgTypes) =>
 
 if (argv.hardwaremidi) {
     // const inputs = easymidi.getInputs();
-    console.log('MIDI hardware enabled');
     hardwareInput = new easymidi.Input(hardwareMidiInput);
     getMidiObservable = <T>(eventName: MidiMsgTypes) =>
         merge(

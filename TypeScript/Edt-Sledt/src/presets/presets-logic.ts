@@ -13,7 +13,6 @@ export abstract class PresetLogic {
     protected subscriptions: Subscription[] = [];
 
     startPreset(modifier: number) {
-        console.log('Starting preset', this.title, modifier);
         this.modifier = modifier;
         this._stopPreset();
         this._startPreset();
@@ -22,7 +21,6 @@ export abstract class PresetLogic {
     }
 
     stopPreset() {
-        console.log('Stopping preset', this.title);
         // Unsubscribe and reset array
         this.subscriptions.forEach(sub => sub.unsubscribe());
         this.subscriptions = [];

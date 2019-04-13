@@ -1,14 +1,14 @@
-import { Actions } from "../../../../Shared/actions";
-import { DrumSoundToBeat } from "../../presets/converters/drums/drumSoundToBeat";
-import { DrumNotes } from "../../../../Shared/config";
-import { vidtPresets } from "../../../../Shared/vidt-presets";
-import { DrumSoundMap } from "../../presets/converters/drums/drumSoundMap";
-import { DrumSounds } from "../../../../Shared/drums";
-import { getPresetNote } from "../../presets/presets";
-import { BeatToColor } from "../../presets/converters/color/beatToColor";
-import { ColorToVidtColor } from "../../presets/outputs/vidt/colorToVidtColor";
-import { ColorToFastLedSolid } from "../../presets/outputs/fastledt/colorToFastLedSolid";
-import { ColorToRGBLedSolid } from "../../presets/outputs/rgbledt/colorToRGBLedSolid";
+import { Actions } from '../../../../Shared/actions';
+import { DrumSoundToBeat } from '../../presets/converters/drums/drumSoundToBeat';
+import { DrumNotes } from '../../../../Shared/config';
+import { vidtPresets } from '../../../../Shared/vidt-presets';
+import { DrumSoundMap } from '../../presets/converters/drums/drumSoundMap';
+import { DrumSounds } from '../../../../Shared/drums';
+import { getPresetNote } from '../../presets/presets';
+import { BeatToColor } from '../../presets/converters/color/beatToColor';
+import { ColorToVidtColor } from '../../presets/outputs/vidt/colorToVidtColor';
+import { ColorToFastLedSolid } from '../../presets/outputs/fastledt/colorToFastLedSolid';
+import { ColorToRGBLedSolid } from '../../presets/outputs/rgbledt/colorToRGBLedSolid';
 
 export const drumCues = [
     {
@@ -27,7 +27,7 @@ export const drumCues = [
             Actions.presetChange({
                 preset: getPresetNote(new DrumSoundMap(DrumSounds.floor)),
                 modifier: DrumNotes._3,
-                state: true
+                state: true,
             }),
         ],
     },
@@ -41,23 +41,23 @@ export const drumCues = [
             }),
             Actions.presetChange({
                 preset: getPresetNote(new BeatToColor()),
-                modifier: 0,
-                state: true
+                modifier: 127,
+                state: true,
             }),
             Actions.presetChange({
                 preset: getPresetNote(new ColorToVidtColor()),
-                modifier: 0,
-                state: true
+                modifier: 127,
+                state: true,
             }),
             Actions.presetChange({
                 preset: getPresetNote(new ColorToFastLedSolid()),
-                modifier: 0,
-                state: true
+                modifier: 127,
+                state: true,
             }),
             Actions.presetChange({
                 preset: getPresetNote(new ColorToRGBLedSolid()),
-                modifier: 0,
-                state: true
+                modifier: 127,
+                state: true,
             }),
             Actions.prepareVidt(vidtPresets.color),
         ],
