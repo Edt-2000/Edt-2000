@@ -7,21 +7,21 @@ import { noteToNote, noteToOctave } from "../../../Shared/utils";
 const midiOSC$ = OSC$.pipe(
     filter(OSCMsg =>
         OSCMsg.addresses.length === 2 &&
-        !isNaN(+OSCMsg.addresses[0]) &&
-        OSCMsg.addresses[1] === "note" &&
-        OSCMsg.values.length === 2,
+        OSCMsg.addresses[0] === "midi" &&
+        OSCMsg.values.length === 3,
     ),
 );
 
 export const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
+    filter(OSCMsg => OSCMsg.addresses[1] === "note"),
     map(OSCMsg => {
         return {
-            note: +OSCMsg.values[0],
-            noteOn: +OSCMsg.values[1] !== 0,
-            noteNumber: noteToNote(+OSCMsg.values[0]),
-            octave: noteToOctave(+OSCMsg.values[0]),
-            velocity: +OSCMsg.values[1],
-            channel: +OSCMsg.addresses[0],
+            note: +OSCMsg.values[1],
+            noteOn: +OSCMsg.values[2] !== 0,
+            noteNumber: noteToNote(+OSCMsg.values[1]),
+            octave: noteToOctave(+OSCMsg.values[1]),
+            velocity: +OSCMsg.values[2],
+            channel: +OSCMsg.values[0],
         };
     }),
 );

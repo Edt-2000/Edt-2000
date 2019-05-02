@@ -9,7 +9,7 @@ import { EdtControlSetup } from "./outputs/edt-control";
 import { AssetScanDir } from "./asset-scan-dir";
 import { CueListSetup } from "./cues/cues";
 import { IControlPresetMsg } from "../../Shared/types";
-import { noteOn$ } from "./inputs/midi";
+import { noteOnOff$ } from "./inputs/midi";
 
 const { rerender } = render(<Demo presetState={getPresetState()}/>);
 
@@ -43,4 +43,4 @@ function Demo({ presetState }: { presetState: IControlPresetMsg[] }) {
     </Fragment>;
 }
 
-noteOn$.subscribe(log => console.log(log));
+noteOnOff$.subscribe(log => console.log(log));
