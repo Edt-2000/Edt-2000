@@ -1,0 +1,29 @@
+{
+    "name": "edt-moscidi",
+    "version": "1.0.0",
+    "description": "MIDI-OSC Converter",
+    "scripts": {
+        "start": "ts-node $NODE_DEBUG_OPTION src/index.ts",
+        "dev": "ts-node-dev --respawn --transpileOnly src/index.ts",
+        "start-with-midi": "ts-node src/index.ts --hardwaremidi"
+    },
+    "author": "Edt-2000",
+    "license": "ISC",
+    "prettier": {
+        "trailingComma": "all"
+    },
+    "dependencies": {
+        "easymidi": "0.0.4",
+        "minimist": "1.2.0",
+        "osc-min": "1.1.1",
+        "rxjs": "^6.4.0",
+        "rxjs-compat": "^6.4.0"
+    },
+    "devDependencies": {
+        "@types/node": "^11.11.3",
+        "prettier": "^1.16.4",
+        "ts-node": "^8.0.3",
+        "ts-node-dev": "^1.0.0-pre.32",
+        "typescript": "^3.3.3333"
+    }
+}

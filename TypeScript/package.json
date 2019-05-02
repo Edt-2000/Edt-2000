@@ -8,7 +8,8 @@
     "workspaces": [
         "edt-control",
         "edt-sledt",
-        "edt-vidt"
+        "edt-vidt",
+        "edt-moscidi"
     ],
     "prettier": {
         "singleQuote": true,

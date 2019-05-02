@@ -1,9 +1,13 @@
-import { Observable } from 'rxjs/Observable';
-import { automationChannel } from '../../../Shared/config';
-import { CC$, sledtNoteOff$, sledtNoteOn$ } from '../communication/midi';
-import { IMidiNoteMsg, IPresetMsg } from '../../../Shared/types';
-import { filter, map, merge } from 'rxjs/operators';
-import { Note } from '../../../Shared/midi';
+import { Observable } from "rxjs/Observable";
+import { automationChannel } from "../../../Shared/config";
+import { IMidiNoteMsg, IPresetMsg } from "../../../Shared/types";
+import { filter, map, merge } from "rxjs/operators";
+import { Note } from "../../../Shared/midi";
+import { OSC$ } from "../communication/osc";
+
+const sledtNoteOn$ = OSC$.pipe(
+    filter(msg => msg.addresses.length < 0),
+);
 
 export const noteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.pipe(
     filter(msg => msg.channel !== automationChannel),

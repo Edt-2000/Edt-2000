@@ -1,8 +1,7 @@
 {
     "name": "edt-slet",
     "version": "1.0.0",
-    "description": "OSC-MIDI-SOCKET ManInTheMiddle",
-    "main": "test.js",
+    "description": "ManInTheMiddle",
     "scripts": {
         "start": "ts-node $NODE_DEBUG_OPTION src/index.tsx",
         "dev": "ts-node-dev --respawn --transpileOnly src/index.tsx",
@@ -22,7 +21,6 @@
         "@babel/preset-react": "^7.0.0",
         "@types/serialport": "6.0.2",
         "@types/socket.io": "1.4.38",
-        "easymidi": "0.0.4",
         "express": "4.16.3",
         "ink": "^2.0.6",
         "ink-spinner": "^3.0.0",
