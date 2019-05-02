@@ -4,8 +4,7 @@
     "description": "ManInTheMiddle",
     "scripts": {
         "start": "ts-node $NODE_DEBUG_OPTION src/index.tsx",
-        "dev": "ts-node-dev --respawn --transpileOnly src/index.tsx",
-        "start-with-midi": "ts-node src/index.tsx --hardwaremidi"
+        "dev": "ts-node-dev --respawn --transpileOnly src/index.tsx"
     },
     "author": "Edt-2000",
     "license": "ISC",

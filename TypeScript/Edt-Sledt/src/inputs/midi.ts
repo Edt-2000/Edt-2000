@@ -1,59 +1,35 @@
 import { Observable } from "rxjs/Observable";
-import { automationChannel } from "../../../Shared/config";
-import { IMidiNoteMsg, IPresetMsg } from "../../../Shared/types";
-import { filter, map, merge } from "rxjs/operators";
-import { Note } from "../../../Shared/midi";
+import { IMidiNoteMsg } from "../../../Shared/types";
+import { filter, map } from "rxjs/operators";
 import { OSC$ } from "../communication/osc";
+import { noteToNote, noteToOctave } from "../../../Shared/utils";
 
-const sledtNoteOn$ = OSC$.pipe(
-    filter(msg => msg.addresses.length < 0),
-);
-
-export const noteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.pipe(
-    filter(msg => msg.channel !== automationChannel),
-);
-
-export const noteOff$: Observable<IMidiNoteMsg> = sledtNoteOff$.pipe(
-    filter(msg => msg.channel !== automationChannel),
-);
-
-const presetOn$: Observable<IPresetMsg> = sledtNoteOn$.pipe(
-    filter(msg => msg.channel === automationChannel),
-    map(
-        (msg): IPresetMsg => {
-            return {
-                preset: Note[Note[msg.note]],
-                modifier: msg.velocity,
-                state: true,
-            };
-        },
+const midiOSC$ = OSC$.pipe(
+    filter(OSCMsg =>
+        OSCMsg.addresses.length === 2 &&
+        !isNaN(+OSCMsg.addresses[0]) &&
+        OSCMsg.addresses[1] === "note" &&
+        OSCMsg.values.length === 2,
     ),
 );
 
-const presetOff$: Observable<IPresetMsg> = sledtNoteOff$.pipe(
-    filter(msg => msg.channel === automationChannel),
-    map(
-        (msg): IPresetMsg => {
-            return {
-                preset: Note[Note[msg.note]],
-                modifier: msg.velocity,
-                state: false,
-            };
-        },
-    ),
+export const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
+    map(OSCMsg => {
+        return {
+            note: +OSCMsg.values[0],
+            noteOn: +OSCMsg.values[1] !== 0,
+            noteNumber: noteToNote(+OSCMsg.values[0]),
+            octave: noteToOctave(+OSCMsg.values[0]),
+            velocity: +OSCMsg.values[1],
+            channel: +OSCMsg.addresses[0],
+        };
+    }),
 );
 
-export const presetMidi$: Observable<IPresetMsg> = presetOn$.pipe(
-    merge(presetOff$),
+export const noteOn$: Observable<IMidiNoteMsg> = noteOnOff$.pipe(
+    filter(OSCMsg => OSCMsg.noteOn),
 );
 
-export const automationNoteOn$: Observable<IMidiNoteMsg> = sledtNoteOn$.pipe(
-    filter(note => note.channel === automationChannel),
-);
-export const automationNoteOff$: Observable<IMidiNoteMsg> = sledtNoteOff$.pipe(
-    filter(note => note.channel === automationChannel),
-);
-
-export const automationCC$ = CC$.pipe(
-    filter(cc => cc.channel === automationChannel),
+export const noteOff$: Observable<IMidiNoteMsg> = noteOnOff$.pipe(
+    filter(OSCMsg => !OSCMsg.noteOn),
 );

@@ -1,22 +1,22 @@
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { DeviceIPs, oscInPort, oscOutPort } from '../../../Shared/config';
-import dgram = require('dgram');
-import osc = require('osc-min');
+import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
+import { DeviceIPs, oscInPort, oscOutPort } from "../../../Shared/config";
+import dgram = require("dgram");
+import osc = require("osc-min");
 
-const sock = dgram.createSocket('udp4', processOscMessage);
+const sock = dgram.createSocket("udp4", processOscMessage);
 
 sock.bind(oscInPort);
 
 export function convertToOSC(addresses: string[], params: number[]) {
     // TODO: remove 0 -> ? conversion and implement 0 in all receivers
-    const thomasAddress = '/' + addresses.join('/').replace('0', '?');
+    const thomasAddress = "/" + addresses.join("/").replace("0", "?");
 
     return osc.toBuffer({
         address: thomasAddress,
         args: params.map(param => {
             return {
-                type: 'integer',
+                type: "integer",
                 value: param,
             };
         }),
@@ -50,9 +50,9 @@ export interface IOSCMessage {
 function processOscMessage(msg, rinfo) {
     try {
         const oscMessage = osc.fromBuffer(msg);
-        if (oscMessage.oscType === 'message') {
+        if (oscMessage.oscType === "message") {
             // Convert OSC input to a next on the IOSCMessage Subject
-            const addresses: string[] = oscMessage.address.split('/');
+            const addresses: string[] = oscMessage.address.split("/");
             addresses.shift();
 
             if (addresses.length > 0) {
@@ -63,9 +63,9 @@ function processOscMessage(msg, rinfo) {
                 });
             }
         } else {
-            console.error('Unsupported OSC format:', oscMessage);
+            console.error("Unsupported OSC format:", oscMessage);
         }
     } catch (error) {
-        return console.error('Invalid OSC:', error);
+        return console.error("Invalid OSC:", error);
     }
 }

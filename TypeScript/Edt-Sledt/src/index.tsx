@@ -4,13 +4,12 @@ import { getPresetState, presets } from "./presets/presets";
 import * as React from "react";
 import { Fragment } from "react";
 import { Box, render } from "ink";
-import { MidiAutomationInput } from "./inputs/midi-automation";
 import { EdtVidtSetup } from "./outputs/edt-vidt";
-import { MidiAutomationOutput } from "./outputs/midi-automation";
 import { EdtControlSetup } from "./outputs/edt-control";
 import { AssetScanDir } from "./asset-scan-dir";
 import { CueListSetup } from "./cues/cues";
 import { IControlPresetMsg } from "../../Shared/types";
+import { noteOn$ } from "./inputs/midi";
 
 const { rerender } = render(<Demo presetState={getPresetState()}/>);
 
@@ -27,8 +26,6 @@ Actions$.presetChange.pipe(
 
 nextActionFromMsg(Actions.presetState(getPresetState()));
 const loaders = {
-    MidiAutomationInput,
-    MidiAutomationOutput,
     EdtVidtSetup,
     EdtControlSetup,
     AssetScanDir,
@@ -45,3 +42,5 @@ function Demo({ presetState }: { presetState: IControlPresetMsg[] }) {
         })}
     </Fragment>;
 }
+
+noteOn$.subscribe(log => console.log(log));

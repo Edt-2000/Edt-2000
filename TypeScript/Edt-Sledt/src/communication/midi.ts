@@ -1,7 +1,7 @@
-// import easymidi = require('easymidi');
+// import easymidi = require("easymidi");
 // import {
 //     automationChannel, virtualMidiOutputDevice,
-// } from '../../../Shared/config';
+// } from "../../../Shared/config";
 // import {
 //     IMidiCCMsg,
 //     IMidiNoteMsg,
@@ -9,9 +9,9 @@
 //     IMidiSongMsg,
 //     IPresetMsg,
 //     MidiMsgTypes,
-// } from '../../../Shared/types';
-// import { map } from 'rxjs/operators';
-// import { noteToNote, noteToOctave } from '../../../Shared/utils';
+// } from "../../../Shared/types";
+// import { map } from "rxjs/operators";
+// import { noteToNote, noteToOctave } from "../../../Shared/utils";
 //
 // const virtualAutomationOutput = new easymidi.Output(virtualMidiOutputDevice, true);
 //
@@ -21,34 +21,6 @@
 //     velocity: number;
 // }
 //
-// export const sledtNoteOn$ = getMidiObservable<IMidiNoteMsg>(MidiMsgTypes.noteon).pipe(
-//     map(
-//         (msg): IMidiNoteMsg => {
-//             return {
-//                 noteOn: true,
-//                 note: msg.note,
-//                 noteNumber: noteToNote(msg.note),
-//                 octave: noteToOctave(msg.note),
-//                 velocity: msg.velocity,
-//                 channel: msg.channel + 1,
-//             };
-//         },
-//     ),
-// );
-// export const sledtNoteOff$ = getMidiObservable<IMidiNoteMsg>(MidiMsgTypes.noteoff).pipe(
-//     map(
-//         (msg): IMidiNoteMsg => {
-//             return {
-//                 noteOn: false,
-//                 note: msg.note,
-//                 noteNumber: noteToNote(msg.note),
-//                 octave: noteToOctave(msg.note),
-//                 velocity: msg.velocity,
-//                 channel: msg.channel + 1,
-//             };
-//         },
-//     ),
-// );
 // export const program$ = getMidiObservable<IMidiProgramMsg>(MidiMsgTypes.program).pipe(
 //     map(program => ({
 //         ...program,
@@ -81,14 +53,14 @@
 //         velocity: msg.modifier,
 //     };
 //     if (msg.state) {
-//         virtualAutomationOutput.send('noteon', midiMsg);
+//         virtualAutomationOutput.send("noteon", midiMsg);
 //     } else {
-//         virtualAutomationOutput.send('noteoff', midiMsg);
+//         virtualAutomationOutput.send("noteoff", midiMsg);
 //     }
 // }
 //
 // export function sendMIDICC({ controller, value, channel }: IMidiCCMsg) {
-//     virtualAutomationOutput.send('cc', {
+//     virtualAutomationOutput.send("cc", {
 //         controller,
 //         value,
 //         channel: channel - 1,
