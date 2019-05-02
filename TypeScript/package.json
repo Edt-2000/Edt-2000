@@ -6,10 +6,7 @@
     "license": "MIT",
     "private": true,
     "workspaces": [
-        "edt-control",
-        "edt-sledt",
-        "edt-vidt",
-        "edt-moscidi"
+        "./*"
     ],
     "prettier": {
         "singleQuote": true,

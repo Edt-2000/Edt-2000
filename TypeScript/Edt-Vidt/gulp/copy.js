@@ -6,10 +6,16 @@ function copyAssets() {
         .pipe(gulp.dest(paths.target.assets));
 }
 
+function copyAssetsImg() {
+    return gulp.src(paths.src.assetsImg + '*')
+        .pipe(gulp.dest(paths.target.assets + 'img'));
+}
+
 function copyHtml() {
     return gulp.src(paths.src.html + '**/*')
         .pipe(gulp.dest(paths.target.html));
 }
 
 exports.copyAssets = copyAssets;
+exports.copyAssetsImg = copyAssetsImg;
 exports.copyHtml = copyHtml;

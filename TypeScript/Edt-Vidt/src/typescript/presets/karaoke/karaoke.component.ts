@@ -25,7 +25,7 @@ export class KaraokeComponent extends Vue {
 
     mounted() {
         this.textSubscription = Actions$.mainText.subscribe(text => {
-            //if same bounce
+            // if same bounce
             if (this.text === text) {
                 this.text = text;
                 // wait for text to be in dom
