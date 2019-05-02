@@ -17,24 +17,24 @@
         "trailingComma": "all"
     },
     "dependencies": {
-        "@babel/preset-react": "^7.0.0",
+        "@babel/preset-react": "7.0.0",
         "@types/serialport": "6.0.2",
         "@types/socket.io": "1.4.38",
         "express": "4.16.3",
-        "ink": "^2.0.6",
-        "ink-spinner": "^3.0.0",
+        "ink": "2.1.1",
+        "ink-spinner": "3.0.0",
         "minimist": "1.2.0",
         "osc-min": "1.1.1",
-        "react": "^16.8.6",
-        "rxjs": "^6.4.0",
-        "rxjs-compat": "^6.4.0",
-        "socket.io": "^2.2.0"
+        "react": "16.8.6",
+        "rxjs": "6.4.0",
+        "rxjs-compat": "6.4.0",
+        "socket.io": "2.2.0"
     },
     "devDependencies": {
-        "@types/node": "^11.11.3",
-        "prettier": "^1.16.4",
-        "ts-node": "^8.0.3",
-        "ts-node-dev": "^1.0.0-pre.32",
-        "typescript": "^3.3.3333"
+        "@types/node": "11.11.3",
+        "prettier": "1.16.4",
+        "ts-node": "8.0.3",
+        "ts-node-dev": "1.0.0-pre.32",
+        "typescript": "3.3.3333"
     }
 }
