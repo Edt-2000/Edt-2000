@@ -122,7 +122,7 @@ void noteOff(int channel, int pitch, int velocity) {
 
 void controllerChange(int channel, int number, int value) {
   log("Got MIDI CC: " + number + " Velocity: " + value);
-  OscMessage msg = new OscMessage("/midi/note");
+  OscMessage msg = new OscMessage("/midi/cc");
   msg.add(channel);
   msg.add(number);
   msg.add(value);

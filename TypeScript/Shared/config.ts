@@ -9,7 +9,7 @@ export const enum DeviceIPs {
     edtPad = "10.0.0.100",
     edtRemoteDMX = "10.0.0.30",
     edtDispEdter = "localhost",
-    edtSledt = "192.168.2.121",
+    edtSledt = "localhost",
 }
 
 export const controlSocketConfig = {

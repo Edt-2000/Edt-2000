@@ -1,38 +1,39 @@
-import { IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './types';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { ActionsUnion, createAction } from './fsa-helpers';
-import { animationTypes, vidtPresets } from './vidt-presets';
-import { defaultColor, DrumNotes } from './config';
-import { colorSets } from './colors';
-import { DrumSounds } from './drums';
-import { modifiers } from './modifiers';
+import { IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from "./types";
+import { BehaviorSubject, Subject } from "rxjs";
+import { ActionsUnion, createAction } from "./fsa-helpers";
+import { animationTypes, vidtPresets } from "./vidt-presets";
+import { defaultColor, DrumNotes } from "./config";
+import { colorSets } from "./colors";
+import { DrumSounds } from "./drums";
+import { modifiers } from "./modifiers";
 
-export const PRESET_CHANGE = 'PRESET_CHANGE';
-export const PRESET_STATE = 'PRESET_STATE';
-export const CUE_LIST = 'CUE_LIST';
-export const PREPARE_VIDT = 'PREPARE_VIDT';
+export const PRESET_CHANGE = "PRESET_CHANGE";
+export const PRESET_STATE = "PRESET_STATE";
+export const CUE_LIST = "CUE_LIST";
+export const PREPARE_VIDT = "PREPARE_VIDT";
 
-export const IMAGE_LIST = 'IMAGE_LIST';
-export const IMAGE_SRC = 'IMAGE_SRC';
-export const VIDEO_LIST = 'VIDEO_LIST';
-export const VIDEO_SRC = 'VIDEO_SRC';
+export const IMAGE_LIST = "IMAGE_LIST";
+export const IMAGE_SRC = "IMAGE_SRC";
+export const VIDEO_LIST = "VIDEO_LIST";
+export const VIDEO_SRC = "VIDEO_SRC";
 
-export const MAIN_TEXT = 'MAIN_TEXT';
-export const WORD_SET = 'WORD_SET';
+export const MAIN_TEXT = "MAIN_TEXT";
+export const WORD_SET = "WORD_SET";
 
-export const ANIMATION_TYPE = 'ANIMATION_TYPE';
+export const ANIMATION_TYPE = "ANIMATION_TYPE";
 
-export const SINGLE_COLOR = 'SINGLE_COLOR';
-export const VIDT_SINGLE_COLOR = 'VIDT_SINGLE_COLOR';
-export const MULTI_COLOR = 'MULTI_COLOR';
-export const VIDT_MULTI_COLOR = 'VIDT_MULTI_COLOR';
-export const COLOR_PALETTE = 'COLOR_PALETTE';
-export const MAIN_BEAT = 'MAIN_BEAT';
-export const MAIN_DRUM = 'MAIN_DRUM';
-export const MAIN_MELODY = 'MAIN_MELODY';
-export const VIDT_BEAT = 'VIDT_BEAT';
-export const VIDT_DRUM = 'VIDT_DRUM';
-export const GLITCH_INTENSITY = 'GLITCH_INTENSITY';
+export const SINGLE_COLOR = "SINGLE_COLOR";
+export const VIDT_SINGLE_COLOR = "VIDT_SINGLE_COLOR";
+export const MULTI_COLOR = "MULTI_COLOR";
+export const VIDT_MULTI_COLOR = "VIDT_MULTI_COLOR";
+export const COLOR_PALETTE = "COLOR_PALETTE";
+export const MAIN_BEAT = "MAIN_BEAT";
+export const MAIN_DRUM_SOUND = "MAIN_DRUM_SOUND";
+export const MAIN_DRUM = "MAIN_DRUM";
+export const MAIN_MELODY = "MAIN_MELODY";
+export const VIDT_BEAT = "VIDT_BEAT";
+export const VIDT_DRUM = "VIDT_DRUM";
+export const GLITCH_INTENSITY = "GLITCH_INTENSITY";
 
 export const Actions = {
     presetChange: (payload: IPresetMsg) => createAction(PRESET_CHANGE, payload),
@@ -62,7 +63,8 @@ export const Actions = {
     colorPalette: (payload: IColor[]) => createAction(COLOR_PALETTE, payload),
 
     mainBeat: (payload: number) => createAction(MAIN_BEAT, payload),
-    mainDrum: (payload: DrumSounds) => createAction(MAIN_DRUM, payload),
+    mainDrumSound: (payload: DrumSounds) => createAction(MAIN_DRUM_SOUND, payload),
+    mainDrum: (payload: IMidiNoteMsg) => createAction(MAIN_DRUM, payload),
     mainMelody: (payload: IMidiNoteMsg) => createAction(MAIN_MELODY, payload),
     vidtBeat: (payload: number) => createAction(VIDT_BEAT, payload),
     vidtDrum: (payload: DrumNotes) => createAction(VIDT_DRUM, payload),
@@ -78,20 +80,20 @@ export const Actions$ = {
         new BehaviorSubject([] as IControlPresetMsg[])
     ),
     cueList: <BehaviorSubject<ICue[]>>new BehaviorSubject([] as ICue[]),
-    imageList: <BehaviorSubject<string[]>>new BehaviorSubject<string[]>(['']),
-    videoList: <BehaviorSubject<string[]>>new BehaviorSubject<string[]>(['']),
+    imageList: <BehaviorSubject<string[]>>new BehaviorSubject<string[]>([""]),
+    videoList: <BehaviorSubject<string[]>>new BehaviorSubject<string[]>([""]),
 
     presetChange: <Subject<IPresetMsg>>new Subject(),
     prepareVidt: <BehaviorSubject<vidtPresets>>new BehaviorSubject<vidtPresets>(vidtPresets.logo),
 
-    imageSrc: <BehaviorSubject<string>>new BehaviorSubject<string>(''),
-    videoSrc: <BehaviorSubject<string>>new BehaviorSubject<string>(''),
+    imageSrc: <BehaviorSubject<string>>new BehaviorSubject<string>(""),
+    videoSrc: <BehaviorSubject<string>>new BehaviorSubject<string>(""),
 
     mainText: <BehaviorSubject<string>>(
-        new BehaviorSubject<string>('STROBOCOPS')
+        new BehaviorSubject<string>("STROBOCOPS")
     ),
     wordSet: <BehaviorSubject<string[]>>(
-        new BehaviorSubject<string[]>(['STROBOCOPS'])
+        new BehaviorSubject<string[]>(["STROBOCOPS"])
     ),
 
     animationType: <BehaviorSubject<animationTypes>>(
@@ -114,7 +116,8 @@ export const Actions$ = {
         new BehaviorSubject<IColor[]>(colorSets[0])
     ),
     mainBeat: <Subject<number>>new Subject<number>(),
-    mainDrum: <Subject<DrumSounds>>new Subject<DrumSounds>(),
+    mainDrumSound: <Subject<DrumSounds>>new Subject<DrumSounds>(),
+    mainDrum: <Subject<IMidiNoteMsg>>new Subject<IMidiNoteMsg>(),
     mainMelody: <Subject<IMidiNoteMsg>>new Subject<IMidiNoteMsg>(),
     vidtBeat: <Subject<number>>new Subject<number>(),
     vidtDrum: <Subject<DrumNotes>>new Subject<DrumNotes>(),
@@ -148,6 +151,7 @@ export function nextActionFromMsg(msg: Actions) {
         Actions$.vidtMultiColor.next(msg.payload);
     if (msg.type === COLOR_PALETTE) Actions$.colorPalette.next(msg.payload);
     if (msg.type === MAIN_BEAT) Actions$.mainBeat.next(msg.payload);
+    if (msg.type === MAIN_DRUM_SOUND) Actions$.mainDrumSound.next(msg.payload);
     if (msg.type === MAIN_DRUM) Actions$.mainDrum.next(msg.payload);
     if (msg.type === MAIN_MELODY) Actions$.mainMelody.next(msg.payload);
     if (msg.type === VIDT_BEAT) Actions$.vidtBeat.next(msg.payload);

@@ -1,17 +1,17 @@
-import { PresetLogic } from '../../presets-logic';
-import { BlackColor } from '../../../../../Shared/config';
-import { withLatestFrom } from 'rxjs/operators';
-import { Actions$ } from '../../../../../Shared/actions';
-import { IColor, ModifierGroup } from '../../../../../Shared/types';
-import { FastLedtSinglePulse } from '../../../outputs/edt-fastled';
-import { DrumSounds } from '../../../../../Shared/drums';
+import { PresetLogic } from "../../presets-logic";
+import { BlackColor } from "../../../../../Shared/config";
+import { withLatestFrom } from "rxjs/operators";
+import { Actions$ } from "../../../../../Shared/actions";
+import { IColor, ModifierGroup } from "../../../../../Shared/types";
+import { FastLedtSinglePulse } from "../../../outputs/edt-fastled";
+import { DrumSounds } from "../../../../../Shared/drums";
 
 export class DrumSoundToFastLedStrip extends PresetLogic {
     modifierOptions = {
         select: [
-            { label: 'simple', value: 10 },
-            { label: 'fromCenter', value: 20 },
-            { label: 'centralBeat', value: 30 },
+            { label: "simple", value: 10 },
+            { label: "fromCenter", value: 20 },
+            { label: "centralBeat", value: 30 },
         ],
         group: ModifierGroup.FastLED,
     };
@@ -30,7 +30,7 @@ export class DrumSoundToFastLedStrip extends PresetLogic {
     protected _startPreset(): void {
         FastLedtSinglePulse(0, 100, BlackColor); // Turn of all strips before starting
         this.addSub(
-            Actions$.mainDrum
+            Actions$.mainDrumSound
                 .pipe(withLatestFrom(Actions$.singleColor))
                 .subscribe(([drumSound, color]) => {
                     if (this.patterns[this.modifier])
