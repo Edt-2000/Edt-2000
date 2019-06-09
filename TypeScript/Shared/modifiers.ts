@@ -1,5 +1,6 @@
 import { Note } from "./midi";
 import { DrumNotes } from "./config";
+import { groupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from "./types";
 
 export const modifiers = {
     strobeSpeeds: [
@@ -37,3 +38,16 @@ export const modifiers = {
         { label: "bezerk", value: 9 },
     ],
 };
+
+export function converToNamedPresetGroup(presets: IControlPresetMsg[]): groupedControlPresetMsg[] {
+    return Object.values(presets.reduce((grouped, preset) => {
+        if (!grouped[preset.config.group]) {
+            grouped[preset.config.group] = {
+                title: ModifierGroup[preset.config.group],
+                presets: [],
+            };
+        }
+        grouped[preset.config.group].presets.push(preset);
+        return grouped;
+    }, {}));
+}
