@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { Actions$ } from "../../../../../Shared/actions";
-import { IControlPresetMsg } from "../../../../../Shared/types";
+import { IControlPresetMsg, ModifierGroup } from "../../../../../Shared/types";
 import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-preset-controller",
@@ -20,20 +21,19 @@ import { map } from "rxjs/operators";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresetControllerComponent implements OnInit {
-  presetState$ = Actions$.presetState.asObservable().pipe(
+  presetState$: Observable<{ title: string, presets: IControlPresetMsg }[]> = Actions$.presetState.asObservable().pipe(
     map((presets: IControlPresetMsg[]) => {
-      return presets.reduce((grouped, preset) => {
+      return Object.values(presets.reduce((grouped, preset) => {
         if (!grouped[preset.config.group]) {
           grouped[preset.config.group] = {
-            title: preset.config.group,
+            title: ModifierGroup[preset.config.group],
             presets: [],
           };
         }
         grouped[preset.config.group].presets.push(preset);
         return grouped;
-      }, {});
+      }, {}));
     }),
-    map(groupedPresets => Object.values(groupedPresets)),
   );
 
   constructor() {
