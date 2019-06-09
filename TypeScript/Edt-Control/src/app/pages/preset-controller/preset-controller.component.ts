@@ -7,20 +7,27 @@ import { converToNamedPresetGroup } from "../../../../../Shared/modifiers";
   selector: "app-preset-controller",
   template: `
     <ng-container *ngIf="(presetState$ | async) as presetState">
-      <ng-container *ngFor="let group of presetState">
-        <h1>{{group.title}}</h1>
-        <ul class="list list--presets">
+      <div>
+        <ul>
+          <li *ngFor="let group of presetState; let i = index" (click)="selectedGroup = i">
+            {{group.title}}
+          </li>
+        </ul>
+      </div>
+      <div *ngFor="let group of presetState; let i = index">
+        <ul class="list list--presets" *ngIf="selectedGroup === i">
           <li class="list__item" *ngFor="let preset of group.presets">
             <app-preset-switcher [preset]="preset"></app-preset-switcher>
           </li>
         </ul>
-      </ng-container>
+      </div>
     </ng-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PresetControllerComponent implements OnInit {
   presetState$ = Actions$.presetState.asObservable().pipe(map(converToNamedPresetGroup));
+  selectedGroup = 0;
 
   ngOnInit(): void {
   }

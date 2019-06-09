@@ -57,6 +57,7 @@ export interface ICue {
 
 export enum ModifierGroup {
     Drums,
+    DrumSounds,
     Color,
     Vidt,
     RGBLED,
