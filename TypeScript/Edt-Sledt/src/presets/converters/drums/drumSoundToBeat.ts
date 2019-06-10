@@ -1,8 +1,8 @@
-import { PresetLogic } from '../../presets-logic';
-import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
-import { filter } from 'rxjs/operators';
-import { DrumSounds } from '../../../../../Shared/drums';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { PresetLogic } from "../../presets-logic";
+import { Actions, Actions$, nextActionFromMsg } from "../../../../../Shared/actions";
+import { filter } from "rxjs/operators";
+import { DrumSounds } from "../../../../../Shared/drums";
+import { ModifierGroup } from "../../../../../Shared/types";
 
 export class DrumSoundToBeat extends PresetLogic {
     modifierOptions = {
@@ -19,7 +19,7 @@ export class DrumSoundToBeat extends PresetLogic {
 
     protected _startPreset(): void {
         this.addSub(
-            Actions$.mainDrum
+            Actions$.mainDrumSound
                 .pipe(filter(drum => drum === this.modifier))
                 .subscribe(beat => {
                     nextActionFromMsg(Actions.mainBeat(beat));

@@ -1,4 +1,4 @@
-import { Actions } from './actions';
+import { Actions } from "./actions";
 
 export interface IMidiChannel {
     readonly channel: number;
@@ -26,12 +26,12 @@ export interface IMidiSongMsg extends IMidiChannel {
 }
 
 export enum MidiMsgTypes {
-    cc = 'cc',
-    select = 'select',
-    noteon = 'noteon',
-    noteoff = 'noteoff',
-    program = 'program',
-    clock = 'clock',
+    cc = "cc",
+    select = "select",
+    noteon = "noteon",
+    noteoff = "noteoff",
+    program = "program",
+    clock = "clock",
 }
 
 export interface IPresetMsg {
@@ -45,6 +45,11 @@ export interface IControlPresetMsg extends IPresetMsg {
     readonly config: IModifierOptions;
 }
 
+export interface groupedControlPresetMsg {
+    title: string;
+    presets: IControlPresetMsg[];
+}
+
 export interface ICue {
     label: string;
     actions: Actions[];
@@ -52,6 +57,7 @@ export interface ICue {
 
 export enum ModifierGroup {
     Drums,
+    DrumSounds,
     Color,
     Vidt,
     RGBLED,
