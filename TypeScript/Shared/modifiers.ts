@@ -1,5 +1,5 @@
 import { Note } from "./midi";
-import { DrumNotes } from "./config";
+import { automationChannel, DrumNotes } from "./config";
 import { groupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from "./types";
 
 export const modifiers = {
@@ -15,10 +15,12 @@ export const modifiers = {
         { label: "slow", value: 30 },
         { label: "more slow", value: 10 },
     ],
-    midiChannels: [...Array(16)].map((_, nr) => ({
-        label: `Channel: ${nr + 1}`,
-        value: nr + 1,
-    })),
+    midiChannels: [...Array(16)]
+        .filter(channel => channel !== automationChannel)
+        .map((_, nr) => ({
+            label: `Channel: ${nr + 1}`,
+            value: nr + 1,
+        })),
     drumNotes: [
         { label: `_1 - ${Note[DrumNotes._1]}`, value: DrumNotes._1 },
         { label: `_2 - ${Note[DrumNotes._2]}`, value: DrumNotes._2 },
