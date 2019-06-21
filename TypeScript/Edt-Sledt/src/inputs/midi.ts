@@ -3,6 +3,7 @@ import { IMidiNoteMsg } from "../../../Shared/types";
 import { filter, map } from "rxjs/operators";
 import { OSC$ } from "../communication/osc";
 import { noteToNote, noteToOctave } from "../../../Shared/utils";
+import { automationChannel } from "../../../Shared/config";
 
 const midiOSC$ = OSC$.pipe(
     filter(OSCMsg =>
@@ -12,7 +13,7 @@ const midiOSC$ = OSC$.pipe(
     ),
 );
 
-export const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
+const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
     filter(OSCMsg => OSCMsg.addresses[1] === "note"),
     map(OSCMsg => {
         return {
@@ -26,10 +27,16 @@ export const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
     }),
 );
 
-export const noteOn$: Observable<IMidiNoteMsg> = noteOnOff$.pipe(
-    filter(OSCMsg => OSCMsg.noteOn),
+export const automationNoteOnOff$ = noteOnOff$.pipe(
+    filter(note => note.channel === automationChannel),
 );
 
-export const noteOff$: Observable<IMidiNoteMsg> = noteOnOff$.pipe(
+export const musicNoteOn$ = noteOnOff$.pipe(
+    filter(OSCMsg => OSCMsg.noteOn),
+    filter(note => note.channel !== automationChannel),
+);
+
+export const musicNoteOff$ = noteOnOff$.pipe(
     filter(OSCMsg => !OSCMsg.noteOn),
+    filter(note => note.channel !== automationChannel),
 );

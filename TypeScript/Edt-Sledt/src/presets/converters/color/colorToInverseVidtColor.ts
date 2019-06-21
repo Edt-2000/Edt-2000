@@ -1,7 +1,7 @@
-import { IColor, ModifierGroup } from '../../../../../Shared/types';
-import { rescale } from '../../../../../Shared/utils';
-import { PresetLogic } from '../../presets-logic';
-import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
+import { IColor, ModifierGroup } from "../../../../../Shared/types";
+import { rescale } from "../../../../../Shared/utils";
+import { PresetLogic } from "../../presets-logic";
+import { Actions, Actions$, nextActionFromMsg } from "../../../../../Shared/actions";
 
 export class ColorToInverseVidtColor extends PresetLogic {
     modifierOptions = {
