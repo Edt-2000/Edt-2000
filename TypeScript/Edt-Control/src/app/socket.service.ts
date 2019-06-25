@@ -58,6 +58,10 @@ export class SocketService {
     this.toSledt(Actions.multiColor(colors));
   }
 
+  sendColorPalette(colors: IColor[]) {
+    this.toSledt(Actions.colorPalette(colors));
+  }
+
   private toSledt(message: Actions) {
     this.socket.emit("fromControl", message);
   }

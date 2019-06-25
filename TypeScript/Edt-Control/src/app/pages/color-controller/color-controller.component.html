@@ -1,14 +1,14 @@
 <div class="color-controller">
-    <ul class="list list--colors">
-        <ng-container *ngFor="let colorSet of colorSets">
-
-        </ng-container>
+  <ul class="list list--colors">
+    <ul *ngFor="let colorSet of colorSets">
+      <li (click)="socketService.sendColorPalette(colorSet)">Colorset: {{colorSet | json}}</li>
     </ul>
-    <ul class="list list--colors">
-        <ng-container *ngIf="(currentColorSet$ | async) as currentColorSet">
-            <li *ngFor="let color of currentColorSet" class="list__item">
-                <app-trigger-button [color]="color"></app-trigger-button>
-            </li>
-        </ng-container>
-    </ul>
+  </ul>
+  <ul class="list list--colors">
+    <ng-container *ngIf="(currentColorSet$ | async) as currentColorSet">
+      <li *ngFor="let color of currentColorSet" class="list__item">
+        <app-trigger-button [color]="color"></app-trigger-button>
+      </li>
+    </ng-container>
+  </ul>
 </div>

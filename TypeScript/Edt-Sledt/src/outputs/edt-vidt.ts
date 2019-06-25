@@ -34,14 +34,14 @@ vidtSocket$.subscribe(socket => {
     Actions$.vidtDrum.pipe(takeUntil(disconnected$)).subscribe(drum => {
         socket.emit("toVidt", Actions.vidtDrum(drum));
     });
-    Actions$.vidtMultiColor.pipe(takeUntil(disconnected$)).subscribe(multi => {
-        socket.emit("toVidt", Actions.vidtMultiColor(multi));
-    });
     Actions$.vidtBeat.pipe(takeUntil(disconnected$)).subscribe(beat => {
         socket.emit("toVidt", Actions.vidtBeat(beat));
     });
     Actions$.vidtSingleColor.pipe(takeUntil(disconnected$)).subscribe(color => {
         socket.emit("toVidt", Actions.vidtSingleColor(color));
+    });
+    Actions$.vidtMultiColor.pipe(takeUntil(disconnected$)).subscribe(multi => {
+        socket.emit("toVidt", Actions.vidtMultiColor(multi));
     });
     Actions$.glitchIntensity
         .pipe(takeUntil(disconnected$))

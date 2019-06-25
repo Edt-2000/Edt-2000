@@ -28,6 +28,9 @@ controlSocket$.subscribe(socket => {
     Actions$.imageList.pipe(takeUntil(disconnected$)).subscribe(list => {
         socket.emit("toControl", Actions.imageList(list));
     });
+    Actions$.colorPalette.pipe(takeUntil(disconnected$)).subscribe(colors => {
+        socket.emit("toControl", Actions.colorPalette(colors));
+    });
 
     socket.on("fromControl", nextActionFromMsg);
 });
