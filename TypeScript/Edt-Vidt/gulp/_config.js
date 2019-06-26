@@ -8,6 +8,7 @@ const paths = {
         icons: "./src/sprites/icons/",
         iconsUI: "./src/sprites/ui/",
         assets: "../Edt-Control/src/assets/",
+        assetsImg: "../Shared/assets/img/",
         vendor: "./node_modules/",
     },
 
