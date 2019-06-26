@@ -1,6 +1,6 @@
-import { DeviceIPs, Modii, OSCDevices } from '../../../Shared/config';
-import { IColor } from '../../../Shared/types';
-import { sendToOSC } from '../communication/osc';
+import { DeviceIPs, Modii, OSCDevices } from "../../../Shared/config";
+import { IColor } from "../../../Shared/types";
+import { sendToOSC } from "../communication/osc";
 
 export function FastLedtSpark(
     instance: number,

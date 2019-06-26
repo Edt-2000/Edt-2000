@@ -16,6 +16,7 @@ export const controlSocket$ = fromEvent<SocketIO.Socket>(
     io.of("/control"),
     "connection",
 );
+
 export const vidtSocket$ = fromEvent<SocketIO.Socket>(
     io.of("/vidt"),
     "connection",

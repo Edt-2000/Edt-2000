@@ -1,7 +1,7 @@
-import { IModifierOptions } from '../../../Shared/types';
-import { getPresetState } from './presets';
-import { Subscription } from 'rxjs';
-import { Actions, nextActionFromMsg } from '../../../Shared/actions';
+import { IModifierOptions } from "../../../Shared/types";
+import { getPresetState } from "./presets";
+import { Subscription } from "rxjs";
+import { Actions, nextActionFromMsg } from "../../../Shared/actions";
 
 export abstract class PresetLogic {
     readonly modifierOptions: IModifierOptions;

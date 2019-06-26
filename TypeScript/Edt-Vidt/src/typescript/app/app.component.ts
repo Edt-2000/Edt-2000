@@ -1,16 +1,16 @@
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import Vue from "vue";
+import Component from "vue-class-component";
 
-import { router } from '../services/router.service';
-import * as io from 'socket.io-client';
-import { vidtSocketConfig } from '../../../../Shared/config';
-import { Actions$, nextActionFromMsg } from '../../../../Shared/actions';
-import { vidtPresets } from '../../../../Shared/vidt-presets';
+import { router } from "../services/router.service";
+import * as io from "socket.io-client";
+import { vidtSocketConfig } from "../../../../Shared/config";
+import { Actions$, nextActionFromMsg } from "../../../../Shared/actions";
+import { vidtPresets } from "../../../../Shared/vidt-presets";
 import Socket = SocketIOClient.Socket;
 
 @Component({
-    name: 'app',
-    template: require('./app.template'),
+    name: "app",
+    template: require("./app.template"),
     router: router,
 })
 export default class App extends Vue {
@@ -21,23 +21,23 @@ export default class App extends Vue {
         super();
         this.socket = io(vidtSocketConfig.url, vidtSocketConfig.options);
 
-        this.socket.on('connection', () => {
+        this.socket.on("connection", () => {
             // console.log('socket connectioned');
         });
 
-        this.socket.on('toVidt', nextActionFromMsg);
+        this.socket.on("toVidt", nextActionFromMsg);
     }
 
     mounted() {
         this.subscription = Actions$.prepareVidt.subscribe(
             (preset: number) => {
-                router.push({ path: '/' + vidtPresets[preset] });
+                router.push({ path: "/" + vidtPresets[preset] });
             },
         );
     }
 
     destroyed() {
-        if (typeof this.subscription !== 'undefined') {
+        if (typeof this.subscription !== "undefined") {
             this.subscription.unsubscribe();
         }
     }

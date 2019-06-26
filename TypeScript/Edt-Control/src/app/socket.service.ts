@@ -7,11 +7,7 @@ import { IColor, ICue } from "../../../Shared/types";
 @Injectable()
 export class SocketService {
   constructor(private socket: Socket) {
-    socket.on('toControl', nextActionFromMsg);
-  }
-
-  private toSledt(message: Actions) {
-    this.socket.emit('fromControl', message);
+    socket.on("toControl", nextActionFromMsg);
   }
 
   sendBeat() {
@@ -60,5 +56,13 @@ export class SocketService {
 
   sendMultiColor(colors: IColor[]) {
     this.toSledt(Actions.multiColor(colors));
+  }
+
+  sendColorPalette(colors: IColor[]) {
+    this.toSledt(Actions.colorPalette(colors));
+  }
+
+  private toSledt(message: Actions) {
+    this.socket.emit("fromControl", message);
   }
 }

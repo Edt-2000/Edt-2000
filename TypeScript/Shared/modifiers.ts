@@ -42,7 +42,7 @@ export const modifiers = {
 };
 
 export function converToNamedPresetGroup(presets: IControlPresetMsg[]): groupedControlPresetMsg[] {
-    return Object.values(presets.reduce((grouped, preset) => {
+    return Object.values(presets.reduce((grouped: any, preset) => {
         if (!grouped[preset.config.group]) {
             grouped[preset.config.group] = {
                 title: ModifierGroup[preset.config.group],
