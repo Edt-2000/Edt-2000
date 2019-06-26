@@ -11,6 +11,7 @@ import { SocketService } from "../../socket.service";
 export class ColorControllerComponent {
   colorSets = colorSets;
   currentColorSet$ = Actions$.colorPalette;
+  multiColors$ = Actions$.multiColor;
 
   constructor(
     public socketService: SocketService,
