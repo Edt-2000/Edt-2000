@@ -1,14 +1,14 @@
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import { Actions$ } from "../../../../../Shared/actions";
-import { IColor } from "../../../../../Shared/types";
-import { ColorHelper } from "../../../../../Shared/helpers/hsv-2-rgb";
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import { Actions$ } from '../../../../../Shared/actions';
+import { IColor } from '../../../../../Shared/types';
+import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
-const convert = require("color-convert");
+const convert = require('color-convert');
 
 @Component({
-    name: "karaoke",
-    template: require("./karaoke.template"),
+    name: 'karaoke',
+    template: require('./karaoke.template'),
     components: {},
 })
 export class KaraokeComponent extends Vue {
@@ -19,21 +19,21 @@ export class KaraokeComponent extends Vue {
         text: HTMLElement;
     };
 
-    public cssClass: string = "";
+    public cssClass: string = '';
     public styles: Object = {};
-    public text: string = "bounce";
+    public text: string = 'bounce';
 
-    mounted() {
+    mounted () {
         this.textSubscription = Actions$.mainText.subscribe(text => {
             // if same bounce
             if (this.text === text) {
                 this.text = text;
                 // wait for text to be in dom
                 requestAnimationFrame(() => {
-                    this.cssClass = "is-hidden";
+                    this.cssClass = 'is-hidden';
 
                     window.setTimeout(() => {
-                        this.cssClass = "";
+                        this.cssClass = '';
                     }, 150);
                 });
             } else {
@@ -48,11 +48,11 @@ export class KaraokeComponent extends Vue {
         );
     }
 
-    convertToRGB(h: number, s: number, v: number) {
+    convertToRGB (h: number, s: number, v: number) {
         return convert.hsv.rgb(h, s, v);
     }
 
-    setStyles(colors: IColor[]) {
+    setStyles (colors: IColor[]) {
         const bcgColor = ColorHelper.getRGBString(colors);
 
         this.styles = {
@@ -60,12 +60,12 @@ export class KaraokeComponent extends Vue {
         };
     }
 
-    destroyed() {
-        if (typeof this.textSubscription !== "undefined") {
+    destroyed () {
+        if (typeof this.textSubscription !== 'undefined') {
             this.textSubscription.unsubscribe();
         }
 
-        if (typeof this.colorSubscription !== "undefined") {
+        if (typeof this.colorSubscription !== 'undefined') {
             this.colorSubscription.unsubscribe();
         }
     }

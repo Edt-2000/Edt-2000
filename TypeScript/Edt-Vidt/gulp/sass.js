@@ -12,7 +12,7 @@ function compileSass() {
         .pipe(sass())
         .on("error", showError)
         .pipe(autoprefixer(["last 2 versions", "> 5%", "Firefox ESR"]))
-        .pipe(cleanCSS({ compatibility: "ie9" }))
+        .pipe(cleanCSS({compatibility: "ie9"}))
         .pipe(gulp.dest(paths.target.styles));
 }
 

@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
-import { SocketService } from "../../socket.service";
-import { IColor } from "../../../../../Shared/types";
-import { ColorHelper } from "../../../../../Shared/helpers/hsv-2-rgb";
-import { DomSanitizer, SafeStyle } from "@angular/platform-browser";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { SocketService } from '../../socket.service';
+import { IColor } from '../../../../../Shared/types';
+import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
-  selector: "app-trigger-button",
+  selector: 'app-trigger-button',
   template: `
     <button
       class="trigger-button"
@@ -19,17 +19,17 @@ export class TriggerButtonComponent {
 
   @Input() color: IColor;
 
-  constructor(
+  constructor (
     public socket: SocketService,
     private sanitizer: DomSanitizer,
   ) {
   }
 
-  getColorString(color: IColor): SafeStyle {
+  getColorString (color: IColor): SafeStyle {
     return ColorHelper.getRGBString([color]);
   }
 
-  sendColor(color: IColor) {
+  sendColor (color: IColor) {
     this.socket.sendColor(color);
   }
 }

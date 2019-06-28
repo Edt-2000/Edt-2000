@@ -1,4 +1,4 @@
-export function mapInput(
+export function mapInput (
     input: number,
     inputMin: number,
     inputMax: number,

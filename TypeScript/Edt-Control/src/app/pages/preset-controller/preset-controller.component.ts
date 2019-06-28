@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { Actions$ } from "../../../../../Shared/actions";
-import { map } from "rxjs/operators";
-import { converToNamedPresetGroup } from "../../../../../Shared/modifiers";
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Actions$ } from '../../../../../Shared/actions';
+import { map } from 'rxjs/operators';
+import { converToNamedPresetGroup } from '../../../../../Shared/modifiers';
 
 @Component({
-  selector: "app-preset-controller",
+  selector: 'app-preset-controller',
   template: `
     <ng-container *ngIf="(presetState$ | async) as presetState">
       <div *ngFor="let group of presetState;">
@@ -22,6 +22,6 @@ import { converToNamedPresetGroup } from "../../../../../Shared/modifiers";
 export class PresetControllerComponent implements OnInit {
   presetState$ = Actions$.presetState.asObservable().pipe(map(converToNamedPresetGroup));
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 }

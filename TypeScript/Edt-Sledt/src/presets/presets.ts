@@ -1,25 +1,25 @@
-import { BeatToColor } from "./converters/color/beatToColor";
-import { MidiToColors } from "./converters/color/midiToColors";
-import { DrumSoundToBeat } from "./converters/drums/drumSoundToBeat";
-import { MainBeatToVidtBeat } from "./outputs/vidt/mainBeatToVidtBeat";
-import { ColorToVidtColor } from "./outputs/vidt/colorToVidtColor";
-import { MultiColorToVidtMultiColor } from "./outputs/vidt/multiColorToVidtMultiColor";
-import { ColorToFastLedSolid } from "./outputs/fastledt/colorToFastLedSolid";
-import { ColorStrobeFastLed } from "./outputs/fastledt/colorStrobeFastLed";
-import { ColorStrobeRGBLed } from "./outputs/rgbledt/colorStrobeRGBLed";
-import { DrumSoundToFastLedStrip } from "./outputs/fastledt/drumSoundToFastLedStrip";
-import { ColorToRGBLedSolid } from "./outputs/rgbledt/colorToRGBLedSolid";
-import { ColorToInverseVidtColor } from "./converters/color/colorToInverseVidtColor";
-import { ColorToFastLedSpark } from "./outputs/fastledt/colorToFastLedSpark";
-import { BeatToRainbowSpark } from "./outputs/fastledt/beatToRainbowSpark";
-import { Note } from "../../../Shared/midi";
-import { BeatToNextWord } from "./converters/words/beatToNextWord";
-import { MidiChannelToMainMelody } from "./converters/melody/midiChannelToMainMelody";
-import { IControlPresetMsg } from "../../../Shared/types";
-import { DrumSoundMap } from "./converters/drums/drumSoundMap";
-import { DrumSounds } from "../../../Shared/drums";
-import { PresetLogic } from "./presets-logic";
-import { MidiChannelToMainDrum } from "./converters/drums/midiChannelToMainDrum";
+import { BeatToColor } from './converters/color/beatToColor';
+import { MidiToColors } from './converters/color/midiToColors';
+import { DrumSoundToBeat } from './converters/drums/drumSoundToBeat';
+import { MainBeatToVidtBeat } from './outputs/vidt/mainBeatToVidtBeat';
+import { ColorToVidtColor } from './outputs/vidt/colorToVidtColor';
+import { MultiColorToVidtMultiColor } from './outputs/vidt/multiColorToVidtMultiColor';
+import { ColorToFastLedSolid } from './outputs/fastledt/colorToFastLedSolid';
+import { ColorStrobeFastLed } from './outputs/fastledt/colorStrobeFastLed';
+import { ColorStrobeRGBLed } from './outputs/rgbledt/colorStrobeRGBLed';
+import { DrumSoundToFastLedStrip } from './outputs/fastledt/drumSoundToFastLedStrip';
+import { ColorToRGBLedSolid } from './outputs/rgbledt/colorToRGBLedSolid';
+import { ColorToInverseVidtColor } from './converters/color/colorToInverseVidtColor';
+import { ColorToFastLedSpark } from './outputs/fastledt/colorToFastLedSpark';
+import { BeatToRainbowSpark } from './outputs/fastledt/beatToRainbowSpark';
+import { Note } from '../../../Shared/midi';
+import { BeatToNextWord } from './converters/words/beatToNextWord';
+import { MidiChannelToMainMelody } from './converters/melody/midiChannelToMainMelody';
+import { IControlPresetMsg } from '../../../Shared/types';
+import { DrumSoundMap } from './converters/drums/drumSoundMap';
+import { DrumSounds } from '../../../Shared/drums';
+import { PresetLogic } from './presets-logic';
+import { MidiChannelToMainDrum } from './converters/drums/midiChannelToMainDrum';
 
 export const presets = {
     [Note.A1]: new DrumSoundToBeat(),
@@ -59,7 +59,7 @@ export const presets = {
     [Note.D7]: new MultiColorToVidtMultiColor(),
 };
 
-export function getPresetState(): IControlPresetMsg[] {
+export function getPresetState (): IControlPresetMsg[] {
     return Object.getOwnPropertyNames(presets).map((presetNr) => {
         const preset = presets[presetNr];
         return {
@@ -76,7 +76,7 @@ export function getPresetState(): IControlPresetMsg[] {
     });
 }
 
-export function getPresetNote(preset: PresetLogic): number {
+export function getPresetNote (preset: PresetLogic): number {
     return +Object.getOwnPropertyNames(presets).find(
         (presetNote) => presets[presetNote].title === preset.title,
     );

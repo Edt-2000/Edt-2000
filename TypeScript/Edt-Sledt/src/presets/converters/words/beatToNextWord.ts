@@ -1,7 +1,7 @@
-import { PresetLogic } from "../../presets-logic";
-import { Actions, Actions$, nextActionFromMsg } from "../../../../../Shared/actions";
-import { withLatestFrom } from "rxjs/operators";
-import { ModifierGroup } from "../../../../../Shared/types";
+import { PresetLogic } from '../../presets-logic';
+import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
+import { withLatestFrom } from 'rxjs/operators';
+import { ModifierGroup } from '../../../../../Shared/types';
 
 export class BeatToNextWord extends PresetLogic {
     modifierOptions = {
@@ -10,7 +10,7 @@ export class BeatToNextWord extends PresetLogic {
 
     private index: number;
 
-    protected _startPreset(): void {
+    protected _startPreset (): void {
         this.index = -1;
         this.addSub(
             Actions$.mainBeat
@@ -25,6 +25,6 @@ export class BeatToNextWord extends PresetLogic {
         );
     }
 
-    protected _stopPreset(): void {
+    protected _stopPreset (): void {
     }
 }

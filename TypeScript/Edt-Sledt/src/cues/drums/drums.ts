@@ -1,17 +1,17 @@
-import { Actions } from "../../../../Shared/actions";
-import { DrumSoundToBeat } from "../../presets/converters/drums/drumSoundToBeat";
-import { DrumNotes } from "../../../../Shared/config";
-import { vidtPresets } from "../../../../Shared/vidt-presets";
-import { DrumSoundMap } from "../../presets/converters/drums/drumSoundMap";
-import { DrumSounds } from "../../../../Shared/drums";
-import { getPresetNote } from "../../presets/presets";
-import { MidiChannelToMainDrum } from "../../presets/converters/drums/midiChannelToMainDrum";
-import { BeatToNextWord } from "../../presets/converters/words/beatToNextWord";
-import { MainBeatToVidtBeat } from "../../presets/outputs/vidt/mainBeatToVidtBeat";
+import { Actions } from '../../../../Shared/actions';
+import { DrumSoundToBeat } from '../../presets/converters/drums/drumSoundToBeat';
+import { DrumNotes } from '../../../../Shared/config';
+import { vidtPresets } from '../../../../Shared/vidt-presets';
+import { DrumSoundMap } from '../../presets/converters/drums/drumSoundMap';
+import { DrumSounds } from '../../../../Shared/drums';
+import { getPresetNote } from '../../presets/presets';
+import { MidiChannelToMainDrum } from '../../presets/converters/drums/midiChannelToMainDrum';
+import { BeatToNextWord } from '../../presets/converters/words/beatToNextWord';
+import { MainBeatToVidtBeat } from '../../presets/outputs/vidt/mainBeatToVidtBeat';
 
 export const drumCues = [
     {
-        label: "DefaultDrumMap",
+        label: 'DefaultDrumMap',
         actions: [
             Actions.presetChange({
                 preset: getPresetNote(new MidiChannelToMainDrum()),
@@ -36,7 +36,7 @@ export const drumCues = [
         ],
     },
     {
-        label: "DrumKick -> Beat",
+        label: 'DrumKick -> Beat',
         actions: [
             Actions.presetChange({
                 preset: getPresetNote(new DrumSoundToBeat()),
@@ -82,7 +82,7 @@ export const drumCues = [
     //     ],
     // },
     {
-        label: "VidtNextWordOnBeat",
+        label: 'VidtNextWordOnBeat',
         actions: [
             Actions.presetChange({
                 preset: getPresetNote(new BeatToNextWord()),

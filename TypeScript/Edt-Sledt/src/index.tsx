@@ -1,16 +1,16 @@
-import { filter, tap } from "rxjs/operators";
-import { Actions, Actions$, nextActionFromMsg } from "../../Shared/actions";
-import { getPresetState, presets } from "./presets/presets";
-import * as React from "react";
-import { render } from "ink";
-import { availablePhotos, availableVideos } from "./asset-scan-dir";
-import { presetCues } from "./cues/cues";
-import { EdtConsole } from "./outputs/edt-console";
-import { connectedControls$ } from "./outputs/edt-control";
-import { connectedVidt$ } from "./outputs/edt-vidt";
-import { combineLatest } from "rxjs";
+import { filter, tap } from 'rxjs/operators';
+import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions';
+import { getPresetState, presets } from './presets/presets';
+import * as React from 'react';
+import { render } from 'ink';
+import { availablePhotos, availableVideos } from './asset-scan-dir';
+import { presetCues } from './cues/cues';
+import { EdtConsole } from './outputs/edt-console';
+import { connectedControls$ } from './outputs/edt-control';
+import { connectedVidt$ } from './outputs/edt-vidt';
+import { combineLatest } from 'rxjs';
 
-const { rerender } = render(<></>);
+const {rerender} = render(<></>);
 
 Actions$.presetChange.pipe(
     filter(msg => presets[msg.preset]),

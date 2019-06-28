@@ -47,7 +47,7 @@ module.exports = {
         ],
     },
     plugins: [
-        new WebpackNotifierPlugin({ title: "Webpack build", excludeWarnings: true }),
+        new WebpackNotifierPlugin({title: "Webpack build", excludeWarnings: true}),
     ],
 };
 

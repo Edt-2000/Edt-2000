@@ -1,14 +1,14 @@
-import { IColor, ModifierGroup } from "../../../../../Shared/types";
-import { rescale } from "../../../../../Shared/utils";
-import { PresetLogic } from "../../presets-logic";
-import { Actions, Actions$, nextActionFromMsg } from "../../../../../Shared/actions";
+import { IColor, ModifierGroup } from '../../../../../Shared/types';
+import { rescale } from '../../../../../Shared/utils';
+import { PresetLogic } from '../../presets-logic';
+import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
 
 export class ColorToInverseVidtColor extends PresetLogic {
     modifierOptions = {
         group: ModifierGroup.Color,
     };
 
-    protected _startPreset(): void {
+    protected _startPreset (): void {
         this.addSub(
             Actions$.singleColor.pipe().subscribe((color: IColor) => {
                 const newColor: IColor = {
@@ -21,6 +21,6 @@ export class ColorToInverseVidtColor extends PresetLogic {
         );
     }
 
-    protected _stopPreset(): void {
+    protected _stopPreset (): void {
     }
 }

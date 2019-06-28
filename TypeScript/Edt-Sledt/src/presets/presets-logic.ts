@@ -1,7 +1,7 @@
-import { IModifierOptions } from "../../../Shared/types";
-import { getPresetState } from "./presets";
-import { Subscription } from "rxjs";
-import { Actions, nextActionFromMsg } from "../../../Shared/actions";
+import { IModifierOptions } from '../../../Shared/types';
+import { getPresetState } from './presets';
+import { Subscription } from 'rxjs';
+import { Actions, nextActionFromMsg } from '../../../Shared/actions';
 
 export abstract class PresetLogic {
     readonly modifierOptions: IModifierOptions;
@@ -12,7 +12,7 @@ export abstract class PresetLogic {
 
     protected subscriptions: Subscription[] = [];
 
-    startPreset(modifier: number) {
+    startPreset (modifier: number) {
         this.modifier = modifier;
         this._stopPreset();
         this._startPreset();
@@ -20,7 +20,7 @@ export abstract class PresetLogic {
         nextActionFromMsg(Actions.presetState(getPresetState()));
     }
 
-    stopPreset() {
+    stopPreset () {
         // Unsubscribe and reset array
         this.subscriptions.forEach(sub => sub.unsubscribe());
         this.subscriptions = [];
@@ -30,11 +30,11 @@ export abstract class PresetLogic {
         nextActionFromMsg(Actions.presetState(getPresetState()));
     }
 
-    addSub(sub: Subscription) {
+    addSub (sub: Subscription) {
         this.subscriptions.push(sub);
     }
 
-    protected abstract _startPreset(): void;
+    protected abstract _startPreset (): void;
 
-    protected abstract _stopPreset(): void;
+    protected abstract _stopPreset (): void;
 }

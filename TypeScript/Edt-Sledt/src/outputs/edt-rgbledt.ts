@@ -1,8 +1,8 @@
-import { DeviceIPs, Modii, OSCDevices } from "../../../Shared/config";
-import { IColor } from "../../../Shared/types";
-import { sendToOSC } from "../communication/osc";
+import { DeviceIPs, Modii, OSCDevices } from '../../../Shared/config';
+import { IColor } from '../../../Shared/types';
+import { sendToOSC } from '../communication/osc';
 
-export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
+export function RGBLedtSingleSolid (instance: number = 0, colorMsg: IColor) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
         [OSCDevices.EdtRGBLed + instance.toString()],
@@ -10,7 +10,7 @@ export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
     );
 }
 
-export function RGBLedtStrobe(instance: number, speed: number, hue: number) {
+export function RGBLedtStrobe (instance: number, speed: number, hue: number) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
         [OSCDevices.EdtRGBLed + instance.toString()],

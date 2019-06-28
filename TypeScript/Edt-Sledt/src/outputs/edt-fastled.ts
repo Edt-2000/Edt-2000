@@ -1,8 +1,8 @@
-import { DeviceIPs, Modii, OSCDevices } from "../../../Shared/config";
-import { IColor } from "../../../Shared/types";
-import { sendToOSC } from "../communication/osc";
+import { DeviceIPs, Modii, OSCDevices } from '../../../Shared/config';
+import { IColor } from '../../../Shared/types';
+import { sendToOSC } from '../communication/osc';
 
-export function FastLedtSpark(
+export function FastLedtSpark (
     instance: number,
     colorMsg: IColor,
     speed: number,
@@ -24,7 +24,7 @@ export function FastLedtSpark(
     );
 }
 
-export function FastLedtRainbowSpark(
+export function FastLedtRainbowSpark (
     instance: number = 0,
     duration: number,
     startHue: number,
@@ -39,7 +39,7 @@ export function FastLedtRainbowSpark(
     );
 }
 
-export function FastLedtSingleSolid(
+export function FastLedtSingleSolid (
     instance: number,
     colorMsg: IColor,
     start: number = 0,
@@ -52,7 +52,7 @@ export function FastLedtSingleSolid(
     );
 }
 
-export function FastLedtSinglePulse(
+export function FastLedtSinglePulse (
     instance: number,
     duration: number,
     colorMsg: IColor,
@@ -74,7 +74,7 @@ export function FastLedtSinglePulse(
     );
 }
 
-export function FastLedtStrobe(instance: number, speed: number, hue: number) {
+export function FastLedtStrobe (instance: number, speed: number, hue: number) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
         [OSCDevices.EdtFastLed + instance],

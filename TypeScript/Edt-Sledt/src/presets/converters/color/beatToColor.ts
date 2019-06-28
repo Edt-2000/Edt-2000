@@ -1,7 +1,7 @@
-import { PresetLogic } from "../../presets-logic";
-import { Actions, Actions$, nextActionFromMsg } from "../../../../../Shared/actions";
-import { withLatestFrom } from "rxjs/operators";
-import { ModifierGroup } from "../../../../../Shared/types";
+import { PresetLogic } from '../../presets-logic';
+import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
+import { withLatestFrom } from 'rxjs/operators';
+import { ModifierGroup } from '../../../../../Shared/types';
 
 export class BeatToColor extends PresetLogic {
     modifierOptions = {
@@ -10,7 +10,7 @@ export class BeatToColor extends PresetLogic {
 
     private index = -1;
 
-    protected _startPreset(): void {
+    protected _startPreset (): void {
         this.addSub(
             Actions$.mainBeat
                 .pipe(withLatestFrom(Actions$.multiColor))
@@ -22,6 +22,6 @@ export class BeatToColor extends PresetLogic {
         );
     }
 
-    protected _stopPreset(): void {
+    protected _stopPreset (): void {
     }
 }

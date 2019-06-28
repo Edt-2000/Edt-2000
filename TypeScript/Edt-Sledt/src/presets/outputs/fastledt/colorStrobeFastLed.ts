@@ -1,8 +1,8 @@
-import { PresetLogic } from "../../presets-logic";
-import { Actions$ } from "../../../../../Shared/actions";
-import { FastLedtStrobe } from "../../../outputs/edt-fastled";
-import { modifiers } from "../../../../../Shared/modifiers";
-import { ModifierGroup } from "../../../../../Shared/types";
+import { PresetLogic } from '../../presets-logic';
+import { Actions$ } from '../../../../../Shared/actions';
+import { FastLedtStrobe } from '../../../outputs/edt-fastled';
+import { modifiers } from '../../../../../Shared/modifiers';
+import { ModifierGroup } from '../../../../../Shared/types';
 
 export class ColorStrobeFastLed extends PresetLogic {
     modifierOptions = {
@@ -10,7 +10,7 @@ export class ColorStrobeFastLed extends PresetLogic {
         group: ModifierGroup.FastLED,
     };
 
-    protected _startPreset(): void {
+    protected _startPreset (): void {
         this.addSub(
             Actions$.singleColor.subscribe(color => {
                 FastLedtStrobe(0, this.modifier, color.h);
@@ -18,7 +18,7 @@ export class ColorStrobeFastLed extends PresetLogic {
         );
     }
 
-    protected _stopPreset(): void {
+    protected _stopPreset (): void {
         // turn of strobe
         FastLedtStrobe(0, 0, 0);
     }

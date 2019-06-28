@@ -1,13 +1,13 @@
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import { GlitchText } from "../../components/glitch-text/glitch-text.component";
-import { Actions$ } from "../../../../../Shared/actions";
-import { mapInput } from "../../../../../Shared/helpers/map-input";
-import { withLatestFrom } from "rxjs/operators";
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import { GlitchText } from '../../components/glitch-text/glitch-text.component';
+import { Actions$ } from '../../../../../Shared/actions';
+import { mapInput } from '../../../../../Shared/helpers/map-input';
+import { withLatestFrom } from 'rxjs/operators';
 
 @Component({
-    name: "logo",
-    template: require("./logo.template"),
+    name: 'logo',
+    template: require('./logo.template'),
     components: {
         GlitchText,
     },
@@ -17,10 +17,10 @@ export class LogoComponent extends Vue {
 
     public stars: number[] = Array(64).map((x, i) => i + 1);
     public level: number = 0;
-    public text: string = "Strobocops";
+    public text: string = 'Strobocops';
     public timeOut: number | null;
 
-    mounted() {
+    mounted () {
         this.subscription = Actions$.vidtBeat
             .pipe(withLatestFrom(Actions$.glitchIntensity))
             .subscribe(([beat, intensity]) => {
@@ -28,7 +28,7 @@ export class LogoComponent extends Vue {
             });
     }
 
-    glitch(input: number) {
+    glitch (input: number) {
         if (this.timeOut) {
             clearTimeout(this.timeOut);
             this.timeOut = null;
@@ -40,7 +40,7 @@ export class LogoComponent extends Vue {
         this.decay();
     }
 
-    decay() {
+    decay () {
         if (this.timeOut) {
             clearTimeout(this.timeOut);
         }
@@ -54,8 +54,8 @@ export class LogoComponent extends Vue {
         }, 220);
     }
 
-    destroyed() {
-        if (typeof this.subscription !== "undefined") {
+    destroyed () {
+        if (typeof this.subscription !== 'undefined') {
             this.subscription.unsubscribe();
         }
     }

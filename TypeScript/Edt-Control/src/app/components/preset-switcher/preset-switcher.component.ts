@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
-import { IControlPresetMsg } from "../../../../../Shared/types";
-import { SocketService } from "../../socket.service";
-import { Note } from "../../../../../Shared/midi";
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { IControlPresetMsg } from '../../../../../Shared/types';
+import { SocketService } from '../../socket.service';
+import { Note } from '../../../../../Shared/midi';
 
 @Component({
-  selector: "app-preset-switcher",
+  selector: 'app-preset-switcher',
   template: `
     <div class="preset-switcher">
       <button
@@ -40,12 +40,12 @@ export class PresetSwitcherComponent implements OnInit {
   @Input() preset: IControlPresetMsg;
   noteName: string;
 
-  constructor(public socket: SocketService) {
+  constructor (public socket: SocketService) {
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.noteName = Note[this.preset.preset]
-      .replace("_", "-")
-      .replace("$", "#");
+      .replace('_', '-')
+      .replace('$', '#');
   }
 }

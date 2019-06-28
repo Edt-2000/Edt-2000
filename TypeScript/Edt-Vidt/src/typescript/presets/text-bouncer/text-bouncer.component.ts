@@ -1,11 +1,11 @@
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import { GlitchText } from "../../components/glitch-text/glitch-text.component";
-import { Actions$ } from "../../../../../Shared/actions";
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import { GlitchText } from '../../components/glitch-text/glitch-text.component';
+import { Actions$ } from '../../../../../Shared/actions';
 
 @Component({
-    name: "text-bouncer",
-    template: require("./text-bouncer.template"),
+    name: 'text-bouncer',
+    template: require('./text-bouncer.template'),
     components: {
         GlitchText,
     },
@@ -17,7 +17,7 @@ export class TextBouncerComponent extends Vue {
         text: HTMLElement;
     };
     public styles: Object = {};
-    public text: string = "bounce";
+    public text: string = 'bounce';
 
     public y: number = 0;
     public x: number = 0;
@@ -29,7 +29,7 @@ export class TextBouncerComponent extends Vue {
     public directionY: number = 1;
     public speed: number = 6;
 
-    mounted() {
+    mounted () {
         this.subscription = Actions$.mainText.subscribe(text => {
             this.text = text;
             // wait for text to be in dom
@@ -45,12 +45,12 @@ export class TextBouncerComponent extends Vue {
         });
     }
 
-    calculateBoundaries() {
+    calculateBoundaries () {
         this.maxX = window.innerWidth - this.$refs.text.clientWidth;
         this.maxY = window.innerHeight - this.$refs.text.clientHeight;
     }
 
-    bounce() {
+    bounce () {
         if (this.x + 1 > this.maxX && this.directionX === 1) {
             this.directionX = -1;
         } else if (this.x - 1 < this.minX && this.directionX === -1) {
@@ -75,8 +75,8 @@ export class TextBouncerComponent extends Vue {
         });
     }
 
-    destroyed() {
-        if (typeof this.subscription !== "undefined") {
+    destroyed () {
+        if (typeof this.subscription !== 'undefined') {
             this.subscription.unsubscribe();
         }
     }

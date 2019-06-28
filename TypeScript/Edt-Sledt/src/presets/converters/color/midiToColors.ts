@@ -1,9 +1,9 @@
-import { musicNoteOn$ } from "../../../inputs/midi";
-import { PresetLogic } from "../../presets-logic";
-import { filter, withLatestFrom } from "rxjs/operators";
-import { modifiers } from "../../../../../Shared/modifiers";
-import { Actions, Actions$, nextActionFromMsg } from "../../../../../Shared/actions";
-import { ModifierGroup } from "../../../../../Shared/types";
+import { musicNoteOn$ } from '../../../inputs/midi';
+import { PresetLogic } from '../../presets-logic';
+import { filter, withLatestFrom } from 'rxjs/operators';
+import { modifiers } from '../../../../../Shared/modifiers';
+import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
+import { ModifierGroup } from '../../../../../Shared/types';
 
 export class MidiToColors extends PresetLogic {
     modifierOptions = {
@@ -11,7 +11,7 @@ export class MidiToColors extends PresetLogic {
         group: ModifierGroup.Color,
     };
 
-    protected _startPreset(): void {
+    protected _startPreset (): void {
         this.addSub(
             musicNoteOn$
                 .pipe(
@@ -28,6 +28,6 @@ export class MidiToColors extends PresetLogic {
         );
     }
 
-    protected _stopPreset(): void {
+    protected _stopPreset (): void {
     }
 }

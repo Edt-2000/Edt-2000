@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { SocketService } from "../../socket.service";
-import { animationTypes, vidtPresets, vidtPresetsArr } from "../../../../../Shared/vidt-presets";
-import { words, wordSets } from "../../../../../Shared/words";
-import { Actions$ } from "../../../../../Shared/actions";
-import { modifiers } from "../../../../../Shared/modifiers";
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { SocketService } from '../../socket.service';
+import { animationTypes, vidtPresets, vidtPresetsArr } from '../../../../../Shared/vidt-presets';
+import { words, wordSets } from '../../../../../Shared/words';
+import { Actions$ } from '../../../../../Shared/actions';
+import { modifiers } from '../../../../../Shared/modifiers';
 
 @Component({
-  selector: "app-vidt-controller",
-  templateUrl: "./vidt-controller.component.html",
+  selector: 'app-vidt-controller',
+  templateUrl: './vidt-controller.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VidtControllerComponent implements OnInit {
@@ -26,9 +26,9 @@ export class VidtControllerComponent implements OnInit {
     animationTypes.bounce,
   ];
 
-  constructor(public socket: SocketService) {
+  constructor (public socket: SocketService) {
   }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 }

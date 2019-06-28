@@ -1,6 +1,6 @@
-import { IControlPresetMsg } from "../../../Shared/types";
-import { Box, Color } from "ink";
-import * as React from "react";
+import { IControlPresetMsg } from '../../../Shared/types';
+import { Box, Color } from 'ink';
+import * as React from 'react';
 
 export const EdtConsole = (
     {
@@ -19,7 +19,7 @@ export const EdtConsole = (
         <Box>--------</Box>
         {
             presetState
-                .map(({ title, state, preset }) => {
+                .map(({title, state, preset}) => {
                         return <Box key={preset}>
                             {title} is {state ? <Color greenBright>active</Color> : <Color red>inactive</Color>}
                         </Box>;
