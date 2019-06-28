@@ -1,38 +1,38 @@
-const gulp          = require("gulp");
-const clean         = require("./gulp/clean");
-const copy          = require("./gulp/copy");
-const typescript    = require("./gulp/typescript");
-const sass          = require("./gulp/sass");
-const serve         = require("./gulp/serve");
-const lint          = require("./gulp/lint");
-const svg           = require("./gulp/svg");
+const gulp = require("gulp");
+const clean = require("./gulp/clean");
+const copy = require("./gulp/copy");
+const typescript = require("./gulp/typescript");
+const sass = require("./gulp/sass");
+const serve = require("./gulp/serve");
+const lint = require("./gulp/lint");
+const svg = require("./gulp/svg");
 
 const build = gulp.series(
     gulp.parallel(
         copy.copyHtml,
         copy.copyAssets,
-        copy.copyAssetsImg
+        copy.copyAssetsImg,
     ),
     gulp.parallel(
         sass.compileSass,
-        typescript.compile
-    )
+        typescript.compile,
+    ),
 );
 
 gulp.task("default", gulp.series(
     build,
-    serve.serve
+    serve.serve,
 ));
 
 gulp.task("build", gulp.parallel(
-    build
+    build,
 ));
 
 gulp.task("icons", gulp.parallel(
     svg.generateUI,
-    svg.generateIcons
+    svg.generateIcons,
 ));
 
 gulp.task("clean", gulp.parallel(
-    clean.clean
+    clean.clean,
 ));

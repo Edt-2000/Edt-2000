@@ -5,23 +5,23 @@ import { VidtControllerComponent } from "./pages/vidt-controller/vidt-controller
 
 export const pages = [
   {
-    text: 'Presets',
-    path: 'preset-controller',
+    text: "Presets",
+    path: "preset-controller",
     component: PresetControllerComponent,
   },
   {
-    text: 'Cues',
-    path: 'cues-controller',
+    text: "Cues",
+    path: "cues-controller",
     component: CuesControllerComponent,
   },
   {
-    text: 'Colors',
-    path: 'color-controller',
+    text: "Colors",
+    path: "color-controller",
     component: ColorControllerComponent,
   },
   {
-    text: 'Vidt',
-    path: 'vidt-controller',
+    text: "Vidt",
+    path: "vidt-controller",
     component: VidtControllerComponent,
   },
 ];

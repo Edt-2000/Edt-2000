@@ -1,12 +1,12 @@
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
-import { IColor } from '../../../../../Shared/types';
-import { Actions$ } from '../../../../../Shared/actions';
-import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import { IColor } from "../../../../../Shared/types";
+import { Actions$ } from "../../../../../Shared/actions";
+import { ColorHelper } from "../../../../../Shared/helpers/hsv-2-rgb";
 
 @Component({
-    name: 'color-background',
-    template: require('./color-background.template'),
+    name: "color-background",
+    template: require("./color-background.template"),
     components: {},
 })
 export class ColorBackgroundComponent extends Vue {
@@ -30,8 +30,8 @@ export class ColorBackgroundComponent extends Vue {
                 },
             ],
             {
-                fill: 'forwards',
-                easing: 'ease-in',
+                fill: "forwards",
+                easing: "ease-in",
                 duration: 200,
             },
         );
@@ -65,8 +65,8 @@ export class ColorBackgroundComponent extends Vue {
                         },
                     ],
                     {
-                        fill: 'forwards',
-                        easing: 'ease-in',
+                        fill: "forwards",
+                        easing: "ease-in",
                         duration: pulseDuration,
                     },
                 );
@@ -94,11 +94,11 @@ export class ColorBackgroundComponent extends Vue {
     }
 
     destroyed() {
-        if (typeof this.singleColorSubscription !== 'undefined') {
+        if (typeof this.singleColorSubscription !== "undefined") {
             this.singleColorSubscription.unsubscribe();
         }
 
-        if (typeof this.multiColorSubscription !== 'undefined') {
+        if (typeof this.multiColorSubscription !== "undefined") {
             this.multiColorSubscription.unsubscribe();
         }
     }

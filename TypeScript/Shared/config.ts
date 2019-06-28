@@ -8,7 +8,7 @@ export const enum DeviceIPs {
     edtIn = "10.0.0.12",
     edtPad = "10.0.0.100",
     edtRemoteDMX = "10.0.0.30",
-    edtDispEdter = "localhost",
+    edtDispEdter = "10.0.0.201",
     edtSledt = "localhost",
 }
 

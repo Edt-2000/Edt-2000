@@ -1,13 +1,13 @@
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
-import { GlitchText } from '../../components/glitch-text/glitch-text.component';
-import { Actions$ } from '../../../../../Shared/actions';
-import { mapInput } from '../../../../../Shared/helpers/map-input';
-import { withLatestFrom } from 'rxjs/operators';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import { GlitchText } from "../../components/glitch-text/glitch-text.component";
+import { Actions$ } from "../../../../../Shared/actions";
+import { mapInput } from "../../../../../Shared/helpers/map-input";
+import { withLatestFrom } from "rxjs/operators";
 
 @Component({
-    name: 'logo',
-    template: require('./logo.template'),
+    name: "logo",
+    template: require("./logo.template"),
     components: {
         GlitchText,
     },
@@ -17,7 +17,7 @@ export class LogoComponent extends Vue {
 
     public stars: number[] = Array(64).map((x, i) => i + 1);
     public level: number = 0;
-    public text: string = 'Strobocops';
+    public text: string = "Strobocops";
     public timeOut: number | null;
 
     mounted() {
@@ -55,7 +55,7 @@ export class LogoComponent extends Vue {
     }
 
     destroyed() {
-        if (typeof this.subscription !== 'undefined') {
+        if (typeof this.subscription !== "undefined") {
             this.subscription.unsubscribe();
         }
     }

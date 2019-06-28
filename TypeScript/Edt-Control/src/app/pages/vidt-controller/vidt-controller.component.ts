@@ -6,8 +6,8 @@ import { Actions$ } from "../../../../../Shared/actions";
 import { modifiers } from "../../../../../Shared/modifiers";
 
 @Component({
-  selector: 'app-vidt-controller',
-  templateUrl: './vidt-controller.component.html',
+  selector: "app-vidt-controller",
+  templateUrl: "./vidt-controller.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VidtControllerComponent implements OnInit {

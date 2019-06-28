@@ -1,10 +1,21 @@
 {
-  "extends": "tslint:recommended",
-  "rules": {
-    "object-literal-sort-keys": false,
-    "max-line-length": [true, 240],
-    "quotemark": [true, "single", "avoid-escape"],
-    "no-console": [false],
-    "ordered-imports": [false]
-  }
+    "extends": "tslint:recommended",
+    "rules": {
+        "object-literal-sort-keys": false,
+        "max-line-length": [
+            true,
+            240
+        ],
+        "quotemark": [
+            true,
+            "single",
+            "avoid-escape"
+        ],
+        "no-console": [
+            false
+        ],
+        "ordered-imports": [
+            false
+        ]
+    }
 }

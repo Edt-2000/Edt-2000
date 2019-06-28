@@ -15,7 +15,6 @@ import { BeatToRainbowSpark } from "./outputs/fastledt/beatToRainbowSpark";
 import { Note } from "../../../Shared/midi";
 import { BeatToNextWord } from "./converters/words/beatToNextWord";
 import { MidiChannelToMainMelody } from "./converters/melody/midiChannelToMainMelody";
-import { BeatToMovingMultiColorFastLed } from "./outputs/fastledt/beatToMovingMultiColorFastLed";
 import { IControlPresetMsg } from "../../../Shared/types";
 import { DrumSoundMap } from "./converters/drums/drumSoundMap";
 import { DrumSounds } from "../../../Shared/drums";
@@ -38,7 +37,6 @@ export const presets = {
 
     [Note.A3]: new BeatToColor(),
     [Note.C3]: new BeatToRainbowSpark(),
-    [Note.E3]: new BeatToMovingMultiColorFastLed(),
     [Note.B3]: new ColorToFastLedSpark(),
 
     [Note.A2]: new MidiToColors(),
@@ -62,9 +60,9 @@ export const presets = {
 };
 
 export function getPresetState(): IControlPresetMsg[] {
-    return Object.getOwnPropertyNames(presets).map(presetNr => {
+    return Object.getOwnPropertyNames(presets).map((presetNr) => {
         const preset = presets[presetNr];
-        return <IControlPresetMsg>{
+        return {
             preset: +presetNr, // preset key is a string, but send it as number
             modifier: preset.modifier,
             state: preset.state,
@@ -74,12 +72,12 @@ export function getPresetState(): IControlPresetMsg[] {
                 continuous: preset.modifierOptions.continuous,
                 group: preset.modifierOptions.group,
             },
-        };
+        } as IControlPresetMsg;
     });
 }
 
 export function getPresetNote(preset: PresetLogic): number {
     return +Object.getOwnPropertyNames(presets).find(
-        presetNote => presets[presetNote].title === preset.title,
+        (presetNote) => presets[presetNote].title === preset.title,
     );
 }

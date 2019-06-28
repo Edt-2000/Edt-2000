@@ -1,16 +1,16 @@
-const paths         = require("./_config").paths;
+const paths = require("./_config").paths;
 
-const gulp          = require("gulp");
-const lint          = require("./lint");
-const copy          = require("./copy");
-const typescript    = require("./typescript");
-const sass          = require("./sass");
-const browserSync   = require('browser-sync');
+const gulp = require("gulp");
+const lint = require("./lint");
+const copy = require("./copy");
+const typescript = require("./typescript");
+const sass = require("./sass");
+const browserSync = require("browser-sync");
 
 function watchStyles() {
     return gulp.watch(
         paths.src.styles + "**/*.scss",
-        gulp.series(lint.lintSass, sass.compileSass, streamStyles)
+        gulp.series(lint.lintSass, sass.compileSass, streamStyles),
     );
 }
 
@@ -22,21 +22,21 @@ function streamStyles() {
 function watchScripts(callback) {
     return gulp.watch(
         [
-            paths.src.typescript + "**/*.ts"
+            paths.src.typescript + "**/*.ts",
         ],
         gulp.series(
             typescript.compile,
-            callback
-        )
+            callback,
+        ),
     );
 }
 
 function watchHtml(callback) {
     return gulp.watch(
         [
-            paths.src.html + "**/*.html"
+            paths.src.html + "**/*.html",
         ],
-        gulp.series(copy.copyHtml, callback)
+        gulp.series(copy.copyHtml, callback),
     );
 }
 

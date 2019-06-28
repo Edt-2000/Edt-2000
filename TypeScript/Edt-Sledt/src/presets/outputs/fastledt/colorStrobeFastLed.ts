@@ -1,8 +1,8 @@
-import { PresetLogic } from '../../presets-logic';
-import { Actions$ } from '../../../../../Shared/actions';
-import { FastLedtStrobe } from '../../../outputs/edt-fastled';
-import { modifiers } from '../../../../../Shared/modifiers';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { PresetLogic } from "../../presets-logic";
+import { Actions$ } from "../../../../../Shared/actions";
+import { FastLedtStrobe } from "../../../outputs/edt-fastled";
+import { modifiers } from "../../../../../Shared/modifiers";
+import { ModifierGroup } from "../../../../../Shared/types";
 
 export class ColorStrobeFastLed extends PresetLogic {
     modifierOptions = {

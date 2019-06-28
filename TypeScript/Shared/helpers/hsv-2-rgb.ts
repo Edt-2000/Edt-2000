@@ -1,13 +1,13 @@
-import { mapInput } from './map-input';
-import { IColor } from '../types';
+import { mapInput } from "./map-input";
+import { IColor } from "../types";
 
 export class ColorHelper {
     static getRGBString(hsvColors: IColor[]) {
         const rgbColors = ColorHelper.hsvArray2RGBArray(hsvColors);
 
-        let bcgColor: string = '';
+        let bcgColor: string = "";
         if (rgbColors.length === 1) {
-            bcgColor = `rgb(${rgbColors[0].join(', ')})`;
+            bcgColor = `rgb(${rgbColors[0].join(", ")})`;
         } else {
             bcgColor = `repeating-linear-gradient(`;
             const totalColors: number = rgbColors.length;
@@ -18,14 +18,14 @@ export class ColorHelper {
                 const percentage = (100 / totalColors) * currentIndex;
                 const percentageNext = (100 / totalColors) * ++currentIndex;
                 bcgColor += `, rgb(${color.join(
-                    ', ',
+                    ", ",
                 )}) ${percentage}%, rgb(${color.join(
-                    ', ',
+                    ", ",
                 )}) ${percentageNext}%`;
                 spacing += 100;
             }
 
-            bcgColor += ')';
+            bcgColor += ")";
         }
 
         return bcgColor;

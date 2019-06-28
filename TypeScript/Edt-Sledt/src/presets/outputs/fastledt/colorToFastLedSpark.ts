@@ -1,9 +1,9 @@
-import { PresetLogic } from '../../presets-logic';
-import { Actions$ } from '../../../../../Shared/actions';
-import { FastLedtSpark } from '../../../outputs/edt-fastled';
-import { modifiers } from '../../../../../Shared/modifiers';
-import { skip } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { PresetLogic } from "../../presets-logic";
+import { Actions$ } from "../../../../../Shared/actions";
+import { FastLedtSpark } from "../../../outputs/edt-fastled";
+import { modifiers } from "../../../../../Shared/modifiers";
+import { skip } from "rxjs/operators";
+import { ModifierGroup } from "../../../../../Shared/types";
 
 export class ColorToFastLedSpark extends PresetLogic {
     modifierOptions = {

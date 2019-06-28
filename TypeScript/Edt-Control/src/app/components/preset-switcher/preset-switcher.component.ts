@@ -4,7 +4,7 @@ import { SocketService } from "../../socket.service";
 import { Note } from "../../../../../Shared/midi";
 
 @Component({
-  selector: 'app-preset-switcher',
+  selector: "app-preset-switcher",
   template: `
     <div class="preset-switcher">
       <button
@@ -45,7 +45,7 @@ export class PresetSwitcherComponent implements OnInit {
 
   ngOnInit() {
     this.noteName = Note[this.preset.preset]
-      .replace('_', '-')
-      .replace('$', '#');
+      .replace("_", "-")
+      .replace("$", "#");
   }
 }

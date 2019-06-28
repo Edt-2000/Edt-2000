@@ -1,13 +1,13 @@
-const paths     = require("./_config").paths;
+const paths = require("./_config").paths;
 
-const gulp      = require("gulp");
-const svgstore  = require("gulp-svgstore");
-const svgmin    = require("gulp-svgmin");
-const rename    = require("gulp-rename");
+const gulp = require("gulp");
+const svgstore = require("gulp-svgstore");
+const svgmin = require("gulp-svgmin");
+const rename = require("gulp-rename");
 
 function generateUI() {
     return gulp.src(paths.src.iconsUI + "*.svg")
-        .pipe(rename({prefix: "icon--"}))
+        .pipe(rename({ prefix: "icon--" }))
         .pipe(svgmin(function() {
             const prefix = paths.src.iconsUI;
             return {
@@ -36,10 +36,11 @@ function generateUI() {
                     { removeStyleElement: true },
                     { removeScriptElement: true },
                     { removeElementsByAttr: true },
-                    { removeAttrs: { attrs: '(fill|fill-rule)'} },
-                    { cleanupIDs: { prefix: prefix + "-", minify: true }
-                }]
-            }
+                    { removeAttrs: { attrs: "(fill|fill-rule)" } },
+                    {
+                        cleanupIDs: { prefix: prefix + "-", minify: true },
+                    }],
+            };
         }))
         .pipe(svgstore())
         .pipe(gulp.dest(paths.target.icons));
@@ -47,7 +48,7 @@ function generateUI() {
 
 function generateIcons() {
     return gulp.src(paths.src.icons + "*.svg")
-        .pipe(rename({prefix: "icon--"}))
+        .pipe(rename({ prefix: "icon--" }))
         .pipe(svgmin(function() {
             const prefix = paths.src.icons;
             return {
@@ -76,10 +77,11 @@ function generateIcons() {
                     { removeStyleElement: true },
                     { removeScriptElement: true },
                     { removeElementsByAttr: true },
-                    { removeAttrs: { attrs: '(fill|fill-rule)'} },
-                    { cleanupIDs: { prefix: prefix + "-", minify: true }
-                }]
-            }
+                    { removeAttrs: { attrs: "(fill|fill-rule)" } },
+                    {
+                        cleanupIDs: { prefix: prefix + "-", minify: true },
+                    }],
+            };
         }))
         .pipe(svgstore())
         .pipe(gulp.dest(paths.target.icons));

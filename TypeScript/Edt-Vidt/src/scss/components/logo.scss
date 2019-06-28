@@ -33,6 +33,7 @@
         &::before {
             animation: twinkle-reverse 1.4s linear infinite;
         }
+
         &::after {
             animation: twinkle 1.4s linear infinite;
             opacity: 0;

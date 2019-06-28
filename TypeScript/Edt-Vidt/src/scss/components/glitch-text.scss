@@ -16,6 +16,7 @@
         line-height: 1;
         position: relative;
     }
+
     &__main {
         color: #fff;
         transform-origin: center top;
@@ -70,6 +71,7 @@
             animation: glitch-line 1s linear 1s infinite;
         }
     }
+
     @for $i from 1 through 20 {
         &--level#{$i} {
             .glitch-text__color {

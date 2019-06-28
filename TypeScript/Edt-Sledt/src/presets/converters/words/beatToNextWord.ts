@@ -1,7 +1,7 @@
-import { PresetLogic } from '../../presets-logic';
-import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
-import { withLatestFrom } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { PresetLogic } from "../../presets-logic";
+import { Actions, Actions$, nextActionFromMsg } from "../../../../../Shared/actions";
+import { withLatestFrom } from "rxjs/operators";
+import { ModifierGroup } from "../../../../../Shared/types";
 
 export class BeatToNextWord extends PresetLogic {
     modifierOptions = {

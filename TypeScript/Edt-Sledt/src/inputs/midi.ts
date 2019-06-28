@@ -22,7 +22,7 @@ const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
             noteNumber: noteToNote(+OSCMsg.values[1]),
             octave: noteToOctave(+OSCMsg.values[1]),
             velocity: +OSCMsg.values[2],
-            channel: +OSCMsg.values[0],
+            channel: +OSCMsg.values[0] + 1,
         };
     }),
 );

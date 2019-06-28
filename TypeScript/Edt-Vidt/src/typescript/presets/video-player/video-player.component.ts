@@ -1,17 +1,17 @@
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
-import { Actions$ } from '../../../../../Shared/actions';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import { Actions$ } from "../../../../../Shared/actions";
 
 @Component({
-    name: 'video-player',
-    template: require('./video-player.template'),
+    name: "video-player",
+    template: require("./video-player.template"),
     components: {},
 })
 export class VideoPlayerComponent extends Vue {
     public beatSubscription: any;
     public videoSubscription: any;
 
-    public src: string = '';
+    public src: string = "";
     public interval: number;
     public overlay: boolean = false;
     public $refs: {
@@ -61,11 +61,11 @@ export class VideoPlayerComponent extends Vue {
     }
 
     destroyed() {
-        if (typeof this.beatSubscription !== 'undefined') {
+        if (typeof this.beatSubscription !== "undefined") {
             this.beatSubscription.unsubscribe();
         }
 
-        if (typeof this.videoSubscription !== 'undefined') {
+        if (typeof this.videoSubscription !== "undefined") {
             this.videoSubscription.unsubscribe();
         }
 

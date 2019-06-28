@@ -3,7 +3,7 @@ import { Actions$ } from "../../../../../Shared/actions";
 import { SocketService } from "../../socket.service";
 
 @Component({
-  selector: 'app-cues-controller',
+  selector: "app-cues-controller",
   template: `
     <ul class="list" *ngIf="(cueList$ | async) as cues">
       <li class="list__item" *ngFor="let cue of cues">

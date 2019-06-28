@@ -18,7 +18,7 @@ rules:
     no-misspelled-properties:
         - 2
         - extra-properties:
-            - 'touch-callout'
+              - 'touch-callout'
 files:
     ignore:
         - 'src/styles/css/reset.scss'

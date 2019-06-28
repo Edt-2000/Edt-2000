@@ -31,9 +31,9 @@ import { TriggerButtonComponent } from "./components/trigger-button/trigger-butt
       [
         ...pages,
         {
-          path: '',
+          path: "",
           redirectTo: pages[0].path,
-          pathMatch: 'full',
+          pathMatch: "full",
         },
       ],
       { enableTracing: true }, // <-- debugging purposes only

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 export function noteToOctave(note: number): number {
     return Math.floor(note / 12);

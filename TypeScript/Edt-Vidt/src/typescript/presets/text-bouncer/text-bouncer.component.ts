@@ -1,11 +1,11 @@
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
-import { GlitchText } from '../../components/glitch-text/glitch-text.component';
-import { Actions$ } from '../../../../../Shared/actions';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import { GlitchText } from "../../components/glitch-text/glitch-text.component";
+import { Actions$ } from "../../../../../Shared/actions";
 
 @Component({
-    name: 'text-bouncer',
-    template: require('./text-bouncer.template'),
+    name: "text-bouncer",
+    template: require("./text-bouncer.template"),
     components: {
         GlitchText,
     },
@@ -17,7 +17,7 @@ export class TextBouncerComponent extends Vue {
         text: HTMLElement;
     };
     public styles: Object = {};
-    public text: string = 'bounce';
+    public text: string = "bounce";
 
     public y: number = 0;
     public x: number = 0;
@@ -76,7 +76,7 @@ export class TextBouncerComponent extends Vue {
     }
 
     destroyed() {
-        if (typeof this.subscription !== 'undefined') {
+        if (typeof this.subscription !== "undefined") {
             this.subscription.unsubscribe();
         }
     }

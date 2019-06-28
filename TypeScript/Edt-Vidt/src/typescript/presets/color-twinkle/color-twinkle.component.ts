@@ -1,12 +1,12 @@
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
-import { Actions$ } from '../../../../../Shared/actions';
-import { IColor } from '../../../../../Shared/types';
-import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import { Actions$ } from "../../../../../Shared/actions";
+import { IColor } from "../../../../../Shared/types";
+import { ColorHelper } from "../../../../../Shared/helpers/hsv-2-rgb";
 
 @Component({
-    name: 'color-twinkle',
-    template: require('./color-twinkle.template'),
+    name: "color-twinkle",
+    template: require("./color-twinkle.template"),
     components: {},
 })
 export class ColorTwinkleComponent extends Vue {
@@ -31,7 +31,7 @@ export class ColorTwinkleComponent extends Vue {
     }
 
     destroyed() {
-        if (typeof this.colorSubscription !== 'undefined') {
+        if (typeof this.colorSubscription !== "undefined") {
             this.colorSubscription.unsubscribe();
         }
     }

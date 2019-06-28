@@ -1,17 +1,17 @@
-const watch         = require("./watch");
-const browserSync   = require("browser-sync");
+const watch = require("./watch");
+const browserSync = require("browser-sync");
 
 function serve() {
     browserSync({
         server: {
-            baseDir: './dist'
+            baseDir: "./dist",
         },
         port: 3030,
         notify: false,
         open: false,
         ui: {
-            port: 3031
-        }
+            port: 3031,
+        },
     });
 
     const reload = (done) => {

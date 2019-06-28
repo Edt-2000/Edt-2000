@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
-import { Actions$ } from '../../../../../Shared/actions';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import { Actions$ } from "../../../../../Shared/actions";
 
 @Component({
-    name: 'photo-bouncer',
-    template: require('./photo-bouncer.template'),
+    name: "photo-bouncer",
+    template: require("./photo-bouncer.template"),
     components: {},
 })
 export class PhotoBouncerComponent extends Vue {
@@ -16,23 +16,23 @@ export class PhotoBouncerComponent extends Vue {
     };
 
     public animation: Animation;
-    public src: string = '';
+    public src: string = "";
 
     mounted() {
         this.animation = this.$refs.img.animate(
             [
                 {
-                    transform: 'scale(1)',
+                    transform: "scale(1)",
                 },
                 {
-                    transform: 'scale(1.5)',
+                    transform: "scale(1.5)",
                 },
                 {
-                    transform: 'scale(1)',
+                    transform: "scale(1)",
                 },
             ],
             {
-                easing: 'linear',
+                easing: "linear",
                 duration: 200,
             },
         );
@@ -54,7 +54,7 @@ export class PhotoBouncerComponent extends Vue {
 
     animate() {
         requestAnimationFrame(() => {
-            if (this.animation.playState === 'running') {
+            if (this.animation.playState === "running") {
                 this.animation.cancel();
             }
 
@@ -65,11 +65,11 @@ export class PhotoBouncerComponent extends Vue {
     }
 
     destroyed() {
-        if (typeof this.beatSubscription !== 'undefined') {
+        if (typeof this.beatSubscription !== "undefined") {
             this.beatSubscription.unsubscribe();
         }
 
-        if (typeof this.photoSubscription !== 'undefined') {
+        if (typeof this.photoSubscription !== "undefined") {
             this.photoSubscription.unsubscribe();
         }
     }
