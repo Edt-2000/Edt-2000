@@ -11,7 +11,7 @@ export class ColorToFastLedSpark extends PresetLogic {
         group: ModifierGroup.FastLED,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.singleColor.pipe(skip(1)).subscribe(color => {
                 FastLedtSpark(0, color, this.modifier);
@@ -19,6 +19,6 @@ export class ColorToFastLedSpark extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

@@ -17,7 +17,7 @@ export class DrumSoundToBeat extends PresetLogic {
         group: ModifierGroup.Drums,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.mainDrumSound
                 .pipe(filter(drum => drum === this.modifier))
@@ -27,6 +27,6 @@ export class DrumSoundToBeat extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

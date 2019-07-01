@@ -7,7 +7,7 @@ export class MultiColorToVidtMultiColor extends PresetLogic {
         group: ModifierGroup.Vidt,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.multiColor.subscribe(color => {
                 nextActionFromMsg(Actions.vidtMultiColor(color));
@@ -15,6 +15,6 @@ export class MultiColorToVidtMultiColor extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

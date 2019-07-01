@@ -10,7 +10,7 @@ export class ColorStrobeRGBLed extends PresetLogic {
         group: ModifierGroup.RGBLED,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.singleColor.subscribe(color => {
                 RGBLedtStrobe(0, this.modifier, color.h);
@@ -18,7 +18,7 @@ export class ColorStrobeRGBLed extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
         // turn of strobe
         RGBLedtStrobe(0, 0, 0);
     }

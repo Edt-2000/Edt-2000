@@ -59,7 +59,7 @@ export const presets = {
     [Note.D7]: new MultiColorToVidtMultiColor(),
 };
 
-export function getPresetState (): IControlPresetMsg[] {
+export function getPresetState(): IControlPresetMsg[] {
     return Object.getOwnPropertyNames(presets).map((presetNr) => {
         const preset = presets[presetNr];
         return {
@@ -76,7 +76,7 @@ export function getPresetState (): IControlPresetMsg[] {
     });
 }
 
-export function getPresetNote (preset: PresetLogic): number {
+export function getPresetNote(preset: PresetLogic): number {
     return +Object.getOwnPropertyNames(presets).find(
         (presetNote) => presets[presetNote].title === preset.title,
     );

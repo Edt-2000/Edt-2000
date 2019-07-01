@@ -11,7 +11,7 @@ export class MidiChannelToMainMelody extends PresetLogic {
         group: ModifierGroup.Color,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             musicNoteOn$
                 .pipe(filter(note => note.channel === this.modifier))
@@ -21,6 +21,6 @@ export class MidiChannelToMainMelody extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

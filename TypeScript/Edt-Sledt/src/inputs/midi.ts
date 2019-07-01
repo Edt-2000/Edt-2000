@@ -6,7 +6,7 @@ import { noteToNote, noteToOctave } from '../../../Shared/utils';
 import { automationChannel } from '../../../Shared/config';
 
 const midiOSC$ = OSC$.pipe(
-    filter(OSCMsg =>
+    filter((OSCMsg) =>
         OSCMsg.addresses.length === 2 &&
         OSCMsg.addresses[0] === 'midi' &&
         OSCMsg.values.length === 3,
@@ -14,8 +14,8 @@ const midiOSC$ = OSC$.pipe(
 );
 
 const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
-    filter(OSCMsg => OSCMsg.addresses[1] === 'note'),
-    map(OSCMsg => {
+    filter((OSCMsg) => OSCMsg.addresses[1] === 'note'),
+    map((OSCMsg) => {
         return {
             note: +OSCMsg.values[1],
             noteOn: +OSCMsg.values[2] !== 0,
@@ -28,15 +28,15 @@ const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
 );
 
 export const automationNoteOnOff$ = noteOnOff$.pipe(
-    filter(note => note.channel === automationChannel),
+    filter((note) => note.channel === automationChannel),
 );
 
 export const musicNoteOn$ = noteOnOff$.pipe(
-    filter(OSCMsg => OSCMsg.noteOn),
-    filter(note => note.channel !== automationChannel),
+    filter((OSCMsg) => OSCMsg.noteOn),
+    filter((note) => note.channel !== automationChannel),
 );
 
 export const musicNoteOff$ = noteOnOff$.pipe(
-    filter(OSCMsg => !OSCMsg.noteOn),
-    filter(note => note.channel !== automationChannel),
+    filter((OSCMsg) => !OSCMsg.noteOn),
+    filter((note) => note.channel !== automationChannel),
 );

@@ -7,7 +7,7 @@ export class MainBeatToVidtBeat extends PresetLogic {
         group: ModifierGroup.Vidt,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.mainBeat.subscribe(velocity => {
                 nextActionFromMsg(Actions.vidtBeat(velocity));
@@ -15,6 +15,6 @@ export class MainBeatToVidtBeat extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

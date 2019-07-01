@@ -11,14 +11,14 @@ interface IPedalMsg {
 
 export const edtPedal$: Observable<IPedalMsg> = OSC$.pipe(
     filter(
-        OSCMsg =>
+        (OSCMsg) =>
             OSCMsg.addresses.length === 2 &&
             OSCMsg.addresses[0] === OSCDevices.EdtPedal &&
             +OSCMsg.addresses[1] >= 1 &&
             +OSCMsg.addresses[1] <= 127 &&
             OSCMsg.values.length === 1,
     ),
-    map(OSCMsg => {
+    map((OSCMsg) => {
         return {
             instance: +OSCMsg.addresses[1],
             pedal: OSCMsg.values[0],

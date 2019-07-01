@@ -7,7 +7,7 @@ export class ColorToVidtColor extends PresetLogic {
         group: ModifierGroup.Vidt,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.singleColor.subscribe(color => {
                 nextActionFromMsg(Actions.vidtSingleColor(color));
@@ -20,6 +20,6 @@ export class ColorToVidtColor extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

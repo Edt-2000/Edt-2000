@@ -16,7 +16,7 @@ export class MainMelodyToChunksOfFastLedt extends PresetLogic {
         group: ModifierGroup.FastLED,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.mainMelody
                 .pipe(withLatestFrom(Actions$.singleColor))
@@ -36,6 +36,6 @@ export class MainMelodyToChunksOfFastLedt extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

@@ -9,7 +9,7 @@ export class ColorToFastLedSolid extends PresetLogic {
         group: ModifierGroup.FastLED,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.singleColor.pipe(skip(1)).subscribe(color => {
                 FastLedtSingleSolid(0, color);
@@ -17,6 +17,6 @@ export class ColorToFastLedSolid extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

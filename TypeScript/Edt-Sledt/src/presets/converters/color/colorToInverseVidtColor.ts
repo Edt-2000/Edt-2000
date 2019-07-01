@@ -8,7 +8,7 @@ export class ColorToInverseVidtColor extends PresetLogic {
         group: ModifierGroup.Color,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.singleColor.pipe().subscribe((color: IColor) => {
                 const newColor: IColor = {
@@ -21,6 +21,6 @@ export class ColorToInverseVidtColor extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

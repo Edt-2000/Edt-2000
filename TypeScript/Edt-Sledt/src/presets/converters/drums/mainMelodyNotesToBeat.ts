@@ -6,9 +6,9 @@ export class MainMelodyNotesToBeat extends PresetLogic {
         group: ModifierGroup.Drums,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

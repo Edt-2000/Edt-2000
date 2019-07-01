@@ -10,7 +10,7 @@ export class BeatToColor extends PresetLogic {
 
     private index = -1;
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.mainBeat
                 .pipe(withLatestFrom(Actions$.multiColor))
@@ -22,6 +22,6 @@ export class BeatToColor extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

@@ -11,12 +11,12 @@ export class DrumSoundMap extends PresetLogic {
         group: ModifierGroup.DrumSounds,
     };
 
-    constructor (public sound: DrumSounds) {
+    constructor(public sound: DrumSounds) {
         super();
         this.title = 'DrumTo-' + DrumSounds[this.sound];
     }
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.mainDrum
                 .pipe(filter(drumNote => this.modifier === drumNote.note))
@@ -26,6 +26,6 @@ export class DrumSoundMap extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

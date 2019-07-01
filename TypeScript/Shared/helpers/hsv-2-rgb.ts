@@ -2,7 +2,7 @@ import { mapInput } from './map-input';
 import { IColor } from '../types';
 
 export class ColorHelper {
-    static getRGBString (hsvColors: IColor[]) {
+    static getRGBString(hsvColors: IColor[]) {
         const rgbColors = ColorHelper.hsvArray2RGBArray(hsvColors);
 
         let bcgColor: string = '';
@@ -31,11 +31,11 @@ export class ColorHelper {
         return bcgColor;
     }
 
-    static hsvArray2RGBArray (hsvColors: IColor[]) {
+    static hsvArray2RGBArray(hsvColors: IColor[]) {
         return hsvColors.map(ColorHelper.hsv2rgb);
     }
 
-    static hsv2rgb (hsv: IColor): number[] {
+    static hsv2rgb(hsv: IColor): number[] {
         const h = mapInput(hsv.h, 0, 255, 0, 360) / 60;
         const s = hsv.s / 255;
         let v = hsv.b / 255;

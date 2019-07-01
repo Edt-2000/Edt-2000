@@ -11,7 +11,7 @@ export class MidiToColors extends PresetLogic {
         group: ModifierGroup.Color,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             musicNoteOn$
                 .pipe(
@@ -28,6 +28,6 @@ export class MidiToColors extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

@@ -27,32 +27,35 @@ export class DrumSoundToFastLedStrip extends PresetLogic {
         ],
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         FastLedtSinglePulse(0, 100, BlackColor); // Turn of all strips before starting
         this.addSub(
             Actions$.mainDrumSound
                 .pipe(withLatestFrom(Actions$.singleColor))
                 .subscribe(([drumSound, color]) => {
-                    if (this.patterns[this.modifier])
+                    if (this.patterns[this.modifier]) {
                         this.horizontalCompleteStrips(
                             drumSound,
                             color,
                             this.patterns[this.modifier],
                         );
+                    }
                 }),
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 
-    private horizontalCompleteStrips (
+    private horizontalCompleteStrips(
         drumSound: DrumSounds,
         color: IColor,
         pattern: number[],
     ) {
         pattern.forEach((sound, index) => {
-            if (sound === drumSound) FastLedtSinglePulse(index + 1, 50, color);
+            if (sound === drumSound) {
+                FastLedtSinglePulse(index + 1, 50, color);
+            }
         });
     }
 }

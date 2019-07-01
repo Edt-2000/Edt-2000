@@ -6,12 +6,12 @@ import { ITrack } from '../../../Shared/types';
 
 export const edtTrack$: Observable<ITrack> = OSC$.pipe(
     filter(
-        OSCMsg =>
+        (OSCMsg) =>
             OSCMsg.addresses.length === 1 &&
             OSCMsg.addresses[0] === OSCDevices.EdtTrack &&
             OSCMsg.values.length === 6,
     ),
-    map(OSCMsg => {
+    map((OSCMsg) => {
         return {
             left: {
                 x: OSCMsg.values[0],

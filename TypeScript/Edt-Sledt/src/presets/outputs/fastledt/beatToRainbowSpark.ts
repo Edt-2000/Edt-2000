@@ -11,7 +11,7 @@ export class BeatToRainbowSpark extends PresetLogic {
         group: ModifierGroup.FastLED,
     };
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.addSub(
             Actions$.mainBeat
                 .pipe(withLatestFrom(Actions$.singleColor))
@@ -21,6 +21,6 @@ export class BeatToRainbowSpark extends PresetLogic {
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }

@@ -15,12 +15,12 @@ interface IAudio {
 
 export const edtAudio$: Observable<IAudio> = OSC$.pipe(
     filter(
-        OSCMsg =>
+        (OSCMsg) =>
             OSCMsg.addresses.length === 1 &&
             OSCMsg.addresses[0] === OSCDevices.EdtAudio &&
             OSCMsg.values.length === 7,
     ),
-    map(OSCMsg => {
+    map((OSCMsg) => {
         return {
             _1: OSCMsg.values[0],
             _2: OSCMsg.values[1],

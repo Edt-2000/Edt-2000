@@ -51,6 +51,6 @@ export const colorSets: IColor[][] = [
     ].map(createFullColor),
 ];
 
-export function createFullColor (h: number): IColor {
+export function createFullColor(h: number): IColor {
     return {h, s: 255, b: 255};
 }

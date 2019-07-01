@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 
 const connectedControlsSubject$ = new BehaviorSubject<string[]>([]);
 
-controlSocket$.subscribe(socket => {
+controlSocket$.subscribe((socket) => {
     connectedControlsSubject$.next(Object.keys(socket.nsp.sockets));
 
     const disconnected$ = fromEvent<SocketIO.Socket>(socket, 'disconnect');
@@ -16,19 +16,19 @@ controlSocket$.subscribe(socket => {
         connectedControlsSubject$.next(Object.keys(socket.nsp.sockets));
     });
 
-    Actions$.presetState.pipe(takeUntil(disconnected$)).subscribe(state => {
+    Actions$.presetState.pipe(takeUntil(disconnected$)).subscribe((state) => {
         socket.emit('toControl', Actions.presetState(state));
     });
-    Actions$.cueList.pipe(takeUntil(disconnected$)).subscribe(list => {
+    Actions$.cueList.pipe(takeUntil(disconnected$)).subscribe((list) => {
         socket.emit('toControl', Actions.cueList(list));
     });
-    Actions$.videoList.pipe(takeUntil(disconnected$)).subscribe(list => {
+    Actions$.videoList.pipe(takeUntil(disconnected$)).subscribe((list) => {
         socket.emit('toControl', Actions.videoList(list));
     });
-    Actions$.imageList.pipe(takeUntil(disconnected$)).subscribe(list => {
+    Actions$.imageList.pipe(takeUntil(disconnected$)).subscribe((list) => {
         socket.emit('toControl', Actions.imageList(list));
     });
-    Actions$.colorPalette.pipe(takeUntil(disconnected$)).subscribe(colors => {
+    Actions$.colorPalette.pipe(takeUntil(disconnected$)).subscribe((colors) => {
         socket.emit('toControl', Actions.colorPalette(colors));
     });
 

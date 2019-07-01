@@ -1,4 +1,3 @@
-'use strict';
 import { socketPort } from '../../../Shared/config';
 import * as SocketIO from 'socket.io';
 import { fromEvent } from 'rxjs';

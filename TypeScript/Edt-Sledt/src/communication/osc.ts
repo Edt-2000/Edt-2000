@@ -8,7 +8,7 @@ const sock = dgram.createSocket('udp4', processOscMessage);
 
 sock.bind(oscInPort);
 
-export function convertToOSC (addresses: string[], params: number[]) {
+export function convertToOSC(addresses: string[], params: number[]) {
     // TODO: remove 0 -> ? conversion and implement 0 in all receivers
     const thomasAddress = '/' + addresses.join('/').replace('0', '?');
 
@@ -23,7 +23,7 @@ export function convertToOSC (addresses: string[], params: number[]) {
     });
 }
 
-export function sendToOSC (
+export function sendToOSC(
     device: DeviceIPs,
     addresses: string[],
     params: number[] = [],
@@ -47,7 +47,7 @@ export interface IOSCMessage {
  * @param msg
  * @param rinfo
  */
-function processOscMessage (msg, rinfo) {
+function processOscMessage(msg, rinfo) {
     try {
         const oscMessage = osc.fromBuffer(msg);
         if (oscMessage.oscType === 'message') {

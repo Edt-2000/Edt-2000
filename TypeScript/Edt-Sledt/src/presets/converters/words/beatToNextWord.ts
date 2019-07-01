@@ -10,7 +10,7 @@ export class BeatToNextWord extends PresetLogic {
 
     private index: number;
 
-    protected _startPreset (): void {
+    protected _startPreset(): void {
         this.index = -1;
         this.addSub(
             Actions$.mainBeat
@@ -19,12 +19,14 @@ export class BeatToNextWord extends PresetLogic {
                     // TODO: Use rxjs operator
                     // Calculate index++ but wrap around if too far
                     this.index++;
-                    if (this.index >= wordSet.length) this.index = 0;
+                    if (this.index >= wordSet.length) {
+                        this.index = 0;
+                    }
                     nextActionFromMsg(Actions.mainText(wordSet[this.index]));
                 }),
         );
     }
 
-    protected _stopPreset (): void {
+    protected _stopPreset(): void {
     }
 }
