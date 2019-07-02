@@ -8,6 +8,8 @@ const sock = dgram.createSocket('udp4', processOscMessage);
 
 sock.bind(oscInPort);
 
+export const OSCOutput$ = new Subject<string>();
+
 export function convertToOSC(addresses: string[], params: number[]) {
     // TODO: remove 0 -> ? conversion and implement 0 in all receivers
     const thomasAddress = '/' + addresses.join('/').replace('0', '?');
@@ -28,6 +30,7 @@ export function sendToOSC(
     addresses: string[],
     params: number[] = [],
 ): void {
+    OSCOutput$.next(`OSC: ${addresses.join('/')} ${params.join(' ')}`);
     const buf = convertToOSC(addresses, params);
     return sock.send(buf, 0, buf.length, oscOutPort, device);
 }

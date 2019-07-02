@@ -5,7 +5,6 @@ import { MainBeatToVidtBeat } from './outputs/vidt/mainBeatToVidtBeat';
 import { ColorToVidtColor } from './outputs/vidt/colorToVidtColor';
 import { MultiColorToVidtMultiColor } from './outputs/vidt/multiColorToVidtMultiColor';
 import { ColorToFastLedSolid } from './outputs/fastledt/colorToFastLedSolid';
-import { ColorStrobeFastLed } from './outputs/fastledt/colorStrobeFastLed';
 import { ColorStrobeRGBLed } from './outputs/rgbledt/colorStrobeRGBLed';
 import { DrumSoundToFastLedStrip } from './outputs/fastledt/drumSoundToFastLedStrip';
 import { ColorToRGBLedSolid } from './outputs/rgbledt/colorToRGBLedSolid';
@@ -20,6 +19,7 @@ import { DrumSoundMap } from './converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../Shared/drums';
 import { PresetLogic } from './presets-logic';
 import { MidiChannelToMainDrum } from './converters/drums/midiChannelToMainDrum';
+import { ColorToFastLedStrobe } from './outputs/fastledt/colorToFastLedStrobe';
 
 export const presets = {
     [Note.A1]: new DrumSoundToBeat(),
@@ -45,7 +45,7 @@ export const presets = {
 
     [Note.A0]: new ColorToFastLedSolid(),
     [Note.B0]: new ColorToRGBLedSolid(),
-    [Note.C0]: new ColorStrobeFastLed(),
+    [Note.C0]: new ColorToFastLedStrobe(),
     [Note.D0]: new ColorStrobeRGBLed(),
 
     [Note.A4]: new BeatToNextWord(),
@@ -60,7 +60,7 @@ export const presets = {
 };
 
 export function getPresetState(): IControlPresetMsg[] {
-    return Object.getOwnPropertyNames(presets).map((presetNr) => {
+    return Object.getOwnPropertyNames(presets).map(presetNr => {
         const preset = presets[presetNr];
         return {
             preset: +presetNr, // preset key is a string, but send it as number
@@ -77,7 +77,5 @@ export function getPresetState(): IControlPresetMsg[] {
 }
 
 export function getPresetNote(preset: PresetLogic): number {
-    return +Object.getOwnPropertyNames(presets).find(
-        (presetNote) => presets[presetNote].title === preset.title,
-    );
+    return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === preset.title);
 }

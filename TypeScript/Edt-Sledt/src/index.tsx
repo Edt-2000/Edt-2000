@@ -1,4 +1,4 @@
-import { filter, tap } from 'rxjs/operators';
+import { filter, scan, startWith, tap } from 'rxjs/operators';
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions';
 import { getPresetState, presets } from './presets/presets';
 import * as React from 'react';
@@ -9,6 +9,7 @@ import { EdtConsole } from './outputs/edt-console';
 import { connectedControls$ } from './outputs/edt-control';
 import { connectedVidt$ } from './outputs/edt-vidt';
 import { combineLatest } from 'rxjs';
+import { OSCOutput$ } from './communication/osc';
 
 const {rerender} = render(<></>);
 
@@ -27,9 +28,13 @@ combineLatest(
     connectedVidt$,
     connectedControls$,
     Actions$.presetState,
+    OSCOutput$.pipe(
+        startWith(''),
+        scan<string>((mostRecent, current) => [...mostRecent, current].slice(-9), []),
+    ),
 ).pipe(
-    tap(([vidts, controls, presetState]) => {
-        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState}/>);
+    tap(([vidts, controls, presetState, latestOSC]) => {
+        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState} latestOSC={latestOSC}/>);
     }),
 ).subscribe();
 
