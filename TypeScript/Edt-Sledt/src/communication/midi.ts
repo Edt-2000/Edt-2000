@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { IMidiNoteMsg } from '../../../Shared/types';
 import { filter, map } from 'rxjs/operators';
-import { OSC$ } from '../communication/osc';
+import { OSC$ } from './osc';
 import { noteToNote, noteToOctave } from '../../../Shared/utils';
 import { automationChannel } from '../../../Shared/config';
 

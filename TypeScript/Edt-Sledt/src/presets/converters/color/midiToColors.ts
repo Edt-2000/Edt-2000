@@ -1,4 +1,4 @@
-import { musicNoteOn$ } from '../../../inputs/midi';
+import { musicNoteOn$ } from '../../../communication/midi';
 import { PresetLogic } from '../../presets-logic';
 import { filter, withLatestFrom } from 'rxjs/operators';
 import { modifiers } from '../../../../../Shared/modifiers';

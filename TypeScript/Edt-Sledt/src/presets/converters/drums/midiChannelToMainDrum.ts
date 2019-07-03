@@ -1,5 +1,5 @@
 import { PresetLogic } from '../../presets-logic';
-import { musicNoteOn$ } from '../../../inputs/midi';
+import { musicNoteOn$ } from '../../../communication/midi';
 import { modifiers } from '../../../../../Shared/modifiers';
 import { filter } from 'rxjs/operators';
 import { Actions, nextActionFromMsg } from '../../../../../Shared/actions';
