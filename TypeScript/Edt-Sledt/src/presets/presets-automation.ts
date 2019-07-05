@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { IPresetMsg } from '../../../Shared/types';
 import { Observable } from 'rxjs';
 import { sendToOSC } from '../communication/osc';
-import { automationChannel, DeviceIPs, MOSCIDIOutPort } from '../../../Shared/config';
+import { automationChannel, DeviceIPs, MOSCIDIPort } from '../../../Shared/config';
 
 export const midiPresetChange$: Observable<IPresetMsg> = automationNoteOnOff$.pipe(
     map(note => {
@@ -19,8 +19,9 @@ export function sendMidiPresetChange({preset, modifier, state}: IPresetMsg) {
     // Send velocity (modifier) or 0 when noteOff
     sendToOSC(
         DeviceIPs.edtMOSCidi,
-        MOSCIDIOutPort,
+        MOSCIDIPort,
         ['midi', 'note'],
         [automationChannel, preset, state ? modifier : 0],
     );
 }
+

@@ -76,13 +76,11 @@ export const defaultColor: IColor = {
 
 export const OSCInPort = 12345;
 export const OSCDispedtOutPort = 12346;
-export const MOSCIDIOutPort = 12347;
+export const MOSCIDIPort = 12347;
 
 export const automationChannel = 16;
 
 export const fastLedAmount: number = 7;
-
-export const virtualMidiOutputDevice = 'EDT-SLEDT-OUT';
 
 // The channel_10 notes are mapped by the KORG to the following note numbers
 export enum DrumNotes {
