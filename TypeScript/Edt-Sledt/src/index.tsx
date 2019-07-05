@@ -8,18 +8,23 @@ import { presetCues } from './cues/cues';
 import { EdtConsole } from './outputs/edt-console';
 import { connectedControls$ } from './outputs/edt-control';
 import { connectedVidt$ } from './outputs/edt-vidt';
-import { combineLatest } from 'rxjs';
+import { combineLatest, merge } from 'rxjs';
 import { OSCOutput$ } from './communication/osc';
+import { midiPresetChange$, sendMidiPresetChange } from './presets/presets-automation';
 
 const {rerender} = render(<></>);
 
-Actions$.presetChange.pipe(
+merge(
+    // only send MIDI on actions, not on midi input; otherwise endless loop!
+    midiPresetChange$,
+    Actions$.presetChange.pipe(tap(sendMidiPresetChange)),
+).pipe(
     filter(msg => presets[msg.preset]),
-    tap(msg => {
-        if (msg.state) {
-            presets[msg.preset].startPreset(msg.modifier);
+    tap(({modifier, preset, state}) => {
+        if (state) {
+            presets[preset].startPreset(modifier);
         } else {
-            presets[msg.preset].stopPreset();
+            presets[preset].stopPreset();
         }
     }),
 ).subscribe();

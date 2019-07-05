@@ -15,7 +15,7 @@ void setup() {
   size(240, 500);
   MidiBus.list();
   
-  osc = new OscP5(this, 12346);
+  osc = new OscP5(this, 12347);
   loc = new NetAddress("127.0.0.1", 12345);
   osc.plug(this, "oscToMidiNote", "/midi/note");
   osc.plug(this, "oscToMidiCC", "/midi/cc");
@@ -26,7 +26,7 @@ void setup() {
   cp5.addTextfield("inputPort")
     .setPosition(20, nextY())
     .setSize(200,20)
-    .setValue("12346")
+    .setValue("12347")
     .setAutoClear(false);
     
   cp5.addTextfield("outputPort")
@@ -90,14 +90,18 @@ public void Update() {
 
 // OSC -> MIDI
 
-public void oscToMidiNote(int note, int value) {
-  log("Got OSC Note: " + note + " Velocity: " + value); 
-  midi.sendNoteOn(0, note, value);
+public void oscToMidiNote(int channel, int note, int value) {
+  log("Got OSC Note: " + note + " Velocity: " + value + " Channel: " + channel); 
+  if(value == 0) {
+    midi.sendNoteOff(channel, note, value);
+  } else {
+    midi.sendNoteOn(channel, note, value);
+  }
 }
 
 public void oscToMidiCC(int control, int value) {
   log("Got OSC CC: " + control + " Value: " + value);
-   midi.sendControllerChange(0, control, value);
+   midi.sendControllerChange(15, control, value);
 }
 
 // MIDI -> OSC
@@ -116,7 +120,7 @@ void noteOff(int channel, int pitch, int velocity) {
   OscMessage msg = new OscMessage("/midi/note");
   msg.add(channel);
   msg.add(pitch);
-  msg.add(velocity);
+  msg.add(0);
   osc.send(msg, loc);
 }
 

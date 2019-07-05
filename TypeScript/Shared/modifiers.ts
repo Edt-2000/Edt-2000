@@ -15,7 +15,7 @@ export const modifiers = {
         {label: 'slow', value: 30},
         {label: 'more slow', value: 10},
     ],
-    midiChannels: Array(16)
+    midiChannels: [...Array(16)]
         .filter(channel => channel !== automationChannel)
         .map((_, nr) => ({
             label: `Channel: ${nr + 1}`,

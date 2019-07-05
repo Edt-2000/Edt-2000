@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { DeviceIPs, oscInPort, oscOutPort } from '../../../Shared/config';
+import { DeviceIPs, OSCInPort } from '../../../Shared/config';
 import dgram = require('dgram');
 import osc = require('osc-min');
 
 const sock = dgram.createSocket('udp4', processOscMessage);
 
-sock.bind(oscInPort);
+sock.bind(OSCInPort);
 
 export const OSCOutput$ = new Subject<string>();
 
@@ -27,12 +27,13 @@ export function convertToOSC(addresses: string[], params: number[]) {
 
 export function sendToOSC(
     device: DeviceIPs,
+    port: number,
     addresses: string[],
     params: number[] = [],
 ): void {
     OSCOutput$.next(`OSC: ${addresses.join('/')} ${params.join(' ')}`);
     const buf = convertToOSC(addresses, params);
-    return sock.send(buf, 0, buf.length, oscOutPort, device);
+    return sock.send(buf, 0, buf.length, port, device);
 }
 
 // Use a subject to be able to push new OSC messages
