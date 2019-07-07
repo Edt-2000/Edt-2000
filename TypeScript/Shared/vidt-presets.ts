@@ -1,4 +1,5 @@
 export enum vidtPresets {
+    'EMPTYFIRSTVALUE',
     'logo',
     'bluescreen',
     'color',
