@@ -21,6 +21,7 @@ export const EdtConsole = (
         <Box>--------</Box>
         {
             presetState
+                .filter(({state}) => !!state)
                 .map(({title, state, preset}) => {
                         return <Box key={preset}>
                             {title} is {state ? <Color greenBright>active</Color> : <Color red>inactive</Color>}

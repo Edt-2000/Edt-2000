@@ -26,10 +26,14 @@ export class MainMelodyToChunksOfFastLedt extends PresetLogic {
                         ledStripIndex < fastLedAmount;
                         ledStripIndex++
                     ) {
-                        const start = note.note;
+                        const start = Math.floor((127 / 13) * note.noteNumber);
+                        const end = Math.floor((127 / 13) * (note.noteNumber + 1));
+
                         FastLedtSingleSolid(
                             ledStripIndex + 1,
                             color,
+                            start,
+                            end,
                         );
                     }
                 }),

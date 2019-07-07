@@ -20,11 +20,11 @@ export class DrumSoundToFastLedStrip extends PresetLogic {
                 .subscribe(([drumSound, color]) => {
                     [
                         DrumSounds.kick,
-                        DrumSounds.snare,
+                        DrumSounds.mainSnare,
                         DrumSounds.kick,
-                        DrumSounds.snare,
+                        DrumSounds.mainSnare,
                         DrumSounds.kick,
-                        DrumSounds.snare,
+                        DrumSounds.mainSnare,
                         DrumSounds.kick,
                     ].forEach((sound, index) => {
                         if (sound === drumSound) {

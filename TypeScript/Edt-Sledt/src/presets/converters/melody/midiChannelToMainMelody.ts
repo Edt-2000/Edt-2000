@@ -8,7 +8,7 @@ import { ModifierGroup } from '../../../../../Shared/types';
 export class MidiChannelToMainMelody extends PresetLogic {
     modifierOptions = {
         select: modifiers.midiChannels,
-        group: ModifierGroup.Color,
+        group: ModifierGroup.Melody,
     };
 
     protected _startPreset(): void {

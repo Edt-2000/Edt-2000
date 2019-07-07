@@ -1,6 +1,7 @@
 import { Note } from './midi';
 import { automationChannel, DrumNotes } from './config';
 import { groupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './types';
+import { DrumSounds } from './drums';
 
 export const modifiers = {
     strobeSpeeds: [
@@ -32,6 +33,15 @@ export const modifiers = {
         {label: `_7A - ${Note[DrumNotes._7A]}`, value: DrumNotes._7A},
         {label: `_7B - ${Note[DrumNotes._7B]}`, value: DrumNotes._7B},
     ],
+    drumSounds: Object.keys(DrumSounds)
+    // Filter out numeric entries of enum
+        .filter(entry => isNaN(+entry) && +entry !== 0)
+        .map(sound => {
+            return {
+                label: sound,
+                value: DrumSounds[sound],
+            };
+        }),
     glitchIntensity: [
         {label: 'low', value: 1},
         {label: 'medium', value: 3},

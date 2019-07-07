@@ -24,4 +24,3 @@ export function sendMidiPresetChange({preset, modifier, state}: IPresetMsg) {
         [automationChannel, preset, state ? modifier : 0],
     );
 }
-

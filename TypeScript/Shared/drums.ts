@@ -1,4 +1,5 @@
 export enum DrumSounds {
+    ____EMPTY____,
     kick,
     mainSnare,
     secondSnare,

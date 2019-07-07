@@ -24,7 +24,7 @@ export const drumCues = [
                 state: true,
             }),
             Actions.presetChange({
-                preset: getPresetNote(new DrumSoundMap(DrumSounds.snare)),
+                preset: getPresetNote(new DrumSoundMap(DrumSounds.mainSnare)),
                 modifier: DrumNotes._2,
                 state: true,
             }),

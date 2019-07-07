@@ -20,12 +20,13 @@ import { DrumSounds } from '../../../Shared/drums';
 import { PresetLogic } from './presets-logic';
 import { MidiChannelToMainDrum } from './converters/drums/midiChannelToMainDrum';
 import { ColorToFastLedStrobe } from './outputs/fastledt/colorToFastLedStrobe';
+import { MainMelodyToChunksOfFastLedt } from './outputs/fastledt/mainMelodyToChunksOfFastLedt';
 
 export const presets = {
     [Note.A1]: new DrumSoundToBeat(),
 
     [Note.C$0]: new DrumSoundMap(DrumSounds.kick),
-    [Note.A$0]: new DrumSoundMap(DrumSounds.snare),
+    [Note.A$0]: new DrumSoundMap(DrumSounds.mainSnare),
     [Note.F$0]: new DrumSoundMap(DrumSounds.floor),
     [Note.D$0]: new DrumSoundMap(DrumSounds.tom1),
     [Note.G$0]: new DrumSoundMap(DrumSounds.tom2),
@@ -52,6 +53,8 @@ export const presets = {
 
     [Note.A5]: new MidiChannelToMainMelody(),
     [Note.A6]: new MidiChannelToMainDrum(),
+
+    [Note.G_2]: new MainMelodyToChunksOfFastLedt(),
 
     [Note.A7]: new MainBeatToVidtBeat(),
     [Note.B7]: new ColorToVidtColor(),
