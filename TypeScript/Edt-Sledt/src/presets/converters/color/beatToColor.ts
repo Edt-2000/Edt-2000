@@ -13,7 +13,7 @@ export class BeatToColor extends PresetLogic {
     protected _startPreset(): void {
         this.addSub(
             Actions$.mainBeat
-                .pipe(withLatestFrom(Actions$.multiColor))
+                .pipe(withLatestFrom(Actions$.colorPalette))
                 .subscribe(([, colors]) => {
                     // Calculate new index with modulo
                     this.index = (this.index + 1) % colors.length;
