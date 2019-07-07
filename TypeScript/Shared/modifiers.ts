@@ -36,7 +36,7 @@ export const modifiers = {
     drumSounds: Object.keys(DrumSounds)
     // Filter out numeric entries of enum
         .filter(entry => isNaN(+entry))
-        .filter(entry => entry === '0')
+        .filter(entry => entry !== '____EMPTY____')
         .map(sound => {
             return {
                 label: sound,

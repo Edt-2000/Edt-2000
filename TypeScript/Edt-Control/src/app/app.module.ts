@@ -13,6 +13,7 @@ import { CuesControllerComponent } from './pages/cues-controller/cues-controller
 import { SocketService } from './socket.service';
 import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller.component';
 import { TriggerButtonComponent } from './components/trigger-button/trigger-button.component';
+import { TextControllerComponent } from './pages/text-controller/text-controller.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TriggerButtonComponent } from './components/trigger-button/trigger-butt
     CuesControllerComponent,
     VidtControllerComponent,
     TriggerButtonComponent,
+    TextControllerComponent,
   ],
   imports: [
     BrowserModule,
