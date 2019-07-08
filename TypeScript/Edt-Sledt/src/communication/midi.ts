@@ -7,8 +7,7 @@ import { automationChannel } from '../../../Shared/config';
 import { isMidiMessage, isMidiNoteMessage } from '../../../Shared/midi';
 
 const midiOSC$ = OSC$.pipe(
-    filter(isMidiMessage,
-    ),
+    filter(isMidiMessage),
 );
 
 const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(

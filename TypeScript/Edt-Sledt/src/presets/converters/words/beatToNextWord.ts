@@ -8,19 +8,14 @@ export class BeatToNextWord extends PresetLogic {
         group: ModifierGroup.Vidt,
     };
 
-    private index: number;
+    private index = -1;
 
     protected _startPreset(): void {
-        this.index = -1;
         this.addSub(
             Actions$.mainBeat
                 .pipe(withLatestFrom(Actions$.wordSet))
                 .subscribe(([, wordSet]) => {
-                    // Calculate index++ but wrap around if too far
-                    this.index++;
-                    if (wordSet.length <= this.index) {
-                        this.index = 0;
-                    }
+                    this.index = (this.index + 1) % wordSet.length;
                     nextActionFromMsg(Actions.mainText(wordSet[this.index]));
                 }),
         );

@@ -8,6 +8,11 @@ import { getPresetNote } from '../../presets/presets';
 import { MidiChannelToMainDrum } from '../../presets/converters/drums/midiChannelToMainDrum';
 import { BeatToNextWord } from '../../presets/converters/words/beatToNextWord';
 import { MainBeatToVidtBeat } from '../../presets/outputs/vidt/mainBeatToVidtBeat';
+import { BeatToColor } from '../../presets/converters/color/beatToColor';
+import { ColorToVidtColor } from '../../presets/outputs/vidt/colorToVidtColor';
+import { ColorToFastLedSolid } from '../../presets/outputs/fastledt/colorToFastLedSolid';
+import { ColorToRGBLedSolid } from '../../presets/outputs/rgbledt/colorToRGBLedSolid';
+import { Vidt } from '../../presets/control/vidt';
 
 export const drumCues = [
     {
@@ -28,15 +33,10 @@ export const drumCues = [
                 modifier: DrumNotes._2,
                 state: true,
             }),
-            Actions.presetChange({
-                preset: getPresetNote(new DrumSoundMap(DrumSounds.floor)),
-                modifier: DrumNotes._3,
-                state: true,
-            }),
         ],
     },
     {
-        label: 'DrumKick -> Beat',
+        label: 'DrumKick -> Beat & VidtBeat',
         actions: [
             Actions.presetChange({
                 preset: getPresetNote(new DrumSoundToBeat()),
@@ -50,37 +50,36 @@ export const drumCues = [
             }),
         ],
     },
-    // {
-    //     label: "DrumKick -> Beat -> Color -> All",
-    //     actions: [
-    //         Actions.presetChange({
-    //             preset: getPresetNote(new DrumSoundToBeat()),
-    //             modifier: DrumSounds.kick,
-    //             state: true,
-    //         }),
-    //         Actions.presetChange({
-    //             preset: getPresetNote(new BeatToColor()),
-    //             modifier: 127,
-    //             state: true,
-    //         }),
-    //         Actions.presetChange({
-    //             preset: getPresetNote(new ColorToVidtColor()),
-    //             modifier: 127,
-    //             state: true,
-    //         }),
-    //         Actions.presetChange({
-    //             preset: getPresetNote(new ColorToFastLedSolid()),
-    //             modifier: 127,
-    //             state: true,
-    //         }),
-    //         Actions.presetChange({
-    //             preset: getPresetNote(new ColorToRGBLedSolid()),
-    //             modifier: 127,
-    //             state: true,
-    //         }),
-    //         Actions.prepareVidt(vidtPresets.color),
-    //     ],
-    // },
+    {
+        label: 'DrumKick -> Beat -> Color -> All',
+        actions: [
+            Actions.presetChange({
+                preset: getPresetNote(new DrumSoundToBeat()),
+                modifier: DrumSounds.kick,
+                state: true,
+            }),
+            Actions.presetChange({
+                preset: getPresetNote(new BeatToColor()),
+                modifier: 127,
+                state: true,
+            }),
+            Actions.presetChange({
+                preset: getPresetNote(new ColorToVidtColor()),
+                modifier: 127,
+                state: true,
+            }),
+            Actions.presetChange({
+                preset: getPresetNote(new ColorToFastLedSolid()),
+                modifier: 127,
+                state: true,
+            }),
+            Actions.presetChange({
+                preset: getPresetNote(new ColorToRGBLedSolid()),
+                modifier: 127,
+                state: true,
+            }),
+        ],
+    },
     {
         label: 'VidtNextWordOnBeat',
         actions: [
@@ -94,7 +93,11 @@ export const drumCues = [
                 modifier: 127,
                 state: true,
             }),
-            Actions.prepareVidt(vidtPresets.karaoke),
+            Actions.presetChange({
+                preset: getPresetNote(new Vidt()),
+                modifier: vidtPresets.karaoke,
+                state: true,
+            }),
         ],
     },
 ];

@@ -5,7 +5,7 @@ import { Colors } from './colors';
 export const socketPort: number = 8988;
 
 export const enum DeviceIPs {
-    edtDispEdter = '10.0.0.201',
+    edtDispEdter = '192.168.2.76',
     edtMOSCidi = 'localhost',
     edtSledt = 'localhost',
 }

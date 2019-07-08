@@ -15,7 +15,6 @@ export class BeatToColor extends PresetLogic {
             Actions$.mainBeat
                 .pipe(withLatestFrom(Actions$.colorPalette))
                 .subscribe(([, colors]) => {
-                    // Calculate new index with modulo
                     this.index = (this.index + 1) % colors.length;
                     nextActionFromMsg(Actions.singleColor(colors[this.index]));
                 }),
