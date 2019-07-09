@@ -1,4 +1,5 @@
 export enum vidtPresets {
+    '____EMPTY____',
     'logo',
     'bluescreen',
     'color',
@@ -14,7 +15,9 @@ export enum vidtPresets {
     'karaoke',
 }
 
-export const vidtPresetsArr = Object.keys(vidtPresets).filter(vp => isNaN(+vp));
+export const vidtPresetsArr = Object.keys(vidtPresets)
+    .filter(vp => isNaN(+vp))
+    .filter(entry => entry !== '____EMPTY____');
 
 export enum animationTypes {
     bounce = 'bounce',

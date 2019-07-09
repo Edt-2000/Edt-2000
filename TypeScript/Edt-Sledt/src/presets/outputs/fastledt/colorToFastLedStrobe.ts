@@ -4,7 +4,7 @@ import { FastLedtStrobe } from '../../../outputs/edt-fastled';
 import { modifiers } from '../../../../../Shared/modifiers';
 import { ModifierGroup } from '../../../../../Shared/types';
 
-export class ColorStrobeFastLed extends PresetLogic {
+export class ColorToFastLedStrobe extends PresetLogic {
     modifierOptions = {
         select: modifiers.strobeSpeeds,
         group: ModifierGroup.FastLED,

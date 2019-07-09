@@ -5,7 +5,6 @@ import { MainBeatToVidtBeat } from './outputs/vidt/mainBeatToVidtBeat';
 import { ColorToVidtColor } from './outputs/vidt/colorToVidtColor';
 import { MultiColorToVidtMultiColor } from './outputs/vidt/multiColorToVidtMultiColor';
 import { ColorToFastLedSolid } from './outputs/fastledt/colorToFastLedSolid';
-import { ColorStrobeFastLed } from './outputs/fastledt/colorStrobeFastLed';
 import { ColorStrobeRGBLed } from './outputs/rgbledt/colorStrobeRGBLed';
 import { DrumSoundToFastLedStrip } from './outputs/fastledt/drumSoundToFastLedStrip';
 import { ColorToRGBLedSolid } from './outputs/rgbledt/colorToRGBLedSolid';
@@ -20,12 +19,16 @@ import { DrumSoundMap } from './converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../Shared/drums';
 import { PresetLogic } from './presets-logic';
 import { MidiChannelToMainDrum } from './converters/drums/midiChannelToMainDrum';
+import { ColorToFastLedStrobe } from './outputs/fastledt/colorToFastLedStrobe';
+import { MainMelodyToChunksOfFastLedt } from './outputs/fastledt/mainMelodyToChunksOfFastLedt';
+import { Vidt } from './control/vidt';
 
 export const presets = {
+    [Note.G8]: new Vidt(),
     [Note.A1]: new DrumSoundToBeat(),
 
     [Note.C$0]: new DrumSoundMap(DrumSounds.kick),
-    [Note.A$0]: new DrumSoundMap(DrumSounds.snare),
+    [Note.A$0]: new DrumSoundMap(DrumSounds.mainSnare),
     [Note.F$0]: new DrumSoundMap(DrumSounds.floor),
     [Note.D$0]: new DrumSoundMap(DrumSounds.tom1),
     [Note.G$0]: new DrumSoundMap(DrumSounds.tom2),
@@ -45,13 +48,15 @@ export const presets = {
 
     [Note.A0]: new ColorToFastLedSolid(),
     [Note.B0]: new ColorToRGBLedSolid(),
-    [Note.C0]: new ColorStrobeFastLed(),
+    [Note.C0]: new ColorToFastLedStrobe(),
     [Note.D0]: new ColorStrobeRGBLed(),
 
     [Note.A4]: new BeatToNextWord(),
 
     [Note.A5]: new MidiChannelToMainMelody(),
     [Note.A6]: new MidiChannelToMainDrum(),
+
+    [Note.G_2]: new MainMelodyToChunksOfFastLedt(),
 
     [Note.A7]: new MainBeatToVidtBeat(),
     [Note.B7]: new ColorToVidtColor(),
@@ -60,7 +65,7 @@ export const presets = {
 };
 
 export function getPresetState(): IControlPresetMsg[] {
-    return Object.getOwnPropertyNames(presets).map((presetNr) => {
+    return Object.getOwnPropertyNames(presets).map(presetNr => {
         const preset = presets[presetNr];
         return {
             preset: +presetNr, // preset key is a string, but send it as number
@@ -77,7 +82,5 @@ export function getPresetState(): IControlPresetMsg[] {
 }
 
 export function getPresetNote(preset: PresetLogic): number {
-    return +Object.getOwnPropertyNames(presets).find(
-        (presetNote) => presets[presetNote].title === preset.title,
-    );
+    return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === preset.title);
 }

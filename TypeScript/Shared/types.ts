@@ -62,6 +62,7 @@ export enum ModifierGroup {
     Vidt,
     RGBLED,
     FastLED,
+    Melody,
 }
 
 export interface IModifierOptions {

@@ -1,4 +1,4 @@
-import { DeviceIPs, Modii, OSCDevices } from '../../../Shared/config';
+import { DeviceIPs, Modii, OSCDevices, OSCDispedtOutPort } from '../../../Shared/config';
 import { IColor } from '../../../Shared/types';
 import { sendToOSC } from '../communication/osc';
 
@@ -11,6 +11,7 @@ export function FastLedtSpark(
 ) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
+        OSCDispedtOutPort,
         [OSCDevices.EdtFastLed + instance],
         [
             Modii.SingleSpark,
@@ -34,6 +35,7 @@ export function FastLedtRainbowSpark(
 ) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
+        OSCDispedtOutPort,
         [OSCDevices.EdtFastLed + instance],
         [Modii.RainbowSpark, start, end, startHue, deltaHue, duration],
     );
@@ -47,6 +49,7 @@ export function FastLedtSingleSolid(
 ) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
+        OSCDispedtOutPort,
         [OSCDevices.EdtFastLed + instance],
         [Modii.SingleSolid, start, end, colorMsg.h, colorMsg.s, colorMsg.b],
     );
@@ -61,6 +64,7 @@ export function FastLedtSinglePulse(
 ) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
+        OSCDispedtOutPort,
         [OSCDevices.EdtFastLed + instance],
         [
             Modii.SinglePulse,
@@ -77,6 +81,7 @@ export function FastLedtSinglePulse(
 export function FastLedtStrobe(instance: number, speed: number, hue: number) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
+        OSCDispedtOutPort,
         [OSCDevices.EdtFastLed + instance],
         [Modii.Strobo, hue, speed],
     );

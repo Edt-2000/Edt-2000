@@ -1,4 +1,4 @@
-import { musicNoteOn$ } from '../../../inputs/midi';
+import { musicNoteOn$ } from '../../../communication/midi';
 import { PresetLogic } from '../../presets-logic';
 import { filter, withLatestFrom } from 'rxjs/operators';
 import { modifiers } from '../../../../../Shared/modifiers';
@@ -16,12 +16,12 @@ export class MidiToColors extends PresetLogic {
             musicNoteOn$
                 .pipe(
                     filter(note => note.channel === this.modifier),
-                    withLatestFrom(Actions$.multiColor),
+                    withLatestFrom(Actions$.colorPalette),
                 )
-                .subscribe(([noteOn, multiColor]) => {
+                .subscribe(([noteOn, colorPalette]) => {
                     nextActionFromMsg(
                         Actions.singleColor(
-                            multiColor[noteOn.note % multiColor.length],
+                            colorPalette[noteOn.note % colorPalette.length],
                         ),
                     );
                 }),

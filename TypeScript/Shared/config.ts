@@ -5,10 +5,8 @@ import { Colors } from './colors';
 export const socketPort: number = 8988;
 
 export const enum DeviceIPs {
-    edtIn = '10.0.0.12',
-    edtPad = '10.0.0.100',
-    edtRemoteDMX = '10.0.0.30',
-    edtDispEdter = '10.0.0.201',
+    edtDispEdter = '192.168.2.76',
+    edtMOSCidi = 'localhost',
     edtSledt = 'localhost',
 }
 
@@ -76,14 +74,13 @@ export const defaultColor: IColor = {
     b: 255,
 };
 
-export const oscOutPort = 12346;
-export const oscInPort = 12345;
+export const OSCInPort = 12345;
+export const OSCDispedtOutPort = 12346;
+export const MOSCIDIPort = 12347;
 
 export const automationChannel = 16;
 
 export const fastLedAmount: number = 7;
-
-export const virtualMidiOutputDevice = 'EDT-SLEDT-OUT';
 
 // The channel_10 notes are mapped by the KORG to the following note numbers
 export enum DrumNotes {

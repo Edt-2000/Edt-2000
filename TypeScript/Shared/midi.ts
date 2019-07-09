@@ -1,3 +1,5 @@
+import { IOSCMessage } from './utils';
+
 export enum Note {
     'C_2',
     'C$_2',
@@ -126,4 +128,14 @@ export enum Note {
     'F8',
     'F$8',
     'G8',
+}
+
+export function isMidiMessage(OSCMsg: IOSCMessage): boolean {
+    return OSCMsg.addresses.length === 2 &&
+        OSCMsg.addresses[0] === 'midi' &&
+        OSCMsg.values.length === 3;
+}
+
+export function isMidiNoteMessage(OSCMsg: IOSCMessage): boolean {
+    return OSCMsg.addresses[1] === 'note';
 }

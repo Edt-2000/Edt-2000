@@ -2,6 +2,7 @@ import { PresetControllerComponent } from './pages/preset-controller/preset-cont
 import { ColorControllerComponent } from './pages/color-controller/color-controller.component';
 import { CuesControllerComponent } from './pages/cues-controller/cues-controller.component';
 import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller.component';
+import { TextControllerComponent } from './pages/text-controller/text-controller.component';
 
 export const pages = [
   {
@@ -23,5 +24,10 @@ export const pages = [
     text: 'Vidt',
     path: 'vidt-controller',
     component: VidtControllerComponent,
+  },
+  {
+    text: 'Text',
+    path: 'text-controller',
+    component: TextControllerComponent,
   },
 ];
