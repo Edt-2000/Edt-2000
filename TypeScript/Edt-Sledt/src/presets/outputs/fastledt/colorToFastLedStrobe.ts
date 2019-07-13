@@ -7,7 +7,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 export class ColorToFastLedStrobe extends PresetLogic {
     modifierOptions = {
         select: modifiers.strobeSpeeds,
-        group: ModifierGroup.FastLED,
+        group: [
+            ModifierGroup.FastLED,
+            ModifierGroup.Color,
+        ],
     };
 
     protected _startPreset(): void {

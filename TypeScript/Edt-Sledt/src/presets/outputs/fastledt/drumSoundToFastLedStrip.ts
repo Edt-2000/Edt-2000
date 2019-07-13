@@ -8,7 +8,10 @@ import { DrumSounds } from '../../../../../Shared/drums';
 
 export class DrumSoundToFastLedStrip extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.FastLED,
+        group: [
+            ModifierGroup.FastLED,
+            ModifierGroup.Drums,
+        ],
     };
 
     protected _startPreset(): void {

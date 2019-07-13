@@ -6,7 +6,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 
 export class ColorToRGBLedSolid extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.RGBLED,
+        group: [
+            ModifierGroup.Color,
+            ModifierGroup.RGBLED,
+        ],
     };
 
     protected _startPreset(): void {

@@ -5,7 +5,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 
 export class BeatToColor extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.Color,
+        group: [
+            ModifierGroup.Color,
+            ModifierGroup.Beat,
+        ],
     };
 
     private index = -1;

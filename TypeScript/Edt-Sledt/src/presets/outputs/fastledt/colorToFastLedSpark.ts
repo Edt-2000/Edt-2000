@@ -8,7 +8,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 export class ColorToFastLedSpark extends PresetLogic {
     modifierOptions = {
         select: modifiers.fadeSpeeds,
-        group: ModifierGroup.FastLED,
+        group: [
+            ModifierGroup.FastLED,
+            ModifierGroup.Color,
+        ],
     };
 
     protected _startPreset(): void {

@@ -14,6 +14,7 @@ import { SocketService } from './socket.service';
 import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller.component';
 import { TriggerButtonComponent } from './components/trigger-button/trigger-button.component';
 import { TextControllerComponent } from './pages/text-controller/text-controller.component';
+import { PresetSwitchersComponent } from './components/preset-switchers/preset-switchers.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { TextControllerComponent } from './pages/text-controller/text-controller
     VidtControllerComponent,
     TriggerButtonComponent,
     TextControllerComponent,
+    PresetSwitchersComponent,
   ],
   imports: [
     BrowserModule,

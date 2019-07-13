@@ -8,7 +8,9 @@ import { ModifierGroup } from '../../../../../Shared/types';
 export class DrumSoundMap extends PresetLogic {
     modifierOptions = {
         select: modifiers.drumNotes,
-        group: ModifierGroup.DrumSounds,
+        group: [
+            ModifierGroup.Drums,
+        ],
     };
 
     constructor(public sound: DrumSounds) {

@@ -8,7 +8,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 export class MidiChannelToMainDrum extends PresetLogic {
     modifierOptions = {
         select: modifiers.midiChannels,
-        group: ModifierGroup.Drums,
+        group: [
+            ModifierGroup.Drums,
+            ModifierGroup.Midi,
+        ],
     };
 
     protected _startPreset(): void {

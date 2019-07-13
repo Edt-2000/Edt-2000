@@ -7,7 +7,10 @@ import { modifiers } from '../../../../../Shared/modifiers';
 export class DrumSoundToBeat extends PresetLogic {
     modifierOptions = {
         select: modifiers.drumSounds,
-        group: ModifierGroup.Drums,
+        group: [
+            ModifierGroup.Drums,
+            ModifierGroup.Beat,
+        ],
     };
 
     protected _startPreset(): void {

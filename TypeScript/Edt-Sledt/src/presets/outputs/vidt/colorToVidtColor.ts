@@ -4,7 +4,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 
 export class ColorToVidtColor extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.Vidt,
+        group: [
+            ModifierGroup.Vidt,
+            ModifierGroup.Color,
+        ],
     };
 
     protected _startPreset(): void {

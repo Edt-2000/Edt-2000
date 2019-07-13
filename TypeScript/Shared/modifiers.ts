@@ -54,13 +54,29 @@ export const modifiers = {
 
 export function converToNamedPresetGroup(presets: IControlPresetMsg[]): groupedControlPresetMsg[] {
     return Object.values(presets.reduce((grouped: any, preset) => {
-        if (!grouped[preset.config.group]) {
-            grouped[preset.config.group] = {
-                title: ModifierGroup[preset.config.group],
-                presets: [],
-            };
-        }
-        grouped[preset.config.group].presets.push(preset);
+        preset.config.group.forEach(group => {
+            if (!grouped[group]) {
+                grouped[group] = {
+                    title: ModifierGroup[group],
+                    presets: [],
+                };
+            }
+            grouped[group].presets.push(preset);
+        });
         return grouped;
     }, {}));
+}
+
+export function filterOnModifierGroup(
+    presets: IControlPresetMsg[],
+    modifierGroups: ModifierGroup[],
+): IControlPresetMsg[] {
+    return presets
+        .filter(preset => {
+            return preset.config.group.some(group => {
+                return modifierGroups.some(modifierGroup => {
+                    return modifierGroup === group;
+                });
+            });
+        });
 }

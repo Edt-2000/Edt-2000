@@ -57,12 +57,14 @@ export interface ICue {
 
 export enum ModifierGroup {
     Drums,
-    DrumSounds,
     Color,
     Vidt,
+    Words,
     RGBLED,
     FastLED,
     Melody,
+    Beat,
+    Midi,
 }
 
 export interface IModifierOptions {
@@ -72,7 +74,7 @@ export interface IModifierOptions {
         readonly max: number;
         readonly step: number;
     };
-    readonly group: ModifierGroup;
+    readonly group: ModifierGroup[];
 }
 
 export interface IModifierSelectOption {

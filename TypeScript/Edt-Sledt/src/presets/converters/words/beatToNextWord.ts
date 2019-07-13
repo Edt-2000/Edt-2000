@@ -5,7 +5,11 @@ import { ModifierGroup } from '../../../../../Shared/types';
 
 export class BeatToNextWord extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.Vidt,
+        group: [
+            ModifierGroup.Vidt,
+            ModifierGroup.Words,
+            ModifierGroup.Beat,
+        ],
     };
 
     private index = -1;

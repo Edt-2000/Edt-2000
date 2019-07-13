@@ -7,7 +7,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 export class ColorStrobeRGBLed extends PresetLogic {
     modifierOptions = {
         select: modifiers.strobeSpeeds,
-        group: ModifierGroup.RGBLED,
+        group: [
+            ModifierGroup.Color,
+            ModifierGroup.RGBLED,
+        ],
     };
 
     protected _startPreset(): void {

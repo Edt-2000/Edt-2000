@@ -6,7 +6,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 
 export class ColorToFastLedSolid extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.FastLED,
+        group: [
+            ModifierGroup.FastLED,
+            ModifierGroup.Color,
+        ],
     };
 
     protected _startPreset(): void {

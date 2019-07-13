@@ -4,7 +4,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 
 export class MainBeatToVidtBeat extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.Vidt,
+        group: [
+            ModifierGroup.Vidt,
+            ModifierGroup.Beat,
+        ],
     };
 
     protected _startPreset(): void {

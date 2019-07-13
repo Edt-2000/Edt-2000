@@ -12,7 +12,6 @@ import { BeatToColor } from '../../presets/converters/color/beatToColor';
 import { ColorToVidtColor } from '../../presets/outputs/vidt/colorToVidtColor';
 import { ColorToFastLedSolid } from '../../presets/outputs/fastledt/colorToFastLedSolid';
 import { ColorToRGBLedSolid } from '../../presets/outputs/rgbledt/colorToRGBLedSolid';
-import { Vidt } from '../../presets/control/vidt';
 
 export const drumCues = [
     {
@@ -93,11 +92,7 @@ export const drumCues = [
                 modifier: 127,
                 state: true,
             }),
-            Actions.presetChange({
-                preset: getPresetNote(new Vidt()),
-                modifier: vidtPresets.karaoke,
-                state: true,
-            }),
+            Actions.prepareVidt(vidtPresets.karaoke),
         ],
     },
 ];

@@ -5,7 +5,10 @@ import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/acti
 
 export class ColorToInverseVidtColor extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.Color,
+        group: [
+            ModifierGroup.Color,
+            ModifierGroup.Vidt,
+        ],
     };
 
     protected _startPreset(): void {

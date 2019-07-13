@@ -8,7 +8,10 @@ import { ModifierGroup } from '../../../../../Shared/types';
 export class BeatToRainbowSpark extends PresetLogic {
     modifierOptions = {
         select: modifiers.fadeSpeeds,
-        group: ModifierGroup.FastLED,
+        group: [
+            ModifierGroup.FastLED,
+            ModifierGroup.Beat,
+        ],
     };
 
     protected _startPreset(): void {
