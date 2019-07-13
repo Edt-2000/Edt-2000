@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { animationTypes } from '../../../../../Shared/vidt-presets';
-import { wordSets } from '../../../../../Shared/words';
+import { animationTypes, vidtPresetsArr } from '../../../../../Shared/vidt-presets';
 import { Actions$ } from '../../../../../Shared/actions';
 import { modifiers } from '../../../../../Shared/modifiers';
 
@@ -11,10 +10,9 @@ import { modifiers } from '../../../../../Shared/modifiers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VidtControllerComponent implements OnInit {
+  vidtPresets = vidtPresetsArr;
   photoAssets$ = Actions$.imageList;
   videoAssets$ = Actions$.videoList;
-  wordSet$ = Actions$.wordSet;
-  wordSets = wordSets;
   glitchIntensities = modifiers.glitchIntensity;
 
   animations = [

@@ -80,6 +80,8 @@ export const Actions$ = {
 
 export function nextActionFromMsg(msg: Actions) {
     // We use dynamic properties to send it to the correct action, but need to ignore TS warning
-    // @ts-ignore
-    Actions$[msg.type].next(msg.payload);
+    if (Actions$[msg.type]) {
+        // @ts-ignore
+        Actions$[msg.type].next(msg.payload);
+    }
 }

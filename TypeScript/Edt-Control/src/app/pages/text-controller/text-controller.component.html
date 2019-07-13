@@ -1,5 +1,15 @@
 <div class="vidt-controller">
   <div class="section">
+    <h2 class="section__title">Vidt</h2>
+    <ul class="list">
+      <li *ngFor="let vidtPreset of vidtPresets" class="list__item">
+        <button (click)="socket.sendVidtPreset(vidtPreset)" class="text-button">
+          {{ vidtPreset }}
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div class="section">
     <h2 class="section__title">Custom words</h2>
     <ul class="list">
       <li class="list__item">

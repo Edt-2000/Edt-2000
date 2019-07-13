@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { animationTypes } from '../../../../../Shared/vidt-presets';
+import { animationTypes, vidtPresets } from '../../../../../Shared/vidt-presets';
 import { wordSets } from '../../../../../Shared/words';
 import { Actions$ } from '../../../../../Shared/actions';
-import { modifiers } from '../../../../../Shared/modifiers';
 
 @Component({
   selector: 'app-text-controller',
@@ -13,7 +12,10 @@ import { modifiers } from '../../../../../Shared/modifiers';
 export class TextControllerComponent implements OnInit {
   wordSet$ = Actions$.wordSet;
   wordSets = wordSets;
-  glitchIntensities = modifiers.glitchIntensity;
+  vidtPresets = [
+    vidtPresets[vidtPresets.karaoke],
+    vidtPresets[vidtPresets.textBouncer],
+  ];
 
   animations = [
     animationTypes.stretch,
