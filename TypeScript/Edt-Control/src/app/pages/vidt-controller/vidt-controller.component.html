@@ -1,6 +1,6 @@
 <div class="vidt-controller">
-  <ng-container *ngIf="vidtPresetState$ | async as vidtPresetState">
-    <app-preset-switchers [presetState]="vidtPresetState"></app-preset-switchers>
+  <ng-container *ngIf="vidtPresets$ | async as vidtPresets">
+    <app-preset-switchers [presetState]="vidtPresets"></app-preset-switchers>
   </ng-container>
   <div class="section">
     <h2 class="section__title">Beat</h2>

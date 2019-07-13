@@ -1,11 +1,12 @@
 <div class="vidt-controller">
+  <ng-container *ngIf="wordPresets$ | async as wordPresets">
+    <app-preset-switchers [presetState]="wordPresets"></app-preset-switchers>
+  </ng-container>
   <div class="section">
-    <h2 class="section__title">Vidt</h2>
+    <h2 class="section__title">Beat</h2>
     <ul class="list">
-      <li *ngFor="let vidtPreset of vidtPresets" class="list__item">
-        <button (click)="socket.sendVidtPreset(vidtPreset)" class="text-button">
-          {{ vidtPreset }}
-        </button>
+      <li class="list__item">
+        <button (click)="socket.sendBeat()" class="text-button">BEAT</button>
       </li>
     </ul>
   </div>

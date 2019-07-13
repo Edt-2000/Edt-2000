@@ -12,7 +12,7 @@ import { ModifierGroup } from '../../../../../Shared/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VidtControllerComponent implements OnInit {
-  vidtPresetState$ = Actions$.presetState.asObservable().pipe(
+  vidtPresets$ = Actions$.presetState.asObservable().pipe(
     map(presets => {
       return filterOnModifierGroup(presets, [ModifierGroup.Vidt]);
     }),
