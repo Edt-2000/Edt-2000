@@ -1,30 +1,3 @@
-export const words: string[] = [
-    'STROBOCOPS',
-    'DANCE',
-    'YOLO',
-    'MAN',
-    'VROUW',
-    'ALLEMAAL',
-    'NEUKEN',
-    'HARDER',
-    'RAUWER',
-    'GLADDER',
-    'CABRIO',
-    'CABRIOLETTA',
-    'LAST CHRISTMAS',
-    'I GAVE YOU MY HEARD',
-    'SPECIAL',
-    'CODEMONKEYS',
-    'Harder dan jij',
-    'GEJAT',
-    '<<<<<<< HEAD conflict> >>>>>>> master',
-    'Remind the gap',
-    'SPIERDIJK!',
-    'NOG EEN LIEDJE!',
-    'SLAYER!',
-    'LALALA',
-];
-
 export interface WordSet {
     name: string;
     set: string[];
@@ -32,22 +5,50 @@ export interface WordSet {
 
 export const wordSets: WordSet[] = [
     {
-        name: 'CABRIO',
+        name: 'BAND',
+        set: [
+            'STROBOCOPS',
+            'EDT-2000',
+        ],
+    },
+    {
+        name: 'CABRIOLETTA',
         set: [...'CABRIO'.split(''), 'CABRIOLETTA'],
     },
     {
-        name: 'ALL',
-        set: words,
+        name: 'ALLES GEJAT',
+        set: [
+            'ALLES',
+            'GEJAT',
+            'JATTEN',
+            'DIEFJES',
+            'GIGI',
+            'ZELDA',
+            'SHAKE IT',
+        ],
     },
     {
-        name: 'MEETUP INTERACTIVE STORYTELLING',
+        name: 'NEUKEN',
         set: [
-            'AMSTERDAM',
-            'INTERACTIVE',
-            'STORYTELLING',
-            'MEETUP',
-            'EDITIE',
-            '25',
+            'MAN',
+            'VROUW',
+            'ALLEMAAL',
+            'NEUKEN',
+            'HARDER',
+            'RAUWER',
+            'GLADDER',
+        ],
+    },
+    {
+        name: 'LAST X',
+        set: [
+            'LAST CHRISTMAS',
+            'I GAVE YOU MY HEARD',
+            'BUT THE VERY NEXT DAY',
+            'YOU GAVE IT AWAY',
+            'THIS YEAR',
+            'LALALALA',
+            'SPECIAL',
         ],
     },
 ];

@@ -28,7 +28,8 @@
         "react": "16.8.6",
         "rxjs": "6.4.0",
         "rxjs-compat": "6.4.0",
-        "socket.io": "2.2.0"
+        "socket.io": "2.2.0",
+        "glob": "latest"
     },
     "devDependencies": {
         "@types/node": "11.11.3",
