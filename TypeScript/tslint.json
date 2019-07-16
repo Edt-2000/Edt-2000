@@ -25,6 +25,7 @@
         ],
         "ordered-imports": [
             false
-        ]
+        ],
+        "only-arrow-functions": false
     }
 }

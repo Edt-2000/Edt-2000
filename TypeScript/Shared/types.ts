@@ -100,3 +100,8 @@ export interface IColor {
     readonly s: number;
     readonly b: number;
 }
+
+export interface AssetSet {
+    name: string;
+    assets: string[];
+}

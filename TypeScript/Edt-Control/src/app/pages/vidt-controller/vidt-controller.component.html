@@ -23,15 +23,18 @@
   <div class="section">
     <h2 class="section__title">Photo's</h2>
     <ul class="list">
-      <ng-container *ngFor="let asset of (photoAssets$ | async)">
-        <li class="list__item">
-          <button
-            (click)="socket.sendPhotoAsset(asset)"
-            [style.background-image]="'url(assets/photos/' + asset + ')'"
-            class="photo-button">
-            {{ asset }}
-          </button>
-        </li>
+      <ng-container *ngFor="let images of (imageList$ | async)">
+        <h3>{{images.name}}</h3>
+        <ul class="list">
+          <li *ngFor="let image of images.assets" class="list__item">
+            <button
+              (click)="socket.sendPhotoAsset(image)"
+              [style.background-image]="'url(\'assets/photos/' + image + '\')'"
+              class="photo-button">
+              {{ image }}
+            </button>
+          </li>
+        </ul>
       </ng-container>
     </ul>
   </div>
@@ -39,12 +42,15 @@
   <div class="section">
     <h2 class="section__title">Videos's</h2>
     <ul class="list">
-      <ng-container *ngFor="let asset of (videoAssets$ | async)">
-        <li class="list__item">
-          <button (click)="socket.sendVideoAsset(asset)" class="text-button">
-            {{ asset }}
-          </button>
-        </li>
+      <ng-container *ngFor="let videos of (videoList$| async)">
+        <h3>{{videos.name}}</h3>
+        <ul class="list">
+          <li *ngFor="let video of videos.assets" class="list__item">
+            <button (click)="socket.sendVideoAsset(video)" class="text-button">
+              {{ video }}
+            </button>
+          </li>
+        </ul>
       </ng-container>
     </ul>
   </div>

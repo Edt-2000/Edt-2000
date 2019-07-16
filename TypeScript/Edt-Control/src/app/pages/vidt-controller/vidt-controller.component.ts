@@ -20,8 +20,8 @@ export class VidtControllerComponent implements OnInit {
 
   function;
   vidtPresets = vidtPresetsArr;
-  photoAssets$ = Actions$.imageList;
-  videoAssets$ = Actions$.videoList;
+  imageList$ = Actions$.imageList;
+  videoList$ = Actions$.videoList;
   glitchIntensities = modifiers.glitchIntensity;
   animations = [
     animationTypes.stretch,

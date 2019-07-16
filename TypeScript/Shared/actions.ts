@@ -1,4 +1,4 @@
-import { IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './types';
+import { AssetSet, IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './types';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './fsa-helpers';
 import { animationTypes, vidtPresets } from './vidt-presets';
@@ -14,9 +14,9 @@ export const Actions = {
     prepareVidt: (payload: vidtPresets) => createAction('prepareVidt', payload),
 
     // Assets
-    imageList: (payload: string[]) => createAction('imageList', payload),
+    imageList: (payload: AssetSet[]) => createAction('imageList', payload),
     imageSrc: (payload: string) => createAction('imageSrc', payload),
-    videoList: (payload: string[]) => createAction('videoList', payload),
+    videoList: (payload: AssetSet[]) => createAction('videoList', payload),
     videoSrc: (payload: string) => createAction('videoSrc', payload),
 
     mainText: (payload: string) => createAction('mainText', payload),
@@ -50,8 +50,8 @@ export type Actions = ActionsUnion<typeof Actions>;
 export const Actions$ = {
     presetState: new BehaviorSubject([] as IControlPresetMsg[]),
     cueList: new BehaviorSubject([] as ICue[]),
-    imageList: new BehaviorSubject(['']),
-    videoList: new BehaviorSubject(['']),
+    imageList: new BehaviorSubject([] as AssetSet[]),
+    videoList: new BehaviorSubject([] as AssetSet[]),
 
     presetChange: new Subject() as Subject<IPresetMsg>,
     prepareVidt: new BehaviorSubject<vidtPresets>(vidtPresets.logo),
