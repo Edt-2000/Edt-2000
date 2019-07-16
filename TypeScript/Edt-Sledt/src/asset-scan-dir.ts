@@ -2,10 +2,11 @@ import * as fs from 'fs';
 import * as p from 'path';
 import { AssetSet } from '../../Shared/types';
 
-export const availablePhotos = readDirOneDeep('../Edt-Control/src/assets/photos/');
-export const availableVideos = readDirOneDeep('../Edt-Control/src/assets/videos/');
+const assetPath = '../Edt-Control/src/assets/media-by-group';
+export const availablePhotos = readDirOneDeep(assetPath, '.jpg');
+export const availableVideos = readDirOneDeep(assetPath, '.mp4');
 
-function readDirOneDeep(path) {
+function readDirOneDeep(path: string, extension: string) {
     return fs.readdirSync(path)
         .filter(file => !file.startsWith('.'))
         .filter(file => fs.lstatSync(p.join(path, file)).isDirectory())
@@ -13,8 +14,8 @@ function readDirOneDeep(path) {
             return {
                 name: file,
                 assets: fs.readdirSync(p.join(path, file))
-                    .map(filename => p.join(file, filename)),
+                    .map(filename => p.join(file, filename))
+                    .filter(filename => p.extname(filename) === extension),
             } as AssetSet;
         });
 }
-

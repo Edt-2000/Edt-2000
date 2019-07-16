@@ -23,16 +23,7 @@ import { converToNamedPresetGroup } from '../../../../../Shared/modifiers';
       </div>
     </ng-container>
   `,
-  styles: [`
-    .tab {
-      list-style: none;
-      display: inline-block;
-    }
-
-    .tab__item {
-      display: inline-block;
-    }
-  `],
+  styles: [],
 })
 export class PresetSwitchersComponent {
   groupedPresetState: groupedControlPresetMsg[] = [];

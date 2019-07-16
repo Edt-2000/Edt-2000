@@ -18,7 +18,6 @@ export class VidtControllerComponent implements OnInit {
     }),
   );
 
-  function;
   vidtPresets = vidtPresetsArr;
   imageList$ = Actions$.imageList;
   videoList$ = Actions$.videoList;
