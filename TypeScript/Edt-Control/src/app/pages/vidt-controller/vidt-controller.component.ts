@@ -18,9 +18,8 @@ export class VidtControllerComponent implements OnInit {
     }),
   );
 
+  contentGroup$ = Actions$.contentGroup;
   vidtPresets = vidtPresetsArr;
-  imageList$ = Actions$.imageList;
-  videoList$ = Actions$.videoList;
   glitchIntensities = modifiers.glitchIntensity;
   animations = [
     animationTypes.stretch,

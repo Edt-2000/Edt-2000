@@ -3,6 +3,18 @@
     <app-preset-switchers [presetState]="wordPresets"></app-preset-switchers>
   </ng-container>
   <div class="section">
+    <h2 class="section__title">Content Groups</h2>
+    <ul class="list">
+      <ng-container *ngFor="let contentGroup of (contentGroups$ | async)">
+        <li class="list__item">
+          <button (click)="socket.sendContentGroup(contentGroup)" class="text-button">
+            {{ contentGroup.title }}
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div class="section">
     <h2 class="section__title">Beat</h2>
     <ul class="list">
       <li class="list__item">
@@ -37,22 +49,10 @@
       </li>
     </ul>
   </div>
-  <div class="section">
-    <h2 class="section__title">WordSets</h2>
-    <ul class="list">
-      <ng-container *ngFor="let wordSet of wordSets">
-        <li class="list__item">
-          <button (click)="socket.sendWordset(wordSet.set)" class="text-button">
-            {{ wordSet.name }}
-          </button>
-        </li>
-      </ng-container>
-    </ul>
-  </div>
-  <div class="section">
+  <div *ngIf="(contentGroup$ | async) as contentGroup" class="section">
     <h2 class="section__title">Text</h2>
     <ul class="list">
-      <ng-container *ngFor="let word of (wordSet$ | async)">
+      <ng-container *ngFor="let word of contentGroup.wordSet">
         <li class="list__item">
           <button (click)="socket.sendText(word)" class="text-button">
             {{ word }}

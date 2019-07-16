@@ -1,23 +1,22 @@
-export interface WordSet {
-    name: string;
-    set: string[];
+export interface ContentGroup {
+    title: string;
+    wordSet: string[];
+    images: string[];
+    videos: string[];
 }
 
-export const wordSets: WordSet[] = [
+export const contentGroups = [
     {
-        name: 'BAND',
-        set: [
+        wordSet: [
             'STROBOCOPS',
             'EDT-2000',
         ],
     },
     {
-        name: 'CABRIOLETTA',
-        set: [...'CABRIO'.split(''), 'CABRIOLETTA'],
+        wordSet: [...'CABRIO'.split(''), 'CABRIOLETTA'],
     },
     {
-        name: 'ALLES GEJAT',
-        set: [
+        wordSet: [
             'ALLES',
             'GEJAT',
             'JATTEN',
@@ -28,8 +27,7 @@ export const wordSets: WordSet[] = [
         ],
     },
     {
-        name: 'NEUKEN',
-        set: [
+        wordSet: [
             'MAN',
             'VROUW',
             'ALLEMAAL',
@@ -40,8 +38,7 @@ export const wordSets: WordSet[] = [
         ],
     },
     {
-        name: 'LAST X',
-        set: [
+        wordSet: [
             'LAST CHRISTMAS',
             'I GAVE YOU MY HEARD',
             'BUT THE VERY NEXT DAY',

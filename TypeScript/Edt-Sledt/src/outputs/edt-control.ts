@@ -22,17 +22,14 @@ controlSocket$.subscribe(socket => {
     Actions$.cueList.pipe(takeUntil(disconnected$)).subscribe(list => {
         socket.emit('toControl', Actions.cueList(list));
     });
-    Actions$.videoList.pipe(takeUntil(disconnected$)).subscribe(list => {
-        socket.emit('toControl', Actions.videoList(list));
-    });
-    Actions$.imageList.pipe(takeUntil(disconnected$)).subscribe(list => {
-        socket.emit('toControl', Actions.imageList(list));
-    });
     Actions$.colorPalette.pipe(takeUntil(disconnected$)).subscribe(colors => {
         socket.emit('toControl', Actions.colorPalette(colors));
     });
-    Actions$.wordSet.pipe(takeUntil(disconnected$)).subscribe(wordSet => {
-        socket.emit('toControl', Actions.wordSet(wordSet));
+    Actions$.contentGroups.pipe(takeUntil(disconnected$)).subscribe(contentGroups => {
+        socket.emit('toControl', Actions.contentGroups(contentGroups));
+    });
+    Actions$.contentGroup.pipe(takeUntil(disconnected$)).subscribe(contentGroup => {
+        socket.emit('toControl', Actions.contentGroup(contentGroup));
     });
 
     socket.on('fromControl', nextActionFromMsg);

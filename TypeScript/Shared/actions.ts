@@ -1,4 +1,4 @@
-import { AssetSet, IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './types';
+import { IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './types';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './fsa-helpers';
 import { animationTypes, vidtPresets } from './vidt-presets';
@@ -6,6 +6,7 @@ import { defaultColor, DrumNotes } from './config';
 import { colorSets } from './colors';
 import { DrumSounds } from './drums';
 import { modifiers } from './modifiers';
+import { ContentGroup } from './words';
 
 export const Actions = {
     presetChange: (payload: IPresetMsg) => createAction('presetChange', payload),
@@ -14,13 +15,11 @@ export const Actions = {
     prepareVidt: (payload: vidtPresets) => createAction('prepareVidt', payload),
 
     // Assets
-    imageList: (payload: AssetSet[]) => createAction('imageList', payload),
+    contentGroups: (payload: ContentGroup[]) => createAction('contentGroups', payload),
+    contentGroup: (payload: ContentGroup) => createAction('contentGroup', payload),
     imageSrc: (payload: string) => createAction('imageSrc', payload),
-    videoList: (payload: AssetSet[]) => createAction('videoList', payload),
     videoSrc: (payload: string) => createAction('videoSrc', payload),
-
     mainText: (payload: string) => createAction('mainText', payload),
-    wordSet: (payload: string[]) => createAction('wordSet', payload),
 
     // Effects
     animationType: (payload: animationTypes) => createAction('animationType', payload),
@@ -47,11 +46,16 @@ export const Actions = {
 
 export type Actions = ActionsUnion<typeof Actions>;
 
+const emptyContentGroup = {
+    title: '',
+    wordSet: [],
+    images: [],
+    videos: [],
+};
+
 export const Actions$ = {
     presetState: new BehaviorSubject([] as IControlPresetMsg[]),
     cueList: new BehaviorSubject([] as ICue[]),
-    imageList: new BehaviorSubject([] as AssetSet[]),
-    videoList: new BehaviorSubject([] as AssetSet[]),
 
     presetChange: new Subject() as Subject<IPresetMsg>,
     prepareVidt: new BehaviorSubject<vidtPresets>(vidtPresets.logo),
@@ -60,7 +64,8 @@ export const Actions$ = {
     videoSrc: new BehaviorSubject(''),
 
     mainText: new BehaviorSubject('STROBOCOPS'),
-    wordSet: new BehaviorSubject(['STROBOCOPS']),
+    contentGroups: new BehaviorSubject([] as ContentGroup[]),
+    contentGroup: new BehaviorSubject(emptyContentGroup),
 
     animationType: new BehaviorSubject<animationTypes>(animationTypes.bounce),
 

@@ -3,6 +3,7 @@ import { Socket } from 'ngx-socket-io';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions';
 import { animationTypes, vidtPresets } from '../../../Shared/vidt-presets';
 import { IColor, ICue } from '../../../Shared/types';
+import { ContentGroup } from '../../../Shared/words';
 
 @Injectable()
 export class SocketService {
@@ -30,8 +31,8 @@ export class SocketService {
     this.toSledt(Actions.mainText(main));
   }
 
-  sendWordset(set: string[]) {
-    this.toSledt(Actions.wordSet(set));
+  sendContentGroup(group: ContentGroup) {
+    this.toSledt(Actions.contentGroup(group));
   }
 
   sendGlitchIntensity(intensity: number) {

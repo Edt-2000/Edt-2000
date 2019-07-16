@@ -17,8 +17,8 @@ export class BeatToNextWord extends PresetLogic {
     protected _startPreset(): void {
         this.addSub(
             Actions$.mainBeat
-                .pipe(withLatestFrom(Actions$.wordSet))
-                .subscribe(([, wordSet]) => {
+                .pipe(withLatestFrom(Actions$.contentGroup))
+                .subscribe(([, {wordSet}]) => {
                     this.index = (this.index + 1) % wordSet.length;
                     nextActionFromMsg(Actions.mainText(wordSet[this.index]));
                 }),
