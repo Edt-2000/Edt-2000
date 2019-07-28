@@ -22,21 +22,16 @@ export const modifiers = {
             label: `Channel: ${nr + 1}`,
             value: nr + 1,
         })),
-    drumNotes: [
-        {label: `_1 - ${Note[DrumNotes._1]}`, value: DrumNotes._1},
-        {label: `_2 - ${Note[DrumNotes._2]}`, value: DrumNotes._2},
-        {label: `_3 - ${Note[DrumNotes._3]}`, value: DrumNotes._3},
-        {label: `_4 - ${Note[DrumNotes._4]}`, value: DrumNotes._4},
-        {label: `_5 - ${Note[DrumNotes._5]}`, value: DrumNotes._5},
-        {label: `_6A - ${Note[DrumNotes._6A]}`, value: DrumNotes._6A},
-        {label: `_6B - ${Note[DrumNotes._6B]}`, value: DrumNotes._6B},
-        {label: `_7A - ${Note[DrumNotes._7A]}`, value: DrumNotes._7A},
-        {label: `_7B - ${Note[DrumNotes._7B]}`, value: DrumNotes._7B},
-    ],
+    drumNotes: Object.keys(DrumNotes)
+        .filter(isNotNumeric)
+        .map(drumNote => ({
+            value: DrumNotes[drumNote],
+            label: `${drumNote} - ${Note[drumNote]}`,
+        })),
     drumSounds: Object.keys(DrumSounds)
     // Filter out numeric entries of enum
-        .filter(entry => isNaN(+entry))
-        .filter(entry => entry !== '____EMPTY____')
+        .filter(isNotNumeric)
+        .filter(index => index !== '0')
         .map(sound => {
             return {
                 label: sound,
@@ -51,6 +46,10 @@ export const modifiers = {
         {label: 'bezerk', value: 9},
     ],
 };
+
+function isNotNumeric(val) {
+    return !isNaN(+val);
+}
 
 export function converToNamedPresetGroup(presets: IControlPresetMsg[]): groupedControlPresetMsg[] {
     return Object.values(presets.reduce((grouped: any, preset) => {

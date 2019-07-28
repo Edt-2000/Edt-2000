@@ -28,7 +28,7 @@
         <li *ngFor="let image of contentGroup.images" class="list__item">
           <button
             (click)="socket.sendPhotoAsset(image)"
-            [style.background-image]="'url(\'assets/photos/' + image + '\')'"
+            [style.background-image]="'url(\'assets/media-by-group/' + image + '\')'"
             class="photo-button">
             {{ image }}
           </button>
