@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions';
-import { animationTypes, vidtPresets } from '../../../Shared/vidt-presets';
+import { animationTypes, VidtPresets } from '../../../Shared/vidt-presets';
 import { IColor, ICue } from '../../../Shared/types';
 import { ContentGroup } from '../../../Shared/words';
 
@@ -12,7 +12,7 @@ export class SocketService {
   }
 
   sendVidtPreset(preset: string) {
-    this.toSledt(Actions.prepareVidt(vidtPresets[preset]));
+    this.toSledt(Actions.prepareVidt(VidtPresets[preset]));
   }
 
   sendBeat() {

@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { DeviceIPs, OSCInPort } from '../../../Shared/config';
-import { convertToOSC, IOSCMessage } from '../../../Shared/utils';
+import { convertToOSC } from '../../../Shared/utils';
+import { IOSCMessage } from '../../../Shared/types';
 import dgram = require('dgram');
 import osc = require('osc-min');
 

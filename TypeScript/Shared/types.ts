@@ -105,3 +105,8 @@ export interface AssetSet {
     name: string;
     assets: string[];
 }
+
+export interface IOSCMessage {
+    addresses: string[];
+    values: number[];
+}

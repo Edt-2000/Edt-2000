@@ -2,6 +2,7 @@ import { Note } from './midi';
 import { automationChannel, DrumNotes } from './config';
 import { groupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './types';
 import { DrumSounds } from './drums';
+import { enumToArray } from './utils';
 
 export const modifiers = {
     strobeSpeeds: [
@@ -22,20 +23,16 @@ export const modifiers = {
             label: `Channel: ${nr + 1}`,
             value: nr + 1,
         })),
-    drumNotes: Object.keys(DrumNotes)
-        .filter(isNotNumeric)
+    drumNotes: enumToArray(DrumNotes)
         .map(drumNote => ({
-            value: DrumNotes[drumNote],
-            label: `${drumNote} - ${Note[drumNote]}`,
+            value: +DrumNotes[drumNote],
+            label: `${drumNote} - ${Note[DrumNotes[drumNote]]}`,
         })),
-    drumSounds: Object.keys(DrumSounds)
-    // Filter out numeric entries of enum
-        .filter(isNotNumeric)
-        .filter(index => index !== '0')
+    drumSounds: enumToArray(DrumSounds)
         .map(sound => {
             return {
+                value: +DrumSounds[sound],
                 label: sound,
-                value: DrumSounds[sound],
             };
         }),
     glitchIntensity: [
@@ -47,11 +44,7 @@ export const modifiers = {
     ],
 };
 
-function isNotNumeric(val) {
-    return !isNaN(+val);
-}
-
-export function converToNamedPresetGroup(presets: IControlPresetMsg[]): groupedControlPresetMsg[] {
+export function convertToNamedPresetGroup(presets: IControlPresetMsg[]): groupedControlPresetMsg[] {
     return Object.values(presets.reduce((grouped: any, preset) => {
         preset.config.group.forEach(group => {
             if (!grouped[group]) {

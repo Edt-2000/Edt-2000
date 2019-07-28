@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { groupedControlPresetMsg, IControlPresetMsg } from '../../../../../Shared/types';
-import { converToNamedPresetGroup } from '../../../../../Shared/modifiers';
+import { convertToNamedPresetGroup } from '../../../../../Shared/modifiers';
 
 @Component({
   selector: 'app-preset-switchers',
@@ -33,7 +33,7 @@ export class PresetSwitchersComponent {
   }
 
   @Input() set presetState(presetStates: IControlPresetMsg[]) {
-    this.groupedPresetState = converToNamedPresetGroup(presetStates);
+    this.groupedPresetState = convertToNamedPresetGroup(presetStates);
     this.currentGroup = (this.groupedPresetState[0] && this.groupedPresetState[0].title) || '';
   }
 

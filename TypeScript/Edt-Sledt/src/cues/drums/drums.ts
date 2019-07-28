@@ -1,7 +1,7 @@
 import { Actions } from '../../../../Shared/actions';
 import { DrumSoundToBeat } from '../../presets/converters/drums/drumSoundToBeat';
 import { DrumNotes } from '../../../../Shared/config';
-import { vidtPresets } from '../../../../Shared/vidt-presets';
+import { VidtPresets } from '../../../../Shared/vidt-presets';
 import { DrumSoundMap } from '../../presets/converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../../Shared/drums';
 import { getPresetNote } from '../../presets/presets';
@@ -92,7 +92,7 @@ export const drumCues = [
                 modifier: 127,
                 state: true,
             }),
-            Actions.prepareVidt(vidtPresets.karaoke),
+            Actions.prepareVidt(VidtPresets.karaoke),
         ],
     },
 ];

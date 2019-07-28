@@ -10,7 +10,7 @@ import { TextBouncerComponent } from '../presets/text-bouncer/text-bouncer.compo
 import { VideoPlayerComponent } from '../presets/video-player/video-player.component';
 import { GridscapeComponent } from '../presets/gridscape/gridscape.component';
 import { ShutdownComponent } from '../presets/shutdown/shutdown.component';
-import { vidtPresets } from '../../../../Shared/vidt-presets';
+import { VidtPresets } from '../../../../Shared/vidt-presets';
 import { ColorTwinkleComponent } from '../presets/color-twinkle/color-twinkle.component';
 import { KaraokeComponent } from '../presets/karaoke/karaoke.component';
 
@@ -21,19 +21,19 @@ import { KaraokeComponent } from '../presets/karaoke/karaoke.component';
 export const router = new VueRouter({
     base: '',
     routes: [
-        {path: '/' + vidtPresets[vidtPresets.logo] || '', component: LogoComponent},
-        {path: '/' + vidtPresets[vidtPresets.bluescreen] || '', component: BluescreenComponent},
-        {path: '/' + vidtPresets[vidtPresets.color] || '', component: ColorBackgroundComponent},
-        {path: '/' + vidtPresets[vidtPresets.gridscape] || '', component: GridscapeComponent},
-        {path: '/' + vidtPresets[vidtPresets.hacking] || '', component: HackingComponent},
-        {path: '/' + vidtPresets[vidtPresets.photobouncer] || '', component: PhotoBouncerComponent},
-        {path: '/' + vidtPresets[vidtPresets.photoglitcher] || '', component: PhotoGlitcherComponent},
-        {path: '/' + vidtPresets[vidtPresets.textBouncer] || '', component: TextBouncerComponent},
-        {path: '/' + vidtPresets[vidtPresets.shutdown] || '', component: ShutdownComponent},
-        {path: '/' + vidtPresets[vidtPresets.video] || '', component: VideoPlayerComponent},
-        {path: '/' + vidtPresets[vidtPresets.vista] || '', component: VistaComponent},
-        {path: '/' + vidtPresets[vidtPresets.colorTwinkle] || '', component: ColorTwinkleComponent},
-        {path: '/' + vidtPresets[vidtPresets.karaoke] || '', component: KaraokeComponent},
-        {path: '*', redirect: '/' + vidtPresets[vidtPresets.logo] || ''},
+        {path: '/' + VidtPresets[VidtPresets.logo] || '', component: LogoComponent},
+        {path: '/' + VidtPresets[VidtPresets.bluescreen] || '', component: BluescreenComponent},
+        {path: '/' + VidtPresets[VidtPresets.color] || '', component: ColorBackgroundComponent},
+        {path: '/' + VidtPresets[VidtPresets.gridscape] || '', component: GridscapeComponent},
+        {path: '/' + VidtPresets[VidtPresets.hacking] || '', component: HackingComponent},
+        {path: '/' + VidtPresets[VidtPresets.photobouncer] || '', component: PhotoBouncerComponent},
+        {path: '/' + VidtPresets[VidtPresets.photoglitcher] || '', component: PhotoGlitcherComponent},
+        {path: '/' + VidtPresets[VidtPresets.textBouncer] || '', component: TextBouncerComponent},
+        {path: '/' + VidtPresets[VidtPresets.shutdown] || '', component: ShutdownComponent},
+        {path: '/' + VidtPresets[VidtPresets.video] || '', component: VideoPlayerComponent},
+        {path: '/' + VidtPresets[VidtPresets.vista] || '', component: VistaComponent},
+        {path: '/' + VidtPresets[VidtPresets.colorTwinkle] || '', component: ColorTwinkleComponent},
+        {path: '/' + VidtPresets[VidtPresets.karaoke] || '', component: KaraokeComponent},
+        {path: '*', redirect: '/' + VidtPresets[VidtPresets.logo] || ''},
     ],
 });

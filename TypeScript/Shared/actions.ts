@@ -1,7 +1,7 @@
 import { IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './types';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './fsa-helpers';
-import { animationTypes, vidtPresets } from './vidt-presets';
+import { animationTypes, VidtPresets } from './vidt-presets';
 import { defaultColor, DrumNotes } from './config';
 import { colorSets } from './colors';
 import { DrumSounds } from './drums';
@@ -12,7 +12,7 @@ export const Actions = {
     presetChange: (payload: IPresetMsg) => createAction('presetChange', payload),
     presetState: (payload: IControlPresetMsg[]) => createAction('presetState', payload),
     cueList: (payload: ICue[]) => createAction('cueList', payload),
-    prepareVidt: (payload: vidtPresets) => createAction('prepareVidt', payload),
+    prepareVidt: (payload: VidtPresets) => createAction('prepareVidt', payload),
 
     // Assets
     contentGroups: (payload: ContentGroup[]) => createAction('contentGroups', payload),
@@ -58,7 +58,7 @@ export const Actions$ = {
     cueList: new BehaviorSubject([] as ICue[]),
 
     presetChange: new Subject() as Subject<IPresetMsg>,
-    prepareVidt: new BehaviorSubject<vidtPresets>(vidtPresets.logo),
+    prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
 
     imageSrc: new BehaviorSubject(''),
     videoSrc: new BehaviorSubject(''),
