@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "ManInTheMiddle",
     "scripts": {
-        "start": "ts-node $NODE_DEBUG_OPTION src/index.tsx",
+        "start": "ts-node src/index.tsx",
         "dev": "ts-node-dev --respawn --transpileOnly src/index.tsx"
     },
     "author": "Edt-2000",
@@ -28,7 +28,8 @@
         "react": "16.8.6",
         "rxjs": "6.4.0",
         "rxjs-compat": "6.4.0",
-        "socket.io": "2.2.0"
+        "socket.io": "2.2.0",
+        "glob": "latest"
     },
     "devDependencies": {
         "@types/node": "11.11.3",

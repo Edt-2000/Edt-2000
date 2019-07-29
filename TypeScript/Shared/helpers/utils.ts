@@ -25,10 +25,9 @@ export function shuffleArray(array: any[]): any[] {
     return array.map(item => item);
 }
 
-export interface IOSCMessage {
-    addresses: string[];
-    values: number[];
-}
+export const enumToArray = (e: object) => Object.keys(e)
+    .filter(vp => isNaN(+vp))
+    .filter(entry => entry !== '____EMPTY____');
 
 export function convertToOSC(addresses: string[], params: number[]) {
     // TODO: remove 0 -> ? conversion and implement 0 in all receivers

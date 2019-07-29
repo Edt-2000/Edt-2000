@@ -11,24 +11,23 @@ import { ColorToRGBLedSolid } from './outputs/rgbledt/colorToRGBLedSolid';
 import { ColorToInverseVidtColor } from './converters/color/colorToInverseVidtColor';
 import { ColorToFastLedSpark } from './outputs/fastledt/colorToFastLedSpark';
 import { BeatToRainbowSpark } from './outputs/fastledt/beatToRainbowSpark';
-import { Note } from '../../../Shared/midi';
+import { Note } from '../../../Shared/helpers/midi';
 import { BeatToNextWord } from './converters/words/beatToNextWord';
 import { MidiChannelToMainMelody } from './converters/melody/midiChannelToMainMelody';
-import { IControlPresetMsg } from '../../../Shared/types';
+import { IControlPresetMsg } from '../../../Shared/helpers/types';
 import { DrumSoundMap } from './converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../Shared/drums';
 import { PresetLogic } from './presets-logic';
 import { MidiChannelToMainDrum } from './converters/drums/midiChannelToMainDrum';
 import { ColorToFastLedStrobe } from './outputs/fastledt/colorToFastLedStrobe';
 import { MainMelodyToChunksOfFastLedt } from './outputs/fastledt/mainMelodyToChunksOfFastLedt';
-import { Vidt } from './control/vidt';
 
 export const presets = {
-    [Note.G8]: new Vidt(),
     [Note.A1]: new DrumSoundToBeat(),
 
     [Note.C$0]: new DrumSoundMap(DrumSounds.kick),
     [Note.A$0]: new DrumSoundMap(DrumSounds.mainSnare),
+    [Note.A$0]: new DrumSoundMap(DrumSounds.secondSnare),
     [Note.F$0]: new DrumSoundMap(DrumSounds.floor),
     [Note.D$0]: new DrumSoundMap(DrumSounds.tom1),
     [Note.G$0]: new DrumSoundMap(DrumSounds.tom2),

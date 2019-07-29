@@ -3,12 +3,14 @@ import { modifiers } from '../../../../../Shared/modifiers';
 import { filter } from 'rxjs/operators';
 import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
 import { DrumSounds } from '../../../../../Shared/drums';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 export class DrumSoundMap extends PresetLogic {
     modifierOptions = {
         select: modifiers.drumNotes,
-        group: ModifierGroup.DrumSounds,
+        group: [
+            ModifierGroup.Drums,
+        ],
     };
 
     constructor(public sound: DrumSounds) {

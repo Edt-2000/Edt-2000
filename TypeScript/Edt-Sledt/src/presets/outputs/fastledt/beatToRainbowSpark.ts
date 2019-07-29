@@ -3,12 +3,15 @@ import { Actions$ } from '../../../../../Shared/actions';
 import { FastLedtRainbowSpark } from '../../../outputs/edt-fastled';
 import { modifiers } from '../../../../../Shared/modifiers';
 import { withLatestFrom } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 export class BeatToRainbowSpark extends PresetLogic {
     modifierOptions = {
         select: modifiers.fadeSpeeds,
-        group: ModifierGroup.FastLED,
+        group: [
+            ModifierGroup.FastLED,
+            ModifierGroup.Beat,
+        ],
     };
 
     protected _startPreset(): void {

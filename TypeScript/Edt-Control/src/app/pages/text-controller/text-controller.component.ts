@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocketService } from '../../socket.service';
 import { animationTypes } from '../../../../../Shared/vidt-presets';
-import { wordSets } from '../../../../../Shared/words';
 import { Actions$ } from '../../../../../Shared/actions';
-import { modifiers } from '../../../../../Shared/modifiers';
+import { filterOnModifierGroup } from '../../../../../Shared/modifiers';
+import { map } from 'rxjs/operators';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 @Component({
   selector: 'app-text-controller',
@@ -11,16 +12,15 @@ import { modifiers } from '../../../../../Shared/modifiers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextControllerComponent implements OnInit {
-  wordSet$ = Actions$.wordSet;
-  wordSets = wordSets;
-  glitchIntensities = modifiers.glitchIntensity;
+  wordPresets$ = Actions$.presetState.asObservable().pipe(
+    map(presets => {
+      return filterOnModifierGroup(presets, [ModifierGroup.Words]);
+    }),
+  );
+  contentGroups$ = Actions$.contentGroups;
+  contentGroup$ = Actions$.contentGroup;
 
-  animations = [
-    animationTypes.stretch,
-    animationTypes.spin,
-    animationTypes.rotate,
-    animationTypes.bounce,
-  ];
+  animations = Object.keys(animationTypes);
 
   constructor(public socket: SocketService) {
   }

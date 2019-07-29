@@ -1,6 +1,7 @@
 import { DeviceIPs, MOSCIDIPort, OSCInPort } from '../Shared/config';
-import { isMidiMessage, isMidiNoteMessage } from '../Shared/midi';
-import { convertToOSC, IOSCMessage } from '../Shared/utils';
+import { isMidiMessage, isMidiNoteMessage } from '../Shared/helpers/midi';
+import { convertToOSC } from '../Shared/helpers/utils';
+import { IOSCMessage } from '../Shared/helpers/types';
 import easymidi = require('easymidi');
 import dgram = require('dgram');
 import osc = require('osc-min');

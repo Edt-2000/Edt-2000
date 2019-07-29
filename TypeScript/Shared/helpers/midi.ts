@@ -1,4 +1,4 @@
-import { IOSCMessage } from './utils';
+import { IOSCMessage } from './types';
 
 export enum Note {
     'C_2',

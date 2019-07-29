@@ -1,6 +1,7 @@
 {
     "extends": "tslint:recommended",
     "rules": {
+        "interface-name": false,
         "member-access": [
             true,
             "no-public"
@@ -24,6 +25,7 @@
         ],
         "ordered-imports": [
             false
-        ]
+        ],
+        "only-arrow-functions": false
     }
 }

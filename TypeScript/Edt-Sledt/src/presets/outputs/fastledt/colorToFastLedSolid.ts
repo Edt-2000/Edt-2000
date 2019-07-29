@@ -2,11 +2,14 @@ import { PresetLogic } from '../../presets-logic';
 import { Actions$ } from '../../../../../Shared/actions';
 import { FastLedtSingleSolid } from '../../../outputs/edt-fastled';
 import { skip } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 export class ColorToFastLedSolid extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.FastLED,
+        group: [
+            ModifierGroup.FastLED,
+            ModifierGroup.Color,
+        ],
     };
 
     protected _startPreset(): void {

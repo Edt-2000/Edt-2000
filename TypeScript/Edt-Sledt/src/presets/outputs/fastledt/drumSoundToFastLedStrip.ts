@@ -2,13 +2,16 @@ import { PresetLogic } from '../../presets-logic';
 import { BlackColor } from '../../../../../Shared/config';
 import { withLatestFrom } from 'rxjs/operators';
 import { Actions$ } from '../../../../../Shared/actions';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 import { FastLedtSinglePulse } from '../../../outputs/edt-fastled';
 import { DrumSounds } from '../../../../../Shared/drums';
 
 export class DrumSoundToFastLedStrip extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.FastLED,
+        group: [
+            ModifierGroup.FastLED,
+            ModifierGroup.Drums,
+        ],
     };
 
     protected _startPreset(): void {

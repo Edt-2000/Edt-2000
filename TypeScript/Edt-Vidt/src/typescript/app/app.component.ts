@@ -5,7 +5,7 @@ import { router } from '../services/router.service';
 import * as io from 'socket.io-client';
 import { vidtSocketConfig } from '../../../../Shared/config';
 import { Actions$, nextActionFromMsg } from '../../../../Shared/actions';
-import { vidtPresets } from '../../../../Shared/vidt-presets';
+import { VidtPresets } from '../../../../Shared/vidt-presets';
 import Socket = SocketIOClient.Socket;
 
 @Component({
@@ -17,7 +17,7 @@ export default class App extends Vue {
     public subscription: any;
     private socket: Socket;
 
-    constructor () {
+    constructor() {
         super();
         this.socket = io(vidtSocketConfig.url, vidtSocketConfig.options);
 
@@ -28,15 +28,15 @@ export default class App extends Vue {
         this.socket.on('toVidt', nextActionFromMsg);
     }
 
-    mounted () {
+    mounted() {
         this.subscription = Actions$.prepareVidt.subscribe(
             (preset: number) => {
-                router.push({path: '/' + vidtPresets[preset]});
+                router.push({path: '/' + VidtPresets[preset]});
             },
         );
     }
 
-    destroyed () {
+    destroyed() {
         if (typeof this.subscription !== 'undefined') {
             this.subscription.unsubscribe();
         }

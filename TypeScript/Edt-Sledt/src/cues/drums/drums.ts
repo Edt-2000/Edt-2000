@@ -1,7 +1,7 @@
 import { Actions } from '../../../../Shared/actions';
 import { DrumSoundToBeat } from '../../presets/converters/drums/drumSoundToBeat';
 import { DrumNotes } from '../../../../Shared/config';
-import { vidtPresets } from '../../../../Shared/vidt-presets';
+import { VidtPresets } from '../../../../Shared/vidt-presets';
 import { DrumSoundMap } from '../../presets/converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../../Shared/drums';
 import { getPresetNote } from '../../presets/presets';
@@ -12,7 +12,6 @@ import { BeatToColor } from '../../presets/converters/color/beatToColor';
 import { ColorToVidtColor } from '../../presets/outputs/vidt/colorToVidtColor';
 import { ColorToFastLedSolid } from '../../presets/outputs/fastledt/colorToFastLedSolid';
 import { ColorToRGBLedSolid } from '../../presets/outputs/rgbledt/colorToRGBLedSolid';
-import { Vidt } from '../../presets/control/vidt';
 
 export const drumCues = [
     {
@@ -93,11 +92,7 @@ export const drumCues = [
                 modifier: 127,
                 state: true,
             }),
-            Actions.presetChange({
-                preset: getPresetNote(new Vidt()),
-                modifier: vidtPresets.karaoke,
-                state: true,
-            }),
+            Actions.prepareVidt(VidtPresets.karaoke),
         ],
     },
 ];

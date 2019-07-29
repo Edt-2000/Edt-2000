@@ -2,18 +2,15 @@ import { PresetLogic } from '../../presets-logic';
 import { Actions$ } from '../../../../../Shared/actions';
 import { withLatestFrom } from 'rxjs/operators';
 import { FastLedtSingleSolid } from '../../../outputs/edt-fastled';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 import { BlackColor } from '../../../../../Shared/config';
 
 export class MainMelodyToChunksOfFastLedt extends PresetLogic {
     modifierOptions = {
-        select: [
-            {label: '6-all', value: 2},
-            {label: '12-all', value: 3},
-            {label: '6-random', value: 5},
-            {label: '12-random', value: 6},
+        group: [
+            ModifierGroup.FastLED,
+            ModifierGroup.Melody,
         ],
-        group: ModifierGroup.FastLED,
     };
 
     protected _startPreset(): void {

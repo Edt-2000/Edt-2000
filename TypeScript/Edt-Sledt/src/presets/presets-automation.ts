@@ -1,6 +1,6 @@
 import { automationNoteOnOff$ } from '../communication/midi';
 import { map } from 'rxjs/operators';
-import { IPresetMsg } from '../../../Shared/types';
+import { IPresetMsg } from '../../../Shared/helpers/types';
 import { Observable } from 'rxjs';
 import { sendToOSC } from '../communication/osc';
 import { automationChannel, DeviceIPs, MOSCIDIPort } from '../../../Shared/config';

@@ -1,11 +1,15 @@
 import { PresetLogic } from '../../presets-logic';
 import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
 import { withLatestFrom } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 export class BeatToNextWord extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.Vidt,
+        group: [
+            ModifierGroup.Vidt,
+            ModifierGroup.Words,
+            ModifierGroup.Beat,
+        ],
     };
 
     private index = -1;
@@ -13,8 +17,8 @@ export class BeatToNextWord extends PresetLogic {
     protected _startPreset(): void {
         this.addSub(
             Actions$.mainBeat
-                .pipe(withLatestFrom(Actions$.wordSet))
-                .subscribe(([, wordSet]) => {
+                .pipe(withLatestFrom(Actions$.contentGroup))
+                .subscribe(([, {wordSet}]) => {
                     this.index = (this.index + 1) % wordSet.length;
                     nextActionFromMsg(Actions.mainText(wordSet[this.index]));
                 }),

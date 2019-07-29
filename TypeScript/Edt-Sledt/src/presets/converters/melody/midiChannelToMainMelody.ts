@@ -3,12 +3,15 @@ import { musicNoteOn$ } from '../../../communication/midi';
 import { modifiers } from '../../../../../Shared/modifiers';
 import { filter } from 'rxjs/operators';
 import { Actions, nextActionFromMsg } from '../../../../../Shared/actions';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 export class MidiChannelToMainMelody extends PresetLogic {
     modifierOptions = {
         select: modifiers.midiChannels,
-        group: ModifierGroup.Melody,
+        group: [
+            ModifierGroup.Melody,
+            ModifierGroup.Midi,
+        ],
     };
 
     protected _startPreset(): void {

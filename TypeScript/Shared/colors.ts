@@ -1,4 +1,4 @@
-import { IColor } from './types';
+import { IColor } from './helpers/types';
 
 export enum Colors {
     Red = 0,

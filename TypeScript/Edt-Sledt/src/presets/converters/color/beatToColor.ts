@@ -1,11 +1,14 @@
 import { PresetLogic } from '../../presets-logic';
 import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
 import { withLatestFrom } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 export class BeatToColor extends PresetLogic {
     modifierOptions = {
-        group: ModifierGroup.Color,
+        group: [
+            ModifierGroup.Color,
+            ModifierGroup.Beat,
+        ],
     };
 
     private index = -1;

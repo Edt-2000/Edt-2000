@@ -1,4 +1,4 @@
-import { Actions } from './actions';
+import { Actions } from '../actions';
 
 export interface IMidiChannel {
     readonly channel: number;
@@ -57,12 +57,14 @@ export interface ICue {
 
 export enum ModifierGroup {
     Drums,
-    DrumSounds,
     Color,
     Vidt,
+    Words,
     RGBLED,
     FastLED,
     Melody,
+    Beat,
+    Midi,
 }
 
 export interface IModifierOptions {
@@ -72,7 +74,7 @@ export interface IModifierOptions {
         readonly max: number;
         readonly step: number;
     };
-    readonly group: ModifierGroup;
+    readonly group: ModifierGroup[];
 }
 
 export interface IModifierSelectOption {
@@ -97,4 +99,21 @@ export interface IColor {
     readonly h: number;
     readonly s: number;
     readonly b: number;
+}
+
+export interface AssetSet {
+    name: string;
+    assets: string[];
+}
+
+export interface IOSCMessage {
+    addresses: string[];
+    values: number[];
+}
+
+export interface ContentGroup {
+    title: string;
+    wordSet: string[];
+    images: string[];
+    videos: string[];
 }

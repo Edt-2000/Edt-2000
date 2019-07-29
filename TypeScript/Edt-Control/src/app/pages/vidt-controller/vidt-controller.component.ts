@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { animationTypes } from '../../../../../Shared/vidt-presets';
-import { wordSets } from '../../../../../Shared/words';
+import { animationTypes, vidtPresetsArr } from '../../../../../Shared/vidt-presets';
 import { Actions$ } from '../../../../../Shared/actions';
-import { modifiers } from '../../../../../Shared/modifiers';
+import { filterOnModifierGroup, modifiers } from '../../../../../Shared/modifiers';
+import { map } from 'rxjs/operators';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 @Component({
   selector: 'app-vidt-controller',
@@ -11,12 +12,15 @@ import { modifiers } from '../../../../../Shared/modifiers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VidtControllerComponent implements OnInit {
-  photoAssets$ = Actions$.imageList;
-  videoAssets$ = Actions$.videoList;
-  wordSet$ = Actions$.wordSet;
-  wordSets = wordSets;
-  glitchIntensities = modifiers.glitchIntensity;
+  vidtPresets$ = Actions$.presetState.asObservable().pipe(
+    map(presets => {
+      return filterOnModifierGroup(presets, [ModifierGroup.Vidt]);
+    }),
+  );
 
+  contentGroup$ = Actions$.contentGroup;
+  vidtPresets = vidtPresetsArr;
+  glitchIntensities = modifiers.glitchIntensity;
   animations = [
     animationTypes.stretch,
     animationTypes.spin,

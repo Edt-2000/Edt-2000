@@ -1,7 +1,8 @@
-import { Note } from './midi';
+import { Note } from './helpers/midi';
 import { automationChannel, DrumNotes } from './config';
-import { groupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './types';
+import { groupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './helpers/types';
 import { DrumSounds } from './drums';
+import { enumToArray } from './helpers/utils';
 
 export const modifiers = {
     strobeSpeeds: [
@@ -22,25 +23,16 @@ export const modifiers = {
             label: `Channel: ${nr + 1}`,
             value: nr + 1,
         })),
-    drumNotes: [
-        {label: `_1 - ${Note[DrumNotes._1]}`, value: DrumNotes._1},
-        {label: `_2 - ${Note[DrumNotes._2]}`, value: DrumNotes._2},
-        {label: `_3 - ${Note[DrumNotes._3]}`, value: DrumNotes._3},
-        {label: `_4 - ${Note[DrumNotes._4]}`, value: DrumNotes._4},
-        {label: `_5 - ${Note[DrumNotes._5]}`, value: DrumNotes._5},
-        {label: `_6A - ${Note[DrumNotes._6A]}`, value: DrumNotes._6A},
-        {label: `_6B - ${Note[DrumNotes._6B]}`, value: DrumNotes._6B},
-        {label: `_7A - ${Note[DrumNotes._7A]}`, value: DrumNotes._7A},
-        {label: `_7B - ${Note[DrumNotes._7B]}`, value: DrumNotes._7B},
-    ],
-    drumSounds: Object.keys(DrumSounds)
-    // Filter out numeric entries of enum
-        .filter(entry => isNaN(+entry))
-        .filter(entry => entry !== '____EMPTY____')
+    drumNotes: enumToArray(DrumNotes)
+        .map(drumNote => ({
+            value: +DrumNotes[drumNote],
+            label: `${drumNote} - ${Note[DrumNotes[drumNote]]}`,
+        })),
+    drumSounds: enumToArray(DrumSounds)
         .map(sound => {
             return {
+                value: +DrumSounds[sound],
                 label: sound,
-                value: DrumSounds[sound],
             };
         }),
     glitchIntensity: [
@@ -52,15 +44,31 @@ export const modifiers = {
     ],
 };
 
-export function converToNamedPresetGroup(presets: IControlPresetMsg[]): groupedControlPresetMsg[] {
+export function convertToNamedPresetGroup(presets: IControlPresetMsg[]): groupedControlPresetMsg[] {
     return Object.values(presets.reduce((grouped: any, preset) => {
-        if (!grouped[preset.config.group]) {
-            grouped[preset.config.group] = {
-                title: ModifierGroup[preset.config.group],
-                presets: [],
-            };
-        }
-        grouped[preset.config.group].presets.push(preset);
+        preset.config.group.forEach(group => {
+            if (!grouped[group]) {
+                grouped[group] = {
+                    title: ModifierGroup[group],
+                    presets: [],
+                };
+            }
+            grouped[group].presets.push(preset);
+        });
         return grouped;
     }, {}));
+}
+
+export function filterOnModifierGroup(
+    presets: IControlPresetMsg[],
+    modifierGroups: ModifierGroup[],
+): IControlPresetMsg[] {
+    return presets
+        .filter(preset => {
+            return preset.config.group.some(group => {
+                return modifierGroups.some(modifierGroup => {
+                    return modifierGroup === group;
+                });
+            });
+        });
 }

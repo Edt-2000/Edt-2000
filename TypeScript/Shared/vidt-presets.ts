@@ -1,4 +1,6 @@
-export enum vidtPresets {
+import { enumToArray } from './helpers/utils';
+
+export enum VidtPresets {
     '____EMPTY____',
     'logo',
     'bluescreen',
@@ -15,9 +17,7 @@ export enum vidtPresets {
     'karaoke',
 }
 
-export const vidtPresetsArr = Object.keys(vidtPresets)
-    .filter(vp => isNaN(+vp))
-    .filter(entry => entry !== '____EMPTY____');
+export const vidtPresetsArr = enumToArray(VidtPresets);
 
 export enum animationTypes {
     bounce = 'bounce',
