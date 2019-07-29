@@ -1,6 +1,6 @@
 import { Note } from './helpers/midi';
 import { automationChannel, DrumNotes } from './config';
-import { groupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './helpers/types';
+import { GroupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './helpers/types';
 import { DrumSounds } from './drums';
 import { enumToArray } from './helpers/utils';
 
@@ -44,7 +44,7 @@ export const modifiers = {
     ],
 };
 
-export function convertToNamedPresetGroup(presets: IControlPresetMsg[]): groupedControlPresetMsg[] {
+export function convertToNamedPresetGroup(presets: IControlPresetMsg[]): GroupedControlPresetMsg[] {
     return Object.values(presets.reduce((grouped: any, preset) => {
         preset.config.group.forEach(group => {
             if (!grouped[group]) {
