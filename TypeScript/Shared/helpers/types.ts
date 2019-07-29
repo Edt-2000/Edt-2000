@@ -1,4 +1,4 @@
-import { Actions } from './actions';
+import { Actions } from '../actions';
 
 export interface IMidiChannel {
     readonly channel: number;
@@ -109,4 +109,11 @@ export interface AssetSet {
 export interface IOSCMessage {
     addresses: string[];
     values: number[];
+}
+
+export interface ContentGroup {
+    title: string;
+    wordSet: string[];
+    images: string[];
+    videos: string[];
 }

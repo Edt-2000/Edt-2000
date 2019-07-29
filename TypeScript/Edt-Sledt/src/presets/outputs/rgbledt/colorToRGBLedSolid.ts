@@ -2,7 +2,7 @@ import { PresetLogic } from '../../presets-logic';
 import { Actions$ } from '../../../../../Shared/actions';
 import { RGBLedtSingleSolid } from '../../../outputs/edt-rgbledt';
 import { skip } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 export class ColorToRGBLedSolid extends PresetLogic {
     modifierOptions = {

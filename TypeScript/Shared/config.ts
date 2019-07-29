@@ -1,5 +1,5 @@
-import { IColor } from './types';
-import { Note } from './midi';
+import { IColor } from './helpers/types';
+import { Note } from './helpers/midi';
 import { Colors } from './colors';
 
 export const socketPort: number = 8988;

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { Actions$ } from '../../../../../Shared/actions';
-import { IColor } from '../../../../../Shared/types';
+import { IColor } from '../../../../../Shared/helpers/types';
 import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
 const convert = require('color-convert');
@@ -23,7 +23,7 @@ export class KaraokeComponent extends Vue {
     public styles: Object = {};
     public text: string = 'bounce';
 
-    mounted () {
+    mounted() {
         this.textSubscription = Actions$.mainText.subscribe(text => {
             // if same bounce
             if (this.text === text) {
@@ -48,11 +48,11 @@ export class KaraokeComponent extends Vue {
         );
     }
 
-    convertToRGB (h: number, s: number, v: number) {
+    convertToRGB(h: number, s: number, v: number) {
         return convert.hsv.rgb(h, s, v);
     }
 
-    setStyles (colors: IColor[]) {
+    setStyles(colors: IColor[]) {
         const bcgColor = ColorHelper.getRGBString(colors);
 
         this.styles = {
@@ -60,7 +60,7 @@ export class KaraokeComponent extends Vue {
         };
     }
 
-    destroyed () {
+    destroyed() {
         if (typeof this.textSubscription !== 'undefined') {
             this.textSubscription.unsubscribe();
         }

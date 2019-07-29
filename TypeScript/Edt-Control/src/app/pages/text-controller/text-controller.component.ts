@@ -4,7 +4,7 @@ import { animationTypes } from '../../../../../Shared/vidt-presets';
 import { Actions$ } from '../../../../../Shared/actions';
 import { filterOnModifierGroup } from '../../../../../Shared/modifiers';
 import { map } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 @Component({
   selector: 'app-text-controller',

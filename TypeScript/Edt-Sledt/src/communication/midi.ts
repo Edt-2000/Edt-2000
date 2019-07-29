@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs/Observable';
-import { IMidiNoteMsg } from '../../../Shared/types';
+import { IMidiNoteMsg } from '../../../Shared/helpers/types';
 import { filter, map } from 'rxjs/operators';
 import { OSC$ } from './osc';
-import { noteToNote, noteToOctave } from '../../../Shared/utils';
+import { noteToNote, noteToOctave } from '../../../Shared/helpers/utils';
 import { automationChannel } from '../../../Shared/config';
-import { isMidiMessage, isMidiNoteMessage } from '../../../Shared/midi';
+import { isMidiMessage, isMidiNoteMessage } from '../../../Shared/helpers/midi';
 
 const midiOSC$ = OSC$.pipe(
     filter(isMidiMessage),

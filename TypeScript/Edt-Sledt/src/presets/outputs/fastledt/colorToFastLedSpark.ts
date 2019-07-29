@@ -3,7 +3,7 @@ import { Actions$ } from '../../../../../Shared/actions';
 import { FastLedtSpark } from '../../../outputs/edt-fastled';
 import { modifiers } from '../../../../../Shared/modifiers';
 import { skip } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 export class ColorToFastLedSpark extends PresetLogic {
     modifierOptions = {

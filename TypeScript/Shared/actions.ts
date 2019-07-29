@@ -1,12 +1,11 @@
-import { IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './types';
+import { ContentGroup, IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './helpers/types';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { ActionsUnion, createAction } from './fsa-helpers';
+import { ActionsUnion, createAction } from './helpers/fsa-helpers';
 import { animationTypes, VidtPresets } from './vidt-presets';
 import { defaultColor, DrumNotes } from './config';
 import { colorSets } from './colors';
 import { DrumSounds } from './drums';
 import { modifiers } from './modifiers';
-import { ContentGroup } from './words';
 
 export const Actions = {
     presetChange: (payload: IPresetMsg) => createAction('presetChange', payload),

@@ -1,4 +1,4 @@
-import { IModifierOptions } from '../../../Shared/types';
+import { IModifierOptions } from '../../../Shared/helpers/types';
 import { getPresetState } from './presets';
 import { Subscription } from 'rxjs';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions';

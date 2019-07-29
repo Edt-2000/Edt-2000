@@ -1,5 +1,5 @@
 import { DeviceIPs, Modii, OSCDevices, OSCDispedtOutPort } from '../../../Shared/config';
-import { IColor } from '../../../Shared/types';
+import { IColor } from '../../../Shared/helpers/types';
 import { sendToOSC } from '../communication/osc';
 
 export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {

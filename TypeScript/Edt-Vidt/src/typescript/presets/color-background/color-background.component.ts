@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import { IColor } from '../../../../../Shared/types';
+import { IColor } from '../../../../../Shared/helpers/types';
 import { Actions$ } from '../../../../../Shared/actions';
 import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
 
@@ -19,7 +19,7 @@ export class ColorBackgroundComponent extends Vue {
     public animation: Animation | null;
     public styles: Object = {};
 
-    mounted () {
+    mounted() {
         this.animation = this.$refs.color.animate(
             [
                 {
@@ -51,7 +51,7 @@ export class ColorBackgroundComponent extends Vue {
         );
     }
 
-    pulse () {
+    pulse() {
         requestAnimationFrame(pulseDuration => {
             if (this.animation) {
                 this.animation.cancel();
@@ -80,7 +80,7 @@ export class ColorBackgroundComponent extends Vue {
         });
     }
 
-    setStyles (colors: IColor[]) {
+    setStyles(colors: IColor[]) {
         if (this.animation) {
             this.animation.cancel();
         }
@@ -93,7 +93,7 @@ export class ColorBackgroundComponent extends Vue {
         };
     }
 
-    destroyed () {
+    destroyed() {
         if (typeof this.singleColorSubscription !== 'undefined') {
             this.singleColorSubscription.unsubscribe();
         }

@@ -4,7 +4,7 @@ import { animationTypes, vidtPresetsArr } from '../../../../../Shared/vidt-prese
 import { Actions$ } from '../../../../../Shared/actions';
 import { filterOnModifierGroup, modifiers } from '../../../../../Shared/modifiers';
 import { map } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 @Component({
   selector: 'app-vidt-controller',

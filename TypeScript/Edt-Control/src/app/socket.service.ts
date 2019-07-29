@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions';
 import { animationTypes, VidtPresets } from '../../../Shared/vidt-presets';
-import { IColor, ICue } from '../../../Shared/types';
-import { ContentGroup } from '../../../Shared/words';
+import { ContentGroup, IColor, ICue } from '../../../Shared/helpers/types';
 
 @Injectable()
 export class SocketService {

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { groupedControlPresetMsg, IControlPresetMsg } from '../../../../../Shared/types';
+import { groupedControlPresetMsg, IControlPresetMsg } from '../../../../../Shared/helpers/types';
 import { convertToNamedPresetGroup } from '../../../../../Shared/modifiers';
 
 @Component({

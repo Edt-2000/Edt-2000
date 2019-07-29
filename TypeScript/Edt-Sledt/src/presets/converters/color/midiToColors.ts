@@ -3,7 +3,7 @@ import { PresetLogic } from '../../presets-logic';
 import { filter, withLatestFrom } from 'rxjs/operators';
 import { modifiers } from '../../../../../Shared/modifiers';
 import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
 export class MidiToColors extends PresetLogic {
     modifierOptions = {

@@ -1,4 +1,4 @@
-import { IControlPresetMsg } from '../../../Shared/types';
+import { IControlPresetMsg } from '../../../Shared/helpers/types';
 import { Box, Color } from 'ink';
 import * as React from 'react';
 

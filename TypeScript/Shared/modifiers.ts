@@ -1,8 +1,8 @@
-import { Note } from './midi';
+import { Note } from './helpers/midi';
 import { automationChannel, DrumNotes } from './config';
-import { groupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './types';
+import { groupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './helpers/types';
 import { DrumSounds } from './drums';
-import { enumToArray } from './utils';
+import { enumToArray } from './helpers/utils';
 
 export const modifiers = {
     strobeSpeeds: [

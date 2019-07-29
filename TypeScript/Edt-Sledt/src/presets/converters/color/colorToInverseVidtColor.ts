@@ -1,5 +1,5 @@
-import { IColor, ModifierGroup } from '../../../../../Shared/types';
-import { rescale } from '../../../../../Shared/utils';
+import { IColor, ModifierGroup } from '../../../../../Shared/helpers/types';
+import { rescale } from '../../../../../Shared/helpers/utils';
 import { PresetLogic } from '../../presets-logic';
 import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
 
