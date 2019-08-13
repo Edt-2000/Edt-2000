@@ -7,6 +7,7 @@ import { colorSets } from './colors';
 import { DrumSounds } from './drums';
 import { modifiers } from './modifiers';
 
+// TODO: make Actions into a single observable object
 export const Actions = {
     presetChange: (payload: IPresetMsg) => createAction('presetChange', payload),
     presetState: (payload: IControlPresetMsg[]) => createAction('presetState', payload),
@@ -36,6 +37,8 @@ export const Actions = {
     mainDrumSound: (payload: DrumSounds) => createAction('mainDrumSound', payload),
     mainDrum: (payload: IMidiNoteMsg) => createAction('mainDrum', payload),
     mainMelody: (payload: IMidiNoteMsg) => createAction('mainMelody', payload),
+    mainChords: (payload: IMidiNoteMsg) => createAction('mainChords', payload),
+    mainBass: (payload: IMidiNoteMsg) => createAction('mainBass', payload),
     vidtBeat: (payload: number) => createAction('vidtBeat', payload),
     vidtDrum: (payload: DrumNotes) => createAction('vidtDrum', payload),
 
@@ -77,6 +80,8 @@ export const Actions$ = {
     mainDrumSound: new Subject() as Subject<DrumSounds>,
     mainDrum: new Subject() as Subject<IMidiNoteMsg>,
     mainMelody: new Subject() as Subject<IMidiNoteMsg>,
+    mainChords: new Subject() as Subject<IMidiNoteMsg>,
+    mainBass: new Subject() as Subject<IMidiNoteMsg>,
     vidtBeat: new Subject<number>() as Subject<number>,
     vidtDrum: new Subject() as Subject<DrumNotes>,
     glitchIntensity: new BehaviorSubject<number>(modifiers.glitchIntensity[0].value),
