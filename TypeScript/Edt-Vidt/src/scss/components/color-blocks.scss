@@ -1,0 +1,74 @@
+@import '../config/colors';
+@import '../mixins/list-reset';
+@import '../mixins/stretch';
+
+.color-blocks {
+    $self: &;
+    background: $c-black;
+    height: 100vh;
+
+    &__list {
+        @include list-reset;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        padding: 10px;
+    }
+
+    &__item {
+        flex: 0 0 auto;
+        height: calc((100vh - 20px) / 4);
+        padding: 10px;
+        width: calc((100vh - 20px) / 4);
+
+
+        @for $i from 1 through 200 {
+            $delay: ((random(11) - 1) / 10) * 1s;
+            $duration: (((random(41) - 1) / 10) + 1) * 1s;
+
+            &:nth-child(#{$i}) {
+                #{$self}__block {
+                    animation-delay: $delay;
+                    animation-duration: $duration;
+                }
+            }
+        }
+    }
+
+    &__block {
+        animation: block-flip 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+
+        &::before {
+            @include stretch;
+            background: $c-red;
+            backface-visibility: hidden;
+            content: '';
+            display: block;
+        }
+
+        &::after {
+            @include stretch;
+            background: $c-green;
+            content: '';
+            display: block;
+            transform: rotateY(180deg);
+        }
+    }
+}
+
+@keyframes block-flip {
+    0% {
+        transform: rotateX(0);
+    }
+
+    50% {
+        transform: rotateX(180deg);
+    }
+
+    100% {
+        transform: rotateX(360deg);
+    }
+}

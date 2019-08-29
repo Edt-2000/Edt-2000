@@ -6,6 +6,7 @@ import { VistaComponent } from '../presets/vista/vista.component';
 import { LogoComponent } from '../presets/logo/logo.component';
 import { PhotoBouncerComponent } from '../presets/photo-bouncer/photo-bouncer.component';
 import { ColorBackgroundComponent } from '../presets/color-background/color-background.component';
+import { ColorBlocksComponent} from '../presets/color-blocks/color-blocks.component';
 import { TextBouncerComponent } from '../presets/text-bouncer/text-bouncer.component';
 import { VideoPlayerComponent } from '../presets/video-player/video-player.component';
 import { GridscapeComponent } from '../presets/gridscape/gridscape.component';
@@ -34,6 +35,7 @@ export const router = new VueRouter({
         {path: '/' + VidtPresets[VidtPresets.vista] || '', component: VistaComponent},
         {path: '/' + VidtPresets[VidtPresets.colorTwinkle] || '', component: ColorTwinkleComponent},
         {path: '/' + VidtPresets[VidtPresets.karaoke] || '', component: KaraokeComponent},
+        {path: '/' + VidtPresets[VidtPresets.colorBlocks] || '', component: ColorBlocksComponent},
         {path: '*', redirect: '/' + VidtPresets[VidtPresets.logo] || ''},
     ],
 });
