@@ -5,30 +5,20 @@ export class ColorHelper {
     static getRGBString(hsvColors: IColor[]) {
         const rgbColors = ColorHelper.hsvArray2RGBArray(hsvColors);
 
-        let bcgColor: string = '';
         if (rgbColors.length === 1) {
-            bcgColor = `rgb(${rgbColors[0].join(', ')})`;
+            return `rgb(${rgbColors[0].join(', ')})`;
         } else {
-            bcgColor = `repeating-linear-gradient(`;
             const totalColors: number = rgbColors.length;
-            let spacing = 0;
             let currentIndex: number = 0;
-
-            for (const color of rgbColors) {
+            const colorArray = rgbColors.map(color => {
                 const percentage = (100 / totalColors) * currentIndex;
                 const percentageNext = (100 / totalColors) * ++currentIndex;
-                bcgColor += `, rgb(${color.join(
-                    ', ',
-                )}) ${percentage}%, rgb(${color.join(
-                    ', ',
-                )}) ${percentageNext}%`;
-                spacing += 100;
-            }
 
-            bcgColor += ')';
+                return `rgb(${color.join(', ')}) ${percentage}%, rgb(${color.join(', ')}) ${percentageNext}%`;
+            });
+
+            return `repeating-linear-gradient(${colorArray.join(', ')})`;
         }
-
-        return bcgColor;
     }
 
     static hsvArray2RGBArray(hsvColors: IColor[]) {
