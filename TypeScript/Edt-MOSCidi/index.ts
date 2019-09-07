@@ -6,11 +6,25 @@ import easymidi = require('easymidi');
 import dgram = require('dgram');
 import osc = require('osc-min');
 
+console.log('MIDI devices', easymidi.getInputs());
+
 const virtualInput = new easymidi.Input('EdtMIDI-Input', true);
 const virtualOutput = new easymidi.Output('EdtMIDI-Output', true);
 
+const hardwareInput = new easymidi.Input('Scarlett 2i4 USB');
+
 dgram.createSocket('udp4', processOscMessage).bind(MOSCIDIPort);
 const outSocket = dgram.createSocket('udp4');
+
+hardwareInput.on('noteon', msg => {
+    console.log('Getting Midi Hardware, sending it to OSC: ', msg);
+    sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, msg.velocity]);
+});
+
+hardwareInput.on('noteoff', msg => {
+    console.log('Getting Midi hardware, sending it to OSC: ', msg);
+    sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, 0]);
+});
 
 virtualInput.on('noteon', msg => {
     console.log('Getting Midi, sending it to OSC: ', msg);
