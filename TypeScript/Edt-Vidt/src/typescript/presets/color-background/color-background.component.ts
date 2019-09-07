@@ -13,31 +13,9 @@ export class ColorBackgroundComponent extends Vue {
     public singleColorSubscription: any;
     public multiColorSubscription: any;
 
-    public $refs: {
-        color: HTMLElement;
-    };
-    public animation: Animation | null;
     public styles: Object = {};
 
     mounted() {
-        this.animation = this.$refs.color.animate(
-            [
-                {
-                    opacity: 1,
-                },
-                {
-                    opacity: 0,
-                },
-            ],
-            {
-                fill: 'forwards',
-                easing: 'ease-in',
-                duration: 200,
-            },
-        );
-
-        this.animation.pause();
-
         this.singleColorSubscription = Actions$.vidtSingleColor.subscribe(
             (color: IColor) => {
                 this.setStyles([color]);
@@ -51,45 +29,10 @@ export class ColorBackgroundComponent extends Vue {
         );
     }
 
-    pulse() {
-        requestAnimationFrame(pulseDuration => {
-            if (this.animation) {
-                this.animation.cancel();
-                this.animation = this.$refs.color.animate(
-                    [
-                        {
-                            opacity: 1,
-                        },
-                        {
-                            opacity: 0,
-                        },
-                    ],
-                    {
-                        fill: 'forwards',
-                        easing: 'ease-in',
-                        duration: pulseDuration,
-                    },
-                );
-            }
-
-            requestAnimationFrame(() => {
-                if (this.animation) {
-                    this.animation.play();
-                }
-            });
-        });
-    }
-
     setStyles(colors: IColor[]) {
-        if (this.animation) {
-            this.animation.cancel();
-        }
-
         const bcgColor = ColorHelper.getRGBString(colors);
-
         this.styles = {
-            background: `${bcgColor}`,
-            opacity: 1,
+            background: `${bcgColor}`
         };
     }
 

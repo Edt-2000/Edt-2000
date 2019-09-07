@@ -45,7 +45,7 @@ export interface IControlPresetMsg extends IPresetMsg {
     readonly config: IModifierOptions;
 }
 
-export interface groupedControlPresetMsg {
+export interface GroupedControlPresetMsg {
     title: string;
     presets: IControlPresetMsg[];
 }
@@ -65,6 +65,7 @@ export enum ModifierGroup {
     Melody,
     Beat,
     Midi,
+    Bass,
 }
 
 export interface IModifierOptions {
