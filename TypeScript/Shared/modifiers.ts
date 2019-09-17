@@ -34,12 +34,10 @@ export const modifiers = {
             label: `${drumNote} - ${Note[DrumNotes[drumNote]]}`,
         })),
     drumSounds: enumToArray(DrumSounds)
-        .map(sound => {
-            return {
-                value: +DrumSounds[sound],
-                label: sound,
-            };
-        }),
+        .map(sound => ({
+            value: +DrumSounds[sound],
+            label: sound,
+        })),
     glitchIntensity: [
         {label: 'low', value: 1},
         {label: 'medium', value: 3},
