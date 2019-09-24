@@ -1,0 +1,74 @@
+@import '../config/colors';
+
+.color-twinkle {
+    height: 100vh;
+    background: $c-black;
+
+    &__star {
+        animation: twinkle 1.4s linear infinite;
+        position: absolute;
+        color: $c-pink;
+        top: 50%;
+        left: 50%;
+
+        span {
+            display: block;
+            background: currentColor;
+            content: '';
+            width: 20px;
+            height: 2px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            &:nth-child(2) {
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+
+            &:nth-child(3) {
+                transform: translate(-50%, -50%) rotate(135deg);
+            }
+
+            &:nth-child(4) {
+                transform: translate(-50%, -50%) rotate(-135deg);
+            }
+        }
+
+        @for $i from 1 through 400 {
+            $delay: ((random(11) - 1) / 10) * 1s;
+
+            &:nth-child(#{$i}) {
+                animation-delay: $delay;
+                top: random(100) * 1%;
+                left: random(100) * 1%;
+            }
+        }
+
+        &:nth-child(2n) {
+            transform: scale(1.2);
+        }
+
+        &:nth-child(3n) {
+            transform: scale(0.8);
+        }
+
+        &:nth-child(4n) {
+            transform: scale(1.4);
+        }
+    }
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

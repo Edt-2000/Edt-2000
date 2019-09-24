@@ -1,0 +1,37 @@
+@import '../config/colors';
+@import '../config/sizes';
+@import '../mixins/typography';
+@import '../mixins/screen';
+
+.karaoke {
+    background: $c-black;
+    height: 100vh;
+    position: relative;
+
+    &__text {
+        color: $c-pink;
+        font-family: $font-neon;
+        font-size: 10rem;
+        left: 50%;
+        letter-spacing: 8px;
+        position: absolute;
+        text-align: center;
+        text-shadow: 0 0 40px currentColor;
+        text-transform: uppercase;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s, transform 0.3s;
+        width: 94vw;
+
+        .is-hidden & {
+            opacity: 0;
+            transform: scale(0);
+        }
+    }
+
+    @include screen($screen-xlarge) {
+        &__text {
+            font-size: 14rem;
+        }
+    }
+}

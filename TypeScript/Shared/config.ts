@@ -5,7 +5,7 @@ import { Colors } from './colors';
 export const socketPort: number = 8988;
 
 export const enum DeviceIPs {
-    edtDispEdter = 'localhost',
+    edtDispEdter = '10.0.0.204',
     edtMOSCidi = 'localhost',
     edtSledt = 'localhost',
 }
@@ -56,8 +56,6 @@ export enum OSCDevices {
     EdtTrack = 'TK',
     EdtAudio = 'A',
     EdtPedal = 'PD',
-    EdtDrum = 'DR',
-    EdtGuitar = 'GR',
 }
 
 // Set Modus of Edt-LED

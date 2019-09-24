@@ -1,0 +1,159 @@
+@import '../config/colors';
+
+.gridscape {
+    height: 100vh;
+    position: relative;
+
+    &__horizon {
+        background: linear-gradient(
+                to bottom,
+                $c-darkblue 0%,
+                $c-bluepurple 50%,
+                $c-purple 74%,
+                $c-pink 84%,
+                $c-yellow 100%
+        );
+        height: 50vh;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    &__land {
+        background: linear-gradient(to right, #1f0540 0%, #570257 100%);
+        bottom: 0;
+        height: 50vh;
+        left: 0;
+        perspective: 210vh;
+        position: absolute;
+        right: 0;
+
+        &:before {
+            background: linear-gradient(
+                    to bottom,
+                    rgba(#b30699, 0.34) 0%,
+                    rgba(#fff, 0) 100%
+            );
+            content: '';
+            height: 100%;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+
+    &__overlay {
+        background: linear-gradient(
+                to bottom,
+                $c-lightblue 0%,
+                $c-lightblue 3%,
+                transparent 14%
+        );
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    &__lines-horizontal {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    &__line-horizontal {
+        animation: move-up 0.5s linear infinite;
+        border-bottom: 2px solid $c-lightblue;
+        height: calc(100% / 7);
+        width: 100%;
+
+        @for $i from 1 through 10 {
+            $spacing: (6 - $i) * 10;
+            &:nth-child(#{$i}) {
+                height: calc((100% / 7) - #{$spacing}px);
+            }
+        }
+    }
+
+    &__lines-vertical {
+        align-items: center;
+        display: flex;
+        height: 1200%;
+        transform: rotateX(82deg);
+        transform-origin: top;
+        width: 100%;
+    }
+
+    &__line-vertical {
+        border-left: 2px solid $c-lightblue;
+        height: 100%;
+        width: calc(100% / 80);
+
+        &:first-child {
+            margin-left: calc(100% / 80);
+        }
+    }
+
+    &__star {
+        animation: twinkle 1.4s linear infinite;
+        border-radius: 50%;
+        box-shadow: 0 0 2px 1px #fff;
+        height: 1px;
+        position: absolute;
+        width: 1px;
+
+        @for $i from 1 through 100 {
+            $duration: (((random(40) - 1) / 10) + 3) * 1s;
+            $delay: ((random(11) - 1) / 10) * 1s;
+
+            &:nth-child(#{$i}) {
+                animation-duration: $duration;
+                animation-delay: $delay;
+                top: random(100) * 1%;
+                left: random(100) * 1%;
+                box-shadow: 0 0 2px random(3) * 1px #fff;
+            }
+        }
+    }
+
+    &__sun {
+        background: linear-gradient(to bottom, $c-yellow 0%, $c-orange 50%);
+        border-radius: 50%;
+        box-shadow: 0 0 26px 20px rgba($c-orange, 0.5);
+        height: 44vh;
+        left: 50%;
+        position: absolute;
+        top: 100%;
+        transform: translate(-50%, -62%);
+        width: 44vh;
+    }
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes move-up {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}

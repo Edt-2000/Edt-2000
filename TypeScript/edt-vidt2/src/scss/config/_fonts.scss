@@ -1,0 +1,36 @@
+// Place this in same folder as layout.scss due to relative imports
+
+@font-face {
+    font-family: 'Fixedsys';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../../../../Shared/assets/fonts/FSEX300.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../../../../Shared/assets/fonts/orbitron-black-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'KlartextMono-Light';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../../../../Shared/assets/fonts/KlartextMono-Light-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'FredokaOne';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../../../../Shared/assets/fonts/FredokaOne-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'NeonGlow';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../../../../Shared/assets/fonts/neon-glow.woff') format('woff');
+}
