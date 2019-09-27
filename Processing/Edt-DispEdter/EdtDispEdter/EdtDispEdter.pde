@@ -15,8 +15,8 @@ void setup() {
  
   printArray(Serial.list());
   
-  Arduino1 = new Serial(this, Serial.list()[4], 57600);
-  Arduino2 = new Serial(this, Serial.list()[5], 57600);
+  Arduino1 = new Serial(this, "/dev/tty.usbmodem14424101", 57600);
+  Arduino2 = new Serial(this, "/dev/tty.usbmodem14424401", 57600);
 }
 
 

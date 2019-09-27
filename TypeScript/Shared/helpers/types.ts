@@ -12,9 +12,9 @@ export interface IMidiCCMsg extends IMidiChannel {
 export interface IMidiNoteMsg extends IMidiChannel {
     readonly noteOn: boolean;
     readonly note: number;
-    readonly noteNumber: number;
-    readonly octave: number;
     readonly velocity: number;
+    readonly noteNumber?: number;
+    readonly octave?: number;
 }
 
 export interface IMidiProgramMsg extends IMidiChannel {
@@ -56,6 +56,8 @@ export interface ICue {
 }
 
 export enum ModifierGroup {
+    EdtDrums,
+    EdtGuitar,
     Drums,
     Color,
     Vidt,

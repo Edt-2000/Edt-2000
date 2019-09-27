@@ -23,6 +23,8 @@ import { ColorToFastLedStrobe } from './outputs/fastledt/colorToFastLedStrobe';
 import { MainMelodyToChunksOfFastLedt } from './outputs/fastledt/mainMelodyToChunksOfFastLedt';
 import { MidiChannelToMainBass } from './converters/bass/midiChannelToMainBass';
 import { MidiChannelToMainChords } from './converters/chords/midiChannelToMainChords';
+import { DrumToMidi } from './inputs/drumToMidi';
+import { GuitarToMidi } from './inputs/guitarToMidi';
 
 // TODO: C, D, E, F, G, A, B
 
@@ -55,32 +57,20 @@ export const presets = {
         new DrumSoundMap(DrumSounds.hihatOpen),
     [Note.B_2]:
         new DrumSoundToBeat(),
-    [Note.C_2]:
+    [Note.C_1]:
         new DrumSoundToFastLedStrip(),
-    // [Note.C$_2]:
-    // [Note.D_2]:
-    // [Note.D$_2]:
-    // [Note.E_2]:
-    [Note.F_2]:
-        new BeatToColor(),
-    [Note.F$_2]:
-        new BeatToRainbowSpark(),
-    [Note.G_2]:
-        new ColorToFastLedSpark(),
-    // [Note.G$_2]:
-    // [Note.A_2]:
-    // [Note.A$_2]:
-    [Note.B_2]:
-        new MidiToColors(),
-    // [Note.C_1]:
     // [Note.C$_1]:
     // [Note.D_1]:
     // [Note.D$_1]:
     // [Note.E_1]:
-    // [Note.F_1]:
-    // [Note.F$_1]:
-    // [Note.G_1]:
-    // [Note.G$_1]:
+    [Note.F_1]:
+        new BeatToColor(),
+    [Note.F$_1]:
+        new BeatToRainbowSpark(),
+    [Note.G_1]:
+        new ColorToFastLedSpark(),
+    [Note.G$_1]:
+        new MidiToColors(),
     // [Note.A_1]:
     // [Note.A$_1]:
     // [Note.B_1]:
@@ -92,7 +82,6 @@ export const presets = {
         new ColorToFastLedStrobe(),
     [Note.D$0]:
         new ColorStrobeRGBLed(),
-
     // [Note.E0]:
     // [Note.F0]:
     // [Note.F$0]:
@@ -197,13 +186,13 @@ export const presets = {
     // [Note.A7]:
     // [Note.A$7]:
     // [Note.B7]:
-    // [Note.C$8]:
-    // [Note.D8]:
-    // [Note.D$8]:
-    // [Note.E8]:
-    // [Note.F8]:
+    [Note.C$8]: new DrumToMidi(1),
+    [Note.D8]: new DrumToMidi(2),
+    [Note.D$8]: new DrumToMidi(4),
+    [Note.E8]: new DrumToMidi(8),
+    [Note.F8]: new DrumToMidi(16),
     // [Note.F$8]:
-    // [Note.G8]:
+    [Note.G8]: new GuitarToMidi(),
 };
 
 export function getPresetState(): IControlPresetMsg[] {
