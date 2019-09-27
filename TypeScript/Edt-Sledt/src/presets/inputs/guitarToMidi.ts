@@ -1,7 +1,7 @@
 import { PresetLogic } from '../presets-logic';
 import { tap } from 'rxjs/operators';
 import { ModifierGroup } from '../../../../Shared/helpers/types';
-import { edtGuitar$ } from '../../inputs/edt-gitar';
+import { edtGuitar$ } from '../../inputs/edt-guitar';
 import { modifiers } from '../../../../Shared/modifiers';
 import { sendToMidi } from '../../outputs/edt-midi';
 import { Note } from '../../../../Shared/helpers/midi';

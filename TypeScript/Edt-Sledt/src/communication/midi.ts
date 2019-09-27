@@ -1,17 +1,12 @@
 import { Observable } from 'rxjs/Observable';
 import { IMidiNoteMsg } from '../../../Shared/helpers/types';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { OSC$ } from './osc';
 import { noteToNote, noteToOctave } from '../../../Shared/helpers/utils';
 import { automationChannel } from '../../../Shared/config';
 import { isMidiMessage, isMidiNoteMessage } from '../../../Shared/helpers/midi';
-import { merge } from 'rxjs';
-import { loopbackOSCMidi$ } from '../outputs/edt-midi';
 
-const midiOSC$ = merge(
-    OSC$,
-    loopbackOSCMidi$.pipe(tap(log => console.log('loopback:', log))),
-).pipe(
+const midiOSC$ = OSC$.pipe(
     filter(isMidiMessage),
 );
 

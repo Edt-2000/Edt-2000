@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { SocketIoModule } from 'ngx-socket-io';
 import { controlSocketConfig } from '../../../Shared/config';
 import { AppComponent } from './app.component';
@@ -15,11 +15,14 @@ import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller
 import { TriggerButtonComponent } from './components/trigger-button/trigger-button.component';
 import { TextControllerComponent } from './pages/text-controller/text-controller.component';
 import { PresetSwitchersComponent } from './components/preset-switchers/preset-switchers.component';
+import { ActivePresetsControllerComponent } from './pages/active-presets-controller/active-presets-controller.component';
+import { CustomReuseStrategy } from './CustomReuseStrategy';
 
 @NgModule({
   declarations: [
     AppComponent,
     PresetControllerComponent,
+    ActivePresetsControllerComponent,
     ColorControllerComponent,
     PresetSwitcherComponent,
     CuesControllerComponent,
@@ -44,7 +47,10 @@ import { PresetSwitchersComponent } from './components/preset-switchers/preset-s
     ),
     SocketIoModule.forRoot(controlSocketConfig),
   ],
-  providers: [SocketService],
+  providers: [
+    SocketService,
+    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
+  ],
   bootstrap: [AppComponent],
   exports: [],
 })

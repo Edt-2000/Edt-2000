@@ -18,7 +18,7 @@ export class PhotoBouncerComponent extends Vue {
     public animation: Animation;
     public src: string = '';
 
-    mounted () {
+    mounted() {
         this.animation = this.$refs.img.animate(
             [
                 {
@@ -48,11 +48,11 @@ export class PhotoBouncerComponent extends Vue {
         });
     }
 
-    setSrc (src: string) {
-        this.src = `assets/photos/${src}`;
+    setSrc(src: string) {
+        this.src = `assets/media-by-group/${src}`;
     }
 
-    animate () {
+    animate() {
         requestAnimationFrame(() => {
             if (this.animation.playState === 'running') {
                 this.animation.cancel();
@@ -64,7 +64,7 @@ export class PhotoBouncerComponent extends Vue {
         });
     }
 
-    destroyed () {
+    destroyed() {
         if (typeof this.beatSubscription !== 'undefined') {
             this.beatSubscription.unsubscribe();
         }

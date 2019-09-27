@@ -14,7 +14,7 @@ export class PhotoGlitcherComponent extends Vue {
     public animation: string = 'bounce';
     public src: string = '';
 
-    mounted () {
+    mounted() {
         this.animationSubscription = Actions$.animationType.subscribe(
             animation => {
                 this.animation = animation;
@@ -26,11 +26,11 @@ export class PhotoGlitcherComponent extends Vue {
         });
     }
 
-    setSrc (src: string) {
-        this.src = `assets/photos/${src}`;
+    setSrc(src: string) {
+        this.src = `assets/media-by-group/${src}`;
     }
 
-    destroyed () {
+    destroyed() {
         if (typeof this.animationSubscription !== 'undefined') {
             this.animationSubscription.unsubscribe();
         }
