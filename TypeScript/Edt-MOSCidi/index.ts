@@ -11,20 +11,42 @@ console.log('MIDI devices', easymidi.getInputs());
 const virtualInput = new easymidi.Input('EdtMIDI-Input', true);
 const virtualOutput = new easymidi.Output('EdtMIDI-Output', true);
 
-const hardwareInput = new easymidi.Input('Scarlett 2i4 USB');
-
 dgram.createSocket('udp4', processOscMessage).bind(MOSCIDIPort);
 const outSocket = dgram.createSocket('udp4');
 
-hardwareInput.on('noteon', msg => {
-    console.log('Getting Midi Hardware, sending it to OSC: ', msg);
-    sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, msg.velocity]);
-});
+try {
+    const hardwareInput = new easymidi.Input('Scarlett 2i4 USB');
 
-hardwareInput.on('noteoff', msg => {
-    console.log('Getting Midi hardware, sending it to OSC: ', msg);
-    sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, 0]);
-});
+    hardwareInput.on('noteon', msg => {
+        console.log('Getting Midi Hardware 1, sending it to OSC: ', msg);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, msg.velocity]);
+    });
+
+    hardwareInput.on('noteoff', msg => {
+        console.log('Getting Midi hardware 1, sending it to OSC: ', msg);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, 0]);
+    });
+
+} catch (e) {
+    console.log('No hardware MIDI connected!');
+}
+
+try {
+    const hardwareInput = new easymidi.Input('EDTMID USB MIDI Interface');
+
+    hardwareInput.on('noteon', msg => {
+        console.log('Getting Midi Hardware 2, sending it to OSC: ', msg);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, msg.velocity]);
+    });
+
+    hardwareInput.on('noteoff', msg => {
+        console.log('Getting Midi hardware 2, sending it to OSC: ', msg);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, 0]);
+    });
+
+} catch (e) {
+    console.log('No hardware MIDI connected!');
+}
 
 virtualInput.on('noteon', msg => {
     console.log('Getting Midi, sending it to OSC: ', msg);
@@ -53,9 +75,9 @@ function processOscMessage(msg) {
             if (addresses.length > 0) {
                 if (isMidiMessage(OSCMsg) && isMidiNoteMessage(OSCMsg)) {
                     const MidiMsg = {
+                        channel: OSCMsg.values[0] - 1,
                         note: OSCMsg.values[1],
                         velocity: OSCMsg.values[2],
-                        channel: OSCMsg.values[0] - 1,
                     };
                     if (MidiMsg.velocity > 0) {
                         virtualOutput.send('noteon', MidiMsg);

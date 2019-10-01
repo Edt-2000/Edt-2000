@@ -7,12 +7,12 @@ export const EdtConsole = (
         vidts,
         controls,
         presetState,
-        latestOSC,
+        OSCOutput,
     }: {
         vidts: string[],
         controls: string[],
         presetState: IControlPresetMsg[],
-        latestOSC: string[],
+        OSCOutput: string[],
     },
 ) => {
     return <>
@@ -38,8 +38,8 @@ export const EdtConsole = (
         <Box>--------</Box>
         {controls.map(title => <Box key={title}>{title}</Box>)}
         <Box>--------</Box>
-        Last OSC message:
+        Last OSC message send:
         <Box>--------</Box>
-        {latestOSC.map((message, index) => <Box key={index}>{message}</Box>)}
+        {OSCOutput.map((message, index) => <Box key={index}>{message}</Box>)}
     </>;
 };

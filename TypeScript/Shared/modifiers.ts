@@ -23,6 +23,11 @@ export const modifiers = {
             label: `Channel: ${nr + 1}`,
             value: nr + 1,
         })),
+    guitarNotes: enumToArray(Note)
+        .map(note => ({
+            value: +Note[note],
+            label: `${note} - ${Note[Note[note]]}`,
+        })),
     drumNotes: enumToArray(DrumNotes)
         .map(drumNote => ({
             value: +DrumNotes[drumNote],

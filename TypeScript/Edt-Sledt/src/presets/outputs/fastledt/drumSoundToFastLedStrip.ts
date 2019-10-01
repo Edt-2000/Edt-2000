@@ -22,13 +22,13 @@ export class DrumSoundToFastLedStrip extends PresetLogic {
                 .pipe(withLatestFrom(Actions$.singleColor))
                 .subscribe(([drumSound, color]) => {
                     [
+                        DrumSounds.tom1,
+                        DrumSounds.secondSnare,
                         DrumSounds.kick,
                         DrumSounds.mainSnare,
                         DrumSounds.kick,
-                        DrumSounds.mainSnare,
-                        DrumSounds.kick,
-                        DrumSounds.mainSnare,
-                        DrumSounds.kick,
+                        DrumSounds.secondSnare,
+                        DrumSounds.tom1,
                     ].forEach((sound, index) => {
                         if (sound === drumSound) {
                             FastLedtSinglePulse(index + 1, 50, color);

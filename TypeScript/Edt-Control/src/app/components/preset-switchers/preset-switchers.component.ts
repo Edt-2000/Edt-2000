@@ -34,6 +34,10 @@ export class PresetSwitchersComponent {
 
   @Input() set presetState(presetStates: IControlPresetMsg[]) {
     this.groupedPresetState = convertToNamedPresetGroup(presetStates);
+    this.currentGroup =
+      this.currentGroup
+        ? this.currentGroup
+        : this.groupedPresetState[0] && this.groupedPresetState[0].title || '';
   }
 
 }

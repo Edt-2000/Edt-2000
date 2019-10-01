@@ -38,8 +38,8 @@ combineLatest(
         scan<string>((mostRecent, current) => [...mostRecent, current].slice(-9), []),
     ),
 ).pipe(
-    tap(([vidts, controls, presetState, latestOSC]) => {
-        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState} latestOSC={latestOSC}/>);
+    tap(([vidts, controls, presetState, OSCOutput]) => {
+        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState} OSCOutput={OSCOutput}/>);
     }),
 ).subscribe();
 
