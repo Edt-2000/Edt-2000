@@ -18,12 +18,29 @@ try {
     const hardwareInput = new easymidi.Input('Scarlett 2i4 USB');
 
     hardwareInput.on('noteon', msg => {
-        console.log('Getting Midi Hardware, sending it to OSC: ', msg);
+        console.log('Getting Midi Hardware 1, sending it to OSC: ', msg);
         sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, msg.velocity]);
     });
 
     hardwareInput.on('noteoff', msg => {
-        console.log('Getting Midi hardware, sending it to OSC: ', msg);
+        console.log('Getting Midi hardware 1, sending it to OSC: ', msg);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, 0]);
+    });
+
+} catch (e) {
+    console.log('No hardware MIDI connected!');
+}
+
+try {
+    const hardwareInput = new easymidi.Input('EDTMID USB MIDI Interface');
+
+    hardwareInput.on('noteon', msg => {
+        console.log('Getting Midi Hardware 2, sending it to OSC: ', msg);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, msg.velocity]);
+    });
+
+    hardwareInput.on('noteoff', msg => {
+        console.log('Getting Midi hardware 2, sending it to OSC: ', msg);
         sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, 0]);
     });
 

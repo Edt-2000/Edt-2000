@@ -36,7 +36,7 @@ export class GuitarToMidi extends PresetLogic {
 function bitMaskToNote(bitMask: number) {
     switch (bitMask) {
         case 1:
-            return Note.C1;
+            return Note.C2;
         case 2:
             return Note.D$_1;
         case 4:
@@ -44,7 +44,7 @@ function bitMaskToNote(bitMask: number) {
         case 8:
             return Note.G1;
         case 16:
-            return Note.C2;
+            return Note.C1;
         default:
             return 0;
     }
