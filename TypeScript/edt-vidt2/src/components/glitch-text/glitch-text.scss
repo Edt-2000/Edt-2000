@@ -1,6 +1,6 @@
-@import '../config/colors';
-@import '../mixins/keyframe-glitch';
-@import '../mixins/typography';
+@import '../../scss/config/colors';
+@import '../../scss/mixins/keyframe-glitch';
+@import '../../scss/mixins/typography';
 
 .glitch-text {
     font-family: $font-logo;

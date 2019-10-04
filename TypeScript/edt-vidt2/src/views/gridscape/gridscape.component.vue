@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+    import "./gridscape.scss";
     import Vue from "vue";
     import { Component } from "vue-property-decorator";
     import { Actions$ } from "../../../../Shared/actions";

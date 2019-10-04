@@ -12,6 +12,8 @@
 </template>
 
 <script lang="ts">
+    import "./glitch-text.scss";
+
     import Vue from "vue";
     import { Component, Prop, Watch } from "vue-property-decorator";
 

@@ -1,7 +1,7 @@
-@import '../config/colors';
-@import '../config/sizes';
-@import '../mixins/typography';
-@import '../mixins/screen';
+@import '../../scss/config/colors';
+@import '../../scss/config/sizes';
+@import '../../scss/mixins/typography';
+@import '../../scss/mixins/screen';
 
 .karaoke {
     background: $c-black;

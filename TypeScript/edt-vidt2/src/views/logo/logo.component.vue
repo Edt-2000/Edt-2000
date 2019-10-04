@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts">
+    import "./logo.scss";
     import Vue from "vue";
     import { Component } from "vue-property-decorator";
     import GlitchText from "../../components/glitch-text/glitch-text.component.vue";

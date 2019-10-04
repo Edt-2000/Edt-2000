@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+    import "./color-background.scss";
     import Vue from "vue";
     import { Component } from "vue-property-decorator";
     import { IColor } from "../../../../Shared/helpers/types";

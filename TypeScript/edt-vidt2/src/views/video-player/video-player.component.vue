@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts">
+    import "./video-player.scss";
     import Vue from "vue";
     import { Component } from "vue-property-decorator";
     import { Actions$ } from "../../../../Shared/actions";

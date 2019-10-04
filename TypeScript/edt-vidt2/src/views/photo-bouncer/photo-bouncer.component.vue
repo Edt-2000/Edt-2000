@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+    import "./photo-bouncer.scss";
     import Vue from "vue";
     import { Component } from "vue-property-decorator";
     import { Actions$ } from "../../../../Shared/actions";

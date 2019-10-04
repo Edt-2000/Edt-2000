@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+    import "./shutdown.scss";
     import Vue from "vue";
     import { Component } from "vue-property-decorator";
 

@@ -6,6 +6,7 @@
 </template>
 
 <script lang="ts">
+    import "./hacking.scss";
     import Vue from "vue";
     import { Component } from "vue-property-decorator";
     import { stevenCode } from "../../../../Shared/assets/data/stevencode";

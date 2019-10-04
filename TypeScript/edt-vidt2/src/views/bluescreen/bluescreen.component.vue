@@ -22,6 +22,8 @@
 </template>
 
 <script lang="ts">
+    import "./bluescreen.scss";
+
     import Vue from "vue";
     import { Component } from "vue-property-decorator";
 
@@ -29,3 +31,4 @@
     export default class BluescreenComponent extends Vue {
     }
 </script>
+
