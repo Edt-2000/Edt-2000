@@ -56,6 +56,8 @@ export enum OSCDevices {
     EdtTrack = 'TK',
     EdtAudio = 'A',
     EdtPedal = 'PD',
+    EdtGuitar = 'GT',
+    EdtDrum = 'DR',
 }
 
 // Set Modus of Edt-LED

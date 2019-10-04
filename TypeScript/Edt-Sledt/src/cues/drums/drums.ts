@@ -11,7 +11,7 @@ import { BeatToColor } from '../../presets/converters/color/beatToColor';
 import { ColorToVidtColor } from '../../presets/outputs/vidt/colorToVidtColor';
 import { ColorToFastLedSolid } from '../../presets/outputs/fastledt/colorToFastLedSolid';
 import { ColorToRGBLedSolid } from '../../presets/outputs/rgbledt/colorToRGBLedSolid';
-import { presetChange } from '../../../../Shared/helpers/utils';
+import { presetChange } from '../../presets/presets';
 
 export const drumCues = [
     {

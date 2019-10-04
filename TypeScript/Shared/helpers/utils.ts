@@ -1,9 +1,5 @@
 'use strict';
 
-import { PresetLogic } from 'edt-slet/src/presets/presets-logic';
-import { Actions } from '../actions';
-import { getPresetNote } from 'edt-slet/src/presets/presets';
-
 export function noteToOctave(note: number): number {
     return Math.floor(note / 12);
 }
@@ -29,9 +25,11 @@ export function shuffleArray(array: any[]): any[] {
     return array.map(item => item);
 }
 
-export const enumToArray = (e: object) => Object.keys(e)
-    .filter(vp => isNaN(+vp))
-    .filter(entry => entry !== '____EMPTY____');
+export function enumToArray(e: object) {
+    return Object.keys(e)
+        .filter(vp => isNaN(+vp))
+        .filter(entry => entry !== '____EMPTY____');
+}
 
 export function convertToOSC(addresses: string[], params: number[]) {
     // TODO: remove 0 -> ? conversion and implement 0 in all receivers
@@ -47,12 +45,3 @@ export function convertToOSC(addresses: string[], params: number[]) {
         }),
     };
 }
-
-export const presetChange = (preset: PresetLogic, modifier: number, state: boolean) => {
-    return Actions.presetChange({
-        preset: getPresetNote(preset),
-        modifier,
-        state,
-    });
-};
-

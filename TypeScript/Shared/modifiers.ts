@@ -35,7 +35,7 @@ export const modifiers = {
         })),
     drumSounds: enumToArray(DrumSounds)
         .map(sound => ({
-            value: +DrumSounds[sound],
+            value: +DrumSounds[+sound],
             label: sound,
         })),
     glitchIntensity: [
