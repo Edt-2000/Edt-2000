@@ -1,5 +1,0 @@
-module.exports = `
-<div class="shutdown">
-  <div class="shutdown__text">format c:</div>
-</div>
-`;

@@ -4,7 +4,7 @@ import { DrumSoundMap } from '../presets/converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../Shared/drums';
 import { DrumNotes } from '../../../Shared/config';
 import { DrumToMidi } from '../presets/inputs/drumToMidi';
-import { presetChange } from '../../../Shared/helpers/utils';
+import { presetChange } from '../presets/presets';
 
 const edtDrumCues = [
     {

@@ -25,6 +25,7 @@ import { MidiChannelToMainBass } from './converters/bass/midiChannelToMainBass';
 import { MidiChannelToMainChords } from './converters/chords/midiChannelToMainChords';
 import { DrumToMidi } from './inputs/drumToMidi';
 import { GuitarToMidi } from './inputs/guitarToMidi';
+import { Actions } from '../../../Shared/actions';
 
 // TODO: C, D, E, F, G, A, B
 
@@ -192,6 +193,14 @@ export function getPresetState(): IControlPresetMsg[] {
         } as IControlPresetMsg;
     });
 }
+
+export const presetChange = (preset: PresetLogic, modifier: number, state: boolean) => {
+    return Actions.presetChange({
+        preset: getPresetNote(preset),
+        modifier,
+        state,
+    });
+};
 
 export function getPresetNote(preset: PresetLogic): number {
     return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === preset.title);

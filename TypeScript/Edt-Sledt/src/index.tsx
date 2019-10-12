@@ -35,7 +35,7 @@ combineLatest(
     Actions$.presetState,
     OSCOutput$.pipe(
         startWith(''),
-        scan<string>((mostRecent, current) => [...mostRecent, current].slice(-9), []),
+        scan((mostRecent: string[], current) => [...mostRecent, current].slice(-9), []),
     ),
 ).pipe(
     tap(([vidts, controls, presetState, OSCOutput]) => {
