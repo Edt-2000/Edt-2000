@@ -5,14 +5,14 @@ import { Colors } from './colors';
 export const socketPort: number = 8988;
 
 export const enum DeviceIPs {
-    edtDispEdter = '10.0.0.204',
+    edtDispEdter = '10.0.0.10',
     edtMOSCidi = 'localhost',
     edtSledt = 'localhost',
 }
 
-export const OSCInPort = 12345;
+export const OSCInPort = 12346;
 
-export const OSCDispedtOutPort = 12346;
+export const OSCDispedtOutPort = 12345;
 export const MOSCIDIPort = 12347;
 export const automationChannel = 16;
 

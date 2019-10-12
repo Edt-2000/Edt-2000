@@ -3,16 +3,12 @@ import App from './App.vue';
 import router from './router';
 import VueSocketIO from 'vue-socket.io';
 import { vidtSocketConfig } from '../../Shared/config';
-import { nextActionFromMsg } from '../../Shared/actions';
 
 Vue.config.productionTip = false;
 
 Vue.use(new VueSocketIO({
     connection: vidtSocketConfig.url,
     options: vidtSocketConfig.options,
-    sockets: {
-        toVidt: nextActionFromMsg,
-    },
 }));
 
 new Vue({

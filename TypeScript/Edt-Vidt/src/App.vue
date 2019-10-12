@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-    import { Actions$ } from "../../Shared/actions";
+    import { Actions$, nextActionFromMsg } from "../../Shared/actions";
     import router from "./router";
     import { VidtPresets } from "../../Shared/vidt-presets";
 
@@ -15,9 +15,12 @@
         public subscription: any;
 
         mounted() {
-            this.subscription = Actions$.prepareVidt.subscribe(
-                (preset: number) => {
-                    router.push({path: "/" + VidtPresets[preset]});
+            // We have to do it like this as TypeScript and vue-socket.io lib don't like each other
+            this["sockets"].subscribe("toVidt", nextActionFromMsg);
+
+            this.subscription = Actions$.prepareVidt.subscribe((preset: number) => {
+                    router.push({path: "/" + VidtPresets[preset]}).catch(() => {
+                    });
                 },
             );
         }
