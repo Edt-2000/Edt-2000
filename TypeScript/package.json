@@ -13,6 +13,9 @@
         "trailingComma": "all"
     },
     "dependencies": {
-        "prettier": "^1.16.4"
+        "prettier": "^1.16.4",
+        "webpack": "4.41.0",
+        "webpack-dev-server": "3.2.1",
+        "rxjs": "^6.5.3"
     }
 }
