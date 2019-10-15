@@ -9,7 +9,7 @@ import { ColorStrobeRGBLed } from './outputs/rgbledt/colorStrobeRGBLed';
 import { DrumSoundToFastLedStrip } from './outputs/fastledt/drumSoundToFastLedStrip';
 import { ColorToRGBLedSolid } from './outputs/rgbledt/colorToRGBLedSolid';
 import { ColorToInverseVidtColor } from './converters/color/colorToInverseVidtColor';
-import { ColorToFastLedSpark } from './outputs/fastledt/colorToFastLedSpark';
+import { BeatToFastLedSpark } from './outputs/fastledt/beatToFastLedSpark';
 import { BeatToRainbowSpark } from './outputs/fastledt/beatToRainbowSpark';
 import { Note } from '../../../Shared/helpers/midi';
 import { BeatToNextWord } from './converters/words/beatToNextWord';
@@ -54,7 +54,7 @@ export const presets = {
     // [Note.E_1]:
     [Note.F_1]: new BeatToColor(),
     [Note.F$_1]: new BeatToRainbowSpark(),
-    [Note.G_1]: new ColorToFastLedSpark(),
+    [Note.G_1]: new BeatToFastLedSpark(),
     [Note.G$_1]: new MidiToColors(),
     // [Note.A_1]:
     // [Note.A$_1]:
