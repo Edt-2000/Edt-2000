@@ -22,9 +22,9 @@ export const EdtConsole = (
         {
             presetState
                 .filter(({state}) => !!state)
-                .map(({title, state, preset}) => {
+                .map(({title, state, preset, modifier}) => {
                         return <Box key={preset}>
-                            {title} is {state ? <Color greenBright>active</Color> : <Color red>inactive</Color>}
+                            {title} is {state ? <Color greenBright>active</Color> : <Color red>inactive</Color>} ({modifier})
                         </Box>;
                     },
                 )
