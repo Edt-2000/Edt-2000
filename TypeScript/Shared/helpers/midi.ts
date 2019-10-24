@@ -1,4 +1,5 @@
-import { IOSCMessage } from './types';
+import { IMidiCCMsg, IMidiNoteMsg, IOSCMessage } from './types';
+import { noteToNote, noteToOctave } from './utils';
 
 export enum Note {
     'C_2',
@@ -138,4 +139,27 @@ export function isMidiMessage(OSCMsg: IOSCMessage): boolean {
 
 export function isMidiNoteMessage(OSCMsg: IOSCMessage): boolean {
     return OSCMsg.addresses[1] === 'note';
+}
+
+export function isMidiCCMessage(OSCMsg: IOSCMessage): boolean {
+    return OSCMsg.addresses[1] === 'cc';
+}
+
+export function convertOSCToMIDINoteMessage(OSCMsg: IOSCMessage): IMidiNoteMsg {
+    return {
+        note: +OSCMsg.values[1],
+        noteOn: +OSCMsg.values[2] !== 0,
+        noteNumber: noteToNote(+OSCMsg.values[1]),
+        octave: noteToOctave(+OSCMsg.values[1]),
+        velocity: +OSCMsg.values[2],
+        channel: +OSCMsg.values[0] + 1,
+    };
+}
+
+export function convertOSCToMIDICCMessage(OSCMsg: IOSCMessage): IMidiCCMsg {
+    return {
+        channel: +OSCMsg.values[0] + 1,
+        controller: +OSCMsg.values[1],
+        value: +OSCMsg.values[2],
+    };
 }
