@@ -15,11 +15,10 @@ export const OSCOutput$ = new Subject<string>();
 export function sendToOSC(
     device: DeviceIPs,
     port: number,
-    addresses: string[],
-    params: number[] = [],
+    msg: IOSCMessage,
 ): void {
-    OSCOutput$.next(`OSC: ${addresses.join('/')} ${params.join(' ')}`);
-    const buf = osc.toBuffer(convertToOSC(addresses, params));
+    OSCOutput$.next(`OSC: ${msg.addresses.join('/')} ${msg.values.join(' ')}`);
+    const buf = osc.toBuffer(convertToOSC(msg));
     return sock.send(buf, 0, buf.length, port, device);
 }
 

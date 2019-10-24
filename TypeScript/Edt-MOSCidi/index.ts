@@ -99,8 +99,8 @@ function sendToOSC(
     device: DeviceIPs,
     port: number,
     addresses: string[],
-    params: number[] = [],
+    values: number[] = [],
 ): void {
-    const buf = osc.toBuffer(convertToOSC(addresses, params));
+    const buf = osc.toBuffer(convertToOSC({addresses, values}));
     return outSocket.send(buf, 0, buf.length, port, device);
 }

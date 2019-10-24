@@ -12,16 +12,18 @@ export function FastLedtSpark(
     sendToOSC(
         DeviceIPs.edtDispEdter,
         OSCDispedtOutPort,
-        [OSCDevices.EdtFastLed + instance],
-        [
-            Modii.SingleSpark,
-            start,
-            end,
-            colorMsg.h,
-            colorMsg.s,
-            colorMsg.b,
-            speed,
-        ],
+        {
+            addresses: [OSCDevices.EdtFastLed + instance],
+            values: [
+                Modii.SingleSpark,
+                start,
+                end,
+                colorMsg.h,
+                colorMsg.s,
+                colorMsg.b,
+                speed,
+            ],
+        },
     );
 }
 
@@ -36,8 +38,10 @@ export function FastLedtRainbowSpark(
     sendToOSC(
         DeviceIPs.edtDispEdter,
         OSCDispedtOutPort,
-        [OSCDevices.EdtFastLed + instance],
-        [Modii.RainbowSpark, start, end, startHue, deltaHue, duration],
+        {
+            addresses: [OSCDevices.EdtFastLed + instance],
+            values: [Modii.RainbowSpark, start, end, startHue, deltaHue, duration],
+        },
     );
 }
 
@@ -50,8 +54,10 @@ export function FastLedtSingleSolid(
     sendToOSC(
         DeviceIPs.edtDispEdter,
         OSCDispedtOutPort,
-        [OSCDevices.EdtFastLed + instance],
-        [Modii.SingleSolid, start, end, colorMsg.h, colorMsg.s, colorMsg.b],
+        {
+            addresses: [OSCDevices.EdtFastLed + instance],
+            values: [Modii.SingleSolid, start, end, colorMsg.h, colorMsg.s, colorMsg.b],
+        },
     );
 }
 
@@ -65,16 +71,19 @@ export function FastLedtSinglePulse(
     sendToOSC(
         DeviceIPs.edtDispEdter,
         OSCDispedtOutPort,
-        [OSCDevices.EdtFastLed + instance],
-        [
-            Modii.SinglePulse,
-            start,
-            end,
-            colorMsg.h,
-            colorMsg.s,
-            colorMsg.b,
-            duration,
-        ],
+        {
+            addresses: [OSCDevices.EdtFastLed + instance],
+            values: [
+                Modii.SinglePulse,
+                start,
+                end,
+                colorMsg.h,
+                colorMsg.s,
+                colorMsg.b,
+                duration,
+            ],
+
+        },
     );
 }
 
@@ -82,7 +91,9 @@ export function FastLedtStrobe(instance: number, speed: number, hue: number) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
         OSCDispedtOutPort,
-        [OSCDevices.EdtFastLed + instance],
-        [Modii.Strobo, hue, speed],
+        {
+            addresses: [OSCDevices.EdtFastLed + instance],
+            values: [Modii.Strobo, hue, speed],
+        },
     );
 }
