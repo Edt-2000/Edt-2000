@@ -7,7 +7,9 @@ export function sendToMidi(midiNoteMsg: IMidiNoteMsg) {
     sendToOSC(
         DeviceIPs.edtMOSCidi,
         MOSCIDIPort,
-        ['midi', 'note'],
-        [midiNoteMsg.channel, midiNoteMsg.note, midiNoteMsg.velocity],
+        {
+            addresses: ['midi', 'note'],
+            values: [midiNoteMsg.channel, midiNoteMsg.note, midiNoteMsg.velocity],
+        },
     );
 }

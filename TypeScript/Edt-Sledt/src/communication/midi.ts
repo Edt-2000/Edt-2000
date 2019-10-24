@@ -1,10 +1,9 @@
 import { Observable } from 'rxjs/Observable';
-import { IMidiNoteMsg } from '../../../Shared/helpers/types';
+import { IMidiCCMsg, IMidiNoteMsg } from '../../../Shared/helpers/types';
 import { filter, map } from 'rxjs/operators';
 import { OSC$ } from './osc';
-import { noteToNote, noteToOctave } from '../../../Shared/helpers/utils';
 import { automationChannel } from '../../../Shared/config';
-import { isMidiMessage, isMidiNoteMessage } from '../../../Shared/helpers/midi';
+import { convertOSCToMIDICCMessage, convertOSCToMIDINoteMessage, isMidiCCMessage, isMidiMessage, isMidiNoteMessage } from '../../../Shared/helpers/midi';
 
 const midiOSC$ = OSC$.pipe(
     filter(isMidiMessage),
@@ -12,28 +11,33 @@ const midiOSC$ = OSC$.pipe(
 
 const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
     filter(isMidiNoteMessage),
-    map(OSCMsg => {
-        return {
-            note: +OSCMsg.values[1],
-            noteOn: +OSCMsg.values[2] !== 0,
-            noteNumber: noteToNote(+OSCMsg.values[1]),
-            octave: noteToOctave(+OSCMsg.values[1]),
-            velocity: +OSCMsg.values[2],
-            channel: +OSCMsg.values[0] + 1,
-        };
-    }),
+    map(convertOSCToMIDINoteMessage),
 );
 
-export const automationNoteOnOff$ = noteOnOff$.pipe(
+const ccMessage$: Observable<IMidiCCMsg> = midiOSC$.pipe(
+    filter(isMidiCCMessage),
+    map(convertOSCToMIDICCMessage),
+);
+
+export const midiPresetChange$ = noteOnOff$.pipe(
     filter(note => note.channel === automationChannel),
+    map(({note, noteOn, velocity}) => ({
+        preset: note,
+        modifier: velocity,
+        state: noteOn,
+    })),
 );
 
 export const musicNoteOn$ = noteOnOff$.pipe(
-    filter(OSCMsg => OSCMsg.noteOn),
-    filter(note => note.channel !== automationChannel),
+    filter(({noteOn}) => noteOn),
+    filter(({channel}) => channel !== automationChannel),
 );
 
 export const musicNoteOff$ = noteOnOff$.pipe(
-    filter(OSCMsg => !OSCMsg.noteOn),
-    filter(note => note.channel !== automationChannel),
+    filter(({noteOn}) => !noteOn),
+    filter(({channel}) => channel !== automationChannel),
+);
+
+export const midiCCAutomation$ = ccMessage$.pipe(
+    filter(({channel}) => channel === automationChannel),
 );

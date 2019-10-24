@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as p from 'path';
-import { ContentGroup } from '../../Shared/helpers/types';
+import { ContentGroup } from '../../../Shared/helpers/types';
 
 export const scannedContentGroups = readDirOneDeep('../Edt-Control/src/assets/media-by-group');
 
@@ -12,11 +12,11 @@ function readDirOneDeep(path: string): ContentGroup[] {
             const assets = fs.readdirSync(p.join(path, dir))
                 .map(filename => p.join(dir, filename));
 
-            let wordSet = ['NO', 'WORDS.CSV', 'FOUND'];
+            let wordSet = ['NO', 'WORDS.TXT', 'FOUND'];
             try {
-                wordSet = fs.readFileSync(p.join(path, dir, 'words.csv'), {encoding: 'utf8'}).split(',');
+                wordSet = fs.readFileSync(p.join(path, dir, 'words.txt'), {encoding: 'utf8'}).split('\n');
             } catch (e) {
-                console.info(`No words.csv file found for ${dir}`);
+                console.info(`No words.txt file found for ${dir}. Please create a words.txt file in the directory.`);
             }
 
             return {
