@@ -145,20 +145,20 @@ export function isMidiCCMessage(OSCMsg: IOSCMessage): boolean {
     return OSCMsg.addresses[1] === 'cc';
 }
 
-export function convertOSCToMIDINoteMessage(OSCMsg: IOSCMessage): IMidiNoteMsg {
+export function convertOSCToMIDINoteMessage(OSCMsg: IOSCMessage, channelOffset = 0): IMidiNoteMsg {
     return {
         note: +OSCMsg.values[1],
         noteOn: +OSCMsg.values[2] !== 0,
         noteNumber: noteToNote(+OSCMsg.values[1]),
         octave: noteToOctave(+OSCMsg.values[1]),
         velocity: +OSCMsg.values[2],
-        channel: +OSCMsg.values[0] + 1,
+        channel: +OSCMsg.values[0] + channelOffset,
     };
 }
 
-export function convertOSCToMIDICCMessage(OSCMsg: IOSCMessage): IMidiCCMsg {
+export function convertOSCToMIDICCMessage(OSCMsg: IOSCMessage, channelOffset = 0): IMidiCCMsg {
     return {
-        channel: +OSCMsg.values[0] + 1,
+        channel: +OSCMsg.values[0] + channelOffset,
         controller: +OSCMsg.values[1],
         value: +OSCMsg.values[2],
     };

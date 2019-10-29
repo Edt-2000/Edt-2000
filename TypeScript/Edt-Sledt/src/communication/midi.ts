@@ -11,21 +11,16 @@ const midiOSC$ = OSC$.pipe(
 
 const noteOnOff$: Observable<IMidiNoteMsg> = midiOSC$.pipe(
     filter(isMidiNoteMessage),
-    map(convertOSCToMIDINoteMessage),
+    map(oscMidi => convertOSCToMIDINoteMessage(oscMidi, 1)),
 );
 
 const ccMessage$: Observable<IMidiCCMsg> = midiOSC$.pipe(
     filter(isMidiCCMessage),
-    map(convertOSCToMIDICCMessage),
+    map(oscMidi => convertOSCToMIDICCMessage(oscMidi, 1)),
 );
 
-export const midiPresetChange$ = noteOnOff$.pipe(
+export const midiNoteAutomation$ = noteOnOff$.pipe(
     filter(note => note.channel === automationChannel),
-    map(({note, noteOn, velocity}) => ({
-        preset: note,
-        modifier: velocity,
-        state: noteOn,
-    })),
 );
 
 export const musicNoteOn$ = noteOnOff$.pipe(

@@ -1,12 +1,21 @@
 import { midiCCAutomation$ } from '../communication/midi';
-import { filter } from 'rxjs/operators';
-import { Actions$ } from '../../../Shared/actions';
+import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { Actions, Actions$ } from '../../../Shared/actions';
+import { toFileName } from '../media/asset-scan-dir';
+import { automationChannel, imageAutomationCCNumber } from '../../../Shared/config';
 
-const imageAutomationCCNumber = 16;
+export const imageSrcCC$ = Actions$.imageSrc.pipe(
+    filter(Boolean),
+    map(toFileName),
+    map(fileName => ({
+        channel: automationChannel,
+        controller: imageAutomationCCNumber,
+        value: +fileName,
+    })),
+);
 
-// Any `image` message will be recorded to midi CC when triggered
-Actions$.imageSrc();
-
-midiCCAutomation$.pipe(
+export const imageSrcActions$ = midiCCAutomation$.pipe(
     filter(msg => msg.controller === imageAutomationCCNumber),
+    withLatestFrom(Actions$.contentGroup),
+    map(([{value: fileName}, {title: directory}]) => Actions.imageSrc(directory + '/' + fileName.toString().padStart(3, '0') + '.jpg')),
 );

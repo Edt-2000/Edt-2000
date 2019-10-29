@@ -18,6 +18,8 @@ export const automationChannel = 16;
 
 export const fastLedAmount: number = 7;
 
+export const imageAutomationCCNumber = 3;
+
 // The drum notes are configurable from label to note played (match your machine)
 // 'LABEL' = Note.<<PlayedNote>>
 
@@ -84,7 +86,6 @@ export const BlackColor: IColor = {
     s: 0,
     b: 0,
 };
-
 export const defaultColor: IColor = {
     h: Colors.Red,
     s: 255,

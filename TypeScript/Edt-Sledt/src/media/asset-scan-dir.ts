@@ -25,13 +25,17 @@ function readDirOneDeep(path: string): ContentGroup[] {
                 images: assets.filter(isImage),
                 videos: assets.filter(isVideo),
             };
-
-            function isImage(filename) {
-                return p.extname(filename) === '.jpg';
-            }
-
-            function isVideo(filename) {
-                return p.extname(filename) === '.mp4';
-            }
         });
+}
+
+export function toFileName(filename): string {
+    return p.basename(filename, p.extname(filename));
+}
+
+function isImage(filename): boolean {
+    return p.extname(filename) === '.jpg';
+}
+
+function isVideo(filename): boolean {
+    return p.extname(filename) === '.mp4';
 }

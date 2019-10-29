@@ -3,7 +3,7 @@ import { tap } from 'rxjs/operators';
 import { ModifierGroup } from '../../../../Shared/helpers/types';
 import { edtGuitar$ } from '../../inputs/edt-guitar';
 import { modifiers } from '../../../../Shared/modifiers';
-import { sendToMidi } from '../../outputs/edt-midi';
+import { sendToMidiNote } from '../../outputs/edt-midi';
 import { Note } from '../../../../Shared/helpers/midi';
 
 export class GuitarToMidi extends PresetLogic {
@@ -18,7 +18,7 @@ export class GuitarToMidi extends PresetLogic {
         this.addSub(
             edtGuitar$.pipe(
                 tap((bitMask: number) => {
-                    sendToMidi({
+                    sendToMidiNote({
                         channel: this.modifier,
                         note: bitMaskToNote(bitMask),
                         noteOn: bitMask !== 0,

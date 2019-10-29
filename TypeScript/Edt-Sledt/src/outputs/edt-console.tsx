@@ -7,11 +7,13 @@ export const EdtConsole = (
         vidts,
         controls,
         presetState,
+        imageSrc,
         OSCOutput,
     }: {
         vidts: string[],
         controls: string[],
         presetState: IControlPresetMsg[],
+        imageSrc: string,
         OSCOutput: string[],
     },
 ) => {
@@ -37,6 +39,10 @@ export const EdtConsole = (
         Control's connected:
         <Box>--------</Box>
         {controls.map(title => <Box key={title}>{title}</Box>)}
+        <Box>--------</Box>
+        ImageSrc:
+        <Box>--------</Box>
+        {imageSrc}
         <Box>--------</Box>
         Last OSC message send:
         <Box>--------</Box>

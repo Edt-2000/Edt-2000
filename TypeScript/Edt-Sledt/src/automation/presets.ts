@@ -1,15 +1,22 @@
 import { IPresetMsg } from '../../../Shared/helpers/types';
-import { sendToOSC } from '../communication/osc';
-import { automationChannel, DeviceIPs, MOSCIDIPort } from '../../../Shared/config';
+import { automationChannel } from '../../../Shared/config';
+import { Actions, Actions$ } from '../../../Shared/actions';
+import { map } from 'rxjs/operators';
+import { midiNoteAutomation$ } from '../communication/midi';
 
-export function sendMidiPresetChange({preset, modifier, state}: IPresetMsg) {
-    sendToOSC(
-        DeviceIPs.edtMOSCidi,
-        MOSCIDIPort,
-        {
-            addresses: ['midi', 'note'],
-            // Send velocity (modifier) or 0 when noteOff
-            values: [automationChannel, preset, state ? modifier : 0],
-        },
-    );
-}
+export const presetMidiMsg$ = Actions$.presetChange.pipe(
+    map(({preset, modifier, state}: IPresetMsg) => ({
+        channel: automationChannel,
+        noteOn: state,
+        note: preset,
+        velocity: state ? modifier : 0,
+    })),
+);
+
+export const presetChangeActions$ = midiNoteAutomation$.pipe(
+    map(({note, noteOn, velocity}) => Actions.presetChange({
+        preset: note,
+        modifier: velocity,
+        state: noteOn,
+    })),
+);

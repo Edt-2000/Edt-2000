@@ -3,7 +3,7 @@ import { modifiers } from '../../../../Shared/modifiers';
 import { filter, tap } from 'rxjs/operators';
 import { ModifierGroup } from '../../../../Shared/helpers/types';
 import { edtDrum$ } from '../../inputs/edt-drum';
-import { sendToMidi } from '../../outputs/edt-midi';
+import { sendToMidiNote } from '../../outputs/edt-midi';
 
 export class DrumToMidi extends PresetLogic {
     modifierOptions = {
@@ -24,7 +24,7 @@ export class DrumToMidi extends PresetLogic {
                 filter(drumNote => drumNote === this.drumPad),
                 tap(() => {
                     // TODO: Don't hardcode midi channel for drums!
-                    sendToMidi({
+                    sendToMidiNote({
                         channel: 10,
                         note: this.modifier,
                         noteOn: true,
@@ -32,7 +32,7 @@ export class DrumToMidi extends PresetLogic {
                     });
                     setTimeout(() => {
                         // TODO: Don't hardcode midi channel for drums!
-                        sendToMidi({
+                        sendToMidiNote({
                             channel: 10,
                             note: this.modifier,
                             noteOn: true,

@@ -1,5 +1,5 @@
 import { DeviceIPs, MOSCIDIPort, OSCInPort } from '../Shared/config';
-import { isMidiMessage, isMidiNoteMessage } from '../Shared/helpers/midi';
+import { convertOSCToMIDICCMessage, convertOSCToMIDINoteMessage, isMidiCCMessage, isMidiMessage, isMidiNoteMessage } from '../Shared/helpers/midi';
 import { convertToOSC } from '../Shared/helpers/utils';
 import { IOSCMessage } from '../Shared/helpers/types';
 import easymidi = require('easymidi');
@@ -58,6 +58,11 @@ virtualInput.on('noteoff', msg => {
     sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, 0]);
 });
 
+virtualInput.on('cc', msg => {
+    console.log('Getting Midi CC, sending it to OSC: ', msg);
+    sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'cc'], [msg.channel, msg.controller, msg.value]);
+});
+
 console.log('READY, Waiting for MIDI or OSC;');
 
 function processOscMessage(msg) {
@@ -74,17 +79,20 @@ function processOscMessage(msg) {
             };
             if (addresses.length > 0) {
                 if (isMidiMessage(OSCMsg) && isMidiNoteMessage(OSCMsg)) {
-                    const MidiMsg = {
-                        channel: OSCMsg.values[0] - 1,
-                        note: OSCMsg.values[1],
-                        velocity: OSCMsg.values[2],
-                    };
+                    const MidiMsg = convertOSCToMIDINoteMessage(OSCMsg, -1);
                     if (MidiMsg.velocity > 0) {
                         virtualOutput.send('noteon', MidiMsg);
                     } else {
                         virtualOutput.send('noteoff', MidiMsg);
                     }
                     console.log('Sending MIDI:', MidiMsg);
+                }
+
+                if (isMidiMessage(OSCMsg) && isMidiCCMessage(OSCMsg)) {
+                    const MidiCCMsg = convertOSCToMIDICCMessage(OSCMsg, -1);
+                    virtualOutput.send('cc', MidiCCMsg);
+
+                    console.log('Sending MIDI CC:', MidiCCMsg);
                 }
             }
         } else {
