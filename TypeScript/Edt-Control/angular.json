@@ -26,7 +26,12 @@
               "src/favicon.ico",
               "src/assets",
               {
-                "input": "../../Shared/assets",
+                "input": "../Shared/assets",
+                "glob": "**/*",
+                "output": "assets"
+              },
+              {
+                "input": "../Edt-Vidt/public/assets",
                 "glob": "**/*",
                 "output": "assets"
               }

@@ -195,6 +195,11 @@ export const drumCues = [
 
 You can send any `action` with this system, so more complex sets can be made to make live-control of the system much easier. We are developing a button-box with Arcade buttons with a small display to have multiple cues available at the touch of a nice tactile hardware button. For now, the Edt-Control has these cues in a grid making them accessible by touchscreen.
 
+### Images / Assets
+
+For the `Edt-Vidt`, you can use your own assets by placing them in the `TypeScript/Edt-Vidt/public/assets/media-by-group` folder, in subfolders which then become the title of the `asset-group`. For instance: `TypeScript/Edt-Vidt/public/assets/media-by-group/SongTitle/001.jpg` will give you an asset called 001 in the content group `SongTitle`.  
+
+
 ## Using the system
 The system is quite complex and consists of many parts that all have to be configured to 'see' each other on a network. We currently hard-code IP addresses into the code; these configuration files can be found in the `Shared` folder. If you plan to use this system for your own performance, take a look at those files and adjust where needed.
  
