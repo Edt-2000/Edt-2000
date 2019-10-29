@@ -1,5 +1,3 @@
-'use strict';
-
 import { IOSCMessage } from './types';
 
 export function noteToOctave(note: number): number {
