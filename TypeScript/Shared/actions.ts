@@ -48,7 +48,8 @@ export const Actions = {
 
 export type Actions = ActionsUnion<typeof Actions>;
 
-const emptyContentGroup = {
+const emptyContentGroup: ContentGroup = {
+    ccNumber: 0,
     title: '',
     wordSet: [],
     images: [],

@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as p from 'path';
 import { ContentGroup } from '../../../Shared/helpers/types';
 
-export const scannedContentGroups = readDirOneDeep('../Edt-Control/src/assets/media-by-group');
+export const scannedContentGroups = readDirOneDeep('../Edt-Vidt/public/assets/media-by-group');
 
 function readDirOneDeep(path: string): ContentGroup[] {
     return fs.readdirSync(path)
@@ -19,8 +19,12 @@ function readDirOneDeep(path: string): ContentGroup[] {
                 console.info(`No words.txt file found for ${dir}. Please create a words.txt file in the directory.`);
             }
 
+            const ccNumber = +dir.split('_')[0];
+            const title = dir.split('_')[1];
+
             return {
-                title: dir,
+                ccNumber,
+                title,
                 wordSet,
                 images: assets.filter(isImage),
                 videos: assets.filter(isVideo),

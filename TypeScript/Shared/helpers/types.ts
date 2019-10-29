@@ -115,6 +115,7 @@ export interface IOSCMessage {
 }
 
 export interface ContentGroup {
+    ccNumber: number;
     title: string;
     wordSet: string[];
     images: string[];

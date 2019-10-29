@@ -32,13 +32,13 @@
         "src/**/*.tsx",
         "src/**/*.vue",
         "tests/**/*.ts",
-        "tests/**/*.tsx",
-        "../Shared/**/*.ts"
+        "tests/**/*.tsx"
     ],
     "exclude": [
         "node_modules"
     ],
     "files": [
-        "main.ts"
+        "main.ts",
+        "../Shared/**/*.ts"
     ]
 }
