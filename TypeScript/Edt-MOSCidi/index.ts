@@ -16,6 +16,7 @@ const outSocket = dgram.createSocket('udp4');
 virtualInput.on('noteon', handleNote('virtual'));
 virtualInput.on('noteoff', handleNote('virtual'));
 virtualInput.on('cc', handleCC('virtual'));
+virtualInput.on('select', handleSongSelect('virtual'));
 
 hardwareInputs.forEach(inputName => {
     console.log('Connecting to MIDI device: ', inputName);
@@ -25,6 +26,7 @@ hardwareInputs.forEach(inputName => {
         hardwareInput.on('noteon', handleNote(inputName));
         hardwareInput.on('noteoff', handleNote(inputName));
         hardwareInput.on('cc', handleCC(inputName));
+        hardwareInput.on('select', handleSongSelect(inputName));
 
     } catch (e) {
         console.log('Failure to connect to ' + inputName);
@@ -33,17 +35,24 @@ hardwareInputs.forEach(inputName => {
 
 console.log('READY, Waiting for MIDI or OSC;');
 
+function handleSongSelect(name: string) {
+    return ({song}) => {
+        console.info(`MIDI select from ${name}`, song);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'select'], [song]);
+    };
+}
+
 function handleNote(name) {
     return msg => {
         console.info(`MIDI from ${name}`, msg);
-        return sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, msg.velocity]);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, msg.velocity]);
     };
 }
 
 function handleCC(name) {
     return msg => {
         console.info(`MIDI CC from ${name}`, msg);
-        return sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'cc'], [msg.channel, msg.controller, msg.value]);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'cc'], [msg.channel, msg.controller, msg.value]);
     };
 }
 
@@ -91,6 +100,7 @@ function sendToOSC(
     addresses: string[],
     values: number[] = [],
 ): void {
+    console.log('Sending OSC:', addresses, values);
     const buf = osc.toBuffer(convertToOSC({addresses, values}));
     return outSocket.send(buf, 0, buf.length, port, device);
 }

@@ -19,11 +19,11 @@ function readDirOneDeep(path: string): ContentGroup[] {
                 console.info(`No words.txt file found for ${dir}. Please create a words.txt file in the directory.`);
             }
 
-            const ccNumber = +dir.split('_')[0];
+            const songNr = +dir.split('_')[0];
             const title = dir.split('_')[1];
 
             return {
-                ccNumber,
+                songNr,
                 title,
                 wordSet,
                 images: assets.filter(isImage),

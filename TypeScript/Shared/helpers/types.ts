@@ -21,7 +21,7 @@ export interface IMidiProgramMsg extends IMidiChannel {
     readonly number: number;
 }
 
-export interface IMidiSongMsg extends IMidiChannel {
+export interface IMidiSongMsg {
     readonly song: number;
 }
 
@@ -115,7 +115,7 @@ export interface IOSCMessage {
 }
 
 export interface ContentGroup {
-    ccNumber: number;
+    songNr: number;
     title: string;
     wordSet: string[];
     images: string[];

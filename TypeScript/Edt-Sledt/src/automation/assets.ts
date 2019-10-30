@@ -17,7 +17,7 @@ export const imageSrcCC$ = Actions$.imageSrc.pipe(
 export const imageSrcActions$ = midiCCAutomation$.pipe(
     filter(msg => msg.controller === imageAutomationCCNumber),
     withLatestFrom(Actions$.contentGroup),
-    map(([{value: fileName}, {title, ccNumber}]) => {
-        return Actions.imageSrc(ccNumber.toString().padStart(3, '0') + '_' + title + '/' + fileName.toString().padStart(3, '0') + '.jpg');
+    map(([{value: fileName}, {title, songNr}]) => {
+        return Actions.imageSrc(songNr.toString().padStart(3, '0') + '_' + title + '/' + fileName.toString().padStart(3, '0') + '.jpg');
     }),
 );
