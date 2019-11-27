@@ -10,6 +10,16 @@
     }
 }
 
+@keyframes mirror {
+    0% {
+        transform: scaleX(1);
+    }
+
+    100% {
+        transform: scaleX(-1);
+    }
+}
+
 @keyframes bounce {
     0% {
         transform: scale(1);

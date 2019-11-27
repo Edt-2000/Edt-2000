@@ -26,6 +26,7 @@ export class VidtControllerComponent implements OnInit {
     animationTypes.spin,
     animationTypes.rotate,
     animationTypes.bounce,
+    animationTypes.mirror,
   ];
 
   constructor(public socket: SocketService) {

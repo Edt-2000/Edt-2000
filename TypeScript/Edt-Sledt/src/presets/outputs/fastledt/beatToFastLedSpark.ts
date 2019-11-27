@@ -2,10 +2,10 @@ import { PresetLogic } from '../../presets-logic';
 import { Actions$ } from '../../../../../Shared/actions';
 import { FastLedtSpark } from '../../../outputs/edt-fastled';
 import { modifiers } from '../../../../../Shared/modifiers';
-import { skip } from 'rxjs/operators';
+import { withLatestFrom } from 'rxjs/operators';
 import { ModifierGroup } from '../../../../../Shared/helpers/types';
 
-export class ColorToFastLedSpark extends PresetLogic {
+export class BeatToFastLedSpark extends PresetLogic {
     modifierOptions = {
         select: modifiers.fadeSpeeds,
         group: [
@@ -16,7 +16,9 @@ export class ColorToFastLedSpark extends PresetLogic {
 
     protected _startPreset(): void {
         this.addSub(
-            Actions$.singleColor.pipe(skip(1)).subscribe(color => {
+            Actions$.mainBeat.pipe(
+                withLatestFrom(Actions$.singleColor),
+            ).subscribe(([beat, color]) => {
                 FastLedtSpark(0, color, this.modifier);
             }),
         );

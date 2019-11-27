@@ -38,6 +38,7 @@
         "node_modules"
     ],
     "files": [
-        "main.ts"
+        "main.ts",
+        "./../Shared/**/*.ts"
     ]
 }

@@ -7,11 +7,13 @@ export const EdtConsole = (
         vidts,
         controls,
         presetState,
+        imageSrc,
         OSCOutput,
     }: {
         vidts: string[],
         controls: string[],
         presetState: IControlPresetMsg[],
+        imageSrc: string,
         OSCOutput: string[],
     },
 ) => {
@@ -22,9 +24,9 @@ export const EdtConsole = (
         {
             presetState
                 .filter(({state}) => !!state)
-                .map(({title, state, preset}) => {
+                .map(({title, state, preset, modifier}) => {
                         return <Box key={preset}>
-                            {title} is {state ? <Color greenBright>active</Color> : <Color red>inactive</Color>}
+                            {title} is {state ? <Color greenBright>active</Color> : <Color red>inactive</Color>} ({modifier})
                         </Box>;
                     },
                 )
@@ -37,6 +39,10 @@ export const EdtConsole = (
         Control's connected:
         <Box>--------</Box>
         {controls.map(title => <Box key={title}>{title}</Box>)}
+        <Box>--------</Box>
+        ImageSrc:
+        <Box>--------</Box>
+        {imageSrc}
         <Box>--------</Box>
         Last OSC message send:
         <Box>--------</Box>

@@ -6,8 +6,10 @@ export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
         OSCDispedtOutPort,
-        [OSCDevices.EdtRGBLed + instance.toString()],
-        [Modii.SingleSolid, 0, 127, colorMsg.h, colorMsg.s, colorMsg.b],
+        {
+            addresses: [OSCDevices.EdtRGBLed + instance.toString()],
+            values: [Modii.SingleSolid, 0, 127, colorMsg.h, colorMsg.s, colorMsg.b],
+        },
     );
 }
 
@@ -15,7 +17,9 @@ export function RGBLedtStrobe(instance: number, speed: number, hue: number) {
     sendToOSC(
         DeviceIPs.edtDispEdter,
         OSCDispedtOutPort,
-        [OSCDevices.EdtRGBLed + instance.toString()],
-        [Modii.Strobo, hue, speed],
+        {
+            addresses: [OSCDevices.EdtRGBLed + instance.toString()],
+            values: [Modii.Strobo, hue, speed],
+        },
     );
 }

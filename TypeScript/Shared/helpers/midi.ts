@@ -1,4 +1,5 @@
-import { IOSCMessage } from './types';
+import { IMidiCCMsg, IMidiNoteMsg, IMidiSongMsg, IOSCMessage } from './types';
+import { noteToNote, noteToOctave } from './utils';
 
 export enum Note {
     'C_2',
@@ -132,10 +133,42 @@ export enum Note {
 
 export function isMidiMessage(OSCMsg: IOSCMessage): boolean {
     return OSCMsg.addresses.length === 2 &&
-        OSCMsg.addresses[0] === 'midi' &&
-        OSCMsg.values.length === 3;
+        OSCMsg.addresses[0] === 'midi';
 }
 
 export function isMidiNoteMessage(OSCMsg: IOSCMessage): boolean {
     return OSCMsg.addresses[1] === 'note';
+}
+
+export function isMidiCCMessage(OSCMsg: IOSCMessage): boolean {
+    return OSCMsg.addresses[1] === 'cc';
+}
+
+export function isMidiSongMessage(OSCMsg: IOSCMessage) {
+    return OSCMsg.addresses[1] === 'select';
+}
+
+export function convertOSCToMIDINoteMessage(OSCMsg: IOSCMessage, channelOffset = 0): IMidiNoteMsg {
+    return {
+        note: +OSCMsg.values[1],
+        noteOn: +OSCMsg.values[2] !== 0,
+        noteNumber: noteToNote(+OSCMsg.values[1]),
+        octave: noteToOctave(+OSCMsg.values[1]),
+        velocity: +OSCMsg.values[2],
+        channel: +OSCMsg.values[0] + channelOffset,
+    };
+}
+
+export function convertOSCToMIDICCMessage(OSCMsg: IOSCMessage, channelOffset = 0): IMidiCCMsg {
+    return {
+        channel: +OSCMsg.values[0] + channelOffset,
+        controller: +OSCMsg.values[1],
+        value: +OSCMsg.values[2],
+    };
+}
+
+export function convertOSCToMidiSongMessage(OSCMsg: IOSCMessage): IMidiSongMsg {
+    return {
+        song: +OSCMsg.values[0],
+    };
 }

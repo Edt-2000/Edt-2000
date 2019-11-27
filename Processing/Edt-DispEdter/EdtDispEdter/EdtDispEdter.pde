@@ -1,4 +1,4 @@
-    import oscP5.*;
+import oscP5.*;
 import netP5.*;
 OscP5 oscP5;
 
@@ -11,12 +11,12 @@ void setup() {
   size(400,400);
   frameRate(1);
   
-  oscP5 = new OscP5(this, 12346);
+  oscP5 = new OscP5(this, 12345);
  
   printArray(Serial.list());
   
-  Arduino1 = new Serial(this, "/dev/tty.usbmodem14124101", 57600);
-  Arduino2 = new Serial(this, "/dev/tty.usbmodem14124401", 57600);
+  Arduino1 = new Serial(this, "/dev/tty.usbmodem1434101", 57600);
+  Arduino2 = new Serial(this, "/dev/tty.usbmodem1434401", 57600);
 }
 
 
