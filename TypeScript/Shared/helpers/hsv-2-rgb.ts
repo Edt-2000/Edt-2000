@@ -23,7 +23,7 @@ export class ColorHelper {
 
     static getContraColor(hsvColor: IColor): IColor {
         return {
-            h: (hsvColor.h + 180) % 360,
+            h: (hsvColor.h + 127) % 256,
             s: hsvColor.s,
             b: hsvColor.b,
         };
