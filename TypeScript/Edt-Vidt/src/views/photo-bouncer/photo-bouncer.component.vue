@@ -24,7 +24,6 @@
         public src: string = "";
 
         private currentAnimation: string = 'bounce';
-        private animationForwards = false;
 
         private animations = {
             'bounce': [
@@ -56,7 +55,7 @@
             'mirror': {
                 easing: "linear",
                 fill: 'forwards',
-                duration: 50,
+                duration: 0,
             }
         };
 
@@ -74,7 +73,6 @@
             );
 
             this.beatSubscription = Actions$.vidtBeat.subscribe(() => {
-                console.log('beat');
                 this.animate();
             });
 
@@ -91,27 +89,19 @@
             this.currentAnimation = type;
             this.animation = this.$refs.img.animate(
                 this.animations[type],
-                {
-                    fill: 'forwards',
-                    easing: 'linear',
-                    duration: 400,
-                }
+                this.animationsConfig[type]
             );
         }
-        animate() {
-            this.animationForwards = !this.animationForwards;
 
+        animate() {
             requestAnimationFrame(() => {
-                // if (this.animation.playState === "running") {
-                //     this.animation.cancel();
-                // }
+                if (this.animation.playState === "running") {
+                    this.animation.finish();
+                }
 
                 requestAnimationFrame(() => {
-                    if (this.animationForwards) {
-                        this.animation.play();
-                    } else {
-                        this.animation.reverse();
-                    }
+                    this.animation.play();
+                    this.animation.reverse();
                 });
             });
         }
