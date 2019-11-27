@@ -62,8 +62,6 @@
         mounted() {
             this.setAnimation('bounce');
 
-            this.animation.pause();
-
             this.animationSubscription = Actions$.animationType.subscribe(
                 animation => {
                     if (animation !== this.currentAnimation && this.animations[animation]) {
@@ -87,6 +85,11 @@
 
         setAnimation(type: string) {
             this.currentAnimation = type;
+            
+            if (this.animation) {
+                this.animation.cancel();
+            }
+
             this.animation = this.$refs.img.animate(
                 this.animations[type],
                 this.animationsConfig[type]
