@@ -21,7 +21,6 @@
         padding: 10px;
         width: calc((100vh - 20px) / 4);
 
-
         @for $i from 1 through 200 {
             $delay: ((random(11) - 1) / 10) * 1s;
             $duration: (((random(41) - 1) / 10) + 1) * 1s;
@@ -41,19 +40,22 @@
         position: relative;
         transform-style: preserve-3d;
 
-        &::before {
+        &::before,
+        &::after {
             @include stretch;
-            background: $c-red;
             backface-visibility: hidden;
             content: '';
             display: block;
         }
 
+        &::before {
+            background: $c-red;
+            backface-visibility: hidden;
+        }
+
         &::after {
             @include stretch;
             background: $c-green;
-            content: '';
-            display: block;
             transform: rotateY(180deg);
         }
     }
