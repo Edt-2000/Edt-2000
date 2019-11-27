@@ -25,4 +25,5 @@ export enum animationTypes {
     rotate = 'rotate',
     spin = 'spin',
     stretch = 'stretch',
+    mirror = 'mirror',
 }

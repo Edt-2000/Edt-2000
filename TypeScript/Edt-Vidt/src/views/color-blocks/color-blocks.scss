@@ -39,25 +39,23 @@
         height: 100%;
         position: relative;
         transform-style: preserve-3d;
+    }
 
-        &::before,
-        &::after {
-            @include stretch;
-            backface-visibility: hidden;
-            content: '';
-            display: block;
-        }
+    &__front,
+    &__back {
+        @include stretch;
+        backface-visibility: hidden;
+        content: '';
+        display: block;
+    }
 
-        &::before {
-            background: $c-red;
-            backface-visibility: hidden;
-        }
+    &__front {
+        background: $c-red;
+    }
 
-        &::after {
-            @include stretch;
-            background: $c-green;
-            transform: rotateY(180deg);
-        }
+    &__back {
+        background: $c-green;
+        transform: rotateY(180deg);
     }
 }
 

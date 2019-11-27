@@ -43,6 +43,12 @@
             animation: stretch 2s linear infinite forwards;
         }
     }
+
+    &--mirror {
+        .photo-glitcher__img {
+            animation: mirror 2s linear infinite forwards;
+        }
+    }
 }
 
 @keyframes bounce {
@@ -80,6 +86,17 @@
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+
+@keyframes mirror {
+    0% {
+        transform: scaleX(1);
+    }
+
+    100% {
+        transform: scaleX(-1);
     }
 }
 
