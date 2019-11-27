@@ -23,7 +23,7 @@
     export default class ColorBlocksComponent extends Vue {
         public singleColorSubscription: any;
         public multiColorSubscription: any;
-        public blocks: number[] = Array(30).map((x, i) => i + 1);
+        public blocks: number[] = Array(50).map((x, i) => i + 1);
 
         public frontColor: string = '#ff0000';
         public backColor: string =  '#00ff00';
