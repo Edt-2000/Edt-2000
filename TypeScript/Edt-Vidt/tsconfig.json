@@ -39,6 +39,6 @@
     ],
     "files": [
         "main.ts",
-        "../Shared/**/*.ts"
+        "./../Shared/**/*.ts"
     ]
 }
