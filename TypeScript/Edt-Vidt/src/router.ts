@@ -14,6 +14,7 @@ import VideoPlayerComponent from './views/video-player/video-player.component.vu
 import VistaComponent from './views/vista/vista.component.vue';
 import ColorTwinkleComponent from './views/color-twinkle/color-twinkle.component.vue';
 import KaraokeComponent from './views/karaoke/karaoke.component.vue';
+import ColorBlocksComponent from './views/color-blocks/color-blocks.component.vue';
 
 Vue.use(Router);
 
@@ -32,6 +33,7 @@ export default new Router({
         {path: '/' + VidtPresets[VidtPresets.vista] || '', component: VistaComponent},
         {path: '/' + VidtPresets[VidtPresets.colorTwinkle] || '', component: ColorTwinkleComponent},
         {path: '/' + VidtPresets[VidtPresets.karaoke] || '', component: KaraokeComponent},
+        {path: '/' + VidtPresets[VidtPresets.colorBlocks] || '', component: ColorBlocksComponent},
         {path: '*', redirect: '/' + VidtPresets[VidtPresets.logo] || ''},
     ],
 });

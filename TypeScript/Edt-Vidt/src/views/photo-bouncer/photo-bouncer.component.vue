@@ -12,6 +12,7 @@
 
     @Component
     export default class PhotoBouncerComponent extends Vue {
+        public animationSubscription: any;
         public beatSubscription: any;
         public photoSubscription: any;
 
@@ -22,28 +23,58 @@
         public animation: Animation;
         public src: string = "";
 
-        mounted() {
-            this.animation = this.$refs.img.animate(
-                [
-                    {
-                        transform: "scale(1)",
-                    },
-                    {
-                        transform: "scale(1.5)",
-                    },
-                    {
-                        transform: "scale(1)",
-                    },
-                ],
+        private currentAnimation: string = 'bounce';
+        private animationForwards = false;
+
+        private animations = {
+            'bounce': [
                 {
-                    easing: "linear",
-                    duration: 200,
+                    transform: "scale(1)",
                 },
-            );
+                {
+                    transform: "scale(1.5)",
+                },
+                {
+                    transform: "scale(1)",
+                },
+            ],
+            'mirror': [
+                {
+                    transform: "scaleX(1)",
+                },
+                {
+                    transform: "scaleX(-1)",
+                }
+            ]
+        };
+
+        private animationsConfig = {
+            'bounce': {
+                easing: "linear",
+                duration: 200,
+            },
+            'mirror': {
+                easing: "linear",
+                fill: 'forwards',
+                duration: 50,
+            }
+        };
+
+        mounted() {
+            this.setAnimation('bounce');
 
             this.animation.pause();
 
+            this.animationSubscription = Actions$.animationType.subscribe(
+                animation => {
+                    if (animation !== this.currentAnimation && this.animations[animation]) {
+                        this.setAnimation(animation);
+                    }
+                },
+            );
+
             this.beatSubscription = Actions$.vidtBeat.subscribe(() => {
+                console.log('beat');
                 this.animate();
             });
 
@@ -56,19 +87,40 @@
             this.src = `assets/media-by-group/${src}`;
         }
 
-        animate() {
-            requestAnimationFrame(() => {
-                if (this.animation.playState === "running") {
-                    this.animation.cancel();
+        setAnimation(type: string) {
+            this.currentAnimation = type;
+            this.animation = this.$refs.img.animate(
+                this.animations[type],
+                {
+                    fill: 'forwards',
+                    easing: 'linear',
+                    duration: 400,
                 }
+            );
+        }
+        animate() {
+            this.animationForwards = !this.animationForwards;
+
+            requestAnimationFrame(() => {
+                // if (this.animation.playState === "running") {
+                //     this.animation.cancel();
+                // }
 
                 requestAnimationFrame(() => {
-                    this.animation.play();
+                    if (this.animationForwards) {
+                        this.animation.play();
+                    } else {
+                        this.animation.reverse();
+                    }
                 });
             });
         }
 
         destroyed() {
+            if (typeof this.animationSubscription !== "undefined") {
+                this.animationSubscription.unsubscribe();
+            }
+
             if (typeof this.beatSubscription !== "undefined") {
                 this.beatSubscription.unsubscribe();
             }

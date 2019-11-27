@@ -21,6 +21,14 @@ export class ColorHelper {
         }
     }
 
+    static getContraColor(hsvColor: IColor): IColor {
+        return {
+            h: (hsvColor.h + 180) % 360,
+            s: hsvColor.s,
+            b: hsvColor.b,
+        };
+    }
+
     static hsvArray2RGBArray(hsvColors: IColor[]) {
         return hsvColors.map(ColorHelper.hsv2rgb);
     }

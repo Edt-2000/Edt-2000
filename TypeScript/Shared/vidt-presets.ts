@@ -15,6 +15,7 @@ export enum VidtPresets {
     'vista',
     'colorTwinkle',
     'karaoke',
+    'colorBlocks',
 }
 
 export const vidtPresetsArr = enumToArray(VidtPresets);
@@ -24,4 +25,5 @@ export enum animationTypes {
     rotate = 'rotate',
     spin = 'spin',
     stretch = 'stretch',
+    mirror = 'mirror',
 }
