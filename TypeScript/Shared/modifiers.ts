@@ -23,18 +23,21 @@ export const modifiers = {
             label: `Channel: ${nr + 1}`,
             value: nr + 1,
         })),
+    guitarNotes: enumToArray(Note)
+        .map(note => ({
+            value: +Note[note],
+            label: `${note} - ${Note[Note[note]]}`,
+        })),
     drumNotes: enumToArray(DrumNotes)
         .map(drumNote => ({
             value: +DrumNotes[drumNote],
             label: `${drumNote} - ${Note[DrumNotes[drumNote]]}`,
         })),
     drumSounds: enumToArray(DrumSounds)
-        .map(sound => {
-            return {
-                value: +DrumSounds[sound],
-                label: sound,
-            };
-        }),
+        .map(sound => ({
+            value: +DrumSounds[+sound],
+            label: sound,
+        })),
     glitchIntensity: [
         {label: 'low', value: 1},
         {label: 'medium', value: 3},

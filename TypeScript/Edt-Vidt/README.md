@@ -1,11 +1,29 @@
-# Edt Vidt Vue
-Vue version of the edt vidt. This will replace the angular version.
+# edt-vidt2
 
-## Setup & install
-Run `npm install`
+## Project setup
+```
+yarn install
+```
 
-## Start
+### Compiles and hot-reloads for development
+```
+yarn run serve
+```
 
-* Serve & build application: `npm start`. Then go to `localhost:3030`
-* Build application: `npm build`
-* Build ts only: `npm build-ts'
+### Compiles and minifies for production
+```
+yarn run build
+```
+
+### Run your tests
+```
+yarn run test
+```
+
+### Lints and fixes files
+```
+yarn run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

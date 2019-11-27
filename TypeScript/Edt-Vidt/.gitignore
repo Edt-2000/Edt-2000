@@ -1,29 +1,21 @@
-### Systemfiles
-.BridgeSort
 .DS_Store
-desktop.ini
-Thumbs.db
-*.orig
+node_modules
+/dist
 
-### IDE's
-/.idea/
-*.iws
-*.iml
-*.ipr
-*.sublime-*
+# local env files
+.env.local
+.env.*.local
 
-### SonarQube
-/.sonar
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-### Package Managers
-/.tmp/
-/bower_components/
-/node_modules/
-/vendor/
-/dist/
-/target/
-*.log
-
-### Project
-package-lock.json
-.env
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
