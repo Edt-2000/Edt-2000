@@ -10,6 +10,7 @@ export const presetMidiMsg$ = Actions$.presetChange.pipe(
         noteOn: state,
         note: preset,
         velocity: state ? modifier : 0,
+        fromMidiInput: false,
     })),
 );
 

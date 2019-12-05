@@ -13,8 +13,8 @@ const virtualOutput = new easymidi.Output('EdtMIDI-Output', true);
 dgram.createSocket('udp4', processOscMessage).bind(MOSCIDIPort);
 const outSocket = dgram.createSocket('udp4');
 
-virtualInput.on('noteon', handleNote('virtual'));
-virtualInput.on('noteoff', handleNote('virtual'));
+virtualInput.on('noteon', handleNote('virtual', true));
+virtualInput.on('noteoff', handleNote('virtual', false));
 virtualInput.on('cc', handleCC('virtual'));
 virtualInput.on('select', handleSongSelect('virtual'));
 
@@ -23,8 +23,8 @@ hardwareInputs.forEach(inputName => {
     try {
         const hardwareInput = new easymidi.Input(inputName);
 
-        hardwareInput.on('noteon', handleNote(inputName));
-        hardwareInput.on('noteoff', handleNote(inputName));
+        hardwareInput.on('noteon', handleNote(inputName, true));
+        hardwareInput.on('noteoff', handleNote(inputName, false));
         hardwareInput.on('cc', handleCC(inputName));
         hardwareInput.on('select', handleSongSelect(inputName));
 
@@ -42,10 +42,10 @@ function handleSongSelect(name: string) {
     };
 }
 
-function handleNote(name) {
+function handleNote(name, isNoteOn: boolean) {
     return msg => {
         console.info(`MIDI from ${name}`, msg);
-        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, msg.velocity]);
+        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, isNoteOn ? msg.velocity : 0]);
     };
 }
 

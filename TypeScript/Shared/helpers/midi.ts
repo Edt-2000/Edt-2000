@@ -154,6 +154,7 @@ export function convertOSCToMIDINoteMessage(OSCMsg: IOSCMessage, channelOffset =
         noteOn: +OSCMsg.values[2] !== 0,
         noteNumber: noteToNote(+OSCMsg.values[1]),
         octave: noteToOctave(+OSCMsg.values[1]),
+        fromMidiInput: true,
         velocity: +OSCMsg.values[2],
         channel: +OSCMsg.values[0] + channelOffset,
     };

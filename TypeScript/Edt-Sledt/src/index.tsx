@@ -48,7 +48,9 @@ combineLatest(
 // Connect to MIDI output/inputs for automation
 automationActions$.subscribe(nextActionFromMsg);
 automationCCMessages$.subscribe(sendToMidiCC);
-automationNoteMessages$.subscribe(sendToMidiNote);
+automationNoteMessages$.pipe(
+    filter(msg => msg.fromMidiInput),
+).subscribe(sendToMidiNote);
 
 // Emit initial actions to kick things off
 nextActionFromMsg(Actions.presetState(getPresetState()));
