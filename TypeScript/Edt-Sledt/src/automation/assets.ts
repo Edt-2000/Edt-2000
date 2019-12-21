@@ -2,10 +2,28 @@ import { midiCCAutomation$ } from '../communication/midi';
 import { filter, map, withLatestFrom } from 'rxjs/operators';
 import { Actions, Actions$ } from '../../../Shared/actions';
 import { toFileName } from '../media/asset-scan-dir';
-import { automationChannel, imageAutomationCCNumber } from '../../../Shared/config';
+import { automationChannel, imageAutomationCCNumber, wordAutomationCCNumber } from '../../../Shared/config';
+
+export const wordCC$ = Actions$.mainText.pipe(
+    filter(m => !!m),
+    withLatestFrom(Actions$.contentGroup), // Get contentGroup where this word might have come from
+    map(([word, {wordSet}]) => wordSet.indexOf(word)), // Map to index of the word
+    map(index => ({
+        channel: automationChannel,
+        controller: wordAutomationCCNumber,
+        value: index,
+    })),
+);
+
+export const wordActions$ = midiCCAutomation$.pipe(
+    filter(msg => msg.controller === wordAutomationCCNumber),
+    withLatestFrom(Actions$.contentGroup),
+    filter(([msg, {wordSet}]) => !!wordSet[msg.value]),
+    map(([msg, {wordSet}]) => Actions.mainText(wordSet[msg.value])),
+);
 
 export const imageSrcCC$ = Actions$.imageSrc.pipe(
-    filter(Boolean),
+    filter(i => !!i),
     map(toFileName),
     map(fileName => ({
         channel: automationChannel,

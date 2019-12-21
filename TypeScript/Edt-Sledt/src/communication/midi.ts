@@ -41,4 +41,3 @@ export const musicNoteOff$ = noteOnOff$.pipe(
 export const midiCCAutomation$ = ccMessage$.pipe(
     filter(({channel}) => channel === automationChannel),
 );
-

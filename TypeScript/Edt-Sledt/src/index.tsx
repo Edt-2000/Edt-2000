@@ -34,14 +34,15 @@ combineLatest(
         connectedControls$,
         Actions$.presetState,
         Actions$.imageSrc,
+        Actions$.mainText,
         OSCOutput$.pipe(
             startWith(''),
             scan((mostRecent: string[], current) => [...mostRecent, current].slice(-9), []),
         ),
     ],
 ).pipe(
-    tap(([vidts, controls, presetState, imageSrc, OSCOutput]) => {
-        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState} OSCOutput={OSCOutput} imageSrc={imageSrc}/>);
+    tap(([vidts, controls, presetState, imageSrc, mainText, OSCOutput]) => {
+        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState} OSCOutput={OSCOutput} imageSrc={imageSrc} mainText={mainText}/>);
     }),
 ).subscribe();
 
@@ -56,4 +57,3 @@ automationNoteMessages$.pipe(
 nextActionFromMsg(Actions.presetState(getPresetState()));
 nextActionFromMsg(Actions.cueList(presetCues));
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
-

@@ -19,6 +19,7 @@ export const automationChannel = 16;
 export const fastLedAmount: number = 7;
 
 export const imageAutomationCCNumber = 3;
+export const wordAutomationCCNumber = 4;
 
 // The drum notes are configurable from label to note played (match your machine)
 // 'LABEL' = Note.<<PlayedNote>>
