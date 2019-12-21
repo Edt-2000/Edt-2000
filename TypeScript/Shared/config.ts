@@ -18,6 +18,7 @@ export const automationChannel = 16;
 
 export const fastLedAmount: number = 7;
 
+export const vidtPresetAutomationCCNumber = 1;
 export const imageAutomationCCNumber = 3;
 export const wordAutomationCCNumber = 4;
 

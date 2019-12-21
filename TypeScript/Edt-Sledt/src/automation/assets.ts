@@ -5,9 +5,9 @@ import { toFileName } from '../media/asset-scan-dir';
 import { automationChannel, imageAutomationCCNumber, wordAutomationCCNumber } from '../../../Shared/config';
 
 export const wordCC$ = Actions$.mainText.pipe(
-    filter(m => !!m),
     withLatestFrom(Actions$.contentGroup), // Get contentGroup where this word might have come from
     map(([word, {wordSet}]) => wordSet.indexOf(word)), // Map to index of the word
+    filter(m => m !== -1), // If not a word of a wordSet, don't send
     map(index => ({
         channel: automationChannel,
         controller: wordAutomationCCNumber,
