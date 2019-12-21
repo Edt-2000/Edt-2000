@@ -5,23 +5,24 @@
 </template>
 
 <script lang="ts">
-    import "./photo-glitcher.scss";
-    import Vue from "vue";
-    import { Component } from "vue-property-decorator";
-    import { Actions$ } from "../../../../Shared/actions";
+    import './photo-glitcher.scss';
+    import Vue from 'vue';
+    import { Component } from 'vue-property-decorator';
+    import { Actions$ } from '../../../../Shared/actions';
+    import { AnimationTypes } from '../../../../Shared/vidt-presets';
 
     @Component
     export default class PhotoGlitcherComponent extends Vue {
         public animationSubscription: any;
         public photoSubscription: any;
 
-        public animation: string = "bounce";
-        public src: string = "";
+        public animation: string = 'bounce';
+        public src: string = '';
 
         mounted() {
             this.animationSubscription = Actions$.animationType.subscribe(
                 animation => {
-                    this.animation = animation;
+                    this.animation = AnimationTypes[animation];
                 },
             );
 
@@ -35,11 +36,11 @@
         }
 
         destroyed() {
-            if (typeof this.animationSubscription !== "undefined") {
+            if (typeof this.animationSubscription !== 'undefined') {
                 this.animationSubscription.unsubscribe();
             }
 
-            if (typeof this.photoSubscription !== "undefined") {
+            if (typeof this.photoSubscription !== 'undefined') {
                 this.photoSubscription.unsubscribe();
             }
         }

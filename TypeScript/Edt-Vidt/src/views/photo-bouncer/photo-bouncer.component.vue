@@ -5,10 +5,11 @@
 </template>
 
 <script lang="ts">
-    import "./photo-bouncer.scss";
-    import Vue from "vue";
-    import { Component } from "vue-property-decorator";
-    import { Actions$ } from "../../../../Shared/actions";
+    import './photo-bouncer.scss';
+    import Vue from 'vue';
+    import { Component } from 'vue-property-decorator';
+    import { Actions$ } from '../../../../Shared/actions';
+    import { AnimationTypes } from '../../../../Shared/vidt-presets';
 
     @Component
     export default class PhotoBouncerComponent extends Vue {
@@ -21,42 +22,42 @@
         };
 
         public animation: Animation;
-        public src: string = "";
+        public src: string = '';
 
         private currentAnimation: string = 'bounce';
 
         private animations = {
             'bounce': [
                 {
-                    transform: "scale(1)",
+                    transform: 'scale(1)',
                 },
                 {
-                    transform: "scale(1.5)",
+                    transform: 'scale(1.5)',
                 },
                 {
-                    transform: "scale(1)",
+                    transform: 'scale(1)',
                 },
             ],
             'mirror': [
                 {
-                    transform: "scaleX(1)",
+                    transform: 'scaleX(1)',
                 },
                 {
-                    transform: "scaleX(-1)",
-                }
-            ]
+                    transform: 'scaleX(-1)',
+                },
+            ],
         };
 
         private animationsConfig = {
             'bounce': {
-                easing: "linear",
+                easing: 'linear',
                 duration: 200,
             },
             'mirror': {
-                easing: "linear",
+                easing: 'linear',
                 fill: 'forwards',
                 duration: 0,
-            }
+            },
         };
 
         mounted() {
@@ -64,8 +65,8 @@
 
             this.animationSubscription = Actions$.animationType.subscribe(
                 animation => {
-                    if (animation !== this.currentAnimation && this.animations[animation]) {
-                        this.setAnimation(animation);
+                    if (AnimationTypes[AnimationTypes[animation]] !== this.currentAnimation && this.animations[AnimationTypes[AnimationTypes[animation]]]) {
+                        this.setAnimation(AnimationTypes[AnimationTypes[animation]]);
                     }
                 },
             );
@@ -85,20 +86,20 @@
 
         setAnimation(type: string) {
             this.currentAnimation = type;
-            
+
             if (this.animation) {
                 this.animation.cancel();
             }
 
             this.animation = this.$refs.img.animate(
                 this.animations[type],
-                this.animationsConfig[type]
+                this.animationsConfig[type],
             );
         }
 
         animate() {
             requestAnimationFrame(() => {
-                if (this.animation.playState === "running") {
+                if (this.animation.playState === 'running') {
                     this.animation.finish();
                 }
 
@@ -110,15 +111,15 @@
         }
 
         destroyed() {
-            if (typeof this.animationSubscription !== "undefined") {
+            if (typeof this.animationSubscription !== 'undefined') {
                 this.animationSubscription.unsubscribe();
             }
 
-            if (typeof this.beatSubscription !== "undefined") {
+            if (typeof this.beatSubscription !== 'undefined') {
                 this.beatSubscription.unsubscribe();
             }
 
-            if (typeof this.photoSubscription !== "undefined") {
+            if (typeof this.photoSubscription !== 'undefined') {
                 this.photoSubscription.unsubscribe();
             }
         }

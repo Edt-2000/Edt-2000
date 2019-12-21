@@ -3,7 +3,8 @@ import { imageSrcActions$, imageSrcCC$, wordActions$, wordCC$ } from './assets';
 import { presetChangeActions$ } from './presets';
 import { contentGroupChangeActions$ } from './song';
 import { prepareVidtActions$, prepareVidtCC$ } from './vidt';
-import { colorPaletteActions$, colorPaletteMsg$ } from './color-set';
+import { colorPaletteActions$, colorPaletteCC$ } from './color-set';
+import { animationTypeActions$, animationTypeCC$ } from './animation';
 
 /**
  * Automation
@@ -19,7 +20,8 @@ export const automationCCMessages$ = merge(
     imageSrcCC$,
     wordCC$,
     prepareVidtCC$,
-    colorPaletteMsg$,
+    colorPaletteCC$,
+    animationTypeCC$,
 );
 
 export const automationActions$ = merge(
@@ -29,4 +31,5 @@ export const automationActions$ = merge(
     wordActions$,
     prepareVidtActions$,
     colorPaletteActions$,
+    animationTypeActions$,
 );

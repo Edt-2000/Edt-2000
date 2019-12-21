@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions';
-import { animationTypes, VidtPresets } from '../../../Shared/vidt-presets';
+import { AnimationTypes, VidtPresets } from '../../../Shared/vidt-presets';
 import { ContentGroup, IColor, ICue } from '../../../Shared/helpers/types';
 
 @Injectable()
@@ -38,8 +38,8 @@ export class SocketService {
     this.toSledt(Actions.glitchIntensity(intensity));
   }
 
-  sendAnimation(animation: animationTypes) {
-    this.toSledt(Actions.animationType(animation));
+  sendAnimation(animation: string) {
+    this.toSledt(Actions.animationType(AnimationTypes[animation]));
   }
 
   activateCue(cue: ICue) {

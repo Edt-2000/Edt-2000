@@ -7,7 +7,7 @@ import { IColor } from '../../../Shared/helpers/types';
 
 const isSameColorPalette = (p1: IColor[]) => (p2: IColor[]) => JSON.stringify(p1) === JSON.stringify(p2);
 
-export const colorPaletteMsg$ = Actions$.colorPalette.pipe(
+export const colorPaletteCC$ = Actions$.colorPalette.pipe(
     // We have to find using findIndex as it's an array of Arrays (by reference, no indexOf possible)
     map(colorPalette => colorSets.findIndex(isSameColorPalette(colorPalette))),
     filter(i => i !== -1), // It should always find it, but you never know

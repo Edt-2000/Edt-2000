@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { animationTypes } from '../../../../../Shared/vidt-presets';
 import { Actions$ } from '../../../../../Shared/actions';
 import { filterOnModifierGroup } from '../../../../../Shared/modifiers';
 import { map } from 'rxjs/operators';
@@ -19,8 +18,6 @@ export class TextControllerComponent implements OnInit {
   );
   contentGroups$ = Actions$.contentGroups;
   contentGroup$ = Actions$.contentGroup;
-
-  animations = Object.keys(animationTypes);
 
   constructor(public socket: SocketService) {
   }

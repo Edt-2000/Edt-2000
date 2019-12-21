@@ -10,6 +10,9 @@ const hardwareInputs = easymidi.getInputs();
 const virtualInput = new easymidi.Input('EdtMIDI-Input', true);
 const virtualOutput = new easymidi.Output('EdtMIDI-Output', true);
 
+const edtSledtIP = 'localhost' as DeviceIPs;
+// const edtSledtIP = '192.168.2.67'; // Will have delay!
+
 dgram.createSocket('udp4', processOscMessage).bind(MOSCIDIPort);
 const outSocket = dgram.createSocket('udp4');
 
@@ -38,21 +41,21 @@ console.log('READY, Waiting for MIDI or OSC;');
 function handleSongSelect(name: string) {
     return ({song}) => {
         console.info(`MIDI select from ${name}`, song);
-        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'select'], [song]);
+        sendToOSC(edtSledtIP, OSCInPort, ['midi', 'select'], [song]);
     };
 }
 
 function handleNote(name, isNoteOn: boolean) {
     return msg => {
         console.info(`MIDI from ${name}`, msg);
-        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, isNoteOn ? msg.velocity : 0]);
+        sendToOSC(edtSledtIP, OSCInPort, ['midi', 'note'], [msg.channel, msg.note, isNoteOn ? msg.velocity : 0]);
     };
 }
 
 function handleCC(name) {
     return msg => {
         console.info(`MIDI CC from ${name}`, msg);
-        sendToOSC(DeviceIPs.edtSledt, OSCInPort, ['midi', 'cc'], [msg.channel, msg.controller, msg.value]);
+        sendToOSC(edtSledtIP, OSCInPort, ['midi', 'cc'], [msg.channel, msg.controller, msg.value]);
     };
 }
 

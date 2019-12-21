@@ -170,6 +170,6 @@ export function convertOSCToMIDICCMessage(OSCMsg: IOSCMessage, channelOffset = 0
 
 export function convertOSCToMidiSongMessage(OSCMsg: IOSCMessage): IMidiSongMsg {
     return {
-        song: +OSCMsg.values[0],
+        song: +OSCMsg.values[0] + 1,
     };
 }
