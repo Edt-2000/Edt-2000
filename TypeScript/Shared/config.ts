@@ -7,7 +7,7 @@ export const socketPort: number = 8988;
 export const enum DeviceIPs {
     edtDispEdter = 'localhost',
     edtMOSCidi = 'localhost',
-    edtSledt = 'localhost',
+    edtSledt = '192.168.2.67',
 }
 
 export const OSCInPort = 12346;
@@ -18,7 +18,11 @@ export const automationChannel = 16;
 
 export const fastLedAmount: number = 7;
 
+export const vidtPresetAutomationCCNumber = 1;
+export const colorPaletteAutomationCCNumber = 2;
 export const imageAutomationCCNumber = 3;
+export const wordAutomationCCNumber = 4;
+export const animationTypeCCNumber = 5;
 
 // The drum notes are configurable from label to note played (match your machine)
 // 'LABEL' = Note.<<PlayedNote>>

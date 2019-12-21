@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { animationTypes, vidtPresetsArr } from '../../../../../Shared/vidt-presets';
+import { animationTypeArr, vidtPresetsArr } from '../../../../../Shared/vidt-presets';
 import { Actions$ } from '../../../../../Shared/actions';
 import { filterOnModifierGroup, modifiers } from '../../../../../Shared/modifiers';
 import { map } from 'rxjs/operators';
@@ -21,13 +21,7 @@ export class VidtControllerComponent implements OnInit {
   contentGroup$ = Actions$.contentGroup;
   vidtPresets = vidtPresetsArr;
   glitchIntensities = modifiers.glitchIntensity;
-  animations = [
-    animationTypes.stretch,
-    animationTypes.spin,
-    animationTypes.rotate,
-    animationTypes.bounce,
-    animationTypes.mirror,
-  ];
+  animations = animationTypeArr;
 
   constructor(public socket: SocketService) {
   }

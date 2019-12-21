@@ -20,10 +20,13 @@ export enum VidtPresets {
 
 export const vidtPresetsArr = enumToArray(VidtPresets);
 
-export enum animationTypes {
-    bounce = 'bounce',
-    rotate = 'rotate',
-    spin = 'spin',
-    stretch = 'stretch',
-    mirror = 'mirror',
+export enum AnimationTypes {
+    '____EMPTY____',
+    bounce,
+    rotate,
+    spin,
+    stretch,
+    mirror,
 }
+
+export const animationTypeArr = enumToArray(AnimationTypes);

@@ -10,8 +10,9 @@ import { connectedControls$ } from './outputs/edt-control';
 import { connectedVidt$ } from './outputs/edt-vidt';
 import { combineLatest } from 'rxjs';
 import { OSCOutput$ } from './communication/osc';
-import { automationActions$, automationCCMessages$, automationNoteMessages$ } from './automation';
+import { automationActions$, automationCCMessages$ } from './automation';
 import { sendToMidiCC, sendToMidiNote } from './outputs/edt-midi';
+import { presetMidiMsg$ } from './automation/presets';
 
 const {rerender} = render(<></>);
 
@@ -34,21 +35,22 @@ combineLatest(
         connectedControls$,
         Actions$.presetState,
         Actions$.imageSrc,
+        Actions$.mainText,
         OSCOutput$.pipe(
             startWith(''),
             scan((mostRecent: string[], current) => [...mostRecent, current].slice(-9), []),
         ),
     ],
 ).pipe(
-    tap(([vidts, controls, presetState, imageSrc, OSCOutput]) => {
-        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState} OSCOutput={OSCOutput} imageSrc={imageSrc}/>);
+    tap(([vidts, controls, presetState, imageSrc, mainText, OSCOutput]) => {
+        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState} OSCOutput={OSCOutput} imageSrc={imageSrc} mainText={mainText}/>);
     }),
 ).subscribe();
 
 // Connect to MIDI output/inputs for automation
 automationActions$.subscribe(nextActionFromMsg);
 automationCCMessages$.subscribe(sendToMidiCC);
-automationNoteMessages$.pipe(
+presetMidiMsg$.pipe(
     filter(msg => msg.fromMidiInput),
 ).subscribe(sendToMidiNote);
 
@@ -56,4 +58,3 @@ automationNoteMessages$.pipe(
 nextActionFromMsg(Actions.presetState(getPresetState()));
 nextActionFromMsg(Actions.cueList(presetCues));
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
-

@@ -1,7 +1,7 @@
 import { ContentGroup, IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './helpers/types';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './helpers/fsa-helpers';
-import { animationTypes, VidtPresets } from './vidt-presets';
+import { AnimationTypes, VidtPresets } from './vidt-presets';
 import { defaultColor, DrumNotes } from './config';
 import { colorSets } from './colors';
 import { DrumSounds } from './drums';
@@ -22,7 +22,7 @@ export const Actions = {
     mainText: (payload: string) => createAction('mainText', payload),
 
     // Effects
-    animationType: (payload: animationTypes) => createAction('animationType', payload),
+    animationType: (payload: AnimationTypes) => createAction('animationType', payload),
 
     // Subjects
     singleColor: (payload: IColor) => createAction('singleColor', payload),
@@ -70,7 +70,7 @@ export const Actions$ = {
     contentGroups: new BehaviorSubject([] as ContentGroup[]),
     contentGroup: new BehaviorSubject(emptyContentGroup),
 
-    animationType: new BehaviorSubject<animationTypes>(animationTypes.bounce),
+    animationType: new BehaviorSubject<AnimationTypes>(AnimationTypes.bounce),
 
     singleColor: new BehaviorSubject(defaultColor),
     vidtSingleColor: new BehaviorSubject(defaultColor),
