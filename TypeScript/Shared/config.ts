@@ -21,8 +21,9 @@ export const fastLedAmount: number = 7;
 export const vidtPresetAutomationCCNumber = 1;
 export const colorPaletteAutomationCCNumber = 2;
 export const imageAutomationCCNumber = 3;
-export const wordAutomationCCNumber = 4;
-export const animationTypeCCNumber = 5;
+export const videoAutomationCCNumber = 4;
+export const wordAutomationCCNumber = 5;
+export const animationTypeCCNumber = 6;
 
 // The drum notes are configurable from label to note played (match your machine)
 // 'LABEL' = Note.<<PlayedNote>>

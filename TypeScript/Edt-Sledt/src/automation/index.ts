@@ -1,5 +1,5 @@
 import { merge } from 'rxjs';
-import { imageSrcActions$, imageSrcCC$, wordActions$, wordCC$ } from './assets';
+import { imageSrcActions$, imageSrcCC$, videoSrcActions$, videoSrcCC$, wordActions$, wordCC$ } from './assets';
 import { presetChangeActions$ } from './presets';
 import { contentGroupChangeActions$ } from './song';
 import { prepareVidtActions$, prepareVidtCC$ } from './vidt';
@@ -18,6 +18,7 @@ import { animationTypeActions$, animationTypeCC$ } from './animation';
 
 export const automationCCMessages$ = merge(
     imageSrcCC$,
+    videoSrcCC$,
     wordCC$,
     prepareVidtCC$,
     colorPaletteCC$,
@@ -25,8 +26,9 @@ export const automationCCMessages$ = merge(
 );
 
 export const automationActions$ = merge(
-    imageSrcActions$,
     presetChangeActions$,
+    imageSrcActions$,
+    videoSrcActions$,
     contentGroupChangeActions$,
     wordActions$,
     prepareVidtActions$,
