@@ -7,7 +7,7 @@ export const socketPort: number = 8988;
 export const enum DeviceIPs {
     edtDispEdter = 'localhost',
     edtMOSCidi = 'localhost',
-    edtSledt = '192.168.2.67',
+    edtSledt = '192.168.2.80',
 }
 
 export const OSCInPort = 12346;
