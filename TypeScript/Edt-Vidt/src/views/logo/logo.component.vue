@@ -10,13 +10,14 @@
 </template>
 
 <script lang="ts">
-    import "./logo.scss";
-    import Vue from "vue";
-    import { Component } from "vue-property-decorator";
-    import GlitchText from "../../components/glitch-text/glitch-text.component.vue";
-    import { Actions$ } from "../../../../Shared/actions";
-    import { mapInput } from "../../../../Shared/helpers/map-input";
-    import { withLatestFrom } from "rxjs/operators";
+    import './logo.scss';
+    import Vue from 'vue';
+    import { Component } from 'vue-property-decorator';
+    import GlitchText from '../../components/glitch-text/glitch-text.component.vue';
+    import { Actions$ } from '../../../../Shared/actions';
+    import { mapInput } from '../../../../Shared/helpers/map-input';
+    import { startWith } from 'rxjs/operators';
+    import { combineLatest } from 'rxjs';
 
     @Component({
         components: {
@@ -28,13 +29,19 @@
 
         public stars: number[] = Array(64).map((x, i) => i + 1);
         public level: number = 0;
-        public text: string = "Strobocops";
+        public text: string = 'Strobocops';
         public timeOut: number | null;
 
         mounted() {
-            this.subscription = Actions$.vidtBeat
-                .pipe(withLatestFrom(Actions$.glitchIntensity))
-                .subscribe(([beat, intensity]) => {
+            this.subscription = combineLatest([
+                // As VidtBeat is 'hot' we need to startWith to kick off conmbineLatest
+                Actions$.vidtBeat.pipe(startWith(0)),
+                Actions$.glitchIntensity,
+                Actions$.mainText,
+            ])
+                .subscribe(([beat, intensity, text]) => {
+                    console.log('test', text);
+                    this.text = text;
                     this.glitch(intensity);
                 });
         }
@@ -66,7 +73,7 @@
         }
 
         destroyed() {
-            if (typeof this.subscription !== "undefined") {
+            if (typeof this.subscription !== 'undefined') {
                 this.subscription.unsubscribe();
             }
         }
