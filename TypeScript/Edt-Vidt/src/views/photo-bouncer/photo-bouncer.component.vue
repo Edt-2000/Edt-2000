@@ -71,7 +71,7 @@
                 },
             );
 
-            this.beatSubscription = Actions$.vidtBeat.subscribe(() => {
+            this.beatSubscription = Actions$.mainBeat.subscribe(() => {
                 this.animate();
             });
 

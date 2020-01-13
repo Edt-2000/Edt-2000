@@ -35,7 +35,7 @@
         mounted() {
             this.subscription = combineLatest([
                 // As VidtBeat is 'hot' we need to startWith to kick off conmbineLatest
-                Actions$.vidtBeat.pipe(startWith(0)),
+                Actions$.mainBeat.pipe(startWith(0)),
                 Actions$.glitchIntensity,
                 Actions$.mainText,
             ])

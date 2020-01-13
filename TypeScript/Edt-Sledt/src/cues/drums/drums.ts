@@ -6,7 +6,6 @@ import { DrumSoundMap } from '../../presets/converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../../Shared/drums';
 import { MidiChannelToMainDrum } from '../../presets/converters/drums/midiChannelToMainDrum';
 import { BeatToNextWord } from '../../presets/converters/words/beatToNextWord';
-import { MainBeatToVidtBeat } from '../../presets/outputs/vidt/mainBeatToVidtBeat';
 import { BeatToColor } from '../../presets/converters/color/beatToColor';
 import { ColorToVidtColor } from '../../presets/outputs/vidt/colorToVidtColor';
 import { ColorToFastLedSolid } from '../../presets/outputs/fastledt/colorToFastLedSolid';
@@ -26,7 +25,6 @@ export const drumCues = [
         label: 'DrumKick -> Beat & VidtBeat',
         actions: [
             presetChange(new DrumSoundToBeat(), DrumSounds.kick, true),
-            presetChange(new MainBeatToVidtBeat(), 127, true),
         ],
     },
     {
@@ -43,7 +41,6 @@ export const drumCues = [
         label: 'VidtNextWordOnBeat',
         actions: [
             presetChange(new BeatToNextWord(), 127, true),
-            presetChange(new MainBeatToVidtBeat(), 127, true),
             Actions.prepareVidt(VidtPresets.karaoke),
         ],
     },

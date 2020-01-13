@@ -1,7 +1,6 @@
 import { BeatToColor } from './converters/color/beatToColor';
 import { MidiToColors } from './converters/color/midiToColors';
 import { DrumSoundToBeat } from './converters/drums/drumSoundToBeat';
-import { MainBeatToVidtBeat } from './outputs/vidt/mainBeatToVidtBeat';
 import { ColorToVidtColor } from './outputs/vidt/colorToVidtColor';
 import { MultiColorToVidtMultiColor } from './outputs/vidt/multiColorToVidtMultiColor';
 import { ColorToFastLedSolid } from './outputs/fastledt/colorToFastLedSolid';
@@ -89,7 +88,7 @@ export const presets = {
     [Note.C2]: new MainMelodyToChunksOfFastLedt(),
     // [Note.C$2]:
     // [Note.D2]:
-    [Note.D$2]: new MainBeatToVidtBeat(),
+    // [Note.D$2]:
     [Note.E2]: new ColorToVidtColor(),
     [Note.F2]: new ColorToInverseVidtColor(),
     [Note.F$2]: new MultiColorToVidtMultiColor(),

@@ -2,7 +2,7 @@ import { ContentGroup, IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './helpers/fsa-helpers';
 import { AnimationTypes, VidtPresets } from './vidt-presets';
-import { defaultColor, DrumNotes } from './config';
+import { defaultColor } from './config';
 import { colorSets } from './colors';
 import { DrumSounds } from './drums';
 import { modifiers } from './modifiers';
@@ -39,8 +39,6 @@ export const Actions = {
     mainMelody: (payload: IMidiNoteMsg) => createAction('mainMelody', payload),
     mainChords: (payload: IMidiNoteMsg) => createAction('mainChords', payload),
     mainBass: (payload: IMidiNoteMsg) => createAction('mainBass', payload),
-    vidtBeat: (payload: number) => createAction('vidtBeat', payload),
-    vidtDrum: (payload: DrumNotes) => createAction('vidtDrum', payload),
 
     glitchIntensity: (payload: number) =>
         createAction('glitchIntensity', payload),
@@ -83,8 +81,6 @@ export const Actions$ = {
     mainMelody: new Subject() as Subject<IMidiNoteMsg>,
     mainChords: new Subject() as Subject<IMidiNoteMsg>,
     mainBass: new Subject() as Subject<IMidiNoteMsg>,
-    vidtBeat: new Subject<number>() as Subject<number>,
-    vidtDrum: new Subject() as Subject<DrumNotes>,
     glitchIntensity: new BehaviorSubject<number>(modifiers.glitchIntensity[0].value),
 };
 

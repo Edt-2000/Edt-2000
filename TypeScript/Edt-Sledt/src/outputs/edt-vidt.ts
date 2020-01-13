@@ -31,11 +31,11 @@ vidtSocket$.subscribe(socket => {
     Actions$.mainText.pipe(takeUntil(disconnected$)).subscribe(text => {
         socket.emit('toVidt', Actions.mainText(text));
     });
-    Actions$.vidtDrum.pipe(takeUntil(disconnected$)).subscribe(drum => {
-        socket.emit('toVidt', Actions.vidtDrum(drum));
+    Actions$.mainDrum.pipe(takeUntil(disconnected$)).subscribe(drum => {
+        socket.emit('toVidt', Actions.mainDrum(drum));
     });
-    Actions$.vidtBeat.pipe(takeUntil(disconnected$)).subscribe(beat => {
-        socket.emit('toVidt', Actions.vidtBeat(beat));
+    Actions$.mainBeat.pipe(takeUntil(disconnected$)).subscribe(beat => {
+        socket.emit('toVidt', Actions.mainBeat(beat));
     });
     Actions$.vidtSingleColor.pipe(takeUntil(disconnected$)).subscribe(color => {
         socket.emit('toVidt', Actions.vidtSingleColor(color));
