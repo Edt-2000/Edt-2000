@@ -4,7 +4,7 @@
             <div class="logo__star" v-for="star in stars"></div>
         </div>
         <div class="logo__text">
-            <glitch-text v-bind:level="level" v-bind:text="text"></glitch-text>
+            <glitch-text v-bind:level="level" v-bind:text="'Strobocops'"></glitch-text>
         </div>
     </div>
 </template>
@@ -29,21 +29,17 @@
 
         public stars: number[] = Array(64).map((x, i) => i + 1);
         public level: number = 0;
-        public text: string = 'Strobocops';
         public timeOut: number | null;
 
         mounted() {
             this.subscription = combineLatest([
                 // As VidtBeat is 'hot' we need to startWith to kick off conmbineLatest
                 Actions$.vidtBeat.pipe(startWith(0)),
-                Actions$.glitchIntensity,
-                Actions$.mainText,
+                Actions$.glitchIntensity
             ])
-                .subscribe(([beat, intensity, text]) => {
-                    console.log('test', text);
-                    this.text = text;
-                    this.glitch(intensity);
-                });
+            .subscribe(([beat, intensity]) => {
+                this.glitch(intensity);
+            });
         }
 
         glitch(input: number) {

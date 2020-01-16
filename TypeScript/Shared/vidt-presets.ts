@@ -5,6 +5,7 @@ export enum VidtPresets {
     'logo',
     'bluescreen',
     'color',
+    'multicolor',
     'gridscape',
     'hacking',
     'photobouncer',

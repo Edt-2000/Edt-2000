@@ -75,7 +75,7 @@ export const Actions$ = {
     singleColor: new BehaviorSubject(defaultColor),
     vidtSingleColor: new BehaviorSubject(defaultColor),
     multiColor: new BehaviorSubject(colorSets[0]),
-    vidtMultiColor: new BehaviorSubject(colorSets[0]),
+    vidtMultiColor: new BehaviorSubject(colorSets[5]),
     colorPalette: new BehaviorSubject(colorSets[0]),
     mainBeat: new Subject() as Subject<number>,
     mainDrumSound: new Subject() as Subject<DrumSounds>,

@@ -1,11 +1,11 @@
 <template>
-    <div class="color-background">
-        <div class="color-background__color" v-bind:style="styles"></div>
+    <div class="multicolor-background">
+        <div class="multicolor-background__color" v-bind:style="styles"></div>
     </div>
 </template>
 
 <script lang="ts">
-    import "./color-background.scss";
+    import "./multicolor-background.scss";
     import Vue from "vue";
     import { Component } from "vue-property-decorator";
     import { IColor } from "../../../../Shared/helpers/types";
@@ -13,14 +13,15 @@
     import { ColorHelper } from "../../../../Shared/helpers/hsv-2-rgb";
 
     @Component
-    export default class ColorBackgroundComponent extends Vue {
-        public singleColorSubscription: any;
+    export default class MultiColorBackgroundComponent extends Vue {
+        public multiColorSubscription: any;
+
         public styles: Object = {};
 
         mounted() {
-            this.singleColorSubscription = Actions$.vidtSingleColor.subscribe(
-                (color: IColor) => {
-                    this.setStyles([color]);
+            this.multiColorSubscription = Actions$.vidtMultiColor.subscribe(
+                (colors: IColor[]) => {
+                    this.setStyles(colors);
                 },
             );
         }
@@ -33,8 +34,8 @@
         }
 
         destroyed() {
-            if (typeof this.singleColorSubscription !== "undefined") {
-                this.singleColorSubscription.unsubscribe();
+            if (typeof this.multiColorSubscription !== "undefined") {
+                this.multiColorSubscription.unsubscribe();
             }
         }
     }
