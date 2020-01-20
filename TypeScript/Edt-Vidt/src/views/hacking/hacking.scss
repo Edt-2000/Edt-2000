@@ -1,7 +1,8 @@
-@import '../../scss/config/colors';
+$c-green--dark: #00a000;
+$c-white: #fff;
 
 .hacking {
-    background: $c-black;
+    background: #000;
     height: 100%;
 
     &__text {

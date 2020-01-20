@@ -1,13 +1,10 @@
-@import '../../scss/config/colors';
-
 .color-twinkle {
     height: 100vh;
-    background: $c-black;
+    background: #000;
 
     &__star {
         animation: twinkle 1.4s linear infinite;
         position: absolute;
-        color: $c-pink;
         top: 50%;
         left: 50%;
 

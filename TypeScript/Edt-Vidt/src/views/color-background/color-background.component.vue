@@ -1,7 +1,5 @@
 <template>
-    <div class="color-background">
-        <div class="color-background__color" v-bind:style="styles"></div>
-    </div>
+    <div class="color-background" v-bind:style="styles"></div>
 </template>
 
 <script lang="ts">

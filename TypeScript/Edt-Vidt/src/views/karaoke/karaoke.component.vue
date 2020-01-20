@@ -7,14 +7,14 @@
 </template>
 
 <script lang="ts">
-    import "./karaoke.scss";
-    import Vue from "vue";
-    import { Component } from "vue-property-decorator";
-    import { Actions$ } from "../../../../Shared/actions";
-    import { IColor } from "../../../../Shared/helpers/types";
-    import { ColorHelper } from "../../../../Shared/helpers/hsv-2-rgb";
+    import './karaoke.scss';
+    import Vue from 'vue';
+    import { Component } from 'vue-property-decorator';
+    import { Actions$ } from '../../../../Shared/actions';
+    import { IColor } from '../../../../Shared/helpers/types';
+    import { ColorHelper } from '../../../../Shared/helpers/hsv-2-rgb';
 
-    const convert = require("color-convert");
+    const convert = require('color-convert');
 
     @Component
     export default class KaraokeComponent extends Vue {
@@ -25,9 +25,9 @@
             text: HTMLElement;
         };
 
-        public cssClass: string = "";
+        public cssClass: string = '';
         public styles: Object = {};
-        public text: string = "bounce";
+        public text: string = 'bounce';
 
         mounted() {
             this.textSubscription = Actions$.mainText.subscribe(text => {
@@ -36,10 +36,10 @@
                     this.text = text;
                     // wait for text to be in dom
                     requestAnimationFrame(() => {
-                        this.cssClass = "is-hidden";
+                        this.cssClass = 'is-hidden';
 
                         window.setTimeout(() => {
-                            this.cssClass = "";
+                            this.cssClass = '';
                         }, 150);
                     });
                 } else {
@@ -54,10 +54,6 @@
             );
         }
 
-        convertToRGB(h: number, s: number, v: number) {
-            return convert.hsv.rgb(h, s, v);
-        }
-
         setStyles(colors: IColor[]) {
             const bcgColor = ColorHelper.getRGBString(colors);
 
@@ -67,11 +63,11 @@
         }
 
         destroyed() {
-            if (typeof this.textSubscription !== "undefined") {
+            if (typeof this.textSubscription !== 'undefined') {
                 this.textSubscription.unsubscribe();
             }
 
-            if (typeof this.colorSubscription !== "undefined") {
+            if (typeof this.colorSubscription !== 'undefined') {
                 this.colorSubscription.unsubscribe();
             }
         }

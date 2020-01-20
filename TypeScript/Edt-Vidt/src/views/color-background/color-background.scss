@@ -1,11 +1,4 @@
-@import '../../scss/config/colors';
-
 .color-background {
-    background: $c-black;
+    background: #000;
     height: 100vh;
-
-    &__color {
-        background: $c-pink;
-        height: 100%;
-    }
 }
