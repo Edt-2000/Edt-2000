@@ -6,9 +6,14 @@ import { convertToNamedPresetGroup } from '../../../../../Shared/modifiers';
   selector: 'app-preset-switchers',
   template: `
       <ng-container *ngIf="groupedPresetState">
-          <ul class="tab" *ngFor="let group of groupedPresetState">
-              <li class="tab__item" (click)="currentGroup = group.title">
-                  {{group.title}}
+          <ul class="tab">
+              <li class="tab__item" *ngFor="let group of groupedPresetState">
+                  <button class="tab__link"
+                          (click)="currentGroup = group.title"
+                          [class.is-active]="
+                            currentGroup === group.title
+                          "
+                  >{{group.title}}</button>
               </li>
           </ul>
           <div *ngFor="let group of groupedPresetState">

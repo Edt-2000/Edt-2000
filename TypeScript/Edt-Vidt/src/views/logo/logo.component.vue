@@ -34,14 +34,11 @@
 
         mounted() {
             this.subscription = combineLatest([
-                // As VidtBeat is 'hot' we need to startWith to kick off conmbineLatest
+                // As MainBeat is 'hot' we need startWith to kick off conmbineLatest
                 Actions$.mainBeat.pipe(startWith(0)),
                 Actions$.glitchIntensity,
-                Actions$.mainText,
             ])
-                .subscribe(([beat, intensity, text]) => {
-                    console.log('test', text);
-                    this.text = text;
+                .subscribe(([beat, intensity]) => {
                     this.glitch(intensity);
                 });
         }
