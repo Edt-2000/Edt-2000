@@ -1,11 +1,11 @@
-import { ContentGroup, IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from './helpers/types';
+import { ContentGroup, IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from '../types';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { ActionsUnion, createAction } from './helpers/fsa-helpers';
-import { AnimationTypes, VidtPresets } from './vidt-presets';
-import { defaultColor } from './config';
-import { colorSets } from './colors';
-import { DrumSounds } from './drums';
-import { modifiers } from './modifiers';
+import { ActionsUnion, createAction } from './fsa-helpers';
+import { AnimationTypes, VidtPresets } from '../vidt-presets';
+import { defaultColor } from '../config';
+import { colorSets } from '../../Edt-Sledt/config/colors';
+import { DrumSounds } from '../drums';
+import { modifiers } from '../modifiers';
 
 // TODO: make Actions into a single observable object
 export const Actions = {

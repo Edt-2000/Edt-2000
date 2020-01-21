@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { IControlPresetMsg } from '../../../../../Shared/helpers/types';
+import { IControlPresetMsg } from '../../../../../Shared/types';
 import { SocketService } from '../../socket.service';
-import { Note } from '../../../../../Shared/helpers/midi';
+import { Note } from '../../../../../Shared/midi/midi';
 
 @Component({
   selector: 'app-preset-switcher',

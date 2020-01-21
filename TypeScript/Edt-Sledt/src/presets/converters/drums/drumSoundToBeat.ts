@@ -1,7 +1,7 @@
 import { PresetLogic } from '../../presets-logic';
-import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
+import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
 import { filter } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/helpers/types';
+import { ModifierGroup } from '../../../../../Shared/types';
 import { modifiers } from '../../../../../Shared/modifiers';
 
 export class DrumSoundToBeat extends PresetLogic {

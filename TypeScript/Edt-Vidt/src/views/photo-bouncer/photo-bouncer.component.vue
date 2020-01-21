@@ -8,7 +8,7 @@
     import './photo-bouncer.scss';
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
-    import { Actions$ } from '../../../../Shared/actions';
+    import { Actions$ } from '../../../../Shared/actions/actions';
     import { AnimationTypes } from '../../../../Shared/vidt-presets';
 
     @Component

@@ -1,8 +1,8 @@
-import { IPresetMsg } from '../../../Shared/helpers/types';
-import { automationChannel } from '../../../Shared/config';
-import { Actions, Actions$ } from '../../../Shared/actions';
+import { IPresetMsg } from '../../../Shared/types';
+import { Actions, Actions$ } from '../../../Shared/actions/actions';
 import { map } from 'rxjs/operators';
 import { midiNoteAutomation$ } from '../communication/midi';
+import { automationChannel } from '../../config/config';
 
 export const presetMidiMsg$ = Actions$.presetChange.pipe(
     map(({preset, modifier, state}: IPresetMsg) => ({

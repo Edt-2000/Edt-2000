@@ -1,16 +1,16 @@
-import { Actions } from '../../../../Shared/actions';
-import { DrumSoundToBeat } from '../../presets/converters/drums/drumSoundToBeat';
-import { DrumNotes } from '../../../../Shared/config';
+import { Actions } from '../../../../Shared/actions/actions';
+import { DrumSoundToBeat } from '../../../src/presets/converters/drums/drumSoundToBeat';
 import { VidtPresets } from '../../../../Shared/vidt-presets';
-import { DrumSoundMap } from '../../presets/converters/drums/drumSoundMap';
+import { DrumSoundMap } from '../../../src/presets/converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../../Shared/drums';
-import { MidiChannelToMainDrum } from '../../presets/converters/drums/midiChannelToMainDrum';
-import { BeatToNextWord } from '../../presets/converters/words/beatToNextWord';
-import { BeatToColor } from '../../presets/converters/color/beatToColor';
-import { ColorToVidtColor } from '../../presets/outputs/vidt/colorToVidtColor';
-import { ColorToFastLedSolid } from '../../presets/outputs/fastledt/colorToFastLedSolid';
-import { ColorToRGBLedSolid } from '../../presets/outputs/rgbledt/colorToRGBLedSolid';
-import { presetChange } from '../../presets/presets';
+import { MidiChannelToMainDrum } from '../../../src/presets/converters/drums/midiChannelToMainDrum';
+import { BeatToNextWord } from '../../../src/presets/converters/words/beatToNextWord';
+import { BeatToColor } from '../../../src/presets/converters/color/beatToColor';
+import { ColorToVidtColor } from '../../../src/presets/outputs/vidt/colorToVidtColor';
+import { ColorToFastLedSolid } from '../../../src/presets/outputs/fastledt/colorToFastLedSolid';
+import { ColorToRGBLedSolid } from '../../../src/presets/outputs/rgbledt/colorToRGBLedSolid';
+import { DrumNotes } from '../../config';
+import { presetChange } from '../../../src/presets/presets-logic';
 
 export const drumCues = [
     {

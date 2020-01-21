@@ -1,6 +1,6 @@
-import { socketPort } from '../../../Shared/config';
 import * as SocketIO from 'socket.io';
 import { fromEvent } from 'rxjs';
+import { socketPort } from '../../config/config';
 
 const app = require('express')();
 const server = require('http').createServer(app);

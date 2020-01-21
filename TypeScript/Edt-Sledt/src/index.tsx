@@ -1,10 +1,10 @@
 import { filter, scan, startWith, tap } from 'rxjs/operators';
-import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions';
-import { getPresetState, presets } from './presets/presets';
+import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
+import { presets } from './presets/presets';
 import * as React from 'react';
 import { render } from 'ink';
 import { scannedContentGroups } from './media/asset-scan-dir';
-import { presetCues } from './cues/cues';
+import { presetCues } from '../config/cues/cues';
 import { EdtConsole } from './outputs/edt-console';
 import { connectedControls$ } from './outputs/edt-control';
 import { connectedVidt$ } from './outputs/edt-vidt';
@@ -13,6 +13,7 @@ import { OSCOutput$ } from './communication/osc';
 import { automationActions$, automationCCMessages$ } from './automation';
 import { sendToMidiCC, sendToMidiNote } from './outputs/edt-midi';
 import { presetMidiMsg$ } from './automation/presets';
+import { getPresetState } from './presets/presets-logic';
 
 const {rerender} = render(<></>);
 

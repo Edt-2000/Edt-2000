@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { Actions$ } from '../../../../../Shared/actions';
+import { Actions$ } from '../../../../../Shared/actions/actions';
 import { filterOnModifierGroup } from '../../../../../Shared/modifiers';
 import { map } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/helpers/types';
+import { ModifierGroup } from '../../../../../Shared/types';
 
 @Component({
   selector: 'app-text-controller',

@@ -10,13 +10,11 @@ import { ColorToRGBLedSolid } from './outputs/rgbledt/colorToRGBLedSolid';
 import { ColorToInverseVidtColor } from './converters/color/colorToInverseVidtColor';
 import { BeatToFastLedSpark } from './outputs/fastledt/beatToFastLedSpark';
 import { BeatToRainbowSpark } from './outputs/fastledt/beatToRainbowSpark';
-import { Note } from '../../../Shared/helpers/midi';
+import { Note } from '../../../Shared/midi/midi';
 import { BeatToNextWord } from './converters/words/beatToNextWord';
 import { MidiChannelToMainMelody } from './converters/melody/midiChannelToMainMelody';
-import { IControlPresetMsg } from '../../../Shared/helpers/types';
 import { DrumSoundMap } from './converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../Shared/drums';
-import { PresetLogic } from './presets-logic';
 import { MidiChannelToMainDrum } from './converters/drums/midiChannelToMainDrum';
 import { ColorToFastLedStrobe } from './outputs/fastledt/colorToFastLedStrobe';
 import { MainMelodyToChunksOfFastLedt } from './outputs/fastledt/mainMelodyToChunksOfFastLedt';
@@ -24,7 +22,6 @@ import { MidiChannelToMainBass } from './converters/bass/midiChannelToMainBass';
 import { MidiChannelToMainChords } from './converters/chords/midiChannelToMainChords';
 import { DrumToMidi } from './inputs/drumToMidi';
 import { GuitarToMidi } from './inputs/guitarToMidi';
-import { Actions } from '../../../Shared/actions';
 
 // TODO: C, D, E, F, G, A, B
 
@@ -176,31 +173,3 @@ export const presets = {
     // [Note.B8]:
 };
 
-export function getPresetState(): IControlPresetMsg[] {
-    return Object.getOwnPropertyNames(presets).map(presetNr => {
-        const preset = presets[presetNr];
-        return {
-            preset: +presetNr, // preset key is a string, but send it as number
-            modifier: preset.modifier,
-            state: preset.state,
-            title: preset.title,
-            config: {
-                select: preset.modifierOptions.select,
-                continuous: preset.modifierOptions.continuous,
-                group: preset.modifierOptions.group,
-            },
-        } as IControlPresetMsg;
-    });
-}
-
-export const presetChange = (preset: PresetLogic, modifier: number, state: boolean) => {
-    return Actions.presetChange({
-        preset: getPresetNote(preset),
-        modifier,
-        state,
-    });
-};
-
-export function getPresetNote(preset: PresetLogic): number {
-    return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === preset.title);
-}

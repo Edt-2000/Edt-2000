@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Actions$ } from '../../../../../Shared/actions';
+import { Actions$ } from '../../../../../Shared/actions/actions';
 
 @Component({
   selector: 'app-preset-controller',

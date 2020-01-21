@@ -1,4 +1,4 @@
-import { enumToArray } from './helpers/utils';
+import { enumToArray } from './utils/utils';
 
 export enum VidtPresets {
     '____EMPTY____',

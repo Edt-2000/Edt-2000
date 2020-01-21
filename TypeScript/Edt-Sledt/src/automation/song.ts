@@ -1,6 +1,6 @@
 import { songSelectMessage$ } from '../communication/midi';
 import { filter, map, withLatestFrom } from 'rxjs/operators';
-import { Actions, Actions$ } from '../../../Shared/actions';
+import { Actions, Actions$ } from '../../../Shared/actions/actions';
 
 export const contentGroupChangeActions$ = songSelectMessage$.pipe(
     withLatestFrom(Actions$.contentGroups),

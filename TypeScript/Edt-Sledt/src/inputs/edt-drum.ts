@@ -1,6 +1,6 @@
 import { OSC$ } from '../communication/osc';
 import { filter, map } from 'rxjs/operators';
-import { OSCDevices } from '../../../Shared/config';
+import { OSCDevices } from '../../config/config';
 
 export const edtDrum$ = OSC$.pipe(
     filter(OSCmsg => {

@@ -1,9 +1,9 @@
-import { Actions, Actions$ } from '../../../Shared/actions';
+import { Actions, Actions$ } from '../../../Shared/actions/actions';
 import { filter, map } from 'rxjs/operators';
-import { automationChannel, colorPaletteAutomationCCNumber } from '../../../Shared/config';
 import { midiCCAutomation$ } from '../communication/midi';
-import { colorSets } from '../../../Shared/colors';
-import { IColor } from '../../../Shared/helpers/types';
+import { colorSets } from '../../config/colors';
+import { IColor } from '../../../Shared/types';
+import { automationChannel, colorPaletteAutomationCCNumber } from '../../config/config';
 
 const isSameColorPalette = (p1: IColor[]) => (p2: IColor[]) => JSON.stringify(p1) === JSON.stringify(p2);
 

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { OSC$ } from '../communication/osc';
-import { OSCDevices } from '../../../Shared/config';
 import { filter, map } from 'rxjs/operators';
+import { OSCDevices } from '../../config/config';
 
 interface IAudio {
     _1: number;

@@ -1,4 +1,4 @@
-import { Actions } from '../actions';
+import { Actions } from './actions/actions';
 
 export interface IMidiChannel {
     readonly channel: number;

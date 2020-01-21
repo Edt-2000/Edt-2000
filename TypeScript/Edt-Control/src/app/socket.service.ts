@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Actions, nextActionFromMsg } from '../../../Shared/actions';
+import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
 import { AnimationTypes, VidtPresets } from '../../../Shared/vidt-presets';
-import { ContentGroup, IColor, ICue } from '../../../Shared/helpers/types';
+import { ContentGroup, IColor, ICue } from '../../../Shared/types';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
-export class SocketService {
-  constructor(private socket: Socket) {
+export class SocketService extends Socket {
+  constructor(
+    private socket: Socket,
+    private route: ActivatedRoute,
+  ) {
+    super({
+      url: `http://${route.snapshot.queryParams.ip ?? 'localhost'}:${8898}/control`,
+      options: {
+        transports: ['websocket'],
+      },
+    });
     socket.on('toControl', nextActionFromMsg);
   }
 

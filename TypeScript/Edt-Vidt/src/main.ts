@@ -2,9 +2,18 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import VueSocketIO from 'vue-socket.io';
-import { vidtSocketConfig } from '../../Shared/config';
 
 Vue.config.productionTip = false;
+
+let params = new URLSearchParams(document.location.search.substring(1));
+let sledtIp = params.get('ip') ?? 'localhost';
+
+const vidtSocketConfig = {
+    url: `http://${sledtIp}:8898/vidt`,
+    options: {
+        transports: ['websocket'],
+    },
+};
 
 Vue.use(new VueSocketIO({
     connection: vidtSocketConfig.url,

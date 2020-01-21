@@ -2,8 +2,8 @@ import { PresetLogic } from '../../presets-logic';
 import { musicNoteOn$ } from '../../../communication/midi';
 import { modifiers } from '../../../../../Shared/modifiers';
 import { filter } from 'rxjs/operators';
-import { Actions, nextActionFromMsg } from '../../../../../Shared/actions';
-import { ModifierGroup } from '../../../../../Shared/helpers/types';
+import { Actions, nextActionFromMsg } from '../../../../../Shared/actions/actions';
+import { ModifierGroup } from '../../../../../Shared/types';
 
 export class MidiChannelToMainChords extends PresetLogic {
     modifierOptions = {

@@ -1,10 +1,10 @@
 import { PresetLogic } from '../presets-logic';
 import { tap } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../Shared/helpers/types';
+import { ModifierGroup } from '../../../../Shared/types';
 import { edtGuitar$ } from '../../inputs/edt-guitar';
 import { modifiers } from '../../../../Shared/modifiers';
 import { sendToMidiNote } from '../../outputs/edt-midi';
-import { Note } from '../../../../Shared/helpers/midi';
+import { Note } from '../../../../Shared/midi/midi';
 
 export class GuitarToMidi extends PresetLogic {
     modifierOptions = {

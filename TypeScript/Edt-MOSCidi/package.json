@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "MIDI to OSC and other way around",
     "scripts": {
-        "start": "ts-node index.ts"
+        "start": "ts-node index.ts localhost 12347 12346"
     },
     "author": "Edt-2000",
     "license": "ISC",
@@ -16,7 +16,7 @@
         "rxjs": "6.5.3"
     },
     "devDependencies": {
-        "ts-node": "8.0.3",
-        "prettier": "1.16.4"
+        "@types/node": "12.12.6",
+        "ts-node": "^8.6.2"
     }
 }

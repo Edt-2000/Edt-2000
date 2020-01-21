@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { IColor } from '../../../../../Shared/helpers/types';
-import { ColorHelper } from '../../../../../Shared/helpers/hsv-2-rgb';
+import { IColor } from '../../../../../Shared/types';
+import { ColorHelper } from '../../../../../Shared/colors/converters';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({

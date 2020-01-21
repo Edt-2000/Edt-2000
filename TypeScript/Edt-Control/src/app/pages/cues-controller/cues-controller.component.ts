@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Actions$ } from '../../../../../Shared/actions';
+import { Actions$ } from '../../../../../Shared/actions/actions';
 import { SocketService } from '../../socket.service';
 
 @Component({
@@ -18,6 +18,6 @@ import { SocketService } from '../../socket.service';
 export class CuesControllerComponent {
   cueList$ = Actions$.cueList.asObservable();
 
-  constructor (public socket: SocketService) {
+  constructor(public socket: SocketService) {
   }
 }

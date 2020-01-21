@@ -1,7 +1,7 @@
-import { IModifierOptions } from '../../../Shared/helpers/types';
-import { getPresetState } from './presets';
+import { IControlPresetMsg, IModifierOptions } from '../../../Shared/types';
+import { presets } from './presets';
 import { Subscription } from 'rxjs';
-import { Actions, nextActionFromMsg } from '../../../Shared/actions';
+import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
 
 export abstract class PresetLogic {
     readonly modifierOptions: IModifierOptions;
@@ -37,4 +37,33 @@ export abstract class PresetLogic {
     protected abstract _startPreset(): void;
 
     protected abstract _stopPreset(): void;
+}
+
+export const presetChange = (preset: PresetLogic, modifier: number, state: boolean) => {
+    return Actions.presetChange({
+        preset: getPresetNote(preset),
+        modifier,
+        state,
+    });
+};
+
+function getPresetNote(preset: PresetLogic): number {
+    return +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === preset.title);
+}
+
+export function getPresetState(): IControlPresetMsg[] {
+    return Object.getOwnPropertyNames(presets).map(presetNr => {
+        const preset = presets[presetNr];
+        return {
+            preset: +presetNr, // preset key is a string, but send it as number
+            modifier: preset.modifier,
+            state: preset.state,
+            title: preset.title,
+            config: {
+                select: preset.modifierOptions.select,
+                continuous: preset.modifierOptions.continuous,
+                group: preset.modifierOptions.group,
+            },
+        } as IControlPresetMsg;
+    });
 }

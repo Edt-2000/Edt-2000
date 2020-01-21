@@ -10,9 +10,9 @@
     import './karaoke.scss';
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
-    import { Actions$ } from '../../../../Shared/actions';
-    import { IColor } from '../../../../Shared/helpers/types';
-    import { ColorHelper } from '../../../../Shared/helpers/hsv-2-rgb';
+    import { Actions$ } from '../../../../Shared/actions/actions';
+    import { IColor } from '../../../../Shared/types';
+    import { ColorHelper } from '../../../../Shared/colors/converters';
 
     const convert = require('color-convert');
 

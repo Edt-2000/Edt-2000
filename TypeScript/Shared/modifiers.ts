@@ -1,8 +1,8 @@
-import { Note } from './helpers/midi';
-import { automationChannel, DrumNotes } from './config';
-import { GroupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './helpers/types';
+import { Note } from './midi/midi';
+import { GroupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './types';
 import { DrumSounds } from './drums';
-import { enumToArray } from './helpers/utils';
+import { enumToArray } from './utils/utils';
+import { automationChannel, DrumNotes } from '../Edt-Sledt/config/config';
 
 export const modifiers = {
     strobeSpeeds: [

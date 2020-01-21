@@ -1,5 +1,5 @@
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { Actions$, nextActionFromMsg } from '../../../Shared/actions';
+import { Actions$, nextActionFromMsg } from '../../../Shared/actions/actions';
 import { take, takeUntil } from 'rxjs/operators';
 import { controlSocket$ } from '../communication/sockets';
 import * as SocketIO from 'socket.io';

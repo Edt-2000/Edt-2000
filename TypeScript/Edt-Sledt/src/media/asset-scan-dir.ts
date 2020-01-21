@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as p from 'path';
-import { ContentGroup } from '../../../Shared/helpers/types';
+import { ContentGroup } from '../../../Shared/types';
 
 export const scannedContentGroups = readDirOneDeep('../Edt-Vidt/public/assets/media-by-group');
 

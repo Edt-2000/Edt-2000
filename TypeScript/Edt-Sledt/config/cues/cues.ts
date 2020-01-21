@@ -1,10 +1,10 @@
-import { ICue } from '../../../Shared/helpers/types';
+import { ICue } from '../../../Shared/types';
 import { drumCues } from './drums/drums';
-import { DrumSoundMap } from '../presets/converters/drums/drumSoundMap';
+import { DrumSoundMap } from '../../src/presets/converters/drums/drumSoundMap';
 import { DrumSounds } from '../../../Shared/drums';
-import { DrumNotes } from '../../../Shared/config';
-import { DrumToMidi } from '../presets/inputs/drumToMidi';
-import { presetChange } from '../presets/presets';
+import { DrumToMidi } from '../../src/presets/inputs/drumToMidi';
+import { DrumNotes } from '../config';
+import { presetChange } from '../../src/presets/presets-logic';
 
 const edtDrumCues = [
     {
