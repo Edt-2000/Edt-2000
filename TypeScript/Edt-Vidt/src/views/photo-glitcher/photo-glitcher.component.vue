@@ -9,7 +9,7 @@
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
     import { Actions$ } from '../../../../Shared/actions/actions';
-    import { AnimationTypes } from '../../../../Shared/vidt-presets';
+    import { AnimationTypes } from '../../../../Shared/vidt/animation';
 
     @Component
     export default class PhotoGlitcherComponent extends Vue {

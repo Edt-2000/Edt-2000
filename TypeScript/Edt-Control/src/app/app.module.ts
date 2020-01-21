@@ -14,7 +14,7 @@ import { TriggerButtonComponent } from './components/trigger-button/trigger-butt
 import { TextControllerComponent } from './pages/text-controller/text-controller.component';
 import { PresetSwitchersComponent } from './components/preset-switchers/preset-switchers.component';
 import { ActivePresetsControllerComponent } from './pages/active-presets-controller/active-presets-controller.component';
-import { CustomReuseStrategy } from './CustomReuseStrategy';
+import { CustomReuseStrategy } from './custom-reuse-strategy';
 
 @NgModule({
   declarations: [

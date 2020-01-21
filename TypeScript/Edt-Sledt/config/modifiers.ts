@@ -36,12 +36,5 @@ export const modifiers = {
             value: +DrumSounds[sound],
             label: sound,
         })),
-    glitchIntensity: [
-        {label: 'low', value: 1},
-        {label: 'medium', value: 3},
-        {label: 'average', value: 5},
-        {label: 'high', value: 7},
-        {label: 'bezerk', value: 9},
-    ],
 };
 

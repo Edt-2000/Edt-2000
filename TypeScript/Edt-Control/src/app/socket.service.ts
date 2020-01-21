@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
-import { AnimationTypes, VidtPresets } from '../../../Shared/vidt-presets';
+import { VidtPresets } from '../../../Shared/vidt-presets';
 import { ActivatedRoute } from '@angular/router';
 import { ContentGroup, ICue } from '../../../Shared/actions/types';
 import { IColor } from '../../../Shared/colors/types';
+import { AnimationTypes } from '../../../Shared/vidt/animation';
 
 @Injectable()
 export class SocketService extends Socket {

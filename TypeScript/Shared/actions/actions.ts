@@ -1,6 +1,6 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './fsa-helpers';
-import { AnimationTypes, VidtPresets } from '../vidt-presets';
+import { VidtPresets } from '../vidt-presets';
 import { blackColor } from '../colors/utils';
 import { colorSets } from '../../Edt-Sledt/config/colors';
 import { modifiers } from '../../Edt-Sledt/config/modifiers';
@@ -8,6 +8,7 @@ import { IMidiNoteMsg } from '../midi/types';
 import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg } from './types';
 import { IColor } from '../colors/types';
 import { DrumSounds } from '../../Edt-Sledt/config/config';
+import { AnimationTypes } from '../vidt/animation';
 
 // TODO: make Actions into a single observable object
 export const Actions = {
