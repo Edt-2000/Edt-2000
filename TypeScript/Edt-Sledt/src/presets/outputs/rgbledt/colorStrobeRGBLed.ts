@@ -1,8 +1,8 @@
 import { PresetLogic } from '../../presets-logic';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { RGBLedtStrobe } from '../../../outputs/edt-rgbledt';
-import { modifiers } from '../../../../../Shared/modifiers';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { modifiers } from '../../../../config/modifiers';
+import { ModifierGroup } from '../../../../../Shared/actions/types';
 
 export class ColorStrobeRGBLed extends PresetLogic {
     modifierOptions = {

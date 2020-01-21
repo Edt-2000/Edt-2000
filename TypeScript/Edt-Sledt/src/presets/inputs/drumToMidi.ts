@@ -1,9 +1,9 @@
 import { PresetLogic } from '../presets-logic';
-import { modifiers } from '../../../../Shared/modifiers';
+import { modifiers } from '../../../config/modifiers';
 import { filter, tap } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../Shared/types';
 import { edtDrum$ } from '../../inputs/edt-drum';
 import { sendToMidiNote } from '../../outputs/edt-midi';
+import { ModifierGroup } from '../../../../Shared/actions/types';
 
 export class DrumToMidi extends PresetLogic {
     modifierOptions = {

@@ -6,9 +6,9 @@
     import './color-background.scss';
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
-    import { IColor } from '../../../../Shared/types';
     import { Actions$ } from '../../../../Shared/actions/actions';
     import { ColorHelper } from '../../../../Shared/colors/converters';
+    import { IColor } from '../../../../Shared/colors/types';
 
     @Component
     export default class ColorBackgroundComponent extends Vue {

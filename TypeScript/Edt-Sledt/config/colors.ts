@@ -1,4 +1,4 @@
-import { IColor } from '../../Shared/types';
+import { IColor } from '../../Shared/colors/types';
 
 export enum Colors {
     Red = 0,

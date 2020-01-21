@@ -52,6 +52,8 @@ export enum Modii {
     Bash = 13,
 }
 
+// The drum notes are configurable from label to note played (match your machine)
+// 'LABEL' = Note.<<PlayedNote>>
 export enum DrumNotes {
     '_1' = Note.C1,
     '_2' = Note.D1,
@@ -62,4 +64,22 @@ export enum DrumNotes {
     '_6B' = Note.A$1,
     '_7A' = Note.C$2,
     '_7B' = Note.D$2,
+}
+
+export enum DrumSounds {
+    ____EMPTY____,
+    kick,
+    mainSnare,
+    secondSnare,
+    hihatClosed,
+    hihatOpen,
+    floor,
+    tom1,
+    tom2,
+    bell,
+    crash,
+    clap,
+    cow,
+    shaker,
+    agogo,
 }

@@ -1,4 +1,4 @@
-import { IOSCMessage } from '../types';
+import { IOSCMessage } from '../osc/types';
 
 export function noteToOctave(note: number): number {
     return Math.floor(note / 12);

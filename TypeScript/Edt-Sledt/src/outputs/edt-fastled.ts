@@ -1,6 +1,6 @@
-import { IColor } from '../../../Shared/types';
 import { sendToOSC } from '../communication/osc';
 import { DeviceIPs, Modii, OSCDevices, OSCDispedtOutPort } from '../../config/config';
+import { IColor } from '../../../Shared/colors/types';
 
 export function FastLedtSpark(
     instance: number,

@@ -1,5 +1,6 @@
-import { IMidiCCMsg, IMidiNoteMsg, IMidiSongMsg, IOSCMessage } from '../types';
 import { noteToNote, noteToOctave } from '../utils/utils';
+import { IMidiCCMsg, IMidiNoteMsg, IMidiSongMsg } from './types';
+import { IOSCMessage } from '../osc/types';
 
 export enum Note {
     'C_2',

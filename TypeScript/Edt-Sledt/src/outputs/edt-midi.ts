@@ -1,6 +1,6 @@
-import { IMidiCCMsg, IMidiNoteMsg } from '../../../Shared/types';
 import { sendToOSC } from '../communication/osc';
 import { DeviceIPs, MOSCIDIPort } from '../../config/config';
+import { IMidiCCMsg, IMidiNoteMsg } from '../../../Shared/midi/types';
 
 export function sendToMidiNote(midiNoteMsg: IMidiNoteMsg) {
     // Send velocity (modifier) or 0 when noteOff

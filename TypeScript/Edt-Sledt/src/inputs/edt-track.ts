@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { OSC$ } from '../communication/osc';
 import { filter, map } from 'rxjs/operators';
-import { ITrack } from '../../../Shared/types';
+import { ITrack } from '../../../Shared/devices/types';
 import { OSCDevices } from '../../config/config';
 
 export const edtTrack$: Observable<ITrack> = OSC$.pipe(

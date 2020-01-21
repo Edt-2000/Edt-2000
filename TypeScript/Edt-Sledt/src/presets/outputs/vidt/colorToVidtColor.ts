@@ -1,6 +1,6 @@
 import { PresetLogic } from '../../presets-logic';
 import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
-import { ModifierGroup } from '../../../../../Shared/types';
+import { ModifierGroup } from '../../../../../Shared/actions/types';
 
 export class ColorToVidtColor extends PresetLogic {
     modifierOptions = {

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { GroupedControlPresetMsg, IControlPresetMsg } from '../../../../../Shared/types';
-import { convertToNamedPresetGroup } from '../../../../../Shared/modifiers';
+import { GroupedControlPresetMsg, IControlPresetMsg } from '../../../../../Shared/actions/types';
+import { convertToNamedPresetGroup } from '../../../../../Shared/presets/utils';
 
 @Component({
   selector: 'app-preset-switchers',

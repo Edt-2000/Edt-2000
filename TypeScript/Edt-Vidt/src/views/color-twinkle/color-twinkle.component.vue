@@ -15,8 +15,8 @@
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
     import { Actions$ } from '../../../../Shared/actions/actions';
-    import { IColor } from '../../../../Shared/types';
     import { ColorHelper } from '../../../../Shared/colors/converters';
+    import { IColor } from '../../../../Shared/colors/types';
 
     @Component
     export default class ColorTwinkleComponent extends Vue {

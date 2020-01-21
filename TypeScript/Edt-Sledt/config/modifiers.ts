@@ -1,8 +1,6 @@
-import { Note } from './midi/midi';
-import { GroupedControlPresetMsg, IControlPresetMsg, ModifierGroup } from './types';
-import { DrumSounds } from './drums';
-import { enumToArray } from './utils/utils';
-import { automationChannel, DrumNotes } from '../Edt-Sledt/config/config';
+import { Note } from '../../Shared/midi/midi';
+import { enumToArray } from '../../Shared/utils/utils';
+import { automationChannel, DrumNotes, DrumSounds } from './config';
 
 export const modifiers = {
     strobeSpeeds: [
@@ -47,31 +45,3 @@ export const modifiers = {
     ],
 };
 
-export function convertToNamedPresetGroup(presets: IControlPresetMsg[]): GroupedControlPresetMsg[] {
-    return Object.values(presets.reduce((grouped: any, preset) => {
-        preset.config.group.forEach(group => {
-            if (!grouped[group]) {
-                grouped[group] = {
-                    title: ModifierGroup[group],
-                    presets: [],
-                };
-            }
-            grouped[group].presets.push(preset);
-        });
-        return grouped;
-    }, {}));
-}
-
-export function filterOnModifierGroup(
-    presets: IControlPresetMsg[],
-    modifierGroups: ModifierGroup[],
-): IControlPresetMsg[] {
-    return presets
-        .filter(preset => {
-            return preset.config.group.some(group => {
-                return modifierGroups.some(modifierGroup => {
-                    return modifierGroup === group;
-                });
-            });
-        });
-}

@@ -15,9 +15,9 @@
     import './color-blocks.scss';
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
-    import { IColor } from '../../../../Shared/types';
     import { ColorHelper } from '../../../../Shared/colors/converters';
     import { Actions$ } from '../../../../Shared/actions/actions';
+    import { IColor } from '../../../../Shared/colors/types';
 
     @Component
     export default class ColorBlocksComponent extends Vue {

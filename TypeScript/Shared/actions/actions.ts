@@ -1,11 +1,13 @@
-import { ContentGroup, IColor, IControlPresetMsg, ICue, IMidiNoteMsg, IPresetMsg } from '../types';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './fsa-helpers';
 import { AnimationTypes, VidtPresets } from '../vidt-presets';
-import { defaultColor } from '../config';
+import { blackColor } from '../colors/utils';
 import { colorSets } from '../../Edt-Sledt/config/colors';
-import { DrumSounds } from '../drums';
-import { modifiers } from '../modifiers';
+import { modifiers } from '../../Edt-Sledt/config/modifiers';
+import { IMidiNoteMsg } from '../midi/types';
+import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg } from './types';
+import { IColor } from '../colors/types';
+import { DrumSounds } from '../../Edt-Sledt/config/config';
 
 // TODO: make Actions into a single observable object
 export const Actions = {
@@ -70,8 +72,8 @@ export const Actions$ = {
 
     animationType: new BehaviorSubject<AnimationTypes>(AnimationTypes.bounce),
 
-    singleColor: new BehaviorSubject(defaultColor),
-    vidtSingleColor: new BehaviorSubject(defaultColor),
+    singleColor: new BehaviorSubject(blackColor),
+    vidtSingleColor: new BehaviorSubject(blackColor),
     multiColor: new BehaviorSubject(colorSets[0]),
     vidtMultiColor: new BehaviorSubject(colorSets[5]),
     colorPalette: new BehaviorSubject(colorSets[0]),

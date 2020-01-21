@@ -1,7 +1,7 @@
-import { IControlPresetMsg, IModifierOptions } from '../../../Shared/types';
 import { presets } from './presets';
 import { Subscription } from 'rxjs';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
+import { IControlPresetMsg, IModifierOptions } from '../../../Shared/actions/types';
 
 export abstract class PresetLogic {
     readonly modifierOptions: IModifierOptions;

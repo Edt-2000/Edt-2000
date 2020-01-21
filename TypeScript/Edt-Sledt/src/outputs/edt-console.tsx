@@ -1,6 +1,6 @@
-import { IControlPresetMsg } from '../../../Shared/types';
 import { Box, Color } from 'ink';
 import * as React from 'react';
+import { IControlPresetMsg } from '../../../Shared/actions/types';
 
 export const EdtConsole = (
     {

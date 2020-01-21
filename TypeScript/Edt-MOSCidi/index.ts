@@ -1,6 +1,6 @@
 import { convertOSCToMIDICCMessage, convertOSCToMIDINoteMessage, isMidiCCMessage, isMidiMessage, isMidiNoteMessage } from '../Shared/midi/midi';
 import { convertToOSC } from '../Shared/utils/utils';
-import { IOSCMessage } from '../Shared/types';
+import { IOSCMessage } from '../Shared/osc/types';
 import easymidi = require('easymidi');
 import dgram = require('dgram');
 import osc = require('osc-min');

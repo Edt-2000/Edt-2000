@@ -14,7 +14,6 @@ import { Note } from '../../../Shared/midi/midi';
 import { BeatToNextWord } from './converters/words/beatToNextWord';
 import { MidiChannelToMainMelody } from './converters/melody/midiChannelToMainMelody';
 import { DrumSoundMap } from './converters/drums/drumSoundMap';
-import { DrumSounds } from '../../../Shared/drums';
 import { MidiChannelToMainDrum } from './converters/drums/midiChannelToMainDrum';
 import { ColorToFastLedStrobe } from './outputs/fastledt/colorToFastLedStrobe';
 import { MainMelodyToChunksOfFastLedt } from './outputs/fastledt/mainMelodyToChunksOfFastLedt';
@@ -22,6 +21,7 @@ import { MidiChannelToMainBass } from './converters/bass/midiChannelToMainBass';
 import { MidiChannelToMainChords } from './converters/chords/midiChannelToMainChords';
 import { DrumToMidi } from './inputs/drumToMidi';
 import { GuitarToMidi } from './inputs/guitarToMidi';
+import { DrumSounds } from '../../config/config';
 
 // TODO: C, D, E, F, G, A, B
 

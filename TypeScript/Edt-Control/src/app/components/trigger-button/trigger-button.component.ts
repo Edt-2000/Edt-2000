@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { IColor } from '../../../../../Shared/types';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { IColor } from '../../../../../Shared/colors/types';
 
 @Component({
   selector: 'app-trigger-button',
