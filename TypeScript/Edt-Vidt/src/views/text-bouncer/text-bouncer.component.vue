@@ -1,17 +1,17 @@
 <template>
     <div class="text-bouncer">
         <div class="text-bouncer__text" ref="text" v-bind:style="styles">
-            <glitch-text v-bind:text="text"></glitch-text>
+            <glitch-text v-bind:text="text"/>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    import "./text-bouncer.scss";
-    import Vue from "vue";
-    import { Component } from "vue-property-decorator";
-    import GlitchText from "../../components/glitch-text/glitch-text.component.vue";
-    import { Actions$ } from "../../../../Shared/actions";
+    import './text-bouncer.scss';
+    import Vue from 'vue';
+    import { Component } from 'vue-property-decorator';
+    import GlitchText from '../../components/glitch-text/glitch-text.component.vue';
+    import { Actions$ } from '../../../../Shared/actions';
 
     @Component({
         components: {
@@ -25,7 +25,7 @@
             text: HTMLElement;
         };
         public styles: Object = {};
-        public text: string = "bounce";
+        public text: string = 'bounce';
 
         public y: number = 0;
         public x: number = 0;
@@ -84,7 +84,7 @@
         }
 
         destroyed() {
-            if (typeof this.subscription !== "undefined") {
+            if (typeof this.subscription !== 'undefined') {
                 this.subscription.unsubscribe();
             }
         }

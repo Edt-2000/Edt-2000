@@ -1,9 +1,5 @@
-@import '../../scss/config/colors';
-@import '../../scss/mixins/keyframe-glitch';
-@import '../../scss/mixins/typography';
-
 .glitch-text {
-    font-family: 'Orbitron';
+    font-family: 'Orbitron', sans-serif;
     font-size: 8rem;
     font-weight: 900;
     line-height: 1;

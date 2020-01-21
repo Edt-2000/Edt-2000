@@ -1,7 +1,5 @@
 <template>
-    <div class="multicolor-background">
-        <div class="multicolor-background__color" v-bind:style="styles"></div>
-    </div>
+    <div class="multicolor-background" v-bind:style="styles"></div>
 </template>
 
 <script lang="ts">
