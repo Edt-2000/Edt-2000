@@ -6,7 +6,7 @@ import VueSocketIO from 'vue-socket.io';
 Vue.config.productionTip = false;
 
 let params = new URLSearchParams(document.location.search.substring(1));
-let sledtIp = params.get('ip') ?? 'localhost';
+let sledtIp = params.get('ip') || 'localhost';
 
 const vidtSocketConfig = {
     url: `http://${sledtIp}:8898/vidt`,
