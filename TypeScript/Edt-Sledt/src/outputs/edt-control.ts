@@ -1,6 +1,6 @@
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { Actions$, nextActionFromMsg } from '../../../Shared/actions/actions';
-import { take, takeUntil } from 'rxjs/operators';
+import { Actions, Actions$, nextActionFromMsg } from '../../../Shared/actions/actions';
+import { map, take, takeUntil } from 'rxjs/operators';
 import { controlSocket$ } from '../communication/sockets';
 import * as SocketIO from 'socket.io';
 import { BehaviorSubject, merge } from 'rxjs';
@@ -17,11 +17,11 @@ controlSocket$.subscribe(socket => {
     });
 
     merge(
-        Actions$.presetState,
-        Actions$.cueList,
-        Actions$.colorPalette,
-        Actions$.contentGroups,
-        Actions$.contentGroup,
+        Actions$.presetState.pipe(map(Actions.presetState)),
+        Actions$.cueList.pipe(map(Actions.cueList)),
+        Actions$.colorPalette.pipe(map(Actions.colorPalette)),
+        Actions$.contentGroups.pipe(map(Actions.contentGroups)),
+        Actions$.contentGroup.pipe(map(Actions.contentGroup)),
     ).pipe(
         takeUntil(disconnected$),
     ).subscribe(msg => socket.emit('toControl', msg));

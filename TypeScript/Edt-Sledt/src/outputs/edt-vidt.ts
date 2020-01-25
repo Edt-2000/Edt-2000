@@ -1,8 +1,8 @@
 import { vidtSocket$ } from '../communication/sockets';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import * as SocketIO from 'socket.io';
-import { take, takeUntil } from 'rxjs/operators';
-import { Actions$ } from '../../../Shared/actions/actions';
+import { map, take, takeUntil } from 'rxjs/operators';
+import { Actions, Actions$ } from '../../../Shared/actions/actions';
 import { BehaviorSubject, merge } from 'rxjs';
 
 export const connectedVidtSubject$ = new BehaviorSubject<string[]>([]);
@@ -17,16 +17,16 @@ vidtSocket$.subscribe(socket => {
     });
 
     merge(
-        Actions$.animationType,
-        Actions$.imageSrc,
-        Actions$.videoSrc,
-        Actions$.prepareVidt,
-        Actions$.mainText,
-        Actions$.mainDrum,
-        Actions$.mainBeat,
-        Actions$.vidtSingleColor,
-        Actions$.vidtMultiColor,
-        Actions$.glitchIntensity,
+        Actions$.vidtMultiColor.pipe(map(Actions.vidtMultiColor)),
+        Actions$.animationType.pipe(map(Actions.animationType)),
+        Actions$.imageSrc.pipe(map(Actions.imageSrc)),
+        Actions$.videoSrc.pipe(map(Actions.videoSrc)),
+        Actions$.prepareVidt.pipe(map(Actions.prepareVidt)),
+        Actions$.mainText.pipe(map(Actions.mainText)),
+        Actions$.mainDrum.pipe(map(Actions.mainDrum)),
+        Actions$.mainBeat.pipe(map(Actions.mainBeat)),
+        Actions$.vidtSingleColor.pipe(map(Actions.vidtSingleColor)),
+        Actions$.glitchIntensity.pipe(map(Actions.glitchIntensity)),
     ).pipe(
         takeUntil(disconnected$),
     ).subscribe(msg => socket.emit('toVidt', msg));

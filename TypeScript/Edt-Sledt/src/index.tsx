@@ -1,6 +1,6 @@
 import { filter, scan, startWith, tap } from 'rxjs/operators';
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
-import { presets } from './presets/presets';
+import { presets } from '../config/presets';
 import * as React from 'react';
 import { render } from 'ink';
 import { scannedContentGroups } from './media/asset-scan-dir';
@@ -19,7 +19,7 @@ const {rerender} = render(<></>);
 
 // Main logic: start or stop presets based on presetChanges
 Actions$.presetChange.pipe(
-    filter(msg => presets[msg.preset]),
+    filter(msg => !!presets[msg.preset]),
     tap(({modifier, preset, state}) => {
         if (state) {
             presets[preset].startPreset(modifier);
@@ -35,16 +35,19 @@ combineLatest(
         connectedVidt$,
         connectedControls$,
         Actions$.presetState,
-        Actions$.imageSrc,
-        Actions$.mainText,
         OSCOutput$.pipe(
             startWith(''),
             scan((mostRecent: string[], current) => [...mostRecent, current].slice(-9), []),
         ),
     ],
 ).pipe(
-    tap(([vidts, controls, presetState, imageSrc, mainText, OSCOutput]) => {
-        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState} OSCOutput={OSCOutput} imageSrc={imageSrc} mainText={mainText}/>);
+    tap(([
+             vidts,
+             controls,
+             presetState,
+             OSCOutput,
+         ]) => {
+        rerender(<EdtConsole vidts={vidts} controls={controls} presetState={presetState} OSCOutput={OSCOutput}/>);
     }),
 ).subscribe();
 

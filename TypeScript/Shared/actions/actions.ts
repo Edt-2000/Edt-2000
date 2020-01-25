@@ -3,7 +3,6 @@ import { ActionsUnion, createAction } from './fsa-helpers';
 import { VidtPresets } from '../vidt-presets';
 import { blackColor } from '../colors/utils';
 import { colorSets } from '../../Edt-Sledt/config/colors';
-import { modifiers } from '../../Edt-Sledt/config/modifiers';
 import { IMidiNoteMsg } from '../midi/types';
 import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg } from './types';
 import { IColor } from '../colors/types';
@@ -84,7 +83,7 @@ export const Actions$ = {
     mainMelody: new Subject() as Subject<IMidiNoteMsg>,
     mainChords: new Subject() as Subject<IMidiNoteMsg>,
     mainBass: new Subject() as Subject<IMidiNoteMsg>,
-    glitchIntensity: new BehaviorSubject<number>(modifiers.glitchIntensity[0].value),
+    glitchIntensity: new BehaviorSubject<number>(1),
 };
 
 export function nextActionFromMsg(msg: Actions) {
@@ -92,5 +91,10 @@ export function nextActionFromMsg(msg: Actions) {
     if (Actions$[msg.type]) {
         // @ts-ignore
         Actions$[msg.type].next(msg.payload);
+
+        allActions$.next(msg);
     }
 }
+
+// Stream for all actions, useful to send to other parts of the system
+export const allActions$ = new Subject<Actions>();

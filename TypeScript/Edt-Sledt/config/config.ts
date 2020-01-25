@@ -5,8 +5,6 @@ export const enum DeviceIPs {
     edtMOSCidi = 'localhost',
 }
 
-export const socketPort = 8988;
-
 export const OSCInPort = 12346;
 export const OSCDispedtOutPort = 12345;
 export const MOSCIDIPort = 12347;

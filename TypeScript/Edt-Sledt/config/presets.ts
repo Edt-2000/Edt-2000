@@ -1,27 +1,28 @@
-import { BeatToColor } from './converters/color/beatToColor';
-import { MidiToColors } from './converters/color/midiToColors';
-import { DrumSoundToBeat } from './converters/drums/drumSoundToBeat';
-import { ColorToVidtColor } from './outputs/vidt/colorToVidtColor';
-import { MultiColorToVidtMultiColor } from './outputs/vidt/multiColorToVidtMultiColor';
-import { ColorToFastLedSolid } from './outputs/fastledt/colorToFastLedSolid';
-import { ColorStrobeRGBLed } from './outputs/rgbledt/colorStrobeRGBLed';
-import { DrumSoundToFastLedStrip } from './outputs/fastledt/drumSoundToFastLedStrip';
-import { ColorToRGBLedSolid } from './outputs/rgbledt/colorToRGBLedSolid';
-import { ColorToInverseVidtColor } from './converters/color/colorToInverseVidtColor';
-import { BeatToFastLedSpark } from './outputs/fastledt/beatToFastLedSpark';
-import { BeatToRainbowSpark } from './outputs/fastledt/beatToRainbowSpark';
-import { Note } from '../../../Shared/midi/midi';
-import { BeatToNextWord } from './converters/words/beatToNextWord';
-import { MidiChannelToMainMelody } from './converters/melody/midiChannelToMainMelody';
-import { DrumSoundMap } from './converters/drums/drumSoundMap';
-import { MidiChannelToMainDrum } from './converters/drums/midiChannelToMainDrum';
-import { ColorToFastLedStrobe } from './outputs/fastledt/colorToFastLedStrobe';
-import { MainMelodyToChunksOfFastLedt } from './outputs/fastledt/mainMelodyToChunksOfFastLedt';
-import { MidiChannelToMainBass } from './converters/bass/midiChannelToMainBass';
-import { MidiChannelToMainChords } from './converters/chords/midiChannelToMainChords';
-import { DrumToMidi } from './inputs/drumToMidi';
-import { GuitarToMidi } from './inputs/guitarToMidi';
-import { DrumSounds } from '../../config/config';
+import { BeatToColor } from '../src/presets/converters/color/beatToColor';
+import { MidiToColors } from '../src/presets/converters/color/midiToColors';
+import { DrumSoundToBeat } from '../src/presets/converters/drums/drumSoundToBeat';
+import { ColorToVidtColor } from '../src/presets/outputs/vidt/colorToVidtColor';
+import { MultiColorToVidtMultiColor } from '../src/presets/outputs/vidt/multiColorToVidtMultiColor';
+import { ColorToFastLedSolid } from '../src/presets/outputs/fastledt/colorToFastLedSolid';
+import { ColorStrobeRGBLed } from '../src/presets/outputs/rgbledt/colorStrobeRGBLed';
+import { DrumSoundToFastLedStrip } from '../src/presets/outputs/fastledt/drumSoundToFastLedStrip';
+import { ColorToRGBLedSolid } from '../src/presets/outputs/rgbledt/colorToRGBLedSolid';
+import { ColorToInverseVidtColor } from '../src/presets/converters/color/colorToInverseVidtColor';
+import { BeatToFastLedSpark } from '../src/presets/outputs/fastledt/beatToFastLedSpark';
+import { BeatToRainbowSpark } from '../src/presets/outputs/fastledt/beatToRainbowSpark';
+import { Note } from '../../Shared/midi/midi';
+import { BeatToNextWord } from '../src/presets/converters/words/beatToNextWord';
+import { MidiChannelToMainMelody } from '../src/presets/converters/melody/midiChannelToMainMelody';
+import { DrumSoundMap } from '../src/presets/converters/drums/drumSoundMap';
+import { MidiChannelToMainDrum } from '../src/presets/converters/drums/midiChannelToMainDrum';
+import { ColorToFastLedStrobe } from '../src/presets/outputs/fastledt/colorToFastLedStrobe';
+import { MainMelodyToChunksOfFastLedt } from '../src/presets/outputs/fastledt/mainMelodyToChunksOfFastLedt';
+import { MidiChannelToMainBass } from '../src/presets/converters/bass/midiChannelToMainBass';
+import { MidiChannelToMainChords } from '../src/presets/converters/chords/midiChannelToMainChords';
+import { DrumToMidi } from '../src/presets/inputs/drumToMidi';
+import { GuitarToMidi } from '../src/presets/inputs/guitarToMidi';
+import { DrumSounds } from './config';
+import { PresetLogic } from '../src/presets/presets-logic';
 
 // TODO: C, D, E, F, G, A, B
 
@@ -29,7 +30,7 @@ import { DrumSounds } from '../../config/config';
  * Map of PRESETS to MIDI notes. This is used to record preset state in MIDI in audio software like Ableton
  * Don't change this when you have automation tracks already recorded as there is no way to link them except hard-coding
  */
-export const presets = {
+export const presets: Record<number, PresetLogic> = {
     [Note.C_2]: new DrumSoundMap(DrumSounds.kick),
     [Note.C$_2]: new DrumSoundMap(DrumSounds.mainSnare),
     [Note.D_2]: new DrumSoundMap(DrumSounds.secondSnare),

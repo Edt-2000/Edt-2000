@@ -10,9 +10,9 @@ const virtualInput = new easymidi.Input('EdtMIDI-Input', true);
 const virtualOutput = new easymidi.Output('EdtMIDI-Output', true);
 
 // Extract the IP, OSC Midi in and Sledt OSC port
-const [edtSledtIP, MOSCIDIPort, OSCInPort] = process.argv;
+const [, , edtSledtIP, MOSCIDIPort, OSCInPort] = process.argv;
 
-dgram.createSocket('udp4', processOscMessage).bind(MOSCIDIPort);
+dgram.createSocket('udp4', processOscMessage).bind(+MOSCIDIPort);
 const outSocket = dgram.createSocket('udp4');
 
 virtualInput.on('noteon', handleNote('virtual', true));
@@ -98,11 +98,11 @@ function processOscMessage(msg) {
 
 function sendToOSC(
     device: string,
-    port: number,
+    port: string,
     addresses: string[],
     values: number[] = [],
 ): void {
     console.log('Sending OSC:', addresses, values);
     const buf = osc.toBuffer(convertToOSC({addresses, values}));
-    return outSocket.send(buf, 0, buf.length, port, device);
+    return outSocket.send(buf, 0, buf.length, +port, device);
 }
