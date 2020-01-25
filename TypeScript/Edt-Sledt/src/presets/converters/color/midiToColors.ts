@@ -1,9 +1,9 @@
 import { musicNoteOn$ } from '../../../communication/midi';
 import { PresetLogic } from '../../presets-logic';
 import { filter, withLatestFrom } from 'rxjs/operators';
-import { modifiers } from '../../../../../Shared/modifiers';
-import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions';
-import { ModifierGroup } from '../../../../../Shared/helpers/types';
+import { modifiers } from '../../../../config/modifiers';
+import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
+import { ModifierGroup } from '../../../../../Shared/actions/types';
 
 export class MidiToColors extends PresetLogic {
     modifierOptions = {

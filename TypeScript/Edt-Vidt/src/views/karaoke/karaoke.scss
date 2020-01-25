@@ -1,17 +1,11 @@
-@import '../../scss/config/colors';
-@import '../../scss/config/sizes';
-@import '../../scss/mixins/typography';
-@import '../../scss/mixins/screen';
-
 .karaoke {
-    background: $c-black;
+    background: #000;
     height: 100vh;
     position: relative;
 
     &__text {
-        color: $c-pink;
-        font-family: $font-neon;
-        font-size: 10rem;
+        font-family: 'NeonGlow', monospace;
+        font-size: 14rem;
         left: 50%;
         letter-spacing: 8px;
         position: absolute;
@@ -26,12 +20,6 @@
         .is-hidden & {
             opacity: 0;
             transform: scale(0);
-        }
-    }
-
-    @include screen($screen-xlarge) {
-        &__text {
-            font-size: 14rem;
         }
     }
 }

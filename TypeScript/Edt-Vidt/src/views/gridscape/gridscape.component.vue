@@ -18,10 +18,10 @@
 </template>
 
 <script lang="ts">
-    import "./gridscape.scss";
-    import Vue from "vue";
-    import { Component } from "vue-property-decorator";
-    import { Actions$ } from "../../../../Shared/actions";
+    import './gridscape.scss';
+    import Vue from 'vue';
+    import { Component } from 'vue-property-decorator';
+    import { Actions$ } from '../../../../Shared/actions/actions';
 
     @Component
     export default class GridscapeComponent extends Vue {
@@ -42,31 +42,31 @@
             this.animation = this.$refs.sun.animate(
                 [
                     {
-                        transform: "translate(-50%, -62%) scale(1)",
+                        transform: 'translate(-50%, -62%) scale(1)',
                     },
                     {
-                        transform: "translate(-50%, -62%) scale(1.2)",
+                        transform: 'translate(-50%, -62%) scale(1.2)',
                     },
                     {
-                        transform: "translate(-50%, -62%) scale(1)",
+                        transform: 'translate(-50%, -62%) scale(1)',
                     },
                 ],
                 {
-                    easing: "cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+                    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)',
                     duration: 200,
                 },
             );
 
             this.animation.pause();
 
-            this.subscription = Actions$.vidtBeat.subscribe(() => {
+            this.subscription = Actions$.mainBeat.subscribe(() => {
                 this.animate();
             });
         }
 
         animate() {
             requestAnimationFrame(() => {
-                if (this.animation.playState === "running") {
+                if (this.animation.playState === 'running') {
                     this.animation.cancel();
                 }
 
@@ -77,7 +77,7 @@
         }
 
         destroyed() {
-            if (typeof this.subscription !== "undefined") {
+            if (typeof this.subscription !== 'undefined') {
                 this.subscription.unsubscribe();
             }
         }

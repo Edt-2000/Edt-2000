@@ -8,8 +8,8 @@
     import './photo-bouncer.scss';
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
-    import { Actions$ } from '../../../../Shared/actions';
-    import { AnimationTypes } from '../../../../Shared/vidt-presets';
+    import { Actions$ } from '../../../../Shared/actions/actions';
+    import { AnimationTypes } from '../../../../Shared/vidt/animation';
 
     @Component
     export default class PhotoBouncerComponent extends Vue {
@@ -71,7 +71,7 @@
                 },
             );
 
-            this.beatSubscription = Actions$.vidtBeat.subscribe(() => {
+            this.beatSubscription = Actions$.mainBeat.subscribe(() => {
                 this.animate();
             });
 

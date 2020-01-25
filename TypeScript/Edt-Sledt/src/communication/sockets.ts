@@ -1,4 +1,3 @@
-import { socketPort } from '../../../Shared/config';
 import * as SocketIO from 'socket.io';
 import { fromEvent } from 'rxjs';
 
@@ -9,7 +8,7 @@ const io = require('socket.io')(server, {
     transports: ['websocket'],
 });
 
-server.listen(socketPort);
+server.listen(8898);
 
 export const controlSocket$ = fromEvent<SocketIO.Socket>(
     io.of('/control'),

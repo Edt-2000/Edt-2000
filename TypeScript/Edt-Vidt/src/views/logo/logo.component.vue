@@ -4,7 +4,7 @@
             <div class="logo__star" v-for="star in stars"></div>
         </div>
         <div class="logo__text">
-            <glitch-text v-bind:level="level" v-bind:text="'Strobocops'"></glitch-text>
+            <glitch-text v-bind:level="level" v-bind:text="text"></glitch-text>
         </div>
     </div>
 </template>
@@ -14,8 +14,8 @@
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
     import GlitchText from '../../components/glitch-text/glitch-text.component.vue';
-    import { Actions$ } from '../../../../Shared/actions';
-    import { mapInput } from '../../../../Shared/helpers/map-input';
+    import { Actions$ } from '../../../../Shared/actions/actions';
+    import { mapInput } from '../../../../Shared/utils/map-input';
     import { startWith } from 'rxjs/operators';
     import { combineLatest } from 'rxjs';
 
@@ -29,17 +29,18 @@
 
         public stars: number[] = Array(64).map((x, i) => i + 1);
         public level: number = 0;
+        public text: string = 'Strobocops';
         public timeOut: number | null;
 
         mounted() {
             this.subscription = combineLatest([
-                // As VidtBeat is 'hot' we need to startWith to kick off conmbineLatest
-                Actions$.vidtBeat.pipe(startWith(0)),
-                Actions$.glitchIntensity
+                // As MainBeat is 'hot' we need startWith to kick off conmbineLatest
+                Actions$.mainBeat.pipe(startWith(0)),
+                Actions$.glitchIntensity,
             ])
-            .subscribe(([beat, intensity]) => {
-                this.glitch(intensity);
-            });
+                .subscribe(([beat, intensity]) => {
+                    this.glitch(intensity);
+                });
         }
 
         glitch(input: number) {

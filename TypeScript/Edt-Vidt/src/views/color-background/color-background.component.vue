@@ -1,16 +1,14 @@
 <template>
-    <div class="color-background">
-        <div class="color-background__color" v-bind:style="styles"></div>
-    </div>
+    <div class="color-background" v-bind:style="styles"></div>
 </template>
 
 <script lang="ts">
-    import "./color-background.scss";
-    import Vue from "vue";
-    import { Component } from "vue-property-decorator";
-    import { IColor } from "../../../../Shared/helpers/types";
-    import { Actions$ } from "../../../../Shared/actions";
-    import { ColorHelper } from "../../../../Shared/helpers/hsv-2-rgb";
+    import './color-background.scss';
+    import Vue from 'vue';
+    import { Component } from 'vue-property-decorator';
+    import { Actions$ } from '../../../../Shared/actions/actions';
+    import { ColorHelper } from '../../../../Shared/colors/converters';
+    import { IColor } from '../../../../Shared/colors/types';
 
     @Component
     export default class ColorBackgroundComponent extends Vue {
@@ -33,7 +31,7 @@
         }
 
         destroyed() {
-            if (typeof this.singleColorSubscription !== "undefined") {
+            if (typeof this.singleColorSubscription !== 'undefined') {
                 this.singleColorSubscription.unsubscribe();
             }
         }

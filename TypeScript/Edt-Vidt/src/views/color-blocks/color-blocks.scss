@@ -1,14 +1,11 @@
-@import '../../scss/config/colors';
-@import '../../scss/mixins/list-reset';
-@import '../../scss/mixins/stretch';
-
 .color-blocks {
     $self: &;
-    background: $c-black;
+    background: #000;
     height: 100vh;
 
     &__list {
-        @include list-reset;
+        list-style: none;
+        margin: 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
@@ -43,18 +40,17 @@
 
     &__front,
     &__back {
-        @include stretch;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
         backface-visibility: hidden;
         content: '';
         display: block;
     }
 
-    &__front {
-        background: $c-red;
-    }
-
     &__back {
-        background: $c-green;
         transform: rotateY(180deg);
     }
 }

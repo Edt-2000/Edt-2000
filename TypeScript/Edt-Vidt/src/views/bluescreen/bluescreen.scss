@@ -1,13 +1,14 @@
-@import '../../scss/config/colors';
-@import '../../scss/mixins/list-reset';
-@import '../../scss/mixins/typography';
+:root {
+    --c-bluescreen-blue: #0700a3;
+    --c-white: #fff;
+}
 
 .bluescreen {
     align-items: center;
-    background: $c-bluescreen-blue;
-    color: $c-white;
+    background: var(--c-bluescreen-blue);
+    color: var(--c-white);
     display: flex;
-    font-family: $font-windows;
+    font-family: 'Fixedsys', monospace;
     font-size: 1.8rem;
     height: 100%;
     justify-content: center;
@@ -24,8 +25,8 @@
     }
 
     &__title {
-        background: $c-grey;
-        color: $c-bluescreen-blue;
+        background: #aaa;
+        color: var(--c-bluescreen-blue);
         display: inline-block;
         font-size: 1.8rem;
         font-weight: 400;
@@ -37,8 +38,9 @@
     }
 
     &__list {
-        @include list-reset;
-        margin-bottom: 2rem;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2rem;
     }
 
     &__list-item {

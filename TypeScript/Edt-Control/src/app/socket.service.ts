@@ -1,13 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { Actions, nextActionFromMsg } from '../../../Shared/actions';
-import { AnimationTypes, VidtPresets } from '../../../Shared/vidt-presets';
-import { ContentGroup, IColor, ICue } from '../../../Shared/helpers/types';
+import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
+import { VidtPresets } from '../../../Shared/vidt-presets';
+import { ActivatedRoute } from '@angular/router';
+import { ContentGroup, ICue } from '../../../Shared/actions/types';
+import { IColor } from '../../../Shared/colors/types';
+import { AnimationTypes } from '../../../Shared/vidt/animation';
+import io from 'socket.io-client';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SocketService {
-  constructor(private socket: Socket) {
-    socket.on('toControl', nextActionFromMsg);
+  private socket;
+
+  constructor(
+    private route: ActivatedRoute,
+  ) {
+    this.socket = io(`http://${route.snapshot.queryParams.ip || 'localhost'}:${8898}/control`, {
+      transports: ['websocket'],
+    });
+    this.socket.on('toControl', (msg) => {
+      nextActionFromMsg(msg);
+    });
   }
 
   sendVidtPreset(preset: string) {

@@ -1,7 +1,7 @@
-import { IModifierOptions } from '../../../Shared/helpers/types';
-import { getPresetState } from './presets';
+import { presets } from '../../config/presets';
 import { Subscription } from 'rxjs';
-import { Actions, nextActionFromMsg } from '../../../Shared/actions';
+import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
+import { IControlPresetMsg, IModifierOptions } from '../../../Shared/actions/types';
 
 export abstract class PresetLogic {
     readonly modifierOptions: IModifierOptions;
@@ -37,4 +37,26 @@ export abstract class PresetLogic {
     protected abstract _startPreset(): void;
 
     protected abstract _stopPreset(): void;
+}
+
+export const presetChange = (preset: PresetLogic, modifier: number, state: boolean) => {
+    return Actions.presetChange({
+        preset: +Object.getOwnPropertyNames(presets).find(presetNote => presets[presetNote].title === preset.title),
+        modifier,
+        state,
+    });
+};
+
+export function getPresetState(): IControlPresetMsg[] {
+    return Object.getOwnPropertyNames(presets).map(presetNr => {
+        const {modifier, modifierOptions: config, title, state} = presets[presetNr];
+        return {
+            // preset key is a string, but send it as number
+            preset: +presetNr,
+            modifier,
+            state,
+            title,
+            config,
+        } as IControlPresetMsg;
+    });
 }

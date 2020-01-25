@@ -1,7 +1,6 @@
-import { DeviceIPs, MOSCIDIPort, OSCInPort } from '../Shared/config';
-import { convertOSCToMIDICCMessage, convertOSCToMIDINoteMessage, isMidiCCMessage, isMidiMessage, isMidiNoteMessage } from '../Shared/helpers/midi';
-import { convertToOSC } from '../Shared/helpers/utils';
-import { IOSCMessage } from '../Shared/helpers/types';
+import { convertOSCToMIDICCMessage, convertOSCToMIDINoteMessage, isMidiCCMessage, isMidiMessage, isMidiNoteMessage } from '../Shared/midi/midi';
+import { convertToOSC } from '../Shared/utils/utils';
+import { IOSCMessage } from '../Shared/osc/types';
 import easymidi = require('easymidi');
 import dgram = require('dgram');
 import osc = require('osc-min');
@@ -10,10 +9,10 @@ const hardwareInputs = easymidi.getInputs();
 const virtualInput = new easymidi.Input('EdtMIDI-Input', true);
 const virtualOutput = new easymidi.Output('EdtMIDI-Output', true);
 
-const edtSledtIP = 'localhost' as DeviceIPs;
-// const edtSledtIP = '192.168.2.67'; // Will have delay!
+// Extract the IP, OSC Midi in and Sledt OSC port
+const [, , edtSledtIP, MOSCIDIPort, OSCInPort] = process.argv;
 
-dgram.createSocket('udp4', processOscMessage).bind(MOSCIDIPort);
+dgram.createSocket('udp4', processOscMessage).bind(+MOSCIDIPort);
 const outSocket = dgram.createSocket('udp4');
 
 virtualInput.on('noteon', handleNote('virtual', true));
@@ -98,12 +97,12 @@ function processOscMessage(msg) {
 }
 
 function sendToOSC(
-    device: DeviceIPs,
-    port: number,
+    device: string,
+    port: string,
     addresses: string[],
     values: number[] = [],
 ): void {
     console.log('Sending OSC:', addresses, values);
     const buf = osc.toBuffer(convertToOSC({addresses, values}));
-    return outSocket.send(buf, 0, buf.length, port, device);
+    return outSocket.send(buf, 0, buf.length, +port, device);
 }

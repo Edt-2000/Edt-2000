@@ -10,17 +10,17 @@
 </template>
 
 <script lang="ts">
-    import "./video-player.scss";
-    import Vue from "vue";
-    import { Component } from "vue-property-decorator";
-    import { Actions$ } from "../../../../Shared/actions";
+    import './video-player.scss';
+    import Vue from 'vue';
+    import { Component } from 'vue-property-decorator';
+    import { Actions$ } from '../../../../Shared/actions/actions';
 
     @Component
     export default class VideoPlayerComponent extends Vue {
         public beatSubscription: any;
         public videoSubscription: any;
 
-        public src: string = "";
+        public src: string = '';
         public interval: number;
         public overlay: boolean = false;
         public $refs: {
@@ -35,7 +35,7 @@
                 },
             );
 
-            this.beatSubscription = Actions$.vidtBeat.subscribe(() => {
+            this.beatSubscription = Actions$.mainBeat.subscribe(() => {
                 this.glitchVideo();
             });
         }
@@ -70,11 +70,11 @@
         }
 
         destroyed() {
-            if (typeof this.beatSubscription !== "undefined") {
+            if (typeof this.beatSubscription !== 'undefined') {
                 this.beatSubscription.unsubscribe();
             }
 
-            if (typeof this.videoSubscription !== "undefined") {
+            if (typeof this.videoSubscription !== 'undefined') {
                 this.videoSubscription.unsubscribe();
             }
 

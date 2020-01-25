@@ -1,9 +1,9 @@
 import { PresetLogic } from '../../presets-logic';
-import { Actions$ } from '../../../../../Shared/actions';
+import { Actions$ } from '../../../../../Shared/actions/actions';
 import { FastLedtSpark } from '../../../outputs/edt-fastled';
-import { modifiers } from '../../../../../Shared/modifiers';
+import { modifiers } from '../../../../config/modifiers';
 import { withLatestFrom } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/helpers/types';
+import { ModifierGroup } from '../../../../../Shared/actions/types';
 
 export class BeatToFastLedSpark extends PresetLogic {
     modifierOptions = {

@@ -1,21 +1,17 @@
-import { IControlPresetMsg } from '../../../Shared/helpers/types';
 import { Box, Color } from 'ink';
 import * as React from 'react';
+import { IControlPresetMsg } from '../../../Shared/actions/types';
 
 export const EdtConsole = (
     {
         vidts,
         controls,
         presetState,
-        imageSrc,
-        mainText,
         OSCOutput,
     }: {
         vidts: string[],
         controls: string[],
         presetState: IControlPresetMsg[],
-        imageSrc: string,
-        mainText: string,
         OSCOutput: string[],
     },
 ) => {
@@ -41,10 +37,6 @@ export const EdtConsole = (
         Control's connected:
         <Box>--------</Box>
         {controls.map(title => <Box key={title}>{title}</Box>)}
-        <Box>--------</Box>
-        ImageSrc: {imageSrc}
-        <Box>--------</Box>
-        MainText: {mainText}
         <Box>--------</Box>
         Last OSC message send:
         <Box>--------</Box>

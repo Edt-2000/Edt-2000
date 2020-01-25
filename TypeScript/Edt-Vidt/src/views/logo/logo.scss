@@ -1,9 +1,6 @@
-@import '../../scss/config/colors';
-@import '../../scss/mixins/typography';
-
 .logo {
     align-items: center;
-    background: $c-black;
+    background: #000;
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -19,7 +16,7 @@
 
     &__star {
         color: transparentize(#fff, 0.3);
-        font-family: $font-mono;
+        font-family: 'KlartextMono-Light', monospace;
         position: absolute;
         z-index: 1;
 

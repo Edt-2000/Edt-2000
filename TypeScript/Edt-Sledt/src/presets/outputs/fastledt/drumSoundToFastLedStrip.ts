@@ -1,10 +1,10 @@
 import { PresetLogic } from '../../presets-logic';
-import { BlackColor } from '../../../../../Shared/config';
+import { blackColor } from '../../../../../Shared/colors/utils';
 import { withLatestFrom } from 'rxjs/operators';
-import { Actions$ } from '../../../../../Shared/actions';
-import { ModifierGroup } from '../../../../../Shared/helpers/types';
+import { Actions$ } from '../../../../../Shared/actions/actions';
 import { FastLedtSinglePulse } from '../../../outputs/edt-fastled';
-import { DrumSounds } from '../../../../../Shared/drums';
+import { ModifierGroup } from '../../../../../Shared/actions/types';
+import { DrumSounds } from '../../../../config/config';
 
 export class DrumSoundToFastLedStrip extends PresetLogic {
     modifierOptions = {
@@ -15,7 +15,7 @@ export class DrumSoundToFastLedStrip extends PresetLogic {
     };
 
     protected _startPreset(): void {
-        FastLedtSinglePulse(0, 100, BlackColor); // Turn of all strips before starting
+        FastLedtSinglePulse(0, 100, blackColor); // Turn of all strips before starting
 
         this.addSub(
             Actions$.mainDrumSound

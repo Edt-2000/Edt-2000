@@ -8,8 +8,8 @@
     import './photo-glitcher.scss';
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
-    import { Actions$ } from '../../../../Shared/actions';
-    import { AnimationTypes } from '../../../../Shared/vidt-presets';
+    import { Actions$ } from '../../../../Shared/actions/actions';
+    import { AnimationTypes } from '../../../../Shared/vidt/animation';
 
     @Component
     export default class PhotoGlitcherComponent extends Vue {

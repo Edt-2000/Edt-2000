@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs/Observable';
-import { IMidiCCMsg, IMidiNoteMsg, IMidiSongMsg } from '../../../Shared/helpers/types';
 import { filter, map } from 'rxjs/operators';
 import { OSC$ } from './osc';
-import { automationChannel } from '../../../Shared/config';
-import { convertOSCToMIDICCMessage, convertOSCToMIDINoteMessage, convertOSCToMidiSongMessage, isMidiCCMessage, isMidiMessage, isMidiNoteMessage, isMidiSongMessage } from '../../../Shared/helpers/midi';
+import { convertOSCToMIDICCMessage, convertOSCToMIDINoteMessage, convertOSCToMidiSongMessage, isMidiCCMessage, isMidiMessage, isMidiNoteMessage, isMidiSongMessage } from '../../../Shared/midi/midi';
+import { automationChannel } from '../../config/config';
+import { IMidiCCMsg, IMidiNoteMsg, IMidiSongMsg } from '../../../Shared/midi/types';
 
 const midiOSC$ = OSC$.pipe(
     filter(isMidiMessage),

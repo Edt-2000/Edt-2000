@@ -10,13 +10,13 @@
 </template>
 
 <script lang="ts">
-    import "./color-twinkle.scss";
+    import './color-twinkle.scss';
 
-    import Vue from "vue";
-    import { Component } from "vue-property-decorator";
-    import { Actions$ } from "../../../../Shared/actions";
-    import { IColor } from "../../../../Shared/helpers/types";
-    import { ColorHelper } from "../../../../Shared/helpers/hsv-2-rgb";
+    import Vue from 'vue';
+    import { Component } from 'vue-property-decorator';
+    import { Actions$ } from '../../../../Shared/actions/actions';
+    import { ColorHelper } from '../../../../Shared/colors/converters';
+    import { IColor } from '../../../../Shared/colors/types';
 
     @Component
     export default class ColorTwinkleComponent extends Vue {
@@ -41,7 +41,7 @@
         }
 
         destroyed() {
-            if (typeof this.colorSubscription !== "undefined") {
+            if (typeof this.colorSubscription !== 'undefined') {
                 this.colorSubscription.unsubscribe();
             }
         }
