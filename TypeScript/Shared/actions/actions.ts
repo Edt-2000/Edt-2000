@@ -1,4 +1,4 @@
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './fsa-helpers';
 import { VidtPresets } from '../vidt-presets';
 import { blackColor } from '../colors/utils';
@@ -8,6 +8,7 @@ import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg } from './types';
 import { IColor } from '../colors/types';
 import { DrumSounds } from '../../Edt-Sledt/config/config';
 import { AnimationTypes } from '../vidt/animation';
+import { map } from 'rxjs/operators';
 
 // TODO: make Actions into a single observable object
 export const Actions = {
@@ -86,15 +87,60 @@ export const Actions$ = {
     glitchIntensity: new BehaviorSubject<number>(1),
 };
 
-export function nextActionFromMsg(msg: Actions) {
-    // We use dynamic properties to send it to the correct action, but need to ignore TS warning
-    if (Actions$[msg.type]) {
+export function nextActionFromMsg(action: Actions) {
+    if (Actions$[action.type]) {
         // @ts-ignore
-        Actions$[msg.type].next(msg.payload);
-
-        allActions$.next(msg);
+        Actions$[action.type].next(action.payload);
     }
 }
 
-// Stream for all actions, useful to send to other parts of the system
-export const allActions$ = new Subject<Actions>();
+/**
+ * Not really pretty, but don't know how to do this otherwise
+ */
+export const combinedState$ = combineLatest([
+    Actions$.presetState,
+    Actions$.prepareVidt,
+    Actions$.imageSrc,
+    Actions$.videoSrc,
+    Actions$.mainText,
+    Actions$.contentGroup,
+    Actions$.animationType,
+    Actions$.singleColor,
+    Actions$.vidtSingleColor,
+    Actions$.multiColor,
+    Actions$.vidtMultiColor,
+    Actions$.colorPalette,
+    Actions$.glitchIntensity,
+]).pipe(
+    map(([
+             presetState,
+             prepareVidt,
+             imageSrc,
+             videoSrc,
+             mainText,
+             contentGroup,
+             animationType,
+             singleColor,
+             vidtSingleColor,
+             multiColor,
+             vidtMultiColor,
+             colorPalette,
+             glitchIntensity,
+         ]) => ({
+        presetState,
+        prepareVidt,
+        imageSrc,
+        videoSrc,
+        mainText,
+        contentGroup,
+        animationType,
+        singleColor,
+        vidtSingleColor,
+        multiColor,
+        vidtMultiColor,
+        colorPalette,
+        glitchIntensity,
+    })),
+);
+
+

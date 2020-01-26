@@ -1,5 +1,5 @@
 {
-    "name": "edt-slet",
+    "name": "edt-sledt",
     "version": "1.0.0",
     "description": "ManInTheMiddle",
     "scripts": {
@@ -21,7 +21,7 @@
         "@types/serialport": "6.0.2",
         "@types/socket.io": "1.4.38",
         "express": "4.16.3",
-        "ink": "2.1.1",
+        "ink": "2.6.0",
         "ink-spinner": "3.0.0",
         "minimist": "1.2.0",
         "osc-min": "1.1.1",
