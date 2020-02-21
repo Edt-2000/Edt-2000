@@ -12,6 +12,7 @@ import { TriggerButtonComponent } from './components/trigger-button/trigger-butt
 import { PresetSwitchersComponent } from './components/preset-switchers/preset-switchers.component';
 import { ActivePresetsControllerComponent } from './pages/active-presets-controller/active-presets-controller.component';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
+import { ColorControllerComponent } from './pages/color-controller/color-controller.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CustomReuseStrategy } from './custom-reuse-strategy';
     VidtControllerComponent,
     TriggerButtonComponent,
     PresetSwitchersComponent,
+    ColorControllerComponent,
   ],
   imports: [
     BrowserModule,
