@@ -9,7 +9,6 @@ import { PresetSwitcherComponent } from './components/preset-switcher/preset-swi
 import { CuesControllerComponent } from './pages/cues-controller/cues-controller.component';
 import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller.component';
 import { TriggerButtonComponent } from './components/trigger-button/trigger-button.component';
-import { TextControllerComponent } from './pages/text-controller/text-controller.component';
 import { PresetSwitchersComponent } from './components/preset-switchers/preset-switchers.component';
 import { ActivePresetsControllerComponent } from './pages/active-presets-controller/active-presets-controller.component';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
@@ -23,7 +22,6 @@ import { CustomReuseStrategy } from './custom-reuse-strategy';
     CuesControllerComponent,
     VidtControllerComponent,
     TriggerButtonComponent,
-    TextControllerComponent,
     PresetSwitchersComponent,
   ],
   imports: [
@@ -38,11 +36,11 @@ import { CustomReuseStrategy } from './custom-reuse-strategy';
           pathMatch: 'full',
         },
       ],
-      {enableTracing: true}, // <-- debugging purposes only
+      { enableTracing: true }, // <-- debugging purposes only
     ),
   ],
   providers: [
-    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
   ],
   bootstrap: [AppComponent],
   exports: [],

@@ -142,5 +142,3 @@ export const combinedState$ = combineLatest([
         glitchIntensity,
     })),
 );
-
-

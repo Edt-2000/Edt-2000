@@ -19,8 +19,6 @@ import { ColorToFastLedStrobe } from '../src/presets/outputs/fastledt/colorToFas
 import { MainMelodyToChunksOfFastLedt } from '../src/presets/outputs/fastledt/mainMelodyToChunksOfFastLedt';
 import { MidiChannelToMainBass } from '../src/presets/converters/bass/midiChannelToMainBass';
 import { MidiChannelToMainChords } from '../src/presets/converters/chords/midiChannelToMainChords';
-import { DrumToMidi } from '../src/presets/inputs/drumToMidi';
-import { GuitarToMidi } from '../src/presets/inputs/guitarToMidi';
 import { DrumSounds } from './config';
 import { PresetLogic } from '../src/presets/presets-logic';
 
@@ -161,13 +159,13 @@ export const presets: Record<number, PresetLogic> = {
     // [Note.A$7]:
     // [Note.B7]:
 
-    [Note.C$8]: new DrumToMidi(1),
-    [Note.D8]: new DrumToMidi(2),
-    [Note.D$8]: new DrumToMidi(4),
-    [Note.E8]: new DrumToMidi(8),
-    [Note.F8]: new DrumToMidi(16),
+    // [Note.C$8]: new DrumToMidi(1),
+    // [Note.D8]: new DrumToMidi(2),
+    // [Note.D$8]: new DrumToMidi(4),
+    // [Note.E8]: new DrumToMidi(8),
+    // [Note.F8]: new DrumToMidi(16),
     // [Note.F$8]:
-    [Note.G8]: new GuitarToMidi(),
+    // [Note.G8]: new GuitarToMidi(),
     // [Note.G$8]:
     // [Note.A8]:
     // [Note.A$8]:
