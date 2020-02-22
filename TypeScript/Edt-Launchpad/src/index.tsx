@@ -1,6 +1,8 @@
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
-import { fromEvent } from 'rxjs';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { combineLatest, fromEvent } from 'rxjs';
+import { debounceTime, map, tap, withLatestFrom } from 'rxjs/operators';
+import { blackColor } from '../../Shared/colors/utils';
+import { VidtPresets, vidtPresetsArr } from '../../Shared/vidt-presets';
 
 const Launchpad = require('launchpad-mini');
 const socket = require('socket.io-client')('http://localhost:8898/launchpad', {
@@ -20,28 +22,101 @@ interface Pad {
     id: symbol;
 }
 
+const rows = {
+    wordSet: 4,
+    images: 5,
+    palletteInstant: 6,
+    palette: 7,
+};
+
+const firstRow = vidtPresetsArr.slice(0, 9);
+const secondRow = vidtPresetsArr.slice(9, vidtPresetsArr.length);
+
 pad.connect().then(() => {
     pad.reset();
-    const key$ = fromEvent<Pad>(pad, 'key').pipe(
-        filter(p => p.pressed),
-    );
+    const key$ = fromEvent<Pad>(pad, 'key');
+    // Color the buttons so you know which buttons do something
+    combineLatest([
+        Actions$.colorPalette,
+        Actions$.contentGroup,
+    ]).pipe(
+        map(([palette, { images, wordSet }]) => {
+            const vidtPresets1 = [...new Array(firstRow.length)]
+                .map((_, i) => i)
+                .map(x => [x, 0, Launchpad.Colors.amber]);
+            const vidtPresets2 = [...new Array(secondRow.length)]
+                .map((_, i) => i)
+                .map(x => [x, 1, Launchpad.Colors.amber]);
 
-    key$.pipe(
-        withLatestFrom(Actions$.colorPalette),
-        filter(([key]) => key.y === 7),
-        map(([key, palette]) => {
-            if (palette[key.x]) {
-                sendToSledt(Actions.singleColor(palette[key.x]));
-            }
+            const wordSetButtons = [...new Array(wordSet.length)]
+                .map((_, i) => i)
+                .map(x => [x, rows.wordSet, Launchpad.Colors.amber]);
+
+            const imagesButtons = [...new Array(images.length)]
+                .map((_, i) => i)
+                .map(x => [x, rows.images, Launchpad.Colors.red]);
+
+            const palletteInstantButtons = [...new Array(palette.length)]
+                .map((_, i) => i)
+                .map(x => [x, rows.palletteInstant, Launchpad.Colors.yellow]);
+
+            const paletteButtons = [...new Array(palette.length)]
+                .map((_, i) => i)
+                .map(x => [x, rows.palette, Launchpad.Colors.yellow]);
+
+            return [
+                ...vidtPresets1,
+                ...vidtPresets2,
+                ...wordSetButtons,
+                ...imagesButtons,
+                ...palletteInstantButtons,
+                ...paletteButtons,
+                [1, 3, Launchpad.Colors.red],
+            ];
         }),
-    ).subscribe();
+        debounceTime(500),
+    ).subscribe(async commands => {
+        await pad.reset();
+        await pad.setColors(commands);
+    });
 
+    // Handle key events and send correct messages
     key$.pipe(
-        withLatestFrom(Actions$.contentGroup),
-        filter(([key]) => key.y === 6),
-        map(([key, { images }]) => {
-            if (images[key.x]) {
-                sendToSledt(Actions.imageSrc(images[key.x]));
+        withLatestFrom(
+            Actions$.colorPalette,
+            Actions$.contentGroup,
+        ),
+        tap(([key, palette, { images, wordSet }]) => {
+            if (key.pressed) {
+                if (key.x === 1 && key.y === 3) {
+                    sendToSledt(Actions.mainBeat(127));
+                }
+
+                // VIDT Presets divided in 2 rows
+                if (key.y === 0 && firstRow.length) {
+                    if (VidtPresets[firstRow[key.x]]) {
+                        sendToSledt(Actions.prepareVidt(VidtPresets[firstRow[key.x]]));
+                    }
+                }
+                if (key.y === 1 && secondRow.length) {
+                    if (VidtPresets[secondRow[key.x]]) {
+                        sendToSledt(Actions.prepareVidt(VidtPresets[secondRow[key.x]]));
+                    }
+                }
+
+                if (key.y === rows.wordSet && wordSet[key.x]) {
+                    sendToSledt(Actions.mainText(wordSet[key.x]));
+                }
+                if (key.y === rows.images && images[key.x]) {
+                    sendToSledt(Actions.imageSrc(images[key.x]));
+                }
+                if ((key.y === rows.palette || key.y === rows.palletteInstant) && palette[key.x]) {
+                    sendToSledt(Actions.singleColor(palette[key.x]));
+                }
+            } else {
+                if ((key.y === rows.palletteInstant) && palette[key.x]) {
+                    sendToSledt(Actions.singleColor(blackColor));
+                }
             }
         }),
     ).subscribe();
@@ -52,5 +127,6 @@ pad.connect().then(() => {
 });
 
 function sendToSledt(msg: Actions) {
+    console.log('Sending: ', msg);
     socket.emit('fromLaunchpad', msg);
 }
