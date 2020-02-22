@@ -36,6 +36,16 @@ pad.connect().then(() => {
         }),
     ).subscribe();
 
+    key$.pipe(
+        withLatestFrom(Actions$.contentGroup),
+        filter(([key]) => key.y === 6),
+        map(([key, { images }]) => {
+            if (images[key.x]) {
+                sendToSledt(Actions.imageSrc(images[key.x]));
+            }
+        }),
+    ).subscribe();
+
 }).catch(() => {
     console.log('NO LAUNCHPAD CONNECTED!');
     process.exit(1);

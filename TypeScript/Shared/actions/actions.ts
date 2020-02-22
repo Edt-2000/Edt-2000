@@ -48,7 +48,7 @@ export const Actions = {
 
 export type Actions = ActionsUnion<typeof Actions>;
 
-const emptyContentGroup: ContentGroup = {
+export const emptyContentGroup: ContentGroup = {
   songNr: 0,
   title: '',
   wordSet: [],

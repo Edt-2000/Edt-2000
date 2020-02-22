@@ -4,7 +4,7 @@ import { connectedControls$ } from '../outputs/edt-control';
 import { useObservable } from './observable.hook';
 import { connectedVidt$ } from '../outputs/edt-vidt';
 import { connectedLaunchpad$ } from '../outputs/edt-launchpad';
-import { Actions$ } from '../../../Shared/actions/actions';
+import { Actions$, emptyContentGroup } from '../../../Shared/actions/actions';
 import { blackColor } from '../../../Shared/colors/utils';
 
 export const EdtConsole = () => {
@@ -12,9 +12,11 @@ export const EdtConsole = () => {
     const connectedControl = useObservable(connectedControls$, []);
     const connectedVidt = useObservable(connectedVidt$, []);
     const connectedLaunchpad = useObservable(connectedLaunchpad$, []);
+    const currentSong = useObservable(Actions$.contentGroup, emptyContentGroup);
     const color = useObservable(Actions$.singleColor, blackColor);
 
     return <>
+        CurrentSong: {JSON.stringify(currentSong.title)}
         Color: {JSON.stringify(color)}
         <Box>--------</Box>
         Control's connected:
