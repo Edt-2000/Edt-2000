@@ -3,16 +3,20 @@ import * as React from 'react';
 import { connectedControls$ } from '../outputs/edt-control';
 import { useObservable } from './observable.hook';
 import { connectedVidt$ } from '../outputs/edt-vidt';
-import { combinedState$ } from '../../../Shared/actions/actions';
+import { connectedLaunchpad$ } from '../outputs/edt-launchpad';
+import { Actions$ } from '../../../Shared/actions/actions';
+import { blackColor } from '../../../Shared/colors/utils';
 
 export const EdtConsole = () => {
 
     const connectedControl = useObservable(connectedControls$, []);
     const connectedVidt = useObservable(connectedVidt$, []);
-    // @ts-ignore // we don't have a type for combinedState$(yet)
-    const combinedState = useObservable(combinedState$, {});
+    const connectedLaunchpad = useObservable(connectedLaunchpad$, []);
+    const color = useObservable(Actions$.singleColor, blackColor);
+    const colorPalette = useObservable(Actions$.colorPalette, []);
 
     return <>
+        Color: {JSON.stringify(color)}
         <Box>--------</Box>
         Control's connected:
         <Box>--------</Box>
@@ -21,5 +25,9 @@ export const EdtConsole = () => {
         Vidt's connected:
         <Box>--------</Box>
         {connectedVidt.map(title => <Box key={title}>{title}</Box>)}
+        <Box>--------</Box>
+        Launchpad's connected:
+        <Box>--------</Box>
+        {connectedLaunchpad.map(title => <Box key={title}>{title}</Box>)}
     </>;
 };

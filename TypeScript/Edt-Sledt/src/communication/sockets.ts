@@ -19,3 +19,8 @@ export const vidtSocket$ = fromEvent<SocketIO.Socket>(
     io.of('/vidt'),
     'connection',
 );
+
+export const launchpadSocket$ = fromEvent<SocketIO.Socket>(
+    io.of('/launchpad'),
+    'connection',
+);
