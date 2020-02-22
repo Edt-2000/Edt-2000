@@ -13,7 +13,6 @@ export const EdtConsole = () => {
     const connectedVidt = useObservable(connectedVidt$, []);
     const connectedLaunchpad = useObservable(connectedLaunchpad$, []);
     const color = useObservable(Actions$.singleColor, blackColor);
-    const colorPalette = useObservable(Actions$.colorPalette, []);
 
     return <>
         Color: {JSON.stringify(color)}

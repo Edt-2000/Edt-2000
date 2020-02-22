@@ -5,7 +5,10 @@ import easymidi = require('easymidi');
 import dgram = require('dgram');
 import osc = require('osc-min');
 
-const hardwareInputs = easymidi.getInputs();
+// Define which inputs to ignore
+const hardwareInputs = easymidi.getInputs()
+    .filter(input => input !== 'Launchpad Mini');
+
 const virtualInput = new easymidi.Input('EdtMIDI-Input', true);
 const virtualOutput = new easymidi.Output('EdtMIDI-Output', true);
 
@@ -38,7 +41,7 @@ hardwareInputs.forEach(inputName => {
 console.log('READY, Waiting for MIDI or OSC;');
 
 function handleSongSelect(name: string) {
-    return ({song}) => {
+    return ({ song }) => {
         console.info(`MIDI select from ${name}`, song);
         sendToOSC(edtSledtIP, OSCInPort, ['midi', 'select'], [song]);
     };
@@ -103,6 +106,6 @@ function sendToOSC(
     values: number[] = [],
 ): void {
     console.log('Sending OSC:', addresses, values);
-    const buf = osc.toBuffer(convertToOSC({addresses, values}));
+    const buf = osc.toBuffer(convertToOSC({ addresses, values }));
     return outSocket.send(buf, 0, buf.length, +port, device);
 }
