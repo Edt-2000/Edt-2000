@@ -35,4 +35,3 @@ presetMidiMsg$.subscribe(sendToMidiNote);
 nextActionFromMsg(Actions.presetState(getPresetState()));
 nextActionFromMsg(Actions.cueList(presetCues));
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
-

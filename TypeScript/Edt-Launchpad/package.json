@@ -1,0 +1,35 @@
+{
+    "name": "edt-launchpad",
+    "version": "1.0.0",
+    "description": "Launchpad mini",
+    "scripts": {
+        "start": "ts-node src/index.tsx"
+    },
+    "author": "Edt-2000",
+    "license": "ISC",
+    "babel": {
+        "presets": [
+            "@babel/preset-react"
+        ]
+    },
+    "prettier": {
+        "trailingComma": "all"
+    },
+    "dependencies": {
+        "@babel/preset-react": "7.0.0",
+        "@types/socket.io": "1.4.38",
+        "ink": "2.6.0",
+        "ink-spinner": "3.0.0",
+        "launchpad-mini": "^2.3.0",
+        "react": "16.8.6",
+        "rxjs": "6.5.3",
+        "socket.io": "2.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "11.11.3",
+        "prettier": "1.16.4",
+        "ts-node": "8.0.3",
+        "ts-node-dev": "1.0.0-pre.32",
+        "typescript": "3.5.3"
+    }
+}
