@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { convertToOSC } from '../../../Shared/utils/utils';
 import { DeviceIPs, OSCInPort } from '../../config/config';
 import { IOSCMessage } from '../../../Shared/osc/types';
+import { scan, startWith } from 'rxjs/operators';
 import dgram = require('dgram');
 import osc = require('osc-min');
 
@@ -11,6 +12,13 @@ const sock = dgram.createSocket('udp4', processOscMessage);
 sock.bind(OSCInPort);
 
 export const OSCOutput$ = new Subject<string>();
+
+export function lastOSCMessages(amount: number): Observable<string[]> {
+    return OSCOutput$.pipe(
+        startWith(''),
+        scan((mostRecent: string[], current) => [...mostRecent, current].slice(-amount), []),
+    );
+}
 
 export function sendToOSC(
     device: DeviceIPs,

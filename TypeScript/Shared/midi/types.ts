@@ -11,7 +11,6 @@ export interface IMidiNoteMsg extends IMidiChannel {
     readonly noteOn: boolean;
     readonly note: number;
     readonly velocity: number;
-    readonly fromMidiInput?: boolean;
     readonly noteNumber?: number;
     readonly octave?: number;
 }
@@ -22,13 +21,4 @@ export interface IMidiProgramMsg extends IMidiChannel {
 
 export interface IMidiSongMsg {
     readonly song: number;
-}
-
-export enum MidiMsgTypes {
-    cc = 'cc',
-    select = 'select',
-    noteon = 'noteon',
-    noteoff = 'noteoff',
-    program = 'program',
-    clock = 'clock',
 }

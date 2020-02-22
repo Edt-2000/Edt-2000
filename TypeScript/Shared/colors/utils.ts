@@ -6,3 +6,9 @@ export const blackColor: IColor = {
     s: 0,
     b: 0,
 };
+
+export const whiteColor: IColor = {
+    h: 0,
+    s: 0,
+    b: 255,
+};

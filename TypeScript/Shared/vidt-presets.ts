@@ -5,14 +5,14 @@ export enum VidtPresets {
     'logo',
     'bluescreen',
     'color',
-    'multicolor',
+    // 'multicolor',
     'gridscape',
     'hacking',
     'photobouncer',
     'photoglitcher',
     'textBouncer',
     'shutdown',
-    'video',
+    // 'video',
     'vista',
     'colorTwinkle',
     'karaoke',
@@ -20,4 +20,3 @@ export enum VidtPresets {
 }
 
 export const vidtPresetsArr = enumToArray(VidtPresets);
-
