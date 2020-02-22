@@ -29,9 +29,7 @@ Actions$.presetChange.pipe(
 // Connect to MIDI output/inputs for automation
 automationActions$.subscribe(nextActionFromMsg);
 automationCCMessages$.subscribe(sendToMidiCC);
-presetMidiMsg$.pipe(
-    filter(msg => msg.fromMidiInput),
-).subscribe(sendToMidiNote);
+presetMidiMsg$.subscribe(sendToMidiNote);
 
 // Emit initial actions to kick things off
 nextActionFromMsg(Actions.presetState(getPresetState()));
