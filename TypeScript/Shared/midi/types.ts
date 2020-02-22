@@ -22,12 +22,3 @@ export interface IMidiProgramMsg extends IMidiChannel {
 export interface IMidiSongMsg {
     readonly song: number;
 }
-
-export enum MidiMsgTypes {
-    cc = 'cc',
-    select = 'select',
-    noteon = 'noteon',
-    noteoff = 'noteoff',
-    program = 'program',
-    clock = 'clock',
-}
