@@ -40,10 +40,24 @@
             ],
             'mirror': [
                 {
+                    offset: 0,
                     transform: 'scaleX(1)',
                 },
                 {
+                    offset: 0.49,
+                    transform: 'scaleX(1)',
+                },
+                {
+                    offset: 0.5,
                     transform: 'scaleX(-1)',
+                },
+                {
+                    offset: 0.99,
+                    transform: 'scaleX(-1)',
+                },
+                {
+                    offset: 1,
+                    transform: 'scaleX(1)',
                 },
             ],
         };
@@ -55,8 +69,8 @@
             },
             'mirror': {
                 easing: 'linear',
-                fill: 'forwards',
-                duration: 0,
+                // fill: 'forwards',
+                duration: 600,
             },
         };
 
@@ -65,8 +79,8 @@
 
             this.animationSubscription = Actions$.animationType.subscribe(
                 animation => {
-                    if (AnimationTypes[AnimationTypes[animation]] !== this.currentAnimation && this.animations[AnimationTypes[AnimationTypes[animation]]]) {
-                        this.setAnimation(AnimationTypes[AnimationTypes[animation]]);
+                    if (AnimationTypes[animation] !== this.currentAnimation && this.animations[AnimationTypes[animation]]) {
+                        this.setAnimation(AnimationTypes[animation]);
                     }
                 },
             );

@@ -3,6 +3,7 @@ import { combineLatest, fromEvent } from 'rxjs';
 import { debounceTime, map, tap, withLatestFrom } from 'rxjs/operators';
 import { blackColor } from '../../Shared/colors/utils';
 import { VidtPresets, vidtPresetsArr } from '../../Shared/vidt-presets';
+import { animationTypeArr, AnimationTypes } from '../../Shared/vidt/animation';
 
 const Launchpad = require('launchpad-mini');
 const socket = require('socket.io-client')('http://localhost:8898/launchpad', {
@@ -23,6 +24,7 @@ interface Pad {
 }
 
 const rows = {
+    animationTypes: 2,
     wordSet: 4,
     images: 5,
     palletteInstant: 6,
@@ -52,6 +54,10 @@ pad.connect().then(() => {
                 .map((_, i) => i)
                 .map(x => [x, rows.wordSet, Launchpad.Colors.amber]);
 
+            const animationTypes = [...new Array(animationTypeArr.length)]
+                .map((_, i) => i)
+                .map(x => [x, rows.animationTypes, Launchpad.Colors.yellow]);
+
             const imagesButtons = [...new Array(images.length)]
                 .map((_, i) => i)
                 .map(x => [x, rows.images, Launchpad.Colors.red]);
@@ -68,10 +74,11 @@ pad.connect().then(() => {
                 ...vidtPresets1,
                 ...vidtPresets2,
                 ...wordSetButtons,
+                ...animationTypes,
                 ...imagesButtons,
                 ...palletteInstantButtons,
                 ...paletteButtons,
-                [1, 3, Launchpad.Colors.red],
+                [8, 3, Launchpad.Colors.red],
             ];
         }),
         debounceTime(500),
@@ -88,7 +95,7 @@ pad.connect().then(() => {
         ),
         tap(([key, palette, { images, wordSet }]) => {
             if (key.pressed) {
-                if (key.x === 1 && key.y === 3) {
+                if (key.x === 8 && key.y === 3) {
                     sendToSledt(Actions.mainBeat(127));
                 }
 
@@ -102,6 +109,10 @@ pad.connect().then(() => {
                     if (VidtPresets[secondRow[key.x]]) {
                         sendToSledt(Actions.prepareVidt(VidtPresets[secondRow[key.x]]));
                     }
+                }
+
+                if (key.y === rows.animationTypes && animationTypeArr[key.x]) {
+                    sendToSledt(Actions.animationType(AnimationTypes[animationTypeArr[key.x]]));
                 }
 
                 if (key.y === rows.wordSet && wordSet[key.x]) {

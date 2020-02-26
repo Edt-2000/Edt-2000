@@ -4,11 +4,11 @@
     width: 100%;
 
     &__img {
-        height: 130%;
-        left: -((130 - 100) / 2) * 1%;
+        height: 100%;
+        left: 0;
         position: absolute;
-        top: -((130 - 100) / 2) * 1%;
-        width: 130%;
+        right: 0;
+        width: 100%;
         object-fit: cover;
     }
 
@@ -25,28 +25,36 @@
     &--rotate {
         .photo-glitcher__img {
             animation: rotate 0.8s linear infinite;
+            height: 125%;
+            left: -((125 - 100) / 2) * 1%;
+            top: -((125 - 100) / 2) * 1%;
+            width: 125%;
         }
     }
 
     &--spin {
         .photo-glitcher__img {
             animation: spin 1s linear infinite forwards;
-            height: 220%;
-            left: -((220 - 100) / 2) * 1%;
-            top: -((220 - 100) / 2) * 1%;
-            width: 220%;
+            height: 140%;
+            left: -((140 - 100) / 2) * 1%;
+            top: -((140 - 100) / 2) * 1%;
+            width: 140%;
         }
     }
 
     &--stretch {
         .photo-glitcher__img {
             animation: stretch 2s linear infinite forwards;
+            height: 125%;
+            left: -((125 - 100) / 2) * 1%;
+            top: -((125 - 100) / 2) * 1%;
+            width: 125%;
         }
     }
 
     &--mirror {
         .photo-glitcher__img {
-            animation: mirror 1.5s linear infinite forwards;
+            animation: mirror 1s linear infinite forwards;
         }
     }
 }
@@ -95,7 +103,15 @@
         transform: scaleX(1);
     }
 
+    49% {
+        transform: scaleX(1);
+    }
+
     50% {
+        transform: scaleX(-1);
+    }
+
+    99% {
         transform: scaleX(-1);
     }
 
