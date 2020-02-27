@@ -5,8 +5,12 @@ import { blackColor } from '../../Shared/colors/utils';
 import { VidtPresets, vidtPresetsArr } from '../../Shared/vidt-presets';
 import { animationTypeArr, AnimationTypes } from '../../Shared/vidt/animation';
 
+// These libs don't support ES6 imports :/
 const Launchpad = require('launchpad-mini');
-const socket = require('socket.io-client')('http://localhost:8898/launchpad', {
+const socketClient = require('socket.io-client');
+
+const [, , edtSledtIP] = process.argv;
+const socket = socketClient(`http://${edtSledtIP ? edtSledtIP : 'localhost'}:8898/launchpad`, {
     origins: '*:*',
     transports: ['websocket'],
 });
