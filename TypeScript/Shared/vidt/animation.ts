@@ -3,6 +3,7 @@ export enum AnimationTypes {
     bounce,
     rotate,
     spin,
+    spinReverse,
     stretch,
     mirror,
 }

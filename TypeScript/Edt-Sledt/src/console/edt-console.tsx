@@ -7,6 +7,7 @@ import { connectedLaunchpad$ } from '../outputs/edt-launchpad';
 import { Actions$, emptyContentGroup } from '../../../Shared/actions/actions';
 import { blackColor } from '../../../Shared/colors/utils';
 import { VidtPresets } from '../../../Shared/vidt-presets';
+import { OSCOutput$ } from '../communication/osc';
 
 export const EdtConsole = () => {
 
@@ -17,6 +18,7 @@ export const EdtConsole = () => {
     const color = useObservable(Actions$.singleColor, blackColor);
     const vidtPreset = useObservable(Actions$.prepareVidt, VidtPresets.____EMPTY____);
     const presetState = useObservable(Actions$.presetState, []);
+    const OSCOutput = useObservable(OSCOutput$, '');
 
     return <>
         CurrentSong: {JSON.stringify(currentSong.title)}
@@ -42,5 +44,9 @@ export const EdtConsole = () => {
                 .filter(preset => preset.state)
                 .map(preset => <Box key={preset.title}>{preset.title} ({preset.modifier})</Box>)
         }
+        <Box>--------</Box>
+        OSC Messages:
+        <Box>--------</Box>
+        {OSCOutput}
     </>;
 };

@@ -15,11 +15,14 @@ const socket = socketClient(`http://${edtSledtIP ? edtSledtIP : 'localhost'}:889
     transports: ['websocket'],
 });
 
-const pad = new Launchpad();
-
 socket.on('connect', () => console.log('Connected to Edt-Sledt!'));
 socket.on('disconnect', () => console.log('Connection lost!'));
 socket.on('toLaunchpad', action => nextActionFromMsg(action));
+
+const pad = new Launchpad();
+const key$ = fromEvent<Pad>(pad, 'key');
+
+// key$.subscribe(key => console.log('key', key));
 
 interface Pad {
     x: number;
@@ -39,7 +42,6 @@ const rows = {
 pad.connect().then(() => {
     console.log('Launchpad connected!');
     pad.reset();
-    const key$ = fromEvent<Pad>(pad, 'key');
     // Color the buttons so you know which buttons do something
     combineLatest([
         Actions$.colorPalette,
@@ -62,7 +64,7 @@ pad.connect().then(() => {
                 .map((_, i) => i)
                 .map(x => [x, rows.wordSet, Launchpad.Colors.amber]);
 
-            const animationTypesButtons = [...new Array(animationTypes)]
+            const animationTypesButtons = [...new Array(animationTypes.length)]
                 .map((_, i) => i)
                 .map(x => [x, rows.animationTypes, Launchpad.Colors.yellow]);
 
@@ -115,17 +117,17 @@ pad.connect().then(() => {
                 // VIDT Presets divided in 2 rows
                 if (key.y === 0 && firstRow.length) {
                     if (VidtPresets[firstRow[key.x]]) {
-                        sendToSledt(Actions.prepareVidt(firstRow[key.x]));
+                        sendToSledt(Actions.prepareVidt(VidtPresets[firstRow[key.x]]));
                     }
                 }
                 if (key.y === 1 && secondRow.length) {
                     if (VidtPresets[secondRow[key.x]]) {
-                        sendToSledt(Actions.prepareVidt(secondRow[key.x]));
+                        sendToSledt(Actions.prepareVidt(VidtPresets[secondRow[key.x]]));
                     }
                 }
 
                 if (key.y === rows.animationTypes && animationTypes[key.x]) {
-                    sendToSledt(Actions.animationType(AnimationTypes[AnimationTypes[key.x]]));
+                    sendToSledt(Actions.animationType(AnimationTypes[animationTypes[key.x]]));
                 }
 
                 if (key.y === rows.wordSet && wordSet[key.x]) {

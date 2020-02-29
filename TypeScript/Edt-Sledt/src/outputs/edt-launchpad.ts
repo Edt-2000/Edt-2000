@@ -19,6 +19,8 @@ launchpadSocket$.subscribe(socket => {
     merge(
         Actions$.colorPalette.pipe(map(Actions.colorPalette)),
         Actions$.contentGroup.pipe(map(Actions.contentGroup)),
+        Actions$.vidtPresets.pipe(map(Actions.vidtPresets)),
+        Actions$.animationTypes.pipe(map(Actions.animationTypes)),
     ).pipe(
         takeUntil(disconnected$),
     ).subscribe(msg => socket.emit('toLaunchpad', msg));

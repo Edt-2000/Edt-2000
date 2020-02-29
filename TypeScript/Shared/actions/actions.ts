@@ -26,7 +26,7 @@ export const Actions = {
     mainText: (payload: string) => createAction('mainText', payload),
 
     // Effects
-    animationTypes: (payload: AnimationTypes[]) => createAction('animationTypes', payload),
+    animationTypes: (payload: string[]) => createAction('animationTypes', payload),
     animationType: (payload: AnimationTypes) => createAction('animationType', payload),
 
     // Subjects
@@ -51,6 +51,9 @@ export const Actions = {
 
 export type Actions = ActionsUnion<typeof Actions>;
 
+export const animationTypes = enumToArray(AnimationTypes);
+export const vidtPresets = enumToArray(VidtPresets);
+
 export const emptyContentGroup: ContentGroup = {
     songNr: 0,
     title: '',
@@ -64,7 +67,7 @@ export const Actions$ = {
     cueList: new BehaviorSubject([] as ICue[]),
 
     presetChange: new Subject() as Subject<IPresetMsg>,
-    vidtPresets: new BehaviorSubject<VidtPresets[]>(enumToArray(VidtPresets).map(p => VidtPresets[p])),
+    vidtPresets: new BehaviorSubject<string[]>(vidtPresets),
     prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
 
     imageSrc: new BehaviorSubject(''),
@@ -74,7 +77,7 @@ export const Actions$ = {
     contentGroups: new BehaviorSubject([] as ContentGroup[]),
     contentGroup: new BehaviorSubject(emptyContentGroup),
 
-    animationTypes: new BehaviorSubject<AnimationTypes[]>(enumToArray(AnimationTypes).map(t => AnimationTypes[t])),
+    animationTypes: new BehaviorSubject<string[]>(animationTypes),
     animationType: new BehaviorSubject<AnimationTypes>(AnimationTypes.bounce),
 
     singleColor: new BehaviorSubject(blackColor),
@@ -97,3 +100,6 @@ export function nextActionFromMsg(action: Actions) {
         Actions$[action.type].next(action.payload);
     }
 }
+
+// Actions$.animationType.subscribe(log => console.log(log));
+// Actions$.prepareVidt.subscribe(log => console.log(log));

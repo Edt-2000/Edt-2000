@@ -42,6 +42,16 @@
         }
     }
 
+    &--spinReverse {
+        .photo-glitcher__img {
+            animation: spin 1s linear infinite backwards;
+            height: 140%;
+            left: -((140 - 100) / 2) * 1%;
+            top: -((140 - 100) / 2) * 1%;
+            width: 140%;
+        }
+    }
+
     &--stretch {
         .photo-glitcher__img {
             animation: stretch 2s linear infinite forwards;
