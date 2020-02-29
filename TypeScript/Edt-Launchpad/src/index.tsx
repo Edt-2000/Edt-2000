@@ -18,6 +18,7 @@ const socket = socketClient(`http://${edtSledtIP ? edtSledtIP : 'localhost'}:889
 const pad = new Launchpad();
 
 socket.on('connect', () => console.log('Connected to Edt-Sledt!'));
+socket.on('disconnect', () => console.log('Connection lost!'));
 socket.on('toLaunchpad', action => nextActionFromMsg(action));
 
 interface Pad {
@@ -36,6 +37,7 @@ const rows = {
 };
 
 pad.connect().then(() => {
+    console.log('Launchpad connected!');
     pad.reset();
     const key$ = fromEvent<Pad>(pad, 'key');
     // Color the buttons so you know which buttons do something
