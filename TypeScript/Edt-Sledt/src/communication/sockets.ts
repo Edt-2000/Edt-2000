@@ -1,14 +1,12 @@
 import * as SocketIO from 'socket.io';
 import { fromEvent } from 'rxjs';
+import { server } from './server';
 
-const app = require('express')();
-const server = require('http').createServer(app);
+// tslint:disable-next-line:no-var-requires
 const io = require('socket.io')(server, {
     origins: '*:*',
     transports: ['websocket'],
 });
-
-server.listen(8898);
 
 export const controlSocket$ = fromEvent<SocketIO.Socket>(
     io.of('/control'),

@@ -1,5 +1,3 @@
-import { enumToArray } from '../utils/utils';
-
 export enum AnimationTypes {
     '____EMPTY____',
     bounce,
@@ -8,5 +6,3 @@ export enum AnimationTypes {
     stretch,
     mirror,
 }
-
-export const animationTypeArr = enumToArray(AnimationTypes);

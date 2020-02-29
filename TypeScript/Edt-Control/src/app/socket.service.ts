@@ -7,7 +7,7 @@ import { IColor } from '../../../Shared/colors/types';
 import { AnimationTypes } from '../../../Shared/vidt/animation';
 import io from 'socket.io-client';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SocketService {
   private socket;
 
@@ -50,8 +50,8 @@ export class SocketService {
     this.toSledt(Actions.glitchIntensity(intensity));
   }
 
-  sendAnimation(animation: string) {
-    this.toSledt(Actions.animationType(AnimationTypes[animation]));
+  sendAnimation(animation: AnimationTypes) {
+    this.toSledt(Actions.animationType(animation));
   }
 
   activateCue(cue: ICue) {
@@ -59,7 +59,7 @@ export class SocketService {
   }
 
   changePreset(preset, state, modifier = 127) {
-    this.toSledt(Actions.presetChange({preset, state, modifier}));
+    this.toSledt(Actions.presetChange({ preset, state, modifier }));
   }
 
   sendColor(color: IColor) {

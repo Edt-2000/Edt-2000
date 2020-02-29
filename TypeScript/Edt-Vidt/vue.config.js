@@ -1,3 +1,5 @@
 module.exports = {
-    lintOnSave: false
-}
+    lintOnSave: false,
+    publicPath: '/edt-vidt/',
+    outputDir: '../static/edt-vidt/',
+};

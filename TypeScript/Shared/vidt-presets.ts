@@ -1,5 +1,3 @@
-import { enumToArray } from './utils/utils';
-
 export enum VidtPresets {
     '____EMPTY____',
     'logo',
@@ -18,5 +16,3 @@ export enum VidtPresets {
     'karaoke',
     'colorBlocks',
 }
-
-export const vidtPresetsArr = enumToArray(VidtPresets);

@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SocketService } from '../../socket.service';
-import { vidtPresetsArr } from '../../../../../Shared/vidt-presets';
+import { VidtPresets } from '../../../../../Shared/vidt-presets';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { map } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/actions/types';
-import { filterOnModifierGroup } from '../../../../../Shared/presets/utils';
-import { animationTypeArr } from '../../../../../Shared/vidt/animation';
+import { AnimationTypes } from '../../../../../Shared/vidt/animation';
 
 @Component({
   selector: 'app-vidt-controller',
@@ -13,21 +11,11 @@ import { animationTypeArr } from '../../../../../Shared/vidt/animation';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VidtControllerComponent implements OnInit {
-  vidtPresets$ = Actions$.presetState.asObservable().pipe(
-    map(presets => {
-      return filterOnModifierGroup(presets, [ModifierGroup.Vidt]);
-    }),
-  );
-
-  wordPresets$ = Actions$.presetState.asObservable().pipe(
-    map(presets => {
-      return filterOnModifierGroup(presets, [ModifierGroup.Words]);
-    }),
-  );
   contentGroups$ = Actions$.contentGroups;
   contentGroup$ = Actions$.contentGroup;
+  animations$ = Actions$.animationTypes.pipe(map(types => types.map(type => AnimationTypes[type])));
+  vidtPresets$ = Actions$.vidtPresets.pipe((map(types => types.map(type => VidtPresets[type]))));
 
-  vidtPresets = vidtPresetsArr;
   glitchIntensities = [
     { label: 'low', value: 1 },
     { label: 'medium', value: 3 },
@@ -35,7 +23,6 @@ export class VidtControllerComponent implements OnInit {
     { label: 'high', value: 7 },
     { label: 'bezerk', value: 9 },
   ];
-  animations = animationTypeArr;
 
   constructor(public socket: SocketService) {
   }
