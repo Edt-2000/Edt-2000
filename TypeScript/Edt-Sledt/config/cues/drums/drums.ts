@@ -4,24 +4,34 @@ import { VidtPresets } from '../../../../Shared/vidt-presets';
 import { BeatToNextWord } from '../../../src/presets/converters/words/beatToNextWord';
 import { BeatToColor } from '../../../src/presets/converters/color/beatToColor';
 import { ColorToVidtColor } from '../../../src/presets/outputs/vidt/colorToVidtColor';
-import { ColorToFastLedSolid } from '../../../src/presets/outputs/fastledt/colorToFastLedSolid';
-import { ColorToRGBLedSolid } from '../../../src/presets/outputs/rgbledt/colorToRGBLedSolid';
-import { DrumSounds } from '../../config';
+import { DrumNotes, DrumSounds } from '../../config';
 import { presetChange } from '../../../src/presets/presets-logic';
+import { MidiChannelToMainDrum } from '../../../src/presets/converters/drums/midiChannelToMainDrum';
+import { DrumSoundMap } from '../../../src/presets/converters/drums/drumSoundMap';
 
 export const drumCues = [
     {
-        label: 'DrumKick -> Beat -> Color -> All',
+        label: 'VidtColor',
         actions: [
-            presetChange(new DrumSoundToBeat(), DrumSounds.kick, true),
-            presetChange(new BeatToColor(), 127, true),
             presetChange(new ColorToVidtColor(), 127, true),
-            presetChange(new ColorToFastLedSolid(), 127, true),
-            presetChange(new ColorToRGBLedSolid(), 127, true),
         ],
     },
     {
-        label: 'VidtNextWordOnBeat',
+        label: 'Midi10Kick',
+        actions: [
+            presetChange(new MidiChannelToMainDrum(), 10, true),
+            presetChange(new DrumSoundMap(DrumSounds.kick), DrumNotes._1, true),
+        ],
+    },
+    {
+        label: 'DrumKick->Beat',
+        actions: [
+            presetChange(new DrumSoundToBeat(), DrumSounds.kick, true),
+            presetChange(new BeatToColor(), 127, true),
+        ],
+    },
+    {
+        label: 'WordBeatKaraoke',
         actions: [
             presetChange(new BeatToNextWord(), 127, true),
             Actions.prepareVidt(VidtPresets.karaoke),

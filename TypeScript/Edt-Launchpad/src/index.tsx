@@ -32,7 +32,8 @@ interface Pad {
 }
 
 const rows = {
-    animationTypes: 2,
+    cues: 2,
+    animationTypes: 3,
     wordSet: 4,
     images: 5,
     palletteInstant: 6,
@@ -48,8 +49,18 @@ pad.connect().then(() => {
         Actions$.contentGroup,
         Actions$.animationTypes,
         Actions$.vidtPresets,
+        Actions$.cueList,
     ]).pipe(
-        map(([palette, { images, wordSet }, animationTypes, vidtPresets]) => {
+        map(([
+                 palette,
+                 {
+                     images,
+                     wordSet,
+                 },
+                 animationTypes,
+                 vidtPresets,
+                 cueList,
+             ]) => {
             const firstRow = vidtPresets.slice(0, 9);
             const secondRow = vidtPresets.slice(9, vidtPresets.length);
 
@@ -60,13 +71,17 @@ pad.connect().then(() => {
                 .map((_, i) => i)
                 .map(x => [x, 1, Launchpad.Colors.amber]);
 
-            const wordSetButtons = [...new Array(wordSet.length)]
+            const cueListButtons = [...new Array(cueList.length)]
                 .map((_, i) => i)
-                .map(x => [x, rows.wordSet, Launchpad.Colors.amber]);
+                .map(x => [x, rows.cues, Launchpad.Colors.red]);
 
             const animationTypesButtons = [...new Array(animationTypes.length)]
                 .map((_, i) => i)
                 .map(x => [x, rows.animationTypes, Launchpad.Colors.yellow]);
+
+            const wordSetButtons = [...new Array(wordSet.length)]
+                .map((_, i) => i)
+                .map(x => [x, rows.wordSet, Launchpad.Colors.amber]);
 
             const imagesButtons = [...new Array(images.length)]
                 .map((_, i) => i)
@@ -83,6 +98,7 @@ pad.connect().then(() => {
             return [
                 ...vidtPresets1,
                 ...vidtPresets2,
+                ...cueListButtons,
                 ...wordSetButtons,
                 ...animationTypesButtons,
                 ...imagesButtons,
@@ -104,8 +120,9 @@ pad.connect().then(() => {
             Actions$.contentGroup,
             Actions$.animationTypes,
             Actions$.vidtPresets,
+            Actions$.cueList,
         ),
-        tap(([key, palette, { images, wordSet }, animationTypes, vidtPresets]) => {
+        tap(([key, palette, { images, wordSet }, animationTypes, vidtPresets, cueList]) => {
             const firstRow = vidtPresets.slice(0, 9);
             const secondRow = vidtPresets.slice(9, vidtPresets.length);
 
@@ -115,15 +132,16 @@ pad.connect().then(() => {
                 }
 
                 // VIDT Presets divided in 2 rows
-                if (key.y === 0 && firstRow.length) {
-                    if (VidtPresets[firstRow[key.x]]) {
-                        sendToSledt(Actions.prepareVidt(VidtPresets[firstRow[key.x]]));
-                    }
+                if (key.y === 0 && firstRow.length && VidtPresets[firstRow[key.x]]) {
+                    sendToSledt(Actions.prepareVidt(VidtPresets[firstRow[key.x]]));
                 }
-                if (key.y === 1 && secondRow.length) {
-                    if (VidtPresets[secondRow[key.x]]) {
-                        sendToSledt(Actions.prepareVidt(VidtPresets[secondRow[key.x]]));
-                    }
+                if (key.y === 1 && secondRow.length && VidtPresets[secondRow[key.x]]) {
+                    sendToSledt(Actions.prepareVidt(VidtPresets[secondRow[key.x]]));
+                }
+
+                if (key.y === rows.cues && cueList[key.x]) {
+                    // Cues are a list of actions; need to send them all
+                    cueList[key.x].actions.forEach(sendToSledt);
                 }
 
                 if (key.y === rows.animationTypes && animationTypes[key.x]) {

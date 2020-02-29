@@ -21,6 +21,7 @@ launchpadSocket$.subscribe(socket => {
         Actions$.contentGroup.pipe(map(Actions.contentGroup)),
         Actions$.vidtPresets.pipe(map(Actions.vidtPresets)),
         Actions$.animationTypes.pipe(map(Actions.animationTypes)),
+        Actions$.cueList.pipe(map(Actions.cueList)),
     ).pipe(
         takeUntil(disconnected$),
     ).subscribe(msg => socket.emit('toLaunchpad', msg));
