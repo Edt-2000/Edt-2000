@@ -1,7 +1,8 @@
 import { Note } from '../../Shared/midi/midi';
 
 export const enum DeviceIPs {
-    edtDispEdter = 'localhost',
+    edtFastLed = '10.0.0.20',
+    edtRGBLed = '10.0.0.21',
     edtMOSCidi = 'localhost',
 }
 

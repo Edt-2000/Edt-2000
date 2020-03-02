@@ -10,7 +10,7 @@ export function FastLedtSpark(
     end: number = 127,
 ) {
     sendToOSC(
-        DeviceIPs.edtDispEdter,
+        DeviceIPs.edtFastLed,
         OSCDispedtOutPort,
         {
             addresses: [OSCDevices.EdtFastLed + instance],
@@ -36,7 +36,7 @@ export function FastLedtRainbowSpark(
     end: number = 127,
 ) {
     sendToOSC(
-        DeviceIPs.edtDispEdter,
+        DeviceIPs.edtFastLed,
         OSCDispedtOutPort,
         {
             addresses: [OSCDevices.EdtFastLed + instance],
@@ -52,7 +52,7 @@ export function FastLedtSingleSolid(
     end: number = 127,
 ) {
     sendToOSC(
-        DeviceIPs.edtDispEdter,
+        DeviceIPs.edtFastLed,
         OSCDispedtOutPort,
         {
             addresses: [OSCDevices.EdtFastLed + instance],
@@ -69,7 +69,7 @@ export function FastLedtSinglePulse(
     end: number = 127,
 ) {
     sendToOSC(
-        DeviceIPs.edtDispEdter,
+        DeviceIPs.edtFastLed,
         OSCDispedtOutPort,
         {
             addresses: [OSCDevices.EdtFastLed + instance],
@@ -89,7 +89,7 @@ export function FastLedtSinglePulse(
 
 export function FastLedtStrobe(instance: number, speed: number, hue: number) {
     sendToOSC(
-        DeviceIPs.edtDispEdter,
+        DeviceIPs.edtFastLed,
         OSCDispedtOutPort,
         {
             addresses: [OSCDevices.EdtFastLed + instance],
