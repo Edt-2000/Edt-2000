@@ -62,5 +62,6 @@ typings/
 .idea/
 .idea/**.*
 
+TypeScript/static/**
 /dist/*
 **/package-lock.json

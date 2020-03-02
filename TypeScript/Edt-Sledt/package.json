@@ -4,7 +4,7 @@
     "description": "ManInTheMiddle",
     "scripts": {
         "start": "ts-node src/index.tsx",
-        "dev": "ts-node-dev --respawn --transpileOnly src/index.tsx"
+        "dev": "ts-node-dev --respawn src/index.tsx"
     },
     "author": "Edt-2000",
     "license": "ISC",

@@ -2,19 +2,27 @@ import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actio
 import { combineLatest, fromEvent } from 'rxjs';
 import { debounceTime, map, tap, withLatestFrom } from 'rxjs/operators';
 import { blackColor } from '../../Shared/colors/utils';
-import { VidtPresets, vidtPresetsArr } from '../../Shared/vidt-presets';
-import { animationTypeArr, AnimationTypes } from '../../Shared/vidt/animation';
+import { VidtPresets } from '../../Shared/vidt-presets';
+import { AnimationTypes } from '../../Shared/vidt/animation';
 
+// These libs don't support ES6 imports :/
 const Launchpad = require('launchpad-mini');
-const socket = require('socket.io-client')('http://localhost:8898/launchpad', {
+const socketClient = require('socket.io-client');
+
+const [, , edtSledtIP] = process.argv;
+const socket = socketClient(`http://${edtSledtIP ? edtSledtIP : 'localhost'}:8898/launchpad`, {
     origins: '*:*',
     transports: ['websocket'],
 });
 
-const pad = new Launchpad();
-
 socket.on('connect', () => console.log('Connected to Edt-Sledt!'));
+socket.on('disconnect', () => console.log('Connection lost!'));
 socket.on('toLaunchpad', action => nextActionFromMsg(action));
+
+const pad = new Launchpad();
+const key$ = fromEvent<Pad>(pad, 'key');
+
+// key$.subscribe(key => console.log('key', key));
 
 interface Pad {
     x: number;
@@ -24,25 +32,38 @@ interface Pad {
 }
 
 const rows = {
-    animationTypes: 2,
+    cues: 2,
+    animationTypes: 3,
     wordSet: 4,
     images: 5,
     palletteInstant: 6,
     palette: 7,
 };
 
-const firstRow = vidtPresetsArr.slice(0, 9);
-const secondRow = vidtPresetsArr.slice(9, vidtPresetsArr.length);
-
 pad.connect().then(() => {
+    console.log('Launchpad connected!');
     pad.reset();
-    const key$ = fromEvent<Pad>(pad, 'key');
     // Color the buttons so you know which buttons do something
     combineLatest([
         Actions$.colorPalette,
         Actions$.contentGroup,
+        Actions$.animationTypes,
+        Actions$.vidtPresets,
+        Actions$.cueList,
     ]).pipe(
-        map(([palette, { images, wordSet }]) => {
+        map(([
+                 palette,
+                 {
+                     images,
+                     wordSet,
+                 },
+                 animationTypes,
+                 vidtPresets,
+                 cueList,
+             ]) => {
+            const firstRow = vidtPresets.slice(0, 9);
+            const secondRow = vidtPresets.slice(9, vidtPresets.length);
+
             const vidtPresets1 = [...new Array(firstRow.length)]
                 .map((_, i) => i)
                 .map(x => [x, 0, Launchpad.Colors.amber]);
@@ -50,13 +71,17 @@ pad.connect().then(() => {
                 .map((_, i) => i)
                 .map(x => [x, 1, Launchpad.Colors.amber]);
 
+            const cueListButtons = [...new Array(cueList.length)]
+                .map((_, i) => i)
+                .map(x => [x, rows.cues, Launchpad.Colors.red]);
+
+            const animationTypesButtons = [...new Array(animationTypes.length)]
+                .map((_, i) => i)
+                .map(x => [x, rows.animationTypes, Launchpad.Colors.yellow]);
+
             const wordSetButtons = [...new Array(wordSet.length)]
                 .map((_, i) => i)
                 .map(x => [x, rows.wordSet, Launchpad.Colors.amber]);
-
-            const animationTypes = [...new Array(animationTypeArr.length)]
-                .map((_, i) => i)
-                .map(x => [x, rows.animationTypes, Launchpad.Colors.yellow]);
 
             const imagesButtons = [...new Array(images.length)]
                 .map((_, i) => i)
@@ -73,8 +98,9 @@ pad.connect().then(() => {
             return [
                 ...vidtPresets1,
                 ...vidtPresets2,
+                ...cueListButtons,
                 ...wordSetButtons,
-                ...animationTypes,
+                ...animationTypesButtons,
                 ...imagesButtons,
                 ...palletteInstantButtons,
                 ...paletteButtons,
@@ -92,27 +118,34 @@ pad.connect().then(() => {
         withLatestFrom(
             Actions$.colorPalette,
             Actions$.contentGroup,
+            Actions$.animationTypes,
+            Actions$.vidtPresets,
+            Actions$.cueList,
         ),
-        tap(([key, palette, { images, wordSet }]) => {
+        tap(([key, palette, { images, wordSet }, animationTypes, vidtPresets, cueList]) => {
+            const firstRow = vidtPresets.slice(0, 9);
+            const secondRow = vidtPresets.slice(9, vidtPresets.length);
+
             if (key.pressed) {
                 if (key.x === 8 && key.y === 3) {
                     sendToSledt(Actions.mainBeat(127));
                 }
 
                 // VIDT Presets divided in 2 rows
-                if (key.y === 0 && firstRow.length) {
-                    if (VidtPresets[firstRow[key.x]]) {
-                        sendToSledt(Actions.prepareVidt(VidtPresets[firstRow[key.x]]));
-                    }
+                if (key.y === 0 && firstRow.length && VidtPresets[firstRow[key.x]]) {
+                    sendToSledt(Actions.prepareVidt(VidtPresets[firstRow[key.x]]));
                 }
-                if (key.y === 1 && secondRow.length) {
-                    if (VidtPresets[secondRow[key.x]]) {
-                        sendToSledt(Actions.prepareVidt(VidtPresets[secondRow[key.x]]));
-                    }
+                if (key.y === 1 && secondRow.length && VidtPresets[secondRow[key.x]]) {
+                    sendToSledt(Actions.prepareVidt(VidtPresets[secondRow[key.x]]));
                 }
 
-                if (key.y === rows.animationTypes && animationTypeArr[key.x]) {
-                    sendToSledt(Actions.animationType(AnimationTypes[animationTypeArr[key.x]]));
+                if (key.y === rows.cues && cueList[key.x]) {
+                    // Cues are a list of actions; need to send them all
+                    cueList[key.x].actions.forEach(sendToSledt);
+                }
+
+                if (key.y === rows.animationTypes && animationTypes[key.x]) {
+                    sendToSledt(Actions.animationType(AnimationTypes[animationTypes[key.x]]));
                 }
 
                 if (key.y === rows.wordSet && wordSet[key.x]) {

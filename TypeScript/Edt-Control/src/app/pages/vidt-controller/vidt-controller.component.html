@@ -1,8 +1,4 @@
 <div class="vidt-controller">
-  <ng-container *ngIf="vidtPresets$ | async as vidtPresets">
-    <app-preset-switchers [presetState]="vidtPresets"></app-preset-switchers>
-  </ng-container>
-
   <div class="section">
     <h2 class="section__title">Beat</h2>
     <ul class="list">
@@ -28,7 +24,7 @@
   <div class="section">
     <h2 class="section__title">Vidt</h2>
     <ul class="list">
-      <li *ngFor="let vidtPreset of vidtPresets" class="list__item">
+      <li *ngFor="let vidtPreset of (vidtPresets$ | async)" class="list__item">
         <button (click)="socket.sendVidtPreset(vidtPreset)" class="text-button">
           {{ vidtPreset }}
         </button>
@@ -106,7 +102,7 @@
   <div class="section">
     <h2 class="section__title">Animations</h2>
     <ul class="list">
-      <ng-container *ngFor="let type of animations">
+      <ng-container *ngFor="let type of (animations$ | async)">
         <li class="list__item">
           <button (click)="socket.sendAnimation(type)" class="text-button">
             {{ type }}

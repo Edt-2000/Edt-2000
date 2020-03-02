@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
 import { VidtPresets } from '../../../Shared/vidt-presets';
-import { ActivatedRoute } from '@angular/router';
 import { ContentGroup, ICue } from '../../../Shared/actions/types';
 import { IColor } from '../../../Shared/colors/types';
 import { AnimationTypes } from '../../../Shared/vidt/animation';
 import io from 'socket.io-client';
+import { WINDOW } from './window.token';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SocketService {
   private socket;
 
   constructor(
-    private route: ActivatedRoute,
+    @Inject(WINDOW) private window: Window,
   ) {
-    this.socket = io(`http://${route.snapshot.queryParams.ip || 'localhost'}:${8898}/control`, {
+    // We use the hostname,
+    this.socket = io(`http://${window.location.hostname}:${8898}/control`, {
       transports: ['websocket'],
     });
     this.socket.on('toControl', (msg) => {
@@ -50,8 +51,8 @@ export class SocketService {
     this.toSledt(Actions.glitchIntensity(intensity));
   }
 
-  sendAnimation(animation: string) {
-    this.toSledt(Actions.animationType(AnimationTypes[animation]));
+  sendAnimation(animation: AnimationTypes) {
+    this.toSledt(Actions.animationType(animation));
   }
 
   activateCue(cue: ICue) {
@@ -59,7 +60,7 @@ export class SocketService {
   }
 
   changePreset(preset, state, modifier = 127) {
-    this.toSledt(Actions.presetChange({preset, state, modifier}));
+    this.toSledt(Actions.presetChange({ preset, state, modifier }));
   }
 
   sendColor(color: IColor) {

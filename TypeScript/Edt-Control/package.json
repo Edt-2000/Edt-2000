@@ -2,10 +2,8 @@
   "name": "edt-control",
   "version": "0.0.0",
   "scripts": {
-    "start": "ng serve --host=0.0.0.0",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint"
+    "dev": "ng serve --host=0.0.0.0",
+    "build": "ng build --base-href /edt-control/"
   },
   "private": true,
   "dependencies": {

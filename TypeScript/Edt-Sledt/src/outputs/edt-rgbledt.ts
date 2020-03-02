@@ -4,7 +4,7 @@ import { IColor } from '../../../Shared/colors/types';
 
 export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
     sendToOSC(
-        DeviceIPs.edtDispEdter,
+        DeviceIPs.edtRGBLed,
         OSCDispedtOutPort,
         {
             addresses: [OSCDevices.EdtRGBLed + instance.toString()],
@@ -15,7 +15,7 @@ export function RGBLedtSingleSolid(instance: number = 0, colorMsg: IColor) {
 
 export function RGBLedtStrobe(instance: number, speed: number, hue: number) {
     sendToOSC(
-        DeviceIPs.edtDispEdter,
+        DeviceIPs.edtRGBLed,
         OSCDispedtOutPort,
         {
             addresses: [OSCDevices.EdtRGBLed + instance.toString()],

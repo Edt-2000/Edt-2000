@@ -14,5 +14,5 @@ export const animationTypeCC$ = Actions$.animationType.pipe(
 
 export const animationTypeActions$ = midiCCAutomation$.pipe(
     filter(msg => msg.controller === animationTypeCCNumber),
-    map(({value: type}) => Actions.animationType(AnimationTypes[AnimationTypes[type]])),
+    map(({ value: type }) => Actions.animationType(AnimationTypes[AnimationTypes[type]])),
 );

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { pages } from './app.routes';
 import { SocketService } from './socket.service';
 
@@ -6,12 +6,10 @@ import { SocketService } from './socket.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   pages = pages;
 
-  constructor (public socket: SocketService) {
+  constructor(public socket: SocketService) {
   }
 
-  ngOnInit (): void {
-  }
 }
