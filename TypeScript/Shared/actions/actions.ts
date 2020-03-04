@@ -4,7 +4,7 @@ import { VidtPresets } from '../vidt-presets';
 import { blackColor } from '../colors/utils';
 import { colorSets } from '../../Edt-Sledt/config/colors';
 import { IMidiNoteMsg } from '../midi/types';
-import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg } from './types';
+import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg, LaunchpadPage } from './types';
 import { IColor } from '../colors/types';
 import { DrumSounds } from '../../Edt-Sledt/config/config';
 import { AnimationTypes } from '../vidt/animation';
@@ -17,6 +17,9 @@ export const Actions = {
     cueList: (payload: ICue[]) => createAction('cueList', payload),
     vidtPresets: (payload: string[]) => createAction('vidtPresets', payload),
     prepareVidt: (payload: VidtPresets) => createAction('prepareVidt', payload),
+
+    launchpadPages: (payload: LaunchpadPage[]) => createAction('launchpadPages', payload),
+    launchpadPage: (payload: LaunchpadPage) => createAction('launchpadPage', payload),
 
     // Assets
     contentGroups: (payload: ContentGroup[]) => createAction('contentGroups', payload),
@@ -51,9 +54,6 @@ export const Actions = {
 
 export type Actions = ActionsUnion<typeof Actions>;
 
-export const animationTypes = enumToArray(AnimationTypes);
-export const vidtPresets = enumToArray(VidtPresets);
-
 export const emptyContentGroup: ContentGroup = {
     songNr: 0,
     title: '',
@@ -67,8 +67,11 @@ export const Actions$ = {
     cueList: new BehaviorSubject([] as ICue[]),
 
     presetChange: new Subject() as Subject<IPresetMsg>,
-    vidtPresets: new BehaviorSubject<string[]>(vidtPresets),
+    vidtPresets: new BehaviorSubject<string[]>([]),
     prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
+
+    launchpadPages: new BehaviorSubject<LaunchpadPage[]>([{ pageNumber: 1, triggers: [[]] }]),
+    launchpadPage: new BehaviorSubject<LaunchpadPage>({ pageNumber: 1, triggers: [[]] }),
 
     imageSrc: new BehaviorSubject(''),
     videoSrc: new BehaviorSubject(''),
@@ -77,7 +80,7 @@ export const Actions$ = {
     contentGroups: new BehaviorSubject([] as ContentGroup[]),
     contentGroup: new BehaviorSubject(emptyContentGroup),
 
-    animationTypes: new BehaviorSubject<string[]>(animationTypes),
+    animationTypes: new BehaviorSubject<string[]>([]),
     animationType: new BehaviorSubject<AnimationTypes>(AnimationTypes.bounce),
 
     singleColor: new BehaviorSubject(blackColor),
@@ -100,6 +103,3 @@ export function nextActionFromMsg(action: Actions) {
         Actions$[action.type].next(action.payload);
     }
 }
-
-// Actions$.animationType.subscribe(log => console.log(log));
-// Actions$.prepareVidt.subscribe(log => console.log(log));

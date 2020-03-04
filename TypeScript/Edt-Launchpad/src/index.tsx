@@ -1,9 +1,6 @@
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
-import { combineLatest, fromEvent } from 'rxjs';
-import { debounceTime, map, tap, withLatestFrom } from 'rxjs/operators';
-import { blackColor } from '../../Shared/colors/utils';
-import { VidtPresets } from '../../Shared/vidt-presets';
-import { AnimationTypes } from '../../Shared/vidt/animation';
+import { fromEvent } from 'rxjs';
+import { debounceTime, map, shareReplay, tap, withLatestFrom } from 'rxjs/operators';
 
 // These libs don't support ES6 imports :/
 const Launchpad = require('launchpad-mini');
@@ -31,137 +28,53 @@ interface Pad {
     id: symbol;
 }
 
-const rows = {
-    cues: 2,
-    animationTypes: 3,
-    wordSet: 4,
-    images: 5,
-    palletteInstant: 6,
-    palette: 7,
-};
+const launchpadPage$ = Actions$.launchpadPage.pipe(
+    map(({ triggers }) => {
+        console.time('test');
+        let indexOffset = 0;
+        return triggers.reduce((acc, row, y) => {
+            const commands = row.map(([defaultColor, pressedColor, action], x) => {
+                return {
+                    x,
+                    y: y + indexOffset,
+                    defaultColor: Launchpad.Colors[defaultColor],
+                    pressedColor: Launchpad.Colors[pressedColor],
+                    action,
+                };
+            });
+            // If there are more buttons than 8,
+            // add to indexOffset so the next row will skip the overflow
+            indexOffset += Math.floor(row.length / 8);
+            return [...acc, ...commands];
+        }, [] as Array<{
+            x: number;
+            y: number;
+            defaultColor: 'red' | 'green' | 'amber' | 'yellow' | 'off';
+            pressedColor: 'red' | 'green' | 'amber' | 'yellow' | 'off';
+            action: Actions
+        }>);
+    }),
+    tap(() => console.timeEnd('test')),
+    shareReplay(1), // Prevent from doing the calculations over and over again
+);
 
 pad.connect().then(() => {
     console.log('Launchpad connected!');
     pad.reset();
     // Color the buttons so you know which buttons do something
-    combineLatest([
-        Actions$.colorPalette,
-        Actions$.contentGroup,
-        Actions$.animationTypes,
-        Actions$.vidtPresets,
-        Actions$.cueList,
-    ]).pipe(
-        map(([
-                 palette,
-                 {
-                     images,
-                     wordSet,
-                 },
-                 animationTypes,
-                 vidtPresets,
-                 cueList,
-             ]) => {
-            const firstRow = vidtPresets.slice(0, 9);
-            const secondRow = vidtPresets.slice(9, vidtPresets.length);
-
-            const vidtPresets1 = [...new Array(firstRow.length)]
-                .map((_, i) => i)
-                .map(x => [x, 0, Launchpad.Colors.amber]);
-            const vidtPresets2 = [...new Array(secondRow.length)]
-                .map((_, i) => i)
-                .map(x => [x, 1, Launchpad.Colors.amber]);
-
-            const cueListButtons = [...new Array(cueList.length)]
-                .map((_, i) => i)
-                .map(x => [x, rows.cues, Launchpad.Colors.red]);
-
-            const animationTypesButtons = [...new Array(animationTypes.length)]
-                .map((_, i) => i)
-                .map(x => [x, rows.animationTypes, Launchpad.Colors.yellow]);
-
-            const wordSetButtons = [...new Array(wordSet.length)]
-                .map((_, i) => i)
-                .map(x => [x, rows.wordSet, Launchpad.Colors.amber]);
-
-            const imagesButtons = [...new Array(images.length)]
-                .map((_, i) => i)
-                .map(x => [x, rows.images, Launchpad.Colors.red]);
-
-            const palletteInstantButtons = [...new Array(palette.length)]
-                .map((_, i) => i)
-                .map(x => [x, rows.palletteInstant, Launchpad.Colors.yellow]);
-
-            const paletteButtons = [...new Array(palette.length)]
-                .map((_, i) => i)
-                .map(x => [x, rows.palette, Launchpad.Colors.yellow]);
-
-            return [
-                ...vidtPresets1,
-                ...vidtPresets2,
-                ...cueListButtons,
-                ...wordSetButtons,
-                ...animationTypesButtons,
-                ...imagesButtons,
-                ...palletteInstantButtons,
-                ...paletteButtons,
-                [8, 3, Launchpad.Colors.red],
-            ];
-        }),
-        debounceTime(500),
-    ).subscribe(async commands => {
+    launchpadPage$.pipe(debounceTime(100)).subscribe(async commands => {
+        console.log('commands', commands);
         await pad.reset();
-        await pad.setColors(commands);
+        await pad.setColors(commands.map(({ x, y, defaultColor }) => [x, y, defaultColor]));
     });
 
     // Handle key events and send correct messages
     key$.pipe(
-        withLatestFrom(
-            Actions$.colorPalette,
-            Actions$.contentGroup,
-            Actions$.animationTypes,
-            Actions$.vidtPresets,
-            Actions$.cueList,
-        ),
-        tap(([key, palette, { images, wordSet }, animationTypes, vidtPresets, cueList]) => {
-            const firstRow = vidtPresets.slice(0, 9);
-            const secondRow = vidtPresets.slice(9, vidtPresets.length);
-
-            if (key.pressed) {
-                if (key.x === 8 && key.y === 3) {
-                    sendToSledt(Actions.mainBeat(127));
-                }
-
-                // VIDT Presets divided in 2 rows
-                if (key.y === 0 && firstRow.length && VidtPresets[firstRow[key.x]]) {
-                    sendToSledt(Actions.prepareVidt(VidtPresets[firstRow[key.x]]));
-                }
-                if (key.y === 1 && secondRow.length && VidtPresets[secondRow[key.x]]) {
-                    sendToSledt(Actions.prepareVidt(VidtPresets[secondRow[key.x]]));
-                }
-
-                if (key.y === rows.cues && cueList[key.x]) {
-                    // Cues are a list of actions; need to send them all
-                    cueList[key.x].actions.forEach(sendToSledt);
-                }
-
-                if (key.y === rows.animationTypes && animationTypes[key.x]) {
-                    sendToSledt(Actions.animationType(AnimationTypes[animationTypes[key.x]]));
-                }
-
-                if (key.y === rows.wordSet && wordSet[key.x]) {
-                    sendToSledt(Actions.mainText(wordSet[key.x]));
-                }
-                if (key.y === rows.images && images[key.x]) {
-                    sendToSledt(Actions.imageSrc(images[key.x]));
-                }
-                if ((key.y === rows.palette || key.y === rows.palletteInstant) && palette[key.x]) {
-                    sendToSledt(Actions.singleColor(palette[key.x]));
-                }
-            } else {
-                if ((key.y === rows.palletteInstant) && palette[key.x]) {
-                    sendToSledt(Actions.singleColor(blackColor));
-                }
-            }
+        withLatestFrom(launchpadPage$),
+        tap(([key, launchpadPage]) => {
+            const pressed = launchpadPage.find(({ x, y }) => key.x === x && key.y === y);
+            console.log('press:', pressed, pad);
+            pad.col(key.pressed ? pressed.pressedColor : pressed.defaultColor, key);
         }),
     ).subscribe();
 

@@ -21,6 +21,16 @@ export interface ICue {
     actions: Actions[];
 }
 
+export interface LaunchpadPage {
+    pageNumber: number;
+    triggers: Array<Array<[
+        'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Default
+        'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Pressed
+        string, // Title
+        Actions, // TriggerAction
+    ]>>;
+}
+
 export enum ModifierGroup {
     EdtDrums,
     EdtGuitar,
