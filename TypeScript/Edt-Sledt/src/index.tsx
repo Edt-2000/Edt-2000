@@ -45,7 +45,6 @@ nextActionFromMsg(Actions.cueList(presetCues));
 // The Edt-Sledt server scans the media directory and exposes this to all apps
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
 // The launchpad is build dynamically; we always select first page by default
-nextActionFromMsg(Actions.launchpadPages(launchpadConfig));
 nextActionFromMsg(Actions.launchpadPage(launchpadConfig[0]));
 // We send the presets and animationTypes so we don't have to hardcode them
 nextActionFromMsg(Actions.vidtPresets(enumToArray(VidtPresets)));

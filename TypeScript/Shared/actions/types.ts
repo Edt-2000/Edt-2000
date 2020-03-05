@@ -22,12 +22,14 @@ export interface ICue {
 }
 
 export interface LaunchpadPage {
-    pageNumber: number;
+    pageAmount: number; // How many pages are possible?
+    pageNumber: number; // Which page is this?
     triggers: Array<Array<[
         'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Default
         'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Pressed
         string, // Title
         Actions, // TriggerAction
+        Actions, // TriggerAction on release
     ]>>;
 }
 

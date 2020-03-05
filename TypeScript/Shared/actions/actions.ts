@@ -8,7 +8,6 @@ import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg, LaunchpadPage } from
 import { IColor } from '../colors/types';
 import { DrumSounds } from '../../Edt-Sledt/config/config';
 import { AnimationTypes } from '../vidt/animation';
-import { enumToArray } from '../utils/utils';
 
 // TODO: make Actions into a single observable object
 export const Actions = {
@@ -18,7 +17,6 @@ export const Actions = {
     vidtPresets: (payload: string[]) => createAction('vidtPresets', payload),
     prepareVidt: (payload: VidtPresets) => createAction('prepareVidt', payload),
 
-    launchpadPages: (payload: LaunchpadPage[]) => createAction('launchpadPages', payload),
     launchpadPage: (payload: LaunchpadPage) => createAction('launchpadPage', payload),
 
     // Assets
@@ -70,8 +68,7 @@ export const Actions$ = {
     vidtPresets: new BehaviorSubject<string[]>([]),
     prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
 
-    launchpadPages: new BehaviorSubject<LaunchpadPage[]>([{ pageNumber: 1, triggers: [[]] }]),
-    launchpadPage: new BehaviorSubject<LaunchpadPage>({ pageNumber: 1, triggers: [[]] }),
+    launchpadPage: new BehaviorSubject<LaunchpadPage>({ pageAmount: 1, pageNumber: 1, triggers: [[]] }),
 
     imageSrc: new BehaviorSubject(''),
     videoSrc: new BehaviorSubject(''),

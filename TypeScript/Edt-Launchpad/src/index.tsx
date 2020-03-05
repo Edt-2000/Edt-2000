@@ -1,6 +1,6 @@
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
 import { fromEvent } from 'rxjs';
-import { debounceTime, map, shareReplay, tap, withLatestFrom } from 'rxjs/operators';
+import { debounceTime, filter, map, tap, withLatestFrom } from 'rxjs/operators';
 
 // These libs don't support ES6 imports :/
 const Launchpad = require('launchpad-mini');
@@ -19,8 +19,6 @@ socket.on('toLaunchpad', action => nextActionFromMsg(action));
 const pad = new Launchpad();
 const key$ = fromEvent<Pad>(pad, 'key');
 
-// key$.subscribe(key => console.log('key', key));
-
 interface Pad {
     x: number;
     y: number;
@@ -28,53 +26,51 @@ interface Pad {
     id: symbol;
 }
 
-const launchpadPage$ = Actions$.launchpadPage.pipe(
-    map(({ triggers }) => {
-        console.time('test');
-        let indexOffset = 0;
-        return triggers.reduce((acc, row, y) => {
-            const commands = row.map(([defaultColor, pressedColor, action], x) => {
-                return {
-                    x,
-                    y: y + indexOffset,
-                    defaultColor: Launchpad.Colors[defaultColor],
-                    pressedColor: Launchpad.Colors[pressedColor],
-                    action,
-                };
+const commands$ = Actions$.launchpadPage.pipe(
+    map(({ pageNumber, pageAmount, triggers }) => {
+        const pages = [...new Array(pageAmount)]
+            .map((_, index) => index)
+            .map(index => {
+                return [index, 8, Launchpad.Colors.green];
             });
-            // If there are more buttons than 8,
-            // add to indexOffset so the next row will skip the overflow
-            indexOffset += Math.floor(row.length / 8);
-            return [...acc, ...commands];
-        }, [] as Array<{
-            x: number;
-            y: number;
-            defaultColor: 'red' | 'green' | 'amber' | 'yellow' | 'off';
-            pressedColor: 'red' | 'green' | 'amber' | 'yellow' | 'off';
-            action: Actions
-        }>);
+        const activePage = [pageNumber - 1, 8, Launchpad.Colors.red];
+        return [
+            ...pages,
+            activePage, // ActivePage needs to go after so it can overwrite the pages
+            ...triggers.reduce((acc, row, y) => {
+                return [
+                    ...acc,
+                    ...row.map(([color], x) => [x, y, Launchpad.Colors[color]]),
+                ];
+            }, []),
+        ];
     }),
-    tap(() => console.timeEnd('test')),
-    shareReplay(1), // Prevent from doing the calculations over and over again
 );
 
 pad.connect().then(() => {
     console.log('Launchpad connected!');
     pad.reset();
     // Color the buttons so you know which buttons do something
-    launchpadPage$.pipe(debounceTime(100)).subscribe(async commands => {
-        console.log('commands', commands);
+    commands$.pipe(debounceTime(100)).subscribe(async commands => {
         await pad.reset();
-        await pad.setColors(commands.map(({ x, y, defaultColor }) => [x, y, defaultColor]));
+        await pad.setColors(commands);
     });
 
     // Handle key events and send correct messages
     key$.pipe(
-        withLatestFrom(launchpadPage$),
-        tap(([key, launchpadPage]) => {
-            const pressed = launchpadPage.find(({ x, y }) => key.x === x && key.y === y);
-            console.log('press:', pressed, pad);
-            pad.col(key.pressed ? pressed.pressedColor : pressed.defaultColor, key);
+        withLatestFrom(Actions$.launchpadPage),
+        map(([key, launchpadPage]) => ({
+            key,
+            trigger: launchpadPage.triggers[key.y] && launchpadPage.triggers[key.y][key.x],
+        })),
+        filter(({ trigger }) => !!trigger),
+        tap(({ key, trigger: [defaultColor, pressedColor, label, action, releaseAction] }) => {
+            if (key.pressed) {
+                sendToSledt(action);
+            } else if (releaseAction) {
+                sendToSledt(releaseAction);
+            }
+            pad.col(Launchpad.Colors[key.pressed ? pressedColor : defaultColor], key);
         }),
     ).subscribe();
 
