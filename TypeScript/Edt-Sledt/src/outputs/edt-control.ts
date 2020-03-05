@@ -20,6 +20,7 @@ controlSocket$.subscribe(socket => {
         Actions$.presetState.pipe(map(Actions.presetState)),
         Actions$.cueList.pipe(map(Actions.cueList)),
         Actions$.colorPalette.pipe(map(Actions.colorPalette)),
+        Actions$.colorPalettes.pipe(map(Actions.colorPalettes)),
         Actions$.contentGroups.pipe(map(Actions.contentGroups)),
         Actions$.contentGroup.pipe(map(Actions.contentGroup)),
     ).pipe(

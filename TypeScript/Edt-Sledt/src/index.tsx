@@ -14,6 +14,7 @@ import { enumToArray } from '../../Shared/utils/utils';
 import { AnimationTypes } from '../../Shared/vidt/animation';
 import { VidtPresets } from '../../Shared/vidt-presets';
 import { launchpadPage$ } from '../config/launchpad';
+import { colorSets } from '../config/colors';
 
 // https://github.com/vadimdemedes/ink
 render(<EdtConsole/>);
@@ -40,14 +41,13 @@ presetMidiMsg$.subscribe(sendToMidiNote);
 // Emit initial actions to kick things off
 nextActionFromMsg(Actions.presetState(getPresetState()));
 
-// Send presets cues
+// We don't want to hardcode these arrays/sets into the code
 nextActionFromMsg(Actions.cueList(presetCues));
-// The Edt-Sledt server scans the media directory and exposes this to all apps
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
-// The launchpad is build dynamically; we always select first page by default
-// We send the presets and animationTypes so we don't have to hardcode them
 nextActionFromMsg(Actions.vidtPresets(enumToArray(VidtPresets)));
 nextActionFromMsg(Actions.animationTypes(enumToArray(AnimationTypes)));
+nextActionFromMsg(Actions.colorPalette(colorSets[0]));
+nextActionFromMsg(Actions.colorPalettes(colorSets));
 
 // The launchpad page is dependent on many changing variables so it's build as an observable
 launchpadPage$.subscribe(page => nextActionFromMsg(Actions.launchpadPage(page)));

@@ -2,7 +2,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './fsa-helpers';
 import { VidtPresets } from '../vidt-presets';
 import { blackColor } from '../colors/utils';
-import { colorSets } from '../../Edt-Sledt/config/colors';
 import { IMidiNoteMsg } from '../midi/types';
 import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg, LaunchpadPage } from './types';
 import { IColor } from '../colors/types';
@@ -38,6 +37,7 @@ export const Actions = {
     multiColor: (payload: IColor[]) => createAction('multiColor', payload),
     vidtMultiColor: (payload: IColor[]) =>
         createAction('vidtMultiColor', payload),
+    colorPalettes: (payload: IColor[][]) => createAction('colorPalettes', payload),
     colorPalette: (payload: IColor[]) => createAction('colorPalette', payload),
 
     mainBeat: (payload: number) => createAction('mainBeat', payload),
@@ -84,9 +84,10 @@ export const Actions$ = {
 
     singleColor: new BehaviorSubject(blackColor),
     vidtSingleColor: new BehaviorSubject(blackColor),
-    multiColor: new BehaviorSubject(colorSets[0]),
-    vidtMultiColor: new BehaviorSubject(colorSets[5]),
-    colorPalette: new BehaviorSubject(colorSets[0]),
+    multiColor: new BehaviorSubject([]),
+    vidtMultiColor: new BehaviorSubject([]),
+    colorPalettes: new BehaviorSubject<IColor[][]>([[]]),
+    colorPalette: new BehaviorSubject<IColor[]>([]),
     mainBeat: new Subject() as Subject<number>,
     mainDrumSound: new Subject() as Subject<DrumSounds>,
     mainDrum: new Subject() as Subject<IMidiNoteMsg>,
