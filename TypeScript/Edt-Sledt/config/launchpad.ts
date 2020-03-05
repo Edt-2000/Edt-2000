@@ -1,23 +1,19 @@
 import { LaunchpadPage } from '../../Shared/actions/types';
-import { Actions } from '../../Shared/actions/actions';
-import { enumToArray } from '../../Shared/utils/utils';
-import { VidtPresets } from '../../Shared/vidt-presets';
-import { AnimationTypes } from '../../Shared/vidt/animation';
+import { Actions$ } from '../../Shared/actions/actions';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-export const launchpadConfig: LaunchpadPage[] = [
-    {
-        pageNumber: 1,
-        pageAmount: 1,
-        triggers: [
-            ...chunk(enumToArray(VidtPresets).map(preset => {
-                return ['yellow', 'amber', preset, Actions.prepareVidt(VidtPresets[preset]), Actions.prepareVidt(VidtPresets.logo)];
-            }), 8),
-            ...chunk(enumToArray(AnimationTypes).map(type => {
-                return ['red', 'amber', type, Actions.animationType(AnimationTypes[type])];
-            }), 8),
-        ],
-    },
-];
+export const launchpadPage$: Observable<LaunchpadPage> = combineLatest([
+    Actions$.launchpadPageNr,
+    Actions$.vidtPresets,
+    Actions$.colorPalette,
+    Actions$.animationTypes,
+    Actions$.contentGroup,
+]).pipe(
+    map(([pageChange, vidtPresets, colorPalette, animationTypes, contentGroup]) => {
+
+    }),
+);
 
 function chunk(arr, n) {
     return arr.length ? [arr.slice(0, n), ...chunk(arr.slice(n), n)] : [];

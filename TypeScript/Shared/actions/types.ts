@@ -22,8 +22,6 @@ export interface ICue {
 }
 
 export interface LaunchpadPage {
-    pageAmount: number; // How many pages are possible?
-    pageNumber: number; // Which page is this?
     triggers: Array<Array<[
         'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Default
         'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Pressed

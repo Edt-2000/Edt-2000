@@ -17,6 +17,7 @@ export const Actions = {
     vidtPresets: (payload: string[]) => createAction('vidtPresets', payload),
     prepareVidt: (payload: VidtPresets) => createAction('prepareVidt', payload),
 
+    launchpadPageNr: (payload: number) => createAction('launchpadPageNr', payload),
     launchpadPage: (payload: LaunchpadPage) => createAction('launchpadPage', payload),
 
     // Assets
@@ -68,7 +69,8 @@ export const Actions$ = {
     vidtPresets: new BehaviorSubject<string[]>([]),
     prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
 
-    launchpadPage: new BehaviorSubject<LaunchpadPage>({ pageAmount: 1, pageNumber: 1, triggers: [[]] }),
+    launchpadPageNr: new BehaviorSubject<number>(1),
+    launchpadPage: new BehaviorSubject<LaunchpadPage>({ triggers: [[]] }),
 
     imageSrc: new BehaviorSubject(''),
     videoSrc: new BehaviorSubject(''),

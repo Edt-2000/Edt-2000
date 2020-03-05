@@ -13,7 +13,7 @@ import { render } from 'ink';
 import { enumToArray } from '../../Shared/utils/utils';
 import { AnimationTypes } from '../../Shared/vidt/animation';
 import { VidtPresets } from '../../Shared/vidt-presets';
-import { launchpadConfig } from '../config/launchpad';
+import { launchpadPage$ } from '../config/launchpad';
 
 // https://github.com/vadimdemedes/ink
 render(<EdtConsole/>);
@@ -45,7 +45,9 @@ nextActionFromMsg(Actions.cueList(presetCues));
 // The Edt-Sledt server scans the media directory and exposes this to all apps
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
 // The launchpad is build dynamically; we always select first page by default
-nextActionFromMsg(Actions.launchpadPage(launchpadConfig[0]));
 // We send the presets and animationTypes so we don't have to hardcode them
 nextActionFromMsg(Actions.vidtPresets(enumToArray(VidtPresets)));
 nextActionFromMsg(Actions.animationTypes(enumToArray(AnimationTypes)));
+
+// The launchpad page is dependent on many changing variables so it's build as an observable
+launchpadPage$.subscribe(page => nextActionFromMsg(Actions.launchpadPage(page)));
