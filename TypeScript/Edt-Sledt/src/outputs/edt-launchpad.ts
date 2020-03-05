@@ -18,6 +18,7 @@ launchpadSocket$.subscribe(socket => {
 
     merge(
         Actions$.launchpadPage.pipe(map(Actions.launchpadPage)),
+        Actions$.launchpadPageNr.pipe(map(Actions.launchpadPageNr)),
     ).pipe(
         takeUntil(disconnected$),
     ).subscribe(msg => socket.emit('toLaunchpad', msg));

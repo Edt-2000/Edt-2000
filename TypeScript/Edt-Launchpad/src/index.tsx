@@ -49,12 +49,15 @@ pad.connect().then(() => {
     pad.reset();
     // Color the buttons so you know which buttons do something
     commands$.pipe(debounceTime(100)).subscribe(async commands => {
+        // console.log('commands', commands);
         await pad.reset();
         await pad.setColors(commands);
     });
 
     // Handle key events and send correct messages
     key$.pipe(
+        // If it's one of the top-buttons, we send launchPadPageNr
+        tap(key => key.y === 8 && key.pressed && sendToSledt(Actions.launchpadPageNr(key.x + 1))),
         withLatestFrom(Actions$.launchpadPage),
         map(([key, launchpadPage]) => ({
             key,
