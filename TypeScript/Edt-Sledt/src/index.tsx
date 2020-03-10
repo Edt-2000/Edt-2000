@@ -13,7 +13,7 @@ import { render } from 'ink';
 import { enumToArray } from '../../Shared/utils/utils';
 import { AnimationTypes } from '../../Shared/vidt/animation';
 import { VidtPresets } from '../../Shared/vidt-presets';
-import { launchpadPage$ } from '../config/launchpad';
+import { launchpadPages$ } from '../config/launchpad';
 import { colorSets } from '../config/colors';
 
 // https://github.com/vadimdemedes/ink
@@ -49,5 +49,5 @@ nextActionFromMsg(Actions.animationTypes(enumToArray(AnimationTypes)));
 nextActionFromMsg(Actions.colorPalette(colorSets[0]));
 nextActionFromMsg(Actions.colorPalettes(colorSets));
 
-// The launchpad page is dependent on many changing variables so it's build as an observable
-launchpadPage$.subscribe(page => nextActionFromMsg(Actions.launchpadPage(page)));
+// The launchpad pages are dependent on many changing variables so it's build as an observable
+launchpadPages$.subscribe(pages => nextActionFromMsg(Actions.launchpadPages(pages)));

@@ -22,14 +22,17 @@ export interface ICue {
 }
 
 export interface LaunchpadPage {
-    triggers: Array<Array<[
-        'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Default
-        'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Pressed
-        string, // Title
-        Actions, // TriggerAction
-        Actions, // TriggerAction on release
-    ]>>;
+    title: string;
+    triggers: LaunchpadTrigger[][];
 }
+
+export type LaunchpadTrigger = [
+    'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Default
+    'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Pressed
+    string, // Title
+    Actions, // TriggerAction
+    Actions?, // TriggerAction on release
+];
 
 export enum ModifierGroup {
     EdtDrums,

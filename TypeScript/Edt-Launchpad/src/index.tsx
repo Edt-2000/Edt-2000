@@ -1,5 +1,5 @@
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
-import { combineLatest, fromEvent } from 'rxjs';
+import { BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
 import { debounceTime, filter, map, tap, withLatestFrom } from 'rxjs/operators';
 
 // These libs don't support ES6 imports :/
@@ -12,11 +12,14 @@ const socket = socketClient(`http://${edtSledtIP ? edtSledtIP : 'localhost'}:889
     transports: ['websocket'],
 });
 
+const pad = new Launchpad();
+
 socket.on('connect', () => console.log('Connected to Edt-Sledt!'));
-socket.on('disconnect', () => console.log('Connection lost!'));
+socket.on('disconnect', () => {
+    console.log('Connection lost!');
+});
 socket.on('toLaunchpad', action => nextActionFromMsg(action));
 
-const pad = new Launchpad();
 const key$ = fromEvent<Pad>(pad, 'key');
 
 interface Pad {
@@ -26,21 +29,24 @@ interface Pad {
     id: symbol;
 }
 
-const commands$ = combineLatest([
-    Actions$.launchpadPageNr,
-    Actions$.launchpadPage,
-]).pipe(
-    map(([pageNumber, { triggers }]) => {
-        const activePage = [pageNumber - 1, 8, Launchpad.Colors.red];
-        return [
+const pageNumber$ = new BehaviorSubject(0);
+
+const activePage$ = combineLatest([Actions$.launchpadPages, pageNumber$]).pipe(
+    map(([pages, pageNumber]) => pages[pageNumber] ? pages[pageNumber] : { title: '', triggers: [] }),
+);
+
+const commands$ = combineLatest([activePage$, pageNumber$]).pipe(
+    map(([page, pageNumber]) => {
+        const activePage = [pageNumber, 8, Launchpad.Colors.red];
+        return page.triggers ? [
             activePage,
-            ...triggers.reduce((acc, row, y) => {
+            ...page.triggers.reduce((acc, row, y) => {
                 return [
                     ...acc,
                     ...row.map(([color], x) => [x, y, Launchpad.Colors[color]]),
                 ];
             }, []),
-        ];
+        ] : [];
     }),
 );
 
@@ -57,8 +63,8 @@ pad.connect().then(() => {
     // Handle key events and send correct messages
     key$.pipe(
         // If it's one of the top-buttons, we send launchPadPageNr
-        tap(key => key.y === 8 && key.pressed && sendToSledt(Actions.launchpadPageNr(key.x + 1))),
-        withLatestFrom(Actions$.launchpadPage),
+        tap(key => (key.y === 8 && key.pressed) && pageNumber$.next(key.x)),
+        withLatestFrom(activePage$),
         map(([key, launchpadPage]) => ({
             key,
             trigger: launchpadPage.triggers[key.y] && launchpadPage.triggers[key.y][key.x],

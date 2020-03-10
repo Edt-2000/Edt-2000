@@ -16,8 +16,7 @@ export const Actions = {
     vidtPresets: (payload: string[]) => createAction('vidtPresets', payload),
     prepareVidt: (payload: VidtPresets) => createAction('prepareVidt', payload),
 
-    launchpadPageNr: (payload: number) => createAction('launchpadPageNr', payload),
-    launchpadPage: (payload: LaunchpadPage) => createAction('launchpadPage', payload),
+    launchpadPages: (payload: LaunchpadPage[]) => createAction('launchpadPages', payload),
 
     // Assets
     contentGroups: (payload: ContentGroup[]) => createAction('contentGroups', payload),
@@ -65,12 +64,11 @@ export const Actions$ = {
     presetState: new BehaviorSubject([] as IControlPresetMsg[]),
     cueList: new BehaviorSubject([] as ICue[]),
 
-    presetChange: new Subject() as Subject<IPresetMsg>,
+    presetChange: new Subject<IPresetMsg>(),
     vidtPresets: new BehaviorSubject<string[]>([]),
     prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
 
-    launchpadPageNr: new BehaviorSubject<number>(1),
-    launchpadPage: new BehaviorSubject<LaunchpadPage>({ triggers: [[]] }),
+    launchpadPages: new BehaviorSubject<LaunchpadPage[]>([]),
 
     imageSrc: new BehaviorSubject(''),
     videoSrc: new BehaviorSubject(''),
@@ -88,12 +86,12 @@ export const Actions$ = {
     vidtMultiColor: new BehaviorSubject([]),
     colorPalettes: new BehaviorSubject<IColor[][]>([[]]),
     colorPalette: new BehaviorSubject<IColor[]>([]),
-    mainBeat: new Subject() as Subject<number>,
-    mainDrumSound: new Subject() as Subject<DrumSounds>,
-    mainDrum: new Subject() as Subject<IMidiNoteMsg>,
-    mainMelody: new Subject() as Subject<IMidiNoteMsg>,
-    mainChords: new Subject() as Subject<IMidiNoteMsg>,
-    mainBass: new Subject() as Subject<IMidiNoteMsg>,
+    mainBeat: new Subject<number>(),
+    mainDrumSound: new Subject<DrumSounds>(),
+    mainDrum: new Subject<IMidiNoteMsg>(),
+    mainMelody: new Subject<IMidiNoteMsg>(),
+    mainChords: new Subject<IMidiNoteMsg>(),
+    mainBass: new Subject<IMidiNoteMsg>(),
     glitchIntensity: new BehaviorSubject<number>(1),
 };
 
