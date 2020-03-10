@@ -52,6 +52,9 @@
         "lib": [
             "ES2015"
         ],
+        "files": [
+            "src/index.tsx"
+        ],
         /* Experimental Options */
         "experimentalDecorators": true
         /* Enables experimental support for ES7 decorators. */
