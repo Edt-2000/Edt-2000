@@ -24,7 +24,7 @@
         "glob": "latest",
         "ink": "2.6.0",
         "ink-spinner": "3.0.0",
-        "minimist": "1.2.0",
+        "minimist": "1.2.2",
         "osc-min": "1.1.1",
         "react": "16.8.6",
         "rxjs": "6.5.3",
