@@ -1,5 +1,5 @@
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
-import { BehaviorSubject, combineLatest, fromEvent } from 'rxjs';
+import { combineLatest, fromEvent } from 'rxjs';
 import { debounceTime, filter, map, tap, withLatestFrom } from 'rxjs/operators';
 
 // These libs don't support ES6 imports :/
@@ -29,13 +29,11 @@ interface Pad {
     id: symbol;
 }
 
-const pageNumber$ = new BehaviorSubject(0);
-
-const activePage$ = combineLatest([Actions$.launchpadPages, pageNumber$]).pipe(
+const activePage$ = combineLatest([Actions$.launchpadPages, Actions$.launchpadActivePage]).pipe(
     map(([pages, pageNumber]) => pages[pageNumber] ? pages[pageNumber] : { title: '', triggers: [] }),
 );
 
-const commands$ = combineLatest([activePage$, pageNumber$]).pipe(
+const commands$ = combineLatest([activePage$, Actions$.launchpadActivePage]).pipe(
     map(([page, pageNumber]) => {
         const activePage = [pageNumber, 8, Launchpad.Colors.red];
         return page.triggers ? [
@@ -63,7 +61,7 @@ pad.connect().then(() => {
     // Handle key events and send correct messages
     key$.pipe(
         // If it's one of the top-buttons, we send launchPadPageNr
-        tap(key => (key.y === 8 && key.pressed) && pageNumber$.next(key.x)),
+        tap(key => (key.y === 8 && key.pressed) && sendToSledt(Actions.launchpadActivePage(key.x))),
         withLatestFrom(activePage$),
         map(([key, launchpadPage]) => ({
             key,

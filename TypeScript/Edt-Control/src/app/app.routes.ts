@@ -3,6 +3,7 @@ import { CuesControllerComponent } from './pages/cues-controller/cues-controller
 import { VidtControllerComponent } from './pages/vidt-controller/vidt-controller.component';
 import { ActivePresetsControllerComponent } from './pages/active-presets-controller/active-presets-controller.component';
 import { ColorControllerComponent } from './pages/color-controller/color-controller.component';
+import { LaunchpadControllerComponent } from './pages/launchpad-controller/launchpad-controller.component';
 
 export const pages = [
   {
@@ -29,5 +30,10 @@ export const pages = [
     text: 'Color',
     path: 'color-controller',
     component: ColorControllerComponent,
+  },
+  {
+    text: 'Launchpad',
+    path: 'launchpad-controller',
+    component: LaunchpadControllerComponent,
   },
 ];

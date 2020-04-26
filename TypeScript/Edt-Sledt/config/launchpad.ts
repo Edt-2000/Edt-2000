@@ -6,6 +6,7 @@ import { VidtPresets } from '../../Shared/vidt-presets';
 import { AnimationTypes } from '../../Shared/vidt/animation';
 import { blackColor } from '../../Shared/colors/utils';
 import { Colors } from './colors';
+import { IColor } from '../../Shared/colors/types';
 
 export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
     Actions$.vidtPresets,
@@ -37,10 +38,10 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                     return ['yellow', 'red', `Palette_${index}`, Actions.colorPalette(palette)];
                 }),
                 colorPalette.map((color, i) => {
-                    return ['green', 'red', color.toString(), Actions.singleColor(colorPalette[i]), Actions.singleColor(blackColor)];
+                    return ['green', 'red', toColorReadable(color), Actions.singleColor(colorPalette[i]), Actions.singleColor(blackColor)];
                 }),
                 colorPalette.map((color, i) => {
-                    return ['amber', 'red', color.toString(), Actions.singleColor(colorPalette[i])];
+                    return ['amber', 'red', toColorReadable(color), Actions.singleColor(colorPalette[i])];
                 }),
             ]),
         ];
@@ -48,9 +49,13 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
 );
 
 function toLaunchpadPage(title: string, rows: LaunchpadTrigger[][]): LaunchpadPage {
-    return { title, triggers: rows.map(row => [...chunk(row, 9)]).flat() };
+    return { title, triggers: rows.map(row => [...chunk(row, 8)]).flat() };
 }
 
 function chunk(arr, n) {
     return arr.length ? [arr.slice(0, n), ...chunk(arr.slice(n), n)] : [];
+}
+
+function toColorReadable({ h, s, b }: IColor): string {
+    return `h:${h}\ns${s}\nb${b}`;
 }

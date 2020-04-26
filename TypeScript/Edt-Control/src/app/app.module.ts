@@ -13,6 +13,7 @@ import { PresetSwitchersComponent } from './components/preset-switchers/preset-s
 import { ActivePresetsControllerComponent } from './pages/active-presets-controller/active-presets-controller.component';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { ColorControllerComponent } from './pages/color-controller/color-controller.component';
+import { LaunchpadControllerComponent } from './pages/launchpad-controller/launchpad-controller.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ColorControllerComponent } from './pages/color-controller/color-control
     TriggerButtonComponent,
     PresetSwitchersComponent,
     ColorControllerComponent,
+    LaunchpadControllerComponent,
   ],
   imports: [
     BrowserModule,

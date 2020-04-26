@@ -17,6 +17,8 @@ controlSocket$.subscribe(socket => {
     });
 
     merge(
+        Actions$.launchpadPages.pipe(map(Actions.launchpadPages)),
+        Actions$.launchpadActivePage.pipe(map(Actions.launchpadActivePage)),
         Actions$.presetState.pipe(map(Actions.presetState)),
         Actions$.cueList.pipe(map(Actions.cueList)),
         Actions$.colorPalette.pipe(map(Actions.colorPalette)),
