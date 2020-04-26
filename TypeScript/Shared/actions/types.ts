@@ -21,6 +21,19 @@ export interface ICue {
     actions: Actions[];
 }
 
+export interface LaunchpadPage {
+    title: string;
+    triggers: LaunchpadTrigger[][];
+}
+
+export type LaunchpadTrigger = [
+    'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Default
+    'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Pressed
+    string, // Title
+    Actions, // TriggerAction
+    Actions?, // TriggerAction on release
+];
+
 export enum ModifierGroup {
     EdtDrums,
     EdtGuitar,

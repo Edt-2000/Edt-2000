@@ -17,11 +17,8 @@ launchpadSocket$.subscribe(socket => {
     });
 
     merge(
-        Actions$.colorPalette.pipe(map(Actions.colorPalette)),
-        Actions$.contentGroup.pipe(map(Actions.contentGroup)),
-        Actions$.vidtPresets.pipe(map(Actions.vidtPresets)),
-        Actions$.animationTypes.pipe(map(Actions.animationTypes)),
-        Actions$.cueList.pipe(map(Actions.cueList)),
+        Actions$.launchpadPages.pipe(map(Actions.launchpadPages)),
+        Actions$.launchpadActivePage.pipe(map(Actions.launchpadActivePage)),
     ).pipe(
         takeUntil(disconnected$),
     ).subscribe(msg => socket.emit('toLaunchpad', msg));

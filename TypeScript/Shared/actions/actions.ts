@@ -2,13 +2,11 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { ActionsUnion, createAction } from './fsa-helpers';
 import { VidtPresets } from '../vidt-presets';
 import { blackColor } from '../colors/utils';
-import { colorSets } from '../../Edt-Sledt/config/colors';
 import { IMidiNoteMsg } from '../midi/types';
-import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg } from './types';
+import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg, LaunchpadPage } from './types';
 import { IColor } from '../colors/types';
 import { DrumSounds } from '../../Edt-Sledt/config/config';
 import { AnimationTypes } from '../vidt/animation';
-import { enumToArray } from '../utils/utils';
 
 // TODO: make Actions into a single observable object
 export const Actions = {
@@ -17,6 +15,9 @@ export const Actions = {
     cueList: (payload: ICue[]) => createAction('cueList', payload),
     vidtPresets: (payload: string[]) => createAction('vidtPresets', payload),
     prepareVidt: (payload: VidtPresets) => createAction('prepareVidt', payload),
+
+    launchpadActivePage: (payload: number) => createAction('launchpadActivePage', payload),
+    launchpadPages: (payload: LaunchpadPage[]) => createAction('launchpadPages', payload),
 
     // Assets
     contentGroups: (payload: ContentGroup[]) => createAction('contentGroups', payload),
@@ -36,6 +37,7 @@ export const Actions = {
     multiColor: (payload: IColor[]) => createAction('multiColor', payload),
     vidtMultiColor: (payload: IColor[]) =>
         createAction('vidtMultiColor', payload),
+    colorPalettes: (payload: IColor[][]) => createAction('colorPalettes', payload),
     colorPalette: (payload: IColor[]) => createAction('colorPalette', payload),
 
     mainBeat: (payload: number) => createAction('mainBeat', payload),
@@ -51,9 +53,6 @@ export const Actions = {
 
 export type Actions = ActionsUnion<typeof Actions>;
 
-export const animationTypes = enumToArray(AnimationTypes);
-export const vidtPresets = enumToArray(VidtPresets);
-
 export const emptyContentGroup: ContentGroup = {
     songNr: 0,
     title: '',
@@ -66,9 +65,12 @@ export const Actions$ = {
     presetState: new BehaviorSubject([] as IControlPresetMsg[]),
     cueList: new BehaviorSubject([] as ICue[]),
 
-    presetChange: new Subject() as Subject<IPresetMsg>,
-    vidtPresets: new BehaviorSubject<string[]>(vidtPresets),
+    presetChange: new Subject<IPresetMsg>(),
+    vidtPresets: new BehaviorSubject<string[]>([]),
     prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
+
+    launchpadActivePage: new BehaviorSubject<number>(0),
+    launchpadPages: new BehaviorSubject<LaunchpadPage[]>([]),
 
     imageSrc: new BehaviorSubject(''),
     videoSrc: new BehaviorSubject(''),
@@ -77,20 +79,21 @@ export const Actions$ = {
     contentGroups: new BehaviorSubject([] as ContentGroup[]),
     contentGroup: new BehaviorSubject(emptyContentGroup),
 
-    animationTypes: new BehaviorSubject<string[]>(animationTypes),
+    animationTypes: new BehaviorSubject<string[]>([]),
     animationType: new BehaviorSubject<AnimationTypes>(AnimationTypes.bounce),
 
     singleColor: new BehaviorSubject(blackColor),
     vidtSingleColor: new BehaviorSubject(blackColor),
-    multiColor: new BehaviorSubject(colorSets[0]),
-    vidtMultiColor: new BehaviorSubject(colorSets[5]),
-    colorPalette: new BehaviorSubject(colorSets[0]),
-    mainBeat: new Subject() as Subject<number>,
-    mainDrumSound: new Subject() as Subject<DrumSounds>,
-    mainDrum: new Subject() as Subject<IMidiNoteMsg>,
-    mainMelody: new Subject() as Subject<IMidiNoteMsg>,
-    mainChords: new Subject() as Subject<IMidiNoteMsg>,
-    mainBass: new Subject() as Subject<IMidiNoteMsg>,
+    multiColor: new BehaviorSubject([]),
+    vidtMultiColor: new BehaviorSubject([]),
+    colorPalettes: new BehaviorSubject<IColor[][]>([[]]),
+    colorPalette: new BehaviorSubject<IColor[]>([]),
+    mainBeat: new Subject<number>(),
+    mainDrumSound: new Subject<DrumSounds>(),
+    mainDrum: new Subject<IMidiNoteMsg>(),
+    mainMelody: new Subject<IMidiNoteMsg>(),
+    mainChords: new Subject<IMidiNoteMsg>(),
+    mainBass: new Subject<IMidiNoteMsg>(),
     glitchIntensity: new BehaviorSubject<number>(1),
 };
 
@@ -100,6 +103,3 @@ export function nextActionFromMsg(action: Actions) {
         Actions$[action.type].next(action.payload);
     }
 }
-
-// Actions$.animationType.subscribe(log => console.log(log));
-// Actions$.prepareVidt.subscribe(log => console.log(log));

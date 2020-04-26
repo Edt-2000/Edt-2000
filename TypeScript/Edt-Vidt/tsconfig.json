@@ -31,6 +31,7 @@
         "src/**/*.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
+        "../Shared/**/*.ts",
         "tests/**/*.ts",
         "tests/**/*.tsx"
     ],
@@ -38,6 +39,6 @@
         "node_modules"
     ],
     "files": [
-        "main.ts"
+        "src/main.ts"
     ]
 }

@@ -1,6 +1,6 @@
 <div class="color-controller">
   <ul class="list list--colors">
-    <ng-container *ngFor="let colorSet of colorSets; let i = index">
+    <ng-container *ngFor="let colorSet of (colorSets$ | async); let i = index">
       <li class="list__item">
         <button (click)="socketService.sendColorPalette(colorSet)" class="trigger-button">
           SET: {{i + 1}}
