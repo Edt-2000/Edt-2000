@@ -15,4 +15,5 @@ export enum VidtPresets {
     'colorTwinkle',
     'karaoke',
     'colorBlocks',
+    'kaleido',
 }

@@ -14,6 +14,7 @@ import VistaComponent from './views/vista/vista.component.vue';
 import ColorTwinkleComponent from './views/color-twinkle/color-twinkle.component.vue';
 import KaraokeComponent from './views/karaoke/karaoke.component.vue';
 import ColorBlocksComponent from './views/color-blocks/color-blocks.component.vue';
+import KaleidoComponent from '@/views/kaleido/kaleido.component.vue';
 
 Vue.use(Router);
 
@@ -25,6 +26,7 @@ export default new Router({
         // {path: '/' + VidtPresets[VidtPresets.multicolor] || '', component: MultiColorBackgroundComponent},
         { path: '/' + VidtPresets[VidtPresets.gridscape] || '', component: GridscapeComponent },
         { path: '/' + VidtPresets[VidtPresets.hacking] || '', component: HackingComponent },
+        { path: '/' + VidtPresets[VidtPresets.kaleido] || '', component: KaleidoComponent },
         { path: '/' + VidtPresets[VidtPresets.photobouncer] || '', component: PhotoBouncerComponent },
         { path: '/' + VidtPresets[VidtPresets.photoglitcher] || '', component: PhotoGlitcherComponent },
         { path: '/' + VidtPresets[VidtPresets.textBouncer] || '', component: TextBouncerComponent },
