@@ -17,6 +17,7 @@ export enum VidtPresets {
     'colorTwinkle',
     'karaoke',
     'colorBlocks',
+    'kaleido',
 }
 
 export const vidtPresetsArr = enumToArray(VidtPresets);
