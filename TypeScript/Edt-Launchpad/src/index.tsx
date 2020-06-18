@@ -68,7 +68,7 @@ pad.connect().then(() => {
             trigger: launchpadPage.triggers[key.y] && launchpadPage.triggers[key.y][key.x],
         })),
         filter(({ trigger }) => !!trigger),
-        tap(({ key, trigger: [defaultColor, pressedColor, label, action, releaseAction] }) => {
+        tap(({ key, trigger: [defaultColor, pressedColor, label, type, action, releaseAction] }) => {
             if (key.pressed) {
                 sendToSledt(action);
             } else if (releaseAction) {

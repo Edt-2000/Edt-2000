@@ -2,18 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TriggerType } from '../../../../../Shared/actions/types';
 
 @Component({
   selector: 'app-launchpad-controller',
-  template: `
-    <div class="launchpad" *ngIf="(launchpadPage$ | async) as launchpadPage">
-      <div class="launchpad__row" *ngFor="let row of launchpadPage.triggers">
-        <div class="launchpad__item" *ngFor="let button of row" [style.backgroundColor]="button[0]">
-          <div style="background-color: black;">{{button[2]}}</div>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './launchpad-controller.component.html',
   styles: [`
     .launchpad {
       display: flex;
@@ -33,10 +26,14 @@ import { map } from 'rxjs/operators';
       border: 2px solid red;
       align-items: center;
       justify-content: center;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
     }
   `],
 })
 export class LaunchpadControllerComponent implements OnInit {
+  triggerType = TriggerType;
 
   launchpadPage$ = combineLatest([Actions$.launchpadPages, Actions$.launchpadActivePage]).pipe(
     map(([pages, pageNr]) => pages[pageNr]),

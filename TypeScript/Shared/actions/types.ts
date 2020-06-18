@@ -26,10 +26,17 @@ export interface LaunchpadPage {
     triggers: LaunchpadTrigger[][];
 }
 
+export enum TriggerType {
+    text,
+    color,
+    image,
+}
+
 export type LaunchpadTrigger = [
     'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Default
     'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Pressed
     string, // Title
+    TriggerType,
     Actions, // TriggerAction
     Actions?, // TriggerAction on release
 ];

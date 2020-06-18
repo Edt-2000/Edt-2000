@@ -1,4 +1,4 @@
-import { LaunchpadPage, LaunchpadTrigger } from '../../Shared/actions/types';
+import { LaunchpadPage, LaunchpadTrigger, TriggerType } from '../../Shared/actions/types';
 import { Actions, Actions$ } from '../../Shared/actions/actions';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,35 +13,40 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
     Actions$.colorPalettes,
     Actions$.colorPalette,
     Actions$.animationTypes,
+    Actions$.contentGroup,
 ]).pipe(
     map(([
              vidtPresets,
              colorPalettes,
              colorPalette,
              animationTypes,
+             contentGroup,
          ]) => {
         return [
             toLaunchpadPage('Vidt', [
                 vidtPresets.map(preset => {
-                    return ['yellow', 'red', preset, Actions.prepareVidt(VidtPresets[preset])];
+                    return ['yellow', 'red', preset, TriggerType.text, Actions.prepareVidt(VidtPresets[preset])];
                 }),
                 [3, 6, 9].map(intensity => {
-                    return ['green', 'red', intensity.toString(), Actions.glitchIntensity(intensity)];
+                    return ['green', 'red', intensity.toString(), TriggerType.text, Actions.glitchIntensity(intensity)];
                 }),
                 animationTypes.map(type => {
-                    return ['amber', 'red', type, Actions.animationType(AnimationTypes[type])];
+                    return ['amber', 'red', type, TriggerType.text, Actions.animationType(AnimationTypes[type])];
                 }),
-                [['red', 'green', 'BEAT', Actions.mainBeat(127)]],
+                [['red', 'green', 'BEAT', TriggerType.text, Actions.mainBeat(127)]],
+                contentGroup.images.map(image => {
+                    return ['amber', 'red', image, TriggerType.image, Actions.imageSrc(image)];
+                }),
             ]),
             toLaunchpadPage('Colors', [
                 colorPalettes.map((palette, index) => {
-                    return ['yellow', 'red', `Palette_${index}`, Actions.colorPalette(palette)];
+                    return ['yellow', 'red', `Palette_${index}`, TriggerType.text, Actions.colorPalette(palette)];
                 }),
                 colorPalette.map((color, i) => {
-                    return ['green', 'red', toColorReadable(color), Actions.singleColor(colorPalette[i]), Actions.singleColor(blackColor)];
+                    return ['green', 'red', toColorReadable(color), TriggerType.color, Actions.singleColor(colorPalette[i]), Actions.singleColor(blackColor)];
                 }),
                 colorPalette.map((color, i) => {
-                    return ['amber', 'red', toColorReadable(color), Actions.singleColor(colorPalette[i])];
+                    return ['amber', 'red', toColorReadable(color), TriggerType.color, Actions.singleColor(colorPalette[i])];
                 }),
             ]),
         ];
