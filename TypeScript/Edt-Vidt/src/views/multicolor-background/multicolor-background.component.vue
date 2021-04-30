@@ -9,22 +9,31 @@
     import { Actions$ } from '../../../../Shared/actions/actions';
     import { ColorHelper } from '../../../../Shared/colors/converters';
     import { IColor } from '../../../../Shared/colors/types';
+    import { takeUntil } from 'rxjs/operators';
+    import { Subject } from 'rxjs';
 
     @Component
     export default class MultiColorBackgroundComponent extends Vue {
-        public multiColorSubscription: any;
-
         public styles: Object = {};
 
+        private onDestroyed: Subject<any> = new Subject();
+
         mounted() {
-            this.multiColorSubscription = Actions$.vidtMultiColor.subscribe(
-                (colors: IColor[]) => {
-                    this.setStyles(colors);
-                },
-            );
+            Actions$.vidtSingleColor
+                .pipe(takeUntil(this.onDestroyed))
+                .subscribe((color: IColor) => {
+                    this.setColors([color, ColorHelper.getContraColor(color)]);
+                });
+
+            Actions$.vidtMultiColor
+                .pipe(takeUntil(this.onDestroyed))
+                .subscribe((colors: IColor[]) => {
+                    this.setColors(colors);
+
+                });
         }
 
-        setStyles(colors: IColor[]) {
+        setColors(colors: IColor[]) {
             const bcgColor = ColorHelper.getRGBString(colors);
             this.styles = {
                 background: `${bcgColor}`,
@@ -32,9 +41,8 @@
         }
 
         destroyed() {
-            if (typeof this.multiColorSubscription !== 'undefined') {
-                this.multiColorSubscription.unsubscribe();
-            }
+            this.onDestroyed.next();
+            this.onDestroyed.complete();
         }
     }
 </script>

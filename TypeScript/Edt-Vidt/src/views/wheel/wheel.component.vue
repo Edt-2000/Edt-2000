@@ -1,5 +1,5 @@
 <template>
-    <div class="page" :style="{ '--first-color': firstColor, '--second-color': secondColor }">
+    <div class="page" v-bind:style="{ '--first-color': firstColor, '--second-color': secondColor }">
         <div class="wheel">
             <div class="wheel__circle">
                 <div class="wheel__inner">
