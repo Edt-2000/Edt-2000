@@ -53,6 +53,20 @@
     &__back {
         transform: rotateY(180deg);
     }
+
+    &--circle{
+        #{ $self }__front,
+        #{ $self }__back {
+            border-radius: 50%;
+        }
+    }
+
+    &--small {
+        #{ $self }__item {
+            height: calc((100vh - 20px) / 6);
+            width: calc((100vh - 20px) / 6);
+        }
+    }
 }
 
 @keyframes block-flip {

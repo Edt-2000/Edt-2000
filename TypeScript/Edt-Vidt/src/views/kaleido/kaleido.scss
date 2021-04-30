@@ -3,6 +3,7 @@ $π: $pi;
 $e: 2.71828182845904523536028747135266249775724709369995;
 
 $iter: 50;
+
 @function exponent($base, $exponent) {
     // reset value
     $value: $base;
@@ -108,9 +109,9 @@ body {
 }
 
 .kaleido {
+    --animation-time: 4s;
     position: relative;
     display: inline-block;
-    max-width: $width * 1px;
     width: 100%;
     margin: 0 auto;
 
@@ -127,14 +128,14 @@ body {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0);
-        animation: kaleido 4s linear infinite;
+        animation: kaleido var(--animation-time) linear infinite;
 
         .hex__sub {
             border-color: red;
         }
 
         &--1 {
-            animation-delay: 0.5s;
+            animation-delay: calc(var(--animation-time) * .125);
 
             .hex__sub {
                 border-color: red;
@@ -142,7 +143,7 @@ body {
         }
 
         &--2 {
-            animation-delay: 1s;
+            animation-delay: calc(var(--animation-time) * .25);
 
             .hex__sub {
                 border-color: orange;
@@ -150,7 +151,7 @@ body {
         }
 
         &--3 {
-            animation-delay: 1.5s;
+            animation-delay: calc(var(--animation-time) * .375);
 
             .hex__sub {
                 border-color: yellow;
@@ -158,7 +159,7 @@ body {
         }
 
         &--4 {
-            animation-delay: 2s;
+            animation-delay: calc(var(--animation-time) * .5);
 
             .hex__sub {
                 border-color: #16DE00;
@@ -166,7 +167,7 @@ body {
         }
 
         &--5 {
-            animation-delay: 2.5s;
+            animation-delay: calc(var(--animation-time) * .625);
 
             .hex__sub {
                 border-color: #0F7D02;
@@ -174,7 +175,7 @@ body {
         }
 
         &--6 {
-            animation-delay: 3s;
+            animation-delay: calc(var(--animation-time) * .75);
 
             .hex__sub {
                 border-color: #00D9BF;
@@ -182,7 +183,7 @@ body {
         }
 
         &--7 {
-            animation-delay: 3.5s;
+            animation-delay: calc(var(--animation-time) * .875);
 
             .hex__sub {
                 border-color: #004DD1;
@@ -190,7 +191,7 @@ body {
         }
 
         &--8 {
-            animation-delay: 4s;
+            animation-delay: calc(var(--animation-time));
 
             .hex__sub {
                 border-color: #E302E3;

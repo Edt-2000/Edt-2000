@@ -1,5 +1,5 @@
 <template>
-    <div class="color-blocks">
+    <div class="color-blocks" v-bind:class="[sizeClass, shapeClass]">
         <ul class="color-blocks__list">
             <li class="color-blocks__item" v-for="block in blocks">
                 <div class="color-blocks__block">
@@ -12,39 +12,72 @@
 </template>
 
 <script lang="ts">
-    import './color-blocks.scss';
-    import Vue from 'vue';
-    import { Component } from 'vue-property-decorator';
-    import { ColorHelper } from '../../../../Shared/colors/converters';
-    import { Actions$ } from '../../../../Shared/actions/actions';
-    import { IColor } from '../../../../Shared/colors/types';
+import './color-blocks.scss';
+import Vue from 'vue';
+import { Component, Watch } from 'vue-property-decorator';
+import { ColorHelper } from '../../../../Shared/colors/converters';
+import { Actions$ } from '../../../../Shared/actions/actions';
+import { IColor } from '../../../../Shared/colors/types';
+import { Sizes } from '../../../../Shared/vidt/sizes';
+import { Shapes } from '../../../../Shared/vidt/shapes';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-    @Component
+@Component
     export default class ColorBlocksComponent extends Vue {
-        public singleColorSubscription: any;
-        public multiColorSubscription: any;
+        public sizeClass: string = '';
+        public shapeClass: string = '';
+
+        public size: Sizes = Sizes.normal;
+        public shape: Shapes = Shapes.square;
         public blocks: number[] = Array(50).map((x, i) => i + 1);
 
         public frontColor: string = '#ff0000';
         public backColor: string = '#00ff00';
 
-        mounted() {
-            this.singleColorSubscription = Actions$.vidtSingleColor.subscribe(
-                (color: IColor) => {
-                    this.setColors(color, ColorHelper.getContraColor(color));
-                },
-            );
+        private onDestroyed: Subject<any> = new Subject();
 
-            this.multiColorSubscription = Actions$.vidtMultiColor.subscribe(
-                (colors: IColor[]) => {
+        @Watch('size', { immediate: true })
+        public setCssSizeClass() {
+            this.sizeClass = 'color-blocks--' + this.size;
+            const amount = this.size === 'small' ? 75 : 50;
+            this.blocks = Array(amount).map((x, i) => i + 1);
+        }
+
+        @Watch('shape', { immediate: true })
+        public setCssTypeClass() {
+            this.shapeClass = 'color-blocks--' + this.shape;
+        }
+
+        mounted() {
+            Actions$.shape
+                .pipe(takeUntil(this.onDestroyed))
+                .subscribe((shape: Shapes) => {
+                    this.shape = shape;
+                })
+
+             Actions$.size
+                .pipe(takeUntil(this.onDestroyed))
+                .subscribe((size: Sizes) => {
+                    this.size = size;
+                })
+
+            Actions$.vidtSingleColor
+                .pipe(takeUntil(this.onDestroyed))
+                .subscribe((color: IColor) => {
+                    this.setColors(color, ColorHelper.getContraColor(color));
+                });
+
+            Actions$.vidtMultiColor
+                .pipe(takeUntil(this.onDestroyed))
+                .subscribe((colors: IColor[]) => {
                     if (colors.length > 1) {
                         this.setColors(colors[0], colors[colors.length]);
                     } else {
                         this.setColors(colors[0], ColorHelper.getContraColor(colors[0]));
 
                     }
-                },
-            );
+                });
         }
 
         setColors(front: IColor, back: IColor) {
@@ -53,13 +86,8 @@
         }
 
         destroyed() {
-            if (typeof this.singleColorSubscription !== 'undefined') {
-                this.singleColorSubscription.unsubscribe();
-            }
-
-            if (typeof this.multiColorSubscription !== 'undefined') {
-                this.multiColorSubscription.unsubscribe();
-            }
+            this.onDestroyed.next();
+            this.onDestroyed.complete();
         }
     }
 </script>

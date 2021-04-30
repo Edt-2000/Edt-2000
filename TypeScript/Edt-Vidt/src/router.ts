@@ -15,27 +15,29 @@ import ColorTwinkleComponent from './views/color-twinkle/color-twinkle.component
 import KaraokeComponent from './views/karaoke/karaoke.component.vue';
 import ColorBlocksComponent from './views/color-blocks/color-blocks.component.vue';
 import KaleidoComponent from '@/views/kaleido/kaleido.component.vue';
+import WheelComponent from '@/views/wheel/wheel.component.vue';
 
 Vue.use(Router);
 
 export default new Router({
     routes: [
-        { path: '/' + VidtPresets[VidtPresets.logo] || '', component: LogoComponent },
-        { path: '/' + VidtPresets[VidtPresets.bluescreen] || '', component: BluescreenComponent },
-        { path: '/' + VidtPresets[VidtPresets.color] || '', component: ColorBackgroundComponent },
         // {path: '/' + VidtPresets[VidtPresets.multicolor] || '', component: MultiColorBackgroundComponent},
+        // {path: '/' + VidtPresets[VidtPresets.video] || '', component: VideoPlayerComponent},
+        { path: '*', redirect: '/' + VidtPresets[VidtPresets.logo] || '' },
+        { path: '/' + VidtPresets[VidtPresets.bluescreen] || '', component: BluescreenComponent },
+        { path: '/' + VidtPresets[VidtPresets.colorBlocks] || '', component: ColorBlocksComponent },
+        { path: '/' + VidtPresets[VidtPresets.colorTwinkle] || '', component: ColorTwinkleComponent },
+        { path: '/' + VidtPresets[VidtPresets.color] || '', component: ColorBackgroundComponent },
         { path: '/' + VidtPresets[VidtPresets.gridscape] || '', component: GridscapeComponent },
         { path: '/' + VidtPresets[VidtPresets.hacking] || '', component: HackingComponent },
         { path: '/' + VidtPresets[VidtPresets.kaleido] || '', component: KaleidoComponent },
+        { path: '/' + VidtPresets[VidtPresets.karaoke] || '', component: KaraokeComponent },
+        { path: '/' + VidtPresets[VidtPresets.logo] || '', component: LogoComponent },
         { path: '/' + VidtPresets[VidtPresets.photobouncer] || '', component: PhotoBouncerComponent },
         { path: '/' + VidtPresets[VidtPresets.photoglitcher] || '', component: PhotoGlitcherComponent },
-        { path: '/' + VidtPresets[VidtPresets.textBouncer] || '', component: TextBouncerComponent },
         { path: '/' + VidtPresets[VidtPresets.shutdown] || '', component: ShutdownComponent },
-        // {path: '/' + VidtPresets[VidtPresets.video] || '', component: VideoPlayerComponent},
+        { path: '/' + VidtPresets[VidtPresets.textBouncer] || '', component: TextBouncerComponent },
         { path: '/' + VidtPresets[VidtPresets.vista] || '', component: VistaComponent },
-        { path: '/' + VidtPresets[VidtPresets.colorTwinkle] || '', component: ColorTwinkleComponent },
-        { path: '/' + VidtPresets[VidtPresets.karaoke] || '', component: KaraokeComponent },
-        { path: '/' + VidtPresets[VidtPresets.colorBlocks] || '', component: ColorBlocksComponent },
-        { path: '*', redirect: '/' + VidtPresets[VidtPresets.logo] || '' },
+        { path: '/' + VidtPresets[VidtPresets.wheel] || '', component: WheelComponent },
     ],
 });

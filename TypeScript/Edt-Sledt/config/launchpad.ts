@@ -1,4 +1,4 @@
-import { LaunchpadPage, LaunchpadTrigger, TriggerType } from '../../Shared/actions/types';
+import { LaunchPadButton, LaunchpadPage, LaunchpadTrigger, TriggerType } from '../../Shared/actions/types';
 import { Actions, Actions$ } from '../../Shared/actions/actions';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -25,28 +25,28 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
         return [
             toLaunchpadPage('Vidt', [
                 vidtPresets.map(preset => {
-                    return ['yellow', 'red', preset, TriggerType.text, Actions.prepareVidt(VidtPresets[preset])];
+                    return [LaunchPadButton.yellow, LaunchPadButton.red, preset, TriggerType.text, Actions.prepareVidt(VidtPresets[preset])];
                 }),
                 [3, 6, 9].map(intensity => {
-                    return ['green', 'red', intensity.toString(), TriggerType.text, Actions.glitchIntensity(intensity)];
+                    return [LaunchPadButton.green, LaunchPadButton.red, intensity.toString(), TriggerType.text, Actions.glitchIntensity(intensity)];
                 }),
                 animationTypes.map(type => {
-                    return ['amber', 'red', type, TriggerType.text, Actions.animationType(AnimationTypes[type])];
+                    return [LaunchPadButton.amber, LaunchPadButton.red, type, TriggerType.text, Actions.animationType(AnimationTypes[type])];
                 }),
-                [['red', 'green', 'BEAT', TriggerType.text, Actions.mainBeat(127)]],
+                [[LaunchPadButton.red, LaunchPadButton.green, 'BEAT', TriggerType.text, Actions.mainBeat(127)]],
                 contentGroup.images.map(image => {
-                    return ['amber', 'red', image, TriggerType.image, Actions.imageSrc(image)];
+                    return [LaunchPadButton.amber, LaunchPadButton.red, image, TriggerType.image, Actions.imageSrc(image)];
                 }),
             ]),
             toLaunchpadPage('Colors', [
                 colorPalettes.map((palette, index) => {
-                    return ['yellow', 'red', `Palette_${index}`, TriggerType.text, Actions.colorPalette(palette)];
+                    return [LaunchPadButton.yellow, LaunchPadButton.red, `Palette_${index}`, TriggerType.text, Actions.colorPalette(palette)];
                 }),
                 colorPalette.map((color, i) => {
-                    return ['green', 'red', toColorReadable(color), TriggerType.color, Actions.singleColor(colorPalette[i]), Actions.singleColor(blackColor)];
+                    return [LaunchPadButton.green, LaunchPadButton.red, toColorReadable(color), TriggerType.color, Actions.singleColor(colorPalette[i]), Actions.singleColor(blackColor)];
                 }),
                 colorPalette.map((color, i) => {
-                    return ['amber', 'red', toColorReadable(color), TriggerType.color, Actions.singleColor(colorPalette[i])];
+                    return [LaunchPadButton.amber, LaunchPadButton.red, toColorReadable(color), TriggerType.color, Actions.singleColor(colorPalette[i])];
                 }),
             ]),
         ];
@@ -54,7 +54,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
 );
 
 function toLaunchpadPage(title: string, rows: LaunchpadTrigger[][]): LaunchpadPage {
-    return { title, triggers: rows.map(row => [...chunk(row, 8)]).flat() };
+    return { title: title, triggers: rows.map(row => [...chunk(row, 8)]).flat() };
 }
 
 function chunk(arr, n) {
