@@ -84,7 +84,7 @@
                 Actions$.glitchIntensity,
             ]).subscribe(([beat, intensity]) => {
                 this.styles = {
-                    '--animation-time': `${intensity}s`,
+                    '--animation-time': `${intensity * 4}s`,
                 };
             });
         }
