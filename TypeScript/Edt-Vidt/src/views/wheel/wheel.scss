@@ -1,0 +1,110 @@
+:root {
+    --first-color: #ff179a;
+    --second-color: #ffff05;
+}
+
+body {
+    background: #000;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.page {
+    align-items: center;
+    background: #000;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    margin: 0;
+}
+
+$border-width: 30px;
+
+@keyframes rotate-wheel {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg)
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg)
+    }
+}
+
+@mixin cover {
+    position: absolute;
+    left: -$border-width;
+    right: -$border-width;
+    top: 50%;
+    width: calc(100% + (#{$border-width} * 2) + 2px);
+    padding-bottom: 30px;
+    content: '';
+    background: #000;
+}
+
+.wheel {
+    position: relative;
+    width: 90vh;
+
+    &:before {
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+        width: 100%;
+    }
+
+    &__circle {
+        $animation-base: 6s;
+        animation: rotate-wheel $animation-base linear infinite;
+        border: $border-width solid var(--first-color);
+        border-radius: 50%;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transform-origin: center center;
+        width: 100%;
+
+        @for $i from 1 through 4 {
+            &:nth-child(#{$i + 1}) {
+                width: 100% - ($i  * 20%);
+
+                @if $i % 2 == 1 {
+                    animation-direction: reverse;
+                    border-color: var(--second-color);
+                }
+            }
+        }
+
+        &:before,
+        &:after {
+            @include cover;
+        }
+
+        &:before {
+            transform: translateY(-50%);
+        }
+
+        &:after {
+            transform: translateY(-50%) rotate(90deg);
+        }
+    }
+
+    &__inner {
+        padding-bottom: 100%;
+
+        &:before,
+        &:after {
+            @include cover;
+        }
+
+        &:before {
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        &:after {
+            transform: translateY(-50%) rotate(-45deg);
+        }
+    }
+}
