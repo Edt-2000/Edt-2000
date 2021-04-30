@@ -3,7 +3,7 @@ export enum VidtPresets {
     'logo',
     'bluescreen',
     'color',
-    // 'multicolor',
+    'multicolor',
     'gridscape',
     'hacking',
     'photobouncer',
@@ -15,6 +15,7 @@ export enum VidtPresets {
     'colorTwinkle',
     'karaoke',
     'colorBlocks',
+    'colorGlitch',
     'kaleido',
     'wheel',
 }
