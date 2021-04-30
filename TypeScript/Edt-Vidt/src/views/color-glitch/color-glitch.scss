@@ -24,31 +24,31 @@
 @keyframes move-bcg {
     0% {
         background-position: 0 50%;
-        transform: rotate(0deg);
+        transform: rotate(0deg) skewX(0deg);
     }
 
     10% {
         background-position: 0 45%;
-        transform: rotate(10deg);
+        transform: rotate(10deg) skewX(10deg);
     }
 
     30% {
         background-position: 0 30%;
-        transform: rotate(40deg);
+        transform: rotate(40deg) skewX(5deg);
     }
 
     50% {
         background-position: 100% 50%;
-        transform: rotate(40deg);
+        transform: rotate(40deg) skewX(-10deg);
     }
 
     70% {
         background-position: 90% 50%;
-        transform: rotate(20deg);
+        transform: rotate(20deg) skewX(5deg);
     }
 
     100% {
         background-position: 0 50%;
-        transform: rotate(0deg);
+        transform: rotate(0deg) skewX(0deg);
     }
 }
