@@ -50,4 +50,4 @@ nextActionFromMsg(Actions.colorPalette(colorSets[0]));
 nextActionFromMsg(Actions.colorPalettes(colorSets));
 
 // The launchpad pages are dependent on many changing variables so it's build as an observable
-// launchpadPages$.subscribe(pages => nextActionFromMsg(Actions.launchpadPages(pages)));
+launchpadPages$.subscribe(pages => nextActionFromMsg(Actions.launchpadPages(pages)));
