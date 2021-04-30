@@ -7,6 +7,8 @@ import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg, LaunchpadPage } from
 import { IColor } from '../colors/types';
 import { DrumSounds } from '../../Edt-Sledt/config/config';
 import { AnimationTypes } from '../vidt/animation';
+import { Sizes } from '../vidt/sizes';
+import { Shapes } from '../vidt/shapes';
 
 // TODO: make Actions into a single observable object
 export const Actions = {
@@ -29,6 +31,8 @@ export const Actions = {
     // Effects
     animationTypes: (payload: string[]) => createAction('animationTypes', payload),
     animationType: (payload: AnimationTypes) => createAction('animationType', payload),
+    shape: (payload: Shapes) => createAction('shape', payload),
+    size: (payload: Sizes) => createAction('size', payload),
 
     // Subjects
     singleColor: (payload: IColor) => createAction('singleColor', payload),
@@ -81,6 +85,9 @@ export const Actions$ = {
 
     animationTypes: new BehaviorSubject<string[]>([]),
     animationType: new BehaviorSubject<AnimationTypes>(AnimationTypes.bounce),
+
+    shape: new BehaviorSubject<Shapes>(Shapes.square),
+    size: new BehaviorSubject<Sizes>(Sizes.normal),
 
     singleColor: new BehaviorSubject(blackColor),
     vidtSingleColor: new BehaviorSubject(blackColor),

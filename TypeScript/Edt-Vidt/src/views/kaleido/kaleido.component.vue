@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <div class="kaleido">
+        <div class="kaleido" v-bind:style="styles">
             <div class="kaleido__inner">
                 <div class="hex hex--1">
                     <div class="hex__inner">
@@ -67,13 +67,26 @@
     import './kaleido.scss';
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
+    import { combineLatest } from 'rxjs';
+    import { Actions$ } from '../../../../Shared/actions/actions';
+    import { startWith } from 'rxjs/operators';
 
     @Component
 
     export default class KaleidoComponent extends Vue {
+        public subscription: any;
+        public styles: Object = {};
 
         mounted() {
-
+            this.subscription = combineLatest([
+                // As MainBeat is 'hot' we need startWith to kick off conmbineLatest
+                Actions$.mainBeat.pipe(startWith(0)),
+                Actions$.glitchIntensity,
+            ]).subscribe(([beat, intensity]) => {
+                this.styles = {
+                    '--animation-time': `${intensity}s`,
+                };
+            });
         }
 
 

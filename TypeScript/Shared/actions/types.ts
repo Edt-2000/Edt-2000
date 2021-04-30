@@ -32,9 +32,17 @@ export enum TriggerType {
     image,
 }
 
+export enum LaunchPadButton {
+    red = 'red',
+    green = 'green',
+    amber = 'amber',
+    yellow = 'yellow',
+    off = 'off'
+}
+
 export type LaunchpadTrigger = [
-    'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Default
-    'red' | 'green' | 'amber' | 'yellow' | 'off', // Button Pressed
+    LaunchPadButton, // Button Default
+    LaunchPadButton, // Button Pressed
     string, // Title
     TriggerType,
     Actions, // TriggerAction
