@@ -4,7 +4,7 @@ import { VidtPresets } from '../../Shared/vidt-presets';
 import BluescreenComponent from './views/bluescreen/bluescreen.component.vue';
 import ColorBackgroundComponent from './views/color-background/color-background.component.vue';
 import ColorBlocksComponent from './views/color-blocks/color-blocks.component.vue';
-import ColorGlitchComponent from '@/views/color-glitch/color-glitch.vue';
+import ColorGlitchComponent from '@/views/color-glitch/color-glitch.component.vue';
 import ColorTwinkleComponent from './views/color-twinkle/color-twinkle.component.vue';
 import GridscapeComponent from './views/gridscape/gridscape.component.vue';
 import HackingComponent from './views/hacking/hacking.component.vue';

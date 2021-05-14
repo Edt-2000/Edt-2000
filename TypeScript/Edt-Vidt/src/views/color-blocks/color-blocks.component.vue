@@ -1,4 +1,5 @@
 <template>
+    <!-- TODO: Css variables -->
     <div class="color-blocks" v-bind:class="[sizeClass, shapeClass]">
         <ul class="color-blocks__list">
             <li class="color-blocks__item" v-for="block in blocks">
@@ -73,7 +74,7 @@ import { takeUntil } from 'rxjs/operators';
                 .subscribe((colors: IColor[]) => {
                     if (colors.length > 1) {
                         this.setColors(colors[0], colors[colors.length]);
-                    } else {
+                    } else if (colors.length == 0) {
                         this.setColors(colors[0], ColorHelper.getContraColor(colors[0]));
 
                     }
