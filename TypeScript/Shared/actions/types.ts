@@ -37,7 +37,7 @@ export enum LaunchPadButton {
     green = 'green',
     amber = 'amber',
     yellow = 'yellow',
-    off = 'off'
+    off = 'off',
 }
 
 export type LaunchpadTrigger = [

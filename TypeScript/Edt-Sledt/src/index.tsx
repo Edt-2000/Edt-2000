@@ -15,6 +15,8 @@ import { AnimationTypes } from '../../Shared/vidt/animation';
 import { VidtPresets } from '../../Shared/vidt-presets';
 import { launchpadPages$ } from '../config/launchpad';
 import { colorSets } from '../config/colors';
+import { Sizes } from '../../Shared/vidt/sizes';
+import { Shapes } from '../../Shared/vidt/shapes';
 
 // https://github.com/vadimdemedes/ink
 render(<EdtConsole/>);
