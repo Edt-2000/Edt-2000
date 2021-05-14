@@ -32,7 +32,9 @@ export const Actions = {
     animationTypes: (payload: string[]) => createAction('animationTypes', payload),
     animationType: (payload: AnimationTypes) => createAction('animationType', payload),
     shape: (payload: Shapes) => createAction('shape', payload),
+    shapes: (payload: string[]) => createAction('shapes', payload),
     size: (payload: Sizes) => createAction('size', payload),
+    sizes: (payload: string[]) => createAction('sizes', payload),
 
     // Subjects
     singleColor: (payload: IColor) => createAction('singleColor', payload),
@@ -87,7 +89,10 @@ export const Actions$ = {
     animationType: new BehaviorSubject<AnimationTypes>(AnimationTypes.bounce),
 
     shape: new BehaviorSubject<Shapes>(Shapes.square),
+    shapes: new BehaviorSubject<string[]>([]),
+
     size: new BehaviorSubject<Sizes>(Sizes.normal),
+    sizes: new BehaviorSubject<string[]>([]),
 
     singleColor: new BehaviorSubject(blackColor),
     vidtSingleColor: new BehaviorSubject(blackColor),
