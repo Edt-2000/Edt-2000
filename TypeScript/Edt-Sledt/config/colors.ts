@@ -21,7 +21,9 @@ export const colorSets: IColor[][] = [
         Colors.Turquoise,
         Colors.Blue,
         Colors.Pink,
+        Colors.Purple,
     ].map(createFullColor), whiteColor, blackColor],
+
     [Colors.Red, Colors.Blue].map(createFullColor),
     [Colors.Turquoise, Colors.Red].map(createFullColor),
     [Colors.Yellow, Colors.Orange, Colors.Red].map(createFullColor),

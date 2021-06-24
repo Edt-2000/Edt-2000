@@ -43,7 +43,7 @@
                     };
                 });
 
-            Actions$.multiColor
+            Actions$.colorPalette
                 .pipe(
                     takeUntil(this.onDestroyed),
                     filter(colors => !!colors && colors.length > 0)
@@ -53,13 +53,15 @@
         }
 
         setColors(colors: IColor[]) {
+            let colorIndex = 0;
+
             for (let i = 1; i <= 8; i++) {
-                let colorIndex = 0;
-                const color = `rgb(${ ColorHelper.hsv2rgb(colors[colorIndex]).join(', ')}`
+                const color = `rgb(${ ColorHelper.hsv2rgb(colors[colorIndex]).join(', ')}`;
                 document.documentElement.style.setProperty(`--kaleido-${ i }`, `${ color }`);
 
                 colorIndex ++;
-                if (colorIndex > colors.length) {
+
+                if (colorIndex == colors.length) {
                     colorIndex = 0;
                 }
             }
