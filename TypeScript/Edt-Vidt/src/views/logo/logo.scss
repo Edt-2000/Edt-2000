@@ -15,8 +15,9 @@
     }
 
     &__star {
-        color: transparentize(#fff, 0.3);
+        color: transparentize(#fff, 0.2);
         font-family: 'KlartextMono-Light', monospace;
+        font-size: 1.5rem;
         position: absolute;
         z-index: 1;
 

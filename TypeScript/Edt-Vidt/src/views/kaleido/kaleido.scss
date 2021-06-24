@@ -44,6 +44,18 @@ $a2: $c2 - $b2;
 $a: sqrt($a2);
 $apercentage: (($a * 100) / $width) * 1%;
 
+:root {
+    --animation-kaleido-time: 4s;
+    --kaleido-1: #FF0000;
+    --kaleido-2: #FFA500;
+    --kaleido-3: #FFFF00;
+    --kaleido-4: #16DE00;
+    --kaleido-5: #0F7D02;
+    --kaleido-6: #00D9BF;
+    --kaleido-7: #004DD1;
+    --kaleido-8: #E302E3;
+}
+
 body {
     background: #000;
     text-align: center;
@@ -85,9 +97,6 @@ body {
         border-left: 10px solid #FFF;
         border-right: 10px solid #FFF;
 
-        &--1 {
-        }
-
         &--2 {
             transform: rotate(60deg);
         }
@@ -109,7 +118,6 @@ body {
 }
 
 .kaleido {
-    --animation-time: 4s;
     position: relative;
     display: inline-block;
     width: 100%;
@@ -128,73 +136,22 @@ body {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0);
-        animation: kaleido var(--animation-time) linear infinite;
+        animation: kaleido var(--animation-kaleido-time) linear infinite;
 
         .hex__sub {
             border-color: red;
         }
 
-        &--1 {
-            animation-delay: calc(var(--animation-time) * .125);
 
-            .hex__sub {
-                border-color: red;
-            }
-        }
+        @for $i from 1 through 8 {
+            $duration: 0.125 * $i;
 
-        &--2 {
-            animation-delay: calc(var(--animation-time) * .25);
+            &--#{$i} {
+                animation-delay: calc(var(--animation-kaleido-time) * #{ $duration });
 
-            .hex__sub {
-                border-color: orange;
-            }
-        }
-
-        &--3 {
-            animation-delay: calc(var(--animation-time) * .375);
-
-            .hex__sub {
-                border-color: yellow;
-            }
-        }
-
-        &--4 {
-            animation-delay: calc(var(--animation-time) * .5);
-
-            .hex__sub {
-                border-color: #16DE00;
-            }
-        }
-
-        &--5 {
-            animation-delay: calc(var(--animation-time) * .625);
-
-            .hex__sub {
-                border-color: #0F7D02;
-            }
-        }
-
-        &--6 {
-            animation-delay: calc(var(--animation-time) * .75);
-
-            .hex__sub {
-                border-color: #00D9BF;
-            }
-        }
-
-        &--7 {
-            animation-delay: calc(var(--animation-time) * .875);
-
-            .hex__sub {
-                border-color: #004DD1;
-            }
-        }
-
-        &--8 {
-            animation-delay: calc(var(--animation-time));
-
-            .hex__sub {
-                border-color: #E302E3;
+                .hex__sub {
+                    border-color: var(--kaleido-#{ $i });
+                }
             }
         }
     }

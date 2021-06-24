@@ -19,6 +19,7 @@ export default class ColorGlitchComponent extends Vue {
     public secondColor: string = '#16de00';
 
     private onDestroyed: Subject<any> = new Subject();
+
     mounted() {
         Actions$.vidtSingleColor
             .pipe(takeUntil(this.onDestroyed))
