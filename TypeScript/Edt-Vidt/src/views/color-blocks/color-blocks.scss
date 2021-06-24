@@ -18,9 +18,9 @@
 
     &__item {
         flex: 0 0 auto;
-        height: var(--size);
+        height: 25vh;
         padding: 1.5vh;
-        width: var(--size);
+        width: 25vh;
 
         @for $i from 1 through 200 {
             $delay: ((random(11) - 1) / 10) * 1s;
@@ -67,8 +67,8 @@
 
     &--small {
         #{ $self }__item {
-            height: 100vh / 6;
-            width: 100vh / 6;
+            height: 100 / 6 * 1vh;
+            width: 100 / 6 * 1vh;
         }
     }
 }

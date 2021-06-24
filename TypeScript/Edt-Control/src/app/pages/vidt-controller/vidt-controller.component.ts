@@ -12,6 +12,8 @@ export class VidtControllerComponent implements OnInit {
   contentGroup$ = Actions$.contentGroup;
   animations$ = Actions$.animationTypes;
   vidtPresets$ = Actions$.vidtPresets;
+  sizes$ = Actions$.sizes;
+  shapes$ = Actions$.shapes;
 
   glitchIntensities = [
     { label: 'low', value: 1 },

@@ -27,6 +27,8 @@ vidtSocket$.subscribe(socket => {
         Actions$.mainBeat.pipe(map(Actions.mainBeat)),
         Actions$.vidtSingleColor.pipe(map(Actions.vidtSingleColor)),
         Actions$.glitchIntensity.pipe(map(Actions.glitchIntensity)),
+        Actions$.shape.pipe(map(Actions.shape)),
+        Actions$.size.pipe(map(Actions.size)),
     ).pipe(
         takeUntil(disconnected$),
     ).subscribe(msg => socket.emit('toVidt', msg));
