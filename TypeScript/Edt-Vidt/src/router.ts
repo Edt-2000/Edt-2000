@@ -9,6 +9,7 @@ import ColorTwinkleComponent from './views/color-twinkle/color-twinkle.component
 import GridscapeComponent from './views/gridscape/gridscape.component.vue';
 import HackingComponent from './views/hacking/hacking.component.vue';
 import KaleidoComponent from '@/views/kaleido/kaleido.component.vue';
+import KaleidoMultiComponent from '@/views/kaleido-multi/kaleido-multi.component.vue';
 import KaraokeComponent from './views/karaoke/karaoke.component.vue';
 import LogoComponent from './views/logo/logo.component.vue';
 import PhotoBouncerComponent from './views/photo-bouncer/photo-bouncer.component.vue';
@@ -33,6 +34,7 @@ export default new Router({
         { path: '/' + VidtPresets[VidtPresets.gridscape] || '', component: GridscapeComponent },
         { path: '/' + VidtPresets[VidtPresets.hacking] || '', component: HackingComponent },
         { path: '/' + VidtPresets[VidtPresets.kaleido] || '', component: KaleidoComponent },
+        { path: '/' + VidtPresets[VidtPresets.kaleidoMulti] || '', component: KaleidoMultiComponent },
         { path: '/' + VidtPresets[VidtPresets.karaoke] || '', component: KaraokeComponent },
         { path: '/' + VidtPresets[VidtPresets.logo] || '', component: LogoComponent },
         { path: '/' + VidtPresets[VidtPresets.multicolor] || '', component: MultiColorBackgroundComponent },

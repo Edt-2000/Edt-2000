@@ -108,7 +108,7 @@ body {
 }
 
 .kaleido {
-    --animation-time: 4s;
+    --kaleido-time: 4s;
     position: relative;
     display: inline-block;
     width: 100%;
@@ -127,7 +127,7 @@ body {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0);
-        animation: kaleido var(--animation-time) linear infinite;
+        animation: kaleido var(--kaleido-time) linear infinite;
 
         .hex__sub {
             border-color: red;
