@@ -1,5 +1,4 @@
 import { IColor } from '../../Shared/colors/types';
-import { blackColor, whiteColor } from '../../Shared/colors/utils';
 
 export enum Colors {
     Red = 0,
@@ -22,13 +21,30 @@ export const colorSets: IColor[][] = [
         Colors.Blue,
         Colors.Pink,
         Colors.Purple,
-    ].map(createFullColor), whiteColor, blackColor],
-
-    [Colors.Red, Colors.Blue].map(createFullColor),
-    [Colors.Turquoise, Colors.Red].map(createFullColor),
-    [Colors.Yellow, Colors.Orange, Colors.Red].map(createFullColor),
-    [Colors.Yellow, Colors.Green, Colors.Pink].map(createFullColor),
-    [Colors.Green, Colors.Pink].map(createFullColor),
+    ].map(createFullColor)],
+    [...[
+        Colors.Red,
+        Colors.Orange,
+        Colors.Green,
+        Colors.Pink,
+    ].map(createFullColor)],
+    [...[
+        Colors.Orange,
+        Colors.Green,
+        Colors.Blue,
+    ].map(createFullColor)],
+    [...[
+        Colors.Red,
+        Colors.Blue,
+        Colors.Orange,
+        Colors.Pink,
+        Colors.Purple,
+    ].map(createFullColor)],
+    [...[
+        Colors.Turquoise,
+        Colors.Pink,
+        Colors.Blue,
+    ].map(createFullColor)],
 ];
 
 function createFullColor(h: number): IColor {

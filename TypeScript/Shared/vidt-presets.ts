@@ -17,5 +17,6 @@ export enum VidtPresets {
     'colorBlocks',
     'colorGlitch',
     'kaleido',
+    'kaleidoMulti',
     'wheel',
 }
