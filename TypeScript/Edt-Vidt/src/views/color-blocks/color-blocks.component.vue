@@ -1,11 +1,14 @@
 <template>
     <!-- TODO: Css variables -->
-    <div class="color-blocks" v-bind:class="[sizeClass, shapeClass]">
+    <div class="color-blocks"
+         v-bind:class="[sizeClass, shapeClass]"
+         v-bind:style="{ '--front-color': frontColor, '--back-color': backColor }"
+    >
         <ul class="color-blocks__list">
             <li class="color-blocks__item" v-for="block in blocks">
                 <div class="color-blocks__block">
-                    <div class="color-blocks__front" v-bind:style="{ backgroundColor: frontColor }"></div>
-                    <div class="color-blocks__back" v-bind:style="{ backgroundColor: backColor }"></div>
+                    <div class="color-blocks__front"></div>
+                    <div class="color-blocks__back"></div>
                 </div>
             </li>
         </ul>
