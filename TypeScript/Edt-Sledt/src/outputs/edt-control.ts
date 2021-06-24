@@ -25,6 +25,9 @@ controlSocket$.subscribe(socket => {
         Actions$.colorPalettes.pipe(map(Actions.colorPalettes)),
         Actions$.contentGroups.pipe(map(Actions.contentGroups)),
         Actions$.contentGroup.pipe(map(Actions.contentGroup)),
+        Actions$.animationTypes.pipe(map(Actions.animationTypes)),
+        Actions$.shapes.pipe(map(Actions.shapes)),
+        Actions$.sizes.pipe(map(Actions.sizes)),
     ).pipe(
         takeUntil(disconnected$),
     ).subscribe(msg => socket.emit('toControl', msg));

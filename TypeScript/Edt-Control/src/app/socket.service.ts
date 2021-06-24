@@ -6,6 +6,8 @@ import { IColor } from '../../../Shared/colors/types';
 import { AnimationTypes } from '../../../Shared/vidt/animation';
 import io from 'socket.io-client';
 import { WINDOW } from './window.token';
+import { Shapes } from '../../../Shared/vidt/shapes';
+import { Sizes } from '../../../Shared/vidt/sizes';
 
 @Injectable({ providedIn: 'root' })
 export class SocketService {
@@ -53,6 +55,14 @@ export class SocketService {
 
   sendAnimation(animation: AnimationTypes) {
     this.toSledt(Actions.animationType(animation));
+  }
+
+  sendShape(shape: Shapes) {
+    this.toSledt(Actions.shape(shape));
+  }
+
+  sendSize(size: Sizes) {
+    this.toSledt(Actions.size(size));
   }
 
   activateCue(cue: ICue) {

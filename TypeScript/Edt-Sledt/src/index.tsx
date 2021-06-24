@@ -50,6 +50,8 @@ nextActionFromMsg(Actions.vidtPresets(enumToArray(VidtPresets)));
 nextActionFromMsg(Actions.animationTypes(enumToArray(AnimationTypes)));
 nextActionFromMsg(Actions.colorPalette(colorSets[0]));
 nextActionFromMsg(Actions.colorPalettes(colorSets));
+nextActionFromMsg(Actions.shapes(enumToArray(Shapes)));
+nextActionFromMsg(Actions.sizes(enumToArray(Sizes)));
 
 // The launchpad pages are dependent on many changing variables so it's build as an observable
 launchpadPages$.subscribe(pages => nextActionFromMsg(Actions.launchpadPages(pages)));

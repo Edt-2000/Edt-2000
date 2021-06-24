@@ -86,6 +86,7 @@
       </li>
     </ul>
   </div>
+
   <div *ngIf="(contentGroup$ | async) as contentGroup" class="section">
     <h2 class="section__title">Text</h2>
     <ul class="list">
@@ -98,6 +99,33 @@
       </ng-container>
     </ul>
   </div>
+
+  <div class="section">
+    <h2 class="section__title">Shapes</h2>
+    <ul class="list">
+      <ng-container *ngFor="let shape of (shapes$ | async)">
+        <li class="list__item">
+          <button (click)="socket.sendShape(shape)" class="text-button">
+            {{ shape }}
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 class="section__title">Sizes</h2>
+    <ul class="list">
+      <ng-container *ngFor="let size of (sizes$ | async)">
+        <li class="list__item">
+          <button (click)="socket.sendSize(size)" class="text-button">
+            {{ size }}
+          </button>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
 
   <div class="section">
     <h2 class="section__title">Animations</h2>
