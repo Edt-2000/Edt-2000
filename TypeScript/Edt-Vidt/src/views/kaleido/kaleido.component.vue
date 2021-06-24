@@ -1,61 +1,12 @@
 <template>
     <div class="page">
-        <div class="kaleido" v-bind:style="styles">
+        <div class="kaleido" v-bind:style="styles" v-if="!resetAnimation">
             <div class="kaleido__inner">
-                <div class="hex hex--1">
+                <div class="hex" v-for="(color, i) in colors" v-bind:style="{'animation-delay': (i * animationTime * (1/colors.length)) + 's'}">
                     <div class="hex__inner">
-                        <div class="hex__sub hex__sub--1"></div>
-                        <div class="hex__sub hex__sub--2"></div>
-                        <div class="hex__sub hex__sub--3"></div>
-                    </div>
-                </div>
-                <div class="hex hex--2">
-                    <div class="hex__inner">
-                        <div class="hex__sub hex__sub--1"></div>
-                        <div class="hex__sub hex__sub--2"></div>
-                        <div class="hex__sub hex__sub--3"></div>
-                    </div>
-                </div>
-                <div class="hex hex--3">
-                    <div class="hex__inner">
-                        <div class="hex__sub hex__sub--1"></div>
-                        <div class="hex__sub hex__sub--2"></div>
-                        <div class="hex__sub hex__sub--3"></div>
-                    </div>
-                </div>
-                <div class="hex hex--4">
-                    <div class="hex__inner">
-                        <div class="hex__sub hex__sub--1"></div>
-                        <div class="hex__sub hex__sub--2"></div>
-                        <div class="hex__sub hex__sub--3"></div>
-                    </div>
-                </div>
-                <div class="hex hex--5">
-                    <div class="hex__inner">
-                        <div class="hex__sub hex__sub--1"></div>
-                        <div class="hex__sub hex__sub--2"></div>
-                        <div class="hex__sub hex__sub--3"></div>
-                    </div>
-                </div>
-                <div class="hex hex--6">
-                    <div class="hex__inner">
-                        <div class="hex__sub hex__sub--1"></div>
-                        <div class="hex__sub hex__sub--2"></div>
-                        <div class="hex__sub hex__sub--3"></div>
-                    </div>
-                </div>
-                <div class="hex hex--7">
-                    <div class="hex__inner">
-                        <div class="hex__sub hex__sub--1"></div>
-                        <div class="hex__sub hex__sub--2"></div>
-                        <div class="hex__sub hex__sub--3"></div>
-                    </div>
-                </div>
-                <div class="hex hex--8">
-                    <div class="hex__inner">
-                        <div class="hex__sub hex__sub--1"></div>
-                        <div class="hex__sub hex__sub--2"></div>
-                        <div class="hex__sub hex__sub--3"></div>
+                        <div class="hex__sub hex__sub--1" v-bind:style="{'border-color': color}"></div>
+                        <div class="hex__sub hex__sub--2" v-bind:style="{'border-color': color}"></div>
+                        <div class="hex__sub hex__sub--3" v-bind:style="{'border-color': color}"></div>
                     </div>
                 </div>
             </div>
@@ -69,23 +20,32 @@
     import { Component } from 'vue-property-decorator';
     import { combineLatest } from 'rxjs';
     import { Actions$ } from '../../../../Shared/actions/actions';
-    import { startWith } from 'rxjs/operators';
+    import {ColorHelper} from "../../../../Shared/colors/converters";
 
     @Component
 
     export default class KaleidoComponent extends Vue {
         public subscription: any;
-        public styles: Object = {};
+        public styles = {};
+        public colors: string[] = [];
+        public animationTime = 4;
+        public resetAnimation = false;
 
         mounted() {
             this.subscription = combineLatest([
-                // As MainBeat is 'hot' we need startWith to kick off conmbineLatest
-                Actions$.mainBeat.pipe(startWith(0)),
+                Actions$.colorPalette,
                 Actions$.glitchIntensity,
-            ]).subscribe(([beat, intensity]) => {
+            ]).subscribe(([colors, intensity]) => {
+                this.resetAnimation = true;
+                this.colors = colors.map(color => {
+                    return `rgb(${ ColorHelper.hsv2rgb(color).join(', ')}`;
+                });
+                this.animationTime = intensity * this.animationTime;
                 this.styles = {
-                    '--animation-time': `${intensity * 4}s`,
+                    '--animation-time': `${this.animationTime}s`,
                 };
+                // Re-trigger animation
+                setTimeout(() => this.resetAnimation = false);
             });
         }
 

@@ -98,7 +98,6 @@ body {
     }
 }
 
-///////////////////
 @keyframes kaleido {
     from {
         transform: translate(-50%, -50%) rotate(0deg) scale(0)
@@ -132,70 +131,6 @@ body {
 
         .hex__sub {
             border-color: red;
-        }
-
-        &--1 {
-            animation-delay: calc(var(--animation-time) * .125);
-
-            .hex__sub {
-                border-color: red;
-            }
-        }
-
-        &--2 {
-            animation-delay: calc(var(--animation-time) * .25);
-
-            .hex__sub {
-                border-color: orange;
-            }
-        }
-
-        &--3 {
-            animation-delay: calc(var(--animation-time) * .375);
-
-            .hex__sub {
-                border-color: yellow;
-            }
-        }
-
-        &--4 {
-            animation-delay: calc(var(--animation-time) * .5);
-
-            .hex__sub {
-                border-color: #16DE00;
-            }
-        }
-
-        &--5 {
-            animation-delay: calc(var(--animation-time) * .625);
-
-            .hex__sub {
-                border-color: #0F7D02;
-            }
-        }
-
-        &--6 {
-            animation-delay: calc(var(--animation-time) * .75);
-
-            .hex__sub {
-                border-color: #00D9BF;
-            }
-        }
-
-        &--7 {
-            animation-delay: calc(var(--animation-time) * .875);
-
-            .hex__sub {
-                border-color: #004DD1;
-            }
-        }
-
-        &--8 {
-            animation-delay: calc(var(--animation-time));
-
-            .hex__sub {
-                border-color: #E302E3;
-            }
         }
     }
 }

@@ -26,6 +26,7 @@ vidtSocket$.subscribe(socket => {
         Actions$.mainDrum.pipe(map(Actions.mainDrum)),
         Actions$.mainBeat.pipe(map(Actions.mainBeat)),
         Actions$.vidtSingleColor.pipe(map(Actions.vidtSingleColor)),
+        Actions$.colorPalette.pipe(map(Actions.colorPalette)),
         Actions$.glitchIntensity.pipe(map(Actions.glitchIntensity)),
         Actions$.shape.pipe(map(Actions.shape)),
         Actions$.size.pipe(map(Actions.size)),
