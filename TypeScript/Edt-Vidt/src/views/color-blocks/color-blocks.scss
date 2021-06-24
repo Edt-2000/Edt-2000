@@ -1,8 +1,13 @@
-:root {
-    --size: 25vh;
-}
+$w-block-normal: 100 / 6 * 1vh;
+$w-block-small: 10vh;
+$w-block-large: 25vh;
+$p-block-normal: 1.5vh;
+$p-block-small: 1vh;
 
 .color-blocks {
+    --front-color: #ff0000;
+    --back-color: #00ff00;
+
     $self: &;
     background: #000;
     height: 100vh;
@@ -18,9 +23,9 @@
 
     &__item {
         flex: 0 0 auto;
-        height: 25vh;
-        padding: 1.5vh;
-        width: 25vh;
+        height: $w-block-normal;
+        padding: $p-block-normal;
+        width: $w-block-normal;
 
         @for $i from 1 through 200 {
             $delay: ((random(11) - 1) / 10) * 1s;
@@ -54,8 +59,14 @@
         display: block;
     }
 
+    &__front {
+        background-color: var(--front-color);
+    }
+
     &__back {
         transform: rotateY(180deg);
+        background-color: var(--back-color);
+
     }
 
     &--circle{
@@ -65,10 +76,61 @@
         }
     }
 
+    &--triangle {
+        #{ $self }__front,
+        #{ $self }__back {
+            background-color: transparent;
+            border-left: ($w-block-normal / 2.4) solid transparent;
+            border-right: ($w-block-normal / 2.4) solid transparent;
+            border-bottom: $w-block-normal * 0.8  solid;
+            height: 0;
+            width: 0;
+        }
+
+        #{ $self }__front {
+            border-bottom-color: var(--front-color);
+        }
+
+        #{ $self }__back {
+            border-bottom-color: var(--back-color);
+        }
+
+        &#{ $self }--small {
+            #{ $self }__front,
+            #{ $self }__back {
+                border-left-width: ($w-block-small / 2.4);
+                border-right-width: ($w-block-small / 2.4);
+                border-bottom-width: $w-block-small * 0.8;
+                height: 0;
+                width: 0;
+            }
+        }
+
+        &#{ $self }--large{
+            #{ $self }__front,
+            #{ $self }__back {
+                border-left-width: ($w-block-large / 2.4);
+                border-right-width: ($w-block-large / 2.4);
+                border-bottom-width: $w-block-large * 0.8;
+                height: 0;
+                width: 0;
+            }
+        }
+    }
+
     &--small {
         #{ $self }__item {
-            height: 100 / 6 * 1vh;
-            width: 100 / 6 * 1vh;
+            height: $w-block-small;
+            padding: $p-block-small;
+            width: $w-block-small;
+        }
+    }
+
+    &--large {
+        #{ $self }__item {
+            height: $w-block-large;
+            padding: $p-block-normal;
+            width: $w-block-large;
         }
     }
 }
