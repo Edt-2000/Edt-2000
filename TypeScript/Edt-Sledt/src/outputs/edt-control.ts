@@ -28,6 +28,7 @@ controlSocket$.subscribe(socket => {
         Actions$.animationTypes.pipe(map(Actions.animationTypes)),
         Actions$.shapes.pipe(map(Actions.shapes)),
         Actions$.sizes.pipe(map(Actions.sizes)),
+        Actions$.vidtPresets.pipe(map(Actions.vidtPresets)),
     ).pipe(
         takeUntil(disconnected$),
     ).subscribe(msg => socket.emit('toControl', msg));
