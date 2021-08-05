@@ -1,10 +1,8 @@
+:root {
+    --size: 25vh;
+}
 
 .color-blocks {
-    --front-color: #ff0000;
-    --back-color: #00ff00;
-    --w-block: 25vh;
-    --p-block: 1.5vh;
-
     $self: &;
     background: #000;
     height: 100vh;
@@ -20,9 +18,9 @@
 
     &__item {
         flex: 0 0 auto;
-        height: var(--w-block);
-        padding: var(--p-block);
-        width: var(--w-block);
+        height: 25vh;
+        padding: 1.5vh;
+        width: 25vh;
 
         @for $i from 1 through 200 {
             $delay: ((random(11) - 1) / 10) * 1s;
@@ -56,14 +54,8 @@
         display: block;
     }
 
-    &__front {
-        background-color: var(--front-color);
-    }
-
     &__back {
         transform: rotateY(180deg);
-        background-color: var(--back-color);
-
     }
 
     &--circle{
@@ -74,44 +66,9 @@
     }
 
     &--small {
-        --w-block: 16.66vh;
-        --p-block: 1vh;
-    }
-
-    &--large {
-        --w-block: 33vh;
-        --p-block: 1vh;
-    }
-
-    &--triangle {
-        #{ $self }__front,
-        #{ $self }__back {
-            background-color: transparent;
-            border-left: (calc(var(--w-block) / 2.4)) solid transparent;
-            border-right: (calc(var(--w-block) / 2.4)) solid transparent;
-            border-bottom: calc(var(--w-block) * 0.8)  solid;
-            height: 0;
-            width: 0;
-        }
-
-        #{ $self }__front {
-            border-bottom-color: var(--front-color);
-        }
-
-        #{ $self }__back {
-            border-bottom-color: var(--back-color);
-        }
-    }
-
-    @media screen and (orientation: portrait) {
-        --w-block: 16.66vh;
-
-        &--small {
-            --w-block: 10vh;
-        }
-
-        &--large {
-            --w-block: 25vh;
+        #{ $self }__item {
+            height: 100 / 6 * 1vh;
+            width: 100 / 6 * 1vh;
         }
     }
 }

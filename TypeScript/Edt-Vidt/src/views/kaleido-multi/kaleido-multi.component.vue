@@ -1,12 +1,12 @@
 <template>
     <div class="page">
-        <div class="kaleido" v-bind:style="styles" v-if="!resetAnimation">
-            <div class="kaleido__inner">
-                <div class="hex" v-for="(color, i) in colors" v-bind:style="{'animation-delay': (i * kaleidoTime * (1/colors.length)) + 's'}">
-                    <div class="hex__inner">
-                        <div class="hex__sub hex__sub--1" v-bind:style="{'border-color': color}"></div>
-                        <div class="hex__sub hex__sub--2" v-bind:style="{'border-color': color}"></div>
-                        <div class="hex__sub hex__sub--3" v-bind:style="{'border-color': color}"></div>
+        <div class="kaleido-multi" v-bind:style="styles" v-if="!resetAnimation">
+            <div class="kaleido-multi__inner">
+                <div class="hex-multi" v-for="(color, i) in colors" v-bind:style="{'animation-delay': (i * kaleidoTime * (1/colors.length)) + 's'}">
+                    <div class="hex-multi__inner">
+                        <div class="hex-multi__sub hex-multi__sub--1" v-bind:style="{'border-color': color}"></div>
+                        <div class="hex-multi__sub hex-multi__sub--2" v-bind:style="{'border-color': color}"></div>
+                        <div class="hex-multi__sub hex-multi__sub--3" v-bind:style="{'border-color': color}"></div>
                     </div>
                 </div>
             </div>

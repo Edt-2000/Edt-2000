@@ -10,9 +10,9 @@
     background: repeating-linear-gradient(
             -50deg,
             var(--first-color),
-            var(--first-color) 80px,
-            var(--second-color) 100px,
-            var(--second-color) 120px
+            var(--first-color) 6vw,
+            var(--second-color) 8vw,
+            var(--second-color) 10vw
     );
     background-size: 400% 400%;
     height: 300vh;

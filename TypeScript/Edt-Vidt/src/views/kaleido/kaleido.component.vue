@@ -18,9 +18,9 @@
     import './kaleido.scss';
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
-    import { combineLatest, Subject } from 'rxjs';
+    import { Subject } from 'rxjs';
     import { Actions$ } from '../../../../Shared/actions/actions';
-    import { filter, startWith, takeUntil } from 'rxjs/operators';
+    import { filter, takeUntil } from 'rxjs/operators';
     import { IColor } from '../../../../Shared/colors/types';
     import { ColorHelper } from '../../../../Shared/colors/converters';
 

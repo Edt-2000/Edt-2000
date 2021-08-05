@@ -142,7 +142,6 @@ body {
             border-color: red;
         }
 
-
         @for $i from 1 through 8 {
             $duration: 0.125 * $i;
 

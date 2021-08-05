@@ -62,7 +62,7 @@ body {
     margin: 0;
 }
 
-.hex {
+.hex-multi {
     display: inline-block;
     max-width: $width * 1px;
     width: 100%;
@@ -107,7 +107,7 @@ body {
     }
 }
 
-.kaleido {
+.kaleido-multi {
     --kaleido-time: 4s;
     position: relative;
     display: inline-block;
@@ -120,7 +120,7 @@ body {
         padding-bottom: 57.9%;
     }
 
-    .hex {
+    .hex-multi {
         margin: 0;
         transform-origin: center center;
         position: absolute;
