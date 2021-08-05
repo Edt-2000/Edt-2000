@@ -131,12 +131,19 @@ $c-orange: #ff4700;
         background: linear-gradient(to bottom, $c-yellow 0%, $c-orange 50%);
         border-radius: 50%;
         box-shadow: 0 0 26px 20px rgba($c-orange, 0.5);
-        height: 38vh;
+        height: 40vh;
         left: 50%;
         position: absolute;
         top: 100%;
         transform: translate(-50%, -62%);
-        width: 38vh;
+        width: 40vh;
+    }
+
+    @media screen and (orientation: portrait) {
+        &__sun {
+            height: 40vw;
+            width: 40vw;
+        }
     }
 }
 
