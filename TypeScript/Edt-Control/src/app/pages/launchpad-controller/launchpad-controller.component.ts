@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TriggerType } from '../../../../../Shared/actions/types';
+import {LaunchpadTrigger, TriggerType} from '../../../../../Shared/actions/types';
+import {SocketService} from "../../socket.service";
 
 @Component({
   selector: 'app-launchpad-controller',
@@ -39,10 +40,13 @@ export class LaunchpadControllerComponent implements OnInit {
     map(([pages, pageNr]) => pages[pageNr]),
   );
 
-  constructor() {
+  constructor(public socket: SocketService) {
   }
 
   ngOnInit() {
   }
 
+  sendAction(button: LaunchpadTrigger) {
+    // this.socket.sendLaunchpadTrigger();
+  }
 }

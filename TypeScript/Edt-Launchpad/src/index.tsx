@@ -1,9 +1,12 @@
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
 import { combineLatest, fromEvent } from 'rxjs';
 import { debounceTime, filter, map, tap, withLatestFrom } from 'rxjs/operators';
+import {LaunchpadColor} from '../../Shared/actions/types';
 
 // These libs don't support ES6 imports :/
+// tslint:disable-next-line:no-var-requires
 const Launchpad = require('launchpad-mini');
+// tslint:disable-next-line:no-var-requires
 const socketClient = require('socket.io-client');
 
 const [, , edtSledtIP] = process.argv;
@@ -41,7 +44,7 @@ const commands$ = combineLatest([activePage$, Actions$.launchpadActivePage]).pip
             ...page.triggers.reduce((acc, row, y) => {
                 return [
                     ...acc,
-                    ...row.map(([color], x) => [x, y, Launchpad.Colors[color]]),
+                    ...row.map(({color}, x) => [x, y, Launchpad.Colors[color]]),
                 ];
             }, []),
         ] : [];
@@ -68,13 +71,13 @@ pad.connect().then(() => {
             trigger: launchpadPage.triggers[key.y] && launchpadPage.triggers[key.y][key.x],
         })),
         filter(({ trigger }) => !!trigger),
-        tap(({ key, trigger: [defaultColor, pressedColor, label, type, action, releaseAction] }) => {
+        tap(({ key, trigger: { color, title, triggerType, triggerAction, releaseAction }}) => {
             if (key.pressed) {
-                sendToSledt(action);
+                sendToSledt(triggerAction);
             } else if (releaseAction) {
                 sendToSledt(releaseAction);
             }
-            pad.col(Launchpad.Colors[key.pressed ? pressedColor : defaultColor], key);
+            pad.col(Launchpad.Colors[key.pressed ? color : getContraColor(color)], key);
         }),
     ).subscribe();
 
@@ -86,4 +89,17 @@ pad.connect().then(() => {
 function sendToSledt(msg: Actions) {
     console.log('Sending: ', msg);
     socket.emit('fromLaunchpad', msg);
+}
+
+function getContraColor(color: LaunchpadColor): LaunchpadColor {
+    switch (color) {
+        case LaunchpadColor.red:
+            return LaunchpadColor.yellow;
+        case LaunchpadColor.amber:
+            return LaunchpadColor.green;
+        case LaunchpadColor.yellow:
+            return LaunchpadColor.red;
+        case LaunchpadColor.green:
+            return LaunchpadColor.amber;
+    }
 }

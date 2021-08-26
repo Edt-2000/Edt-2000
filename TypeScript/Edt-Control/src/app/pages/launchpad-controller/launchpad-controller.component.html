@@ -9,8 +9,8 @@
           class="launchpad__item"
         >
         </div>
-        <div *ngSwitchDefault class="launchpad__item" style="background-color: black;">
-          {{button[2]}}
+        <div *ngSwitchDefault class="launchpad__item" style="background-color: black;" (click)="sendAction(button)">
+          {{button.title}}
         </div>
       </ng-container>
 
