@@ -23,11 +23,11 @@ import { Actions$ } from '../../../../Shared/actions/actions';
 import { takeUntil } from 'rxjs/operators';
 import { IColor } from '../../../../Shared/colors/types';
 import { ColorHelper } from '../../../../Shared/colors/converters';
+import { Sizes } from '../../../../Shared/vidt/sizes';
 
 @Component
 
 export default class KaleidoComponent extends Vue {
-    public type: 'default' | 'multi' = 'default';
     public styles: Object = {};
     public hexagons: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8 ];
     public resetAnimation = false;
@@ -38,12 +38,13 @@ export default class KaleidoComponent extends Vue {
         combineLatest([
             Actions$.colorPalette,
             Actions$.glitchIntensity,
+            Actions$.size,
         ]).pipe(takeUntil(this.onDestroyed))
-            .subscribe(([colors, intensity]) => {
+            .subscribe(([colors, intensity, size]) => {
                 this.resetAnimation = true;
 
                 // If multi amount is same as nr of colors, if default 8
-                this.hexagons = this.type === 'multi' ? colors.map((c, i) => i ) : new Array(8).map((c, i) => i );
+                this.hexagons = size === Sizes.large ? new Array(8).map((c, i) => i ) : colors.map((c, i) => i );
 
                 // Set animation time depending on intensity
                 this.styles = {
