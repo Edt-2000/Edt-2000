@@ -52,6 +52,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                     color: LaunchpadColor.amber,
                     title: image,
                     triggerType: TriggerType.image,
+                    payload: image,
                     triggerAction: Actions.imageSrc(image),
                 })),
             ]),

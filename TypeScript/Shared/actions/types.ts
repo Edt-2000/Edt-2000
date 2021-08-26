@@ -44,6 +44,7 @@ export interface LaunchpadTrigger {
     color: LaunchpadColor; // Button Default
     title: string; // Title
     triggerType: TriggerType;
+    payload?: any;
     triggerAction: Actions; // TriggerAction
     releaseAction?: Actions; // TriggerAction on release
 }
