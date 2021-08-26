@@ -5,13 +5,13 @@
 </template>
 
 <script lang="ts">
-    import './photo-bouncer.scss';
-    import Vue from 'vue';
-    import { Component } from 'vue-property-decorator';
-    import { Actions$ } from '../../../../Shared/actions/actions';
-    import { AnimationTypes } from '../../../../Shared/vidt/animation';
+import './photo-bouncer.scss';
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import { Actions$ } from '../../../../Shared/actions/actions';
+import { AnimationTypes } from '../../../../Shared/vidt/animation';
 
-    @Component
+@Component
     export default class PhotoBouncerComponent extends Vue {
         public animationSubscription: any;
         public beatSubscription: any;
@@ -24,7 +24,7 @@
         public animation: Animation;
         public src: string = '';
 
-        private currentAnimation: string = 'bounce';
+        private currentAnimation: AnimationTypes = AnimationTypes.bounce;
 
         private animations = {
             'bounce': [
@@ -75,12 +75,12 @@
         };
 
         mounted() {
-            this.setAnimation('bounce');
+            this.setAnimation(AnimationTypes.bounce);
 
             this.animationSubscription = Actions$.animationType.subscribe(
                 animation => {
-                    if (AnimationTypes[animation] !== this.currentAnimation && this.animations[AnimationTypes[animation]]) {
-                        this.setAnimation(AnimationTypes[animation]);
+                    if (animation !== this.currentAnimation && this.animations[animation]) {
+                        this.setAnimation(animation);
                     }
                 },
             );
@@ -98,7 +98,7 @@
             this.src = `assets/media-by-group/${src}`;
         }
 
-        setAnimation(type: string) {
+        setAnimation(type: AnimationTypes) {
             this.currentAnimation = type;
 
             if (this.animation) {

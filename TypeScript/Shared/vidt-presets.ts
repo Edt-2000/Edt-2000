@@ -8,7 +8,6 @@ export enum VidtPresets {
     'gridscape',
     'hacking',
     'kaleido',
-    'kaleidoMulti',
     'karaoke',
     'logo',
     'multicolor',

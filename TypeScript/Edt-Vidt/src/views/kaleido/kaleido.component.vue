@@ -1,8 +1,11 @@
 <template>
     <div class="page">
-        <div class="kaleido" v-bind:style="styles">
+        <div class="kaleido" v-bind:style="styles" v-if="!resetAnimation">
             <div class="kaleido__inner">
-                <div class="hex" v-for="hex in hexagons" v-bind:class="'hex--' + hex">
+                <div class="hex"
+                     v-for="i in hexagons" v-bind:class="'hex--' + i"
+                     v-bind:style="{'animation-delay': (i * kaleidoTime * (1/ hexagons)) + 's' }"
+                >
                     <div class="hex__inner">
                         <div class="hex__sub hex__sub--1"></div>
                         <div class="hex__sub hex__sub--2"></div>
@@ -15,62 +18,71 @@
 </template>
 
 <script lang="ts">
-    import './kaleido.scss';
-    import Vue from 'vue';
-    import { Component } from 'vue-property-decorator';
-    import { Subject } from 'rxjs';
-    import { Actions$ } from '../../../../Shared/actions/actions';
-    import { filter, takeUntil } from 'rxjs/operators';
-    import { IColor } from '../../../../Shared/colors/types';
-    import { ColorHelper } from '../../../../Shared/colors/converters';
+import './kaleido.scss';
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import { combineLatest, Subject } from 'rxjs';
+import { Actions$ } from '../../../../Shared/actions/actions';
+import { takeUntil } from 'rxjs/operators';
+import { IColor } from '../../../../Shared/colors/types';
+import { ColorHelper } from '../../../../Shared/colors/converters';
+import { Sizes } from '../../../../Shared/vidt/sizes';
 
-    @Component
+@Component
 
-    export default class KaleidoComponent extends Vue {
-        public styles: Object = {};
-        public hexagons: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+export default class KaleidoComponent extends Vue {
+    public styles: Object = {};
+    public hexagons: number = 8;
+    public kaleidoTime = 4;
+    public resetAnimation = false;
 
-        private onDestroyed: Subject<any> = new Subject();
+    private onDestroyed: Subject<any> = new Subject();
 
-        mounted() {
-            Actions$.glitchIntensity
-                .pipe(
-                    takeUntil(this.onDestroyed),
-                    filter(intensity => !!intensity)
-                ).subscribe((intensity) => {
-                    this.styles = {
-                        '--animation-kaleido-time': `${ 10- intensity }s`,
-                    };
-                });
+    mounted() {
+        combineLatest([
+            Actions$.colorPalette,
+            Actions$.glitchIntensity,
+            Actions$.size,
+        ]).pipe(takeUntil(this.onDestroyed))
+            .subscribe(([colors, intensity, size]) => {
+                this.resetAnimation = true;
 
-            Actions$.colorPalette
-                .pipe(
-                    takeUntil(this.onDestroyed),
-                    filter(colors => !!colors && colors.length > 0)
-                ).subscribe((colors: IColor[]) => {
-                    this.setColors(colors);
+                // If multi amount is same as nr of colors, if default 8
+                this.hexagons = size === Sizes.large ? 8 : colors.length;
+
+                // Set animation time depending on intensity
+                this.kaleidoTime = 10 - intensity;
+                this.styles = {
+                    '--animation-kaleido-time': `${ this.kaleidoTime }s`,
+                };
+
+
+                // Set colors
+                this.setColors(colors);
+
+                // Re-trigger animation
+                setTimeout(() => this.resetAnimation = false);
             });
-        }
+    }
 
-        setColors(colors: IColor[]) {
-            let colorIndex = 0;
+    setColors(colors: IColor[]) {
+        let colorIndex = 0;
 
-            for (let i = 1; i <= 8; i++) {
-                const color = `rgb(${ ColorHelper.hsv2rgb(colors[colorIndex]).join(', ')}`;
-                document.documentElement.style.setProperty(`--kaleido-${ i }`, `${ color }`);
+        for (let i = 1; i <= 8; i++) {
+            const color = `rgb(${ ColorHelper.hsv2rgb(colors[ colorIndex ]).join(', ') }`;
+            document.documentElement.style.setProperty(`--kaleido-${ i }`, `${ color }`);
 
-                colorIndex ++;
+            colorIndex++;
 
-                if (colorIndex == colors.length) {
-                    colorIndex = 0;
-                }
+            if (colorIndex == colors.length) {
+                colorIndex = 0;
             }
         }
-
-        destroyed() {
-            this.onDestroyed.next();
-            this.onDestroyed.complete();
-        }
-
     }
+
+    destroyed() {
+        this.onDestroyed.next();
+        this.onDestroyed.complete();
+    }
+}
 </script>

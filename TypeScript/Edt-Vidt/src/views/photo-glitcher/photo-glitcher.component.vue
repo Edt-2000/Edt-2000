@@ -22,7 +22,7 @@
         mounted() {
             this.animationSubscription = Actions$.animationType.subscribe(
                 animation => {
-                    this.animation = AnimationTypes[animation];
+                    this.animation = animation;
                 },
             );
 
