@@ -106,7 +106,7 @@ export const Actions$ = {
     mainMelody: new Subject<IMidiNoteMsg>(),
     mainChords: new Subject<IMidiNoteMsg>(),
     mainBass: new Subject<IMidiNoteMsg>(),
-    glitchIntensity: new BehaviorSubject<number>(1),
+    glitchIntensity: new BehaviorSubject<number>(5),
 };
 
 export function nextActionFromMsg(action: Actions) {

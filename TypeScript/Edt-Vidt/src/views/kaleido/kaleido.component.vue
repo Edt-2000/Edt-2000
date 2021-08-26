@@ -2,7 +2,10 @@
     <div class="page">
         <div class="kaleido" v-bind:style="styles" v-if="!resetAnimation">
             <div class="kaleido__inner">
-                <div class="hex" v-for="hex in hexagons" v-bind:class="'hex--' + hex">
+                <div class="hex"
+                     v-for="i in hexagons" v-bind:class="'hex--' + i"
+                     v-bind:style="{'animation-delay': (i * kaleidoTime * (1/ hexagons)) + 's' }"
+                >
                     <div class="hex__inner">
                         <div class="hex__sub hex__sub--1"></div>
                         <div class="hex__sub hex__sub--2"></div>
@@ -29,7 +32,8 @@ import { Sizes } from '../../../../Shared/vidt/sizes';
 
 export default class KaleidoComponent extends Vue {
     public styles: Object = {};
-    public hexagons: number[] = [ 1, 2, 3, 4, 5, 6, 7, 8 ];
+    public hexagons: number = 8;
+    public kaleidoTime = 4;
     public resetAnimation = false;
 
     private onDestroyed: Subject<any> = new Subject();
@@ -44,12 +48,14 @@ export default class KaleidoComponent extends Vue {
                 this.resetAnimation = true;
 
                 // If multi amount is same as nr of colors, if default 8
-                this.hexagons = size === Sizes.large ? new Array(8).map((c, i) => i ) : colors.map((c, i) => i );
+                this.hexagons = size === Sizes.large ? 8 : colors.length;
 
                 // Set animation time depending on intensity
+                this.kaleidoTime = 10 - intensity;
                 this.styles = {
-                    '--animation-kaleido-time': `${ 10 - intensity }s`,
+                    '--animation-kaleido-time': `${ this.kaleidoTime }s`,
                 };
+
 
                 // Set colors
                 this.setColors(colors);
