@@ -79,6 +79,7 @@ import { AnimationTypes } from '../../../../Shared/vidt/animation';
 
             this.animationSubscription = Actions$.animationType.subscribe(
                 animation => {
+                    console.log('animationTypeChange', animation);
                     if (animation !== this.currentAnimation && this.animations[animation]) {
                         this.setAnimation(animation);
                     }
@@ -86,6 +87,7 @@ import { AnimationTypes } from '../../../../Shared/vidt/animation';
             );
 
             this.beatSubscription = Actions$.mainBeat.subscribe(() => {
+                console.log('--- BEAT');
                 this.animate();
             });
 
@@ -106,8 +108,8 @@ import { AnimationTypes } from '../../../../Shared/vidt/animation';
             }
 
             this.animation = this.$refs.img.animate(
-                this.animations[type],
-                this.animationsConfig[type],
+                this.animations[AnimationTypes[type]],
+                this.animationsConfig[AnimationTypes[type]],
             );
         }
 
