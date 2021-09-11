@@ -1,12 +1,12 @@
 <div class="vidt-controller">
-  <div class="section">
-    <h2 class="section__title">Beat</h2>
-    <ul class="list">
-      <li class="list__item">
-        <button (click)="socket.sendBeat()" class="text-button">BEAT</button>
-      </li>
-    </ul>
-  </div>
+<!--  <div class="section">-->
+<!--    <h2 class="section__title">Beat</h2>-->
+<!--    <ul class="list">-->
+<!--      <li class="list__item">-->
+<!--        <button (click)="socket.sendBeat()" class="text-button">BEAT</button>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
 
   <div class="section">
     <h2 class="section__title">Content Groups</h2>
@@ -20,44 +20,6 @@
       </ng-container>
     </ul>
   </div>
-
-  <div class="section">
-    <h2 class="section__title">Vidt</h2>
-    <ul class="list">
-      <li *ngFor="let vidtPreset of (vidtPresets$ | async)" class="list__item">
-        <button (click)="socket.sendVidtPreset(vidtPreset)" class="text-button">
-          {{ vidtPreset }}
-        </button>
-      </li>
-    </ul>
-  </div>
-
-  <ng-container *ngIf="(contentGroup$ | async) as contentGroup">
-    <div *ngIf="contentGroup.images.length" class="section">
-      <h2 class="section__title">Photo's</h2>
-      <ul class="list">
-        <li *ngFor="let image of contentGroup.images" class="list__item">
-          <button
-            (click)="socket.sendPhotoAsset(image)"
-            [style.background-image]="'url(\'assets/media-by-group/' + image + '\')'"
-            class="photo-button">
-            &nbsp;
-          </button>
-        </li>
-      </ul>
-    </div>
-
-    <div *ngIf="contentGroup.videos.length" class="section">
-      <h2 class="section__title">Videos's</h2>
-      <ul class="list">
-        <li *ngFor="let video of contentGroup.videos" class="list__item">
-          <button (click)="socket.sendVideoAsset(video)" class="text-button">
-            {{ video }}
-          </button>
-        </li>
-      </ul>
-    </div>
-  </ng-container>
 
   <div class="section">
     <h2 class="section__title">Custom words</h2>
@@ -153,4 +115,41 @@
       </li>
     </ul>
   </div>
+  <div class="section">
+    <h2 class="section__title">Vidt</h2>
+    <ul class="list">
+      <li *ngFor="let vidtPreset of (vidtPresets$ | async)" class="list__item">
+        <button (click)="socket.sendVidtPreset(vidtPreset)" class="text-button">
+          {{ vidtPreset }}
+        </button>
+      </li>
+    </ul>
+  </div>
+
+    <ng-container *ngIf="(contentGroup$ | async) as contentGroup">
+        <div *ngIf="contentGroup.images.length" class="section">
+            <h2 class="section__title">Photo's</h2>
+            <ul class="list">
+                <li *ngFor="let image of contentGroup.images" class="list__item">
+                    <button
+                        (click)="socket.sendPhotoAsset(image)"
+                        [style.background-image]="'url(\'assets/media-by-group/' + image + '\')'"
+                        class="photo-button">
+                        &nbsp;
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="contentGroup.videos.length" class="section">
+            <h2 class="section__title">Videos's</h2>
+            <ul class="list">
+                <li *ngFor="let video of contentGroup.videos" class="list__item">
+                    <button (click)="socket.sendVideoAsset(video)" class="text-button">
+                        {{ video }}
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
 </div>

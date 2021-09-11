@@ -30,7 +30,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                     triggerType: TriggerType.text,
                     triggerAction: Actions.prepareVidt(VidtPresets[preset]),
                 })),
-                [3, 6, 9].map(intensity => ({
+                [1, 3, 5, 7, 9].map(intensity => ({
                     color: LaunchpadColor.green,
                     title: intensity.toString(),
                     triggerType: TriggerType.text,
