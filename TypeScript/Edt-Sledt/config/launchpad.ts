@@ -1,18 +1,20 @@
-import { LaunchpadColor, LaunchpadPage, LaunchpadTrigger, TriggerType } from '../../Shared/actions/types';
-import { Actions, Actions$ } from '../../Shared/actions/actions';
-import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { VidtPresets } from '../../Shared/vidt-presets';
-import { AnimationTypes } from '../../Shared/vidt/animation';
-import { blackColor } from '../../Shared/colors/utils';
-import { Colors } from './colors';
-import { IColor } from '../../Shared/colors/types';
+import {LaunchpadColor, LaunchpadPage, LaunchpadTrigger, TriggerType} from '../../Shared/actions/types';
+import {Actions, Actions$} from '../../Shared/actions/actions';
+import {combineLatest, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {VidtPresets} from '../../Shared/vidt-presets';
+import {AnimationTypes} from '../../Shared/vidt/animation';
+import {blackColor} from '../../Shared/colors/utils';
+import {Colors} from './colors';
+import {IColor} from '../../Shared/colors/types';
+import {Shapes} from "../../Shared/vidt/shapes";
 
 export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
     Actions$.vidtPresets,
     Actions$.colorPalettes,
     Actions$.colorPalette,
     Actions$.animationTypes,
+    Actions$.shapes,
     Actions$.contentGroup,
 ]).pipe(
     map(([
@@ -20,6 +22,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
              colorPalettes,
              colorPalette,
              animationTypes,
+             shapes,
              contentGroup,
          ]) => {
         return [
@@ -41,6 +44,12 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                     title: type,
                     triggerType: TriggerType.text,
                     triggerAction: Actions.animationType(AnimationTypes[type]),
+                })),
+                shapes.map(shape => ({
+                    color: LaunchpadColor.green,
+                    title: shape,
+                    triggerType: TriggerType.text,
+                    triggerAction: Actions.shape(Shapes[shape]),
                 })),
                 [{
                     color: LaunchpadColor.red,
