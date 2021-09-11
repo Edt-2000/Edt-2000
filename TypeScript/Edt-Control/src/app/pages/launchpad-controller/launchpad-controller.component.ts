@@ -24,6 +24,6 @@ export class LaunchpadControllerComponent implements OnInit {
   }
 
   sendAction(button: LaunchpadTrigger) {
-    // this.socket.sendLaunchpadTrigger();
+    this.socket.sendLaunchpadTrigger(button);
   }
 }

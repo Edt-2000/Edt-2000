@@ -86,7 +86,7 @@ export class SocketService {
   }
 
   sendLaunchpadTrigger(launchpadTrigger: LaunchpadTrigger) {
-
+      this.toSledt(launchpadTrigger.triggerAction);
   }
 
   private toSledt(message: Actions) {
