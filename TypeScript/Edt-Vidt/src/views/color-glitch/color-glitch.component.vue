@@ -1,5 +1,5 @@
 <template>
-    <div class="color-glitch" v-bind:style="{ '--first-color': firstColor, '--second-color': secondColor }"></div>
+    <div class="color-glitch" v-bind:style="{ '--glitch-first-color': firstColor, '--glitch-second-color': secondColor }"></div>
 </template>
 
 <script lang="ts">
@@ -44,8 +44,8 @@ export default class ColorGlitchComponent extends Vue {
     }
 
     setColors(first: IColor, second: IColor) {
-        this.firstColor = `rgb(${ ColorHelper.hsv2rgb(first).join(', ')}`;
-        this.secondColor = `rgb(${ ColorHelper.hsv2rgb(second).join(', ')}`;
+        this.firstColor = `rgb(${ ColorHelper.hsv2rgb(first).join(', ')})`;
+        this.secondColor = `rgb(${ ColorHelper.hsv2rgb(second).join(', ')})`;
     }
 
     destroyed() {

@@ -1,7 +1,7 @@
-:root {
-    --first-color: #ff179a;
-    --second-color: #16de00;
-}
+//:root {
+//    --first-color: #ff179a;
+//    --second-color: #16de00;
+//}
 
 .color-glitch {
     --animation-time: 16s;
@@ -9,10 +9,10 @@
 
     background: repeating-linear-gradient(
             -50deg,
-            var(--first-color),
-            var(--first-color) 6vw,
-            var(--second-color) 8vw,
-            var(--second-color) 10vw
+            var(--glitch-first-color),
+            var(--glitch-first-color) 6vw,
+            var(--glitch-second-color) 8vw,
+            var(--glitch-second-color) 10vw
     );
     background-size: 400% 400%;
     height: 300vh;

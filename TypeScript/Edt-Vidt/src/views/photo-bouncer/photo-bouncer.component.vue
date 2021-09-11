@@ -79,7 +79,6 @@ import { AnimationTypes } from '../../../../Shared/vidt/animation';
 
             this.animationSubscription = Actions$.animationType.subscribe(
                 animation => {
-                    console.log('animationTypeChange', animation);
                     if (animation !== this.currentAnimation && this.animations[animation]) {
                         this.setAnimation(animation);
                     }
@@ -87,7 +86,6 @@ import { AnimationTypes } from '../../../../Shared/vidt/animation';
             );
 
             this.beatSubscription = Actions$.mainBeat.subscribe(() => {
-                console.log('--- BEAT');
                 this.animate();
             });
 
