@@ -11,9 +11,10 @@ import { DrumSoundMap } from '../../../src/presets/converters/drums/drumSoundMap
 
 export const drumCues = [
     {
-        label: 'VidtColor',
+        label: 'Default',
         actions: [
             presetChange(new ColorToVidtColor(), 127, true),
+            presetChange(new BeatToColor(), 127, true),
         ],
     },
     {
@@ -35,6 +36,12 @@ export const drumCues = [
         actions: [
             presetChange(new BeatToNextWord(), 127, true),
             Actions.prepareVidt(VidtPresets.karaoke),
+        ],
+    },
+    {
+        label: 'WordBeatKaraokeOff',
+        actions: [
+            presetChange(new BeatToNextWord(), 127, false),
         ],
     },
 ];

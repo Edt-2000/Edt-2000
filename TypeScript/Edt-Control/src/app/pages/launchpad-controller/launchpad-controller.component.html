@@ -1,19 +1,19 @@
 <div *ngIf="(launchpadPage$ | async) as launchpadPage" class="launchpad">
-  <div *ngFor="let row of launchpadPage.triggers" class="launchpad__row">
-    <ng-container *ngFor="let button of row" [style.backgroundColor]="button[0]">
-      <ng-container [ngSwitch]="button[3]">
-        <div
-          *ngSwitchCase="triggerType.image"
-          [style.background-image]="'url(\'assets/media-by-group/' + button[2] + '\')'"
-          [style.backgroundColor]="'black'"
-          class="launchpad__item"
-        >
-        </div>
-        <div *ngSwitchDefault class="launchpad__item" style="background-color: black;">
-          {{button[2]}}
-        </div>
-      </ng-container>
+    <div *ngFor="let row of launchpadPage.triggers" class="launchpad__row">
+        <div *ngFor="let button of row" class="launchpad__item">
+            <ng-container [ngSwitch]="button.triggerType">
+                <button *ngSwitchCase="triggerType.image"
+                    class="launchpad__button launchpad__button--{{ button.color }}"
+                    [style.background-image]="'url(\'assets/media-by-group/' + button.payload + '\')'"
+                >
+                </button>
+                <button *ngSwitchDefault
+                     class="launchpad__button launchpad__button--{{ button.color }}"
+                     (click)="sendAction(button)"
+                ><span class="launchpad__text">{{ button.title }}</span>
+                </button>
+            </ng-container>
 
-    </ng-container>
-  </div>
+        </div>
+    </div>
 </div>

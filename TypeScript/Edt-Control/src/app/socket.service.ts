@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
 import { VidtPresets } from '../../../Shared/vidt-presets';
-import { ContentGroup, ICue } from '../../../Shared/actions/types';
+import {ContentGroup, ICue, LaunchpadTrigger} from '../../../Shared/actions/types';
 import { IColor } from '../../../Shared/colors/types';
 import { AnimationTypes } from '../../../Shared/vidt/animation';
 import io from 'socket.io-client';
@@ -83,6 +83,10 @@ export class SocketService {
 
   sendColorPalette(colors: IColor[]) {
     this.toSledt(Actions.colorPalette(colors));
+  }
+
+  sendLaunchpadTrigger(launchpadTrigger: LaunchpadTrigger) {
+      this.toSledt(launchpadTrigger.triggerAction);
   }
 
   private toSledt(message: Actions) {

@@ -32,7 +32,7 @@ export enum TriggerType {
     image,
 }
 
-export enum LaunchPadButton {
+export enum LaunchpadColor {
     red = 'red',
     green = 'green',
     amber = 'amber',
@@ -40,14 +40,14 @@ export enum LaunchPadButton {
     off = 'off',
 }
 
-export type LaunchpadTrigger = [
-    LaunchPadButton, // Button Default
-    LaunchPadButton, // Button Pressed
-    string, // Title
-    TriggerType,
-    Actions, // TriggerAction
-    Actions?, // TriggerAction on release
-];
+export interface LaunchpadTrigger {
+    color: LaunchpadColor; // Button Default
+    title: string; // Title
+    triggerType: TriggerType;
+    payload?: any;
+    triggerAction: Actions; // TriggerAction
+    releaseAction?: Actions; // TriggerAction on release
+}
 
 export enum ModifierGroup {
     EdtDrums,

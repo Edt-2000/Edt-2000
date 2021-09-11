@@ -1,4 +1,4 @@
-import { LaunchPadButton, LaunchpadPage, LaunchpadTrigger, TriggerType } from '../../Shared/actions/types';
+import { LaunchpadColor, LaunchpadPage, LaunchpadTrigger, TriggerType } from '../../Shared/actions/types';
 import { Actions, Actions$ } from '../../Shared/actions/actions';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -24,37 +24,65 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
          ]) => {
         return [
             toLaunchpadPage('Vidt', [
-                vidtPresets.map(preset => {
-                    return [LaunchPadButton.yellow, LaunchPadButton.red, preset, TriggerType.text, Actions.prepareVidt(VidtPresets[preset])];
-                }),
-                [3, 6, 9].map(intensity => {
-                    return [LaunchPadButton.green, LaunchPadButton.red, intensity.toString(), TriggerType.text, Actions.glitchIntensity(intensity)];
-                }),
-                animationTypes.map(type => {
-                    return [LaunchPadButton.amber, LaunchPadButton.red, type, TriggerType.text, Actions.animationType(AnimationTypes[type])];
-                }),
-                [[LaunchPadButton.red, LaunchPadButton.green, 'BEAT', TriggerType.text, Actions.mainBeat(127)]],
-                contentGroup.images.map(image => {
-                    return [LaunchPadButton.amber, LaunchPadButton.red, image, TriggerType.image, Actions.imageSrc(image)];
-                }),
+                vidtPresets.map(preset => ({
+                    color: LaunchpadColor.yellow,
+                    title: preset,
+                    triggerType: TriggerType.text,
+                    triggerAction: Actions.prepareVidt(VidtPresets[preset]),
+                })),
+                [3, 6, 9].map(intensity => ({
+                    color: LaunchpadColor.green,
+                    title: intensity.toString(),
+                    triggerType: TriggerType.text,
+                    triggerAction: Actions.glitchIntensity(intensity),
+                })),
+                animationTypes.map(type => ({
+                    color: LaunchpadColor.amber,
+                    title: type,
+                    triggerType: TriggerType.text,
+                    triggerAction: Actions.animationType(AnimationTypes[type]),
+                })),
+                [{
+                    color: LaunchpadColor.red,
+                    title: 'BEAT',
+                    triggerType: TriggerType.text,
+                    triggerAction: Actions.mainBeat(127),
+                }],
+                contentGroup.images.map(image => ({
+                    color: LaunchpadColor.amber,
+                    title: image,
+                    triggerType: TriggerType.image,
+                    payload: image,
+                    triggerAction: Actions.imageSrc(image),
+                })),
             ]),
             toLaunchpadPage('Colors', [
-                colorPalettes.map((palette, index) => {
-                    return [LaunchPadButton.yellow, LaunchPadButton.red, `Palette_${index}`, TriggerType.text, Actions.colorPalette(palette)];
-                }),
-                colorPalette.map((color, i) => {
-                    return [LaunchPadButton.green, LaunchPadButton.red, toColorReadable(color), TriggerType.color, Actions.singleColor(colorPalette[i]), Actions.singleColor(blackColor)];
-                }),
-                colorPalette.map((color, i) => {
-                    return [LaunchPadButton.amber, LaunchPadButton.red, toColorReadable(color), TriggerType.color, Actions.singleColor(colorPalette[i])];
-                }),
+                colorPalettes.map((palette, index) => ({
+                    color: LaunchpadColor.yellow,
+                    title: `Palette_${index}`,
+                    triggerType: TriggerType.text,
+                    triggerAction: Actions.colorPalette(palette),
+                })),
+                colorPalette.map((color, i) => ({
+                    color: LaunchpadColor.green,
+                    title: toColorReadable(color),
+                    triggerType: TriggerType.color,
+                    triggerAction: Actions.singleColor(colorPalette[i]),
+                    releaseAction: Actions.singleColor(blackColor),
+                })),
+                colorPalette.map((color, i) => ({
+                    color: LaunchpadColor.amber,
+                    title: toColorReadable(color),
+                    triggerType: TriggerType.color,
+                    triggerAction: Actions.singleColor(colorPalette[i]),
+                })),
             ]),
         ];
     }),
 );
 
 function toLaunchpadPage(title: string, rows: LaunchpadTrigger[][]): LaunchpadPage {
-    return { title: title, triggers: rows.map(row => [...chunk(row, 8)]).flat() };
+    return { title, triggers: rows.map(row => [...chunk(row, 8)]).flat() };
 }
 
 function chunk(arr, n) {
