@@ -16,6 +16,7 @@ export enum VidtPresets {
     'photoglitcher',
     'shutdown',
     'textBouncer',
+    'videoPlayer',
     'vista',
     'wheel',
     // 'video',
