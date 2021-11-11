@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $pi: 3.1415926535897932384626433832795028841971693993751;
 $π: $pi;
 $e: 2.71828182845904523536028747135266249775724709369995;
@@ -16,7 +18,7 @@ $iter: 50;
     // negitive intergers get divided. A number divided by itself is 1
     @if $exponent < 1 {
         @for $i from 0 through -$exponent {
-            $value: $value / $base;
+            $value: math.div($value, $base);
         }
     }
     // return the last value written
@@ -31,7 +33,7 @@ $iter: 50;
     $guess: 4;
     $root: $guess;
     @for $i from 1 through $iter {
-        $root: $root - (pow($root, 2) - $number) / (2 * $root);
+        $root: $root - math.div(pow($root, 2) - $number, 2 * $root);
     }
     @return $root;
 }
@@ -39,10 +41,10 @@ $iter: 50;
 $width: 800;
 $height: $width * 0.579;
 $c2: pow($height, 2);
-$b2: pow(($width / 2), 2);
+$b2: pow(($width * 0.5), 2);
 $a2: $c2 - $b2;
 $a: sqrt($a2);
-$apercentage: (($a * 100) / $width) * 1%;
+$apercentage: math.div($a * 100, $width) * 1%;
 
 :root {
     --animation-kaleido-time: 4s;

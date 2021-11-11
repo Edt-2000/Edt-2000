@@ -26,8 +26,8 @@
         .photo-glitcher__img {
             animation: rotate 0.8s linear infinite;
             height: 125%;
-            left: -((125 - 100) / 2) * 1%;
-            top: -((125 - 100) / 2) * 1%;
+            left: -((125 - 100) * 0.5) * 1%;
+            top: -((125 - 100) * 0.5) * 1%;
             width: 125%;
         }
     }
@@ -36,8 +36,8 @@
         .photo-glitcher__img {
             animation: spin 1s linear infinite forwards;
             height: 140%;
-            left: -((140 - 100) / 2) * 1%;
-            top: -((140 - 100) / 2) * 1%;
+            left: -((140 - 100) * 0.5) * 1%;
+            top: -((140 - 100) * 0.5) * 1%;
             width: 140%;
         }
     }
@@ -46,8 +46,8 @@
         .photo-glitcher__img {
             animation: spin 1s linear infinite backwards;
             height: 140%;
-            left: -((140 - 100) / 2) * 1%;
-            top: -((140 - 100) / 2) * 1%;
+            left: -((140 - 100) * 0.5) * 1%;
+            top: -((140 - 100) * 0.5) * 1%;
             width: 140%;
         }
     }
@@ -56,8 +56,8 @@
         .photo-glitcher__img {
             animation: stretch 2s linear infinite forwards;
             height: 125%;
-            left: -((125 - 100) / 2) * 1%;
-            top: -((125 - 100) / 2) * 1%;
+            left: -((125 - 100) * 0.5) * 1%;
+            top: -((125 - 100) * 0.5) * 1%;
             width: 125%;
         }
     }
