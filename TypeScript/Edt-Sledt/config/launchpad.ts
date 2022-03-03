@@ -8,21 +8,24 @@ import {blackColor} from '../../Shared/colors/utils';
 import {Colors} from './colors';
 import {IColor} from '../../Shared/colors/types';
 import {Shapes} from "../../Shared/vidt/shapes";
+import { Sizes } from '../../Shared/vidt/sizes';
 
 export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
     Actions$.vidtPresets,
     Actions$.colorPalettes,
     Actions$.colorPalette,
-    Actions$.animationTypes,
     Actions$.shapes,
+    Actions$.sizes,
+    Actions$.animationTypes,
     Actions$.contentGroup,
 ]).pipe(
     map(([
              vidtPresets,
              colorPalettes,
              colorPalette,
-             animationTypes,
              shapes,
+             sizes,
+             animationTypes,
              contentGroup,
          ]) => {
         return [
@@ -33,8 +36,27 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                     triggerType: TriggerType.text,
                     triggerAction: Actions.prepareVidt(VidtPresets[preset]),
                 })),
+                [
+                    ...shapes.map(shape => ({
+                        color: LaunchpadColor.green,
+                        title: shape,
+                        triggerType: TriggerType.text,
+                        triggerAction: Actions.shape(Shapes[shape]),
+                    })),
+                    {
+                        color: LaunchpadColor.off,
+                        title: '',
+                        triggerType: TriggerType.text,
+                    },
+                    ...sizes.map(size => ({
+                        color: LaunchpadColor.amber,
+                        title: size,
+                        triggerType: TriggerType.text,
+                        triggerAction: Actions.size(Sizes[size]),
+                    })),
+                ],
                 [1, 3, 5, 7, 9].map(intensity => ({
-                    color: LaunchpadColor.green,
+                    color: LaunchpadColor.red,
                     title: intensity.toString(),
                     triggerType: TriggerType.text,
                     triggerAction: Actions.glitchIntensity(intensity),
@@ -45,24 +67,19 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                     triggerType: TriggerType.text,
                     triggerAction: Actions.animationType(AnimationTypes[type]),
                 })),
-                shapes.map(shape => ({
-                    color: LaunchpadColor.green,
-                    title: shape,
-                    triggerType: TriggerType.text,
-                    triggerAction: Actions.shape(Shapes[shape]),
-                })),
-                [{
-                    color: LaunchpadColor.red,
-                    title: 'BEAT',
-                    triggerType: TriggerType.text,
-                    triggerAction: Actions.mainBeat(127),
-                }],
                 contentGroup.images.map(image => ({
-                    color: LaunchpadColor.amber,
+                    color: LaunchpadColor.yellow,
                     title: image,
                     triggerType: TriggerType.image,
                     payload: image,
                     triggerAction: Actions.imageSrc(image),
+                })),
+                contentGroup.videos.map(video => ({
+                    color: LaunchpadColor.green,
+                    title: video,
+                    triggerType: TriggerType.video,
+                    payload: video,
+                    triggerAction: Actions.videoSrc(video),
                 })),
             ]),
             toLaunchpadPage('Colors', [

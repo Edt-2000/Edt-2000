@@ -30,6 +30,7 @@ export enum TriggerType {
     text,
     color,
     image,
+    video,
 }
 
 export enum LaunchpadColor {
