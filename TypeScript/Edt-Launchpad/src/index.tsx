@@ -2,6 +2,7 @@ import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actio
 import { combineLatest, fromEvent } from 'rxjs';
 import { debounceTime, filter, map, tap, withLatestFrom } from 'rxjs/operators';
 import { LaunchpadColor } from '../../Shared/actions/types';
+import { launchpadSingleActions } from 'edt-sledt/config/launchpad';
 
 // These libs don't support ES6 imports :/
 // tslint:disable-next-line:no-var-requires
@@ -48,6 +49,12 @@ const commands$ = combineLatest([activePage$, Actions$.launchpadActivePage]).pip
                 ];
             }, []),
         ] : [];
+    }),
+    map(triggers => {
+        return [
+            ...triggers,
+            ...launchpadSingleActions.map((trigger, index) => [9, index, trigger.color]),
+        ];
     }),
 );
 

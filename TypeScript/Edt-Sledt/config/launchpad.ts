@@ -1,4 +1,9 @@
-import {LaunchpadColor, LaunchpadPage, LaunchpadTrigger, TriggerType} from '../../Shared/actions/types';
+import {
+    LaunchpadColor,
+    LaunchpadPage,
+    LaunchpadTrigger,
+    TriggerType,
+} from '../../Shared/actions/types';
 import {Actions, Actions$} from '../../Shared/actions/actions';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -7,7 +12,7 @@ import {AnimationTypes} from '../../Shared/vidt/animation';
 import {blackColor} from '../../Shared/colors/utils';
 import {Colors} from './colors';
 import {IColor} from '../../Shared/colors/types';
-import {Shapes} from "../../Shared/vidt/shapes";
+import {Shapes} from '../../Shared/vidt/shapes';
 import { Sizes } from '../../Shared/vidt/sizes';
 
 export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
@@ -106,6 +111,15 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
         ];
     }),
 );
+
+export const launchpadSingleActions: LaunchpadTrigger[] = [
+    {
+        color: LaunchpadColor.red,
+        title: 'BEAT',
+        triggerType: TriggerType.text,
+        triggerAction: Actions.mainBeat(127),
+    },
+];
 
 function toLaunchpadPage(title: string, rows: LaunchpadTrigger[][]): LaunchpadPage {
     return { title, triggers: rows.map(row => [...chunk(row, 8)]).flat() };
