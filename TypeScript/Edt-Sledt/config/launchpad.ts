@@ -4,15 +4,15 @@ import {
     LaunchpadTrigger,
     TriggerType,
 } from '../../Shared/actions/types';
-import {Actions, Actions$} from '../../Shared/actions/actions';
-import {combineLatest, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {VidtPresets} from '../../Shared/vidt-presets';
-import {AnimationTypes} from '../../Shared/vidt/animation';
-import {blackColor} from '../../Shared/colors/utils';
-import {Colors} from './colors';
-import {IColor} from '../../Shared/colors/types';
-import {Shapes} from '../../Shared/vidt/shapes';
+import { Actions, Actions$ } from '../../Shared/actions/actions';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { VidtPresets } from '../../Shared/vidt-presets';
+import { AnimationTypes } from '../../Shared/vidt/animation';
+import { blackColor } from '../../Shared/colors/utils';
+import { Colors } from './colors';
+import { IColor } from '../../Shared/colors/types';
+import { Shapes } from '../../Shared/vidt/shapes';
 import { Sizes } from '../../Shared/vidt/sizes';
 
 export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
@@ -25,13 +25,13 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
     Actions$.contentGroup,
 ]).pipe(
     map(([
-             vidtPresets,
-             colorPalettes,
-             colorPalette,
-             shapes,
-             sizes,
-             animationTypes,
-             contentGroup,
+             [ vidtPresets,
+                 colorPalettes,
+                 colorPalette,
+                 shapes,
+                 sizes,
+                 animationTypes ],
+             [ contentGroup ],
          ]) => {
         return [
             toLaunchpadPage('Vidt', [
@@ -60,7 +60,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                         triggerAction: Actions.size(Sizes[size]),
                     })),
                 ],
-                [1, 3, 5, 7, 9].map(intensity => ({
+                [ 1, 3, 5, 7, 9 ].map(intensity => ({
                     color: LaunchpadColor.red,
                     title: intensity.toString(),
                     triggerType: TriggerType.text,
@@ -90,7 +90,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
             toLaunchpadPage('Colors', [
                 colorPalettes.map((palette, index) => ({
                     color: LaunchpadColor.yellow,
-                    title: `Palette_${index}`,
+                    title: `Palette_${ index }`,
                     triggerType: TriggerType.text,
                     triggerAction: Actions.colorPalette(palette),
                 })),
@@ -122,13 +122,13 @@ export const launchpadSingleActions: LaunchpadTrigger[] = [
 ];
 
 function toLaunchpadPage(title: string, rows: LaunchpadTrigger[][]): LaunchpadPage {
-    return { title, triggers: rows.map(row => [...chunk(row, 8)]).flat() };
+    return { title, triggers: rows.map(row => [ ...chunk(row, 8) ]).flat() };
 }
 
 function chunk(arr, n) {
-    return arr.length ? [arr.slice(0, n), ...chunk(arr.slice(n), n)] : [];
+    return arr.length ? [ arr.slice(0, n), ...chunk(arr.slice(n), n) ] : [];
 }
 
 function toColorReadable({ h, s, b }: IColor): string {
-    return `h:${h}\ns${s}\nb${b}`;
+    return `h:${ h }\ns${ s }\nb${ b }`;
 }
