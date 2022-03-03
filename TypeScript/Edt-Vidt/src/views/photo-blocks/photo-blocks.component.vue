@@ -3,12 +3,8 @@
         <ul class="photo-blocks__list">
             <li class="photo-blocks__item" v-for="block in blocks">
                 <div class="photo-blocks__block">
-                    <div class="photo-blocks__front">
-                        <img class="photo-blocks__img" v-bind:src="src">
-                    </div>
-                    <div class="photo-blocks__back">
-                        <img class="photo-blocks__img photo-blocks__img--back" v-bind:src="src">
-                    </div>
+                    <img class="photo-blocks__front" v-bind:src="src">
+                    <img class="photo-blocks__back" v-bind:src="src">
                 </div>
             </li>
         </ul>
@@ -71,7 +67,7 @@ export default class PhotoBlocksComponent extends Vue {
     }
 
     setSrc(src: string) {
-        this.src = `assets/media-by-group/${ src }`;
+        this.src = `/assets/media-by-group/${ src }`;
     }
 
     destroyed() {

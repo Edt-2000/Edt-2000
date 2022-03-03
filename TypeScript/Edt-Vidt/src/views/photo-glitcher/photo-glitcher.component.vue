@@ -32,7 +32,7 @@ import {AnimationTypes} from '../../../../Shared/vidt/animation';
         }
 
         setSrc(src: string) {
-            this.src = `assets/media-by-group/${src}`;
+            this.src = `/assets/media-by-group/${src}`;
         }
 
         destroyed() {
