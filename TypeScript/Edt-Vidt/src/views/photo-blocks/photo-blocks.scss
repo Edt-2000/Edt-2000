@@ -1,3 +1,5 @@
+@use "sass:math";
+
 :root {
     --size: 25vh;
 }
@@ -23,8 +25,8 @@
         width: 25vh;
 
         @for $i from 1 through 200 {
-            $delay: ((random(11) - 1) / 10) * 1s;
-            $duration: (((random(41) - 1) / 10) + 1) * 1s;
+            $delay: ((random(11) - 1) * 0.1) * 1s;
+            $duration: (((random(41) - 1) * 0.1) + 1) * 1s;
 
             &:nth-child(#{$i}) {
                 #{$self}__block {
@@ -80,8 +82,8 @@
 
     &--small {
         #{ $self }__item {
-            height: 100 / 6 * 1vh;
-            width: 100 / 6 * 1vh;
+            height: math.div(100, 6) * 1vh;
+            width: math.div(100, 6) * 1vh;
         }
     }
 }

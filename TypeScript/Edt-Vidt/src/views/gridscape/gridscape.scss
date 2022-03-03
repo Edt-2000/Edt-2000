@@ -114,8 +114,8 @@ $c-orange: #ff4700;
         width: 1px;
 
         @for $i from 1 through 100 {
-            $duration: (((random(40) - 1) / 10) + 3) * 1s;
-            $delay: ((random(11) - 1) / 10) * 1s;
+            $duration: (((random(40) - 1) * 0.1) + 3) * 1s;
+            $delay: ((random(11) - 1) * 0.1) * 1s;
 
             &:nth-child(#{$i}) {
                 animation-duration: $duration;

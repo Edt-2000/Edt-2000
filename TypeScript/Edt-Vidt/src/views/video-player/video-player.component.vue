@@ -2,7 +2,6 @@
     <div class="video">
         <video class="video__player" loop muted ref="video">
             <source type="video/mp4" v-bind:src="src">
-            Your browser does not support the video tag.
         </video>
 
         <div class="video__overlay" v-if="overlay"></div>
@@ -41,7 +40,7 @@
         }
 
         setSrc(src: string) {
-            this.src = `assets/videos/${src}`;
+            this.src = `assets/media-by-group/${src}`;
         }
 
         playVideo() {
