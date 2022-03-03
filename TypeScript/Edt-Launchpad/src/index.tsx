@@ -1,7 +1,7 @@
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
 import { combineLatest, fromEvent } from 'rxjs';
 import { debounceTime, filter, map, tap, withLatestFrom } from 'rxjs/operators';
-import {LaunchpadColor} from '../../Shared/actions/types';
+import { LaunchpadColor } from '../../Shared/actions/types';
 
 // These libs don't support ES6 imports :/
 // tslint:disable-next-line:no-var-requires
@@ -77,7 +77,8 @@ pad.connect().then(() => {
             } else if (releaseAction) {
                 sendToSledt(releaseAction);
             }
-            pad.col(Launchpad.Colors[key.pressed ? color : getContraColor(color)], key);
+            const newColor = key.pressed ? getContraColor(color) : color;
+            pad.col(Launchpad.Colors[newColor], key);
         }),
     ).subscribe();
 
