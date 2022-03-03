@@ -18,6 +18,8 @@ import TextBouncerComponent from './views/text-bouncer/text-bouncer.component.vu
 import VistaComponent from './views/vista/vista.component.vue';
 import WheelComponent from '@/views/wheel/wheel.component.vue';
 import MultiColorBackgroundComponent from '@/views/multicolor-background/multicolor-background.component.vue';
+import VideoPlayerComponent from '@/views/video-player/video-player.component.vue';
+import PhotoBlocksComponent from '@/views/photo-blocks/photo-blocks.component.vue';
 
 Vue.use(Router);
 
@@ -37,6 +39,7 @@ export default new Router({
         { path: '/' + VidtPresets[VidtPresets.logo] || '', component: LogoComponent },
         { path: '/' + VidtPresets[VidtPresets.multicolor] || '', component: MultiColorBackgroundComponent },
         { path: '/' + VidtPresets[VidtPresets.photobouncer] || '', component: PhotoBouncerComponent },
+        { path: '/' + VidtPresets[VidtPresets.photoBlocks] || '', component: PhotoBlocksComponent },
         { path: '/' + VidtPresets[VidtPresets.photoglitcher] || '', component: PhotoGlitcherComponent },
         { path: '/' + VidtPresets[VidtPresets.shutdown] || '', component: ShutdownComponent },
         { path: '/' + VidtPresets[VidtPresets.textBouncer] || '', component: TextBouncerComponent },

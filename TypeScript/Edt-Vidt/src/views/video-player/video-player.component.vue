@@ -22,7 +22,7 @@
 
         public src: string = '';
         public interval: number;
-        public overlay: boolean = false;
+        public overlay = false;
         public $refs: {
             video: HTMLVideoElement;
         };

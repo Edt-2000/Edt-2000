@@ -2,7 +2,7 @@
     --size: 25vh;
 }
 
-.color-blocks {
+.photo-blocks {
     $self: &;
     background: #000;
     height: 100vh;
@@ -56,6 +56,19 @@
 
     &__back {
         transform: rotateY(180deg);
+    }
+
+    &__img {
+        height: 100%;
+        left: 0;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        width: 100%;
+
+        &--back {
+            transform: rotate(180deg);
+        }
     }
 
     &--circle{
