@@ -16,14 +16,16 @@ import { Shapes } from '../../Shared/vidt/shapes';
 import { Sizes } from '../../Shared/vidt/sizes';
 
 export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
-    Actions$.vidtPresets,
-    Actions$.colorPalettes,
-    Actions$.colorPalette,
-    Actions$.shapes,
-    Actions$.sizes,
-    Actions$.animationTypes,
-    Actions$.contentGroup,
-]).pipe(
+    combineLatest([
+        Actions$.vidtPresets,
+        Actions$.colorPalettes,
+        Actions$.colorPalette,
+        Actions$.shapes,
+        Actions$.sizes,
+        Actions$.animationTypes ]),
+    combineLatest([
+        Actions$.contentGroup,
+    ]) ]).pipe(
     map(([
              [ vidtPresets,
                  colorPalettes,

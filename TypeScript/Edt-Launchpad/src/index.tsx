@@ -79,9 +79,10 @@ pad.connect().then(() => {
         })),
         filter(({ trigger }) => !!trigger),
         tap(({ key, trigger: { color, title, triggerType, triggerAction, releaseAction }}) => {
-            if (key.pressed) {
+            if (key.pressed && triggerAction) {
                 sendToSledt(triggerAction);
-            } else if (releaseAction) {
+            }
+            if (!key.pressed && releaseAction) {
                 sendToSledt(releaseAction);
             }
             const newColor = key.pressed ? getContraColor(color) : color;
