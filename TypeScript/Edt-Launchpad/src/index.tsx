@@ -53,7 +53,7 @@ const commands$ = combineLatest([activePage$, Actions$.launchpadActivePage]).pip
     map(triggers => {
         return [
             ...triggers,
-            ...launchpadSingleActions.map((trigger, index) => [9, index, trigger.color]),
+            ...launchpadSingleActions.map((trigger, index) => [8, index, Launchpad.Colors[trigger.color]]),
         ];
     }),
 );
