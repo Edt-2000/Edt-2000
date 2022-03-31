@@ -67,7 +67,7 @@ export default class PhotoBlocksComponent extends Vue {
     }
 
     setSrc(src: string) {
-        this.src = `/assets/media-by-group/${ src }`;
+        this.src = `./assets/media-by-group/${ src }`;
     }
 
     destroyed() {
