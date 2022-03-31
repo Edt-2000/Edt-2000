@@ -63,7 +63,6 @@ pad.connect().then(() => {
     pad.reset();
     // Color the buttons so you know which buttons do something
     commands$.pipe(debounceTime(100)).subscribe(async commands => {
-        // console.log('commands', commands);
         await pad.reset();
         await pad.setColors(commands);
     });
@@ -72,6 +71,16 @@ pad.connect().then(() => {
     key$.pipe(
         // If it's one of the top-buttons, we send launchPadPageNr
         tap(key => (key.y === 8 && key.pressed) && sendToSledt(Actions.launchpadActivePage(key.x))),
+        tap(key => {
+            if (key.x === 8) {
+                const action = launchpadSingleActions[key.y];
+                if (action && key.pressed && action.triggerAction) {
+                    sendToSledt(action.triggerAction);
+                } else if (action && action.releaseAction) {
+                    sendToSledt(action.releaseAction);
+                }
+            }
+        } ),
         withLatestFrom(activePage$),
         map(([key, launchpadPage]) => ({
             key,
