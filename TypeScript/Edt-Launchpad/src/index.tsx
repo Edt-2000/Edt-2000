@@ -2,6 +2,7 @@ import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actio
 import { combineLatest, fromEvent } from 'rxjs';
 import { debounceTime, filter, map, tap, withLatestFrom } from 'rxjs/operators';
 import { LaunchpadColor } from '../../Shared/actions/types';
+import { launchpadSingleActions } from 'edt-sledt/config/launchpad';
 
 // These libs don't support ES6 imports :/
 // tslint:disable-next-line:no-var-requires
@@ -49,6 +50,12 @@ const commands$ = combineLatest([activePage$, Actions$.launchpadActivePage]).pip
             }, []),
         ] : [];
     }),
+    map(triggers => {
+        return [
+            ...triggers,
+            ...launchpadSingleActions.map((trigger, index) => [8, index, Launchpad.Colors[trigger.color]]),
+        ];
+    }),
 );
 
 pad.connect().then(() => {
@@ -56,7 +63,6 @@ pad.connect().then(() => {
     pad.reset();
     // Color the buttons so you know which buttons do something
     commands$.pipe(debounceTime(100)).subscribe(async commands => {
-        // console.log('commands', commands);
         await pad.reset();
         await pad.setColors(commands);
     });
@@ -65,6 +71,16 @@ pad.connect().then(() => {
     key$.pipe(
         // If it's one of the top-buttons, we send launchPadPageNr
         tap(key => (key.y === 8 && key.pressed) && sendToSledt(Actions.launchpadActivePage(key.x))),
+        tap(key => {
+            if (key.x === 8) {
+                const action = launchpadSingleActions[key.y];
+                if (action && key.pressed && action.triggerAction) {
+                    sendToSledt(action.triggerAction);
+                } else if (action && action.releaseAction) {
+                    sendToSledt(action.releaseAction);
+                }
+            }
+        } ),
         withLatestFrom(activePage$),
         map(([key, launchpadPage]) => ({
             key,
@@ -72,9 +88,10 @@ pad.connect().then(() => {
         })),
         filter(({ trigger }) => !!trigger),
         tap(({ key, trigger: { color, title, triggerType, triggerAction, releaseAction }}) => {
-            if (key.pressed) {
+            if (key.pressed && triggerAction) {
                 sendToSledt(triggerAction);
-            } else if (releaseAction) {
+            }
+            if (!key.pressed && releaseAction) {
                 sendToSledt(releaseAction);
             }
             const newColor = key.pressed ? getContraColor(color) : color;

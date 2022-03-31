@@ -46,7 +46,7 @@ export interface LaunchpadTrigger {
     title: string; // Title
     triggerType: TriggerType;
     payload?: any;
-    triggerAction: Actions; // TriggerAction
+    triggerAction?: Actions; // TriggerAction
     releaseAction?: Actions; // TriggerAction on release
 }
 
