@@ -93,7 +93,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                     triggerAction: Actions.singleColor(colorPalette[i]),
                 })),
                 colorPalette.map((color, i) => ({
-                    color: LaunchpadColor.green,
+                    color: LaunchpadColor.red,
                     title: toColorReadable(color),
                     triggerType: TriggerType.color,
                     triggerAction: Actions.singleColor(colorPalette[i]),
