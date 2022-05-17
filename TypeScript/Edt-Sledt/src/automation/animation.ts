@@ -8,7 +8,7 @@ export const animationTypeCC$ = Actions$.animationType.pipe(
     map(type => ({
         channel: automationChannel,
         controller: animationTypeCCNumber,
-        value: type,
+        value: Object.keys(AnimationTypes).indexOf(type),
     })),
 );
 
