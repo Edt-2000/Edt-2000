@@ -46,6 +46,7 @@ nextActionFromMsg(Actions.presetState(getPresetState()));
 // We don't want to hardcode these arrays/sets into the code
 nextActionFromMsg(Actions.cueList(presetCues));
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
+if(scannedContentGroups[0]) { nextActionFromMsg(Actions.contentGroup(scannedContentGroups[0])) }
 nextActionFromMsg(Actions.vidtPresets(enumToArray(VidtPresets)));
 nextActionFromMsg(Actions.animationTypes(enumToArray(AnimationTypes)));
 nextActionFromMsg(Actions.colorPalette(colorSets[0]));
