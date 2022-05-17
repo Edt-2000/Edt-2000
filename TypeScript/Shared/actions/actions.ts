@@ -76,6 +76,7 @@ export const Actions$ = {
     prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
 
     launchpadActivePage: new BehaviorSubject<number>(0),
+
     launchpadPages: new BehaviorSubject<LaunchpadPage[]>([]),
 
     imageSrc: new BehaviorSubject(''),

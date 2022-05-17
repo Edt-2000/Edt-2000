@@ -1,9 +1,4 @@
-import {
-    LaunchpadColor,
-    LaunchpadPage,
-    LaunchpadTrigger,
-    TriggerType,
-} from '../../Shared/actions/types';
+import { LaunchpadColor, LaunchpadPage, LaunchpadTrigger, TriggerType, } from '../../Shared/actions/types';
 import { Actions, Actions$ } from '../../Shared/actions/actions';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,6 +9,7 @@ import { Colors } from './colors';
 import { IColor } from '../../Shared/colors/types';
 import { Shapes } from '../../Shared/vidt/shapes';
 import { Sizes } from '../../Shared/vidt/sizes';
+import { scannedContentGroups } from '../src/media/asset-scan-dir';
 
 export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
     combineLatest([
@@ -25,6 +21,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
         Actions$.animationTypes ]),
     combineLatest([
         Actions$.contentGroup,
+        Actions$.cueList,
     ]) ]).pipe(
     map(([
              [ vidtPresets,
@@ -33,8 +30,15 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                  shapes,
                  sizes,
                  animationTypes ],
-             [ contentGroup ],
+             [ contentGroup, cueList ],
          ]) => {
+        const cg = scannedContentGroups.map(group => ({
+            color: LaunchpadColor.red,
+            title: group.title,
+            triggerType: TriggerType.text,
+            payload: group.songNr,
+            triggerAction: Actions.contentGroup(scannedContentGroups.find(g => g.songNr === group.songNr)),
+        }))
         return [
             toLaunchpadPage('Vidt', [
                 vidtPresets.map(preset => ({
@@ -74,20 +78,6 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                     triggerType: TriggerType.text,
                     triggerAction: Actions.animationType(AnimationTypes[type]),
                 })),
-                contentGroup.images.map(image => ({
-                    color: LaunchpadColor.yellow,
-                    title: image,
-                    triggerType: TriggerType.image,
-                    payload: image,
-                    triggerAction: Actions.imageSrc(image),
-                })),
-                contentGroup.videos.map(video => ({
-                    color: LaunchpadColor.green,
-                    title: video,
-                    triggerType: TriggerType.video,
-                    payload: video,
-                    triggerAction: Actions.videoSrc(video),
-                })),
             ]),
             toLaunchpadPage('Colors', [
                 colorPalettes.map((palette, index) => ({
@@ -101,14 +91,38 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                     title: toColorReadable(color),
                     triggerType: TriggerType.color,
                     triggerAction: Actions.singleColor(colorPalette[i]),
-                    releaseAction: Actions.singleColor(blackColor),
                 })),
                 colorPalette.map((color, i) => ({
-                    color: LaunchpadColor.amber,
+                    color: LaunchpadColor.red,
                     title: toColorReadable(color),
                     triggerType: TriggerType.color,
                     triggerAction: Actions.singleColor(colorPalette[i]),
+                    releaseAction: Actions.singleColor(blackColor),
                 })),
+            ]),
+            toLaunchpadPage('Photos', [
+                cg,
+                contentGroup.images.map(image => ({
+                    color: LaunchpadColor.yellow,
+                    title: image,
+                    triggerType: TriggerType.image,
+                    triggerAction: Actions.imageSrc(image),
+                })),
+                contentGroup.videos.map(video => ({
+                    color: LaunchpadColor.green,
+                    title: video,
+                    triggerType: TriggerType.video,
+                    triggerAction: Actions.videoSrc(video),
+                })),
+            ]),
+            toLaunchpadPage('Text', [
+                cg,
+                contentGroup.wordSet.map(word => ({
+                    color: LaunchpadColor.amber,
+                    title: word,
+                    triggerType: TriggerType.text,
+                    triggerAction: Actions.mainText(word),
+                }))
             ]),
         ];
     }),
@@ -121,6 +135,31 @@ export const launchpadSingleActions: LaunchpadTrigger[] = [
         triggerType: TriggerType.text,
         triggerAction: Actions.mainBeat(127),
     },
+    {
+        color: LaunchpadColor.green,
+        title: 'LOGO',
+        triggerType: TriggerType.text,
+        triggerAction: Actions.prepareVidt(VidtPresets.logo),
+    },
+    {
+        color: LaunchpadColor.yellow,
+        title: 'PHOTOS',
+        triggerType: TriggerType.text,
+        triggerAction: Actions.prepareVidt(VidtPresets.photobouncer),
+    },
+    {
+        color: LaunchpadColor.yellow,
+        title: 'VIDEO',
+        triggerType: TriggerType.text,
+        triggerAction: Actions.prepareVidt(VidtPresets.videoPlayer),
+    },
+    {
+        color: LaunchpadColor.yellow,
+        title: 'TEXT',
+        triggerType: TriggerType.text,
+        triggerAction: Actions.prepareVidt(VidtPresets.karaoke),
+    },
+
 ];
 
 function toLaunchpadPage(title: string, rows: LaunchpadTrigger[][]): LaunchpadPage {
