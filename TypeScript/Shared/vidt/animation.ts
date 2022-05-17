@@ -1,9 +1,9 @@
 export enum AnimationTypes {
-    '____EMPTY____',
-    bounce,
-    rotate,
-    spin,
-    spinReverse,
-    stretch,
-    mirror,
+    empty = '____EMPTY____',
+    bounce = 'bounce',
+    rotate = 'rotate',
+    spin = 'spin',
+    spinReverse = 'spinReverse',
+    stretch = 'stretch',
+    mirror = 'mirror',
 }
