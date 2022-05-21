@@ -4,7 +4,7 @@
             <ng-container [ngSwitch]="button.triggerType">
                 <button *ngSwitchCase="triggerType.image"
                     class="launchpad__button launchpad__button--{{ button.color }}"
-                    [style.background-image]="'url(\'assets/media-by-group/' + button.payload + '\')'"
+                    [style.background-image]="'url(\'./assets/media-by-group/' + button.title + '\')'"
                 >
                 </button>
                 <button *ngSwitchDefault
