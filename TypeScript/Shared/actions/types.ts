@@ -18,6 +18,7 @@ export interface GroupedControlPresetMsg {
 
 export interface ICue {
     label: string;
+    activateOnStart?: boolean;
     actions: Actions[];
 }
 

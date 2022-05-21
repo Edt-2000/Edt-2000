@@ -46,13 +46,17 @@ nextActionFromMsg(Actions.presetState(getPresetState()));
 // We don't want to hardcode these arrays/sets into the code
 nextActionFromMsg(Actions.cueList(presetCues));
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
-if(scannedContentGroups[0]) { nextActionFromMsg(Actions.contentGroup(scannedContentGroups[0])) }
+if (scannedContentGroups[0]) { nextActionFromMsg(Actions.contentGroup(scannedContentGroups[0])) }
 nextActionFromMsg(Actions.vidtPresets(enumToArray(VidtPresets)));
 nextActionFromMsg(Actions.animationTypes(enumToArray(AnimationTypes)));
 nextActionFromMsg(Actions.colorPalette(colorSets[0]));
 nextActionFromMsg(Actions.colorPalettes(colorSets));
 nextActionFromMsg(Actions.shapes(enumToArray(Shapes)));
 nextActionFromMsg(Actions.sizes(enumToArray(Sizes)));
+
+presetCues.filter(cue => cue.activateOnStart).forEach(cue => {
+    cue.actions.forEach(action => nextActionFromMsg(action));
+});
 
 // The launchpad pages are dependent on many changing variables so it's build as an observable
 launchpadPages$.subscribe(pages => nextActionFromMsg(Actions.launchpadPages(pages)));
