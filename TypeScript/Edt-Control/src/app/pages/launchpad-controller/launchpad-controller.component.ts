@@ -3,7 +3,7 @@ import { Actions$ } from '../../../../../Shared/actions/actions';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LaunchpadTrigger, TriggerType } from '../../../../../Shared/actions/types';
-import { SocketService } from "../../socket.service";
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-launchpad-controller',
@@ -13,8 +13,9 @@ import { SocketService } from "../../socket.service";
 export class LaunchpadControllerComponent implements OnInit {
   triggerType = TriggerType;
 
-  launchpadPage$ = combineLatest([Actions$.launchpadPages, Actions$.launchpadActivePage]).pipe(
-    map(([pages, pageNr]) => pages[pageNr]),
+  // TODO multipage
+  launchpadPage$ = combineLatest([Actions$.launchpadPages, Actions$.launchpadPageChange]).pipe(
+    map(([pages, pageNr]) => pages[pageNr.page]),
   );
 
   constructor(public socket: SocketService) {

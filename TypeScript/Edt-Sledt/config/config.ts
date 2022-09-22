@@ -4,6 +4,7 @@ export const enum DeviceIPs {
     edtFastLed = '10.0.0.20',
     edtRGBLed = '10.0.0.21',
     edtMOSCidi = 'localhost',
+    edtSledt = 'localhost',
 }
 
 export const OSCInPort = 12346;

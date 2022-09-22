@@ -25,7 +25,7 @@ render(<EdtConsole/>);
 Actions$.presetChange
     .pipe(
         filter(msg => !!presets[msg.preset]),
-        tap(({ modifier, preset, state }) => {
+        tap(({modifier, preset, state}) => {
             if (state) {
                 presets[preset].startPreset(modifier);
             } else {
@@ -46,7 +46,9 @@ nextActionFromMsg(Actions.presetState(getPresetState()));
 // We don't want to hardcode these arrays/sets into the code
 nextActionFromMsg(Actions.cueList(presetCues));
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
-if (scannedContentGroups[0]) { nextActionFromMsg(Actions.contentGroup(scannedContentGroups[0])) }
+if (scannedContentGroups[0]) {
+    nextActionFromMsg(Actions.contentGroup(scannedContentGroups[0]));
+}
 nextActionFromMsg(Actions.vidtPresets(enumToArray(VidtPresets)));
 nextActionFromMsg(Actions.animationTypes(enumToArray(AnimationTypes)));
 nextActionFromMsg(Actions.colorPalette(colorSets[0]));

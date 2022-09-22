@@ -1,6 +1,6 @@
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
 import { combineLatest, fromEvent } from 'rxjs';
-import { debounceTime, filter, map, tap, withLatestFrom } from 'rxjs/operators';
+import { debounceTime, filter, map, reduce, startWith, tap, withLatestFrom } from 'rxjs/operators';
 import { LaunchpadColor } from '../../Shared/actions/types';
 import { launchpadSingleActions } from 'edt-sledt/config/launchpad';
 
@@ -10,13 +10,17 @@ const Launchpad = require('launchpad-mini');
 // tslint:disable-next-line:no-var-requires
 const socketClient = require('socket.io-client');
 
-const [, , edtSledtIP] = process.argv;
+const [, , launchpadInstanceArg, edtSledtIP] = process.argv;
 const socket = socketClient(`http://${edtSledtIP ? edtSledtIP : 'localhost'}:8898/launchpad`, {
     origins: '*:*',
     transports: ['websocket'],
 });
 
+const launchpadInstance = +launchpadInstanceArg || 0;
+
 const pad = new Launchpad();
+
+console.log('Launchpads', pad.availablePorts);
 
 socket.on('connect', () => console.log('Connected to Edt-Sledt!'));
 socket.on('disconnect', () => {
@@ -33,11 +37,17 @@ interface Pad {
     id: symbol;
 }
 
-const activePage$ = combineLatest([Actions$.launchpadPages, Actions$.launchpadActivePage]).pipe(
-    map(([pages, pageNumber]) => pages[pageNumber] ? pages[pageNumber] : { title: '', triggers: [] }),
+const launchpadPage$ = Actions$.launchpadPageChange.pipe(
+    filter(pageChange => pageChange.launchpad === launchpadInstance),
+    map(pageChange => pageChange.page),
+    startWith(1),
 );
 
-const commands$ = combineLatest([activePage$, Actions$.launchpadActivePage]).pipe(
+const activePage$ = combineLatest([Actions$.launchpadPages, launchpadPage$]).pipe(
+    map(([pages, page]) => pages[page] ? pages[page] : {title: '', triggers: []}),
+);
+
+const commands$ = combineLatest([activePage$, launchpadPage$]).pipe(
     map(([page, pageNumber]) => {
         const activePage = [pageNumber, 8, Launchpad.Colors.red];
         return page.triggers ? [
@@ -58,8 +68,8 @@ const commands$ = combineLatest([activePage$, Actions$.launchpadActivePage]).pip
     }),
 );
 
-pad.connect().then(() => {
-    console.log('Launchpad connected!');
+pad.connect(launchpadInstance).then(() => {
+    console.log(`Launchpad ${launchpadInstance} connected!`);
     pad.reset();
     // Color the buttons so you know which buttons do something
     commands$.pipe(debounceTime(100)).subscribe(async commands => {
@@ -67,10 +77,17 @@ pad.connect().then(() => {
         await pad.setColors(commands);
     });
 
-    // Handle key events and send correct messages
     key$.pipe(
         // If it's one of the top-buttons, we send launchPadPageNr
-        tap(key => (key.y === 8 && key.pressed) && sendToSledt(Actions.launchpadActivePage(key.x))),
+        tap(key => {
+            if (key.y === 8 && key.pressed) {
+                sendToSledt(Actions.launchpadPageChange({launchpad: launchpadInstance, page: key.x}));
+            }
+        }),
+    ).subscribe();
+
+    // Handle key events and send correct messages
+    key$.pipe(
         tap(key => {
             if (key.x === 8) {
                 const action = launchpadSingleActions[key.y];
@@ -99,8 +116,8 @@ pad.connect().then(() => {
         }),
     ).subscribe();
 
-}).catch(() => {
-    console.log('NO LAUNCHPAD CONNECTED!');
+}).catch((e: any) => {
+    console.log('NO LAUNCHPAD CONNECTED!', e);
     process.exit(1);
 });
 

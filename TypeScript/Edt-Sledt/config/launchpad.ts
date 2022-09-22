@@ -38,7 +38,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
             triggerType: TriggerType.text,
             payload: group.songNr,
             triggerAction: Actions.contentGroup(scannedContentGroups.find(g => g.songNr === group.songNr)),
-        }))
+        }));
         return [
             toLaunchpadPage('Vidt', [
                 vidtPresets.map(preset => ({

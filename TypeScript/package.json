@@ -13,6 +13,7 @@
         "trailingComma": "all"
     },
     "dependencies": {
+        "args": "^5.0.3",
         "prettier": "^1.16.4",
         "rxjs": "6.5.3",
         "webpack": "4.41.0",

@@ -19,8 +19,7 @@ function readDirOneDeep(path: string): ContentGroup[] {
                 console.info(`No words.txt file found for ${dir}. Please create a words.txt file in the directory.`);
             }
 
-            const songNr = +dir.split('_')[0];
-            const title = dir.split('_')[1];
+            const {songNr, title} = checkDirName(dir);
 
             return {
                 songNr,
@@ -42,4 +41,13 @@ function isImage(filename): boolean {
 
 function isVideo(filename): boolean {
     return p.extname(filename) === '.mp4';
+}
+
+function checkDirName(dir: string) {
+    // INSERT REGEX??
+
+    const songNr = +dir.split('_')[0];
+    const title = dir.split('_')[1];
+
+    return {songNr, title};
 }
