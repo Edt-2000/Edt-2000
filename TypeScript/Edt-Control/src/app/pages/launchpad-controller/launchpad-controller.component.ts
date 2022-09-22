@@ -1,27 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { LaunchpadTrigger, TriggerType } from '../../../../../Shared/actions/types';
 import { SocketService } from '../../socket.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-launchpad-controller',
   templateUrl: './launchpad-controller.component.html',
   styleUrls: ['./launchpad-controller.component.scss']
 })
-export class LaunchpadControllerComponent implements OnInit {
+export class LaunchpadControllerComponent {
   triggerType = TriggerType;
 
-  // TODO multipage
-  launchpadPage$ = combineLatest([Actions$.launchpadPages, Actions$.launchpadPageChange]).pipe(
-    map(([pages, pageNr]) => pages[pageNr.page]),
+  launchpadId$ = this.route.paramMap.pipe(map(pMap => pMap.get('id')));
+
+  launchpadPage$ = combineLatest([Actions$.launchpadPages, Actions$.launchpadPageChange, this.launchpadId$]).pipe(
+    filter(([, pageChange, launchpadId]) => pageChange.launchpad === +launchpadId),
+    map(([pages, pageChange]) => pages[pageChange.page]),
   );
 
-  constructor(public socket: SocketService) {
-  }
-
-  ngOnInit() {
+  constructor(public socket: SocketService, private route: ActivatedRoute) {
   }
 
   sendAction(button: LaunchpadTrigger) {

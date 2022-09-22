@@ -33,7 +33,7 @@ export const pages = [
   },
   {
     text: 'Launchpad',
-    path: 'launchpad-controller',
+    path: 'launchpad-controller/:id',
     component: LaunchpadControllerComponent,
   },
 ];
