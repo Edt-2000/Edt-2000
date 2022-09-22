@@ -1,17 +1,16 @@
 import { PresetLogic } from '../../presets-logic';
-import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
+import { Actions$ } from '../../../../../Shared/actions/actions';
 import { ModifierGroup } from '../../../../../Shared/actions/types';
+import { SpectacleColor } from '../../../outputs/edt-spectacle';
 import { modifiers } from '../../../../config/modifiers';
-import { ColorVariations } from "../../../../config/config";
-import { IColor } from "../../../../../Shared/colors/types";
-import { rescale } from "../../../../../Shared/utils/utils";
+import { ColorVariations } from '../../../../config/config';
+import { rescale } from '../../../../../Shared/utils/utils';
 
-export class ColorToVidtColor extends PresetLogic {
+export class ColorToSpectacle extends PresetLogic {
     modifierOptions = {
         select: modifiers.colorVariation,
         group: [
-            ModifierGroup.Vidt,
-            ModifierGroup.Color,
+            ModifierGroup.FX,
         ],
     };
 
@@ -23,12 +22,7 @@ export class ColorToVidtColor extends PresetLogic {
                     s: color.s,
                     b: color.b,
                 } : color);
-                nextActionFromMsg(Actions.vidtSingleColor(newColor));
-            }),
-        );
-        this.addSub(
-            Actions$.multiColor.subscribe(color => {
-                nextActionFromMsg(Actions.vidtMultiColor(color));
+                SpectacleColor(newColor);
             }),
         );
     }

@@ -13,7 +13,7 @@ export function FastLedtSpark(
         DeviceIPs.edtFastLed,
         OSCDispedtOutPort,
         {
-            addresses: [OSCDevices.EdtFastLed + instance],
+            addresses: [OSCDevices.EdtFastLed + (instance === 0 ? '?' : instance)],
             values: [
                 Modii.SingleSpark,
                 start,

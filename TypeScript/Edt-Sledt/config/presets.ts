@@ -7,7 +7,6 @@ import { ColorToFastLedSolid } from '../src/presets/outputs/fastledt/colorToFast
 import { ColorStrobeRGBLed } from '../src/presets/outputs/rgbledt/colorStrobeRGBLed';
 import { DrumSoundToFastLedStrip } from '../src/presets/outputs/fastledt/drumSoundToFastLedStrip';
 import { ColorToRGBLedSolid } from '../src/presets/outputs/rgbledt/colorToRGBLedSolid';
-import { ColorToInverseVidtColor } from '../src/presets/converters/color/colorToInverseVidtColor';
 import { BeatToFastLedSpark } from '../src/presets/outputs/fastledt/beatToFastLedSpark';
 import { BeatToRainbowSpark } from '../src/presets/outputs/fastledt/beatToRainbowSpark';
 import { Note } from '../../Shared/midi/midi';
@@ -21,6 +20,7 @@ import { MidiChannelToMainBass } from '../src/presets/converters/bass/midiChanne
 import { MidiChannelToMainChords } from '../src/presets/converters/chords/midiChannelToMainChords';
 import { DrumSounds } from './config';
 import { PresetLogic } from '../src/presets/presets-logic';
+import { ColorToSpectacle } from '../src/presets/outputs/spectacle/colorToSpectacle';
 
 // TODO: C, D, E, F, G, A, B
 
@@ -86,7 +86,7 @@ export const presets: Record<number, PresetLogic> = {
     // [Note.D2]:
     // [Note.D$2]:
     [Note.E2]: new ColorToVidtColor(),
-    [Note.F2]: new ColorToInverseVidtColor(),
+    // [Note.F2]:,
     [Note.F$2]: new MultiColorToVidtMultiColor(),
     // [Note.G2]:
     // [Note.G$2]:
@@ -107,7 +107,8 @@ export const presets: Record<number, PresetLogic> = {
     // [Note.A$3]:
     // [Note.B3]:
 
-    // [Note.C4]:
+    // FX!
+    [Note.C4]: new ColorToSpectacle(),
     // [Note.C$4]:
     // [Note.D4]:
     // [Note.D$4]:

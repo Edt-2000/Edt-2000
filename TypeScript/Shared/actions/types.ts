@@ -69,6 +69,7 @@ export enum ModifierGroup {
     Beat,
     Midi,
     Bass,
+    FX,
 }
 
 export interface IModifierOptions {
