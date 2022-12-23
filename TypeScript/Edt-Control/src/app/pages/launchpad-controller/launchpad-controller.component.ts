@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { LaunchpadTrigger, TriggerType } from '../../../../../Shared/actions/types';
+import { ActivatedRoute } from '@angular/router';
+import { TriggerType } from '../../../../../Shared/actions/types';
 import { SocketService } from '../../socket.service';
 import { LaunchpadService } from './launchpad.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-launchpad-controller',
@@ -11,12 +13,10 @@ import { LaunchpadService } from './launchpad.service';
 export class LaunchpadControllerComponent {
     triggerType = TriggerType;
 
-    activeLaunchpads$ = this.launchpad.activeLaunchpads$;
+    activeLaunchpads$ = this.route.paramMap.pipe(
+        switchMap(params => this.launchpad.activeLaunchpads$(Number(params.get('launchpadInstance'))))
+    );
 
-    constructor(public socket: SocketService, private launchpad: LaunchpadService) {
-    }
-
-    sendAction(button: LaunchpadTrigger) {
-        this.socket.sendLaunchpadTrigger(button);
+    constructor(public socket: SocketService, private launchpad: LaunchpadService, private route: ActivatedRoute) {
     }
 }

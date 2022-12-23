@@ -4,7 +4,6 @@ import { IColor } from '../../../Shared/colors/types';
 
 export function SpectacleColor(
     colorMsg: IColor,
-    speed: number = 127,
 ) {
     sendToOSC(
         DeviceIPs.edtSpectacle,
@@ -12,10 +11,12 @@ export function SpectacleColor(
         {
             addresses: [OSCDevices.EdtSpectacle],
             values: [
-                Modii.SPECTACLE,
-                speed,
+                Modii.SingleSolid,
+                0,
+                127,
                 colorMsg.h,
-                colorMsg.h,
+                colorMsg.s,
+                colorMsg.b,
             ],
         },
     );

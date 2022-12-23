@@ -7,6 +7,12 @@ export const modifiers = {
         {label: 'normal', value: ColorVariations.normal},
         {label: 'inverse', value: ColorVariations.inverse},
     ],
+    ledColorVariation: [
+        {label: 'normal', value: ColorVariations.normal},
+        {label: 'inverse', value: ColorVariations.inverse},
+        {label: 'stroboscope', value: 1},
+        {label: 'inverseStroboscope', value: 2},
+    ],
     strobeSpeeds: [
         {label: 'slow', value: 10},
         {label: 'medium', value: 25},

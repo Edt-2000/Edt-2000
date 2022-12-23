@@ -2,9 +2,8 @@ import { PresetLogic } from '../../presets-logic';
 import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
 import { ModifierGroup } from '../../../../../Shared/actions/types';
 import { modifiers } from '../../../../config/modifiers';
-import { ColorVariations } from "../../../../config/config";
-import { IColor } from "../../../../../Shared/colors/types";
-import { rescale } from "../../../../../Shared/utils/utils";
+import { ColorVariations } from '../../../../config/config';
+import { rescale } from '../../../../../Shared/utils/utils';
 
 export class ColorToVidtColor extends PresetLogic {
     modifierOptions = {

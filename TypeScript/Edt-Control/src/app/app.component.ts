@@ -7,7 +7,7 @@ import { SocketService } from './socket.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  pages = pages;
+  pages = pages.filter(page => !page.excludeFromMenu);
 
   constructor(public socket: SocketService) {
   }

@@ -10,7 +10,7 @@
                     </button>
                     <button *ngSwitchDefault
                             class="launchpad__button launchpad__button--{{ button.color }}"
-                            (click)="sendAction(button)"
+                            (click)="socket.sendLaunchpadTrigger(button)"
                     ><span class="launchpad__text">{{ button.title }}</span>
                     </button>
                 </ng-container>

@@ -13,8 +13,6 @@ export const OSCInPort = 12346;
 export const OSCDispedtOutPort = 12345;
 export const MOSCIDIPort = 12347;
 
-export const fastLedAmount = 7;
-
 export const automationChannel = 16;
 
 export const vidtPresetAutomationCCNumber = 1;
@@ -45,7 +43,6 @@ export enum Modii {
     RainbowSolid = 2,
     RainbowPulse = 3,
     RainbowSpark = 8,
-    SPECTACLE = 4,
     Twinkle = 5,
     Strobo = 6,
     DualSolid = 9,
