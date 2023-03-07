@@ -1,23 +1,19 @@
-import { BeatToColor } from '../src/presets/converters/color/beatToColor';
-import { MidiToColors } from '../src/presets/converters/color/midiToColors';
-import { DrumSoundToBeat } from '../src/presets/converters/drums/drumSoundToBeat';
+import { BeatToColor } from '../src/presets/converters/beat/beatToColor';
+import { DrumSoundToBeat } from '../src/presets/converters/beat/drumSoundToBeat';
 import { ColorToVidtColor } from '../src/presets/outputs/vidt/colorToVidtColor';
 import { MultiColorToVidtMultiColor } from '../src/presets/outputs/vidt/multiColorToVidtMultiColor';
 import { ColorToFastLedSolid } from '../src/presets/outputs/fastledt/colorToFastLedSolid';
-import { ColorStrobeRGBLed } from '../src/presets/outputs/rgbledt/colorStrobeRGBLed';
 import { DrumSoundToFastLedStrip } from '../src/presets/outputs/fastledt/drumSoundToFastLedStrip';
-import { ColorToRGBLedSolid } from '../src/presets/outputs/rgbledt/colorToRGBLedSolid';
 import { BeatToFastLedSpark } from '../src/presets/outputs/fastledt/beatToFastLedSpark';
 import { BeatToRainbowSpark } from '../src/presets/outputs/fastledt/beatToRainbowSpark';
 import { Note } from '../../Shared/midi/midi';
-import { BeatToNextWord } from '../src/presets/converters/words/beatToNextWord';
-import { MidiChannelToMainMelody } from '../src/presets/converters/melody/midiChannelToMainMelody';
-import { DrumSoundMap } from '../src/presets/converters/drums/drumSoundMap';
-import { MidiChannelToMainDrum } from '../src/presets/converters/drums/midiChannelToMainDrum';
+import { BeatToNextWord } from '../src/presets/converters/beat/beatToNextWord';
+import { MidiChannelToMainMelody } from '../src/presets/converters/instruments/midiChannelToMainMelody';
+import { DrumSoundMap } from '../src/presets/converters/instruments/drumSoundMap';
+import { MidiChannelToMainDrum } from '../src/presets/converters/instruments/midiChannelToMainDrum';
 import { ColorToFastLedStrobe } from '../src/presets/outputs/fastledt/colorToFastLedStrobe';
 import { MainMelodyToChunksOfFastLedt } from '../src/presets/outputs/fastledt/mainMelodyToChunksOfFastLedt';
-import { MidiChannelToMainBass } from '../src/presets/converters/bass/midiChannelToMainBass';
-import { MidiChannelToMainChords } from '../src/presets/converters/chords/midiChannelToMainChords';
+import { MidiChannelToMainBass } from '../src/presets/converters/instruments/midiChannelToMainBass';
 import { DrumSounds } from './config';
 import { PresetLogic } from '../src/presets/presets-logic';
 import { ColorToSpectacle } from '../src/presets/outputs/spectacle/colorToSpectacle';
@@ -50,15 +46,15 @@ export const presets: Record<number, PresetLogic> = {
     [Note.F_1]: new BeatToColor(),
     [Note.F$_1]: new BeatToRainbowSpark(),
     [Note.G_1]: new BeatToFastLedSpark(),
-    [Note.G$_1]: new MidiToColors(),
+    // [Note.G$_1]: ,
     // [Note.A_1]:
     // [Note.A$_1]:
     // [Note.B_1]:
 
     [Note.C0]: new ColorToFastLedSolid(),
-    [Note.C$0]: new ColorToRGBLedSolid(),
+    // [Note.C$0]:,
     [Note.D0]: new ColorToFastLedStrobe(),
-    [Note.D$0]: new ColorStrobeRGBLed(),
+    // [Note.D$0]:
     // [Note.E0]:
     // [Note.F0]:
     // [Note.F$0]:
@@ -73,7 +69,7 @@ export const presets: Record<number, PresetLogic> = {
     // [Note.D1]:
     // [Note.D$1]:
     // [Note.E1]:
-    [Note.F1]: new MidiChannelToMainChords(),
+    // [Note.F1]:,
     [Note.F$1]: new MidiChannelToMainMelody(),
     [Note.G1]: new MidiChannelToMainDrum(),
     [Note.G$1]: new MidiChannelToMainBass(),

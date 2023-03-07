@@ -30,8 +30,8 @@ hardwareInputs.forEach(inputName => {
 
         hardwareInput.on('noteon', handleNote(inputName, true));
         hardwareInput.on('noteoff', handleNote(inputName, false));
-        hardwareInput.on('cc', handleCC(inputName));
-        hardwareInput.on('select', handleSongSelect(inputName));
+        // hardwareInput.on('cc', handleCC(inputName));
+        // hardwareInput.on('select', handleSongSelect(inputName));
 
     } catch (e) {
         console.log('Failure to connect to ' + inputName);

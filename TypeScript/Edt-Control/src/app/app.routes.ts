@@ -34,9 +34,13 @@ export const pages = [
         component: ColorControllerComponent,
     },
     {
-        text: 'Launchpad',
-        path: 'launchpad-controller/:launchpadInstance',
+        text: 'Launchpad-0',
+        path: 'launchpad-controller/0',
         component: LaunchpadControllerComponent,
-        excludeFromMenu: true,
+    },
+    {
+        text: 'Launchpad-1',
+        path: 'launchpad-controller/1',
+        component: LaunchpadControllerComponent,
     },
 ];

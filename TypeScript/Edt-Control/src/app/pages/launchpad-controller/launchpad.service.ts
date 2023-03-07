@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions$ } from '../../../../../Shared/actions/actions';
-import { filter, map, shareReplay, withLatestFrom } from 'rxjs/operators';
+import { filter, map, withLatestFrom } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class LaunchpadService {

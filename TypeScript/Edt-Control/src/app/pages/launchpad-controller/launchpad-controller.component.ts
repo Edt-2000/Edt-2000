@@ -13,8 +13,11 @@ import { switchMap } from 'rxjs/operators';
 export class LaunchpadControllerComponent {
     triggerType = TriggerType;
 
-    activeLaunchpads$ = this.route.paramMap.pipe(
-        switchMap(params => this.launchpad.activeLaunchpads$(Number(params.get('launchpadInstance'))))
+    launchpadPage$ = this.route.paramMap.pipe(
+        switchMap(params => {
+            const launchpadInstance = Number(params.get('launchpadInstance')) || 0;
+            return this.launchpad.activeLaunchpads$(launchpadInstance);
+        })
     );
 
     constructor(public socket: SocketService, private launchpad: LaunchpadService, private route: ActivatedRoute) {

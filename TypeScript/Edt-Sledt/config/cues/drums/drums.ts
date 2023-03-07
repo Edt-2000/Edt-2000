@@ -1,13 +1,13 @@
 import { Actions } from '../../../../Shared/actions/actions';
-import { DrumSoundToBeat } from '../../../src/presets/converters/drums/drumSoundToBeat';
+import { DrumSoundToBeat } from '../../../src/presets/converters/beat/drumSoundToBeat';
 import { VidtPresets } from '../../../../Shared/vidt-presets';
-import { BeatToNextWord } from '../../../src/presets/converters/words/beatToNextWord';
-import { BeatToColor } from '../../../src/presets/converters/color/beatToColor';
+import { BeatToNextWord } from '../../../src/presets/converters/./beat/beatToNextWord';
+import { BeatToColor } from '../../../src/presets/converters/beat/beatToColor';
 import { ColorToVidtColor } from '../../../src/presets/outputs/vidt/colorToVidtColor';
 import { DrumNotes, DrumSounds } from '../../config';
 import { presetChange } from '../../../src/presets/presets-logic';
-import { MidiChannelToMainDrum } from '../../../src/presets/converters/drums/midiChannelToMainDrum';
-import { DrumSoundMap } from '../../../src/presets/converters/drums/drumSoundMap';
+import { MidiChannelToMainDrum } from '../../../src/presets/converters/instruments/midiChannelToMainDrum';
+import { DrumSoundMap } from '../../../src/presets/converters/instruments/drumSoundMap';
 
 export const drumCues = [
     {
