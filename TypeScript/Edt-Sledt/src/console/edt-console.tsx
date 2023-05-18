@@ -8,6 +8,8 @@ import { Actions$, emptyContentGroup } from '../../../Shared/actions/actions';
 import { blackColor } from '../../../Shared/colors/utils';
 import { VidtPresets } from '../../../Shared/vidt-presets';
 import { OSCOutput$ } from '../communication/osc';
+import { map, scan } from 'rxjs/operators';
+import { OperatorFunction } from 'rxjs';
 
 export const EdtConsole = () => {
 
@@ -19,6 +21,7 @@ export const EdtConsole = () => {
     const vidtPreset = useObservable(Actions$.prepareVidt, VidtPresets.____EMPTY____);
     const presetState = useObservable(Actions$.presetState, []);
     const OSCOutput = useObservable(OSCOutput$, '');
+    const drumSounds = useObservable(Actions$.mainDrumSound.pipe(bufferRing(10), map(ring => ring.join('\n'))), '');
 
     return <>
         CurrentSong: {JSON.stringify(currentSong ? currentSong.title : '')}
@@ -47,6 +50,14 @@ export const EdtConsole = () => {
         <Box>--------</Box>
         OSC Messages:
         <Box>--------</Box>
+        DrumSounds:
+        <Box>--------</Box>
+        {drumSounds}
+        <Box>--------</Box>
         {OSCOutput}
     </>;
 };
+
+function bufferRing<T>(size: number): OperatorFunction<T, T[]> {
+    return scan((acc, curr) => [curr, ...acc].slice(0, size), []);
+}
