@@ -20,6 +20,10 @@
   &__content {
     @include container;
     padding-bottom: 20px;
-    padding-top: ($nav-height + 40px);
+    padding-top: ($nav-height + $content-padding);
   }
+
+    .showNav &__content {
+        padding-top: $content-padding;
+    }
 }

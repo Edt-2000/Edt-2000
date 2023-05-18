@@ -3,10 +3,13 @@
 @import '../../../styles/mixins/screen';
 
 .launchpad {
-    --launchpad-text-size: 1rem;
+    --launchpad-text-size: 1vw;
 
+    flex: auto;
     display: flex;
     flex-direction: column;
+    max-height: 100vw;
+    max-width: 100vh;
 
     &__row {
         display: flex;
@@ -15,7 +18,7 @@
 
     &__item {
         flex: 0 0 12.5%;
-        padding: 8px;
+        padding: 0.2rem;
     }
 
     &__button {

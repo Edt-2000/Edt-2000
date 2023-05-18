@@ -1,12 +1,6 @@
 @mixin container {
   margin: 0 auto;
-  max-width: 1600px;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: $content-padding;
+  padding-right: $content-padding;
   width: 100%;
-
-  @include screen($screen-simple) {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
 }
