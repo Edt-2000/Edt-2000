@@ -3,8 +3,7 @@
     "version": "1.0.0",
     "description": "ManInTheMiddle",
     "scripts": {
-        "start": "ts-node src/index.tsx",
-        "dev": "ts-node-dev --respawn src/index.tsx"
+        "start": "nodemon"
     },
     "author": "Edt-2000",
     "license": "ISC",
@@ -33,6 +32,7 @@
     },
     "devDependencies": {
         "@types/node": "11.11.3",
+        "nodemon": "2.0.19",
         "prettier": "1.16.4",
         "ts-node": "8.0.3",
         "ts-node-dev": "1.0.0-pre.32",

@@ -1,8 +1,18 @@
 import { Note } from '../../Shared/midi/midi';
 import { enumToArray } from '../../Shared/utils/utils';
-import { automationChannel, DrumNotes, DrumSounds } from './config';
+import { automationChannel, ColorVariations, DrumNotes, DrumSounds } from './config';
 
 export const modifiers = {
+    colorVariation: [
+        {label: 'normal', value: ColorVariations.normal},
+        {label: 'inverse', value: ColorVariations.inverse},
+    ],
+    ledColorVariation: [
+        {label: 'normal', value: ColorVariations.normal},
+        {label: 'inverse', value: ColorVariations.inverse},
+        {label: 'stroboscope', value: 1},
+        {label: 'inverseStroboscope', value: 2},
+    ],
     strobeSpeeds: [
         {label: 'slow', value: 10},
         {label: 'medium', value: 25},

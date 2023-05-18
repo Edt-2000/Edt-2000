@@ -9,5 +9,11 @@ $screen-huge: 1680px;
 $screen-jumbo: 1920px;
 
 //  OTHER
-$nav-height: 70px;
-$height-button: 80px;
+$nav-height: 44px;
+$content-padding: 10px;
+$height-button: 60px;
+
+:root {
+  --nav-height: #{$nav-height};
+  --page-padding: #{$content-padding}
+}

@@ -1,16 +1,17 @@
 import { Note } from '../../Shared/midi/midi';
 
 export const enum DeviceIPs {
-    edtFastLed = '10.0.0.20',
-    edtRGBLed = '10.0.0.21',
+    edtFastLed = '10.0.0.21',
+    edtRGBLed = '10.0.0.22',
     edtMOSCidi = 'localhost',
+    edtSledt = 'localhost',
+    edtSpectacle = '10.0.0.99',
+    edtBar = '10.0.0.98',
 }
 
 export const OSCInPort = 12346;
 export const OSCDispedtOutPort = 12345;
 export const MOSCIDIPort = 12347;
-
-export const fastLedAmount = 7;
 
 export const automationChannel = 16;
 
@@ -31,6 +32,7 @@ export enum OSCDevices {
     EdtPedal = 'PD',
     EdtGuitar = 'GT',
     EdtDrum = 'DR',
+    EdtSpectacle = 'SP',
 }
 
 // Set Modus of Edt-LED
@@ -41,7 +43,6 @@ export enum Modii {
     RainbowSolid = 2,
     RainbowPulse = 3,
     RainbowSpark = 8,
-    VUMeter = 4,
     Twinkle = 5,
     Strobo = 6,
     DualSolid = 9,
@@ -81,4 +82,9 @@ export enum DrumSounds {
     cow,
     shaker,
     agogo,
+}
+
+export const enum ColorVariations {
+    inverse = 1,
+    normal = 127,
 }

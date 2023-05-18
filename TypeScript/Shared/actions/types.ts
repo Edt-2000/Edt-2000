@@ -27,6 +27,11 @@ export interface LaunchpadPage {
     triggers: LaunchpadTrigger[][];
 }
 
+export interface LaunchpadPageChange {
+    launchpad: number;
+    page: number;
+}
+
 export enum TriggerType {
     text,
     color,
@@ -64,6 +69,7 @@ export enum ModifierGroup {
     Beat,
     Midi,
     Bass,
+    FX,
 }
 
 export interface IModifierOptions {

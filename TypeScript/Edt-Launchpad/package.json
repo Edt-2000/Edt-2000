@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "description": "Launchpad mini",
     "scripts": {
-        "start": "ts-node src/index.tsx"
+        "start": "ts-node src/index.tsx 0",
+        "start:1": "ts-node src/index.tsx 1"
     },
     "author": "Edt-2000",
     "license": "ISC",

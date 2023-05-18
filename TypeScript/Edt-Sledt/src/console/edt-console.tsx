@@ -21,7 +21,7 @@ export const EdtConsole = () => {
     const OSCOutput = useObservable(OSCOutput$, '');
 
     return <>
-        CurrentSong: {JSON.stringify(currentSong.title)}
+        CurrentSong: {JSON.stringify(currentSong ? currentSong.title : '')}
         Color: {JSON.stringify(color)}
         VidtPreset: {VidtPresets[vidtPreset]}
         <Box>--------</Box>
