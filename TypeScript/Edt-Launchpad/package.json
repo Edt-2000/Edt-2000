@@ -3,8 +3,11 @@
     "version": "1.0.0",
     "description": "Launchpad mini",
     "scripts": {
-        "start": "ts-node src/index.tsx 0",
-        "start:1": "ts-node src/index.tsx 1"
+        "start:0": "ts-node src/index.tsx 0",
+        "start:1": "ts-node src/index.tsx 1",
+        "start:2": "ts-node src/index.tsx 2",
+        "start:1:leipe-windows": "ts-node src/index.tsx 1 2",
+        "start:2:leipe-windows": "ts-node src/index.tsx 2 3"
     },
     "author": "Edt-2000",
     "license": "ISC",

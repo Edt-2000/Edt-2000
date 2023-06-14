@@ -10,13 +10,14 @@ const Launchpad = require('launchpad-mini');
 // tslint:disable-next-line:no-var-requires
 const socketClient = require('socket.io-client');
 
-const [, , launchpadInstanceArg, edtSledtIP] = process.argv;
+const [, , launchpadInPortArg, launchpadOutPortArg, edtSledtIP] = process.argv;
 const socket = socketClient(`http://${edtSledtIP ? edtSledtIP : 'localhost'}:8898/launchpad`, {
     origins: '*:*',
     transports: ['websocket'],
 });
 
-const launchpadInstance = +launchpadInstanceArg || 0;
+const launchpadInPort = +launchpadInPortArg || 0;
+const launchpadOutPort = +launchpadOutPortArg || +launchpadInPort;
 
 const pad = new Launchpad();
 
@@ -38,7 +39,7 @@ interface Pad {
 }
 
 const launchpadPage$ = Actions$.launchpadPageChange.pipe(
-    filter(pageChange => pageChange.launchpad === launchpadInstance),
+    filter(pageChange => pageChange.launchpad === launchpadInPort),
     map(pageChange => pageChange.page),
     startWith(1),
 );
@@ -68,8 +69,8 @@ const commands$ = combineLatest([activePage$, launchpadPage$]).pipe(
     }),
 );
 
-pad.connect(launchpadInstance).then(() => {
-    console.log(`Launchpad ${launchpadInstance} connected!`);
+pad.connect(launchpadInPort, launchpadOutPort).then(() => {
+    console.log(`Launchpad ${launchpadInPort} connected!`);
     pad.reset();
     // Color the buttons so you know which buttons do something
     commands$.pipe(debounceTime(100)).subscribe(async commands => {
@@ -81,7 +82,7 @@ pad.connect(launchpadInstance).then(() => {
         // If it's one of the top-buttons, we send launchPadPageNr
         tap(key => {
             if (key.y === 8 && key.pressed) {
-                sendToSledt(Actions.launchpadPageChange({launchpad: launchpadInstance, page: key.x}));
+                sendToSledt(Actions.launchpadPageChange({launchpad: launchpadInPort, page: key.x}));
             }
         }),
     ).subscribe();
