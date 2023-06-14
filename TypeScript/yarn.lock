@@ -1963,13 +1963,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:12.12.6":
-  version: 12.12.6
-  resolution: "@types/node@npm:12.12.6"
-  checksum: c6a3d0761b6cea6f4e7bc12de84cb366951c16c85cd5f4529aa51833c1c8817e07cec4957ed3d1e6e138c2fe4a328921d0bf0d49638d1c92d8a14381e2b997c5
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:12.7.11":
   version: 12.7.11
   resolution: "@types/node@npm:12.7.11"
@@ -5889,15 +5882,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"easymidi@npm:^1.0.1":
-  version: 1.0.3
-  resolution: "easymidi@npm:1.0.3"
-  dependencies:
-    midi: "npm:^1.0.0"
-  checksum: 126dfa68f10db3c66afc1d6ecbfb7d28571b6a3e4fe48d9fa2c0860fce645f95a3a50f6ebfc42e7868333d0eec7fc0c6a8c544da877d71a596e48b7410909ebe
-  languageName: node
-  linkType: hard
-
 "ecc-jsbn@npm:~0.1.1":
   version: 0.1.2
   resolution: "ecc-jsbn@npm:0.1.2"
@@ -5984,12 +5968,6 @@ __metadata:
 "edt-moscidi@workspace:Edt-MOSCidi":
   version: 0.0.0-use.local
   resolution: "edt-moscidi@workspace:Edt-MOSCidi"
-  dependencies:
-    "@types/node": "npm:12.12.6"
-    easymidi: "npm:^1.0.1"
-    osc-min: "npm:1.1.1"
-    rxjs: "npm:6.5.3"
-    ts-node: "npm:^8.6.2"
   languageName: unknown
   linkType: soft
 
@@ -16046,7 +16024,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:*, ts-node@npm:^8.6.2":
+"ts-node@npm:*":
   version: 8.6.2
   resolution: "ts-node@npm:8.6.2"
   dependencies:
