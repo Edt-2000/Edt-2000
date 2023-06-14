@@ -14,5 +14,10 @@ export class AppComponent {
     ) {
     }
 
-    pages = pages;
+    pages = pages.map(page => {
+        if (page.text === 'Launchpad') {
+            return { text: 'Launchpad 1', path: 'launchpad-controller/1' };
+        }
+        return page;
+    }).concat({ text: 'Launchpad 2', path: 'launchpad-controller/2' });
 }
