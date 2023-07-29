@@ -28,4 +28,8 @@ export class VidtControllerComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  public getBackgroundCss(image) {
+    return `url('assets/media-by-group/${image}')`;   
+  }
 }

@@ -10,7 +10,7 @@ function readDirOneDeep(path: string): ContentGroup[] {
         .filter(fileOrDir => fs.lstatSync(p.join(path, fileOrDir)).isDirectory())
         .map(dir => {
             const assets = fs.readdirSync(p.join(path, dir))
-                .map(filename => p.join(dir, filename));
+                .map(filename => p.join(dir, filename).replace('\\', '/'));
 
             let wordSet = ['NO', 'WORDS.TXT', 'FOUND'];
             try {
@@ -36,7 +36,7 @@ export function toFileName(filename): string {
 }
 
 function isImage(filename): boolean {
-    return p.extname(filename) === '.jpg';
+    return ['.jpg', '.jpeg', '.gif'].includes(p.extname(filename));
 }
 
 function isVideo(filename): boolean {

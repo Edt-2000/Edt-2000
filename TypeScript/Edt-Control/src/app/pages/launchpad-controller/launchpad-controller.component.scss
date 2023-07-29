@@ -3,7 +3,7 @@
 @import '../../../styles/mixins/screen';
 
 .launchpad {
-    --launchpad-text-size: 1vw;
+    --launchpad-text-size: 1.25rem;
 
     flex: auto;
     display: flex;
@@ -30,7 +30,7 @@
         display: block;
         font-size: var(--launchpad-text-size);
         font-family: 'Klartext-Mono', 'monospace';
-        font-weight: 500;
+        font-weight: 700;
         padding-bottom: 100%;
         position: relative;
         transition: background-color .2s;

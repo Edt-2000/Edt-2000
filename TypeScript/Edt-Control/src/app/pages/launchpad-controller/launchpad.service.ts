@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions$ } from '../../../../../Shared/actions/actions';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class LaunchpadService {
     activeLaunchpads$(launchpadInstance: number) {
-        return Actions$.launchpadPageChange.pipe(
-            filter(({launchpad}) => launchpad === launchpadInstance),
-            withLatestFrom(Actions$.launchpadPages),
+        return combineLatest(Actions$.launchpadPageChange, Actions$.launchpadPages).pipe(
+            filter(([{launchpad}, pages]) => {
+                return launchpad === launchpadInstance
+            }),
             map(([change, pages]) => pages[change.page]),
         );
     }
