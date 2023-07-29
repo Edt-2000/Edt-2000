@@ -36,7 +36,7 @@ export function toFileName(filename): string {
 }
 
 function isImage(filename): boolean {
-    return ['.jpg', '.jpeg', '.gif'].includes(p.extname(filename));
+    return ['.jpg', '.jpeg', '.gif', '.png'].includes(p.extname(filename));
 }
 
 function isVideo(filename): boolean {
