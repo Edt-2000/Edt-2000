@@ -40,6 +40,7 @@
         }
 
         setSrc(src: string) {
+            this.stopVideo();
             this.src = `./assets/media-by-group/${src}`;
         }
 
@@ -47,9 +48,17 @@
             if (this.interval) {
                 clearInterval(this.interval);
             }
-            this.$refs.video.load();
-            this.$refs.video.muted = true; // fix for muted attr bug
-            this.$refs.video.play();
+
+            if (this.$refs.video) {
+                this.stopVideo();
+        
+                this.$refs.video.load();
+                this.$refs.video.addEventListener('loadedmetadata', () => {
+                    this.$refs.video.currentTime = Math.random() * this.$refs.video.duration;
+                });
+                this.$refs.video.muted = true; // fix for muted attr bug
+                this.$refs.video.play();
+            }
         }
 
         glitchVideo() {
@@ -68,7 +77,19 @@
             }, 1000);
         }
 
+        stopVideo() {
+            if (this.$refs.video) {
+                const isPlaying = this.$refs.video.currentTime > 0 && !this.$refs.video.paused && !this.$refs.video.ended 
+                    && this.$refs.video.readyState > this.$refs.video.HAVE_CURRENT_DATA;
+                if (isPlaying) {
+                    this.$refs.video.pause();
+                }
+            }
+        }
+
         destroyed() {
+            this.stopVideo();
+
             if (typeof this.beatSubscription !== 'undefined') {
                 this.beatSubscription.unsubscribe();
             }
