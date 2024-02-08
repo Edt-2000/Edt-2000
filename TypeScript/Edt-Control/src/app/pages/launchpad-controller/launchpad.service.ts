@@ -6,10 +6,8 @@ import { combineLatest } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class LaunchpadService {
     activeLaunchpads$(launchpadInstance: number) {
-        return combineLatest(Actions$.launchpadPageChange, Actions$.launchpadPages).pipe(
-            filter(([{launchpad}, pages]) => {
-                return launchpad === launchpadInstance
-            }),
+        return combineLatest([Actions$.launchpadPageChange, Actions$.launchpadPages]).pipe(
+            filter(([{launchpad}]) =>  launchpad === launchpadInstance),
             map(([change, pages]) => pages[change.page]),
         );
     }

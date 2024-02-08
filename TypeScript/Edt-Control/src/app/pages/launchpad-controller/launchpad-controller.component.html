@@ -7,6 +7,11 @@
                         [style.background-image]="'url(\'./assets/media-by-group/' + button.title + '\')'"
                 >
                 </button>
+                <button *ngSwitchCase='triggerType.color'
+                        [style.background-color]="getColorString(button.triggerAction?.payload)"
+                        class='launchpad__button launchpad__button--{{ button.color }}'
+                >
+                </button>
                 <button *ngSwitchDefault
                         class="launchpad__button launchpad__button--{{ button.color }}"
                         (click)="socket.sendLaunchpadTrigger(button)"
