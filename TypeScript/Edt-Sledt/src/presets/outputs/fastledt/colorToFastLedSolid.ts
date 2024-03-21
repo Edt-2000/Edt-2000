@@ -12,6 +12,15 @@ export class ColorToFastLedSolid extends PresetLogic {
         ],
     };
 
+    get mermaidConfig() {
+        return [{
+            entry: `COLOR ${this.state ? `===>` : '--->'} SOLID`,
+        }, {
+            subgraph: 'FASTLEDS',
+            entry: `SOLID ${this.state ? `===>` : '--->'} FASTLED`,
+        }];
+    }
+
     protected _startPreset(): void {
         this.addSub(
             Actions$.singleColor.pipe(skip(1)).subscribe(color => {

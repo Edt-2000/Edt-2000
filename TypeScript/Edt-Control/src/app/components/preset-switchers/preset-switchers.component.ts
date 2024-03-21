@@ -3,46 +3,47 @@ import { GroupedControlPresetMsg, IControlPresetMsg } from '../../../../../Share
 import { convertToNamedPresetGroup } from '../../../../../Shared/presets/utils';
 
 @Component({
-  selector: 'app-preset-switchers',
-  template: `
-    <ng-container *ngIf="groupedPresetState">
-      <ul class="tab">
-        <li class="tab__item" *ngFor="let group of groupedPresetState">
-          <button class="tab__link"
-                  (click)="currentGroup = group.title"
-                  [class.is-active]="
+    selector: 'app-preset-switchers',
+    template: `
+        <ng-container *ngIf='groupedPresetState'>
+            <ul class='tab'>
+                <li class='tab__item' *ngFor='let group of groupedPresetState'>
+                    <button class='tab__link'
+                            (click)='currentGroup = group.title'
+                            [class.is-active]='
                             currentGroup === group.title
-                          "
-          >{{group.title}}</button>
-        </li>
-      </ul>
-      <div *ngFor="let group of groupedPresetState">
-        <ng-container *ngIf="currentGroup === group.title">
-          <h1>{{group.title}}</h1>
-          <ul class="list list--presets">
-            <li class="list__item" *ngFor="let preset of group.presets">
-              <app-preset-switcher [preset]="preset"></app-preset-switcher>
-            </li>
-          </ul>
+                          '
+                    >{{ group.title }}
+                    </button>
+                </li>
+            </ul>
+            <div *ngFor='let group of groupedPresetState'>
+                <ng-container *ngIf='currentGroup === group.title'>
+                    <h1>{{ group.title }}</h1>
+                    <ul class='list list--presets'>
+                        <li class='list__item' *ngFor='let preset of group.presets'>
+                            <app-preset-switcher [preset]='preset'></app-preset-switcher>
+                        </li>
+                    </ul>
+                </ng-container>
+            </div>
         </ng-container>
-      </div>
-    </ng-container>
-  `,
-  styles: [],
+    `,
+    styles: [],
 })
 export class PresetSwitchersComponent {
-  groupedPresetState: GroupedControlPresetMsg[] = [];
-  currentGroup: string;
+    groupedPresetState: GroupedControlPresetMsg[] = [];
+    currentGroup: string;
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  @Input() set presetState(presetStates: IControlPresetMsg[]) {
-    this.groupedPresetState = convertToNamedPresetGroup(presetStates);
-    this.currentGroup =
-      this.currentGroup
-        ? this.currentGroup
-        : this.groupedPresetState[0] && this.groupedPresetState[0].title || '';
-  }
+    @Input() set presetState(presetStates: IControlPresetMsg[]) {
+        this.groupedPresetState = convertToNamedPresetGroup(presetStates);
+        this.currentGroup =
+            this.currentGroup
+                ? this.currentGroup
+                : this.groupedPresetState[0] && this.groupedPresetState[0].title || '';
+    }
 
 }

@@ -14,6 +14,13 @@ export class MidiChannelToMainMelody extends PresetLogic {
         ],
     };
 
+    get mermaidConfig() {
+        return [{
+            subgraph: 'MIDI-CONVERSION',
+            entry: `MIDI-IN ${this.state ? `===>|${this.modifier}|` : '--->'} Melody([Melody])`,
+        }];
+    }
+
     protected _startPreset(): void {
         this.addSub(
             musicNoteOn$

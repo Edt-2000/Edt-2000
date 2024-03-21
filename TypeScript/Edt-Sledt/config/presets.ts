@@ -3,7 +3,6 @@ import { DrumSoundToBeat } from '../src/presets/converters/beat/drumSoundToBeat'
 import { ColorToVidtColor } from '../src/presets/outputs/vidt/colorToVidtColor';
 import { MultiColorToVidtMultiColor } from '../src/presets/outputs/vidt/multiColorToVidtMultiColor';
 import { ColorToFastLedSolid } from '../src/presets/outputs/fastledt/colorToFastLedSolid';
-import { DrumSoundToFastLedStrip } from '../src/presets/outputs/fastledt/drumSoundToFastLedStrip';
 import { BeatToFastLedSpark } from '../src/presets/outputs/fastledt/beatToFastLedSpark';
 import { BeatToRainbowSpark } from '../src/presets/outputs/fastledt/beatToRainbowSpark';
 import { Note } from '../../Shared/midi/midi';
@@ -38,7 +37,7 @@ export const presets: Record<number, PresetLogic> = {
     [Note.A$_2]: new DrumSoundMap(DrumSounds.hihatOpen),
     [Note.B_2]: new DrumSoundToBeat(),
 
-    [Note.C_1]: new DrumSoundToFastLedStrip(),
+    // [Note.C_1]:
     // [Note.C$_1]:
     // [Note.D_1]:
     // [Note.D$_1]:

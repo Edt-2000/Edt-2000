@@ -11,8 +11,7 @@ import { DrumSoundMap } from '../../../src/presets/converters/instruments/drumSo
 
 export const drumCues = [
     {
-        label: 'Default',
-        activateOnStart: true,
+        label: 'Colors',
         actions: [
             presetChange(new ColorToVidtColor(), 127, true),
             presetChange(new BeatToColor(), 127, true),

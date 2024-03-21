@@ -1,4 +1,5 @@
 import { Actions } from './actions';
+import { IColor } from '../colors/types';
 
 export interface IPresetMsg {
     readonly preset: number;
@@ -9,6 +10,12 @@ export interface IPresetMsg {
 export interface IControlPresetMsg extends IPresetMsg {
     readonly title: string;
     readonly config: IModifierOptions;
+    readonly mermaid: MermaidConfig[];
+}
+
+export interface MermaidConfig {
+    subgraph?: string;
+    entry: string;
 }
 
 export interface GroupedControlPresetMsg {
@@ -93,4 +100,5 @@ export interface ContentGroup {
     wordSet: string[];
     images: string[];
     videos: string[];
+    colorPalettes: IColor[][];
 }

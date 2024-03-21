@@ -14,6 +14,18 @@ export class BeatToRainbowSpark extends PresetLogic {
         ],
     };
 
+    get mermaidConfig() {
+        const speed = modifiers.fadeSpeeds.find(({ value }) => value === this.modifier);
+        return [{
+            entry: `BEAT ${this.state ? `==>|${speed && (speed.label || speed.value) || this.modifier}|` : '--->'} RAINBOW`,
+        }, {
+            entry: `COLOR ${this.state ? '===>' : '--->'} RAINBOW`,
+        }, {
+            subgraph: 'FASTLEDS',
+            entry: `RAINBOW ${this.state ? '===>' : '--->'} FASTLED`,
+        }];
+    }
+
     protected _startPreset(): void {
         this.addSub(
             Actions$.mainBeat

@@ -12,6 +12,12 @@ export class BeatToNextWord extends PresetLogic {
         ],
     };
 
+    get mermaidConfig() {
+        return [{
+            entry: `BEAT ${this.state ? `===>` : '--->'} WORD`,
+        }];
+    }
+
     private index = -1;
 
     protected _startPreset(): void {

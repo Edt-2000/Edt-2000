@@ -3,30 +3,20 @@
     "version": "1.0.0",
     "description": "Launchpad mini",
     "scripts": {
-        "start:0": "ts-node src/index.tsx 0",
-        "start:1": "ts-node src/index.tsx 1",
-        "start:2": "ts-node src/index.tsx 2",
-        "start:0:leipe-windows": "ts-node src/index.tsx 0 1",
-        "start:1:leipe-windows": "ts-node src/index.tsx 1 2",
-        "start:2:leipe-windows": "ts-node src/index.tsx 2 3"
+        "start:0": "ts-node src/index.ts 0",
+        "start:1": "ts-node src/index.ts 1",
+        "start:2": "ts-node src/index.ts 2",
+        "start:0:leipe-windows": "ts-node src/index.ts 0 1",
+        "start:1:leipe-windows": "ts-node src/index.ts 1 2",
+        "start:2:leipe-windows": "ts-node src/index.ts 2 3"
     },
     "author": "Edt-2000",
     "license": "ISC",
-    "babel": {
-        "presets": [
-            "@babel/preset-react"
-        ]
-    },
     "prettier": {
         "trailingComma": "all"
     },
     "dependencies": {
-        "@babel/preset-react": "7.0.0",
-        "@types/socket.io": "1.4.38",
-        "ink": "2.6.0",
-        "ink-spinner": "3.0.0",
         "launchpad-mini": "^2.3.0",
-        "react": "16.8.6",
         "rxjs": "6.5.3",
         "socket.io": "2.2.0",
         "socket.io-client": "^2.3.0"

@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as p from 'path';
 import { ContentGroup } from '../../../Shared/actions/types';
+import { createFullColor } from '../../config/colors';
+import { IColor } from '../../../Shared/colors/types';
 
 export const scannedContentGroups = readDirOneDeep('../Edt-Vidt/public/assets/media-by-group');
 
@@ -14,9 +16,19 @@ function readDirOneDeep(path: string): ContentGroup[] {
 
             let wordSet = ['NO', 'WORDS.TXT', 'FOUND'];
             try {
-                wordSet = fs.readFileSync(p.join(path, dir, 'words.txt'), {encoding: 'utf8'}).split('\n');
+                wordSet = fs.readFileSync(p.join(path, dir, 'words.txt'), { encoding: 'utf8' }).split('\n');
             } catch (e) {
                 console.info(`No words.txt file found for ${dir}. Please create a words.txt file in the directory.`);
+            }
+
+            let colorPalettes: IColor[][];
+            try {
+                colorPalettes = fs.readFileSync(p.join(path, dir, 'colors.txt'), {encoding: 'utf8'})
+                    .split('\n')
+                    .filter(set => set.length > 0)
+                    .map(set => set.split(',').map(e => e.trim()).map(hue => createFullColor(+hue)));
+            } catch (e) {
+                console.info(`No colors.txt file found for ${dir}. Please create a colors.txt file in the directory.`);
             }
 
             const {songNr, title} = checkDirName(dir);
@@ -25,6 +37,7 @@ function readDirOneDeep(path: string): ContentGroup[] {
                 songNr,
                 title,
                 wordSet,
+                colorPalettes,
                 images: assets.filter(isImage),
                 videos: assets.filter(isVideo),
             };

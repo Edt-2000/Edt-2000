@@ -1,9 +1,10 @@
 import { presets } from '../../config/presets';
 import { Subscription } from 'rxjs';
 import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
-import { IControlPresetMsg, IModifierOptions } from '../../../Shared/actions/types';
+import { IControlPresetMsg, IModifierOptions, MermaidConfig } from '../../../Shared/actions/types';
 
 export abstract class PresetLogic {
+    readonly mermaidConfig: MermaidConfig[];
     readonly modifierOptions: IModifierOptions;
     title: string = this.constructor.name;
 
@@ -14,17 +15,14 @@ export abstract class PresetLogic {
 
     startPreset(modifier: number) {
         this.modifier = modifier;
-        this._stopPreset();
+        this.unsubAll();
         this._startPreset();
         this.state = true;
         nextActionFromMsg(Actions.presetState(getPresetState()));
     }
 
     stopPreset() {
-        // Unsubscribe and reset array
-        this.subscriptions.forEach(sub => sub.unsubscribe());
-        this.subscriptions = [];
-
+        this.unsubAll();
         this._stopPreset();
         this.state = false;
         nextActionFromMsg(Actions.presetState(getPresetState()));
@@ -34,8 +32,13 @@ export abstract class PresetLogic {
         this.subscriptions.push(sub);
     }
 
-    protected abstract _startPreset(): void;
+    unsubAll() {
+        // Unsubscribe and reset array
+        this.subscriptions.forEach(sub => sub.unsubscribe());
+        this.subscriptions = [];
+    }
 
+    protected abstract _startPreset(): void;
     protected abstract _stopPreset(): void;
 }
 
@@ -49,7 +52,7 @@ export const presetChange = (preset: PresetLogic, modifier: number, state: boole
 
 export function getPresetState(): IControlPresetMsg[] {
     return Object.getOwnPropertyNames(presets).map(presetNr => {
-        const {modifier, modifierOptions: config, title, state} = presets[presetNr];
+        const {modifier, modifierOptions: config, mermaidConfig: mermaid, title, state} = presets[presetNr];
         return {
             // preset key is a string, but send it as number
             preset: +presetNr,
@@ -57,6 +60,7 @@ export function getPresetState(): IControlPresetMsg[] {
             state,
             title,
             config,
+            mermaid,
         } as IControlPresetMsg;
     });
 }

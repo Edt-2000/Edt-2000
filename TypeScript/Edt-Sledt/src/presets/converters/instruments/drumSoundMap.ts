@@ -13,6 +13,13 @@ export class DrumSoundMap extends PresetLogic {
         ],
     };
 
+    get mermaidConfig() {
+        return this.state ? [{
+            subgraph: 'MIDI-CONVERSION',
+            entry: `Drums ===>|${this.modifier}| ${DrumSounds[this.sound]}`,
+        }] : [];
+    }
+
     constructor(public sound: DrumSounds) {
         super();
         this.title = 'DrumTo-' + DrumSounds[this.sound];

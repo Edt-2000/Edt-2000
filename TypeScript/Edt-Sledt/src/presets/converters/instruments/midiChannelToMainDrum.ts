@@ -14,6 +14,13 @@ export class MidiChannelToMainDrum extends PresetLogic {
         ],
     };
 
+    get mermaidConfig() {
+        return [{
+            subgraph: 'MIDI-CONVERSION',
+            entry: `MIDI-IN ${this.state ? `===>|${this.modifier}|` : '--->'} Drums([Drums])`,
+        }];
+    }
+
     protected _startPreset(): void {
         this.addSub(
             musicNoteOn$
