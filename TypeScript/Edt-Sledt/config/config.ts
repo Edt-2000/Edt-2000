@@ -16,7 +16,6 @@ export const MOSCIDIPort = 12347;
 export const automationChannel = 16;
 
 export const vidtPresetAutomationCCNumber = 1;
-export const colorPaletteAutomationCCNumber = 2;
 export const imageAutomationCCNumber = 3;
 export const videoAutomationCCNumber = 4;
 export const wordAutomationCCNumber = 5;

@@ -13,6 +13,19 @@ export class ColorToFastLedStrobe extends PresetLogic {
         ],
     };
 
+    get mermaidConfig() {
+        const modifier = modifiers.strobeSpeeds.find(({ value: speed }) => speed === this.modifier);
+
+        return [
+            {
+                entry: `COLOR ${this.state ? `===>` : `--->`} STROBE${modifier ? `(${modifier.label})` : ''}`,
+            }, {
+                subgraph: 'FASTLEDS',
+                entry: `STROBE ${this.state ? `===>` : '--->'} FASTLED`,
+            },
+        ];
+    }
+
     protected _startPreset(): void {
         this.addSub(
             Actions$.singleColor.subscribe(color => {

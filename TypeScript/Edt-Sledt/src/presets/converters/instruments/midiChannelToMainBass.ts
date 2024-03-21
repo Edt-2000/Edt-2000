@@ -14,6 +14,13 @@ export class MidiChannelToMainBass extends PresetLogic {
         ],
     };
 
+    get mermaidConfig() {
+        return [{
+            subgraph: 'MIDI-CONVERSION',
+            entry: `MIDI-IN ${this.state ? `===>|${this.modifier}|` : '--->'} Bass([Bass])`,
+        }];
+    }
+
     protected _startPreset(): void {
         this.addSub(
             musicNoteOn$

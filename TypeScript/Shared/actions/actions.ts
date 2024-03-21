@@ -10,7 +10,6 @@ import { AnimationTypes } from '../vidt/animation';
 import { Sizes } from '../vidt/sizes';
 import { Shapes } from '../vidt/shapes';
 
-
 // TODO: make Actions into a single observable object
 export const Actions = {
     presetChange: (payload: IPresetMsg) => createAction('presetChange', payload),
@@ -44,7 +43,6 @@ export const Actions = {
     multiColor: (payload: IColor[]) => createAction('multiColor', payload),
     vidtMultiColor: (payload: IColor[]) =>
         createAction('vidtMultiColor', payload),
-    colorPalettes: (payload: IColor[][]) => createAction('colorPalettes', payload),
     colorPalette: (payload: IColor[]) => createAction('colorPalette', payload),
 
     mainBeat: (payload: number) => createAction('mainBeat', payload),
@@ -63,16 +61,16 @@ export type Actions = ActionsUnion<typeof Actions>;
 export const emptyContentGroup: ContentGroup = {
     songNr: 0,
     title: '___EMTPY____',
+    colorPalettes: [],
     wordSet: [],
     images: [],
     videos: [],
 };
 
 export const Actions$ = {
+    presetChange: new Subject<IPresetMsg>(),
     presetState: new BehaviorSubject([] as IControlPresetMsg[]),
     cueList: new BehaviorSubject([] as ICue[]),
-
-    presetChange: new Subject<IPresetMsg>(),
     vidtPresets: new BehaviorSubject<string[]>([]),
     prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
 
@@ -99,7 +97,6 @@ export const Actions$ = {
     vidtSingleColor: new BehaviorSubject(blackColor),
     multiColor: new BehaviorSubject([]),
     vidtMultiColor: new BehaviorSubject([]),
-    colorPalettes: new BehaviorSubject<IColor[][]>([[]]),
     colorPalette: new BehaviorSubject<IColor[]>([]),
     mainBeat: new Subject<number>(),
     mainDrumSound: new Subject<DrumSounds>(),

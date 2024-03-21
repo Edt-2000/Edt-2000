@@ -7,35 +7,26 @@
     },
     "author": "Edt-2000",
     "license": "ISC",
-    "babel": {
-        "presets": [
-            "@babel/preset-react"
-        ]
-    },
     "prettier": {
         "trailingComma": "all"
     },
     "dependencies": {
-        "@babel/preset-react": "7.0.0",
+        "@babel/core": "7.22.20",
+        "@types/lodash-es": "^4.17.9",
+        "@types/node": "11.11.3",
         "@types/serialport": "6.0.2",
         "@types/socket.io": "1.4.38",
         "express": "4.16.3",
         "glob": "latest",
-        "ink": "2.6.0",
-        "ink-spinner": "3.0.0",
         "minimist": "1.2.2",
+        "nodemon": "2.0.19",
         "osc-min": "1.1.1",
-        "react": "16.8.6",
+        "prettier": "1.16.4",
         "rxjs": "6.5.3",
         "rxjs-compat": "6.4.0",
-        "socket.io": "2.2.0"
-    },
-    "devDependencies": {
-        "@types/node": "11.11.3",
-        "nodemon": "2.0.19",
-        "prettier": "1.16.4",
-        "ts-node": "8.0.3",
-        "ts-node-dev": "1.0.0-pre.32",
+        "socket.io": "2.2.0",
+        "ts-node": "^10.9.1",
+        "ts-node-dev": "^2.0.0",
         "typescript": "3.5.3"
     }
 }

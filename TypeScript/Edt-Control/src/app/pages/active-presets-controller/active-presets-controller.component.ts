@@ -1,25 +1,36 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Actions$ } from '../../../../../Shared/actions/actions';
-import { map } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { mermaidOutput$ } from './mermaid';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
+declare const mermaid: any;
 
 @Component({
-  selector: 'app-active-presets-controller',
-  template: `
-    <ng-container *ngIf="(presets$ | async) as presets">
-      <ul class="list list--presets">
-        <li class="list__item" *ngFor="let preset of presets">
-          <app-preset-switcher [preset]="preset"></app-preset-switcher>
-        </li>
-      </ul>
-    </ng-container>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-active-presets-controller',
+    template: `
+        <div #mermaid></div>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActivePresetsControllerComponent implements OnInit {
-  presets$ = Actions$.presetState.asObservable().pipe(
-    map(presets => presets.filter(preset => preset.state)),
-  );
+    destroy$ = new Subject<boolean>();
+    mermaid$ = mermaidOutput$.pipe(
+        switchMap(graph => {
+            console.log('Rendering:\n\n', graph);
+            return mermaid.render('graphDiv', graph, this.mermaidDiv.nativeElement);
+        }),
+        tap<{ svg: string }>(graph => this.mermaidDiv.nativeElement.innerHTML = graph.svg),
+    );
 
-  ngOnInit(): void {
-  }
+    @ViewChild('mermaid', { static: true }) mermaidDiv: ElementRef;
+
+    ngOnInit(): void {
+        mermaid.initialize({
+            securityLevel: 'loose',
+            startOnLoad: false,
+            theme: 'dark',
+        });
+        this.mermaid$.pipe(takeUntil(this.destroy$)).subscribe();
+    }
 }
+

@@ -64,4 +64,3 @@ typings/
 
 TypeScript/static/**
 /dist/*
-**/package-lock.json

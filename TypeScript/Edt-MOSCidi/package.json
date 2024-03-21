@@ -5,6 +5,13 @@
     "scripts": {
         "start": "ts-node index.ts localhost 12347 12346"
     },
+    "dependencies": {
+        "easymidi": "^3.1.0",
+        "osc-min": "1.1.1",
+        "rxjs": "6.5.3",
+        "ts-node": "8.4.1",
+        "typescript": "3.5.3"
+    },
     "author": "Edt-2000",
     "license": "ISC",
     "prettier": {

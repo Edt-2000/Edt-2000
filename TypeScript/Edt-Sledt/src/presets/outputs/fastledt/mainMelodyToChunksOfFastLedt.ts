@@ -13,6 +13,17 @@ export class MainMelodyToChunksOfFastLedt extends PresetLogic {
         ],
     };
 
+    get mermaidConfig() {
+        return [{
+            entry: `Melody ${this.state ? `===>` : '--->'} CHUNKS`,
+        }, {
+            subgraph: 'FASTLEDS',
+            entry: `CHUNKS ${this.state ? `===>` : '--->'} FASTLED`,
+        }, {
+            entry: `COLOR ${this.state ? `===>` : '--->'} CHUNKS`,
+        }];
+    }
+
     protected _startPreset(): void {
         FastLedtSingleSolid(0, blackColor);
 

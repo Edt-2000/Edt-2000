@@ -39,7 +39,7 @@
             "styles": [
               "src/styles/styles.scss"
             ],
-            "scripts": [],
+            "scripts": ["../node_modules/mermaid/dist/mermaid.min.js"],
             "es5BrowserSupport": false
           },
           "configurations": {
