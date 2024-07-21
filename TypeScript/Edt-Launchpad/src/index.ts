@@ -1,6 +1,5 @@
 import { Actions, Actions$, nextActionFromMsg } from '../../Shared/actions/actions';
-import { combineLatest, fromEvent } from 'rxjs';
-import { debounceTime, filter, map, reduce, startWith, tap, withLatestFrom } from 'rxjs/operators';
+import { combineLatest, debounceTime, filter, fromEvent, map, startWith, tap, withLatestFrom } from 'rxjs';
 import { LaunchpadColor } from '../../Shared/actions/types';
 import { launchpadSingleActions } from 'edt-sledt/config/launchpad';
 

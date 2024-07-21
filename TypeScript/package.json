@@ -6,7 +6,8 @@
     "license": "MIT",
     "private": true,
     "workspaces": [
-        "Edt-Sledt"
+        "Edt-Sledt",
+        "Edt-Launchpad"
     ],
     "prettier": {
         "singleQuote": true,
