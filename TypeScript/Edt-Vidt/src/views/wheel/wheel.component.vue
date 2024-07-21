@@ -30,7 +30,6 @@
     import Vue from 'vue';
     import { Component } from 'vue-property-decorator';
     import { Actions$ } from '../../../../Shared/actions/actions';
-    import { takeUntil } from 'rxjs/operators';
     import { IColor } from '../../../../Shared/colors/types';
     import { ColorHelper } from '../../../../Shared/colors/converters';
     import { Subject } from 'rxjs';

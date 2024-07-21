@@ -10,7 +10,6 @@ import { Component } from "vue-property-decorator";
 import { Actions$ } from '../../../../Shared/actions/actions';
 import { IColor } from '../../../../Shared/colors/types';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { ColorHelper } from '../../../../Shared/colors/converters';
 
 @Component

@@ -9,7 +9,6 @@
     import { Actions$ } from '../../../../Shared/actions/actions';
     import { ColorHelper } from '../../../../Shared/colors/converters';
     import { IColor } from '../../../../Shared/colors/types';
-    import { takeUntil } from 'rxjs/operators';
     import { Subject } from 'rxjs';
 
     @Component

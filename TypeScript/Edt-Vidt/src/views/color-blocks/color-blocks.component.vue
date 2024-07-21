@@ -25,7 +25,6 @@ import { IColor } from '../../../../Shared/colors/types';
 import { Sizes } from '../../../../Shared/vidt/sizes';
 import { Shapes } from '../../../../Shared/vidt/shapes';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component
     export default class ColorBlocksComponent extends Vue {

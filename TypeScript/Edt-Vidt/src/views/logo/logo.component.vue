@@ -16,7 +16,6 @@
     import GlitchText from '../../components/glitch-text/glitch-text.component.vue';
     import { Actions$ } from '../../../../Shared/actions/actions';
     import { mapInput } from '../../../../Shared/utils/map-input';
-    import { startWith } from 'rxjs/operators';
     import { combineLatest } from 'rxjs';
 
     @Component({

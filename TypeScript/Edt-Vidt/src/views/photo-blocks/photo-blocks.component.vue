@@ -19,7 +19,6 @@ import { Actions$ } from '../../../../Shared/actions/actions';
 import { Sizes } from '../../../../Shared/vidt/sizes';
 import { Shapes } from '../../../../Shared/vidt/shapes';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component
 export default class PhotoBlocksComponent extends Vue {

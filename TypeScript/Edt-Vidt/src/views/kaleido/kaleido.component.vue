@@ -23,7 +23,6 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { combineLatest, Subject } from 'rxjs';
 import { Actions$ } from '../../../../Shared/actions/actions';
-import { takeUntil } from 'rxjs/operators';
 import { IColor } from '../../../../Shared/colors/types';
 import { ColorHelper } from '../../../../Shared/colors/converters';
 import { Sizes } from '../../../../Shared/vidt/sizes';
