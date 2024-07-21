@@ -1,9 +1,7 @@
-import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Actions, Actions$, nextActionFromMsg } from '../../../Shared/actions/actions';
-import { map, take, takeUntil } from 'rxjs/operators';
 import { controlSocket$ } from '../communication/sockets';
 import * as SocketIO from 'socket.io';
-import { BehaviorSubject, merge } from 'rxjs';
+import { BehaviorSubject, fromEvent, map, merge, take, takeUntil } from 'rxjs';
 
 const connectedControlsSubject$ = new BehaviorSubject<string[]>([]);
 

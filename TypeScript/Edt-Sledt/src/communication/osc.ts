@@ -1,11 +1,9 @@
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import { convertToOSC } from '../../../Shared/utils/utils';
 import { DeviceIPs, OSCInPort } from '../../config/config';
 import { IOSCMessage } from '../../../Shared/osc/types';
-import { scan, startWith } from 'rxjs/operators';
 import dgram = require('dgram');
 import osc = require('osc-min');
+import { Observable, scan, startWith, Subject } from 'rxjs';
 
 const sock = dgram.createSocket('udp4', processOscMessage);
 

@@ -1,9 +1,7 @@
 import { vidtSocket$ } from '../communication/sockets';
-import { fromEvent } from 'rxjs/observable/fromEvent';
 import * as SocketIO from 'socket.io';
-import { map, take, takeUntil } from 'rxjs/operators';
 import { Actions, Actions$ } from '../../../Shared/actions/actions';
-import { BehaviorSubject, merge } from 'rxjs';
+import { BehaviorSubject, fromEvent, map, merge, take, takeUntil } from 'rxjs';
 
 export const connectedVidtSubject$ = new BehaviorSubject<string[]>([]);
 

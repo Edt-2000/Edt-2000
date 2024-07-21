@@ -1,7 +1,7 @@
 import { PresetLogic } from '../../presets-logic';
 import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
-import { withLatestFrom } from 'rxjs/operators';
 import { ModifierGroup } from '../../../../../Shared/actions/types';
+import { withLatestFrom } from 'rxjs';
 
 export class BeatToColor extends PresetLogic {
     modifierOptions = {

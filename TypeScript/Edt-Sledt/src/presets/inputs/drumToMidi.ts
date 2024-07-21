@@ -1,11 +1,12 @@
 import { PresetLogic } from '../presets-logic';
 import { modifiers } from '../../../config/modifiers';
-import { filter, tap } from 'rxjs/operators';
 import { edtDrum$ } from '../../inputs/edt-drum';
 import { sendToMidiNote } from '../../outputs/edt-midi';
-import { ModifierGroup } from '../../../../Shared/actions/types';
+import { MermaidConfig, ModifierGroup } from '../../../../Shared/actions/types';
+import { filter, tap } from 'rxjs';
 
 export class DrumToMidi extends PresetLogic {
+    mermaidConfig: MermaidConfig[];
     modifierOptions = {
         select: modifiers.drumNotes,
         group: [

@@ -1,12 +1,13 @@
 import { PresetLogic } from '../presets-logic';
-import { tap } from 'rxjs/operators';
 import { edtGuitar$ } from '../../inputs/edt-guitar';
 import { modifiers } from '../../../config/modifiers';
 import { sendToMidiNote } from '../../outputs/edt-midi';
 import { Note } from '../../../../Shared/midi/midi';
-import { ModifierGroup } from '../../../../Shared/actions/types';
+import { MermaidConfig, ModifierGroup } from '../../../../Shared/actions/types';
+import { tap } from 'rxjs';
 
 export class GuitarToMidi extends PresetLogic {
+    mermaidConfig: MermaidConfig[];
     modifierOptions = {
         select: modifiers.midiChannels,
         group: [

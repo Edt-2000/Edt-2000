@@ -1,8 +1,8 @@
 import { midiCCAutomation$ } from '../communication/midi';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
 import { Actions, Actions$ } from '../../../Shared/actions/actions';
 import { toFileName } from '../media/asset-scan-dir';
 import { automationChannel, imageAutomationCCNumber, videoAutomationCCNumber, wordAutomationCCNumber } from '../../config/config';
+import { filter, map, withLatestFrom } from 'rxjs';
 
 export const wordCC$ = Actions$.mainText.pipe(
     withLatestFrom(Actions$.contentGroup), // Get contentGroup where this word might have come from

@@ -1,12 +1,13 @@
 import { PresetLogic } from '../../presets-logic';
 import { Actions$ } from '../../../../../Shared/actions/actions';
-import { ModifierGroup } from '../../../../../Shared/actions/types';
+import { MermaidConfig, ModifierGroup } from '../../../../../Shared/actions/types';
 import { SpectacleColor } from '../../../outputs/edt-spectacle';
 import { modifiers } from '../../../../config/modifiers';
 import { ColorVariations } from '../../../../config/config';
 import { rescale } from '../../../../../Shared/utils/utils';
 
 export class ColorToSpectacle extends PresetLogic {
+    mermaidConfig: MermaidConfig[];
     modifierOptions = {
         select: modifiers.colorVariation,
         group: [

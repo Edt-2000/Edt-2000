@@ -1,8 +1,8 @@
 import { Actions, Actions$ } from '../../../Shared/actions/actions';
-import { filter, map } from 'rxjs/operators';
 import { midiCCAutomation$ } from '../communication/midi';
 import { animationTypeCCNumber, automationChannel } from '../../config/config';
 import { AnimationTypes } from '../../../Shared/vidt/animation';
+import { filter, map } from 'rxjs';
 
 export const animationTypeCC$ = Actions$.animationType.pipe(
     map(type => ({

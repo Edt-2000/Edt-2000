@@ -1,9 +1,9 @@
 import { PresetLogic } from '../../presets-logic';
 import { modifiers } from '../../../../config/modifiers';
-import { filter } from 'rxjs/operators';
 import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
 import { ModifierGroup } from '../../../../../Shared/actions/types';
 import { DrumSounds } from '../../../../config/config';
+import { filter } from 'rxjs';
 
 export class DrumSoundMap extends PresetLogic {
     modifierOptions = {

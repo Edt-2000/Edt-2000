@@ -1,7 +1,6 @@
 import { LaunchpadColor, LaunchpadPage, LaunchpadTrigger, TriggerType } from '../../Shared/actions/types';
 import { Actions, Actions$ } from '../../Shared/actions/actions';
-import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, map, Observable } from 'rxjs';
 import { VidtPresets } from '../../Shared/vidt-presets';
 import { AnimationTypes } from '../../Shared/vidt/animation';
 import { blackColor } from '../../Shared/colors/utils';

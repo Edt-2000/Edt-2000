@@ -1,8 +1,8 @@
 import { Actions, Actions$ } from '../../../Shared/actions/actions';
-import { filter, map } from 'rxjs/operators';
 import { midiCCAutomation$ } from '../communication/midi';
 import { VidtPresets } from '../../../Shared/vidt-presets';
 import { automationChannel, vidtPresetAutomationCCNumber } from '../../config/config';
+import { filter, map } from 'rxjs';
 
 export const prepareVidtCC$ = Actions$.prepareVidt.pipe(
     map(preset => ({

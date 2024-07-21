@@ -1,7 +1,7 @@
 import { Actions } from '../../../../Shared/actions/actions';
 import { DrumSoundToBeat } from '../../../src/presets/converters/beat/drumSoundToBeat';
 import { VidtPresets } from '../../../../Shared/vidt-presets';
-import { BeatToNextWord } from '../../../src/presets/converters/./beat/beatToNextWord';
+import { BeatToNextWord } from '../../../src/presets/converters/beat/beatToNextWord';
 import { BeatToColor } from '../../../src/presets/converters/beat/beatToColor';
 import { ColorToVidtColor } from '../../../src/presets/outputs/vidt/colorToVidtColor';
 import { DrumNotes, DrumSounds } from '../../config';

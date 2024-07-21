@@ -4,7 +4,7 @@ import { Actions, nextActionFromMsg } from '../../../Shared/actions/actions';
 import { IControlPresetMsg, IModifierOptions, MermaidConfig } from '../../../Shared/actions/types';
 
 export abstract class PresetLogic {
-    readonly mermaidConfig: MermaidConfig[];
+    abstract readonly mermaidConfig: MermaidConfig[];
     readonly modifierOptions: IModifierOptions;
     title: string = this.constructor.name;
 

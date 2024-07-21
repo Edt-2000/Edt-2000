@@ -1,9 +1,9 @@
 import { PresetLogic } from '../../presets-logic';
 import { Actions$ } from '../../../../../Shared/actions/actions';
-import { withLatestFrom } from 'rxjs/operators';
 import { FastLedtSingleSolid } from '../../../outputs/edt-fastled';
 import { blackColor } from '../../../../../Shared/colors/utils';
 import { ModifierGroup } from '../../../../../Shared/actions/types';
+import { withLatestFrom } from 'rxjs';
 
 export class MainMelodyToChunksOfFastLedt extends PresetLogic {
     modifierOptions = {
