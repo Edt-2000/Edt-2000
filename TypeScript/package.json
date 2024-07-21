@@ -15,7 +15,7 @@
         "trailingComma": "all"
     },
     "dependencies": {
-        "rxjs": "^7.8.1",
-        "typescript": "^5.5.3"
+        "rxjs": "7.8.1",
+        "typescript": "5.5.3"
     }
 }

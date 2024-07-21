@@ -1,0 +1,10 @@
+<div class="logo">
+    <div class="logo__stars">
+        @for (star of [].constructor(64); track star;) {
+            <div class="logo__star"></div>
+        }
+    </div>
+    <div class="logo__text">
+        <edt-glitch-text [level]="level" [text]="text"></edt-glitch-text>
+    </div>
+</div>

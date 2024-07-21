@@ -1,0 +1,21 @@
+<div class="gridscape">
+    <div class="gridscape__horizon">
+        @for (star of [].constructor(40); track star;) {
+            <div class=gridscape__star></div>
+        }
+        <div class="gridscape__sun" #sun></div>
+    </div>
+    <div class="gridscape__land">
+        <div class="gridscape__lines-horizontal">
+            @for (lineHorizontal of [].constructor(10); track 'hor' + lineHorizontal;) {
+                <div class="gridscape__line-horizontal" v-for="line in linesHorizontal"></div>
+            }
+        </div>
+        <div class="gridscape__lines-vertical">
+            @for (lineVertical of [].constructor(80); track 'vert' + lineVertical;) {
+                <div class="gridscape__line-vertical" v-for="line in linesVertical"></div>
+            }
+        </div>
+        <div class="gridscape__overlay"></div>
+    </div>
+</div>

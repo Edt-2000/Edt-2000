@@ -1,44 +1,34 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+    "compileOnSave": false,
     "compilerOptions": {
-        "target": "es5",
-        "module": "esnext",
-        "jsx": "preserve",
-        "importHelpers": true,
-        "moduleResolution": "node",
-        "experimentalDecorators": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./src",
+        "outDir": "./dist",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
         "sourceMap": true,
-        "baseUrl": ".",
-        "noImplicitAny": false,
-        "strictNullChecks": false,
-        "types": [
-            "webpack-env"
-        ],
-        "paths": {
-            "@/*": [
-                "src/*"
-            ]
-        },
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "ES2022",
+        "module": "ES2022",
+        "useDefineForClassFields": false,
         "lib": [
-            "esnext",
+            "ES2022",
             "dom",
-            "dom.iterable",
-            "scripthost"
+            "dom.iterable"
         ]
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue",
-        "../Shared/**/*.ts",
-        "tests/**/*.ts",
-        "tests/**/*.tsx"
-    ],
-    "exclude": [
-        "node_modules"
-    ],
-    "files": [
-        "src/main.ts"
-    ]
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true
+    }
 }

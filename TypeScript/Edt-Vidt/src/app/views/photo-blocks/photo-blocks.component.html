@@ -1,0 +1,12 @@
+<div class="photo-blocks" [class]="[sizeClass, shapeClass]">
+    <ul class="photo-blocks__list">
+        @for (block of blocks; track block;) {
+            <li class="photo-blocks__item">
+                <div class="photo-blocks__block">
+                    <img class="photo-blocks__front" [src]="src" alt="">
+                    <img class="photo-blocks__back"[src]="src" alt="">
+                </div>
+            </li>
+        }
+    </ul>
+</div>

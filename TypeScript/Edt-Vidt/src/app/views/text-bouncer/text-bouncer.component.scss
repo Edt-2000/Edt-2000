@@ -1,0 +1,12 @@
+.text-bouncer {
+    width: 100vw;
+    background: #000;
+    height: 100vh;
+    position: relative;
+
+    &__text {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}

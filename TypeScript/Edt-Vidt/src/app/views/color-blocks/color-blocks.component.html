@@ -1,0 +1,18 @@
+<div class="color-blocks"
+     [class]="[sizeClass, shapeClass]"
+     [style]="{
+         '--front-color': frontColor,
+         '--back-color': backColor
+     }"
+>
+    <ul class="color-blocks__list">
+        @for (block of blocks; track block;) {
+            <li class="color-blocks__item">
+                <div class="color-blocks__block">
+                    <div class="color-blocks__front"></div>
+                    <div class="color-blocks__back"></div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

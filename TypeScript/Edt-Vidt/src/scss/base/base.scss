@@ -1,0 +1,18 @@
+body, html {
+    height: 100%;
+}
+
+body {
+    background: #000;
+    min-height: 100%;
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.app {
+    position: relative;
+    height: 100vh;
+}

@@ -19,5 +19,26 @@ export enum VidtPresets {
     'videoPlayer',
     'vista',
     'wheel',
-    // 'video',
 }
+//
+// export enum VidtPresets {
+//     EMPTY = '____EMPTY____',
+//     BLUESCREEN = 'bluescreen',
+//     COLOR = 'color',
+//     COLOR_BLOCKS = 'colorblocks',
+//     COLOR_GLITCH = 'colorglitch',
+//     COLOR_TWINKLE = 'color-twinkle',
+//     GRIDSCAPE = 'gridscape',
+//     HACKING = 'hacking',
+//     KALEIDO = 'kaleido',
+//     KARAOKE = 'karaoke',
+//     LOGO = 'logo',
+//     PHOTO_BLOCKS = 'photo-blocks',
+//     PHOTOBOUNCER = 'photobouncer',
+//     PHOTOGLITCHER = 'photoglitcher',
+//     SHUTDOWN = 'shutdown',
+//     TEXT_BOUNCER = 'textbouncer',
+//     VIDEOPLAYER = 'videoplayer',
+//     VISTA = 'vista',
+//     WHEEL = 'wheel',
+// }
