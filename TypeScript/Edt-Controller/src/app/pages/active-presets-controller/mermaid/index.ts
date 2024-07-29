@@ -1,19 +1,22 @@
 import { Actions$ } from '../../../../../../Shared/actions/actions';
 import { map } from 'rxjs';
+import { MermaidConfig } from '../../../../../../Shared/actions/types';
 
 const styles: string[] = [];
 
 export const mermaidOutput$ = Actions$.presetState.asObservable().pipe(
     map(presetState => {
-        const mermaidEntries = presetState.reduce((entries, { mermaid }) => entries.concat(mermaid), []).filter(Boolean);
+        const mermaidEntries = presetState.reduce((entries, { mermaid }) => entries.concat(mermaid), [] as MermaidConfig[]).filter(Boolean);
 
         const singleEntries = mermaidEntries.filter(entry => entry && !entry.subgraph);
         const groupedEntries = mermaidEntries.filter(entry => !!(entry && entry.subgraph));
 
         const outputByGroup = groupedEntries.reduce<Record<string, string[]>>((group, config) => {
             const { subgraph } = config;
-            group[subgraph] = group[subgraph] || [] as string[];
-            group[subgraph].push(config.entry);
+            if(subgraph) {
+              group[subgraph] = group[subgraph] || [] as string[];
+              group[subgraph].push(config.entry);
+            }
             return group;
         }, {});
 

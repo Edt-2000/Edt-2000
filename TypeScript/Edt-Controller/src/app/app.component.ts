@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { pages } from './app.routes';
 import { SocketService } from './socket.service';
+import { NgForOf } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  imports: [
+    RouterLink,
+    RouterOutlet,
+    RouterLinkActive,
+    NgForOf,
+  ],
 })
 export class AppComponent {
   constructor(

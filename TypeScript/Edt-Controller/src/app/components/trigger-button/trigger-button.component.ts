@@ -5,15 +5,16 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { IColor } from '../../../../../Shared/colors/types';
 
 @Component({
-    selector: 'app-trigger-button',
-    template: `
-        <button
-            class='trigger-button'
-            (click)='sendColor(color)'
-            [style.background-color]='getColorString(color)'
-        ></button>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-trigger-button',
+  template: `
+    <button
+      class='trigger-button'
+      (click)='sendColor(color)'
+      [style.background-color]='getColorString(color)'
+    ></button>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class TriggerButtonComponent {
 

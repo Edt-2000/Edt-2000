@@ -7,11 +7,21 @@ import { IColor } from '../../../../../Shared/colors/types';
 import { SafeStyle } from '@angular/platform-browser';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
 import { Observable, switchMap } from 'rxjs';
+import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 
 @Component({
-    selector: 'app-launchpad-controller',
-    templateUrl: './launchpad-controller.component.html',
-    styleUrls: ['./launchpad-controller.component.scss'],
+  selector: 'app-launchpad-controller',
+  templateUrl: './launchpad-controller.component.html',
+  styleUrls: ['./launchpad-controller.component.scss'],
+  standalone: true,
+  imports: [
+    NgSwitch,
+    AsyncPipe,
+    NgSwitchCase,
+    NgSwitchDefault,
+    NgForOf,
+    NgIf,
+  ],
 })
 export class LaunchpadControllerComponent {
     triggerType = TriggerType;

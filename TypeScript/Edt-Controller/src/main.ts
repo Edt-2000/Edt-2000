@@ -1,6 +1,17 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppModule } from './app/app.module';
+import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import { pages } from './app/app.routes';
 
-bootstrapApplication(AppModule, appConfig)
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter([
+      ...pages,
+      {
+        path: '',
+        redirectTo: pages[0].path,
+        pathMatch: 'full',
+      },
+    ]),
+  ],
+}).catch(console.log);
