@@ -42,7 +42,9 @@ nextActionFromMsg(Actions.cueList(presetCues));
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
 if (scannedContentGroups[0]) {
     nextActionFromMsg(Actions.contentGroup(scannedContentGroups[0]));
-    nextActionFromMsg(Actions.colorPalette(scannedContentGroups[0].colorPalettes[0]));
+    if (scannedContentGroups[0].colorPalettes) {
+        nextActionFromMsg(Actions.colorPalette(scannedContentGroups[0].colorPalettes[0]));
+    }
 }
 nextActionFromMsg(Actions.vidtPresets(enumToArray(VidtPresets)));
 nextActionFromMsg(Actions.animationTypes(enumToArray(AnimationTypes)));

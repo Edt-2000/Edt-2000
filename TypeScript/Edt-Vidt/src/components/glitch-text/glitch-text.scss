@@ -86,8 +86,8 @@ $c-black: #000;
 
 @for $i from 1 through 20 {
     $start: 8;
-    $amount: ($start + (($i - 1) * 4)) * 1px;
-    $negAmount: (-1 * ($start + (($i - 1) * 4))) * 1px;
+    $amount: ($start + (($i - 1) * 8)) * 1px;
+    $negAmount: (-1 * ($start + (($i - 1) * 8))) * 1px;
     @keyframes glitch-level#{$i} {
         0% {
             transform: translate(0);
