@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { SocketService } from '../../socket.service';
 import { Note } from '../../../../../Shared/midi/midi';
 import { IControlPresetMsg } from '../../../../../Shared/actions/types';
-import { NgForOf, NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-preset-switcher',
@@ -18,40 +18,39 @@ import { NgForOf, NgIf } from '@angular/common';
         <span>{{ noteName }}: {{ preset.title }} ({{ preset.modifier }})</span>
       </button>
       <ul class='list'>
-        <ng-container *ngIf="'preset.config.select'">
-          <li class='list__item' *ngFor='let select of preset.config.select'>
-            <button
-              class='text-button button--white preset-switcher__sub'
-              [class.is-selected]='select.value === preset.modifier'
-              [class.is-active]='
-                preset.state && select.value === preset.modifier
-              '
-              (click)='socket.changePreset(preset.preset, true, select.value)'
-            >
-              <span>{{ select.label }} ({{ select.value }})</span>
-            </button>
-          </li>
-        </ng-container>
+        @if (preset.config.select) {
+          @for (select of preset.config.select; track select) {
+            <li class='list__item'>
+              <button
+                class='text-button button--white preset-switcher__sub'
+                [class.is-selected]='select.value === preset.modifier'
+                [class.is-active]='
+                  preset.state && select.value === preset.modifier
+                '
+                (click)='socket.changePreset(preset.preset, true, select.value)'
+              >
+                <span>{{ select.label }} ({{ select.value }})</span>
+              </button>
+            </li>
+          }
+        }
       </ul>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    NgIf,
-    NgForOf,
-  ],
+  imports: [],
 })
 export class PresetSwitcherComponent implements OnInit {
-    @Input({required: true}) preset!: IControlPresetMsg;
-    noteName!: string;
+  @Input({ required: true }) preset!: IControlPresetMsg;
+  noteName!: string;
 
-    constructor(public socket: SocketService) {
-    }
+  constructor(public socket: SocketService) {
+  }
 
-    ngOnInit() {
-        this.noteName = Note[this.preset.preset]
-            .replace('_', '-')
-            .replace('$', '#');
-    }
+  ngOnInit() {
+    this.noteName = Note[this.preset.preset]
+      .replace('_', '-')
+      .replace('$', '#');
+  }
 }

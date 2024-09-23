@@ -6,30 +6,36 @@ import { PresetSwitcherComponent } from '../preset-switcher/preset-switcher.comp
 @Component({
   selector: 'app-preset-switchers',
   template: `
-    <ng-container *ngIf='groupedPresetState'>
+    @if (groupedPresetState) {
       <ul class='tab'>
-        <li class='tab__item' *ngFor='let group of groupedPresetState'>
-          <button class='tab__link'
-                  (click)='currentGroup = group.title'
+        @for (group of groupedPresetState; track group) {
+          <li class='tab__item'>
+            <button class='tab__link'
+              (click)='currentGroup = group.title'
                   [class.is-active]='
                             currentGroup === group.title
                           '
-          >{{ group.title }}
-          </button>
-        </li>
+              >{{ group.title }}
+            </button>
+          </li>
+        }
       </ul>
-      <div *ngFor='let group of groupedPresetState'>
-        <ng-container *ngIf='currentGroup === group.title'>
-          <h1>{{ group.title }}</h1>
-          <ul class='list list--presets'>
-            <li class='list__item' *ngFor='let preset of group.presets'>
-              <app-preset-switcher [preset]='preset'></app-preset-switcher>
-            </li>
-          </ul>
-        </ng-container>
-      </div>
-    </ng-container>
-  `,
+      @for (group of groupedPresetState; track group) {
+        <div>
+          @if (currentGroup === group.title) {
+            <h1>{{ group.title }}</h1>
+            <ul class='list list--presets'>
+              @for (preset of group.presets; track preset) {
+                <li class='list__item'>
+                  <app-preset-switcher [preset]='preset'></app-preset-switcher>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      }
+    }
+    `,
   styles: [],
   standalone: true,
   imports: [

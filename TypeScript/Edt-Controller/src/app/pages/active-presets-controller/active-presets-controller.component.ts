@@ -1,40 +1,41 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { mermaidOutput$ } from './mermaid';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AsyncPipe } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare const mermaid: any;
 
 @Component({
   selector: 'app-active-presets-controller',
-  template: `
-    <div #mermaid></div>
-  `,
+  template: ` <div [innerHTML]="mermaid$ | async"></div> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  imports: [AsyncPipe],
 })
-export class ActivePresetsControllerComponent implements OnInit {
-  destroy$ = new Subject<boolean>();
-  @ViewChild('mermaid', { static: true }) mermaidDiv: ElementRef | undefined;
+export class ActivePresetsControllerComponent {
+  constructor(private sanitizer: DomSanitizer) {}
+
   mermaid$ = mermaidOutput$.pipe(
-    switchMap(async graph => {
-      console.log('Rendering:\n\n', graph);
-      if (this.mermaidDiv) {
-        await mermaid.render('graphDiv', graph, this.mermaidDiv.nativeElement);
-        // @ts-ignore
-        this.mermaidDiv.nativeElement.innerHTML = graph.svg;
-      } else {
-        console.error('Mermaid is not initialized!');
+    switchMap(async (graph) => {
+      try {
+        const { svg } = await mermaid.render('state', graph);
+
+        return this.sanitizer.bypassSecurityTrustHtml(svg);
+      } catch (e) {
+        console.error(e);
+        return '';
       }
     }),
+    takeUntilDestroyed(),
   );
 
-  ngOnInit(): void {
+  ngAfterViewInit() {
     mermaid.initialize({
       securityLevel: 'loose',
       startOnLoad: false,
       theme: 'dark',
     });
-    this.mermaid$.pipe(takeUntil(this.destroy$)).subscribe();
   }
 }
-

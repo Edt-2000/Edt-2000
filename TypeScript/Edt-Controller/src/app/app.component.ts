@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { pages } from './app.routes';
 import { SocketService } from './socket.service';
-import { NgForOf } from '@angular/common';
+
 
 @Component({
   standalone: true,
@@ -12,9 +12,8 @@ import { NgForOf } from '@angular/common';
   imports: [
     RouterLink,
     RouterOutlet,
-    RouterLinkActive,
-    NgForOf,
-  ],
+    RouterLinkActive
+],
 })
 export class AppComponent {
   constructor(

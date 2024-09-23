@@ -5,19 +5,19 @@ $font-mono: 'Klartext-Mono', monospace;
     font-family: 'Orbitron';
     font-style: normal;
     font-weight: normal;
-    src: url('../assets/fonts/orbitron-black-webfont.woff') format('woff');
+    src: url('../../assets/fonts/orbitron-black-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Klartext-Mono';
     font-style: normal;
     font-weight: 400;
-    src: url('../assets/fonts/KlartextMono-Light-webfont.woff') format('woff');
+    src: url('../../assets/fonts/KlartextMono-Light-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Klartext-Mono';
     font-style: normal;
     font-weight: 500;
-    src: url('../assets/fonts/Klartext-Mono-Medium.woff') format('woff');
+    src: url('../../assets/fonts/Klartext-Mono-Medium.woff') format('woff');
 }

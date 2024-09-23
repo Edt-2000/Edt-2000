@@ -7,7 +7,7 @@ import { IColor } from '../../../../../Shared/colors/types';
 import { SafeStyle } from '@angular/platform-browser';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
 import { Observable, switchMap } from 'rxjs';
-import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-launchpad-controller',
@@ -15,13 +15,8 @@ import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } fro
   styleUrls: ['./launchpad-controller.component.scss'],
   standalone: true,
   imports: [
-    NgSwitch,
-    AsyncPipe,
-    NgSwitchCase,
-    NgSwitchDefault,
-    NgForOf,
-    NgIf,
-  ],
+    AsyncPipe
+],
 })
 export class LaunchpadControllerComponent {
     triggerType = TriggerType;
