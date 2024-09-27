@@ -6,9 +6,11 @@
     "license": "MIT",
     "private": true,
     "workspaces": [
-        "Edt-Sledt",
+        "Edt-Controller",
         "Edt-Launchpad",
-        "Edt-MOSCidi"
+        "Edt-MOSCidi",
+        "Edt-Sledt",
+        "Edt-Vidt"
     ],
     "prettier": {
         "singleQuote": true,
