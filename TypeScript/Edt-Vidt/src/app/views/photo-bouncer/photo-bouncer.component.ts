@@ -1,21 +1,21 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AnimationTypes } from '../../../../../Shared/vidt/animation';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 
 @Component({
-  selector: 'edt-photo-bouncer',
-  templateUrl: './photo-bouncer.component.html',
-  styleUrl: './photo-bouncer.component.scss'
+    selector: 'edt-photo-bouncer',
+    templateUrl: './photo-bouncer.component.html',
+    styleUrl: './photo-bouncer.component.scss',
+    encapsulation: ViewEncapsulation.None,
 })
 export class PhotoBouncerComponent implements OnInit, OnDestroy {
-
     public animation?: Animation;
     public src: string = '';
 
     private readonly destroyed = new Subject();
 
-    private currentAnimation: AnimationTypes = AnimationTypes.bounce;
+    private currentAnimation = AnimationTypes.bounce;
 
     private animations = {
         [AnimationTypes.bounce]: [
@@ -54,11 +54,11 @@ export class PhotoBouncerComponent implements OnInit, OnDestroy {
     };
 
     private animationsConfig = {
-        'bounce': {
+        bounce: {
             easing: 'linear',
             duration: 200,
         },
-        'mirror': {
+        mirror: {
             easing: 'linear',
             // fill: 'forwards',
             duration: 600,
@@ -67,29 +67,22 @@ export class PhotoBouncerComponent implements OnInit, OnDestroy {
 
     @ViewChild('img') imgRef?: ElementRef<HTMLImageElement>;
 
-
     public ngOnInit() {
         this.setAnimation(AnimationTypes.bounce);
 
-        Actions$.animationType
-            .pipe(takeUntil(this.destroyed))
-            .subscribe(animation => {
-                if (animation !== this.currentAnimation) {
-                    this.setAnimation(animation);
-                }
-            });
+        Actions$.animationType.pipe(takeUntil(this.destroyed)).subscribe((animation) => {
+            if (animation !== this.currentAnimation) {
+                this.setAnimation(animation);
+            }
+        });
 
-        Actions$.mainBeat
-            .pipe(takeUntil(this.destroyed))
-                .subscribe(() => {
-                this.animate();
-            });
+        Actions$.mainBeat.pipe(takeUntil(this.destroyed)).subscribe(() => {
+            this.animate();
+        });
 
-        Actions$.imageSrc
-            .pipe(takeUntil(this.destroyed))
-            .subscribe(photo => {
-                this.setSrc(photo);
-            });
+        Actions$.imageSrc.pipe(takeUntil(this.destroyed)).subscribe((photo) => {
+            this.setSrc(photo);
+        });
     }
 
     public setSrc(src: string) {
@@ -104,10 +97,7 @@ export class PhotoBouncerComponent implements OnInit, OnDestroy {
                 this.animation.cancel();
             }
 
-            this.animation = this.imgRef?.nativeElement.animate(
-                this.animations[type],
-                this.animationsConfig[type],
-            );
+            this.animation = this.imgRef?.nativeElement.animate(this.animations[type], this.animationsConfig[type]);
         }
     }
 

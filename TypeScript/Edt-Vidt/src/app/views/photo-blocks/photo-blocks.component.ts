@@ -3,11 +3,12 @@ import { Subject, takeUntil } from 'rxjs';
 import { Sizes } from '../../../../../Shared/vidt/sizes';
 import { Shapes } from '../../../../../Shared/vidt/shapes';
 import { Actions$ } from '../../../../../Shared/actions/actions';
+import { createFilledArray } from '../../../../../Shared/utils/utils';
 
 @Component({
-  selector: 'edt-photo-blocks',
-  templateUrl: './photo-blocks.component.html',
-  styleUrl: './photo-blocks.component.scss'
+    selector: 'edt-photo-blocks',
+    templateUrl: './photo-blocks.component.html',
+    styleUrl: './photo-blocks.component.scss',
 })
 export class PhotoBlocksComponent implements OnInit, OnDestroy {
     public sizeClass: string = '';
@@ -22,31 +23,25 @@ export class PhotoBlocksComponent implements OnInit, OnDestroy {
     private readonly destroyed = new Subject();
 
     public ngOnInit() {
-        Actions$.shape
-            .pipe(takeUntil(this.destroyed))
-            .subscribe((shape: Shapes) => {
-                this.shape = shape;
-                this.shapeClass = 'photo-blocks--' + this.shape;
-            })
+        Actions$.shape.pipe(takeUntil(this.destroyed)).subscribe((shape: Shapes) => {
+            this.shape = shape;
+            this.shapeClass = 'photo-blocks--' + this.shape;
+        });
 
-        Actions$.size
-            .pipe(takeUntil(this.destroyed))
-            .subscribe((size: Sizes) => {
-                this.size = size;
-                this.sizeClass = 'photo-blocks--' + this.size;
-                const amount = this.size === 'small' ? 75 : 50;
-                this.blocks = Array(amount).map((x, i) => i + 1);
-            })
+        Actions$.size.pipe(takeUntil(this.destroyed)).subscribe((size: Sizes) => {
+            this.size = size;
+            this.sizeClass = 'photo-blocks--' + this.size;
+            const amount = this.size === 'small' ? 75 : 50;
+            this.blocks = createFilledArray(amount);
+        });
 
-        Actions$.imageSrc
-            .pipe(takeUntil(this.destroyed))
-            .subscribe(photo => {
-                this.setSrc(photo);
-            });
+        Actions$.imageSrc.pipe(takeUntil(this.destroyed)).subscribe((photo) => {
+            this.setSrc(photo);
+        });
     }
 
     public setSrc(src: string) {
-        this.src = `./assets/media-by-group/${ src }`;
+        this.src = `./assets/media-by-group/${src}`;
     }
 
     public ngOnDestroy() {

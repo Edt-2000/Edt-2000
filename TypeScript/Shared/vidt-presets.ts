@@ -10,7 +10,6 @@ export enum VidtPresets {
     kaleido,
     karaoke,
     logo,
-    multicolor,
     photoBlocks,
     photobouncer,
     photoglitcher,

@@ -76,7 +76,7 @@ Actions$.multiColor.subscribe((color) => console.log("Color - Multi:", color));
 Actions$.vidtSingleColor.subscribe((color) =>
     console.log("ColorVidt - Single: ", color),
 );
-Actions$.multiColor.subscribe((color) =>
+Actions$.vidtMultiColor.subscribe((color) =>
     console.log("ColorVidt - Multi: ", color),
 );
 Actions$.prepareVidt.subscribe((vidtPreset) =>

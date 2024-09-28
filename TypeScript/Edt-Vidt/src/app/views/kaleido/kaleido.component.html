@@ -2,7 +2,7 @@
     @if (!resetAnimation) {
         <div class="kaleido" [style]="styles">
             <div class="kaleido__inner">
-                @for (hex of [].constructor(hexagons); track hex; let i = $index;) {
+                @for (hex of createFilledArray(hexagons); track hex; let i = $index;) {
                     <div class="hex" [class]="'hex--' + i"
                          [style.animation-delay]="(i * kaleidoTime * (1/ hexagons)) + 's'">
                     </div>

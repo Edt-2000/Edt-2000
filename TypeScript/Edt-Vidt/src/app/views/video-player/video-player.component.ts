@@ -1,37 +1,28 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 
 @Component({
     selector: 'edt-video-player',
     templateUrl: './video-player.component.html',
-    styleUrl: './video-player.component.scss'
+    styleUrl: './video-player.component.scss',
 })
-export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
+export class VideoPlayerComponent implements AfterContentInit, OnDestroy {
     public src: string = '';
     public interval?: number;
     public overlay = false;
-
+    @ViewChild('video') videoRef?: ElementRef<HTMLVideoElement>;
     private readonly destroyed = new Subject();
 
-    @ViewChild('video') videoRef?: ElementRef<HTMLVideoElement>;
+    public ngAfterContentInit() {
+        Actions$.videoSrc.pipe(takeUntil(this.destroyed)).subscribe((video: string) => {
+            this.setSrc(video);
+            this.playVideo();
+        });
 
-    public ngAfterViewInit() {
-        Actions$.videoSrc
-            .pipe(takeUntil(this.destroyed))
-            .subscribe(
-            (video: string) => {
-                this.setSrc(video);
-                this.playVideo();
-            },
-        );
-
-        Actions$.mainBeat
-            .pipe(takeUntil(this.destroyed)).
-            subscribe(() => {
-                this.glitchVideo();
-            },
-        );
+        Actions$.mainBeat.pipe(takeUntil(this.destroyed)).subscribe(() => {
+            this.glitchVideo();
+        });
     }
 
     public ngOnDestroy() {
@@ -69,8 +60,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
         }
 
         if (this.videoRef) {
-        this.videoRef.nativeElement.currentTime =
-            Math.random() * this.videoRef.nativeElement.duration;
+            this.videoRef.nativeElement.currentTime = Math.random() * this.videoRef.nativeElement.duration;
         }
     }
 
@@ -81,20 +71,21 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy {
 
         this.interval = window.setInterval(() => {
             if (this.videoRef) {
-                this.videoRef.nativeElement.currentTime =
-                    Math.random() * this.videoRef.nativeElement.duration;
+                this.videoRef.nativeElement.currentTime = Math.random() * this.videoRef.nativeElement.duration;
             }
         }, 1000);
     }
 
     stopVideo() {
         if (this.videoRef) {
-            const isPlaying = this.videoRef.nativeElement.currentTime > 0 && !this.videoRef.nativeElement.paused && !this.videoRef.nativeElement.ended
-                && this.videoRef.nativeElement.readyState > this.videoRef.nativeElement.HAVE_CURRENT_DATA;
+            const isPlaying =
+                this.videoRef.nativeElement.currentTime > 0 &&
+                !this.videoRef.nativeElement.paused &&
+                !this.videoRef.nativeElement.ended &&
+                this.videoRef.nativeElement.readyState > this.videoRef.nativeElement.HAVE_CURRENT_DATA;
             if (isPlaying) {
                 this.videoRef.nativeElement.pause();
             }
         }
     }
-
 }

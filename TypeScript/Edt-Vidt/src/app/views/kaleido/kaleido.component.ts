@@ -1,14 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { Sizes } from '../../../../../Shared/vidt/sizes';
 import { IColor } from '../../../../../Shared/colors/types';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
+import { createFilledArray } from '../../../../../Shared/utils/utils';
 
 @Component({
     selector: 'edt-kaleido',
     templateUrl: './kaleido.component.html',
-    styleUrl: './kaleido.component.scss'
+    styleUrl: './kaleido.component.scss',
+    // We need this for the created HTML elements to work
+    // TODO: we need a more angular-ly solution for this...
+    encapsulation: ViewEncapsulation.None,
 })
 export class KaleidoComponent implements OnInit, OnDestroy {
     public styles: Object = {};
@@ -19,11 +23,8 @@ export class KaleidoComponent implements OnInit, OnDestroy {
     private readonly destroyed = new Subject();
 
     public ngOnInit() {
-        combineLatest([
-            Actions$.colorPalette,
-            Actions$.glitchIntensity,
-            Actions$.size,
-        ]).pipe(takeUntil(this.destroyed))
+        combineLatest([Actions$.colorPalette, Actions$.glitchIntensity, Actions$.size])
+            .pipe(takeUntil(this.destroyed))
             .subscribe(([colors, intensity, size]) => {
                 this.resetAnimation = true;
 
@@ -33,35 +34,30 @@ export class KaleidoComponent implements OnInit, OnDestroy {
                 // Set animation time depending on intensity
                 this.kaleidoTime = 10 - intensity;
                 this.styles = {
-                    '--animation-kaleido-time': `${ this.kaleidoTime }s`,
+                    '--animation-kaleido-time': `${this.kaleidoTime}s`,
                 };
-
 
                 // Set colors
                 this.setColors(colors);
 
                 // Re-trigger animation
-                setTimeout(() => this.resetAnimation = false);
+                setTimeout(() => (this.resetAnimation = false));
             });
     }
 
-    public  setColors(colors: IColor[]) {
+    public setColors(colors: IColor[]) {
         let colorIndex = 0;
 
-        for (let i = 1; i <= 8; i++) {
-            const color = `rgb(${ ColorHelper.hsv2rgb(colors[ colorIndex ]).join(', ') }`;
-            document.documentElement.style.setProperty(`--kaleido-${ i }`, `${ color }`);
-
-            colorIndex++;
-
-            if (colorIndex == colors.length) {
-                colorIndex = 0;
-            }
-        }
+        colors.forEach((color, i) => {
+            const colorRgb = `rgb(${ColorHelper.hsv2rgb(color).join(', ')}`;
+            document.documentElement.style.setProperty(`--kaleido-${i}`, `${colorRgb}`);
+        });
     }
 
     public ngOnDestroy() {
         this.destroyed.next(true);
         this.destroyed.complete();
     }
+
+    protected readonly createFilledArray = createFilledArray;
 }

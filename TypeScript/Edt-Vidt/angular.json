@@ -34,7 +34,17 @@
                         "inlineStyleLanguage": "scss",
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets"
+                            "src/assets",
+                            {
+                                "input": "../Shared/assets",
+                                "glob": "**/*",
+                                "output": "assets"
+                            },
+                            {
+                                "input": "../Edt-Vidt/public/assets",
+                                "glob": "**/*",
+                                "output": "assets"
+                            }
                         ],
                         "styles": [
                             "src/scss/main.scss"

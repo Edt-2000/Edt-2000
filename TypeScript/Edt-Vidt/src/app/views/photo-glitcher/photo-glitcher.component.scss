@@ -34,7 +34,7 @@
 
     &--spin {
         .photo-glitcher__img {
-            animation: spin 1s linear infinite forwards;
+            animation: spin 1s linear infinite;
             height: 140%;
             left: -((140 - 100) * 0.5) * 1%;
             top: -((140 - 100) * 0.5) * 1%;
@@ -44,7 +44,7 @@
 
     &--spinReverse {
         .photo-glitcher__img {
-            animation: spin 1s linear infinite backwards;
+            animation: spinReverse 1s linear infinite;
             height: 140%;
             left: -((140 - 100) * 0.5) * 1%;
             top: -((140 - 100) * 0.5) * 1%;
@@ -64,7 +64,7 @@
 
     &--mirror {
         .photo-glitcher__img {
-            animation: mirror 1s linear infinite forwards;
+            animation: mirror 1s linear infinite;
         }
     }
 }
@@ -104,6 +104,16 @@
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes spinReverse {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
     }
 }
 
