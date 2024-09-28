@@ -1,0 +1,67 @@
+@import '../config/colors';
+@import '../config/sizes';
+@import '../config/fonts';
+@import '../mixins/screen';
+
+// Text styles
+@mixin style-text {
+    font-family: $font-open-sans;
+    font-size: var(--text-font-size);
+    line-height: 1.4;
+}
+
+@mixin style-text-large {
+    font-family: $font-open-sans;
+    font-size: var(--text-font-size-large);
+    line-height: 1.5;
+}
+
+@mixin style-text-small {
+    font-family: $font-open-sans;
+    font-size: var(--text-font-size-small);
+    line-height: 1.125;
+}
+
+// Header Styles
+@mixin style-heading {
+    font-family: $font-barlow;
+    font-weight: $weight-medium;
+    line-height: 1.2;
+}
+
+@mixin style-heading-1-hero {
+    @include style-heading;
+
+    font-size: var(--heading-1-hero-font-size);
+}
+
+@mixin style-heading-1 {
+    @include style-heading;
+
+    font-size: var(--heading-1-font-size);
+}
+
+@mixin style-heading-2 {
+    @include style-heading;
+
+    font-size: var(--heading-2-font-size);
+}
+
+@mixin style-heading-3 {
+    @include style-heading;
+
+    font-size: var(--heading-3-font-size);
+}
+
+@mixin style-heading-4 {
+    @include style-heading;
+
+    font-size: var(--heading-4-font-size);
+}
+
+@mixin style-heading-dialog {
+    font-family: $font-barlow;
+    font-size: var(--heading-dialog-font-size);
+    font-weight: $weight-semibold;
+    line-height: 1.3;
+}

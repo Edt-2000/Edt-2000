@@ -1,29 +1,32 @@
-import { PresetLogic } from '../../presets-logic';
-import { Actions$ } from '../../../../../Shared/actions/actions';
-import { FastLedtRainbowSpark } from '../../../outputs/edt-fastled';
-import { modifiers } from '../../../../config/modifiers';
-import { ModifierGroup } from '../../../../../Shared/actions/types';
-import { withLatestFrom } from 'rxjs';
+import { PresetLogic } from "../../presets-logic";
+import { Actions$ } from "../../../../../Shared/actions/actions";
+import { FastLedtRainbowSpark } from "../../../outputs/edt-fastled";
+import { modifiers } from "../../../../config/modifiers";
+import { ModifierGroup } from "../../../../../Shared/actions/types";
+import { withLatestFrom } from "rxjs";
 
 export class BeatToRainbowSpark extends PresetLogic {
     modifierOptions = {
         select: modifiers.fadeSpeeds,
-        group: [
-            ModifierGroup.FastLED,
-            ModifierGroup.Beat,
-        ],
+        group: [ModifierGroup.FastLED, ModifierGroup.Beat],
     };
 
     get mermaidConfig() {
-        const speed = modifiers.fadeSpeeds.find(({ value }) => value === this.modifier);
-        return [{
-            entry: `BEAT ${this.state ? `==>|${speed && (speed.label || speed.value) || this.modifier}|` : '--->'} RAINBOW`,
-        }, {
-            entry: `COLOR ${this.state ? '===>' : '--->'} RAINBOW`,
-        }, {
-            subgraph: 'FASTLEDS',
-            entry: `RAINBOW ${this.state ? '===>' : '--->'} FASTLED`,
-        }];
+        const speed = modifiers.fadeSpeeds.find(
+            ({ value }) => value === this.modifier,
+        );
+        return [
+            {
+                entry: `BEAT ${this.state ? `==>|${(speed && (speed.label || speed.value)) || this.modifier}|` : "--->"} RAINBOW`,
+            },
+            {
+                entry: `COLOR ${this.state ? "===>" : "--->"} RAINBOW`,
+            },
+            {
+                subgraph: "FASTLEDS",
+                entry: `RAINBOW ${this.state ? "===>" : "--->"} FASTLED`,
+            },
+        ];
     }
 
     protected _startPreset(): void {
@@ -36,6 +39,5 @@ export class BeatToRainbowSpark extends PresetLogic {
         );
     }
 
-    protected _stopPreset(): void {
-    }
+    protected _stopPreset(): void {}
 }

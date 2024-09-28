@@ -1,0 +1,18 @@
+<div class="page">
+    @if (!resetAnimation) {
+        <div class="kaleido" [style]="styles">
+            <div class="kaleido__inner">
+                @for (hex of [].constructor(hexagons); track hex; let i = $index;) {
+                    <div class="hex" [class]="'hex--' + i"
+                         [style.animation-delay]="(i * kaleidoTime * (1/ hexagons)) + 's'">
+                    </div>
+                }
+                <div class="hex__inner">
+                    <div class="hex__sub hex__sub--1"></div>
+                    <div class="hex__sub hex__sub--2"></div>
+                    <div class="hex__sub hex__sub--3"></div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

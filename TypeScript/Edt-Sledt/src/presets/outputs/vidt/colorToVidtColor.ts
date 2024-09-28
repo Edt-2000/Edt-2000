@@ -1,40 +1,48 @@
-import { PresetLogic } from '../../presets-logic';
-import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
-import { MermaidConfig, ModifierGroup } from '../../../../../Shared/actions/types';
-import { modifiers } from '../../../../config/modifiers';
-import { ColorVariations } from '../../../../config/config';
-import { rescale } from '../../../../../Shared/utils/utils';
+import { PresetLogic } from "../../presets-logic";
+import {
+    Actions,
+    Actions$,
+    nextActionFromMsg,
+} from "../../../../../Shared/actions/actions";
+import {
+    MermaidConfig,
+    ModifierGroup,
+} from "../../../../../Shared/actions/types";
+import { modifiers } from "../../../../config/modifiers";
+import { ColorVariations } from "../../../../config/config";
+import { rescale } from "../../../../../Shared/utils/utils";
 
 export class ColorToVidtColor extends PresetLogic {
     mermaidConfig: MermaidConfig[];
 
     modifierOptions = {
         select: modifiers.colorVariation,
-        group: [
-            ModifierGroup.Vidt,
-            ModifierGroup.Color,
-        ],
+        group: [ModifierGroup.Vidt, ModifierGroup.Color],
     };
+
+    // Always start with color to vidt as well
+    state = true;
 
     protected _startPreset(): void {
         this.addSub(
-            Actions$.singleColor.subscribe(color => {
-                const newColor = (this.modifier === ColorVariations.inverse ? {
-                    h: (color.h + rescale(63, 127, 0, 255)) % 255,
-                    s: color.s,
-                    b: color.b,
-                } : color);
+            Actions$.singleColor.subscribe((color) => {
+                const newColor =
+                    this.modifier === ColorVariations.inverse
+                        ? {
+                              h: (color.h + rescale(63, 127, 0, 255)) % 255,
+                              s: color.s,
+                              b: color.b,
+                          }
+                        : color;
                 nextActionFromMsg(Actions.vidtSingleColor(newColor));
             }),
         );
         this.addSub(
-            Actions$.multiColor.subscribe(color => {
+            Actions$.multiColor.subscribe((color) => {
                 nextActionFromMsg(Actions.vidtMultiColor(color));
             }),
         );
     }
 
-    protected _stopPreset(): void {
-    }
+    protected _stopPreset(): void {}
 }
-

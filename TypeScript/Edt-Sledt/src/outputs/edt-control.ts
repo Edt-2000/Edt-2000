@@ -1,14 +1,18 @@
-import { Actions, Actions$, nextActionFromMsg } from '../../../Shared/actions/actions';
-import { controlSocket$ } from '../communication/sockets';
-import * as SocketIO from 'socket.io';
-import { BehaviorSubject, fromEvent, map, merge, take, takeUntil } from 'rxjs';
+import {
+    Actions,
+    Actions$,
+    nextActionFromMsg,
+} from "../../../Shared/actions/actions";
+import { controlSocket$ } from "../communication/sockets";
+import * as SocketIO from "socket.io";
+import { BehaviorSubject, fromEvent, map, merge, take, takeUntil } from "rxjs";
 
 const connectedControlsSubject$ = new BehaviorSubject<string[]>([]);
 
-controlSocket$.subscribe(socket => {
+controlSocket$.subscribe((socket) => {
     connectedControlsSubject$.next(Object.keys(socket.nsp.sockets));
 
-    const disconnected$ = fromEvent<SocketIO.Socket>(socket, 'disconnect');
+    const disconnected$ = fromEvent<SocketIO.Socket>(socket, "disconnect");
 
     disconnected$.pipe(take(1)).subscribe(() => {
         connectedControlsSubject$.next(Object.keys(socket.nsp.sockets));
@@ -26,11 +30,11 @@ controlSocket$.subscribe(socket => {
         Actions$.shapes.pipe(map(Actions.shapes)),
         Actions$.sizes.pipe(map(Actions.sizes)),
         Actions$.vidtPresets.pipe(map(Actions.vidtPresets)),
-    ).pipe(
-        takeUntil(disconnected$),
-    ).subscribe(msg => socket.emit('toControl', msg));
+    )
+        .pipe(takeUntil(disconnected$))
+        .subscribe((msg) => socket.emit("toControl", msg));
 
-    socket.on('fromControl', nextActionFromMsg);
+    socket.on("fromControl", nextActionFromMsg);
 });
 
 export const connectedControls$ = connectedControlsSubject$.asObservable();

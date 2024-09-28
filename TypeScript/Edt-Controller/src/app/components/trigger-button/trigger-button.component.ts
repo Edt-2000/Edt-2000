@@ -8,29 +8,23 @@ import { IColor } from '../../../../../Shared/colors/types';
   selector: 'app-trigger-button',
   template: `
     <button
-      class='trigger-button'
-      (click)='sendColor(color)'
-      [style.background-color]='getColorString(color)'
+      class="trigger-button"
+      (click)="socket.sendColor(color)"
+      [style.background-color]="getColorString(color)"
     ></button>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class TriggerButtonComponent {
+  @Input() color!: IColor;
 
-    @Input() color!: IColor;
+  constructor(
+    public socket: SocketService,
+    private sanitizer: DomSanitizer,
+  ) {}
 
-    constructor(
-        public socket: SocketService,
-        private sanitizer: DomSanitizer,
-    ) {
-    }
-
-    getColorString(color: IColor): SafeStyle {
-        return ColorHelper.getRGBString([color]);
-    }
-
-    sendColor(color: IColor) {
-        this.socket.sendColor(color);
-    }
+  getColorString(color: IColor): SafeStyle {
+    return ColorHelper.getRGBString([color]);
+  }
 }

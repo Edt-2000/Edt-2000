@@ -1,9 +1,16 @@
-import { merge } from 'rxjs';
-import { imageSrcActions$, imageSrcCC$, videoSrcActions$, videoSrcCC$, wordActions$, wordCC$ } from './assets';
-import { presetChangeActions$ } from './presets';
-import { contentGroupChangeActions$ } from './song';
-import { prepareVidtActions$, prepareVidtCC$ } from './vidt';
-import { animationTypeActions$, animationTypeCC$ } from './animation';
+import { merge } from "rxjs";
+import {
+    imageSrcActions$,
+    imageSrcCC$,
+    videoSrcActions$,
+    videoSrcCC$,
+    wordActions$,
+    wordCC$,
+} from "./assets";
+import { presetChangeActions$ } from "./presets";
+import { contentGroupChangeActions$ } from "./song";
+import { prepareVidtActions$, prepareVidtCC$ } from "./vidt";
+import { animationTypeActions$, animationTypeCC$ } from "./animation";
 
 /**
  * Automation

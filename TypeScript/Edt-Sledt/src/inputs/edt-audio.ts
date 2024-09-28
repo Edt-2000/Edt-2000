@@ -1,6 +1,6 @@
-import { OSC$ } from '../communication/osc';
-import { OSCDevices } from '../../config/config';
-import { filter, map, Observable } from 'rxjs';
+import { OSC$ } from "../communication/osc";
+import { OSCDevices } from "../../config/config";
+import { filter, map, Observable } from "rxjs";
 
 interface IAudio {
     _1: number;

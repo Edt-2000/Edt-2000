@@ -1,0 +1,13 @@
+@import './inline-svg';
+
+/* stylelint-disable max-line-length */
+@mixin svg($type, $color) {
+    @if $type == chevron-down {
+        content: inline-svg('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#{$color}" d="M16.591 9.292L18 10.707l-6 6-6-6 1.409-1.415L12 13.877z"/></svg>');
+    }
+
+    @if $type == arrow-dropdown {
+        content: inline-svg('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#{ $color }" d="m12 15.75-7.5-7.5h15z" /></svg>');
+    }
+}
+/* stylelint-enable max-line-length */

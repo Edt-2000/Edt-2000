@@ -3,34 +3,49 @@ import { ActionsUnion, createAction } from './fsa-helpers';
 import { VidtPresets } from '../vidt-presets';
 import { blackColor } from '../colors/utils';
 import { IMidiNoteMsg } from '../midi/types';
-import { ContentGroup, IControlPresetMsg, ICue, IPresetMsg, LaunchpadPage, LaunchpadPageChange } from './types';
+import {
+    ContentGroup,
+    IControlPresetMsg,
+    ICue,
+    IPresetMsg,
+    LaunchpadPage,
+    LaunchpadPageChange,
+} from './types';
 import { IColor } from '../colors/types';
-import { DrumSounds } from '../../Edt-Sledt/config/config';
+import { DrumSounds } from 'edt-sledt/config/config';
 import { AnimationTypes } from '../vidt/animation';
 import { Sizes } from '../vidt/sizes';
 import { Shapes } from '../vidt/shapes';
 
 // TODO: make Actions into a single observable object
 export const Actions = {
-    presetChange: (payload: IPresetMsg) => createAction('presetChange', payload),
-    presetState: (payload: IControlPresetMsg[]) => createAction('presetState', payload),
+    presetChange: (payload: IPresetMsg) =>
+        createAction('presetChange', payload),
+    presetState: (payload: IControlPresetMsg[]) =>
+        createAction('presetState', payload),
     cueList: (payload: ICue[]) => createAction('cueList', payload),
     vidtPresets: (payload: string[]) => createAction('vidtPresets', payload),
     prepareVidt: (payload: VidtPresets) => createAction('prepareVidt', payload),
 
-    launchpadPageChange: (payload: LaunchpadPageChange) => createAction('launchpadPageChange', payload),
-    launchpadPages: (payload: LaunchpadPage[]) => createAction('launchpadPages', payload),
+    launchpadPageChange: (payload: LaunchpadPageChange) =>
+        createAction('launchpadPageChange', payload),
+    launchpadPages: (payload: LaunchpadPage[]) =>
+        createAction('launchpadPages', payload),
 
     // Assets
-    contentGroups: (payload: ContentGroup[]) => createAction('contentGroups', payload),
-    contentGroup: (payload: ContentGroup) => createAction('contentGroup', payload),
+    contentGroups: (payload: ContentGroup[]) =>
+        createAction('contentGroups', payload),
+    contentGroup: (payload: ContentGroup) =>
+        createAction('contentGroup', payload),
     imageSrc: (payload: string) => createAction('imageSrc', payload),
     videoSrc: (payload: string) => createAction('videoSrc', payload),
     mainText: (payload: string) => createAction('mainText', payload),
 
     // Effects
-    animationTypes: (payload: string[]) => createAction('animationTypes', payload),
-    animationType: (payload: AnimationTypes) => createAction('animationType', payload),
+    animationTypes: (payload: string[]) =>
+        createAction('animationTypes', payload),
+    animationType: (payload: AnimationTypes) =>
+        createAction('animationType', payload),
     shape: (payload: Shapes) => createAction('shape', payload),
     shapes: (payload: string[]) => createAction('shapes', payload),
     size: (payload: Sizes) => createAction('size', payload),
@@ -46,7 +61,8 @@ export const Actions = {
     colorPalette: (payload: IColor[]) => createAction('colorPalette', payload),
 
     mainBeat: (payload: number) => createAction('mainBeat', payload),
-    mainDrumSound: (payload: DrumSounds) => createAction('mainDrumSound', payload),
+    mainDrumSound: (payload: DrumSounds) =>
+        createAction('mainDrumSound', payload),
     mainDrum: (payload: IMidiNoteMsg) => createAction('mainDrum', payload),
     mainMelody: (payload: IMidiNoteMsg) => createAction('mainMelody', payload),
     mainChords: (payload: IMidiNoteMsg) => createAction('mainChords', payload),

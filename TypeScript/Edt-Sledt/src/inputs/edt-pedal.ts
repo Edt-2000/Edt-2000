@@ -1,6 +1,6 @@
-import { OSC$ } from '../communication/osc';
-import { OSCDevices } from '../../config/config';
-import { filter, map, Observable } from 'rxjs';
+import { OSC$ } from "../communication/osc";
+import { OSCDevices } from "../../config/config";
+import { filter, map, Observable } from "rxjs";
 
 // Filter and send out midi messages with this preset data if subscribed
 interface IPedalMsg {
