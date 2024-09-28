@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest, startWith, Subject, takeUntil } from 'rxjs';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { mapInput } from '../../../../../Shared/utils/map-input';
+import { createFilledArray } from '../../../../../Shared/utils/utils';
 
 const AMOUNT_OF_STARS = 64;
 
@@ -16,7 +17,7 @@ export class LogoComponent implements OnInit, OnDestroy {
     public timeOut: number | null = null;
 
     private readonly destroyed = new Subject();
-    stars = new Array(AMOUNT_OF_STARS).fill(0).map((_, i) => i);
+    stars = createFilledArray(AMOUNT_OF_STARS);
 
     public ngOnInit() {
         combineLatest([

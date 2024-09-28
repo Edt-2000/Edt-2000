@@ -1,10 +1,13 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { stevenCode } from './stevencode';
 
 @Component({
-  selector: 'edt-hacking',
-  templateUrl: './hacking.component.html',
-  styleUrl: './hacking.component.scss'
+    selector: 'edt-hacking',
+    templateUrl: './hacking.component.html',
+    styleUrl: './hacking.component.scss',
+    // We need this for the created HTML elements to work
+    // TODO: we need a more angular-ly solution for this...
+    encapsulation: ViewEncapsulation.None,
 })
 export class HackingComponent implements AfterViewInit, OnDestroy {
     public interval: number | undefined;

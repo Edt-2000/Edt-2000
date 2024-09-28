@@ -20,9 +20,6 @@ export class ColorToVidtColor extends PresetLogic {
         group: [ModifierGroup.Vidt, ModifierGroup.Color],
     };
 
-    // Always start with color to vidt as well
-    state = true;
-
     protected _startPreset(): void {
         this.addSub(
             Actions$.singleColor.subscribe((color) => {

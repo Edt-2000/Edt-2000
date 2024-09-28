@@ -12,8 +12,6 @@ export class BeatToColor extends PresetLogic {
         group: [ModifierGroup.Color, ModifierGroup.Beat],
     };
 
-    state = true;
-
     get mermaidConfig() {
         return [
             {

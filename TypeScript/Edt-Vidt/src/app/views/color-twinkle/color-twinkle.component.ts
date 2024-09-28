@@ -3,6 +3,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { IColor } from '../../../../../Shared/colors/types';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
 import { Actions$ } from '../../../../../Shared/actions/actions';
+import { createFilledArray } from '../../../../../Shared/utils/utils';
 
 const AMOUNT_OF_STARS = 400;
 
@@ -15,7 +16,7 @@ export class ColorTwinkleComponent implements OnInit, OnDestroy {
     public styles: Object = {};
 
     private readonly destroyed = new Subject();
-    stars = new Array(AMOUNT_OF_STARS).fill(0).map((_, i) => i);
+    stars = createFilledArray(AMOUNT_OF_STARS);
 
     public ngOnInit() {
         Actions$.vidtSingleColor.pipe(takeUntil(this.destroyed)).subscribe((item) => {

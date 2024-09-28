@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { IColor } from '../../../../../Shared/colors/types';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
 import { Actions$ } from '../../../../../Shared/actions/actions';
+import { createFilledArray } from '../../../../../Shared/utils/utils';
 
 @Component({
     selector: 'edt-color-blocks',
@@ -17,7 +18,7 @@ export class ColorBlocksComponent implements OnInit, OnDestroy {
 
     public size: Sizes = Sizes.normal;
     public shape: Shapes = Shapes.square;
-    public blocks = new Array(50).fill(0).map((_, i) => i);
+    public blocks = createFilledArray(50);
 
     public frontColor: string = '#ff0000';
     public backColor: string = '#00ff00';
@@ -34,7 +35,7 @@ export class ColorBlocksComponent implements OnInit, OnDestroy {
             this.size = size;
             this.sizeClass = 'color-blocks--' + this.size;
             const amount = this.size === 'small' ? 75 : 50;
-            this.blocks = new Array(amount).fill(0).map((_, i) => i);
+            this.blocks = createFilledArray(amount);
         });
 
         Actions$.vidtSingleColor.pipe(takeUntil(this.destroyed)).subscribe((color: IColor) => {

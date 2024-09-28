@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { Subject, takeUntil } from 'rxjs';
-
-const AMOUNT_OF_STARS = 40;
+import { createFilledArray } from '../../../../../Shared/utils/utils';
 
 @Component({
     selector: 'edt-gridscape',
@@ -15,7 +14,7 @@ export class GridscapeComponent implements AfterViewInit, OnDestroy {
     public animation?: Animation;
 
     private readonly destroyed = new Subject();
-    stars = new Array(AMOUNT_OF_STARS).fill(0).map((_, i) => i);
+    stars = createFilledArray(40);
 
     public ngAfterViewInit() {
         this.animation = this.sunRef?.nativeElement.animate(
@@ -64,4 +63,6 @@ export class GridscapeComponent implements AfterViewInit, OnDestroy {
         this.destroyed.next(true);
         this.destroyed.complete();
     }
+
+    protected readonly createFilledArray = createFilledArray;
 }
