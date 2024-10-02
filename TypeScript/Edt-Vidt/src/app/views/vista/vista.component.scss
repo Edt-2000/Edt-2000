@@ -5,7 +5,7 @@
 
     &::before {
         animation: grow 4s ease-in-out infinite;
-        background: url('./vista_bcg.jpg') no-repeat center bottom / cover;
+        background: url('/assets/images/vista_bcg.jpg') no-repeat center bottom / cover;
         content: '';
         height: 100%;
         left: 50%;

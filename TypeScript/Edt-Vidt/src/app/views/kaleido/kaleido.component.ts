@@ -10,12 +10,9 @@ import { createFilledArray } from '../../../../../Shared/utils/utils';
     selector: 'edt-kaleido',
     templateUrl: './kaleido.component.html',
     styleUrl: './kaleido.component.scss',
-    // We need this for the created HTML elements to work
-    // TODO: we need a more angular-ly solution for this...
-    encapsulation: ViewEncapsulation.None,
 })
 export class KaleidoComponent implements OnInit, OnDestroy {
-    public styles: Object = {};
+    public styles: Record<string, string> = {};
     public hexagons: number = 8;
     public kaleidoTime = 4;
     public resetAnimation = false;
@@ -33,9 +30,7 @@ export class KaleidoComponent implements OnInit, OnDestroy {
 
                 // Set animation time depending on intensity
                 this.kaleidoTime = 10 - intensity;
-                this.styles = {
-                    '--animation-kaleido-time': `${this.kaleidoTime}s`,
-                };
+                this.styles ['--animation-kaleido-time'] = `${this.kaleidoTime}s`;
 
                 // Set colors
                 this.setColors(colors);
@@ -48,10 +43,16 @@ export class KaleidoComponent implements OnInit, OnDestroy {
     public setColors(colors: IColor[]) {
         let colorIndex = 0;
 
-        colors.forEach((color, i) => {
-            const colorRgb = `rgb(${ColorHelper.hsv2rgb(color).join(', ')}`;
-            document.documentElement.style.setProperty(`--kaleido-${i}`, `${colorRgb}`);
-        });
+        for (let i = 1; i <= 8; i++) {
+            const color = `rgb(${ ColorHelper.hsv2rgb(colors[ colorIndex ]).join(', ') }`;
+            document.documentElement.style.setProperty(`--kaleido-${ i }`, `${ color }`);
+
+            colorIndex++;
+
+            if (colorIndex == colors.length) {
+                colorIndex = 0;
+            }
+        }
     }
 
     public ngOnDestroy() {

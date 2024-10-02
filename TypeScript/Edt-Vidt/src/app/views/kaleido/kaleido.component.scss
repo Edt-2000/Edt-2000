@@ -46,6 +46,10 @@ $a2: $c2 - $b2;
 $a: sqrt($a2);
 $apercentage: math.div($a * 100, $width) * 1%;
 
+:host {
+    display: block;
+}
+
 .page {
     --animation-kaleido-time: 4s;
     --kaleido-1: #FF0000;
