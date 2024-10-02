@@ -1,6 +1,6 @@
 import { PresetLogic } from "../../presets-logic";
 import { Actions$ } from "../../../../../Shared/actions/actions";
-import { FastLedtStrobe } from "../../../outputs/edt-fastled";
+import { FastLedtStrobe } from "../../../io/edt-fastled";
 import { modifiers } from "../../../../config/modifiers";
 import { ModifierGroup } from "../../../../../Shared/actions/types";
 

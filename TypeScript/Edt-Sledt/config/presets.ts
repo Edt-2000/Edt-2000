@@ -16,6 +16,7 @@ import { MidiChannelToMainBass } from "../src/presets/converters/instruments/mid
 import { DrumSounds } from "./config";
 import { PresetLogic } from "../src/presets/presets-logic";
 import { ColorToSpectacle } from "../src/presets/outputs/spectacle/colorToSpectacle";
+import { FastLedMultiColorToMultiColor } from "../src/presets/outputs/vidt/fastLedMultiColorToMultiColor";
 
 // TODO: C, D, E, F, G, A, B
 
@@ -83,7 +84,7 @@ export const presets: Record<number, PresetLogic> = {
     [Note.E2]: new ColorToVidtColor(),
     // [Note.F2]:,
     [Note.F$2]: new MultiColorToVidtMultiColor(),
-    // [Note.G2]:
+    [Note.G2]: new FastLedMultiColorToMultiColor(),
     // [Note.G$2]:
     // [Note.A2]:
     // [Note.A$2]:

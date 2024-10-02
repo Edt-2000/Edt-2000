@@ -7,7 +7,7 @@ import { presets } from "../config/presets";
 import { scannedContentGroups } from "./media/asset-scan-dir";
 import { presetCues } from "../config/cues/cues";
 import { automationActions$, automationCCMessages$ } from "./automation";
-import { sendToMidiCC, sendToMidiNote } from "./outputs/edt-midi";
+import { sendToMidiCC, sendToMidiNote } from "./io/edt-midi";
 import { presetMidiMsg$ } from "./automation/presets";
 import { getPresetState } from "./presets/presets-logic";
 import { enumToArray } from "../../Shared/utils/utils";
@@ -16,10 +16,11 @@ import { VidtPresets } from "../../Shared/vidt-presets";
 import { launchpadPages$ } from "../config/launchpad";
 import { Sizes } from "../../Shared/vidt/sizes";
 import { Shapes } from "../../Shared/vidt/shapes";
-import { connectedControls$ } from "./outputs/edt-control";
+import { connectedControls$ } from "./io/edt-control";
 import { merge } from "rxjs";
-import { connectedVidt$ } from "./outputs/edt-vidt";
-import { connectedLaunchpad$ } from "./outputs/edt-launchpad";
+import { connectedVidt$ } from "./io/edt-vidt";
+import { connectedLaunchpad$ } from "./io/edt-launchpad";
+import { connectedThomas$ } from "./io/edt-homas";
 
 // Main logic: start or stop presets based on presetChanges
 Actions$.presetChange.subscribe(({ modifier, preset, state }) => {
@@ -63,8 +64,13 @@ launchpadPages$.subscribe((pages) =>
 
 console.log("GO GO GO!");
 
-merge(connectedControls$, connectedVidt$, connectedLaunchpad$).subscribe(
-    (connectedDevice) => console.log("Connected device: ", connectedDevice),
+merge(
+    connectedControls$,
+    connectedVidt$,
+    connectedLaunchpad$,
+    connectedThomas$,
+).subscribe((connectedDevice) =>
+    console.log("Connected device: ", connectedDevice),
 );
 Actions$.contentGroup.subscribe((contentGroup) =>
     console.log("ContentGroup selected:", contentGroup.title),

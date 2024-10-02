@@ -1,6 +1,6 @@
 import { PresetLogic } from "../../presets-logic";
 import { Actions$ } from "../../../../../Shared/actions/actions";
-import { FastLedtSingleSolid } from "../../../outputs/edt-fastled";
+import { FastLedtSingleSolid } from "../../../io/edt-fastled";
 import { ModifierGroup } from "../../../../../Shared/actions/types";
 import { skip } from "rxjs";
 

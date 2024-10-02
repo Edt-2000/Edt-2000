@@ -10,12 +10,16 @@ import { BehaviorSubject, fromEvent, map, merge, take, takeUntil } from "rxjs";
 const connectedControlsSubject$ = new BehaviorSubject<string[]>([]);
 
 controlSocket$.subscribe((socket) => {
-    connectedControlsSubject$.next(Object.keys(socket.nsp.sockets));
+    connectedControlsSubject$.next(
+        Array.from(socket.nsp.sockets.keys()).map((id) => `control-${id}`),
+    );
 
     const disconnected$ = fromEvent<SocketIO.Socket>(socket, "disconnect");
 
     disconnected$.pipe(take(1)).subscribe(() => {
-        connectedControlsSubject$.next(Object.keys(socket.nsp.sockets));
+        connectedControlsSubject$.next(
+            Array.from(socket.nsp.sockets.keys()).map((id) => `control-${id}`),
+        );
     });
 
     merge(

@@ -1,6 +1,6 @@
 import { PresetLogic } from "../../presets-logic";
 import { Actions$ } from "../../../../../Shared/actions/actions";
-import { FastLedtSpark } from "../../../outputs/edt-fastled";
+import { FastLedtSpark } from "../../../io/edt-fastled";
 import { modifiers } from "../../../../config/modifiers";
 import { ModifierGroup } from "../../../../../Shared/actions/types";
 import { blackColor } from "../../../../../Shared/colors/utils";
@@ -34,8 +34,7 @@ export class BeatToFastLedSpark extends PresetLogic {
         this.addSub(
             Actions$.mainBeat
                 .pipe(withLatestFrom(Actions$.singleColor))
-                .subscribe(([beat, color]) => {
-                    console.log(color);
+                .subscribe(([, color]) => {
                     FastLedtSpark(0, color, this.modifier);
                 }),
         );

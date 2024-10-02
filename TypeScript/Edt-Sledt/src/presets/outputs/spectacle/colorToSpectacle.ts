@@ -4,7 +4,7 @@ import {
     MermaidConfig,
     ModifierGroup,
 } from "../../../../../Shared/actions/types";
-import { SpectacleColor } from "../../../outputs/edt-spectacle";
+import { SpectacleColor } from "../../../io/edt-spectacle";
 import { modifiers } from "../../../../config/modifiers";
 import { ColorVariations } from "../../../../config/config";
 import { rescale } from "../../../../../Shared/utils/utils";

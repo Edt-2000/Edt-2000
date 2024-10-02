@@ -4,6 +4,7 @@ export const enum DeviceIPs {
     edtFastLed = "10.0.0.21",
     edtRGBLed = "10.0.0.22",
     edtMOSCidi = "localhost",
+    edtFastSock = "10.0.0.25:80",
     edtSledt = "localhost",
     edtSpectacle = "10.0.0.99",
     edtBar = "10.0.0.98",

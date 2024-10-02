@@ -11,7 +11,9 @@ vidtSocket$.subscribe((socket) => {
     const disconnected$ = fromEvent<SocketIO.Socket>(socket, "disconnect");
 
     disconnected$.pipe(take(1)).subscribe(() => {
-        connectedVidtSubject$.next(Object.keys(socket.nsp.sockets));
+        connectedVidtSubject$.next(
+            Array.from(socket.nsp.sockets.keys()).map((id) => `vidt-${id}`),
+        );
     });
 
     merge(

@@ -3,9 +3,10 @@ import { fromEvent } from "rxjs";
 import { server } from "./server";
 
 // tslint:disable-next-line:no-var-requires
-const io = require("socket.io")(server, {
+export const io = require("socket.io")(server, {
     origins: "*:*",
     transports: ["websocket"],
+    allowEIO3: true,
 });
 
 export const controlSocket$ = fromEvent<SocketIO.Socket>(
@@ -20,5 +21,10 @@ export const vidtSocket$ = fromEvent<SocketIO.Socket>(
 
 export const launchpadSocket$ = fromEvent<SocketIO.Socket>(
     io.of("/launchpad"),
+    "connection",
+);
+
+export const thomasSocket$ = fromEvent<SocketIO.Socket>(
+    io.of("/thomas"),
     "connection",
 );

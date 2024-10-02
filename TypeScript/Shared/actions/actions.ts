@@ -58,6 +58,8 @@ export const Actions = {
     multiColor: (payload: IColor[]) => createAction('multiColor', payload),
     vidtMultiColor: (payload: IColor[]) =>
         createAction('vidtMultiColor', payload),
+    fastLedMultiColor: (payload: IColor[]) =>
+        createAction('fastLedMultiColor', payload),
     colorPalette: (payload: IColor[]) => createAction('colorPalette', payload),
 
     mainBeat: (payload: number) => createAction('mainBeat', payload),
@@ -113,6 +115,7 @@ export const Actions$ = {
     vidtSingleColor: new BehaviorSubject(blackColor),
     multiColor: new BehaviorSubject([]),
     vidtMultiColor: new BehaviorSubject([]),
+    fastLedMultiColor: new BehaviorSubject([]),
     colorPalette: new BehaviorSubject<IColor[]>([]),
     mainBeat: new Subject<number>(),
     mainDrumSound: new Subject<DrumSounds>(),
