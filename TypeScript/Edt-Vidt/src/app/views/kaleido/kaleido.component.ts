@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { Actions$ } from '../../../../../Shared/actions/actions';
-import { Sizes } from '../../../../../Shared/vidt/sizes';
-import { IColor } from '../../../../../Shared/colors/types';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
+import { IColor } from '../../../../../Shared/colors/types';
 import { createFilledArray } from '../../../../../Shared/utils/utils';
+import { Sizes } from '../../../../../Shared/vidt/sizes';
 
 @Component({
     selector: 'edt-kaleido',
     templateUrl: './kaleido.component.html',
     styleUrl: './kaleido.component.scss',
+    encapsulation: ViewEncapsulation.None,
 })
 export class KaleidoComponent implements OnInit, OnDestroy {
     public styles: Record<string, string> = {};
@@ -43,9 +44,9 @@ export class KaleidoComponent implements OnInit, OnDestroy {
     public setColors(colors: IColor[]) {
         let colorIndex = 0;
 
-        for (let i = 1; i <= 8; i++) {
-            const color = `rgb(${ ColorHelper.hsv2rgb(colors[ colorIndex ]).join(', ') }`;
-            document.documentElement.style.setProperty(`--kaleido-${ i }`, `${ color }`);
+        for (let i = 1; i <= this.hexagons; i++) {
+            const color = `rgb(${ ColorHelper.hsv2rgb(colors[ colorIndex ]).join(', ') })`;
+            this.styles[`--kaleido-${ i }`] = color;
 
             colorIndex++;
 

@@ -64,6 +64,7 @@ $apercentage: math.div($a * 100, $width) * 1%;
     align-items: center;
     background: #000;
     display: flex;
+    flex-direction: column;
     height: 100vh;
     justify-content: center;
     margin: 0;
@@ -77,9 +78,9 @@ $apercentage: math.div($a * 100, $width) * 1%;
     margin: 0 40px;
 
     &__inner {
+        aspect-ratio: 1/0.579;
         margin: $apercentage 0;
         position: relative;
-        padding-bottom: 57.9%;
     }
 
     &__sub {
@@ -114,16 +115,11 @@ $apercentage: math.div($a * 100, $width) * 1%;
 }
 
 .kaleido {
+    aspect-ratio: 1/0.579;
     position: relative;
     display: inline-block;
     width: 100%;
     margin: 0 auto;
-
-    &__inner {
-        position: relative;
-        margin: $apercentage 0;
-        padding-bottom: 57.9%;
-    }
 
     .hex {
         margin: 0;
