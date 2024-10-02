@@ -79,6 +79,20 @@
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true
+                        },
+                        "development-solo": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.solo.ts"
+                                }
+                            ]
                         }
                     },
                     "defaultConfiguration": "production"
@@ -91,6 +105,9 @@
                         },
                         "development": {
                             "buildTarget": "Edt-Vidt:build:development"
+                        },
+                        "development-solo": {
+                            "buildTarget": "Edt-Vidt:build:development-solo"
                         }
                     },
                     "defaultConfiguration": "development"
