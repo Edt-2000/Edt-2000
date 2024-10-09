@@ -5,25 +5,25 @@
 @import '../mixins/screen';
 
 .app {
-    background: $c-black;
-    color: $c-white;
-    min-height: 100vh;
+  background: $c-black;
+  color: $c-white;
+  min-height: 100vh;
 
-    &__nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1;
-    }
+  &__nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
 
-    &__content {
-        @include container;
-        padding-bottom: 20px;
-        padding-top: ($nav-height + $content-padding);
-    }
+  &__content {
+    @include container;
+    padding-bottom: 20px;
+    padding-top: ($nav-height + $content-padding);
+  }
 
-    .showNav &__content {
-        padding-top: $content-padding;
-    }
+  .showNav &__content {
+    padding-top: $content-padding;
+  }
 }

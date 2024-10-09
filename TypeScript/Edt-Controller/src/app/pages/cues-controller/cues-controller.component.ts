@@ -6,27 +6,24 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-cues-controller',
   template: `
-    @if ((cueList$ | async); as cues) {
-      <ul class='list'>
+    @if (cueList$ | async; as cues) {
+      <ul class="list">
         @for (cue of cues; track cue) {
-          <li class='list__item'>
-            <button class='text-button' (click)='socket.activateCue(cue)'>
+          <li class="list__item">
+            <button class="text-button" (click)="socket.activateCue(cue)">
               {{ cue.label }}
             </button>
           </li>
         }
       </ul>
     }
-    `,
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    AsyncPipe,
-  ],
+  imports: [AsyncPipe],
 })
 export class CuesControllerComponent {
-    cueList$ = Actions$.cueList.asObservable();
+  cueList$ = Actions$.cueList.asObservable();
 
-    constructor(public socket: SocketService) {
-    }
+  constructor(public socket: SocketService) {}
 }

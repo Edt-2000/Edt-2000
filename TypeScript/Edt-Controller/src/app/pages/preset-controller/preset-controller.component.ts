@@ -6,20 +6,16 @@ import { PresetSwitchersComponent } from '../../components/preset-switchers/pres
 @Component({
   selector: 'app-preset-controller',
   template: `
-    @if ((presetState$ | async); as presetState) {
-      <app-preset-switchers [presetState]='presetState'></app-preset-switchers>
+    @if (presetState$ | async; as presetState) {
+      <app-preset-switchers [presetState]="presetState"></app-preset-switchers>
     }
-    `,
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    PresetSwitchersComponent
-],
+  imports: [AsyncPipe, PresetSwitchersComponent],
 })
 export class PresetControllerComponent implements OnInit {
   presetState$ = Actions$.presetState.asObservable();
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

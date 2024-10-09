@@ -7,14 +7,14 @@
         </button>
       </li>
     }
-</ul>
-<ul class='list list--colors'>
-  @if ((currentColorSet$ | async); as currentColorSet) {
-    @for (color of currentColorSet; track color) {
-      <li class='list__item'>
-        <app-trigger-button [color]='color'></app-trigger-button>
-      </li>
+  </ul>
+  <ul class='list list--colors'>
+    @if ((currentColorSet$ | async); as currentColorSet) {
+      @for (color of currentColorSet; track color) {
+        <li class='list__item'>
+          <app-trigger-button [color]='color'></app-trigger-button>
+        </li>
+      }
     }
-  }
-</ul>
+  </ul>
 </div>

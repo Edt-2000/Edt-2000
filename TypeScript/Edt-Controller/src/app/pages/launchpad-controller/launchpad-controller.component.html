@@ -9,20 +9,20 @@
                 <button
                   [style.background-image]="'url(\'./assets/media-by-group/' + button.title + '\')'"
                   class='launchpad__button launchpad__button--{{ button.color }}'
-                  >
+                >
                 </button>
               }
               @case (triggerType.color) {
                 <button
                   [style.background-color]='getColorString(button.triggerAction?.payload)'
                   class='launchpad__button launchpad__button--{{ button.color }}'
-                  >
+                >
                 </button>
               }
               @default {
                 <button (click)='socket.sendLaunchpadTrigger(button)'
-                  class='launchpad__button launchpad__button--{{ button.color }}'
-                  ><span class='launchpad__text'>{{ button.title }}</span>
+                        class='launchpad__button launchpad__button--{{ button.color }}'
+                ><span class='launchpad__text'>{{ button.title }}</span>
                 </button>
               }
             }

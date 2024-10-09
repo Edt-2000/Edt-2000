@@ -15,8 +15,6 @@ declare const mermaid: any;
   imports: [AsyncPipe],
 })
 export class ActivePresetsControllerComponent {
-  constructor(private sanitizer: DomSanitizer) {}
-
   mermaid$ = mermaidOutput$.pipe(
     switchMap(async (graph) => {
       try {
@@ -30,6 +28,8 @@ export class ActivePresetsControllerComponent {
     }),
     takeUntilDestroyed(),
   );
+
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngAfterViewInit() {
     mermaid.initialize({
