@@ -6,7 +6,7 @@ import { LaunchpadService } from './launchpad.service';
 import { IColor } from '../../../../../Shared/colors/types';
 import { SafeStyle } from '@angular/platform-browser';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
-import { switchMap } from 'rxjs';
+import { combineLatest, map, switchMap, tap, withLatestFrom } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -23,12 +23,14 @@ export class LaunchpadControllerComponent {
   private route = inject(ActivatedRoute);
   private launchpad = inject(LaunchpadService);
 
-  launchpadPage$ = this.route.paramMap.pipe(
-    switchMap((params) => {
-      const launchpadInstance = Number(params.get('launchpadInstance')) || 0;
-      return this.launchpad.activeLaunchpads$(launchpadInstance);
-    }),
+  launchpadNr$ = this.route.paramMap.pipe(
+    map((params) => Number(params.get('launchpadInstance')) || 0),
   );
+
+  launchpadPage$ = combineLatest([
+    this.launchpad.activeLaunchpads$,
+    this.launchpadNr$,
+  ]).pipe(map(([launchpads, launchpadNr]) => launchpads.get(launchpadNr)));
 
   getColorString(color: IColor | any): SafeStyle {
     if ('h' in color && 's' in color && 'b' in color) {
