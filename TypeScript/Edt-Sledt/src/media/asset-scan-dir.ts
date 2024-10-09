@@ -26,6 +26,7 @@ function readDirOneDeep(path: string): ContentGroup[] {
                     .readFileSync(p.join(path, dir, "words.txt"), {
                         encoding: "utf8",
                     })
+                    .trim()
                     .split("\n");
             } catch (e) {
                 console.info(

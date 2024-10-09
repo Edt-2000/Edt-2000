@@ -11,7 +11,7 @@ import { PresetSwitcherComponent } from '../preset-switcher/preset-switcher.comp
   template: `
     @if (groupedPresetState) {
       <ul class="tab">
-        @for (group of groupedPresetState; track group) {
+        @for (group of groupedPresetState; track $index) {
           <li class="tab__item">
             <button
               class="tab__link"
@@ -23,12 +23,12 @@ import { PresetSwitcherComponent } from '../preset-switcher/preset-switcher.comp
           </li>
         }
       </ul>
-      @for (group of groupedPresetState; track group) {
+      @for (group of groupedPresetState; track $index) {
         <div>
           @if (currentGroup === group.title) {
             <h1>{{ group.title }}</h1>
             <ul class="list list--presets">
-              @for (preset of group.presets; track preset) {
+              @for (preset of group.presets; track $index) {
                 <li class="list__item">
                   <app-preset-switcher [preset]="preset"></app-preset-switcher>
                 </li>

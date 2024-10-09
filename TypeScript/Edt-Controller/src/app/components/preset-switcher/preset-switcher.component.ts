@@ -23,7 +23,7 @@ import { IControlPresetMsg } from '../../../../../Shared/actions/types';
       </button>
       <ul class="list">
         @if (preset.config.select) {
-          @for (select of preset.config.select; track select) {
+          @for (select of preset.config.select; track $index) {
             <li class="list__item">
               <button
                 class="text-button button--white preset-switcher__sub"

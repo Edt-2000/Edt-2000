@@ -1,8 +1,9 @@
 @if ((launchpadPage$ | async); as launchpadPage) {
   <div class='launchpad'>
-    @for (row of launchpadPage.triggers; track row) {
+    <h1>{{launchpadPage.title}} - {{$songTitle | async}}</h1>
+    @for (row of launchpadPage.triggers; track $index) {
       <div class='launchpad__row'>
-        @for (button of row; track button) {
+        @for (button of row; track $index) {
           <div class='launchpad__item'>
             @switch (button.triggerType) {
               @case (triggerType.image) {

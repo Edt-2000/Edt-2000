@@ -6,8 +6,9 @@ import { LaunchpadService } from './launchpad.service';
 import { IColor } from '../../../../../Shared/colors/types';
 import { SafeStyle } from '@angular/platform-browser';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
-import { combineLatest, map, switchMap, tap, withLatestFrom } from 'rxjs';
+import { combineLatest, map, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { Actions$ } from '../../../../../Shared/actions/actions';
 
 @Component({
   selector: 'app-launchpad-controller',
@@ -22,6 +23,10 @@ export class LaunchpadControllerComponent {
 
   private route = inject(ActivatedRoute);
   private launchpad = inject(LaunchpadService);
+
+  $songTitle = Actions$.contentGroup.pipe(
+    map((contentGroup) => contentGroup.title),
+  );
 
   launchpadNr$ = this.route.paramMap.pipe(
     map((params) => Number(params.get('launchpadInstance')) || 0),

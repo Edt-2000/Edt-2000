@@ -11,7 +11,7 @@
   <div class='section'>
     <h2 class='section__title'>Vidt</h2>
     <ul class='list'>
-      @for (vidtPreset of (vidtPresets$ | async); track vidtPreset) {
+      @for (vidtPreset of (vidtPresets$ | async); track $index) {
         <li class='list__item'>
           <button (click)='socket.sendVidtPreset(vidtPreset)' class='text-button'>
             {{ vidtPreset }}
@@ -24,7 +24,7 @@
   <div class='section'>
     <h2 class='section__title'>Content Groups</h2>
     <ul class='list'>
-      @for (contentGroup of (contentGroups$ | async); track contentGroup) {
+      @for (contentGroup of (contentGroups$ | async); track $index) {
         <li class='list__item'>
           <button (click)='socket.sendContentGroup(contentGroup)' class='text-button'>
             {{ contentGroup.title }}
@@ -66,7 +66,7 @@
     <div class='section'>
       <h2 class='section__title'>Text</h2>
       <ul class='list'>
-        @for (word of contentGroup.wordSet; track word) {
+        @for (word of contentGroup.wordSet; track $index) {
           <li class='list__item'>
             <button (click)='socket.sendText(word)' class='text-button'>
               {{ word }}
@@ -80,7 +80,7 @@
   <div class='section'>
     <h2 class='section__title'>Shapes</h2>
     <ul class='list'>
-      @for (shape of (shapes$ | async); track shape) {
+      @for (shape of (shapes$ | async); track $index) {
         <li class='list__item'>
           <button (click)='socket.sendShape(shape)' class='text-button'>
             {{ shape }}
@@ -93,7 +93,7 @@
   <div class='section'>
     <h2 class='section__title'>Sizes</h2>
     <ul class='list'>
-      @for (size of (sizes$ | async); track size) {
+      @for (size of (sizes$ | async); track $index) {
         <li class='list__item'>
           <button (click)='socket.sendSize(size)' class='text-button'>
             {{ size }}
@@ -107,7 +107,7 @@
   <div class='section'>
     <h2 class='section__title'>Animations</h2>
     <ul class='list'>
-      @for (type of (animations$ | async); track type) {
+      @for (type of (animations$ | async); track $index) {
         <li class='list__item'>
           <button (click)='socket.sendAnimation(type)' class='text-button'>
             {{ type }}
@@ -120,7 +120,7 @@
   <div class='section'>
     <h2 class='section__title'>GlitchIntensity</h2>
     <ul class='list'>
-      @for (intensity of glitchIntensities; track intensity) {
+      @for (intensity of glitchIntensities; track $index) {
         <li class='list__item'>
           <button
             (click)='socket.sendGlitchIntensity(intensity.value)'
@@ -138,7 +138,7 @@
       <div class='section'>
         <h2 class='section__title'>Photo's</h2>
         <ul class='list'>
-          @for (image of contentGroup.images; track image) {
+          @for (image of contentGroup.images; track $index) {
             <li class='list__item'>
               <button
                 (click)='socket.sendPhotoAsset(image)'
@@ -155,7 +155,7 @@
       <div class='section'>
         <h2 class='section__title'>Videos's</h2>
         <ul class='list'>
-          @for (video of contentGroup.videos; track video) {
+          @for (video of contentGroup.videos; track $index) {
             <li class='list__item'>
               <button (click)='socket.sendVideoAsset(video)' class='text-button'>
                 {{ video }}

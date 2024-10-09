@@ -8,7 +8,7 @@ import { AsyncPipe } from '@angular/common';
   template: `
     @if (cueList$ | async; as cues) {
       <ul class="list">
-        @for (cue of cues; track cue) {
+        @for (cue of cues; track $index) {
           <li class="list__item">
             <button class="text-button" (click)="socket.activateCue(cue)">
               {{ cue.label }}

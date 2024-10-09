@@ -4,7 +4,7 @@
       <nav class='nav'>
         <div class='nav__container'>
           <ul class='nav__list'>
-            @for (page of pages; track page) {
+            @for (page of pages; track $index) {
               <li class='nav__item'>
                 <button
                   [routerLink]='page.path'

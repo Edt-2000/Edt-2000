@@ -1,9 +1,9 @@
 <div class="page">
     @if (!resetAnimation) {
         <div class="kaleido" [style]="styles">
-            @for (hex of createFilledArray(hexagons); track hex; let i = $index;) {
-                <div class="hex" [class]="'hex--' + i"
-                     [style.animation-delay]="(i * kaleidoTime * (1/ hexagons)) + 's'">
+            @for (hex of createFilledArray(hexagons); track $index;) {
+                <div class="hex" [class]="'hex--' + $index"
+                     [style.animation-delay]="($index * kaleidoTime * (1/ hexagons)) + 's'">
                     <div class="hex__inner">
                         <div class="hex__sub hex__sub--1"></div>
                         <div class="hex__sub hex__sub--2"></div>

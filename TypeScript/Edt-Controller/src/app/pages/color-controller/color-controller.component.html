@@ -1,16 +1,16 @@
 <div class='color-controller'>
   <ul class='list list--colors'>
-    @for (colorPalette of (colorPalettes$ | async); track colorPalette; let i = $index) {
+    @for (colorPalette of (colorPalettes$ | async); track $index) {
       <li class='list__item'>
         <button (click)='socketService.sendColorPalette(colorPalette)' class='trigger-button'>
-          SET: {{ i + 1 }}
+          SET: {{ $index + 1 }}
         </button>
       </li>
     }
   </ul>
   <ul class='list list--colors'>
     @if ((currentColorSet$ | async); as currentColorSet) {
-      @for (color of currentColorSet; track color) {
+      @for (color of currentColorSet; track $index) {
         <li class='list__item'>
           <app-trigger-button [color]='color'></app-trigger-button>
         </li>
