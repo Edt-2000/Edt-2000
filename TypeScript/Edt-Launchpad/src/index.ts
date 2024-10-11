@@ -190,5 +190,7 @@ function getContraColor(color: LaunchpadColor): LaunchpadColor {
             return LaunchpadColor.red;
         case LaunchpadColor.green:
             return LaunchpadColor.amber;
+        case LaunchpadColor.off:
+            return LaunchpadColor.off;
     }
 }
