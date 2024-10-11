@@ -16,7 +16,7 @@ import { VidtPresets } from "../../Shared/vidt-presets";
 import { launchpadPages$ } from "../config/launchpad";
 import { Sizes } from "../../Shared/vidt/sizes";
 import { Shapes } from "../../Shared/vidt/shapes";
-import { connectedControls$ } from "./io/edt-control";
+import { connectedControllers$ } from "./io/edt-controller";
 import { merge } from "rxjs";
 import { connectedVidt$ } from "./io/edt-vidt";
 import { connectedLaunchpad$ } from "./io/edt-launchpad";
@@ -65,7 +65,7 @@ launchpadPages$.subscribe((pages) =>
 console.log("GO GO GO!");
 
 merge(
-    connectedControls$,
+    connectedControllers$,
     connectedVidt$,
     connectedLaunchpad$,
     connectedThomas$,

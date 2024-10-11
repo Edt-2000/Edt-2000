@@ -18,7 +18,7 @@ export class MidiChannelToMainMelody extends PresetLogic {
         return [
             {
                 subgraph: "MIDI-CONVERSION",
-                entry: `MIDI-IN ${this.state ? `===>|${this.modifier}|` : "--->"} Melody([Melody])`,
+                entry: `MIDI-IN ${this.state ? `===>|${this.modifier}|` : "--->|.|"} Melody([Melody])`,
             },
         ];
     }

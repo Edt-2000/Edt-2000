@@ -18,7 +18,7 @@ export class MidiChannelToMainBass extends PresetLogic {
         return [
             {
                 subgraph: "MIDI-CONVERSION",
-                entry: `MIDI-IN ${this.state ? `===>|${this.modifier}|` : "--->"} Bass([Bass])`,
+                entry: `MIDI-IN ${this.state ? `===>|${this.modifier}|` : "--->|.|"} Bass([Bass])`,
             },
         ];
     }

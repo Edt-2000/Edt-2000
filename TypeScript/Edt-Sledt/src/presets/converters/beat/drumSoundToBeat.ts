@@ -15,12 +15,9 @@ export class DrumSoundToBeat extends PresetLogic {
     };
 
     get mermaidConfig() {
-        const activeDrumSound = modifiers.drumSounds.find(
-            (sound) => sound.value === this.modifier,
-        );
-        return this.state && activeDrumSound
-            ? [{ entry: `${activeDrumSound.label} ===> BEAT` }]
-            : [];
+        return modifiers.drumSounds.map((sound) => ({
+            entry: `${sound.label} ${sound.value === this.modifier ? "===>" : "--->"} BEAT`,
+        }));
     }
 
     protected _startPreset(): void {

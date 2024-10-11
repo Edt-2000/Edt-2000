@@ -12,6 +12,9 @@ export class ColorToFastLedSolid extends PresetLogic {
     get mermaidConfig() {
         return [
             {
+                entry: `class COLOR node__COLOR`,
+            },
+            {
                 entry: `COLOR ${this.state ? `===>` : "--->"} SOLID`,
             },
             {

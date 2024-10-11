@@ -18,7 +18,7 @@ export class MidiChannelToMainDrum extends PresetLogic {
         return [
             {
                 subgraph: "MIDI-CONVERSION",
-                entry: `MIDI-IN ${this.state ? `===>|${this.modifier}|` : "--->"} Drums([Drums])`,
+                entry: `MIDI-IN ${this.state ? `===>|${this.modifier}|` : "--->|.|"} Drums([Drums])`,
             },
         ];
     }

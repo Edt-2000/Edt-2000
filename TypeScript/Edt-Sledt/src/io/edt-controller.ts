@@ -34,11 +34,13 @@ controlSocket$.subscribe((socket) => {
         Actions$.shapes.pipe(map(Actions.shapes)),
         Actions$.sizes.pipe(map(Actions.sizes)),
         Actions$.vidtPresets.pipe(map(Actions.vidtPresets)),
+        Actions$.mainBeat.pipe(map(Actions.mainBeat)),
+        Actions$.singleColor.pipe(map(Actions.singleColor)),
     )
         .pipe(takeUntil(disconnected$))
         .subscribe((msg) => socket.emit("toControl", msg));
 
-    socket.on("fromControl", nextActionFromMsg);
+    socket.on("fromController", nextActionFromMsg);
 });
 
-export const connectedControls$ = connectedControlsSubject$.asObservable();
+export const connectedControllers$ = connectedControlsSubject$.asObservable();

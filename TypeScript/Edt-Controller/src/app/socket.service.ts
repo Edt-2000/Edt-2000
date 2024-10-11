@@ -99,6 +99,6 @@ export class SocketService {
   }
 
   private toSledt(message: Actions) {
-    this.socket.emit('fromControl', message);
+    this.socket.emit('fromController', message);
   }
 }

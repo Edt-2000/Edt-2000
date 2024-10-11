@@ -15,6 +15,9 @@ export class BeatToColor extends PresetLogic {
     get mermaidConfig() {
         return [
             {
+                entry: `class BEAT node__BEAT`,
+            },
+            {
                 entry: `BEAT ${this.state ? `===>` : "--->"} COLOR`,
             },
         ];
