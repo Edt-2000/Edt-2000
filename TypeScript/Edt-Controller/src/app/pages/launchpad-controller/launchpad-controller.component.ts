@@ -37,11 +37,17 @@ export class LaunchpadControllerComponent {
     this.launchpadNr$,
   ]).pipe(map(([launchpads, launchpadNr]) => launchpads.get(launchpadNr)));
 
-  getColorString(color: IColor | any): SafeStyle {
-    if ('h' in color && 's' in color && 'b' in color) {
-      return ColorHelper.getRGBString([color]) as SafeStyle;
+  getColorString(colors: IColor[] | any): SafeStyle {
+    console.log('Colors', colors);
+    if (colors.every(isColorType)) {
+      console.log(ColorHelper.getRGBString(colors));
+      return ColorHelper.getRGBString(colors) as SafeStyle;
     } else {
       return '';
+    }
+
+    function isColorType(color: IColor | any): color is IColor {
+      return 'h' in color && 's' in color && 'b' in color;
     }
   }
 }

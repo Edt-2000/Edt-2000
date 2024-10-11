@@ -84,7 +84,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                         contentGroup.colorPalettes.map((palette, index) => ({
                             color: LaunchpadColor.yellow,
                             title: `Palette_${index}`,
-                            triggerType: TriggerType.text,
+                            triggerType: TriggerType.palette,
                             triggerAction: Actions.colorPalette(palette),
                         })),
                     colorPalette.map((color, i) => ({
@@ -107,7 +107,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                         contentGroup.colorPalettes.map((palette, index) => ({
                             color: LaunchpadColor.yellow,
                             title: `Palette_${index}`,
-                            triggerType: TriggerType.text,
+                            triggerType: TriggerType.palette,
                             triggerAction: Actions.colorPalette(palette),
                         })),
                     colorPalette.map((color, i) => ({

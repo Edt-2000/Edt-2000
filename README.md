@@ -2,6 +2,12 @@
 
 The `Edt-2000` is a long-running project created to make live music performances more interesting and interactive. Originally only based around a Gametrak controller, it has evolved into a large collection of code that communicates with each other through various (open source) protocols to create a light/visual show that is mostly directly controlled by the music itself. The code is open source and free for anyone to use, but not yet optimized or setup in a way for non-experienced programmers to easily extend or use without at least some knowledge of Javascript.
 
+## Install / Run
+
+The Edt-2000 is basically a collection of apps that all need to run a show. We use `tmux` to create a single terminal and make it easy to start it all. It's not needed to run, but makes it a lot easier: https://github.com/tmux/tmux/wiki/Installing
+
+Run the shell scripts `./run.sh` on a Mac to get everything started.
+
 ## Current state
 
 Currently the project is in a phase where it needs to grow in features; after we have done more performances and fine-tuned the experience we will try to work towards refactoring towards a more modular setup so that it becomes more easy to customize and extend with your own effects and content. Please do get in touch when you want to try the system; we are glad to help!

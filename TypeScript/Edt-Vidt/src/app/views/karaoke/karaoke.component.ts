@@ -5,9 +5,9 @@ import { ColorHelper } from '../../../../../Shared/colors/converters';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 
 @Component({
-  selector: 'edt-karaoke',
-  templateUrl: './karaoke.component.html',
-  styleUrl: './karaoke.component.scss'
+    selector: 'edt-karaoke',
+    templateUrl: './karaoke.component.html',
+    styleUrl: './karaoke.component.scss',
 })
 export class KaraokeComponent implements OnInit, OnDestroy {
     public cssClass: string = '';
@@ -19,17 +19,13 @@ export class KaraokeComponent implements OnInit, OnDestroy {
     @ViewChild('text') textRef?: ElementRef<HTMLPreElement>;
 
     public ngOnInit() {
-        Actions$.mainText
-            .pipe(takeUntil(this.destroyed))
-            .subscribe(text => {
-                this.setText(text);
-            });
+        Actions$.mainText.pipe(takeUntil(this.destroyed)).subscribe((text) => {
+            this.setText(text);
+        });
 
-        Actions$.vidtSingleColor
-            .pipe(takeUntil(this.destroyed))
-            .subscribe((color: IColor) => {
-                this.setStyles([color]);
-            });
+        Actions$.vidtSingleColor.pipe(takeUntil(this.destroyed)).subscribe((color: IColor) => {
+            this.setStyles([color]);
+        });
     }
 
     public ngOnDestroy() {
