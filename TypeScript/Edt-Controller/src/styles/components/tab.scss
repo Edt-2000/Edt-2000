@@ -1,0 +1,27 @@
+@import '../config/colors';
+@import '../mixins/list-reset';
+@import '../mixins/typography';
+
+.tab {
+  @include list-reset;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+
+  &__item {
+    margin-right: 1rem;
+  }
+
+  &__link {
+    background: $c-white;
+    color: $c-black;
+    font-weight: $weight-medium;
+    padding: 10px 15px;
+    transition: background-color .2s, color .2s;
+
+    &.is-active {
+      background-color: $c-pink;
+      color: $c-white;
+    }
+  }
+}

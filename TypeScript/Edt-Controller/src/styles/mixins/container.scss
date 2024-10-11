@@ -1,0 +1,6 @@
+@mixin container {
+  margin: 0 auto;
+  padding-left: $content-padding;
+  padding-right: $content-padding;
+  width: 100%;
+}

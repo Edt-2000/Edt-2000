@@ -40,6 +40,7 @@ export interface LaunchpadPageChange {
 }
 
 export enum TriggerType {
+    palette,
     text,
     color,
     image,

@@ -10,14 +10,14 @@ export class ColorHelper {
         } else {
             const totalColors: number = rgbColors.length;
             let currentIndex: number = 0;
-            const colorArray = rgbColors.map(color => {
+            const colorArray = rgbColors.map((color) => {
                 const percentage = (100 / totalColors) * currentIndex;
                 const percentageNext = (100 / totalColors) * ++currentIndex;
 
                 return `rgb(${color.join(', ')}) ${percentage}%, rgb(${color.join(', ')}) ${percentageNext}%`;
             });
 
-            return `repeating-linear-gradient(${colorArray.join(', ')})`;
+            return `linear-gradient(90deg,${colorArray.join(', ')})`;
         }
     }
 

@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Launchpad mini",
     "scripts": {
+        "start": "npm run start:0",
         "start:0": "ts-node src/index.ts 0",
         "start:1": "ts-node src/index.ts 1",
         "start:2": "ts-node src/index.ts 2",
@@ -16,16 +17,11 @@
         "trailingComma": "all"
     },
     "dependencies": {
-        "launchpad-mini": "^2.3.0",
-        "rxjs": "6.5.3",
-        "socket.io": "2.2.0",
-        "socket.io-client": "^2.3.0"
-    },
-    "devDependencies": {
-        "@types/node": "11.11.3",
-        "prettier": "1.16.4",
-        "ts-node": "8.0.3",
-        "ts-node-dev": "1.0.0-pre.32",
-        "typescript": "3.5.3"
+        "launchpad-mini": "^2.4.0",
+        "rxjs": "^7.8.1",
+        "socket.io": "^4.7.5",
+        "socket.io-client": "^4.7.5",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.3"
     }
 }

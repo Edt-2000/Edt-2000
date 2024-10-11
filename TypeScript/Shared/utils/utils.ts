@@ -28,8 +28,8 @@ export function shuffleArray(inputArray: any[]): any[] {
 
 export function enumToArray(e: object) {
     return Object.keys(e)
-        .filter(entry => entry !== '____EMPTY____')
-        .filter(vp => isNaN(+vp));
+        .filter((entry) => entry !== '____EMPTY____')
+        .filter((vp) => isNaN(+vp));
 }
 
 export function convertToOSC(msg: IOSCMessage) {
@@ -38,11 +38,15 @@ export function convertToOSC(msg: IOSCMessage) {
 
     return {
         address: thomasAddress,
-        args: msg.values.map(param => {
+        args: msg.values.map((param) => {
             return {
                 type: 'integer',
                 value: param,
             };
         }),
     };
+}
+
+export function createFilledArray(length: number) {
+    return new Array(length).fill(0).map((_, i) => i);
 }

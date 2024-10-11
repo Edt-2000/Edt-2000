@@ -1,21 +1,23 @@
-import { PresetLogic } from '../../presets-logic';
-import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
-import { withLatestFrom } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/actions/types';
+import { PresetLogic } from "../../presets-logic";
+import {
+    Actions,
+    Actions$,
+    nextActionFromMsg,
+} from "../../../../../Shared/actions/actions";
+import { ModifierGroup } from "../../../../../Shared/actions/types";
+import { withLatestFrom } from "rxjs";
 
 export class BeatToNextWord extends PresetLogic {
     modifierOptions = {
-        group: [
-            ModifierGroup.Vidt,
-            ModifierGroup.Words,
-            ModifierGroup.Beat,
-        ],
+        group: [ModifierGroup.Vidt, ModifierGroup.Words, ModifierGroup.Beat],
     };
 
     get mermaidConfig() {
-        return [{
-            entry: `BEAT ${this.state ? `===>` : '--->'} WORD`,
-        }];
+        return [
+            {
+                entry: `BEAT ${this.state ? `===>` : "--->"} WORD`,
+            },
+        ];
     }
 
     private index = -1;
@@ -24,13 +26,12 @@ export class BeatToNextWord extends PresetLogic {
         this.addSub(
             Actions$.mainBeat
                 .pipe(withLatestFrom(Actions$.contentGroup))
-                .subscribe(([, {wordSet}]) => {
+                .subscribe(([, { wordSet }]) => {
                     this.index = (this.index + 1) % wordSet.length;
                     nextActionFromMsg(Actions.mainText(wordSet[this.index]));
                 }),
         );
     }
 
-    protected _stopPreset(): void {
-    }
+    protected _stopPreset(): void {}
 }
