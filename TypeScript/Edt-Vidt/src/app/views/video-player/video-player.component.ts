@@ -17,7 +17,6 @@ export class VideoPlayerComponent implements AfterContentInit, OnDestroy {
     public ngAfterContentInit() {
         Actions$.videoSrc.pipe(takeUntil(this.destroyed)).subscribe((video: string) => {
             this.setSrc(video);
-            this.playVideo();
         });
 
         Actions$.mainBeat.pipe(takeUntil(this.destroyed)).subscribe(() => {
@@ -31,8 +30,13 @@ export class VideoPlayerComponent implements AfterContentInit, OnDestroy {
     }
 
     setSrc(src: string) {
-        this.stopVideo();
-        this.src = `./assets/media-by-group/${src}`;
+        const path = `./assets/media-by-group/${src}`;
+        if (this.src !== path) {
+            this.src = path;
+            requestAnimationFrame(() => {
+                this.playVideo();
+            });
+        }
     }
 
     playVideo() {

@@ -101,7 +101,6 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                         releaseAction: Actions.singleColor(blackColor),
                     })),
                 ]),
-                toLaunchpadPage("SongSelector", [cg]),
                 toLaunchpadPage("SongControl", [
                     contentGroup.colorPalettes &&
                         contentGroup.colorPalettes.map((palette, index) => ({
@@ -117,7 +116,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                         triggerAction: Actions.singleColor(colorPalette[i]),
                     })),
                     contentGroup.wordSet.map((word) => ({
-                        color: LaunchpadColor.amber,
+                        color: LaunchpadColor.red,
                         title: word,
                         triggerType: TriggerType.text,
                         triggerAction: Actions.mainText(word),
@@ -135,6 +134,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                         triggerAction: Actions.videoSrc(video),
                     })),
                 ]),
+                toLaunchpadPage("SongSelector", [cg]),
             ];
         },
     ),
