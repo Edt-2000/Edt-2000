@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SpectrumComponent } from 'app/views/spectrum/spectrum.component';
 import { VidtPresets } from '../../../Shared/vidt-presets';
 import { BluescreenComponent } from './views/bluescreen/bluescreen.component';
 import { ColorBlocksComponent } from './views/color-blocks/color-blocks.component';
@@ -81,6 +82,10 @@ const routes: Routes = [
     {
         path: VidtPresets[VidtPresets.shutdown],
         component: ShutdownComponent,
+    },
+    {
+        path: VidtPresets[VidtPresets.spectrum],
+        component: SpectrumComponent,
     },
     {
         path: VidtPresets[VidtPresets.textBouncer],

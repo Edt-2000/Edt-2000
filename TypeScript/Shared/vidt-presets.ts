@@ -14,6 +14,7 @@ export enum VidtPresets {
     photobouncer,
     photoglitcher,
     shutdown,
+    spectrum,
     textBouncer,
     videoPlayer,
     vista,
