@@ -23,6 +23,7 @@ import { PhotoBouncerComponent } from './views/photo-bouncer/photo-bouncer.compo
 import { PhotoGlitcherComponent } from './views/photo-glitcher/photo-glitcher.component';
 import { TextBouncerComponent } from './views/text-bouncer/text-bouncer.component';
 import { NgOptimizedImage } from '@angular/common';
+import { SpectrumComponent } from './views/spectrum/spectrum.component';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { NgOptimizedImage } from '@angular/common';
         VistaComponent,
         WheelComponent,
         TextBouncerComponent,
+        SpectrumComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, NgOptimizedImage],
     providers: [],

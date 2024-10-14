@@ -1,0 +1,8 @@
+<div class="spectrum" [style]="styles">
+    @for (column of columns; track $index;) {
+        <div class="hex" [class]="'hex--' + $index"
+             [style.animation-delay]="($index * baseTime * (1/ columns)) + 's'">
+<!--            TODO: SUbbars based on colors-input->
+        </div>
+    }
+</div>

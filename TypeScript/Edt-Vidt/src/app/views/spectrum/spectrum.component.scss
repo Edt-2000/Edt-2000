@@ -1,0 +1,36 @@
+.spectrum {
+    align-items: flex-end;
+    display: flex;
+    justify-content: center;
+
+    &__bar {
+        animation: spectrum 2s 0s ease-in-out infinite alternate;
+        flex: 0 0 5vw;
+        // TODO: CHANGE DELAY PER BAR
+        // TODO SUBBARS + ANIMATE SUBARS with delay
+    }
+}
+
+@keyframes spectrum {
+    0% {
+        transform: scaleY(1);
+    }
+    28% {
+        transform: scaleY(0.7);
+    }
+    38% {
+        transform: scaleY(0.8);
+    }
+    50% {
+        transform: scaleY(0.6);
+    }
+    70% {
+        transform: scaleY(0.95);
+    }
+    82% {
+        transform: scaleY(0.58);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
