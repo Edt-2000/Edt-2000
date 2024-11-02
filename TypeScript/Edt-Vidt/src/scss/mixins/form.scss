@@ -1,0 +1,216 @@
+@import '../config/colors';
+@import '../config/fonts';
+@import '../config/sizes';
+@import '../mixins/svg';
+
+@mixin form-input {
+    appearance: none;
+    background: var(--form-input-bcg);
+    border: 0;
+    border-bottom: 1px solid var(--form-input-border);
+    box-shadow: none;
+    color: var(--form-input-color);
+    font-size: 1rem;
+    font-weight: $weight-normal;
+    outline: none;
+    padding: var(--form-input-padding-vertical) var(--form-input-padding-horizontal);
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s ease;
+    width: 100%;
+
+    &::placeholder {
+        color: var(--form-input-placeholder);
+    }
+
+    &:focus {
+        border-color: var(--form-input-border-focus);
+        outline: none;
+    }
+
+    &:disabled,
+    &:read-only {
+        --form-input-bcg: var(--form-input-disabled-bcg);
+        --form-input-color: var(--form-input-disabled-color);
+    }
+}
+
+/* stylelint-disable no-descending-specificity -- disable lint to ignore the styling on the grouped class */
+
+@mixin form-checkbox {
+    min-height: 30px;
+    padding: 6px;
+    position: relative;
+
+    input {
+        height: 14px;
+        left: 10px;
+        margin: 0;
+        position: absolute;
+        top: 10px;
+        width: 14px;
+
+        &:focus {
+            & ~ label {
+                &::before {
+                    border-color: var(--form-input-border-focus);
+                }
+            }
+        }
+
+        &:checked {
+            & ~ label {
+                &::after {
+                    transform: rotate(-45deg) scale(1);
+                }
+            }
+        }
+    }
+
+    label {
+        cursor: pointer;
+        display: block;
+        font-size: 1rem;
+        font-weight: $weight-normal;
+        line-height: 1.5;
+        margin: 0;
+        padding-left: 34px;
+        position: relative;
+
+        &::before {
+            background-color: var(--form-input-bcg);
+            border: 1px solid var(--form-input-border);
+            border-radius: 8px;
+            content: '';
+            height: 22px;
+            left: 0;
+            position: absolute;
+            top: 1px;
+            width: 22px;
+
+            .is-error & {
+                border-color: var(--form-error);
+            }
+        }
+
+        &::after {
+            border: solid var(--form-input-checkmark);
+            border-width: 0 0 2px 2px;
+            content: '';
+            height: 8px;
+            left: 3px;
+            position: absolute;
+            top: 6px;
+            transform: rotate(-45deg) scale(0);
+            transition: transform 0.15s ease-in-out, border-color 0.2s ease-in-out;
+            width: 16px;
+        }
+
+        &:hover,
+        &:focus {
+            &::before {
+                border-color: var(--form-input-border-focus);
+            }
+        }
+    }
+}
+
+@mixin form-radio {
+    min-height: 30px;
+    padding: 6px;
+    position: relative;
+
+    input {
+        height: 14px;
+        left: 10px;
+        margin: 0;
+        position: absolute;
+        top: 10px;
+        width: 14px;
+
+        &:focus {
+            & ~ label {
+                &::before {
+                    border-color: var(--form-input-border-focus);
+                }
+            }
+        }
+
+        &:checked {
+            & ~ label {
+                &::after {
+                    transform: scale(1);
+                }
+            }
+        }
+    }
+
+    label {
+        cursor: pointer;
+        display: block;
+        font-size: 1rem;
+        font-weight: $weight-normal;
+        line-height: 1.7;
+        margin: 0;
+        padding-left: 34px;
+        position: relative;
+
+        &::before {
+            background-color: var(--form-input-bcg);
+            border: 1px solid var(--form-input-border);
+            border-radius: 50%;
+            content: '';
+            height: 22px;
+            left: 0;
+            position: absolute;
+            top: 1px;
+            transition: border-color 0.2s ease-in-out;
+            width: 22px;
+
+            .is-error & {
+                border-color: var(--form-error);
+            }
+        }
+
+        &::after {
+            background-color: var(--form-input-checkmark);
+            border-radius: 50%;
+            content: '';
+            height: 14px;
+            left: 4px;
+            position: absolute;
+            top: 5px;
+            transform: scale(0);
+            transition: transform 0.15s ease-in-out, background-color 0.2s ease-in-out;
+            width: 14px;
+        }
+    }
+}
+
+@mixin form-select {
+    position: relative;
+
+    select {
+        appearance: none;
+        cursor: pointer;
+    }
+
+    &::before {
+        @include svg('arrow-dropdown', $c-grey--600);
+
+        display: block;
+        height: 16px;
+        pointer-events: none;
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+    }
+
+    .is-error &,
+    .is-valid & {
+        &::after {
+            right: 2.75rem;
+        }
+    }
+}
+/* stylelint-enable no-descending-specificity */

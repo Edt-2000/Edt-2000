@@ -1,8 +1,8 @@
-import { Actions, Actions$ } from '../../../Shared/actions/actions';
-import { map } from 'rxjs/operators';
-import { midiNoteAutomation$ } from '../communication/midi';
-import { automationChannel } from '../../config/config';
-import { IPresetMsg } from '../../../Shared/actions/types';
+import { Actions, Actions$ } from "../../../Shared/actions/actions";
+import { midiNoteAutomation$ } from "../communication/midi";
+import { automationChannel } from "../../config/config";
+import { IPresetMsg } from "../../../Shared/actions/types";
+import { map } from "rxjs";
 
 export const presetMidiMsg$ = Actions$.presetChange.pipe(
     map(({ preset, modifier, state }: IPresetMsg) => ({
@@ -14,9 +14,11 @@ export const presetMidiMsg$ = Actions$.presetChange.pipe(
 );
 
 export const presetChangeActions$ = midiNoteAutomation$.pipe(
-    map(({ note, noteOn, velocity }) => Actions.presetChange({
-        preset: note,
-        modifier: velocity,
-        state: noteOn,
-    })),
+    map(({ note, noteOn, velocity }) =>
+        Actions.presetChange({
+            preset: note,
+            modifier: velocity,
+            state: noteOn,
+        }),
+    ),
 );

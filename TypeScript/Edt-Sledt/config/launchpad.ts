@@ -1,14 +1,17 @@
-import { LaunchpadColor, LaunchpadPage, LaunchpadTrigger, TriggerType } from '../../Shared/actions/types';
-import { Actions, Actions$ } from '../../Shared/actions/actions';
-import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { VidtPresets } from '../../Shared/vidt-presets';
-import { AnimationTypes } from '../../Shared/vidt/animation';
-import { blackColor } from '../../Shared/colors/utils';
-import { IColor } from '../../Shared/colors/types';
-import { Shapes } from '../../Shared/vidt/shapes';
-import { Sizes } from '../../Shared/vidt/sizes';
-import { scannedContentGroups } from '../src/media/asset-scan-dir';
+import {
+    LaunchpadColor,
+    LaunchpadPage,
+    LaunchpadTrigger,
+    TriggerType,
+} from "../../Shared/actions/types";
+import { Actions, Actions$ } from "../../Shared/actions/actions";
+import { combineLatest, map, Observable } from "rxjs";
+import { VidtPresets } from "../../Shared/vidt-presets";
+import { AnimationTypes } from "../../Shared/vidt/animation";
+import { blackColor } from "../../Shared/colors/utils";
+import { IColor } from "../../Shared/colors/types";
+import { Shapes } from "../../Shared/vidt/shapes";
+import { Sizes } from "../../Shared/vidt/sizes";
 
 export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
     combineLatest([
@@ -16,156 +19,173 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
         Actions$.colorPalette,
         Actions$.shapes,
         Actions$.sizes,
-        Actions$.animationTypes ]),
-    combineLatest([
-        Actions$.contentGroup,
-    ]) ]).pipe(
-    map(([
-             [ vidtPresets,
-                 colorPalette,
-                 shapes,
-                 sizes,
-                 animationTypes ],
-             [ contentGroup ],
-         ]) => {
-        const cg = scannedContentGroups.map(group => ({
-            color: LaunchpadColor.red,
-            title: group.title,
-            triggerType: TriggerType.text,
-            payload: group.songNr,
-            triggerAction: Actions.contentGroup(scannedContentGroups.find(g => g.songNr === group.songNr)),
-        }));
-        return [
-            toLaunchpadPage('Vidt', [
-                vidtPresets.map(preset => ({
-                    color: LaunchpadColor.yellow,
-                    title: preset,
-                    triggerType: TriggerType.text,
-                    triggerAction: Actions.prepareVidt(VidtPresets[preset]),
-                })),
-                [
-                    ...shapes.map(shape => ({
-                        color: LaunchpadColor.green,
-                        title: shape,
+        Actions$.animationTypes,
+    ]),
+    combineLatest([Actions$.contentGroup, Actions$.contentGroups]),
+]).pipe(
+    map(
+        ([
+            [vidtPresets, colorPalette, shapes, sizes, animationTypes],
+            [contentGroup, contentGroups],
+        ]) => {
+            const cg = contentGroups.map((group) => ({
+                color: LaunchpadColor.red,
+                title: group.title,
+                triggerType: TriggerType.text,
+                payload: group.songNr,
+                triggerAction: Actions.contentGroup(
+                    contentGroups.find((g) => g.songNr === group.songNr),
+                ),
+            }));
+            return [
+                toLaunchpadPage("Vidt", [
+                    vidtPresets.map((preset) => ({
+                        color: LaunchpadColor.yellow,
+                        title: preset,
                         triggerType: TriggerType.text,
-                        triggerAction: Actions.shape(Shapes[shape]),
+                        triggerAction: Actions.prepareVidt(VidtPresets[preset]),
                     })),
-                    {
-                        color: LaunchpadColor.off,
-                        title: '',
+                    [
+                        ...shapes.map((shape) => ({
+                            color: LaunchpadColor.green,
+                            title: shape,
+                            triggerType: TriggerType.text,
+                            triggerAction: Actions.shape(Shapes[shape]),
+                        })),
+                        {
+                            color: LaunchpadColor.off,
+                            title: "",
+                            triggerType: TriggerType.text,
+                        },
+                        ...sizes.map((size) => ({
+                            color: LaunchpadColor.amber,
+                            title: size,
+                            triggerType: TriggerType.text,
+                            triggerAction: Actions.size(Sizes[size]),
+                        })),
+                    ],
+                    [1, 3, 5, 7, 9].map((intensity) => ({
+                        color: LaunchpadColor.red,
+                        title: intensity.toString(),
                         triggerType: TriggerType.text,
-                    },
-                    ...sizes.map(size => ({
+                        triggerAction: Actions.glitchIntensity(intensity),
+                    })),
+                    animationTypes.map((type) => ({
                         color: LaunchpadColor.amber,
-                        title: size,
+                        title: type,
                         triggerType: TriggerType.text,
-                        triggerAction: Actions.size(Sizes[size]),
+                        triggerAction: Actions.animationType(
+                            AnimationTypes[type],
+                        ),
                     })),
-                ],
-                [ 1, 3, 5, 7, 9 ].map(intensity => ({
-                    color: LaunchpadColor.red,
-                    title: intensity.toString(),
-                    triggerType: TriggerType.text,
-                    triggerAction: Actions.glitchIntensity(intensity),
-                })),
-                animationTypes.map(type => ({
-                    color: LaunchpadColor.amber,
-                    title: type,
-                    triggerType: TriggerType.text,
-                    triggerAction: Actions.animationType(AnimationTypes[type]),
-                })),
-            ]),
-            toLaunchpadPage('Colors', [
-                contentGroup.colorPalettes && contentGroup.colorPalettes.map((palette, index) => ({
-                    color: LaunchpadColor.yellow,
-                    title: `Palette_${ index }`,
-                    triggerType: TriggerType.text,
-                    triggerAction: Actions.colorPalette(palette),
-                })),
-                colorPalette.map((color, i) => ({
-                    color: LaunchpadColor.green,
-                    title: toColorReadable(color),
-                    triggerType: TriggerType.color,
-                    triggerAction: Actions.singleColor(colorPalette[i]),
-                })),
-                colorPalette.map((color, i) => ({
-                    color: LaunchpadColor.red,
-                    title: toColorReadable(color),
-                    triggerType: TriggerType.color,
-                    triggerAction: Actions.singleColor(colorPalette[i]),
-                    releaseAction: Actions.singleColor(blackColor),
-                })),
-            ]),
-            toLaunchpadPage('Photos', [
-                cg,
-                contentGroup.images.map(image => ({
-                    color: LaunchpadColor.yellow,
-                    title: image,
-                    triggerType: TriggerType.image,
-                    triggerAction: Actions.imageSrc(image),
-                })),
-                contentGroup.videos.map(video => ({
-                    color: LaunchpadColor.green,
-                    title: video,
-                    triggerType: TriggerType.video,
-                    triggerAction: Actions.videoSrc(video),
-                })),
-            ]),
-            toLaunchpadPage('Text', [
-                cg,
-                contentGroup.wordSet.map(word => ({
-                    color: LaunchpadColor.amber,
-                    title: word,
-                    triggerType: TriggerType.text,
-                    triggerAction: Actions.mainText(word),
-                })),
-            ]),
-        ];
-    }),
+                ]),
+                toLaunchpadPage("Colors", [
+                    contentGroup.colorPalettes &&
+                        contentGroup.colorPalettes.map((palette, index) => ({
+                            color: LaunchpadColor.yellow,
+                            title: `Palette_${index}`,
+                            triggerType: TriggerType.palette,
+                            triggerAction: Actions.colorPalette(palette),
+                        })),
+                    colorPalette.map((color, i) => ({
+                        color: LaunchpadColor.green,
+                        title: toColorReadable(color),
+                        triggerType: TriggerType.color,
+                        triggerAction: Actions.singleColor(colorPalette[i]),
+                    })),
+                    colorPalette.map((color, i) => ({
+                        color: LaunchpadColor.red,
+                        title: toColorReadable(color),
+                        triggerType: TriggerType.color,
+                        triggerAction: Actions.singleColor(colorPalette[i]),
+                        releaseAction: Actions.singleColor(blackColor),
+                    })),
+                ]),
+                toLaunchpadPage("SongControl", [
+                    contentGroup.colorPalettes &&
+                        contentGroup.colorPalettes.map((palette, index) => ({
+                            color: LaunchpadColor.yellow,
+                            title: `Palette_${index}`,
+                            triggerType: TriggerType.palette,
+                            triggerAction: Actions.colorPalette(palette),
+                        })),
+                    colorPalette.map((color, i) => ({
+                        color: LaunchpadColor.green,
+                        title: toColorReadable(color),
+                        triggerType: TriggerType.color,
+                        triggerAction: Actions.singleColor(colorPalette[i]),
+                    })),
+                    contentGroup.wordSet.map((word) => ({
+                        color: LaunchpadColor.red,
+                        title: word,
+                        triggerType: TriggerType.text,
+                        triggerAction: Actions.mainText(word),
+                    })),
+                    contentGroup.images.map((image) => ({
+                        color: LaunchpadColor.yellow,
+                        title: image,
+                        triggerType: TriggerType.image,
+                        triggerAction: Actions.imageSrc(image),
+                    })),
+                    contentGroup.videos.map((video) => ({
+                        color: LaunchpadColor.green,
+                        title: video,
+                        triggerType: TriggerType.video,
+                        triggerAction: Actions.videoSrc(video),
+                    })),
+                ]),
+                toLaunchpadPage("SongSelector", [cg]),
+            ];
+        },
+    ),
 );
 
 export const launchpadSingleActions: LaunchpadTrigger[] = [
     {
         color: LaunchpadColor.red,
-        title: 'BEAT',
+        title: "BEAT",
         triggerType: TriggerType.text,
         triggerAction: Actions.mainBeat(127),
     },
     {
         color: LaunchpadColor.green,
-        title: 'LOGO',
+        title: "LOGO",
         triggerType: TriggerType.text,
         triggerAction: Actions.prepareVidt(VidtPresets.logo),
     },
     {
         color: LaunchpadColor.yellow,
-        title: 'PHOTOS',
+        title: "PHOTOS",
         triggerType: TriggerType.text,
         triggerAction: Actions.prepareVidt(VidtPresets.photobouncer),
     },
     {
         color: LaunchpadColor.yellow,
-        title: 'VIDEO',
+        title: "VIDEO",
         triggerType: TriggerType.text,
         triggerAction: Actions.prepareVidt(VidtPresets.videoPlayer),
     },
     {
         color: LaunchpadColor.yellow,
-        title: 'TEXT',
+        title: "TEXT",
         triggerType: TriggerType.text,
         triggerAction: Actions.prepareVidt(VidtPresets.karaoke),
     },
-
 ];
 
-function toLaunchpadPage(title: string, rows: LaunchpadTrigger[][]): LaunchpadPage {
-    return { title, triggers: rows.map(row => [ ...chunk(row, 8) ]).flat() };
+function toLaunchpadPage(
+    title: string,
+    rows: LaunchpadTrigger[][],
+): LaunchpadPage {
+    return { title, triggers: rows.map((row) => [...chunk(row, 8)]).flat() };
 }
 
 function chunk(arr, n) {
-    return arr && arr.length ? [ arr.slice(0, n), ...chunk(arr.slice(n), n) ] : [];
+    return arr && arr.length
+        ? [arr.slice(0, n), ...chunk(arr.slice(n), n)]
+        : [];
 }
 
 function toColorReadable({ h, s, b }: IColor): string {
-    return `h:${ h }\ns${ s }\nb${ b }`;
+    return `h:${h}\ns${s}\nb${b}`;
 }

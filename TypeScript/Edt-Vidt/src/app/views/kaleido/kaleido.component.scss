@@ -1,0 +1,149 @@
+@use "sass:math";
+
+$pi: 3.1415926535897932384626433832795028841971693993751;
+$π: $pi;
+$e: 2.71828182845904523536028747135266249775724709369995;
+
+$iter: 50;
+
+@function exponent($base, $exponent) {
+    // reset value
+    $value: $base;
+    // positive intergers get multiplied
+    @if $exponent > 1 {
+        @for $i from 2 through $exponent {
+            $value: $value * $base;
+        }
+    }
+    // negitive intergers get divided. A number divided by itself is 1
+    @if $exponent < 1 {
+        @for $i from 0 through -$exponent {
+            $value: math.div($value, $base);
+        }
+    }
+    // return the last value written
+    @return $value;
+}
+
+@function pow($base, $exponent) {
+    @return exponent($base, $exponent);
+}
+
+@function sqrt($number) {
+    $guess: 4;
+    $root: $guess;
+    @for $i from 1 through $iter {
+        $root: $root - math.div(pow($root, 2) - $number, 2 * $root);
+    }
+    @return $root;
+}
+
+$width: 800;
+$height: $width * 0.579;
+$c2: pow($height, 2);
+$b2: pow(($width * 0.5), 2);
+$a2: $c2 - $b2;
+$a: sqrt($a2);
+$apercentage: math.div($a * 100, $width) * 1%;
+
+:host {
+    display: block;
+}
+
+.page {
+    --animation-kaleido-time: 4s;
+    --kaleido-1: #FF0000;
+    --kaleido-2: #FFA500;
+    --kaleido-3: #FFFF00;
+    --kaleido-4: #16DE00;
+    --kaleido-5: #0F7D02;
+    --kaleido-6: #00D9BF;
+    --kaleido-7: #004DD1;
+    --kaleido-8: #E302E3;
+
+    align-items: center;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    margin: 0;
+    text-align: center;
+}
+
+.hex {
+    display: inline-block;
+    max-width: $width * 1px;
+    width: 100%;
+    margin: 0 40px;
+
+    &__inner {
+        aspect-ratio: 1/0.579;
+        margin: $apercentage 0;
+        position: relative;
+    }
+
+    &__sub {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: inherit;
+        border-left: 10px solid #FFF;
+        border-right: 10px solid #FFF;
+
+        &--2 {
+            transform: rotate(60deg);
+        }
+
+        &--3 {
+            transform: rotate(-60deg);
+        }
+    }
+}
+
+///////////////////
+@keyframes kaleido {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) scale(0)
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1)
+    }
+}
+
+.kaleido {
+    aspect-ratio: 1/0.579;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin: 0 auto;
+
+    .hex {
+        margin: 0;
+        transform-origin: center center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        animation: kaleido var(--animation-kaleido-time) linear infinite;
+
+        .hex__sub {
+            border-color: red;
+        }
+
+        @for $i from 1 through 8 {
+            $duration: 0.125 * $i;
+
+            &--#{$i} {
+                animation-delay: calc(var(--animation-kaleido-time) * #{ $duration });
+
+                .hex__sub {
+                    border-color: var(--kaleido-#{ $i });
+                }
+            }
+        }
+    }
+}

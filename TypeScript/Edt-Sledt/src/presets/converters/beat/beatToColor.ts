@@ -1,20 +1,23 @@
-import { PresetLogic } from '../../presets-logic';
-import { Actions, Actions$, nextActionFromMsg } from '../../../../../Shared/actions/actions';
-import { withLatestFrom } from 'rxjs/operators';
-import { ModifierGroup } from '../../../../../Shared/actions/types';
+import { PresetLogic } from "../../presets-logic";
+import {
+    Actions,
+    Actions$,
+    nextActionFromMsg,
+} from "../../../../../Shared/actions/actions";
+import { ModifierGroup } from "../../../../../Shared/actions/types";
+import { withLatestFrom } from "rxjs";
 
 export class BeatToColor extends PresetLogic {
     modifierOptions = {
-        group: [
-            ModifierGroup.Color,
-            ModifierGroup.Beat,
-        ],
+        group: [ModifierGroup.Color, ModifierGroup.Beat],
     };
 
     get mermaidConfig() {
-        return [{
-            entry: `BEAT ${this.state ? `===>` : '--->'} COLOR`,
-        }];
+        return [
+            {
+                entry: `BEAT ${this.state ? `===>` : "--->"} COLOR`,
+            },
+        ];
     }
 
     private index = -1;
@@ -30,6 +33,5 @@ export class BeatToColor extends PresetLogic {
         );
     }
 
-    protected _stopPreset(): void {
-    }
+    protected _stopPreset(): void {}
 }

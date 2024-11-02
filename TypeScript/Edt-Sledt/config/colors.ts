@@ -1,4 +1,4 @@
-import { IColor } from '../../Shared/colors/types';
+import { IColor } from "../../Shared/colors/types";
 import { whiteColor } from '../../Shared/colors/utils';
 
 export function createFullColor(h: number): IColor {

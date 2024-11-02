@@ -1,0 +1,12 @@
+@import '../mixins/typography';
+
+.section {
+  margin: 0 0 2rem;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: $weight-medium;
+    margin: 0 0 1.5rem;
+    text-transform: uppercase;
+  }
+}
