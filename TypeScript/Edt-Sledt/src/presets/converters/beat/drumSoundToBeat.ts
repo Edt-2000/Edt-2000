@@ -16,7 +16,7 @@ export class DrumSoundToBeat extends PresetLogic {
 
     get mermaidConfig() {
         return modifiers.drumSounds.map((sound) => ({
-            entry: `${sound.label} ${sound.value === this.modifier ? "===>" : "--->"} BEAT`,
+            entry: `${sound.label} ${sound.value === this.modifier ? "===>" : "--->"} MAINBEAT`,
         }));
     }
 

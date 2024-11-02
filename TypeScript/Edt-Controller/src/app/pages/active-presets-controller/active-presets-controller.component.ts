@@ -1,39 +1,34 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  HostBinding,
   ViewEncapsulation,
 } from '@angular/core';
 import { mermaidOutput$ } from './mermaid';
-import { map, Observable, startWith, switchMap, timer } from 'rxjs';
+import { map, merge, Observable, startWith, switchMap, tap, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
+import { mapInput } from '../../../../../Shared/utils/map-input';
 
 declare const mermaid: any;
 
 @Component({
   selector: 'app-active-presets-controller',
-  template: `
-    <div
-      [class.mainBeat--active]="timeredMainBeat$ | async"
-      [innerHTML]="mermaid$ | async"
-    ></div>
-  `,
+  template: ` <div [innerHTML]="mermaid$ | async"></div> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [AsyncPipe],
   encapsulation: ViewEncapsulation.None,
   styles: [
     `
-      .mainBeat--active .node__BEAT > rect {
-        fill: red !important;
+      .node__MAINBEAT > rect {
+        fill: var(--node__MAINBEAT) !important;
       }
 
-      .node__COLOR > rect {
-        fill: var(--singleColor) !important;
+      .node__SINGLECOLOR > rect {
+        fill: var(--node__SINGLECOLOR) !important;
       }
     `,
   ],
@@ -53,9 +48,6 @@ export class ActivePresetsControllerComponent {
     takeUntilDestroyed(),
   );
 
-  // Mermaid visuals -------
-  timeredMainBeat$ = Actions$.mainBeat.pipe(applyTimeredMainBeat);
-
   constructor(private sanitizer: DomSanitizer) {}
 
   ngAfterViewInit() {
@@ -64,19 +56,37 @@ export class ActivePresetsControllerComponent {
       startOnLoad: false,
       theme: 'dark',
     });
+  }
+
+  ngOnInit() {
+    Actions$.mainBeat
+      .pipe(
+        timeredMainBeat,
+        map((velocity) => {
+          const brightness = mapInput(velocity, 0, 127, 0, 255);
+          return ColorHelper.getRGBString([{ h: 255, b: brightness, s: 255 }]);
+        }),
+        tap((color) => {
+          document.documentElement.style.setProperty('--node__MAINBEAT', color);
+        }),
+      )
+      .subscribe();
 
     Actions$.singleColor
-      .pipe(map((color) => ColorHelper.getRGBString([color])))
-      .subscribe((color) => {
-        document.documentElement.style.setProperty('--singleColor', color);
-      });
+      .pipe(
+        map((color) => ColorHelper.getRGBString([color])),
+        tap((color) => {
+          document.documentElement.style.setProperty(
+            '--node__SINGLECOLOR',
+            color,
+          );
+        }),
+      )
+      .subscribe();
   }
 }
 
-// Define a pipe function that handles the transformation
-function applyTimeredMainBeat<T>(
-  velocity$: Observable<T>,
-): Observable<number | T> {
+function timeredMainBeat<T>(velocity$: Observable<T>): Observable<number | T> {
   return velocity$.pipe(
     switchMap((velocity) =>
       timer(50).pipe(

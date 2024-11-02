@@ -17,8 +17,10 @@ export class FastLedMultiColorToMultiColor extends PresetLogic {
 
     protected _startPreset(): void {
         this.addSub(
-            Actions$.fastLedMultiColor.subscribe((color) => {
-                nextActionFromMsg(Actions.multiColor(color));
+            Actions$.fastLedMultiColor.subscribe((colors) => {
+                nextActionFromMsg(Actions.multiColor(colors));
+                colors?.[0] &&
+                    nextActionFromMsg(Actions.singleColor(colors?.[0]));
             }),
         );
     }

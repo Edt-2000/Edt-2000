@@ -102,6 +102,13 @@ const commands$ = combineLatest([activePage$, launchpadPage$]).pipe(
 pad.connect(launchpadInPort, launchpadOutPort)
     .then(() => {
         console.log(`Launchpad ${launchpadInPort} connected!`);
+        // Reset launchpad page change to page 0
+        sendToSledt(
+            Actions.launchpadPageChange({
+                launchpad: launchpadInPort,
+                page: 0,
+            }),
+        );
         pad.reset();
         // Color the buttons so you know which buttons do something
         commands$.pipe(debounceTime(100)).subscribe(async (commands) => {

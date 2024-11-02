@@ -1,12 +1,18 @@
 <div class='vidt-controller'>
-  <!--  <div class="section">-->
-  <!--    <h2 class="section__title">Beat</h2>-->
-  <!--    <ul class="list">-->
-  <!--      <li class="list__item">-->
-  <!--        <button (click)="socket.sendBeat()" class="text-button">BEAT</button>-->
-  <!--      </li>-->
-  <!--    </ul>-->
-  <!--  </div>-->
+    <div class="section">
+      <h2 class="section__title">Beat</h2>
+      <ul class="list">
+        <li class="list__item">
+          <button (click)="socket.sendBeat(64)" class="text-button">BEAT 1/2 power</button>
+        </li>
+        <li class="list__item">
+          <button (click)="socket.sendBeat(85)" class="text-button">BEAT 3/4 power</button>
+        </li>
+        <li class="list__item">
+          <button (click)="socket.sendBeat(127)" class="text-button">BEAT full power</button>
+        </li>
+      </ul>
+    </div>
 
   <div class='section'>
     <h2 class='section__title'>Vidt</h2>

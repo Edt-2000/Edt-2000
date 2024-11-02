@@ -143,7 +143,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
 export const launchpadSingleActions: LaunchpadTrigger[] = [
     {
         color: LaunchpadColor.red,
-        title: "BEAT",
+        title: "MAINBEAT",
         triggerType: TriggerType.text,
         triggerAction: Actions.mainBeat(127),
     },

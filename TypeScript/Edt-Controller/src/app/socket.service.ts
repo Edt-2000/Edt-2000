@@ -33,8 +33,8 @@ export class SocketService {
     );
   }
 
-  sendBeat() {
-    this.toSledt(Actions.mainBeat(127));
+  sendBeat(velocity: number) {
+    this.toSledt(Actions.mainBeat(velocity));
   }
 
   sendPhotoAsset(asset: string) {

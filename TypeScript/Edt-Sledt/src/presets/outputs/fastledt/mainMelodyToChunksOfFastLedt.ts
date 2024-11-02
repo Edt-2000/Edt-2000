@@ -20,7 +20,7 @@ export class MainMelodyToChunksOfFastLedt extends PresetLogic {
                 entry: `CHUNKS ${this.state ? `===>` : "--->"} FASTLED`,
             },
             {
-                entry: `COLOR ${this.state ? `===>` : "--->"} CHUNKS`,
+                entry: `SINGLECOLOR ${this.state ? `===>` : "--->"} CHUNKS`,
             },
         ];
     }

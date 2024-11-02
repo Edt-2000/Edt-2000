@@ -7,18 +7,20 @@ import { controlSocket$ } from "../communication/sockets";
 import * as SocketIO from "socket.io";
 import { BehaviorSubject, fromEvent, map, merge, take, takeUntil } from "rxjs";
 
-const connectedControlsSubject$ = new BehaviorSubject<string[]>([]);
+const connectedControllersSubject$ = new BehaviorSubject<string[]>([]);
 
 controlSocket$.subscribe((socket) => {
-    connectedControlsSubject$.next(
-        Array.from(socket.nsp.sockets.keys()).map((id) => `control-${id}`),
+    connectedControllersSubject$.next(
+        Array.from(socket.nsp.sockets.keys()).map((id) => `controller-${id}`),
     );
 
     const disconnected$ = fromEvent<SocketIO.Socket>(socket, "disconnect");
 
     disconnected$.pipe(take(1)).subscribe(() => {
-        connectedControlsSubject$.next(
-            Array.from(socket.nsp.sockets.keys()).map((id) => `control-${id}`),
+        connectedControllersSubject$.next(
+            Array.from(socket.nsp.sockets.keys()).map(
+                (id) => `controller-${id}`,
+            ),
         );
     });
 
@@ -43,4 +45,5 @@ controlSocket$.subscribe((socket) => {
     socket.on("fromController", nextActionFromMsg);
 });
 
-export const connectedControllers$ = connectedControlsSubject$.asObservable();
+export const connectedControllers$ =
+    connectedControllersSubject$.asObservable();

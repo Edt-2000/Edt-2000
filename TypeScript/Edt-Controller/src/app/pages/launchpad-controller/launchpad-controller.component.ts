@@ -38,9 +38,7 @@ export class LaunchpadControllerComponent {
   ]).pipe(map(([launchpads, launchpadNr]) => launchpads.get(launchpadNr)));
 
   getColorString(colors: IColor[] | any): SafeStyle {
-    console.log('Colors', colors);
     if (colors.every(isColorType)) {
-      console.log(ColorHelper.getRGBString(colors));
       return ColorHelper.getRGBString(colors) as SafeStyle;
     } else {
       return '';
