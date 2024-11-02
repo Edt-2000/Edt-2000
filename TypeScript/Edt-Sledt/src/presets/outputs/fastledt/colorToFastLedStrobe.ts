@@ -17,7 +17,7 @@ export class ColorToFastLedStrobe extends PresetLogic {
 
         return [
             {
-                entry: `COLOR ${this.state ? `===>` : `--->`} STROBE${modifier ? `(${modifier.label})` : ""}`,
+                entry: `SINGLECOLOR ${this.state ? `===>` : `--->`} STROBE${modifier ? `(${modifier.label})` : ""}`,
             },
             {
                 subgraph: "FASTLEDS",

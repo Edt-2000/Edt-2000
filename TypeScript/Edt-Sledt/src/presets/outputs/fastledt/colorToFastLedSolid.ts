@@ -12,7 +12,10 @@ export class ColorToFastLedSolid extends PresetLogic {
     get mermaidConfig() {
         return [
             {
-                entry: `COLOR ${this.state ? `===>` : "--->"} SOLID`,
+                entry: `class SINGLECOLOR node__SINGLECOLOR`,
+            },
+            {
+                entry: `SINGLECOLOR ${this.state ? `===>` : "--->"} SOLID`,
             },
             {
                 subgraph: "FASTLEDS",

@@ -24,6 +24,7 @@ thomasSocket$.subscribe((socket) => {
     //     .subscribe((msg) => socket.emit("toThomas", msg));
 
     socket.on("fromThomas", (data: any) => {
+        console.log("fromThomas", data);
         nextActionFromMsg(data);
     });
 });

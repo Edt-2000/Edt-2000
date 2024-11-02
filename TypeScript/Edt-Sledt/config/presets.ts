@@ -36,7 +36,10 @@ export const presets: Record<number, PresetLogic> = {
     [Note.G$_2]: new DrumSoundMap(DrumSounds.crash),
     [Note.A_2]: new DrumSoundMap(DrumSounds.hihatClosed),
     [Note.A$_2]: new DrumSoundMap(DrumSounds.hihatOpen),
-    [Note.B_2]: new DrumSoundToBeat(),
+    [Note.B_2]: new DrumSoundMap(DrumSounds.cow),
+    [Note.C_1]: new DrumSoundMap(DrumSounds.shaker),
+    [Note.C$_1]: new DrumSoundMap(DrumSounds.agogo),
+    [Note.D_1]: new DrumSoundToBeat(),
 
     // [Note.C_1]:
     // [Note.C$_1]:

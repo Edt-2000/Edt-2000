@@ -9,18 +9,22 @@ import { presetCues } from "../config/cues/cues";
 import { automationActions$, automationCCMessages$ } from "./automation";
 import { sendToMidiCC, sendToMidiNote } from "./io/edt-midi";
 import { presetMidiMsg$ } from "./automation/presets";
-import { getPresetState } from "./presets/presets-logic";
+import { getPresetState, presetChange } from "./presets/presets-logic";
 import { enumToArray } from "../../Shared/utils/utils";
 import { AnimationTypes } from "../../Shared/vidt/animation";
 import { VidtPresets } from "../../Shared/vidt-presets";
 import { launchpadPages$ } from "../config/launchpad";
 import { Sizes } from "../../Shared/vidt/sizes";
 import { Shapes } from "../../Shared/vidt/shapes";
-import { connectedControls$ } from "./io/edt-control";
+import { connectedControllers$ } from "./io/edt-controller";
 import { merge } from "rxjs";
 import { connectedVidt$ } from "./io/edt-vidt";
 import { connectedLaunchpad$ } from "./io/edt-launchpad";
 import { connectedThomas$ } from "./io/edt-homas";
+import { ColorToVidtColor } from "./presets/outputs/vidt/colorToVidtColor";
+import { BeatToColor } from "./presets/converters/beat/beatToColor";
+import { FastLedMultiColorToMultiColor } from "./presets/outputs/vidt/fastLedMultiColorToMultiColor";
+import { MultiColorToVidtMultiColor } from "./presets/outputs/vidt/multiColorToVidtMultiColor";
 
 // Main logic: start or stop presets based on presetChanges
 Actions$.presetChange.subscribe(({ modifier, preset, state }) => {
@@ -67,7 +71,7 @@ launchpadPages$.subscribe((pages) =>
 console.log("GO GO GO!");
 
 merge(
-    connectedControls$,
+    connectedControllers$,
     connectedVidt$,
     connectedLaunchpad$,
     connectedThomas$,
@@ -98,3 +102,11 @@ Actions$.presetState.subscribe((presetState) => {
             .map(({ title, modifier }) => title + ` (${modifier})`),
     );
 });
+
+// Trigger some initial cues
+[
+    presetChange(new ColorToVidtColor(), 127, true),
+    presetChange(new BeatToColor(), 127, true),
+    presetChange(new FastLedMultiColorToMultiColor(), 127, true),
+    presetChange(new MultiColorToVidtMultiColor(), 127, true),
+].map(nextActionFromMsg);

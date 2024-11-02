@@ -18,10 +18,10 @@ export class BeatToFastLedSpark extends PresetLogic {
         );
         return [
             {
-                entry: `BEAT ${this.state ? `==>|${(speed && (speed.label || speed.value)) || this.modifier}|` : "--->"} SPARK`,
+                entry: `MAINBEAT ${this.state ? `==>|${(speed && (speed.label || speed.value)) || this.modifier}|` : "--->"} SPARK`,
             },
             {
-                entry: `COLOR ${this.state ? "===>" : "--->"} SPARK`,
+                entry: `SINGLECOLOR ${this.state ? "===>" : "--->"} SPARK`,
             },
             {
                 subgraph: "FASTLEDS",

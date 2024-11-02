@@ -15,7 +15,7 @@ export class BeatToNextWord extends PresetLogic {
     get mermaidConfig() {
         return [
             {
-                entry: `BEAT ${this.state ? `===>` : "--->"} WORD`,
+                entry: `MAINBEAT ${this.state ? `===>` : "--->"} WORD`,
             },
         ];
     }

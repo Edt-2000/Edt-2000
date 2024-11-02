@@ -17,10 +17,10 @@ export class BeatToRainbowSpark extends PresetLogic {
         );
         return [
             {
-                entry: `BEAT ${this.state ? `==>|${(speed && (speed.label || speed.value)) || this.modifier}|` : "--->"} RAINBOW`,
+                entry: `MAINBEAT ${this.state ? `==>|${(speed && (speed.label || speed.value)) || this.modifier}|` : "--->"} RAINBOW`,
             },
             {
-                entry: `COLOR ${this.state ? "===>" : "--->"} RAINBOW`,
+                entry: `SINGLECOLOR ${this.state ? "===>" : "--->"} RAINBOW`,
             },
             {
                 subgraph: "FASTLEDS",
