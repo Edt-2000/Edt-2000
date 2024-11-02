@@ -38,7 +38,16 @@ const pad = new Launchpad();
 
 console.log("Launchpads", pad.availablePorts);
 
-socket.on("connect", () => console.log("Connected to Edt-Sledt!"));
+socket.on("connect", () => {
+    console.log("Connected to Edt-Sledt - Reset to page 0!");
+    // Reset launchpad page change to page 0
+    sendToSledt(
+        Actions.launchpadPageChange({
+            launchpad: launchpadInPort,
+            page: 0,
+        }),
+    );
+});
 socket.on("disconnect", () => {
     console.log("Connection lost!");
 });
@@ -56,7 +65,7 @@ interface Pad {
 const launchpadPage$ = Actions$.launchpadPageChange.pipe(
     filter((pageChange) => pageChange.launchpad === launchpadInPort),
     map((pageChange) => pageChange.page),
-    startWith(1),
+    startWith(0),
 );
 
 const activePage$ = combineLatest([
@@ -102,13 +111,6 @@ const commands$ = combineLatest([activePage$, launchpadPage$]).pipe(
 pad.connect(launchpadInPort, launchpadOutPort)
     .then(() => {
         console.log(`Launchpad ${launchpadInPort} connected!`);
-        // Reset launchpad page change to page 0
-        sendToSledt(
-            Actions.launchpadPageChange({
-                launchpad: launchpadInPort,
-                page: 0,
-            }),
-        );
         pad.reset();
         // Color the buttons so you know which buttons do something
         commands$.pipe(debounceTime(100)).subscribe(async (commands) => {
