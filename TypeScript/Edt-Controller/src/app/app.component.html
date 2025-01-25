@@ -4,17 +4,21 @@
       <nav class='nav'>
         <div class='nav__container'>
           <ul class='nav__list'>
-            @for (page of pages; track $index) {
-              <li class='nav__item'>
-                <button
-                  [routerLink]='page.path'
-                  class='nav__link'
-                  routerLinkActive='is-active'
-                >
-                  {{ page.text }}
-                </button>
-              </li>
+            @if (pages$ | async; as pages) {
+
+              @for (page of pages; track $index) {
+                <li class='nav__item'>
+                  <button
+                    [routerLink]='page.path'
+                    class='nav__link'
+                    routerLinkActive='is-active'
+                  >
+                    {{ page.title }}
+                  </button>
+                </li>
+              }
             }
+            <li class='nav__item nav__link'>Song: {{ $songTitle | async }}</li>
           </ul>
         </div>
       </nav>

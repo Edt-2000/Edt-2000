@@ -13,10 +13,8 @@ export class KaraokeComponent implements OnInit, OnDestroy {
     public cssClass: string = '';
     public styles: Object = {};
     public text: string = 'bounce';
-
-    private readonly destroyed = new Subject();
-
     @ViewChild('text') textRef?: ElementRef<HTMLPreElement>;
+    private readonly destroyed = new Subject();
 
     public ngOnInit() {
         Actions$.mainText.pipe(takeUntil(this.destroyed)).subscribe((text) => {

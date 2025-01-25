@@ -77,7 +77,7 @@
         }
     }
 
-    &--circle{
+    &--circle {
         #{ $self }__front,
         #{ $self }__back {
             border-radius: 50%;

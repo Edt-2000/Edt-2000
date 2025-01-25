@@ -1,9 +1,9 @@
-<div class="video">
-    <video class="video__player" loop muted #video>
-        <source type="video/mp4" [src]="src">
+<div class='video'>
+    <video #video class='video__player' loop muted>
+        <source [src]='src' type='video/mp4'>
     </video>
 
     @if (overlay) {
-        <div class="video__overlay"></div>
+        <div class='video__overlay'></div>
     }
 </div>

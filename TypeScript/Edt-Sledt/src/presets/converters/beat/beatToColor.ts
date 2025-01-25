@@ -11,6 +11,7 @@ export class BeatToColor extends PresetLogic {
     modifierOptions = {
         group: [ModifierGroup.Color, ModifierGroup.Beat],
     };
+    private index = -1;
 
     get mermaidConfig() {
         return [
@@ -22,8 +23,6 @@ export class BeatToColor extends PresetLogic {
             },
         ];
     }
-
-    private index = -1;
 
     protected _startPreset(): void {
         this.addSub(

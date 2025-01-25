@@ -1,51 +1,39 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TriggerType } from '../../../../../Shared/actions/types';
-import { SocketService } from '../../socket.service';
-import { LaunchpadService } from './launchpad.service';
-import { IColor } from '../../../../../Shared/colors/types';
-import { SafeStyle } from '@angular/platform-browser';
-import { ColorHelper } from '../../../../../Shared/colors/converters';
-import { combineLatest, map, tap } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { combineLatest, map } from 'rxjs';
 import { Actions$ } from '../../../../../Shared/actions/actions';
+import { ActivatedRoute } from '@angular/router';
+import { LaunchpadGridComponent } from '../../components/launchpad-grid/launchpad-grid.component';
+import { SocketService } from '../../socket.service';
 
 @Component({
   selector: 'app-launchpad-controller',
   templateUrl: './launchpad-controller.component.html',
   styleUrls: ['./launchpad-controller.component.scss'],
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, JsonPipe, LaunchpadGridComponent],
 })
 export class LaunchpadControllerComponent {
-  triggerType = TriggerType;
   socket = inject(SocketService);
-
-  private route = inject(ActivatedRoute);
-  private launchpad = inject(LaunchpadService);
-
-  $songTitle = Actions$.contentGroup.pipe(
-    map((contentGroup) => contentGroup.title),
+  private readonly route = inject(ActivatedRoute);
+  activeLaunchpad$ = combineLatest([
+    this.route.paramMap,
+    Actions$.launchpadPageIndex,
+    Actions$.launchpadPages,
+  ]).pipe(
+    map(([paramMap, pageIndex, pages]) => {
+      const launchpadId = paramMap.get('launchpadId');
+      const pageNr = launchpadId && pageIndex[launchpadId];
+      if (typeof pageNr === 'number' && Number.isFinite(pageNr)) {
+        return { pageNr, page: pages[pageNr] ?? [] };
+      } else {
+        return false;
+      }
+    }),
   );
 
-  launchpadNr$ = this.route.paramMap.pipe(
-    map((params) => Number(params.get('launchpadInstance')) || 0),
-  );
-
-  launchpadPage$ = combineLatest([
-    this.launchpad.activeLaunchpads$,
-    this.launchpadNr$,
-  ]).pipe(map(([launchpads, launchpadNr]) => launchpads.get(launchpadNr)));
-
-  getColorString(colors: IColor[] | any): SafeStyle {
-    if (colors.every(isColorType)) {
-      return ColorHelper.getRGBString(colors) as SafeStyle;
-    } else {
-      return '';
-    }
-
-    function isColorType(color: IColor | any): color is IColor {
-      return 'h' in color && 's' in color && 'b' in color;
-    }
+  pageChange(pageNr: number) {
+    const launchpadId = this.route.snapshot.paramMap.get('launchpadId');
+    launchpadId && this.socket.sendLaunchpadPageChange(launchpadId, pageNr);
   }
 }

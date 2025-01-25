@@ -15,9 +15,8 @@ export class LogoComponent implements OnInit, OnDestroy {
     public level: number = 0;
     public text: string = 'Strobocops';
     public timeOut: number | null = null;
-
-    private readonly destroyed = new Subject();
     stars = createFilledArray(AMOUNT_OF_STARS);
+    private readonly destroyed = new Subject();
 
     public ngOnInit() {
         combineLatest([

@@ -11,6 +11,7 @@ export class BeatToNextWord extends PresetLogic {
     modifierOptions = {
         group: [ModifierGroup.Vidt, ModifierGroup.Words, ModifierGroup.Beat],
     };
+    private index = -1;
 
     get mermaidConfig() {
         return [
@@ -19,8 +20,6 @@ export class BeatToNextWord extends PresetLogic {
             },
         ];
     }
-
-    private index = -1;
 
     protected _startPreset(): void {
         this.addSub(

@@ -27,10 +27,8 @@ export class SocketService {
     });
   }
 
-  sendVidtPreset(preset: string) {
-    this.toSledt(
-      Actions.prepareVidt(VidtPresets[preset as keyof typeof VidtPresets]),
-    );
+  sendVidtPreset(preset: VidtPresets) {
+    this.toSledt(Actions.prepareVidt(preset));
   }
 
   sendBeat(velocity: number) {
@@ -93,9 +91,18 @@ export class SocketService {
     this.toSledt(Actions.colorPalette(colors));
   }
 
-  sendLaunchpadTrigger(launchpadTrigger: LaunchpadTrigger) {
+  sendLaunchpadDown(launchpadTrigger: LaunchpadTrigger) {
     if (launchpadTrigger.triggerAction)
       this.toSledt(launchpadTrigger.triggerAction);
+  }
+
+  sendLaunchpadUp(launchpadTrigger: LaunchpadTrigger) {
+    if (launchpadTrigger.releaseAction)
+      this.toSledt(launchpadTrigger.releaseAction);
+  }
+
+  sendLaunchpadPageChange(launchpad: string, page: number) {
+    this.toSledt(Actions.launchpadPageChange({ launchpad, page }));
   }
 
   private toSledt(message: Actions) {

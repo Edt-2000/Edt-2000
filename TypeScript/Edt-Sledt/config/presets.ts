@@ -13,10 +13,10 @@ import { MidiChannelToMainDrum } from "../src/presets/converters/instruments/mid
 import { ColorToFastLedStrobe } from "../src/presets/outputs/fastledt/colorToFastLedStrobe";
 import { MainMelodyToChunksOfFastLedt } from "../src/presets/outputs/fastledt/mainMelodyToChunksOfFastLedt";
 import { MidiChannelToMainBass } from "../src/presets/converters/instruments/midiChannelToMainBass";
-import { DrumSounds } from "./config";
 import { PresetLogic } from "../src/presets/presets-logic";
 import { ColorToSpectacle } from "../src/presets/outputs/spectacle/colorToSpectacle";
 import { FastLedMultiColorToMultiColor } from "../src/presets/outputs/vidt/fastLedMultiColorToMultiColor";
+import { DrumSounds } from "../../Shared/midi/types";
 
 // TODO: C, D, E, F, G, A, B
 

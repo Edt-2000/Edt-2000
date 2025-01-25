@@ -3,9 +3,9 @@ import { Subject, takeUntil } from 'rxjs';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 
 @Component({
-  selector: 'edt-text-bouncer',
-  templateUrl: './text-bouncer.component.html',
-  styleUrl: './text-bouncer.component.scss'
+    selector: 'edt-text-bouncer',
+    templateUrl: './text-bouncer.component.html',
+    styleUrl: './text-bouncer.component.scss',
 })
 export class TextBouncerComponent implements OnInit, OnDestroy {
     public styles: Object = {};
@@ -26,15 +26,13 @@ export class TextBouncerComponent implements OnInit, OnDestroy {
     private readonly destroyed = new Subject();
 
     public ngOnInit() {
-        Actions$.mainText
-            .pipe(takeUntil(this.destroyed))
-            .subscribe(text => {
-                this.text = text;
-                // wait for text to be in dom
-                requestAnimationFrame(() => {
-                    this.calculateBoundaries();
-                });
+        Actions$.mainText.pipe(takeUntil(this.destroyed)).subscribe((text) => {
+            this.text = text;
+            // wait for text to be in dom
+            requestAnimationFrame(() => {
+                this.calculateBoundaries();
             });
+        });
 
         this.calculateBoundaries();
 

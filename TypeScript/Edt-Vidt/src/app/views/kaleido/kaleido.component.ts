@@ -17,11 +17,11 @@ export class KaleidoComponent implements OnInit, OnDestroy {
     public hexagons: number = 8;
     public kaleidoTime = 4;
     public resetAnimation = false;
-
+    protected readonly createFilledArray = createFilledArray;
     private readonly destroyed = new Subject();
 
     public ngOnInit() {
-        combineLatest([Actions$.colorPalette, Actions$.glitchIntensity, Actions$.size])
+        combineLatest([Actions$.vidtMultiColor, Actions$.glitchIntensity, Actions$.size])
             .pipe(takeUntil(this.destroyed))
             .subscribe(([colors, intensity, size]) => {
                 this.resetAnimation = true;
@@ -31,7 +31,7 @@ export class KaleidoComponent implements OnInit, OnDestroy {
 
                 // Set animation time depending on intensity
                 this.kaleidoTime = 10 - intensity;
-                this.styles ['--animation-kaleido-time'] = `${this.kaleidoTime}s`;
+                this.styles['--animation-kaleido-time'] = `${this.kaleidoTime}s`;
 
                 // Set colors
                 this.setColors(colors);
@@ -45,8 +45,8 @@ export class KaleidoComponent implements OnInit, OnDestroy {
         let colorIndex = 0;
 
         for (let i = 1; i <= this.hexagons; i++) {
-            const color = `rgb(${ ColorHelper.hsv2rgb(colors[ colorIndex ]).join(', ') })`;
-            this.styles[`--kaleido-${ i }`] = color;
+            const color = `rgb(${ColorHelper.hsv2rgb(colors[colorIndex]).join(', ')})`;
+            this.styles[`--kaleido-${i}`] = color;
 
             colorIndex++;
 
@@ -60,6 +60,4 @@ export class KaleidoComponent implements OnInit, OnDestroy {
         this.destroyed.next(true);
         this.destroyed.complete();
     }
-
-    protected readonly createFilledArray = createFilledArray;
 }

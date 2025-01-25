@@ -31,7 +31,7 @@ export class PhotoBlocksComponent implements OnInit, OnDestroy {
         Actions$.size.pipe(takeUntil(this.destroyed)).subscribe((size: Sizes) => {
             this.size = size;
             this.sizeClass = 'photo-blocks--' + this.size;
-            const amount = this.size === 'small' ? 75 : 50;
+            const amount = this.size === Sizes.small ? 75 : 50;
             this.blocks = createFilledArray(amount);
         });
 
