@@ -26,10 +26,12 @@ export function shuffleArray(inputArray: any[]): any[] {
     return array;
 }
 
-export function enumToArray(e: object) {
+export function enumToArray<T extends Record<string, string | number>>(
+    e: T,
+): (keyof T)[] {
     return Object.keys(e)
         .filter((entry) => entry !== '____EMPTY____')
-        .filter((vp) => isNaN(+vp));
+        .filter((entry) => isNaN(Number(entry)));
 }
 
 export function convertToOSC(msg: IOSCMessage) {

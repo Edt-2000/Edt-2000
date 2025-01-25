@@ -1,4 +1,4 @@
-import { NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -49,7 +49,7 @@ import { WheelComponent } from './views/wheel/wheel.component';
         TextBouncerComponent,
         SpectrumComponent,
     ],
-    imports: [BrowserModule, AppRoutingModule, NgOptimizedImage],
+    imports: [BrowserModule, AppRoutingModule, NgOptimizedImage, AsyncPipe, AsyncPipe, AsyncPipe],
     providers: [],
     bootstrap: [AppComponent],
 })

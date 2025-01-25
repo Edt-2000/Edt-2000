@@ -5,9 +5,9 @@ import { ColorHelper } from '../../../../../Shared/colors/converters';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 
 @Component({
-  selector: 'edt-color-glitch',
-  templateUrl: './color-glitch.component.html',
-  styleUrl: './color-glitch.component.scss'
+    selector: 'edt-color-glitch',
+    templateUrl: './color-glitch.component.html',
+    styleUrl: './color-glitch.component.scss',
 })
 export class ColorGlitchComponent {
     public firstColor: string = '#ff179a';
@@ -16,22 +16,17 @@ export class ColorGlitchComponent {
     private readonly destroyed = new Subject();
 
     public ngOnInit() {
-        Actions$.vidtSingleColor
-            .pipe(takeUntil(this.destroyed))
-            .subscribe((color: IColor) => {
-                this.setColors(color, ColorHelper.getContraColor(color));
-            });
+        Actions$.vidtSingleColor.pipe(takeUntil(this.destroyed)).subscribe((color: IColor) => {
+            this.setColors(color, ColorHelper.getContraColor(color));
+        });
 
-
-        Actions$.vidtMultiColor
-            .pipe(takeUntil(this.destroyed))
-            .subscribe((colors: IColor[]) => {
-                if (colors.length > 1) {
-                    this.setColors(colors[0], colors[colors.length]);
-                } else if (colors.length === 1) {
-                    this.setColors(colors[0], ColorHelper.getContraColor(colors[0]));
-                }
-            });
+        Actions$.vidtMultiColor.pipe(takeUntil(this.destroyed)).subscribe((colors: IColor[]) => {
+            if (colors.length > 1) {
+                this.setColors(colors[0], colors[colors.length]);
+            } else if (colors.length === 1) {
+                this.setColors(colors[0], ColorHelper.getContraColor(colors[0]));
+            }
+        });
     }
 
     public ngOnDestroy() {
@@ -40,7 +35,7 @@ export class ColorGlitchComponent {
     }
 
     public setColors(first: IColor, second: IColor) {
-        this.firstColor = `rgb(${ ColorHelper.hsv2rgb(first).join(', ')})`;
-        this.secondColor = `rgb(${ ColorHelper.hsv2rgb(second).join(', ')})`;
+        this.firstColor = `rgb(${ColorHelper.hsv2rgb(first).join(', ')})`;
+        this.secondColor = `rgb(${ColorHelper.hsv2rgb(second).join(', ')})`;
     }
 }

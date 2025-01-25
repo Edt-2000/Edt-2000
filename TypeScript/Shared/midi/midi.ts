@@ -133,8 +133,7 @@ export enum Note {
 }
 
 export function isMidiMessage(OSCMsg: IOSCMessage): boolean {
-    return OSCMsg.addresses.length === 2 &&
-        OSCMsg.addresses[0] === 'midi';
+    return OSCMsg.addresses.length === 2 && OSCMsg.addresses[0] === 'midi';
 }
 
 export function isMidiNoteMessage(OSCMsg: IOSCMessage): boolean {
@@ -149,7 +148,10 @@ export function isMidiSongMessage(OSCMsg: IOSCMessage) {
     return OSCMsg.addresses[1] === 'select';
 }
 
-export function convertOSCToMIDINoteMessage(OSCMsg: IOSCMessage, channelOffset = 0): IMidiNoteMsg {
+export function convertOSCToMIDINoteMessage(
+    OSCMsg: IOSCMessage,
+    channelOffset = 0,
+): IMidiNoteMsg {
     return {
         note: +OSCMsg.values[1],
         noteOn: +OSCMsg.values[2] !== 0,
@@ -160,7 +162,10 @@ export function convertOSCToMIDINoteMessage(OSCMsg: IOSCMessage, channelOffset =
     };
 }
 
-export function convertOSCToMIDICCMessage(OSCMsg: IOSCMessage, channelOffset = 0): IMidiCCMsg {
+export function convertOSCToMIDICCMessage(
+    OSCMsg: IOSCMessage,
+    channelOffset = 0,
+): IMidiCCMsg {
     return {
         channel: +OSCMsg.values[0] + channelOffset,
         controller: +OSCMsg.values[1],

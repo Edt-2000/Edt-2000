@@ -38,6 +38,9 @@ export const mermaidOutput$ = Actions$.presetState.asObservable().pipe(
         .map(({ entry }) => entry)
         .concat(styles)
         .join('\n');
+
+    console.log('mermaidOutput', mermaidOutput);
+
     return Object.entries(outputByGroup).reduce(
       (output, [subGraph, entries]) => {
         let subGraphOutput = `\nsubgraph ${subGraph}\n  `;

@@ -26,7 +26,7 @@ controlSocket$.subscribe((socket) => {
 
     merge(
         Actions$.launchpadPages.pipe(map(Actions.launchpadPages)),
-        Actions$.launchpadPageChange.pipe(map(Actions.launchpadPageChange)),
+        Actions$.launchpadPageIndex.pipe(map(Actions.launchpadPageIndex)),
         Actions$.presetState.pipe(map(Actions.presetState)),
         Actions$.cueList.pipe(map(Actions.cueList)),
         Actions$.colorPalette.pipe(map(Actions.colorPalette)),
@@ -37,6 +37,7 @@ controlSocket$.subscribe((socket) => {
         Actions$.sizes.pipe(map(Actions.sizes)),
         Actions$.vidtPresets.pipe(map(Actions.vidtPresets)),
         Actions$.mainBeat.pipe(map(Actions.mainBeat)),
+        Actions$.mainDrumSound.pipe(map(Actions.mainDrumSound)),
         Actions$.singleColor.pipe(map(Actions.singleColor)),
     )
         .pipe(takeUntil(disconnected$))

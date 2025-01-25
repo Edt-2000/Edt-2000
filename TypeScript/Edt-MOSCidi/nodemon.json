@@ -1,5 +1,7 @@
 {
-    "watch": ["index.ts"],
+    "watch": [
+        "index.ts"
+    ],
     "ext": ".ts,.js",
     "ignore": [],
     "exec": "ts-node index.ts localhost 12347 12346"

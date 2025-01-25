@@ -23,11 +23,10 @@
     text-align: center;
     text-decoration: none;
     text-overflow: ellipsis;
-    transition:
-        background-color 0.3s ease-out,
-        border-color 0.3s ease-out,
-        color 0.3s ease-out,
-        fill 0.3s ease-out;
+    transition: background-color 0.3s ease-out,
+    border-color 0.3s ease-out,
+    color 0.3s ease-out,
+    fill 0.3s ease-out;
     vertical-align: middle;
     white-space: nowrap;
 }

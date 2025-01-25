@@ -8,11 +8,14 @@ import {
 import { filter, map } from "rxjs";
 
 export const prepareVidtCC$ = Actions$.prepareVidt.pipe(
-    map((preset) => ({
-        channel: automationChannel,
-        controller: vidtPresetAutomationCCNumber,
-        value: preset,
-    })),
+    map((preset) => {
+        console.log("prepareVidtCC$", preset);
+        return {
+            channel: automationChannel,
+            controller: vidtPresetAutomationCCNumber,
+            value: preset,
+        };
+    }),
 );
 
 export const prepareVidtActions$ = midiCCAutomation$.pipe(

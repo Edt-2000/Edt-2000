@@ -1,11 +1,7 @@
 import { Note } from "../../Shared/midi/midi";
 import { enumToArray } from "../../Shared/utils/utils";
-import {
-    automationChannel,
-    ColorVariations,
-    DrumNotes,
-    DrumSounds,
-} from "./config";
+import { automationChannel, ColorVariations } from "./config";
+import { DrumNotes, DrumSounds } from "../../Shared/midi/types";
 
 export const modifiers = {
     colorVariation: [

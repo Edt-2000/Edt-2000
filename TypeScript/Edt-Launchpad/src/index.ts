@@ -4,17 +4,20 @@ import {
     nextActionFromMsg,
 } from "../../Shared/actions/actions";
 import {
+    BehaviorSubject,
     combineLatest,
     debounceTime,
     filter,
     fromEvent,
+    interval,
     map,
     startWith,
+    switchMap,
     tap,
     withLatestFrom,
 } from "rxjs";
 import { LaunchpadColor } from "../../Shared/actions/types";
-import { launchpadSingleActions } from "edt-sledt/config/launchpad";
+import { launchpadSingleActions } from "../../Edt-Sledt/config/launchpad";
 
 // These libs don't support ES6 imports :/
 // tslint:disable-next-line:no-var-requires
@@ -38,21 +41,6 @@ const pad = new Launchpad();
 
 console.log("Launchpads", pad.availablePorts);
 
-socket.on("connect", () => {
-    console.log("Connected to Edt-Sledt - Reset to page 0!");
-    // Reset launchpad page change to page 0
-    sendToSledt(
-        Actions.launchpadPageChange({
-            launchpad: launchpadInPort,
-            page: 0,
-        }),
-    );
-});
-socket.on("disconnect", () => {
-    console.log("Connection lost!");
-});
-socket.on("toLaunchpad", (action) => nextActionFromMsg(action));
-
 const key$ = fromEvent<Pad>(pad, "key");
 
 interface Pad {
@@ -62,11 +50,12 @@ interface Pad {
     id: symbol;
 }
 
-const launchpadPage$ = Actions$.launchpadPageChange.pipe(
-    filter((pageChange) => pageChange.launchpad === launchpadInPort),
-    map((pageChange) => pageChange.page),
+const launchpadPage$ = Actions$.launchpadPageIndex.pipe(
+    map((pageIndex) => pageIndex[socket.id]),
     startWith(0),
 );
+
+const connected$ = new BehaviorSubject(false);
 
 const activePage$ = combineLatest([
     Actions$.launchpadPages,
@@ -77,7 +66,7 @@ const activePage$ = combineLatest([
     ),
 );
 
-const commands$ = combineLatest([activePage$, launchpadPage$]).pipe(
+const launchpadCommands$ = combineLatest([activePage$, launchpadPage$]).pipe(
     map(([page, pageNumber]) => {
         const activePage = [pageNumber, 8, Launchpad.Colors.red];
         return page.triggers
@@ -108,6 +97,22 @@ const commands$ = combineLatest([activePage$, launchpadPage$]).pipe(
     }),
 );
 
+const commands$ = connected$.pipe(
+    switchMap((connection) => {
+        console.log("connection", connection);
+        if (connection) {
+            return launchpadCommands$;
+        } else {
+            return interval(500).pipe(
+                map((count) => {
+                    const onOff = !(count % 2);
+                    return [[8, 7, Launchpad.Colors[onOff ? "yellow" : "off"]]];
+                }),
+            );
+        }
+    }),
+);
+
 pad.connect(launchpadInPort, launchpadOutPort)
     .then(() => {
         console.log(`Launchpad ${launchpadInPort} connected!`);
@@ -124,7 +129,7 @@ pad.connect(launchpadInPort, launchpadOutPort)
                 if (key.y === 8 && key.pressed) {
                     sendToSledt(
                         Actions.launchpadPageChange({
-                            launchpad: launchpadInPort,
+                            launchpad: socket.id,
                             page: key.x,
                         }),
                     );
@@ -203,3 +208,20 @@ function getContraColor(color: LaunchpadColor): LaunchpadColor {
             return LaunchpadColor.off;
     }
 }
+
+socket.on("connect", () => {
+    connected$.next(true);
+    // Reset launchpad page change to page 0
+    sendToSledt(
+        Actions.launchpadPageChange({
+            launchpad: socket.id,
+            page: 0,
+        }),
+    );
+});
+socket.on("disconnect", () => {
+    connected$.next(false);
+    console.log("Connection lost!");
+});
+
+socket.on("toLaunchpad", (action) => nextActionFromMsg(action));

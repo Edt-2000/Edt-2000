@@ -3,11 +3,11 @@
     animation: move-bcg var(--animation-time) ease infinite;
 
     background: repeating-linear-gradient(
-        -50deg,
-        var(--glitch-first-color),
-        var(--glitch-first-color) 6vw,
-        var(--glitch-second-color) 8vw,
-        var(--glitch-second-color) 10vw
+            -50deg,
+            var(--glitch-first-color),
+            var(--glitch-first-color) 6vw,
+            var(--glitch-second-color) 8vw,
+            var(--glitch-second-color) 10vw
     );
     background-size: 400% 400%;
     height: 300vh;

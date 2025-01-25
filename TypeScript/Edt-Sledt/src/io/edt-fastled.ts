@@ -6,6 +6,7 @@ import {
     OSCDispedtOutPort,
 } from "../../config/config";
 import { IColor } from "../../../Shared/colors/types";
+import { frontLedsSocket } from "./edt-frontleds";
 
 export function FastLedtSpark(
     instance: number,
@@ -14,18 +15,15 @@ export function FastLedtSpark(
     start: number = 0,
     end: number = 127,
 ) {
-    sendToOSC(DeviceIPs.edtFastLed, OSCDispedtOutPort, {
-        addresses: [OSCDevices.EdtFastLed + (instance === 0 ? "?" : instance)],
-        values: [
-            Modii.SingleSpark,
-            start,
-            end,
-            colorMsg.h,
-            colorMsg.s,
-            colorMsg.b,
+    frontLedsSocket.send(
+        JSON.stringify({
+            animation: "singlePulse",
+            led: 255,
+            color1: [colorMsg.h, colorMsg.s, colorMsg.b],
+            fade: 1,
             speed,
-        ],
-    });
+        }),
+    );
 }
 
 export function FastLedtRainbowSpark(

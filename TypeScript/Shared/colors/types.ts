@@ -3,3 +3,8 @@ export interface IColor {
     readonly s: number;
     readonly b: number;
 }
+
+export interface IDrumSound {
+    sound: string;
+    velocity: number;
+}

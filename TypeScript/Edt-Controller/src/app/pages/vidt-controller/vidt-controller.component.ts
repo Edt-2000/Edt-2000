@@ -3,6 +3,7 @@ import { SocketService } from '../../socket.service';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { AsyncPipe } from '@angular/common';
 import { PresetSwitchersComponent } from '../../components/preset-switchers/preset-switchers.component';
+import { VidtPresets } from '../../../../../Shared/vidt-presets';
 
 @Component({
   selector: 'app-vidt-controller',
@@ -26,6 +27,7 @@ export class VidtControllerComponent implements OnInit {
     { label: 'high', value: 7 },
     { label: 'bezerk', value: 9 },
   ];
+  protected readonly VidtPresets = VidtPresets;
 
   constructor(public socket: SocketService) {}
 

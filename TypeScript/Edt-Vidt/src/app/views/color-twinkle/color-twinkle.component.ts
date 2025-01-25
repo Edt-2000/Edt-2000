@@ -14,19 +14,17 @@ const AMOUNT_OF_STARS = 400;
 })
 export class ColorTwinkleComponent implements OnInit, OnDestroy {
     public styles: Object = {};
-
-    private readonly destroyed = new Subject();
     stars = createFilledArray(AMOUNT_OF_STARS);
+    private readonly destroyed = new Subject();
 
     public ngOnInit() {
         Actions$.vidtSingleColor.pipe(takeUntil(this.destroyed)).subscribe((item) => {
             this.setStyles(item);
         });
 
-        Actions$.vidtMultiColor.pipe(takeUntil(this.destroyed))
-            .subscribe((colors: IColor[]) => {
-                this.setStyles(colors[0]);
-            });
+        Actions$.vidtMultiColor.pipe(takeUntil(this.destroyed)).subscribe((colors: IColor[]) => {
+            this.setStyles(colors[0]);
+        });
     }
 
     public ngOnDestroy() {

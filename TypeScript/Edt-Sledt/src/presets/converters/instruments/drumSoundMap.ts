@@ -6,8 +6,9 @@ import {
     nextActionFromMsg,
 } from "../../../../../Shared/actions/actions";
 import { ModifierGroup } from "../../../../../Shared/actions/types";
-import { DrumSounds } from "../../../../config/config";
 import { filter } from "rxjs";
+
+import { DrumSounds } from "../../../../../Shared/midi/types";
 
 export class DrumSoundMap extends PresetLogic {
     modifierOptions = {
@@ -15,28 +16,33 @@ export class DrumSoundMap extends PresetLogic {
         group: [ModifierGroup.Drums],
     };
 
+    constructor(public sound: DrumSounds) {
+        super();
+        this.title = "DrumTo-" + DrumSounds[this.sound];
+    }
+
     get mermaidConfig() {
         return [
             {
                 subgraph: "MIDI-CONVERSION",
                 entry: this.state
-                    ? `Drums ===>|${this.modifier}| ${DrumSounds[this.sound]}`
-                    : `Drums --->|.| ${DrumSounds[this.sound]}`,
+                    ? `Drums ===>|${this.modifier}| ${DrumSounds[this.sound].toUpperCase()}`
+                    : `Drums --->|.| ${DrumSounds[this.sound].toUpperCase()}`,
             },
         ];
-    }
-
-    constructor(public sound: DrumSounds) {
-        super();
-        this.title = "DrumTo-" + DrumSounds[this.sound];
     }
 
     protected _startPreset(): void {
         this.addSub(
             Actions$.mainDrum
                 .pipe(filter((drumNote) => this.modifier === drumNote.note))
-                .subscribe(() => {
-                    nextActionFromMsg(Actions.mainDrumSound(this.sound));
+                .subscribe(({ velocity }) => {
+                    nextActionFromMsg(
+                        Actions.mainDrumSound({
+                            sound: DrumSounds[this.sound],
+                            velocity,
+                        }),
+                    );
                 }),
         );
     }

@@ -3,10 +3,10 @@ import { DrumSoundToBeat } from "../../../src/presets/converters/beat/drumSoundT
 import { VidtPresets } from "../../../../Shared/vidt-presets";
 import { BeatToNextWord } from "../../../src/presets/converters/beat/beatToNextWord";
 import { BeatToColor } from "../../../src/presets/converters/beat/beatToColor";
-import { DrumNotes, DrumSounds } from "../../config";
 import { presetChange } from "../../../src/presets/presets-logic";
 import { MidiChannelToMainDrum } from "../../../src/presets/converters/instruments/midiChannelToMainDrum";
 import { DrumSoundMap } from "../../../src/presets/converters/instruments/drumSoundMap";
+import { DrumNotes, DrumSounds } from "../../../../Shared/midi/types";
 
 export const drumCues = [
     {

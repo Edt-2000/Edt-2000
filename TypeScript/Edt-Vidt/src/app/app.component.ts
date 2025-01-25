@@ -2,9 +2,9 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
-import { VidtPresets } from '../../../Shared/vidt-presets';
 import { Actions$ } from '../../../Shared/actions/actions';
 import { SocketService } from './socket.service';
+import { VidtPresets } from '../../../Shared/vidt-presets';
 
 @Component({
     selector: 'app-root',
@@ -19,11 +19,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public ngOnInit() {
         if (!environment.solo) {
-            Actions$.prepareVidt
-                .pipe(takeUntil(this.destroyed))
-                .subscribe((preset: number) => {
-                    this.router.navigate([VidtPresets[preset]]);
-                });
+            Actions$.prepareVidt.pipe(takeUntil(this.destroyed)).subscribe((preset: VidtPresets) => {
+                this.router.navigate([VidtPresets[preset]]);
+            });
         }
     }
 

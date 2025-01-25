@@ -10,12 +10,13 @@ import {
     IPresetMsg,
     LaunchpadPage,
     LaunchpadPageChange,
+    LaunchpadPageIndex,
 } from './types';
-import { IColor } from '../colors/types';
-import { DrumSounds } from 'edt-sledt/config/config';
+import { IColor, IDrumSound } from '../colors/types';
 import { AnimationTypes } from '../vidt/animation';
 import { Sizes } from '../vidt/sizes';
 import { Shapes } from '../vidt/shapes';
+import { enumToArray } from '../utils/utils';
 
 // TODO: make Actions into a single observable object
 export const Actions = {
@@ -24,14 +25,16 @@ export const Actions = {
     presetState: (payload: IControlPresetMsg[]) =>
         createAction('presetState', payload),
     cueList: (payload: ICue[]) => createAction('cueList', payload),
-    vidtPresets: (payload: string[]) => createAction('vidtPresets', payload),
+    vidtPresets: (payload: (keyof typeof VidtPresets)[]) =>
+        createAction('vidtPresets', payload),
     prepareVidt: (payload: VidtPresets) => createAction('prepareVidt', payload),
 
     launchpadPageChange: (payload: LaunchpadPageChange) =>
         createAction('launchpadPageChange', payload),
+    launchpadPageIndex: (payload: LaunchpadPageIndex) =>
+        createAction('launchpadPageIndex', payload),
     launchpadPages: (payload: LaunchpadPage[]) =>
         createAction('launchpadPages', payload),
-
     // Assets
     contentGroups: (payload: ContentGroup[]) =>
         createAction('contentGroups', payload),
@@ -42,14 +45,15 @@ export const Actions = {
     mainText: (payload: string) => createAction('mainText', payload),
 
     // Effects
-    animationTypes: (payload: string[]) =>
+    animationTypes: (payload: (keyof typeof AnimationTypes)[]) =>
         createAction('animationTypes', payload),
     animationType: (payload: AnimationTypes) =>
         createAction('animationType', payload),
     shape: (payload: Shapes) => createAction('shape', payload),
-    shapes: (payload: string[]) => createAction('shapes', payload),
+    shapes: (payload: (keyof typeof Shapes)[]) =>
+        createAction('shapes', payload),
     size: (payload: Sizes) => createAction('size', payload),
-    sizes: (payload: string[]) => createAction('sizes', payload),
+    sizes: (payload: (keyof typeof Sizes)[]) => createAction('sizes', payload),
 
     // Subjects
     singleColor: (payload: IColor) => createAction('singleColor', payload),
@@ -63,7 +67,7 @@ export const Actions = {
     colorPalette: (payload: IColor[]) => createAction('colorPalette', payload),
 
     mainBeat: (payload: number) => createAction('mainBeat', payload),
-    mainDrumSound: (payload: DrumSounds) =>
+    mainDrumSound: (payload: IDrumSound) =>
         createAction('mainDrumSound', payload),
     mainDrum: (payload: IMidiNoteMsg) => createAction('mainDrum', payload),
     mainMelody: (payload: IMidiNoteMsg) => createAction('mainMelody', payload),
@@ -89,27 +93,28 @@ export const Actions$ = {
     presetChange: new Subject<IPresetMsg>(),
     presetState: new BehaviorSubject([] as IControlPresetMsg[]),
     cueList: new BehaviorSubject([] as ICue[]),
-    vidtPresets: new BehaviorSubject<string[]>([]),
-    prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.logo),
+    vidtPresets: new BehaviorSubject(enumToArray(VidtPresets)),
+    prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.karaoke),
 
     launchpadPageChange: new Subject<LaunchpadPageChange>(),
+    launchpadPageIndex: new BehaviorSubject<LaunchpadPageIndex>({}),
     launchpadPages: new BehaviorSubject<LaunchpadPage[]>([]),
 
     imageSrc: new BehaviorSubject(''),
     videoSrc: new BehaviorSubject(''),
 
     mainText: new BehaviorSubject('STROBOCOPS'),
-    contentGroups: new BehaviorSubject([] as ContentGroup[]),
     contentGroup: new BehaviorSubject(emptyContentGroup),
+    contentGroups: new BehaviorSubject([] as ContentGroup[]),
 
-    animationTypes: new BehaviorSubject<string[]>([]),
-    animationType: new BehaviorSubject<AnimationTypes>(AnimationTypes.bounce),
+    animationType: new BehaviorSubject(AnimationTypes.bounce),
+    animationTypes: new BehaviorSubject(enumToArray(AnimationTypes)),
 
     shape: new BehaviorSubject<Shapes>(Shapes.square),
-    shapes: new BehaviorSubject<string[]>([]),
+    shapes: new BehaviorSubject(enumToArray(Shapes)),
 
     size: new BehaviorSubject<Sizes>(Sizes.normal),
-    sizes: new BehaviorSubject<string[]>([]),
+    sizes: new BehaviorSubject(enumToArray(Sizes)),
 
     singleColor: new BehaviorSubject(blackColor),
     vidtSingleColor: new BehaviorSubject(blackColor),
@@ -118,7 +123,7 @@ export const Actions$ = {
     fastLedMultiColor: new BehaviorSubject([]),
     colorPalette: new BehaviorSubject<IColor[]>([]),
     mainBeat: new Subject<number>(),
-    mainDrumSound: new Subject<DrumSounds>(),
+    mainDrumSound: new Subject<IDrumSound>(),
     mainDrum: new Subject<IMidiNoteMsg>(),
     mainMelody: new Subject<IMidiNoteMsg>(),
     mainChords: new Subject<IMidiNoteMsg>(),
