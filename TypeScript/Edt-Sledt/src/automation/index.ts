@@ -1,4 +1,4 @@
-import { merge } from "rxjs";
+import { merge, tap } from "rxjs";
 import {
     imageSrcActions$,
     imageSrcCC$,
@@ -28,6 +28,10 @@ export const automationCCMessages$ = merge(
     wordCC$,
     prepareVidtCC$,
     animationTypeCC$,
+).pipe(
+    tap((automationCCMessage) => {
+        console.log("Sending automation:", automationCCMessage);
+    }),
 );
 
 export const automationActions$ = merge(

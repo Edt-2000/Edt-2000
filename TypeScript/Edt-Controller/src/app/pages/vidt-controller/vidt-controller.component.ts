@@ -3,6 +3,7 @@ import { SocketService } from '../../socket.service';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { AsyncPipe } from '@angular/common';
 import { PresetSwitchersComponent } from '../../components/preset-switchers/preset-switchers.component';
+import { VidtPresets } from '../../../../../Shared/vidt-presets';
 
 @Component({
   selector: 'app-vidt-controller',
@@ -34,4 +35,6 @@ export class VidtControllerComponent implements OnInit {
   public getBackgroundCss(image: string) {
     return `url('assets/media-by-group/${image}')`;
   }
+
+  protected readonly VidtPresets = VidtPresets;
 }

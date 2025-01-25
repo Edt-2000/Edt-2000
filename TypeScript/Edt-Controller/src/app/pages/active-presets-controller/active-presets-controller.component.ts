@@ -4,7 +4,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { mermaidOutput$ } from './mermaid';
-import { map, merge, Observable, startWith, switchMap, tap, timer } from 'rxjs';
+import { map, Observable, startWith, switchMap, tap, timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';

@@ -6,20 +6,23 @@ import { LaunchpadService } from './launchpad.service';
 import { IColor } from '../../../../../Shared/colors/types';
 import { SafeStyle } from '@angular/platform-browser';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
-import { combineLatest, map, tap } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { combineLatest, map } from 'rxjs';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Actions$ } from '../../../../../Shared/actions/actions';
+import { createFilledArray } from '../../../../../Shared/utils/utils';
 
 @Component({
   selector: 'app-launchpad-controller',
   templateUrl: './launchpad-controller.component.html',
   styleUrls: ['./launchpad-controller.component.scss'],
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, JsonPipe],
 })
 export class LaunchpadControllerComponent {
   triggerType = TriggerType;
   socket = inject(SocketService);
+
+  pages = createFilledArray(8);
 
   private route = inject(ActivatedRoute);
   private launchpad = inject(LaunchpadService);
@@ -29,7 +32,7 @@ export class LaunchpadControllerComponent {
   );
 
   launchpadNr$ = this.route.paramMap.pipe(
-    map((params) => Number(params.get('launchpadInstance')) || 0),
+    map((params) => Number(params.get('launchpadInstance')) || -1),
   );
 
   launchpadPage$ = combineLatest([
@@ -48,4 +51,6 @@ export class LaunchpadControllerComponent {
       return 'h' in color && 's' in color && 'b' in color;
     }
   }
+
+  protected readonly launchpadPages$ = Actions$.launchpadPages;
 }

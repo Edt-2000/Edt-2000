@@ -19,7 +19,7 @@
     <ul class='list'>
       @for (vidtPreset of (vidtPresets$ | async); track $index) {
         <li class='list__item'>
-          <button (click)='socket.sendVidtPreset(vidtPreset)' class='text-button'>
+          <button (click)='socket.sendVidtPreset(VidtPresets[vidtPreset])' class='text-button'>
             {{ vidtPreset }}
           </button>
         </li>

@@ -1,17 +1,15 @@
+import { combineLatest, map, Observable } from "rxjs";
+import { VidtPresets } from "../../Shared/vidt-presets";
+import { blackColor } from "../../Shared/colors/utils";
+import { IColor } from "../../Shared/colors/types";
+import { Shapes } from "../../Shared/vidt/shapes";
+import { Actions, Actions$ } from "../../Shared/actions/actions";
 import {
     LaunchpadColor,
     LaunchpadPage,
     LaunchpadTrigger,
     TriggerType,
 } from "../../Shared/actions/types";
-import { Actions, Actions$ } from "../../Shared/actions/actions";
-import { combineLatest, map, Observable } from "rxjs";
-import { VidtPresets } from "../../Shared/vidt-presets";
-import { AnimationTypes } from "../../Shared/vidt/animation";
-import { blackColor } from "../../Shared/colors/utils";
-import { IColor } from "../../Shared/colors/types";
-import { Shapes } from "../../Shared/vidt/shapes";
-import { Sizes } from "../../Shared/vidt/sizes";
 
 export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
     combineLatest([
@@ -28,15 +26,15 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
             [vidtPresets, colorPalette, shapes, sizes, animationTypes],
             [contentGroup, contentGroups],
         ]) => {
-            const cg = contentGroups.map((group) => ({
-                color: LaunchpadColor.red,
-                title: group.title,
-                triggerType: TriggerType.text,
-                payload: group.songNr,
-                triggerAction: Actions.contentGroup(
-                    contentGroups.find((g) => g.songNr === group.songNr),
-                ),
-            }));
+            const cg = contentGroups.map((group) => {
+                return {
+                    color: LaunchpadColor.red,
+                    title: group.title,
+                    triggerType: TriggerType.text,
+                    payload: group.songNr,
+                    triggerAction: Actions.contentGroup(group),
+                };
+            });
             return [
                 toLaunchpadPage("Vidt", [
                     vidtPresets.map((preset) => ({
@@ -61,7 +59,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                             color: LaunchpadColor.amber,
                             title: size,
                             triggerType: TriggerType.text,
-                            triggerAction: Actions.size(Sizes[size]),
+                            triggerAction: Actions.size(size),
                         })),
                     ],
                     [1, 3, 5, 7, 9].map((intensity) => ({
@@ -74,9 +72,7 @@ export const launchpadPages$: Observable<LaunchpadPage[]> = combineLatest([
                         color: LaunchpadColor.amber,
                         title: type,
                         triggerType: TriggerType.text,
-                        triggerAction: Actions.animationType(
-                            AnimationTypes[type],
-                        ),
+                        triggerAction: Actions.animationType(type),
                     })),
                 ]),
                 toLaunchpadPage("Colors", [
@@ -180,7 +176,7 @@ function toLaunchpadPage(
     return { title, triggers: rows.map((row) => [...chunk(row, 8)]).flat() };
 }
 
-function chunk(arr, n) {
+function chunk<T>(arr: T[], n: number): T[][] {
     return arr && arr.length
         ? [arr.slice(0, n), ...chunk(arr.slice(n), n)]
         : [];

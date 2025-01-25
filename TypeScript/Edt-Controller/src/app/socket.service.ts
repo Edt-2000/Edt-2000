@@ -27,10 +27,8 @@ export class SocketService {
     });
   }
 
-  sendVidtPreset(preset: string) {
-    this.toSledt(
-      Actions.prepareVidt(VidtPresets[preset as keyof typeof VidtPresets]),
-    );
+  sendVidtPreset(preset: VidtPresets) {
+    this.toSledt(Actions.prepareVidt(preset));
   }
 
   sendBeat(velocity: number) {
@@ -96,6 +94,10 @@ export class SocketService {
   sendLaunchpadTrigger(launchpadTrigger: LaunchpadTrigger) {
     if (launchpadTrigger.triggerAction)
       this.toSledt(launchpadTrigger.triggerAction);
+  }
+
+  sendLaunchpadPageChange(launchpad: number, page: number) {
+    this.toSledt(Actions.launchpadPageChange({ launchpad, page }));
   }
 
   private toSledt(message: Actions) {

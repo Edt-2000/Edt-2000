@@ -11,6 +11,7 @@ export class LaunchpadService {
   ]).pipe(
     scan(
       (pageState, [{ launchpad, page }, pages]) => {
+        console.log(pageState, page);
         pageState.set(launchpad, pages[page]);
         return pageState;
       },

@@ -19,11 +19,18 @@ export class AppComponent {
   pages = pages
     .map((page) => {
       if (page.text === 'Launchpad') {
-        return { text: 'Launchpad 0', path: 'launchpad-controller/0' };
+        return {
+          text: 'Virtual Launchpad',
+          path: 'launchpad-controller/-1',
+        };
       }
       return page;
     })
     .concat([
+      {
+        text: 'Launchpad 0',
+        path: 'launchpad-controller/0',
+      },
       {
         text: 'Launchpad 1',
         path: 'launchpad-controller/1',
