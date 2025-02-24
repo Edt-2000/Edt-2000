@@ -21,6 +21,17 @@ export class ColorGlitchComponent {
             .subscribe((color: IColor) => {
                 this.setColors(color, ColorHelper.getContraColor(color));
             });
+
+
+        Actions$.vidtMultiColor
+            .pipe(takeUntil(this.destroyed))
+            .subscribe((colors: IColor[]) => {
+                if (colors.length > 1) {
+                    this.setColors(colors[0], colors[colors.length]);
+                } else if (colors.length === 1) {
+                    this.setColors(colors[0], ColorHelper.getContraColor(colors[0]));
+                }
+            });
     }
 
     public ngOnDestroy() {

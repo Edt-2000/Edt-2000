@@ -20,6 +20,11 @@ export class ColorBackgroundComponent {
             .subscribe((color: IColor) => {
                 this.setStyles([color]);
             });
+
+        Actions$.vidtMultiColor.pipe(takeUntil(this.destroyed))
+            .subscribe((colors: IColor[]) => {
+                this.setStyles([colors[0]]);
+            });
     }
 
     public setStyles(colors: IColor[]) {
