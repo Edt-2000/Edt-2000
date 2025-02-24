@@ -1,9 +1,9 @@
-@if (launchpadNr$ | async; as launchpadNr) {
+@if ((launchpadNr$ | async); as launchpadNr) {
   @for (page of pages; track $index) {
     <div class=''>
       <button
         (click)='socket.sendLaunchpadPageChange(launchpadNr, page)'
-        class=''
+        style='color: white'
       >
         {{ page }}
       </button>

@@ -1,7 +1,7 @@
 import {
-    Actions,
-    Actions$,
-    nextActionFromMsg,
+  Actions,
+  Actions$,
+  nextActionFromMsg,
 } from "../../Shared/actions/actions";
 import { presets } from "../config/presets";
 import { scannedContentGroups } from "./media/asset-scan-dir";
@@ -23,14 +23,14 @@ import { MultiColorToVidtMultiColor } from "./presets/outputs/vidt/multiColorToV
 
 // Main logic: start or stop presets based on presetChanges
 Actions$.presetChange.subscribe(({ modifier, preset, state }) => {
-    if (!presets[preset]) {
-        return;
-    }
-    if (state) {
-        presets[preset].startPreset(modifier);
-    } else {
-        presets[preset].stopPreset();
-    }
+  if (!presets[preset]) {
+    return;
+  }
+  if (state) {
+    presets[preset].startPreset(modifier);
+  } else {
+    presets[preset].stopPreset();
+  }
 });
 
 // Connect to MIDI output/inputs for automation
@@ -45,58 +45,58 @@ nextActionFromMsg(Actions.presetState(getPresetState()));
 nextActionFromMsg(Actions.cueList(presetCues));
 nextActionFromMsg(Actions.contentGroups(scannedContentGroups));
 if (scannedContentGroups[0]) {
-    nextActionFromMsg(Actions.contentGroup(scannedContentGroups[0]));
-    if (scannedContentGroups[0].colorPalettes) {
-        nextActionFromMsg(
-            Actions.colorPalette(scannedContentGroups[0].colorPalettes[0]),
-        );
-    }
+  nextActionFromMsg(Actions.contentGroup(scannedContentGroups[0]));
+  if (scannedContentGroups[0].colorPalettes) {
+    nextActionFromMsg(
+      Actions.colorPalette(scannedContentGroups[0].colorPalettes[0]),
+    );
+  }
 }
 
 // The launchpad pages are dependent on many changing variables so it's build as an observable
 launchpadPages$.subscribe((pages) =>
-    nextActionFromMsg(Actions.launchpadPages(pages)),
+  nextActionFromMsg(Actions.launchpadPages(pages)),
 );
 
 console.log("GO GO GO!");
 
 merge(
-    connectedControllers$,
-    connectedVidt$,
-    connectedLaunchpad$,
-    connectedThomas$,
+  connectedControllers$,
+  connectedVidt$,
+  connectedLaunchpad$,
+  connectedThomas$,
 ).subscribe((connectedDevice) =>
-    console.log("Connected device: ", connectedDevice),
+  console.log("Connected device: ", connectedDevice),
 );
 Actions$.contentGroup.subscribe((contentGroup) =>
-    console.log("ContentGroup selected:", contentGroup.title),
+  console.log("ContentGroup selected:", contentGroup.title),
 );
 Actions$.singleColor.subscribe((color) =>
-    console.log("Color - Single: ", color),
+  console.log("Color - Single: ", color),
 );
 Actions$.multiColor.subscribe((color) => console.log("Color - Multi:", color));
 Actions$.vidtSingleColor.subscribe((color) =>
-    console.log("ColorVidt - Single: ", color),
+  console.log("ColorVidt - Single: ", color),
 );
 Actions$.vidtMultiColor.subscribe((color) =>
-    console.log("ColorVidt - Multi: ", color),
+  console.log("ColorVidt - Multi: ", color),
 );
 Actions$.prepareVidt.subscribe((vidtPreset) =>
-    console.log("Vidt change:", vidtPreset),
+  console.log("Vidt change:", vidtPreset),
 );
 Actions$.presetState.subscribe((presetState) => {
-    console.log(
-        "Presets active: ",
-        presetState
-            .filter(({ state }) => state)
-            .map(({ title, modifier }) => title + ` (${modifier})`),
-    );
+  console.log(
+    "Presets active: ",
+    presetState
+      .filter(({ state }) => state)
+      .map(({ title, modifier }) => title + ` (${modifier})`),
+  );
 });
 
 // Trigger some initial cues
 [
-    presetChange(new ColorToVidtColor(), 127, true),
-    presetChange(new BeatToColor(), 127, true),
-    presetChange(new FastLedMultiColorToMultiColor(), 127, true),
-    presetChange(new MultiColorToVidtMultiColor(), 127, true),
+  presetChange(new ColorToVidtColor(), 127, true),
+  presetChange(new BeatToColor(), 127, true),
+  presetChange(new FastLedMultiColorToMultiColor(), 127, true),
+  presetChange(new MultiColorToVidtMultiColor(), 127, true),
 ].map(nextActionFromMsg);

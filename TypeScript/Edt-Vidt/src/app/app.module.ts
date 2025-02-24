@@ -22,7 +22,7 @@ import { PhotoBlocksComponent } from './views/photo-blocks/photo-blocks.componen
 import { PhotoBouncerComponent } from './views/photo-bouncer/photo-bouncer.component';
 import { PhotoGlitcherComponent } from './views/photo-glitcher/photo-glitcher.component';
 import { TextBouncerComponent } from './views/text-bouncer/text-bouncer.component';
-import { NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -47,7 +47,7 @@ import { NgOptimizedImage } from '@angular/common';
         WheelComponent,
         TextBouncerComponent,
     ],
-    imports: [BrowserModule, AppRoutingModule, NgOptimizedImage],
+    imports: [BrowserModule, AppRoutingModule, NgOptimizedImage, AsyncPipe, AsyncPipe, AsyncPipe],
     providers: [],
     bootstrap: [AppComponent],
 })

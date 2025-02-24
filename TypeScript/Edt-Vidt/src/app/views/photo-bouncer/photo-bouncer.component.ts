@@ -54,11 +54,11 @@ export class PhotoBouncerComponent implements OnInit, OnDestroy {
     };
 
     private animationsConfig = {
-        bounce: {
+        [AnimationTypes.bounce]: {
             easing: 'linear',
             duration: 200,
         },
-        mirror: {
+        [AnimationTypes.mirror]: {
             easing: 'linear',
             // fill: 'forwards',
             duration: 600,

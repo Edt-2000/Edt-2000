@@ -1,5 +1,6 @@
 export enum Shapes {
-    circle = 'circle',
-    square = 'square',
-    triangle = 'triangle',
+  ___EMPTY___,
+  circle,
+  square,
+  triangle,
 }

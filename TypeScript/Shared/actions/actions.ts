@@ -42,13 +42,14 @@ export const Actions = {
   mainText: (payload: string) => createAction('mainText', payload),
 
   // Effects
-  animationTypes: (payload: AnimationTypes[]) =>
+  animationTypes: (payload: (keyof typeof AnimationTypes)[]) =>
     createAction('animationTypes', payload),
-  animationType: (payload: string) => createAction('animationType', payload),
+  animationType: (payload: AnimationTypes) =>
+    createAction('animationType', payload),
   shape: (payload: Shapes) => createAction('shape', payload),
-  shapes: (payload: Shapes[]) => createAction('shapes', payload),
-  size: (payload: string) => createAction('size', payload),
-  sizes: (payload: Sizes[]) => createAction('sizes', payload),
+  shapes: (payload: (keyof typeof Shapes)[]) => createAction('shapes', payload),
+  size: (payload: Sizes) => createAction('size', payload),
+  sizes: (payload: (keyof typeof Sizes)[]) => createAction('sizes', payload),
 
   // Subjects
   singleColor: (payload: IColor) => createAction('singleColor', payload),
@@ -98,17 +99,17 @@ export const Actions$ = {
   videoSrc: new BehaviorSubject(''),
 
   mainText: new BehaviorSubject('STROBOCOPS'),
-  contentGroups: new BehaviorSubject([] as ContentGroup[]),
   contentGroup: new BehaviorSubject(emptyContentGroup),
+  contentGroups: new BehaviorSubject([] as ContentGroup[]),
 
-  animationType: new BehaviorSubject<AnimationTypes>(AnimationTypes.bounce),
-  animationTypes: new BehaviorSubject<string[]>(enumToArray(AnimationTypes)),
+  animationType: new BehaviorSubject(AnimationTypes.bounce),
+  animationTypes: new BehaviorSubject(enumToArray(AnimationTypes)),
 
   shape: new BehaviorSubject<Shapes>(Shapes.square),
-  shapes: new BehaviorSubject<Shapes[]>(enumToArray(Shapes) as Shapes[]),
+  shapes: new BehaviorSubject(enumToArray(Shapes)),
 
   size: new BehaviorSubject<Sizes>(Sizes.normal),
-  sizes: new BehaviorSubject<string[]>(enumToArray(Sizes)),
+  sizes: new BehaviorSubject(enumToArray(Sizes)),
 
   singleColor: new BehaviorSubject(blackColor),
   vidtSingleColor: new BehaviorSubject(blackColor),

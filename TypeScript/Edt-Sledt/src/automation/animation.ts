@@ -5,16 +5,14 @@ import { AnimationTypes } from "../../../Shared/vidt/animation";
 import { filter, map } from "rxjs";
 
 export const animationTypeCC$ = Actions$.animationType.pipe(
-    map((type) => ({
-        channel: automationChannel,
-        controller: animationTypeCCNumber,
-        value: Object.keys(AnimationTypes).indexOf(type),
-    })),
+  map((type) => ({
+    channel: automationChannel,
+    controller: animationTypeCCNumber,
+    value: type,
+  })),
 );
 
 export const animationTypeActions$ = midiCCAutomation$.pipe(
-    filter((msg) => msg.controller === animationTypeCCNumber),
-    map(({ value: type }) =>
-        Actions.animationType(AnimationTypes[AnimationTypes[type]]),
-    ),
+  filter((msg) => msg.controller === animationTypeCCNumber),
+  map(({ value: type }) => Actions.animationType(type)),
 );

@@ -6,7 +6,7 @@ import { LaunchpadService } from './launchpad.service';
 import { IColor } from '../../../../../Shared/colors/types';
 import { SafeStyle } from '@angular/platform-browser';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
-import { combineLatest, map } from 'rxjs';
+import { combineLatest, filter, map, tap } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { createFilledArray } from '../../../../../Shared/utils/utils';
@@ -24,21 +24,25 @@ export class LaunchpadControllerComponent {
 
   pages = createFilledArray(8);
 
-  private route = inject(ActivatedRoute);
-  private launchpad = inject(LaunchpadService);
+  route = inject(ActivatedRoute);
+  launchpad = inject(LaunchpadService);
 
   $songTitle = Actions$.contentGroup.pipe(
     map((contentGroup) => contentGroup.title),
   );
 
   launchpadNr$ = this.route.paramMap.pipe(
-    map((params) => Number(params.get('launchpadInstance')) || -1),
+    map((params) => Number(params.get('launchpadInstance'))),
+    filter((instance) => typeof instance === 'number' && !isNaN(instance)),
   );
 
   launchpadPage$ = combineLatest([
     this.launchpad.activeLaunchpads$,
     this.launchpadNr$,
-  ]).pipe(map(([launchpads, launchpadNr]) => launchpads.get(launchpadNr)));
+  ]).pipe(
+    tap(([padMap, padNr]) => console.log('Let op!', padMap, padNr)),
+    map(([launchpads, launchpadNr]) => launchpads.get(launchpadNr)),
+  );
 
   getColorString(colors: IColor[] | any): SafeStyle {
     if (colors.every(isColorType)) {
@@ -51,6 +55,4 @@ export class LaunchpadControllerComponent {
       return 'h' in color && 's' in color && 'b' in color;
     }
   }
-
-  protected readonly launchpadPages$ = Actions$.launchpadPages;
 }
