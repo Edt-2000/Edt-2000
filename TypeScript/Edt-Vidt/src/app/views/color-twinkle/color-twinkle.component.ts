@@ -22,6 +22,11 @@ export class ColorTwinkleComponent implements OnInit, OnDestroy {
         Actions$.vidtSingleColor.pipe(takeUntil(this.destroyed)).subscribe((item) => {
             this.setStyles(item);
         });
+
+        Actions$.vidtMultiColor.pipe(takeUntil(this.destroyed))
+            .subscribe((colors: IColor[]) => {
+                this.setStyles(colors[0]);
+            });
     }
 
     public ngOnDestroy() {
