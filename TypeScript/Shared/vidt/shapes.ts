@@ -1,5 +1,5 @@
 export enum Shapes {
-  ___EMPTY___,
+  ____EMPTY____,
   circle,
   square,
   triangle,

@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { TriggerType } from '../../../../../Shared/actions/types';
 import { SocketService } from '../../socket.service';
 import { LaunchpadService } from './launchpad.service';
 import { IColor } from '../../../../../Shared/colors/types';
 import { SafeStyle } from '@angular/platform-browser';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
-import { combineLatest, filter, map, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { createFilledArray } from '../../../../../Shared/utils/utils';
@@ -24,24 +23,22 @@ export class LaunchpadControllerComponent {
 
   pages = createFilledArray(8);
 
-  route = inject(ActivatedRoute);
   launchpad = inject(LaunchpadService);
+
+  flipOrder$ = new BehaviorSubject(false);
+
+  launchpads$ = combineLatest([
+    this.launchpad.activeLaunchpads$,
+    this.flipOrder$,
+  ]).pipe(
+    map(([pads, flipOrder]) => {
+      console.log(pads, flipOrder);
+      return [...(flipOrder ? pads.reverse() : pads)];
+    }),
+  );
 
   $songTitle = Actions$.contentGroup.pipe(
     map((contentGroup) => contentGroup.title),
-  );
-
-  launchpadNr$ = this.route.paramMap.pipe(
-    map((params) => Number(params.get('launchpadInstance'))),
-    filter((instance) => typeof instance === 'number' && !isNaN(instance)),
-  );
-
-  launchpadPage$ = combineLatest([
-    this.launchpad.activeLaunchpads$,
-    this.launchpadNr$,
-  ]).pipe(
-    tap(([padMap, padNr]) => console.log('Let op!', padMap, padNr)),
-    map(([launchpads, launchpadNr]) => launchpads.get(launchpadNr)),
   );
 
   getColorString(colors: IColor[] | any): SafeStyle {
@@ -54,5 +51,10 @@ export class LaunchpadControllerComponent {
     function isColorType(color: IColor | any): color is IColor {
       return 'h' in color && 's' in color && 'b' in color;
     }
+  }
+
+  flip() {
+    const flipVal = this.flipOrder$.getValue();
+    this.flipOrder$.next(!flipVal);
   }
 }

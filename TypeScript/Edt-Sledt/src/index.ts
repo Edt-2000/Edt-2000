@@ -12,7 +12,7 @@ import { presetMidiMsg$ } from "./automation/presets";
 import { getPresetState, presetChange } from "./presets/presets-logic";
 import { launchpadPages$ } from "../config/launchpad";
 import { connectedControllers$ } from "./io/edt-controller";
-import { merge } from "rxjs";
+import { merge, combineLatest, withLatestFrom } from "rxjs";
 import { connectedVidt$ } from "./io/edt-vidt";
 import { connectedLaunchpad$ } from "./io/edt-launchpad";
 import { connectedThomas$ } from "./io/edt-homas";
@@ -57,6 +57,19 @@ if (scannedContentGroups[0]) {
 launchpadPages$.subscribe((pages) =>
   nextActionFromMsg(Actions.launchpadPages(pages)),
 );
+
+// Our launchpadPageIndex is build from the connectedLaunchpads and pageChangeEvents
+combineLatest([Actions$.launchpadPageChange, connectedLaunchpad$])
+  .pipe(withLatestFrom(Actions$.launchpadPageIndex))
+  .subscribe(([[pageChange, connectedPads], pageIndex]) => {
+    pageIndex[pageChange.launchpad] = pageChange.page;
+
+    Object.keys(pageIndex).forEach((key) => {
+      if (!connectedPads.includes(key)) delete pageIndex[key];
+    });
+
+    nextActionFromMsg(Actions.launchpadPageIndex(pageIndex));
+  });
 
 console.log("GO GO GO!");
 

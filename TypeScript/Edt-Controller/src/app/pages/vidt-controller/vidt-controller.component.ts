@@ -27,6 +27,7 @@ export class VidtControllerComponent implements OnInit {
     { label: 'high', value: 7 },
     { label: 'bezerk', value: 9 },
   ];
+  protected readonly VidtPresets = VidtPresets;
 
   constructor(public socket: SocketService) {}
 
@@ -35,6 +36,4 @@ export class VidtControllerComponent implements OnInit {
   public getBackgroundCss(image: string) {
     return `url('assets/media-by-group/${image}')`;
   }
-
-  protected readonly VidtPresets = VidtPresets;
 }

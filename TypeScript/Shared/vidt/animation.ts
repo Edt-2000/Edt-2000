@@ -1,5 +1,5 @@
 export enum AnimationTypes {
-  ___EMPTY___,
+  ____EMPTY____,
   bounce,
   rotate,
   spin,

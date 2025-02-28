@@ -10,6 +10,7 @@ import {
   IPresetMsg,
   LaunchpadPage,
   LaunchpadPageChange,
+  LaunchpadPageIndex,
 } from './types';
 import { IColor } from '../colors/types';
 import { DrumSounds } from 'edt-sledt/config/config';
@@ -30,6 +31,8 @@ export const Actions = {
 
   launchpadPageChange: (payload: LaunchpadPageChange) =>
     createAction('launchpadPageChange', payload),
+  launchpadPageIndex: (payload: LaunchpadPageIndex) =>
+    createAction('launchpadPageIndex', payload),
   launchpadPages: (payload: LaunchpadPage[]) =>
     createAction('launchpadPages', payload),
   // Assets
@@ -93,6 +96,7 @@ export const Actions$ = {
   prepareVidt: new BehaviorSubject<VidtPresets>(VidtPresets.karaoke),
 
   launchpadPageChange: new Subject<LaunchpadPageChange>(),
+  launchpadPageIndex: new BehaviorSubject<LaunchpadPageIndex>({}),
   launchpadPages: new BehaviorSubject<LaunchpadPage[]>([]),
 
   imageSrc: new BehaviorSubject(''),

@@ -96,7 +96,7 @@ export class SocketService {
       this.toSledt(launchpadTrigger.triggerAction);
   }
 
-  sendLaunchpadPageChange(launchpad: number, page: number) {
+  sendLaunchpadPageChange(launchpad: string, page: number) {
     this.toSledt(Actions.launchpadPageChange({ launchpad, page }));
   }
 
