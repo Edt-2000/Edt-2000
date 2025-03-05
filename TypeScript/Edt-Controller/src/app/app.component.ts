@@ -5,44 +5,37 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { pages } from './app.routes';
 import { SocketService } from './socket.service';
+import { Actions$ } from '../../../Shared/actions/actions';
+import { map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { pages } from './app.routes';
 
 @Component({
   standalone: true,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [RouterLink, RouterOutlet, RouterLinkActive],
+  imports: [RouterLink, RouterOutlet, RouterLinkActive, AsyncPipe],
 })
 export class AppComponent {
-  pages = pages
-    .map((page) => {
-      if (page.text === 'Launchpad') {
-        return {
-          text: 'Virtual Launchpad',
-          path: 'launchpad-controller/-1',
-        };
-      }
-      return page;
-    })
-    .concat([
-      {
-        text: 'Launchpad 0',
-        path: 'launchpad-controller/0',
-      },
-      {
-        text: 'Launchpad 1',
-        path: 'launchpad-controller/1',
-      },
-      {
-        text: 'Launchpad 2',
-        path: 'launchpad-controller/2',
-      },
-    ]);
+  pages$ = Actions$.launchpadPageIndex.pipe(
+    map((pageIndex) => Object.entries(pageIndex).map(([key]) => key)),
+    map((ids) => {
+      const launchpadPages = ids.map((id) => ({
+        title: `Launchpad: ${id}`,
+        path: `launchpad-controller/${id}`,
+      }));
+      return pages.concat(launchpadPages);
+    }),
+  );
 
   constructor(
     public socket: SocketService,
     public router: Router,
   ) {}
+
+  $songTitle = Actions$.contentGroup.pipe(
+    map((contentGroup) => contentGroup.title),
+  );
 }
