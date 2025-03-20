@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AnimationTypes } from '../../../../../Shared/vidt/animation';
 import { Actions$ } from '../../../../../Shared/actions/actions';
@@ -9,7 +9,7 @@ import { Actions$ } from '../../../../../Shared/actions/actions';
     styleUrl: './photo-bouncer.component.scss',
     encapsulation: ViewEncapsulation.None,
 })
-export class PhotoBouncerComponent implements OnInit, OnDestroy {
+export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
     public animation?: Animation;
     public src: string = '';
 
@@ -65,17 +65,20 @@ export class PhotoBouncerComponent implements OnInit, OnDestroy {
         },
     };
 
-    @ViewChild('img') imgRef?: ElementRef<HTMLImageElement>;
+    @ViewChild('image') imgRef?: ElementRef<HTMLImageElement>;
 
-    public ngOnInit() {
+
+    public ngAfterViewInit() {
         this.setAnimation(AnimationTypes.bounce);
 
-        Actions$.animationType.pipe(takeUntil(this.destroyed)).subscribe((animation) => {
-            if (animation !== this.currentAnimation) {
-                this.setAnimation(animation);
-            }
-        });
+        // Actions$.animationType.pipe(takeUntil(this.destroyed)).subscribe((animation) => {
+        //     if (animation !== this.currentAnimation) {
+        //         this.setAnimation(animation);
+        //     }
+        // });
+    }
 
+    public ngOnInit() {
         Actions$.mainBeat.pipe(takeUntil(this.destroyed)).subscribe(() => {
             this.animate();
         });
