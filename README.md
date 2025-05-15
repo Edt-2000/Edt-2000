@@ -1,3 +1,5 @@
+As this is quite a complex project, we added deepkwik support: [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Edt-2000/Edt-2000)
+
 # Edt-2000
 
 The `Edt-2000` is a long-running project created to make live music performances more interesting and interactive. Originally only based around a Gametrak controller, it has evolved into a large collection of code that communicates with each other through various (open source) protocols to create a light/visual show that is mostly directly controlled by the music itself. The code is open source and free for anyone to use, but not yet optimized or setup in a way for non-experienced programmers to easily extend or use without at least some knowledge of Javascript.
