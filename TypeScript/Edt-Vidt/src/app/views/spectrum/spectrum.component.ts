@@ -1,5 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { map, Observable, startWith, Subject } from 'rxjs';
+import { map, Observable, startWith, Subject, withLatestFrom } from 'rxjs';
 import { Actions$ } from '../../../../../Shared/actions/actions';
 import { ColorHelper } from '../../../../../Shared/colors/converters';
 import { createFilledArray } from '../../../../../Shared/utils/utils';
@@ -33,8 +33,9 @@ export class SpectrumComponent implements OnInit, OnDestroy {
 
     public subbars$: Observable<{rgb: number[]}[]> =
         Actions$.vidtMultiColor.pipe(
-            map((colors) => {
-                if (!colors || colors.length === 0) {
+            withLatestFrom(this.modifier$),
+            map(([colors, modifier]) => {
+                if (!colors || colors.length === 0 || modifier === 'spectrum--lava') {
                     return [
                         { rgb: [165, 42 ,42] },
                         { rgb: [255,140,0] },
