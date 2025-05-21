@@ -1,0 +1,16 @@
+<div class="circles">
+    @for (circle of circles; track circleIndex; let circleIndex = $index) {
+        <div class="circles__pool">
+            @if ((subCircles$ | async); as subcircles) {
+                @for (subcircle of subcircles; track index; let index = $index) {
+                    <div class="circles__circle"
+                         [style.--circle-rgb]="subcircle.rgb.join(',')"
+                         [style.--circle-animation-duration]="((baseTime$ | async) ?? 2) + 's'"
+                         [style.--circle-animation-delay]="(circleIndex / 2) + ($index / 1.2) + 's'"
+
+                    ></div>
+                }
+            }
+        </div>
+    }
+</div>

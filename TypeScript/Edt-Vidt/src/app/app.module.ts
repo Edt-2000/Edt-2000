@@ -24,6 +24,7 @@ import { TextBouncerComponent } from './views/text-bouncer/text-bouncer.componen
 import { VideoPlayerComponent } from './views/video-player/video-player.component';
 import { VistaComponent } from './views/vista/vista.component';
 import { WheelComponent } from './views/wheel/wheel.component';
+import { CirclesComponent } from './views/circles/circles.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { WheelComponent } from './views/wheel/wheel.component';
         WheelComponent,
         TextBouncerComponent,
         SpectrumComponent,
+        CirclesComponent,
     ],
     imports: [BrowserModule, AppRoutingModule, NgOptimizedImage],
     providers: [],

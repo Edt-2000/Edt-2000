@@ -1,0 +1,72 @@
+:root {
+    --circle-rgb: 165, 42 ,42;
+    --circle-animation-duration: 2s;
+    --circle-animation-delay: 0s;
+}
+
+.circles {
+    height: 100vh;
+    width: 100vw;
+
+    &__pool {
+        aspect-ratio: 1/1;
+        display: grid;
+        position: absolute;
+        width: 50vw;
+
+        &:nth-child(1) {
+            left: 2vw;
+            top: 2vh;
+        }
+
+        &:nth-child(2) {
+            right: 2vw;
+            top: 4vh;
+        }
+
+        &:nth-child(3) {
+            left: 35vw;
+            top: 35vh;
+        }
+
+        &:nth-child(4) {
+            bottom: 4vh;
+            left: 3vh;
+        }
+
+        &:nth-child(5) {
+            bottom: 2vh;
+            right: 2vh;
+        }
+    }
+
+    &__circle {
+        animation: circle var(--circle-animation-duration) linear infinite;
+        animation-delay: var(--circle-animation-delay);
+        aspect-ratio: 1/1;
+        border: 3vh solid rgb(var(--circle-rgb));
+        border-radius: 50%;
+        grid-area: 1 / 1;
+        scale: 0;
+        transform-origin: center center;
+        width: 100%;
+    }
+
+
+}
+
+@keyframes circle {
+    0% {
+        opacity: 1;
+        scale: 0;
+    }
+
+    80% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+        scale: 1
+    }
+}
