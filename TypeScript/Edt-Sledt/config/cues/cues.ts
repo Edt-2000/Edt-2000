@@ -12,8 +12,8 @@ const colorCues = [
         actions: [
             presetChange(new ColorToVidtColor(), 127, true),
             presetChange(new BeatToColor(), 127, true),
-            presetChange(new FastLedMultiColorToMultiColor(), 127, true),
             presetChange(new MultiColorToVidtMultiColor(), 127, true),
+            presetChange(new FastLedMultiColorToMultiColor(), 127, true),
         ],
     },
 ];

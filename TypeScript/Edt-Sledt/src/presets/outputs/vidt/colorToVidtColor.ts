@@ -34,11 +34,6 @@ export class ColorToVidtColor extends PresetLogic {
                 nextActionFromMsg(Actions.vidtSingleColor(newColor));
             }),
         );
-        this.addSub(
-            Actions$.multiColor.subscribe((color) => {
-                nextActionFromMsg(Actions.vidtMultiColor(color));
-            }),
-        );
     }
 
     protected _stopPreset(): void {}
