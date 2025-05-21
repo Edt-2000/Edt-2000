@@ -60,6 +60,11 @@ launchpadPages$.subscribe((pages) =>
     nextActionFromMsg(Actions.launchpadPages(pages)),
 );
 
+// Convert colorPalettes into multiColor (for now)
+Actions$.colorPalette.subscribe((colors) =>
+    nextActionFromMsg(Actions.multiColor(colors)),
+);
+
 // Our launchpadPageIndex is build from the connectedLaunchpads and pageChangeEvents
 combineLatest([Actions$.launchpadPageChange, connectedLaunchpad$])
     .pipe(withLatestFrom(Actions$.launchpadPageIndex))
