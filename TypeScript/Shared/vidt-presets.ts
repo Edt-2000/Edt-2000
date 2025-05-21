@@ -1,6 +1,7 @@
 export enum VidtPresets {
     ____EMPTY____,
     bluescreen,
+    circles,
     color,
     colorBlocks,
     colorGlitch,

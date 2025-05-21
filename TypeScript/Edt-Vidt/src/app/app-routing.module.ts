@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SpectrumComponent } from 'app/views/spectrum/spectrum.component';
 import { VidtPresets } from '../../../Shared/vidt-presets';
 import { BluescreenComponent } from './views/bluescreen/bluescreen.component';
+import { CirclesComponent } from './views/circles/circles.component';
 import { ColorBlocksComponent } from './views/color-blocks/color-blocks.component';
 import { ColorTwinkleComponent } from './views/color-twinkle/color-twinkle.component';
 import { ColorGlitchComponent } from './views/color-glitch/color-glitch.component';
@@ -30,6 +31,10 @@ const routes: Routes = [
     {
         path: VidtPresets[VidtPresets.bluescreen],
         component: BluescreenComponent,
+    },
+    {
+        path: VidtPresets[VidtPresets.circles],
+        component: CirclesComponent,
     },
     {
         path: VidtPresets[VidtPresets.colorBlocks],
