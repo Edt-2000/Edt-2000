@@ -5,7 +5,7 @@ export const enum DeviceIPs {
     edtSpectacle = "10.0.0.99",
     edtBackdrop = "10.0.0.21:80",
     edtFrontleds = "10.0.0.22:80",
-    edtPowerBar = "10.0.0.128:80",
+    edtPowerBar = "10.0.0.30:80",
 }
 
 export const OSCInPort = 12346;

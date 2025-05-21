@@ -78,6 +78,7 @@ export enum ModifierGroup {
     RGBLED,
     FastLED,
     Melody,
+    PowerBar,
     Beat,
     Midi,
     Bass,

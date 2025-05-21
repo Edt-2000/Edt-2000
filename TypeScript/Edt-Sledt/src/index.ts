@@ -22,6 +22,7 @@ import { FastLedMultiColorToMultiColor } from "./presets/outputs/vidt/fastLedMul
 import { MultiColorToVidtMultiColor } from "./presets/outputs/vidt/multiColorToVidtMultiColor";
 import { frontLedsConnected$ } from "./io/edt-frontleds";
 import { backdropConnected$ } from "./io/edt-backdrop";
+import { powerBarConnected$ } from "./io/edt-powerbar";
 
 // Main logic: start or stop presets based on presetChanges
 Actions$.presetChange.subscribe(({ modifier, preset, state }) => {
@@ -89,6 +90,7 @@ merge(
     console.log("Connected device: ", connectedDevice),
 );
 
+powerBarConnected$.subscribe((log) => console.log("POWERBAR CONNECTED:", log));
 backdropConnected$.subscribe((log) => console.log("BACKDROP CONNECTED:", log));
 frontLedsConnected$.subscribe((log) =>
     console.log("FRONTLEDS CONNECTED:", log),
