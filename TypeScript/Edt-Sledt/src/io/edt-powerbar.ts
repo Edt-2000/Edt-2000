@@ -1,7 +1,20 @@
+import { WebSocket } from "ws";
 import { DeviceIPs } from "../../config/config";
+import { BehaviorSubject } from "rxjs";
 
-const pbSocket = new WebSocket(`ws://${DeviceIPs.edtPowerBar}`);
+export const powerBarSocket = new WebSocket(`ws://${DeviceIPs.edtPowerBar}/ws`);
 
-pbSocket.onopen((event) => {
-    console.log("Connected", event);
+export const powerBarConnected$ = new BehaviorSubject<boolean>(false);
+
+powerBarSocket.addEventListener("open", () => {
+    powerBarConnected$.next(true);
+});
+
+powerBarSocket.addEventListener("close", (event) => {
+    powerBarConnected$.next(false);
+});
+
+powerBarSocket.addEventListener("error", (error) => {
+    console.log(error);
+    powerBarConnected$.next(false);
 });

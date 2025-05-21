@@ -5,6 +5,7 @@ import { ColorToVidtColor } from "../../src/presets/outputs/vidt/colorToVidtColo
 import { BeatToColor } from "../../src/presets/converters/beat/beatToColor";
 import { FastLedMultiColorToMultiColor } from "../../src/presets/outputs/vidt/fastLedMultiColorToMultiColor";
 import { MultiColorToVidtMultiColor } from "../../src/presets/outputs/vidt/multiColorToVidtMultiColor";
+import { MainTextToPowerBar } from "../../src/presets/outputs/powerbar/mainTextToPowerBar";
 
 const colorCues = [
     {
@@ -14,6 +15,7 @@ const colorCues = [
             presetChange(new BeatToColor(), 127, true),
             presetChange(new MultiColorToVidtMultiColor(), 127, true),
             presetChange(new FastLedMultiColorToMultiColor(), 127, true),
+            presetChange(new MainTextToPowerBar(), 127, true),
         ],
     },
 ];

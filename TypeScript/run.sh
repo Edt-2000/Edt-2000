@@ -21,17 +21,15 @@ else
     tmux send-keys -t 2 'npm run start' C-m
 
     tmux send-keys -t 3 'cd Edt-Launchpad' C-m
-#    tmux send-keys -t 4 'cd Edt-Launchpad' C-m
-    tmux send-keys -t 4 'cd Edt-MOSCIDI' C-m
+    tmux send-keys -t 4 'cd Edt-Launchpad' C-m
 
     if [[ "$(uname)" == "Darwin" ]]
     then
       tmux send-keys -t 3 'npm run start:0' C-m
-#      tmux send-keys -t 4 'npm run start:1' C-m
-      tmux send-keys -t 4 'npm run start' C-m
+      tmux send-keys -t 4 'npm run start:1' C-m
     else
       tmux send-keys -t 3 'npm run start:1' C-m
-#      tmux send-keys -t 4 'npm run start:2' C-m
+      tmux send-keys -t 4 'npm run start:2' C-m
     fi
 
     tmux attach-session -t "Edt-2000"
