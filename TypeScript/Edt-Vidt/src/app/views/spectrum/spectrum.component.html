@@ -1,6 +1,6 @@
 <div class="spectrum" [ngClass]="modifier$ | async">
     @for (column of columns; track columnIndex; let columnIndex = $index) {
-        <div class="spectrum__bar" [class]="'spectrum-bar--' + columnIndex">
+        <div class="spectrum__bar">
             @if ((subbars$ | async); as subbars) {
                 @for (bar of subbars; track barIndex; let barIndex = $index) {
                     <div class="spectrum__subbar"

@@ -46,7 +46,7 @@ export class SpectrumComponent implements OnInit, OnDestroy {
                 // Set colors
                 const color1 = colors[0];
                 const color2 = colors[1] ?? ColorHelper.getContraColor(colors[0]);
-                const color3 = colors[3] ?? colors[0]
+                const color3 = colors[2] ?? colors[0]
 
                 return [
                     { rgb: ColorHelper.hsv2rgb(color1) },
