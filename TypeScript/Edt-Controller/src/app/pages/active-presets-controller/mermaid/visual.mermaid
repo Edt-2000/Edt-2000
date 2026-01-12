@@ -1,31 +1,31 @@
 flowchart LR
-  subgraph MIDI Conversion
-    MIDI-IN -->|3| Melody([Melody])
-    MIDI-IN -->|4| Bass([Bass])
-    MIDI-IN -->|10| Drum([Drum])
-  end
+    subgraph MIDI Conversion
+        MIDI-IN -->|3| Melody([Melody])
+        MIDI-IN -->|4| Bass([Bass])
+        MIDI-IN -->|10| Drum([Drum])
+    end
 
-  subgraph FASTLEDS
-    Melody --> MelodyToFastledRainbow
-    Melody ---> MelodyToFastledChunk
-  end
+    subgraph FASTLEDS
+        Melody --> MelodyToFastledRainbow
+        Melody ---> MelodyToFastledChunk
+    end
 
-  MelodyToFastledRainbow --> FASTLEDS-OUT
-  MelodyToFastledChunk --> FASTLEDS-OUT
+    MelodyToFastledRainbow --> FASTLEDS-OUT
+    MelodyToFastledChunk --> FASTLEDS-OUT
 
-  subgraph DrumSounds
-    Drum -->|36| Kick
-    Drum -->|38| Snare
-    Drum -->|40| FT
-    Drum -->|42| Tom1
-    Drum -->|44| Tom2
-  end
+    subgraph DrumSounds
+        Drum -->|36| Kick
+        Drum -->|38| Snare
+        Drum -->|40| FT
+        Drum -->|42| Tom1
+        Drum -->|44| Tom2
+    end
 
-  Kick --> MAINBEAT
-  Snare --> MAINBEAT
-  FT --> MAINBEAT
-  Tom1 --> MAINBEAT
-  Tom2 --> MAINBEAT
-  MAINBEAT --> Color
-  style Color fill: #aa0000
-  style MAINBEAT fill: #aa00ff
+    Kick --> MAINBEAT
+    Snare --> MAINBEAT
+    FT --> MAINBEAT
+    Tom1 --> MAINBEAT
+    Tom2 --> MAINBEAT
+    MAINBEAT --> Color
+    style Color fill: #aa0000
+    style MAINBEAT fill: #aa00ff

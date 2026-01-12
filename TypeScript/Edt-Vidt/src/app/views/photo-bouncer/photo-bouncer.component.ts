@@ -12,6 +12,7 @@ import { Actions$ } from '../../../../../Shared/actions/actions';
 export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
     public animation?: Animation;
     public src: string = '';
+    @ViewChild('image') imgRef?: ElementRef<HTMLImageElement>;
     private readonly destroyed = new Subject();
     private currentAnimation = AnimationTypes.bounce;
     private animations = {
@@ -60,8 +61,6 @@ export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
             duration: 600,
         },
     };
-
-    @ViewChild('image') imgRef?: ElementRef<HTMLImageElement>;
 
     public ngAfterViewInit() {
         this.setAnimation(AnimationTypes.bounce);

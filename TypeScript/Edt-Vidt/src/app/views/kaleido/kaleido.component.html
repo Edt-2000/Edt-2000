@@ -1,13 +1,13 @@
-<div class='page'>
+<div class="page">
     @if (!resetAnimation) {
-        <div class='kaleido' [style]='styles'>
+        <div [style]="styles" class="kaleido">
             @for (hex of createFilledArray(hexagons); track $index; ) {
-                <div class='hex' [class]="'hex--' + $index"
-                     [style.animation-delay]="($index * kaleidoTime * (1/ hexagons)) + 's'">
-                    <div class='hex__inner'>
-                        <div class='hex__sub hex__sub--1'></div>
-                        <div class='hex__sub hex__sub--2'></div>
-                        <div class='hex__sub hex__sub--3'></div>
+                <div [class]="'hex--' + $index" [style.animation-delay]="($index * kaleidoTime * (1/ hexagons)) + 's'"
+                     class="hex">
+                    <div class="hex__inner">
+                        <div class="hex__sub hex__sub--1"></div>
+                        <div class="hex__sub hex__sub--2"></div>
+                        <div class="hex__sub hex__sub--3"></div>
                     </div>
                 </div>
             }

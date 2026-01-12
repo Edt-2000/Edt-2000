@@ -8,40 +8,40 @@ import { LaunchpadControllerComponent } from './pages/launchpad-controller/launc
 import { VirtualLaunchpadControllerComponent } from './pages/virtual-launchpad-controller/virtual-launchpad-controller.component';
 
 export const pages: Route[] = [
-  {
-    title: 'Active Presets',
-    path: 'active-presets',
-    component: ActivePresetsControllerComponent,
-  },
-  {
-    title: 'Presets',
-    path: 'preset-controller',
-    component: PresetControllerComponent,
-  },
-  {
-    title: 'Cues',
-    path: 'cues-controller',
-    component: CuesControllerComponent,
-  },
-  {
-    title: 'Vidt',
-    path: 'vidt-controller',
-    component: VidtControllerComponent,
-  },
-  {
-    title: 'Color',
-    path: 'color-controller',
-    component: ColorControllerComponent,
-  },
-  {
-    title: 'Launchpad',
-    path: 'virtual-launchpad-controller',
-    component: VirtualLaunchpadControllerComponent,
-  },
+    {
+        title: 'Active Presets',
+        path: 'active-presets',
+        component: ActivePresetsControllerComponent,
+    },
+    {
+        title: 'Presets',
+        path: 'preset-controller',
+        component: PresetControllerComponent,
+    },
+    {
+        title: 'Cues',
+        path: 'cues-controller',
+        component: CuesControllerComponent,
+    },
+    {
+        title: 'Vidt',
+        path: 'vidt-controller',
+        component: VidtControllerComponent,
+    },
+    {
+        title: 'Color',
+        path: 'color-controller',
+        component: ColorControllerComponent,
+    },
+    {
+        title: 'Launchpad',
+        path: 'virtual-launchpad-controller',
+        component: VirtualLaunchpadControllerComponent,
+    },
 ];
 
 export const launchpadRoute = {
-  title: 'Launchpad',
-  path: 'launchpad-controller/:launchpadId',
-  component: LaunchpadControllerComponent,
+    title: 'Launchpad',
+    path: 'launchpad-controller/:launchpadId',
+    component: LaunchpadControllerComponent,
 };

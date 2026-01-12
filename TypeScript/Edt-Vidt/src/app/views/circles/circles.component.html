@@ -3,10 +3,10 @@
         <div class="circles__pool">
             @if ((subCircles$ | async); as subcircles) {
                 @for (subcircle of subcircles; track circleIndex; let circleIndex = $index) {
-                    <div class="circles__circle"
-                         [style.--circle-rgb]="subcircle.rgb.join(',')"
+                    <div [style.--circle-animation-delay]="getDelay(poolIndex, circleIndex, (animationType$ | async))"
                          [style.--circle-animation-duration]="((baseTime$ | async) ?? 2) + 's'"
-                         [style.--circle-animation-delay]="getDelay(poolIndex, circleIndex, (animationType$ | async))"
+                         [style.--circle-rgb]="subcircle.rgb.join(',')"
+                         class="circles__circle"
                     ></div>
                 }
             }

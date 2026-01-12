@@ -49,9 +49,7 @@
         // "inlineSourceMap": true,               /* Emit a single file with source maps instead of having a separate file. */
         // "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
 
-        "lib": [
-            "es2019"
-        ],
+        "lib": ["es2019"],
         /* Experimental Options */
         "experimentalDecorators": true,
         /* Enables experimental support for ES7 decorators. */

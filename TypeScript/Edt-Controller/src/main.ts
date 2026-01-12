@@ -4,15 +4,15 @@ import { provideRouter } from '@angular/router';
 import { launchpadRoute, pages } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter([
-      ...pages,
-      launchpadRoute,
-      {
-        path: '',
-        redirectTo: pages[0].path,
-        pathMatch: 'full',
-      },
-    ]),
-  ],
+    providers: [
+        provideRouter([
+            ...pages,
+            launchpadRoute,
+            {
+                path: '',
+                redirectTo: pages[0].path,
+                pathMatch: 'full',
+            },
+        ]),
+    ],
 }).catch(console.log);
