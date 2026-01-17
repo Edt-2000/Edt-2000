@@ -1,13 +1,13 @@
-<div class="spectrum" [ngClass]="modifier$ | async">
+<div [ngClass]="modifier$ | async" class="spectrum">
     @for (column of columns; track columnIndex; let columnIndex = $index) {
         <div class="spectrum__bar">
             @if ((subbars$ | async); as subbars) {
                 @for (bar of subbars; track barIndex; let barIndex = $index) {
-                    <div class="spectrum__subbar"
-                         [style.--spectrum-bar-rgb]="bar.rgb.join(',')"
-                         [style.--spectrum-bar-height]="getBarHeight(barIndex) + '%'"
-                         [style.--spectrum-animation-delay]="(columnIndex * ((baseTime$ | async) ?? 4) * (1 / columns.length) * getDelayModifier(barIndex, subbars.length) * -1) + 's'"
+                    <div [style.--spectrum-animation-delay]="(columnIndex * ((baseTime$ | async) ?? 4) * (1 / columns.length) * getDelayModifier(barIndex, subbars.length) * -1) + 's'"
                          [style.--spectrum-animation-duration]="(((baseTime$ | async) ?? 4) / 2) + 's'"
+                         [style.--spectrum-bar-height]="getBarHeight(barIndex) + '%'"
+                         [style.--spectrum-bar-rgb]="bar.rgb.join(',')"
+                         class="spectrum__subbar"
                     ></div>
                 }
             }

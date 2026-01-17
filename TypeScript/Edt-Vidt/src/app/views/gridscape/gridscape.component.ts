@@ -12,9 +12,9 @@ export class GridscapeComponent implements AfterViewInit, OnDestroy {
     @ViewChild('sun') sunRef?: ElementRef<HTMLElement>;
 
     public animation?: Animation;
-
-    private readonly destroyed = new Subject();
     stars = createFilledArray(40);
+    protected readonly createFilledArray = createFilledArray;
+    private readonly destroyed = new Subject();
 
     public ngAfterViewInit() {
         this.animation = this.sunRef?.nativeElement.animate(
@@ -63,6 +63,4 @@ export class GridscapeComponent implements AfterViewInit, OnDestroy {
         this.destroyed.next(true);
         this.destroyed.complete();
     }
-
-    protected readonly createFilledArray = createFilledArray;
 }

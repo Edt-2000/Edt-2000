@@ -1,0 +1,4 @@
+@if (launchpadPage$ | async; as launchpad) {
+    <app-launchpad-grid (pageChange)="pageChange($event)" [launchpadPage]=launchpad.page
+                        [pageNr]=launchpad.pageNr></app-launchpad-grid>
+}

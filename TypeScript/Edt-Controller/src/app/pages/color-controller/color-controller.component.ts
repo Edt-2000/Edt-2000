@@ -6,17 +6,17 @@ import { TriggerButtonComponent } from '../../components/trigger-button/trigger-
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-color-controller',
-  templateUrl: './color-controller.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [TriggerButtonComponent, AsyncPipe],
+    selector: 'app-color-controller',
+    templateUrl: './color-controller.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [TriggerButtonComponent, AsyncPipe],
 })
 export class ColorControllerComponent {
-  colorPalettes$ = Actions$.contentGroup.pipe(
-    map((group) => group.colorPalettes),
-  );
-  currentColorSet$ = Actions$.colorPalette;
+    colorPalettes$ = Actions$.contentGroup.pipe(
+        map((group) => group.colorPalettes),
+    );
+    currentColorSet$ = Actions$.colorPalette;
 
-  constructor(public socketService: SocketService) {}
+    constructor(public socketService: SocketService) {}
 }

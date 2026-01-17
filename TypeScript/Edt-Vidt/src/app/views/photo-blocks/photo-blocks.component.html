@@ -1,10 +1,10 @@
-<div class="photo-blocks" [class]="[sizeClass, shapeClass]">
+<div [class]="[sizeClass, shapeClass]" class="photo-blocks">
     <ul class="photo-blocks__list">
-        @for (block of blocks; track $index;) {
+        @for (block of blocks; track $index; ) {
             <li class="photo-blocks__item">
                 <div class="photo-blocks__block">
-                    <img class="photo-blocks__front" [src]="src" alt="">
-                    <img class="photo-blocks__back"[src]="src" alt="">
+                    <img [src]="src" alt="" class="photo-blocks__front">
+                    <img [src]="src" alt="" class="photo-blocks__back">
                 </div>
             </li>
         }

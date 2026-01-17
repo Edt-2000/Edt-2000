@@ -1,0 +1,75 @@
+<div class="launchpad">
+    <div class="launchpad__page-selector">
+        @for (page of pages; track $index) {
+            <button (click)="pageChange.emit(page)"
+                    [class.button--active]="pageNr()===$index"
+                    type="button"
+            >
+                {{ page }}
+            </button>
+        }
+    </div>
+
+    @for (row of launchpadPage().triggers; track $index) {
+        <div class="launchpad__row">
+            @for (button of row; track $index) {
+                <div class="launchpad__item">
+                    @switch (button.triggerType) {
+                        @case (triggerType.image) {
+                            <button
+                                (mousedown)="socket.sendLaunchpadDown(button)"
+                                (mouseup)="socket.sendLaunchpadUp(button)"
+                                [style.background-image]="
+                      'url(\'./assets/media-by-group/' + button.title + '\')'
+                    "
+                                class="launchpad__button launchpad__button--{{
+                      button.color
+                    }}"
+                            ></button>
+                        }
+                        @case (triggerType.color) {
+                            <button
+                                (mousedown)="socket.sendLaunchpadDown(button)"
+                                (mouseup)="socket.sendLaunchpadUp(button)"
+                                [style.background-color]="
+                      getColorString([button.triggerAction?.payload])
+                    "
+                                class="launchpad__button launchpad__button--{{
+                      button.color
+                    }}"
+                            ></button>
+                        }
+                        @case (triggerType.palette) {
+                            <button
+                                (mousedown)="socket.sendLaunchpadDown(button)"
+                                (mouseup)="socket.sendLaunchpadUp(button)"
+                                class="launchpad__button launchpad__button--{{
+                      button.color
+                    }}"
+                            >
+                                <div
+                                    [style.background-image]="
+                        getColorString(button.triggerAction?.payload)
+                      "
+                                    class="launchpad__button--palette"
+                                ></div>
+                            </button>
+                        }
+                        @default {
+                            <button
+                                (mousedown)="socket.sendLaunchpadDown(button)"
+                                (mouseup)="socket.sendLaunchpadUp(button)"
+                                class="launchpad__button launchpad__button--{{
+                      button.color
+                    }}"
+                            >
+                                <span class="launchpad__text">{{ button.title }}</span>
+                            </button>
+                        }
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+

@@ -2,7 +2,7 @@
     --spectrum-gap: 16px;
     --spectrum-column: 80px;
     --spectrum-radius: 80px;
-    --spectrum-bar-rgb: 165, 42 ,42;
+    --spectrum-bar-rgb: 165, 42, 42;
     --spectrum-bar-height: 100%;
     --spectrum-shadow-blur: 0px;
     --spectrum-shadow-spread: 0px;
@@ -39,13 +39,13 @@
         width: 100%;
 
         &:nth-child(2) {
-            --spectrum-bar-rgb: 255,140,0;
+            --spectrum-bar-rgb: 255, 140, 0;
             --spectrum-bar-height: 70%;
             height: 70%;
         }
 
         &:nth-child(3) {
-            --spectrum-bar-rgb: 255,215,0;
+            --spectrum-bar-rgb: 255, 215, 0;
 
             height: 50%;
         }

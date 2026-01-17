@@ -34,8 +34,12 @@ export interface LaunchpadPage {
     triggers: LaunchpadTrigger[][];
 }
 
+export interface LaunchpadPageIndex {
+    [key: string]: number;
+}
+
 export interface LaunchpadPageChange {
-    launchpad: number;
+    launchpad: string;
     page: number;
 }
 
@@ -74,6 +78,7 @@ export enum ModifierGroup {
     RGBLED,
     FastLED,
     Melody,
+    PowerBar,
     Beat,
     Midi,
     Bass,

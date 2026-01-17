@@ -6,12 +6,12 @@
 
     &__horizon {
         background: linear-gradient(
-            to bottom,
-            $c-darkblue 0%,
-            $c-bluepurple 50%,
-            $c-purple 74%,
-            $c-pink 84%,
-            $c-yellow 100%
+                to bottom,
+                $c-darkblue 0%,
+                $c-bluepurple 50%,
+                $c-purple 74%,
+                $c-pink 84%,
+                $c-yellow 100%
         );
         height: 50vh;
         left: 0;
@@ -46,10 +46,10 @@
 
     &__overlay {
         background: linear-gradient(
-            to bottom,
-            $c-lightblue 0%,
-            $c-lightblue 3%,
-            transparent 14%
+                to bottom,
+                $c-lightblue 0%,
+                $c-lightblue 3%,
+                transparent 14%
         );
         bottom: 0;
         left: 0;

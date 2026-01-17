@@ -65,7 +65,7 @@
 
     }
 
-    &--circle{
+    &--circle {
         #{ $self }__front,
         #{ $self }__back {
             border-radius: 50%;
@@ -88,7 +88,7 @@
             background-color: transparent;
             border-left: (calc(var(--w-block) / 2.4)) solid transparent;
             border-right: (calc(var(--w-block) / 2.4)) solid transparent;
-            border-bottom: calc(var(--w-block) * 0.8)  solid;
+            border-bottom: calc(var(--w-block) * 0.8) solid;
             height: 0;
             width: 0;
         }

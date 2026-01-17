@@ -12,11 +12,9 @@ import { Actions$ } from '../../../../../Shared/actions/actions';
 export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
     public animation?: Animation;
     public src: string = '';
-
+    @ViewChild('image') imgRef?: ElementRef<HTMLImageElement>;
     private readonly destroyed = new Subject();
-
     private currentAnimation = AnimationTypes.bounce;
-
     private animations = {
         [AnimationTypes.bounce]: [
             {
@@ -52,21 +50,17 @@ export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
             },
         ],
     };
-
     private animationsConfig = {
-        bounce: {
+        [AnimationTypes.bounce]: {
             easing: 'linear',
             duration: 200,
         },
-        mirror: {
+        [AnimationTypes.mirror]: {
             easing: 'linear',
             // fill: 'forwards',
             duration: 600,
         },
     };
-
-    @ViewChild('image') imgRef?: ElementRef<HTMLImageElement>;
-
 
     public ngAfterViewInit() {
         this.setAnimation(AnimationTypes.bounce);

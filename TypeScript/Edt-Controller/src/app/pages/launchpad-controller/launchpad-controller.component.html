@@ -1,45 +1,4 @@
-@if ((launchpadPage$ | async); as launchpadPage) {
-  <div class='launchpad'>
-    <h1>{{ launchpadPage.title }} - {{ $songTitle | async }}</h1>
-    @for (row of launchpadPage.triggers; track $index) {
-      <div class='launchpad__row'>
-        @for (button of row; track $index) {
-          <div class='launchpad__item'>
-            @switch (button.triggerType) {
-              @case (triggerType.image) {
-                <button
-                  (click)='socket.sendLaunchpadTrigger(button)'
-                  [style.background-image]="'url(\'./assets/media-by-group/' + button.title + '\')'"
-                  class='launchpad__button launchpad__button--{{ button.color }}'
-                >
-                </button>
-              }
-              @case (triggerType.color) {
-                <button
-                  (click)='socket.sendLaunchpadTrigger(button)'
-                  [style.background-color]='getColorString([button.triggerAction?.payload])'
-                  class='launchpad__button launchpad__button--{{ button.color }}'
-                >
-                </button>
-              }
-              @case (triggerType.palette) {
-                <button
-                  (click)='socket.sendLaunchpadTrigger(button)'
-                  class='launchpad__button launchpad__button--{{ button.color }}'>
-                  <div class='launchpad__button--palette'
-                       [style.background-image]='getColorString(button.triggerAction?.payload)'></div>
-                </button>
-              }
-              @default {
-                <button (click)='socket.sendLaunchpadTrigger(button)'
-                        class='launchpad__button launchpad__button--{{ button.color }}'
-                ><span class='launchpad__text'>{{ button.title }}</span>
-                </button>
-              }
-            }
-          </div>
-        }
-      </div>
-    }
-  </div>
+@if (activeLaunchpad$ | async; as launchpad) {
+    <app-launchpad-grid (pageChange)="pageChange($event)" [launchpadPage]=launchpad.page
+                        [pageNr]=launchpad.pageNr></app-launchpad-grid>
 }

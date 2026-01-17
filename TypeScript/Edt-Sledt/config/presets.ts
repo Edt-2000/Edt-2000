@@ -13,10 +13,11 @@ import { MidiChannelToMainDrum } from "../src/presets/converters/instruments/mid
 import { ColorToFastLedStrobe } from "../src/presets/outputs/fastledt/colorToFastLedStrobe";
 import { MainMelodyToChunksOfFastLedt } from "../src/presets/outputs/fastledt/mainMelodyToChunksOfFastLedt";
 import { MidiChannelToMainBass } from "../src/presets/converters/instruments/midiChannelToMainBass";
-import { DrumSounds } from "./config";
 import { PresetLogic } from "../src/presets/presets-logic";
 import { ColorToSpectacle } from "../src/presets/outputs/spectacle/colorToSpectacle";
 import { FastLedMultiColorToMultiColor } from "../src/presets/outputs/vidt/fastLedMultiColorToMultiColor";
+import { DrumSounds } from "../../Shared/midi/types";
+import { MainTextToPowerBar } from "../src/presets/outputs/powerbar/mainTextToPowerBar";
 
 // TODO: C, D, E, F, G, A, B
 
@@ -93,7 +94,7 @@ export const presets: Record<number, PresetLogic> = {
     // [Note.A$2]:
     // [Note.B2]:
 
-    // [Note.C3]:
+    [Note.C3]: new MainTextToPowerBar(),
     // [Note.C$3]:
     // [Note.D3]:
     // [Note.D$3]:

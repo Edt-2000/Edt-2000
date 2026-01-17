@@ -8,6 +8,8 @@ import { modifiers } from "../../../../config/modifiers";
 import { ModifierGroup } from "../../../../../Shared/actions/types";
 import { filter } from "rxjs";
 
+import { DrumSounds } from "../../../../../Shared/midi/types";
+
 export class DrumSoundToBeat extends PresetLogic {
     modifierOptions = {
         select: modifiers.drumSounds,
@@ -15,17 +17,28 @@ export class DrumSoundToBeat extends PresetLogic {
     };
 
     get mermaidConfig() {
-        return modifiers.drumSounds.map((sound) => ({
-            entry: `${sound.label} ${sound.value === this.modifier ? "===>" : "--->"} MAINBEAT`,
-        }));
+        return modifiers.drumSounds
+            .map((sound) => {
+                return [
+                    {
+                        entry: `${sound.label.toUpperCase()} ${sound.value === this.modifier ? "===>" : "--->"} MAINBEAT`,
+                    },
+                    {
+                        entry: `class ${sound.label.toUpperCase()} node__${sound.label.toUpperCase()}`,
+                    },
+                ];
+            })
+            .flat();
     }
 
     protected _startPreset(): void {
         this.addSub(
             Actions$.mainDrumSound
-                .pipe(filter((drum) => drum === this.modifier))
-                .subscribe((beat) => {
-                    nextActionFromMsg(Actions.mainBeat(beat));
+                .pipe(
+                    filter(({ sound }) => DrumSounds[sound] === this.modifier),
+                )
+                .subscribe(({ velocity }) => {
+                    nextActionFromMsg(Actions.mainBeat(velocity));
                 }),
         );
     }
