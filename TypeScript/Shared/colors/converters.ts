@@ -33,7 +33,8 @@ export class ColorHelper {
         return hsvColors.map(ColorHelper.hsv2rgb);
     }
 
-    static hsv2rgb(hsv: IColor): number[] {
+    static hsv2rgb(hsv: IColor | undefined): number[] {
+        if(!hsv) return [0,0,0]
         const h = mapInput(hsv.h, 0, 255, 0, 360) / 60;
         const s = hsv.s / 255;
         let v = hsv.b / 255;
