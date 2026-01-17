@@ -9,14 +9,14 @@ import { AnimationTypes } from '../../../../../Shared/vidt/animation';
     styleUrl: './photo-glitcher.component.scss',
 })
 export class PhotoGlitcherComponent implements OnInit, OnDestroy {
-    public animation: AnimationTypes = AnimationTypes.bounce;
+    public animation: string = AnimationTypes[AnimationTypes.bounce];
     public src: string = '';
 
     private readonly destroyed = new Subject();
 
     public ngOnInit() {
         Actions$.animationType.pipe(takeUntil(this.destroyed)).subscribe((animation) => {
-            this.animation = animation;
+            this.animation = AnimationTypes[animation];
         });
 
         Actions$.imageSrc.pipe(takeUntil(this.destroyed)).subscribe((photo) => {
