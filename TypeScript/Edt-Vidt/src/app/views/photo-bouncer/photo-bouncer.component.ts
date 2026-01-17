@@ -14,9 +14,9 @@ export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
     public src: string = '';
     @ViewChild('image') imgRef?: ElementRef<HTMLImageElement>;
     private readonly destroyed = new Subject();
-    private currentAnimation = AnimationTypes.bounce;
+    private currentAnimation = AnimationTypes[AnimationTypes.bounce];
     private animations = {
-        [AnimationTypes.bounce]: [
+        [AnimationTypes[AnimationTypes.bounce]]: [
             {
                 transform: 'scale(1)',
             },
@@ -27,7 +27,7 @@ export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
                 transform: 'scale(1)',
             },
         ],
-        [AnimationTypes.mirror]: [
+        [AnimationTypes[AnimationTypes.mirror]]: [
             {
                 offset: 0,
                 transform: 'scaleX(1)',
@@ -51,11 +51,11 @@ export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
         ],
     };
     private animationsConfig = {
-        [AnimationTypes.bounce]: {
+        [AnimationTypes[AnimationTypes.bounce]]: {
             easing: 'linear',
             duration: 200,
         },
-        [AnimationTypes.mirror]: {
+        [AnimationTypes[AnimationTypes.mirror]]: {
             easing: 'linear',
             // fill: 'forwards',
             duration: 600,
@@ -63,13 +63,13 @@ export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
     };
 
     public ngAfterViewInit() {
-        this.setAnimation(AnimationTypes.bounce);
+        this.setAnimation(AnimationTypes[AnimationTypes.bounce]);
 
-        // Actions$.animationType.pipe(takeUntil(this.destroyed)).subscribe((animation) => {
-        //     if (animation !== this.currentAnimation) {
-        //         this.setAnimation(animation);
-        //     }
-        // });
+        Actions$.animationType.pipe(takeUntil(this.destroyed)).subscribe((animation) => {
+            if (AnimationTypes[animation] !== this.currentAnimation) {
+                this.setAnimation(AnimationTypes[animation]);
+            }
+        });
     }
 
     public ngOnInit() {
@@ -86,8 +86,8 @@ export class PhotoBouncerComponent implements AfterViewInit, OnInit, OnDestroy {
         this.src = `./assets/media-by-group/${src}`;
     }
 
-    public setAnimation(type: AnimationTypes) {
-        if (type === AnimationTypes.bounce || type === AnimationTypes.mirror) {
+    public setAnimation(type: string) {
+        if (type === AnimationTypes[AnimationTypes.bounce] || type === AnimationTypes[AnimationTypes.mirror]) {
             this.currentAnimation = type;
 
             if (this.animation) {

@@ -14,8 +14,8 @@ export class PhotoBlocksComponent implements OnInit, OnDestroy {
     public sizeClass: string = '';
     public shapeClass: string = '';
 
-    public size: Sizes = Sizes.normal;
-    public shape: Shapes = Shapes.square;
+    public size: string = Sizes[Sizes.normal];
+    public shape: string = Sizes[Shapes.square];
     public blocks: number[] = Array(50).map((x, i) => i + 1);
 
     public src: string = '';
@@ -24,14 +24,14 @@ export class PhotoBlocksComponent implements OnInit, OnDestroy {
 
     public ngOnInit() {
         Actions$.shape.pipe(takeUntil(this.destroyed)).subscribe((shape: Shapes) => {
-            this.shape = shape;
+            this.shape = Shapes[shape];
             this.shapeClass = 'photo-blocks--' + this.shape;
         });
 
         Actions$.size.pipe(takeUntil(this.destroyed)).subscribe((size: Sizes) => {
-            this.size = size;
+            this.size = Sizes[size];
             this.sizeClass = 'photo-blocks--' + this.size;
-            const amount = this.size === Sizes.small ? 75 : 50;
+            const amount = this.size === Sizes[Sizes.small] ? 75 : 50;
             this.blocks = createFilledArray(amount);
         });
 
