@@ -44,8 +44,8 @@ export class ColorBlocksComponent {
 
     public colorRgbString$ = merge(this.singleColor$, this.multiColor$).pipe(
         map(({ front, back }) => ({
-            frontColor: ColorHelper.getRGBString([front]),
-            backColor: ColorHelper.getRGBString([back]),
+            frontColor: ColorHelper.getHwbString([front]),
+            backColor: ColorHelper.getHwbString([back]),
         })),
     );
 }

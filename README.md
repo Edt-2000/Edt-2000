@@ -28,7 +28,7 @@ In a flight case we have mounted some custom PCB's that can currently control up
 
 The `Edt-Vidt` is the _video_ part of the project; It displays a fullscreen `Vue` web application that can show videos/images/animations/text/colors/etc, controlled by the `Edt-Sledt` over a websocket connection. The app has a number of `presets` that each show something different on screen; check the code to see what is currently implemented.
 
-In our setup we are using 4 old 22" TV's that we bought at a second hand store and a 32" TV on a microphone stand, connected to a laptop with an 8 channel HDMI splitter, making it simple and reliable. It can even run on multiple laptops/computers and control even more screens, so it's pretty flexible depending on your needs.  
+In our setup we are using 4 old 22" TV's that we bought at a second hand store and a 32" TV on a microphone stand, connected to a laptop with an 8 channel HDMI splitter, making it simple and reliable. It can even run on multiple laptops/computers and control even more screens, so it's pretty flexible depending on your needs.
 
 ### Edt-Control
 
@@ -52,7 +52,8 @@ A bit of an unconventional name, we named the center of our system the `Sledt` (
 
 ## Concept
 
-Our current aim with the project is to: 
+Our current aim with the project is to:
+
 - make small/medium performances visually interesting with affordable DIY technology (for the price of 1 commercial DMX fixture you can create our whole setup)
 - rethink the way light shows are controlled by telling the system _how_ to respond to music, instead of directly controlling the lights (although this is also possible)
 - be able to setup the system in a venue in under 10 minutes; this is mostly done by packing everything in a flightcase and making it easy to connect
@@ -81,36 +82,45 @@ The core ideas of the Edt-2000 can be explained by looking at the folder structu
 
 ### Actions & 'RxJS store'
 
-The 3 main apps (Vidt, Control & Sledt) communicate using a shared RxJS based 'store', which each app includes in it's code and reacts to. The `Actions` are send over a socket connection to each other (see Input&Output folders) and converted into 'next' values for the various store observables. The `nextActionFromMsg()` function in the `Shared/actions.ts` file is the main function that is doing all the heavy lifting. 
+The 3 main apps (Vidt, Control & Sledt) communicate using a shared RxJS based 'store', which each app includes in it's code and reacts to. The `Actions` are send over a socket connection to each other (see Input&Output folders) and converted into 'next' values for the various store observables. The `nextActionFromMsg()` function in the `Shared/actions.ts` file is the main function that is doing all the heavy lifting.
 
 #### Communication
-This folder implements and exposes Observables like `OSC$` and `socket$` to use for other parts of the app. Originally we also included MIDI in here, but this was not reliable enough on multiple operating systems and is now coming into the system through OSC as well with an external app (in `Processing`). Using OSC for midi also means we can at some point create an Arduino based hardware midi-osc device to make setting up the system easier. 
+
+This folder implements and exposes Observables like `OSC$` and `socket$` to use for other parts of the app. Originally we also included MIDI in here, but this was not reliable enough on multiple operating systems and is now coming into the system through OSC as well with an external app (in `Processing`). Using OSC for midi also means we can at some point create an Arduino based hardware midi-osc device to make setting up the system easier.
 
 #### Inputs & Outputs
+
 These folders implement and expose functions/Observables for communicating with other parts of the system, like the Pedal, Trak, Vidt, Ledt, Control, Audio and MIDI. They convert signals from for instance `OSC$` and expose them again as an `EdtAudio$` observable, holding the information for that stream.
 
 For the `Vidt` for instance you will also find a number of subscriptions that send values from the RxJS store to the Vidt, where it is send to the `nextActionFromMsg()` function to be converted into `next` values: `this.socket.on('toVidt', nextActionFromMsg);`. By using shared TypeScript declarations we typecast these actions making working with the values effortless in all three apps (Vue, Angular, Node).
 
 #### Presets
+
 The preset section is where the `inputs` (can be anything) are converted into `outputs` (can also be anything). The presets all follow a common structure (see `preset-logic.ts`):
+
 ```typescript
 export abstract class PresetLogic {
-    ...
+...
     readonly modifierOptions: IModifierOptions;
     title: string = this.constructor.name;
     modifier = 127;
-    ...
-    startPreset(modifier: number) {}
-    stopPreset() {}
+...
+
+    startPreset(modifier: number) {
+    }
+
+    stopPreset() {
+    }
 }
 ```
 
-Presets can be started and stopped, and when started also get a `modifier` value. The `modifierOptions` are used for the `Edt-Control` to display a quick list of options, and `title` is identify each preset. 
+Presets can be started and stopped, and when started also get a `modifier` value. The `modifierOptions` are used for the `Edt-Control` to display a quick list of options, and `title` is identify each preset.
 
 Starting and stopping presets is controlled by `Actions.presetChange()`, which currently comes from the `Edt-Control` only. Originally this was also controllable by midi, and will at some point be re-implemented from the `MIDI$` observable so it can be automated.
 
 ##### Converters
- The whole system is build around streams of actions, leveraging RxJS to build chains of reactions. This is best explained with a simplified example (check the code for details): 
+
+The whole system is build around streams of actions, leveraging RxJS to build chains of reactions. This is best explained with a simplified example (check the code for details):
 
 ```typescript
 // ------------------------------
@@ -126,45 +136,47 @@ noteOn$
 // Then we map a specific note to a certain sound (snare, kick, hi-hat open) and re-trigger it as mainDrumSound for that specific sound (this.sound)
 // This is 
 // drumSoundMap.ts
-Actions$.mainDrum
-    .pipe(filter(drumNote => this.modifier === drumNote.note))
-    .subscribe(() => {
-        nextActionFromMsg(Actions.mainDrumSound(this.sound));
-    }),
+    Actions$.mainDrum
+        .pipe(filter(drumNote => this.modifier === drumNote.note))
+        .subscribe(() => {
+            nextActionFromMsg(Actions.mainDrumSound(this.sound));
+        }),
 
 // ------------------------------
 // In this converter we determine that every drumSound of a certain type (kick, snare, hi-hat, etc) needs to be converted to a 'beat' with a velocity
 // drumSoundToBeat.ts
-Actions$.mainDrumSound
-    .pipe(filter(drum => drum === this.modifier))
-    .subscribe(beat => {
-        nextActionFromMsg(Actions.mainBeat(beat));
-    }),
+    Actions$.mainDrumSound
+        .pipe(filter(drum => drum === this.modifier))
+        .subscribe(beat => {
+            nextActionFromMsg(Actions.mainBeat(beat));
+        }),
 
 // ------------------------------
 // In another converter we then convert every mainBeat to a new single color that is re-triggered 
 // beatToColor.ts
-Actions$.mainBeat
-    .pipe(withLatestFrom(Actions$.multiColor))
-    .subscribe(([, colors]) => {
-        this.index = (this.index + 1) % colors.length;
-        nextActionFromMsg(Actions.singleColor(colors[this.index]));
-    }), 
+    Actions$.mainBeat
+        .pipe(withLatestFrom(Actions$.multiColor))
+        .subscribe(([, colors]) => {
+            this.index = (this.index + 1) % colors.length;
+            nextActionFromMsg(Actions.singleColor(colors[this.index]));
+        }),
 
 // ------------------------------
 // And finally, to do something with this changing color we send it to all FastLED's with the Spark effect 
 // colorToFastLedSpark.ts
-Actions$.singleColor.subscribe(color => {
-    FastLedtSpark(0, color, this.modifier);
-}),
+    Actions$.singleColor.subscribe(color => {
+        FastLedtSpark(0, color, this.modifier);
+    }),
 ```
 
 As you see from the code snippets above, it takes 5 active presets to do a simple conversion from MIDI drum to sparkling LEDs. When we started this project this was done more in a hard-coded way, but we soon discovered that every song had different midi mappings, sometimes in music the `KICK` is not the `mainBeat`, etc. Over time we added more fine controls to have more flexibility, at the cost of having more presets.
 
 #### Cues
+
 As you can imagine, it is not feasible to activate 5 presets at the same time during a live performance. This is where the `cues` play a role; these are programmable shortcuts to trigger multiple presets with specific settings at the same time. These are currently hard-coded into the system; at some point they would ideally be editable from the program itself and saved somehow.
 
 An example cue could be:
+
 ```typescript
 export const drumCues = [
     {
@@ -205,12 +217,12 @@ You can send any `action` with this system, so more complex sets can be made to 
 
 ### Images / Assets
 
-For the `Edt-Vidt`, you can use your own assets by placing them in the `TypeScript/Edt-Vidt/public/assets/media-by-group` folder, in subfolders which then become the title of the `asset-group`. For instance: `TypeScript/Edt-Vidt/public/assets/media-by-group/SongTitle/001.jpg` will give you an asset called 001 in the content group `SongTitle`.  
-
+For the `Edt-Vidt`, you can use your own assets by placing them in the `TypeScript/Edt-Vidt/public/assets/media-by-group` folder, in subfolders which then become the title of the `asset-group`. For instance: `TypeScript/Edt-Vidt/public/assets/media-by-group/SongTitle/001.jpg` will give you an asset called 001 in the content group `SongTitle`.
 
 ## Using the system
+
 The system is quite complex and consists of many parts that all have to be configured to 'see' each other on a network. We currently hard-code IP addresses into the code; these configuration files can be found in the `Shared` folder. If you plan to use this system for your own performance, take a look at those files and adjust where needed.
- 
+
 Almost every piece of code is currently work in progress, as we are trying to make the system more modular and easier to extend/adjust without having to hardcode settings that make it hard to update/merge. Please get in touch if you are interested in using the sytem, so we can help! Our goal is to make it easy for everyone to run their own light-show and build their own hardware, and create tutorials on how to build the LED strips etc.
 
 To be continued! 

@@ -6,7 +6,7 @@
                     <div [style.--spectrum-animation-delay]="(columnIndex * ((baseTime$ | async) ?? 4) * (1 / columns.length) * getDelayModifier(barIndex, subbars.length) * -1) + 's'"
                          [style.--spectrum-animation-duration]="(((baseTime$ | async) ?? 4) / 2) + 's'"
                          [style.--spectrum-bar-height]="getBarHeight(barIndex) + '%'"
-                         [style.--spectrum-bar-rgb]="bar.rgb.join(',')"
+                         [style.--spectrum-bar-hwb]="bar.hwb"
                          class="spectrum__subbar"
                     ></div>
                 }

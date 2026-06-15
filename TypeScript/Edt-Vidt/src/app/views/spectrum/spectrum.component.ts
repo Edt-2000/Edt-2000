@@ -29,11 +29,11 @@ export class SpectrumComponent implements OnInit, OnDestroy {
         startWith(4),
     );
 
-    public subbars$: Observable<{ rgb: number[] }[]> = Actions$.vidtMultiColor.pipe(
+    public subbars$: Observable<{ hwb: string }[]> = Actions$.vidtMultiColor.pipe(
         withLatestFrom(this.modifier$),
         map(([colors, modifier]) => {
             if (!colors || colors.length === 0 || modifier === 'spectrum--lava') {
-                return [{ rgb: [165, 42, 42] }, { rgb: [255, 140, 0] }, { rgb: [255, 215, 0] }];
+                return [{ hwb: '0 16% 35%' }, { hwb: '33 0% 0%' }, { hwb: '51 0% 0%' }];
             }
 
             // Set colors
@@ -42,12 +42,12 @@ export class SpectrumComponent implements OnInit, OnDestroy {
             const color3 = colors[2] ?? colors[0];
 
             return [
-                { rgb: ColorHelper.hsv2rgb(color1) },
-                { rgb: ColorHelper.hsv2rgb(color2) },
-                { rgb: ColorHelper.hsv2rgb(color3) },
+                { hwb: ColorHelper.hsv2hwb(color1) },
+                { hwb: ColorHelper.hsv2hwb(color2) },
+                { hwb: ColorHelper.hsv2hwb(color3) },
             ];
         }),
-        startWith([{ rgb: [165, 42, 42] }, { rgb: [255, 140, 0] }, { rgb: [255, 215, 0] }]),
+        startWith([{ hwb: '0 16% 35%' }, { hwb: '33 0% 0%' }, { hwb: '51 0% 0%' }]),
     );
 
     public styles: Record<string, string> = {};

@@ -6,7 +6,7 @@ import { createFilledArray } from '../../../../../Shared/utils/utils';
 import { AnimationTypes } from '../../../../../Shared/vidt/animation';
 
 interface Circle {
-    rgb: number[];
+    hwb: string;
 }
 
 @Component({
@@ -29,11 +29,11 @@ export class CirclesComponent {
         map((colors) => {
             if (!colors || colors.length === 0) {
                 return [
-                    { rgb: [255, 23, 154] },
-                    { rgb: [255, 71, 0] },
-                    { rgb: [255, 255, 5] },
-                    { rgb: [5, 243, 254] },
-                    { rgb: [53, 3, 168] },
+                    { hwb: '326 9% 0%' },
+                    { hwb: '17 0% 0%' },
+                    { hwb: '60 2% 0%' },
+                    { hwb: '183 2% 0%' },
+                    { hwb: '258 1% 34%' },
                 ];
             }
 
@@ -43,18 +43,18 @@ export class CirclesComponent {
             for (let i = 0; i <= amount; i++) {
                 const colorIndex = i % colors.length;
                 circles.push({
-                    rgb: ColorHelper.hsv2rgb(colors[colorIndex]),
+                    hwb: ColorHelper.hsv2hwb(colors[colorIndex]),
                 });
             }
 
             return circles;
         }),
         startWith([
-            { rgb: [255, 23, 154] },
-            { rgb: [255, 71, 0] },
-            { rgb: [255, 255, 5] },
-            { rgb: [5, 243, 254] },
-            { rgb: [53, 3, 168] },
+            { hwb: '326 9% 0%' },
+            { hwb: '17 0% 0%' },
+            { hwb: '60 2% 0%' },
+            { hwb: '183 2% 0%' },
+            { hwb: '258 1% 34%' },
         ]),
     );
 

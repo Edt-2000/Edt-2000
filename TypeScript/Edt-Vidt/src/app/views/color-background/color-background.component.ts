@@ -25,7 +25,7 @@ export class ColorBackgroundComponent {
     }
 
     public setStyles(colors: IColor[]) {
-        const bcgColor = ColorHelper.getRGBString(colors);
+        const bcgColor = ColorHelper.getHwbString(colors);
         this.styles = {
             background: `${bcgColor}`,
         };

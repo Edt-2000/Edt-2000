@@ -34,7 +34,7 @@ export class WheelComponent implements OnInit, OnDestroy {
     }
 
     public setColors(first: IColor, second: IColor) {
-        this.firstColor = ColorHelper.getRGBString([first]);
-        this.secondColor = ColorHelper.getRGBString([second]);
+        this.firstColor = ColorHelper.getHwbString([first]);
+        this.secondColor = ColorHelper.getHwbString([second]);
     }
 }

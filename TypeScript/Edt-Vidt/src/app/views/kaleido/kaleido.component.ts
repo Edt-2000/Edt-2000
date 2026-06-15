@@ -45,7 +45,7 @@ export class KaleidoComponent implements OnInit, OnDestroy {
         let colorIndex = 0;
 
         for (let i = 1; i <= this.hexagons; i++) {
-            const color = `rgb(${ColorHelper.hsv2rgb(colors[colorIndex]).join(', ')})`;
+            const color = `hwb(${ColorHelper.hsv2hwb(colors[colorIndex])})`;
             this.styles[`--kaleido-${i}`] = color;
 
             colorIndex++;

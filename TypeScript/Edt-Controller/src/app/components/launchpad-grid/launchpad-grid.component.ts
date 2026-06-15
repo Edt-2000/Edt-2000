@@ -34,7 +34,7 @@ export class LaunchpadGridComponent {
 
     getColorString(colors: IColor[] | any): SafeStyle {
         if (colors.every(isColorType)) {
-            return ColorHelper.getRGBString(colors) as SafeStyle;
+            return ColorHelper.getHwbString(colors) as SafeStyle;
         } else {
             return '';
         }

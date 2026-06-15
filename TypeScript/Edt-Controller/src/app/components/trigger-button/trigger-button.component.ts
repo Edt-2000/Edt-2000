@@ -25,6 +25,6 @@ export class TriggerButtonComponent {
     ) {}
 
     getColorString(color: IColor): SafeStyle {
-        return ColorHelper.getRGBString([color]);
+        return ColorHelper.getHwbString([color]);
     }
 }
