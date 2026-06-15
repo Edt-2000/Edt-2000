@@ -1,5 +1,5 @@
 :root {
-    --circle-rgb: 165, 42, 42;
+    --circle-hwb: 0 16% 35%;
     --circle-animation-duration: 2s;
     --circle-animation-delay: 0s;
     --circle-distance-horizontal: 2vw;
@@ -51,7 +51,7 @@
         animation: circle var(--circle-animation-duration) linear infinite;
         animation-delay: var(--circle-animation-delay);
         aspect-ratio: 1/1;
-        border: 3vh solid rgb(var(--circle-rgb));
+        border: 3vh solid hwb(var(--circle-hwb));
         border-radius: 50%;
         grid-area: 1 / 1;
         scale: 0;

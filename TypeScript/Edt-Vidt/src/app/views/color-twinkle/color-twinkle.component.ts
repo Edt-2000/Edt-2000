@@ -34,7 +34,7 @@ export class ColorTwinkleComponent implements OnInit, OnDestroy {
 
     public setStyles(hsb: IColor) {
         this.styles = {
-            color: ColorHelper.getRGBString([hsb]),
+            color: ColorHelper.getHwbString([hsb]),
         };
     }
 }

@@ -35,7 +35,7 @@ export class ColorGlitchComponent {
     }
 
     public setColors(first: IColor, second: IColor) {
-        this.firstColor = `rgb(${ColorHelper.hsv2rgb(first).join(', ')})`;
-        this.secondColor = `rgb(${ColorHelper.hsv2rgb(second).join(', ')})`;
+        this.firstColor = `hwb(${ColorHelper.hsv2hwb(first)})`;
+        this.secondColor = `hwb(${ColorHelper.hsv2hwb(second)})`;
     }
 }

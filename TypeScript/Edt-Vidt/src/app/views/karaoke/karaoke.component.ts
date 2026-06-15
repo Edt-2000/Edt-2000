@@ -49,7 +49,7 @@ export class KaraokeComponent implements OnInit, OnDestroy {
     }
 
     public setStyles(colors: IColor[]) {
-        const bcgColor = ColorHelper.getRGBString(colors);
+        const bcgColor = ColorHelper.getHwbString(colors);
 
         this.styles = {
             color: `${bcgColor}`,

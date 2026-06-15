@@ -59,7 +59,7 @@ export class ActivePresetsControllerComponent {
                 timeredToZero,
                 map((velocity) => {
                     const brightness = mapInput(velocity, 0, 127, 0, 255);
-                    return ColorHelper.getRGBString([
+                    return ColorHelper.getHwbString([
                         { h: 255, b: brightness, s: 255 },
                     ]);
                 }),
@@ -75,7 +75,7 @@ export class ActivePresetsControllerComponent {
 
         Actions$.singleColor
             .pipe(
-                map((color) => ColorHelper.getRGBString([color])),
+                map((color) => ColorHelper.getHwbString([color])),
                 tap((color) => {
                     document.documentElement.style.setProperty(
                         '--node__SINGLECOLOR',
@@ -90,7 +90,7 @@ export class ActivePresetsControllerComponent {
             .pipe(
                 map(({ sound, velocity }) => {
                     const brightness = mapInput(velocity, 0, 127, 0, 255);
-                    const color = ColorHelper.getRGBString([
+                    const color = ColorHelper.getHwbString([
                         { h: 255, b: brightness, s: 255 },
                     ]);
                     document.documentElement.style.setProperty(

@@ -5,7 +5,7 @@
                 @for (subcircle of subcircles; track circleIndex; let circleIndex = $index) {
                     <div [style.--circle-animation-delay]="getDelay(poolIndex, circleIndex, (animationType$ | async))"
                          [style.--circle-animation-duration]="((baseTime$ | async) ?? 2) + 's'"
-                         [style.--circle-rgb]="subcircle.rgb.join(',')"
+                         [style.--circle-hwb]="subcircle.hwb"
                          class="circles__circle"
                     ></div>
                 }
